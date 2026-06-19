@@ -138,7 +138,7 @@
   </div>
   <script>
     const DEMO_USERNAME = "admin";
-    const DEMO_PASSWORD = "admin123";
+    const DEMO_PASSWORD = "PeopleOPS@2026!";
 
     if (localStorage.getItem("po_token")) {
       window.location.href = "index.html";
@@ -161,7 +161,7 @@
         return;
       }
 
-      err.textContent = "Invalid demo credentials. Use admin / admin123.";
+      err.textContent = "Invalid demo credentials. Use admin / PeopleOPS@2026!.";
       err.style.display = "block";
       btn.disabled = false;
       btn.textContent = "Sign in";
