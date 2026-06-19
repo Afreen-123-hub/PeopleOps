@@ -9,6 +9,9 @@ const state = {
   confidence: 0,
 };
 
+const DEMO_MODE = true;
+const DEMO_REFRESH_MESSAGE = "Demo mode: backend refresh is disabled";
+
 const money = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
 const number = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 1 });
 
@@ -31,17 +34,15 @@ async function apiFetch(path, options = {}) {
   });
   if (res.status === 401) {
     localStorage.removeItem("po_token");
-    window.location.href = "/login.html";
+    window.location.href = "login.html";
     return null;
   }
   return res;
 }
 
 function logout() {
-  apiFetch("/api/logout", { method: "POST" }).finally(() => {
-    localStorage.removeItem("po_token");
-    window.location.href = "/login.html";
-  });
+  localStorage.removeItem("po_token");
+  window.location.href = "login.html";
 }
 
 const TEAMS_REFRESH_INTERVAL = 10 * 60 * 1000; // 10 minutes
@@ -410,7 +411,7 @@ function drawEfficiencyScatter() {
 
 async function boot() {
   if (!getToken()) {
-    window.location.href = "/login.html";
+    window.location.href = "login.html";
     return;
   }
   dataset = await loadDataset();
@@ -420,48 +421,26 @@ async function boot() {
   setupFilters();
   setupDepartmentChartEvents();
   renderAll();
-  setInterval(autoRefreshTeams, TEAMS_REFRESH_INTERVAL);
+  updateTeamsRefreshLabel();
+  if (!DEMO_MODE) setInterval(autoRefreshTeams, TEAMS_REFRESH_INTERVAL);
 }
 
 async function autoRefreshTeams() {
-  const res = await apiFetch("/api/refresh-teams", { method: "POST" });
-  if (!res || !res.ok) return;
-  const result = await res.json();
-  if (!result.teams) return;
-  // Patch teams data into the in-memory dataset
-  const byId = Object.fromEntries(result.teams.map((t) => [t.id, t]));
-  dataset.employees.forEach((emp) => {
-    const fresh = byId[emp.id];
-    if (!fresh) return;
-    emp.teams = {
-      status: fresh.status || "",
-      workLocation: fresh.workLocation || "",
-      isActive: fresh.isActive || 0,
-      isAway: fresh.isAway || 0,
-      isOffline: fresh.isOffline || 0,
-      isOutOfOffice: fresh.isOutOfOffice || 0,
-      reports: fresh.reports || 0,
-    };
-  });
-  applyFilters();
-  renderTeamsTable();
-  renderMetrics();
-  updateTeamsRefreshLabel(result.teamsRefreshedAt);
+  updateTeamsRefreshLabel();
 }
 
 function updateTeamsRefreshLabel(ts) {
   const el = document.getElementById("teamsRefreshLabel");
   if (!el) return;
+  if (DEMO_MODE) {
+    el.textContent = DEMO_REFRESH_MESSAGE;
+    return;
+  }
   el.textContent = ts ? `Status as of ${new Date(ts).toLocaleTimeString()}` : "";
 }
 
 async function loadDataset({ fresh = false } = {}) {
   const suffix = fresh ? `?t=${Date.now()}` : "";
-  const apiResponse = await apiFetch(`/api/data${suffix}`, { cache: fresh ? "no-store" : "default" });
-  if (apiResponse?.ok) {
-    return apiResponse.json();
-  }
-  // Fallback to local file (dev only — no auth on file serve)
   const fileResponse = await fetch(`data/peopleops-data.json${suffix}`, { cache: fresh ? "no-store" : "default" }).catch(() => null);
   return fileResponse?.ok ? fileResponse.json() : null;
 }
@@ -752,35 +731,8 @@ function clearKpiTeamFilter() {
 }
 
 async function refreshKpiPerformance() {
-  const button = document.getElementById("refreshKpi");
   const status = document.getElementById("kpiRefreshStatus");
-  button.disabled = true;
-  button.textContent = "Refreshing...";
-  status.textContent = "Refreshing KPI data";
-
-  try {
-    const regenerate = await apiFetch("/api/regenerate", { method: "POST" });
-    if (!regenerate || !regenerate.ok) {
-      const failure = regenerate ? await regenerate.json().catch(() => null) : null;
-      status.textContent = failure?.stderr || failure?.error || "Refresh failed";
-      return;
-    }
-    const fresh = await loadDataset({ fresh: true });
-    if (!fresh) {
-      status.textContent = "Reload failed";
-      return;
-    }
-    dataset = fresh;
-    populateFilterOptions();
-    populateAttendanceOptions();
-    applyFilters();
-    status.textContent = `Updated ${number.format(dataset.overview.scoredEmployees || 0)} scored`;
-  } catch {
-    status.textContent = "Refresh failed";
-  } finally {
-    button.disabled = false;
-    button.textContent = "Refresh KPI";
-  }
+  status.textContent = DEMO_REFRESH_MESSAGE;
 }
 
 function setupDepartmentChartEvents() {

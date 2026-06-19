@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PeopleOPS Intelligence — Login</title>
+  <title>PeopleOPS Intelligence - Login</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
     body {
@@ -137,43 +137,34 @@
     </form>
   </div>
   <script>
-    // If already logged in, go straight to dashboard.
+    const DEMO_USERNAME = "admin";
+    const DEMO_PASSWORD = "admin123";
+
     if (localStorage.getItem("po_token")) {
-      window.location.href = "/";
+      window.location.href = "index.html";
     }
 
-    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
       e.preventDefault();
       const btn = document.getElementById("loginBtn");
       const err = document.getElementById("errorMsg");
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+
       btn.disabled = true;
-      btn.textContent = "Signing in…";
+      btn.textContent = "Signing in...";
       err.style.display = "none";
 
-      try {
-        const res = await fetch("/api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: document.getElementById("username").value.trim(),
-            password: document.getElementById("password").value,
-          }),
-        });
-        const data = await res.json();
-        if (res.ok && data.token) {
-          localStorage.setItem("po_token", data.token);
-          window.location.href = "/";
-        } else {
-          err.textContent = data.error || "Invalid credentials. Please try again.";
-          err.style.display = "block";
-        }
-      } catch {
-        err.textContent = "Cannot reach server. Make sure the backend is running.";
-        err.style.display = "block";
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "Sign in";
+      if (username === DEMO_USERNAME && password === DEMO_PASSWORD) {
+        localStorage.setItem("po_token", "peopleops-demo-token");
+        window.location.href = "index.html";
+        return;
       }
+
+      err.textContent = "Invalid demo credentials. Use admin / admin123.";
+      err.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = "Sign in";
     });
   </script>
 </body>
