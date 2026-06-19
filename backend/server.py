@@ -317,13 +317,13 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         return guessed or super().guess_type(path)
 
 
-def run(port=8000):
-    server = ThreadingHTTPServer(("localhost", port), PeopleOpsHandler)
-    print(f"PeopleOPS Intelligence backend running at http://localhost:{port}")
-    print("API health: http://localhost:{}/api/health".format(port))
+def run(port=8000, host="0.0.0.0"):
+    server = ThreadingHTTPServer((host, port), PeopleOpsHandler)
+    print(f"PeopleOPS Intelligence backend running on {host}:{port}", flush=True)
+    print(f"API health endpoint available at /api/health on port {port}", flush=True)
     server.serve_forever()
 
 
 if __name__ == "__main__":
-    selected_port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
+    selected_port = int(os.environ.get("PORT", 8000))
     run(selected_port)
