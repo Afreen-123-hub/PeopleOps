@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PeopleOPS Intelligence — Login</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .login-card {
+      background: var(--panel);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 48px 40px 40px;
+      width: 100%;
+      max-width: 380px;
+    }
+    .login-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .login-logo .dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+    .login-logo span {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--ink);
+    }
+    .login-logo small {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    h2 {
+      margin: 0 0 6px;
+      font-size: 1.4rem;
+    }
+    .login-sub {
+      color: var(--muted);
+      font-size: 0.875rem;
+      margin: 0 0 28px;
+    }
+    .field {
+      margin-bottom: 16px;
+    }
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .field input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: var(--canvas);
+      color: var(--ink);
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    .field input:focus {
+      border-color: var(--blue);
+      background: white;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 11px;
+      background: var(--blue);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.15s;
+    }
+    .login-btn:hover { opacity: 0.88; }
+    .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .error-msg {
+      display: none;
+      background: #fff0f1;
+      color: var(--red);
+      border: 1px solid #fcd0d4;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      margin-top: 14px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="dot">P</div>
+      <div>
+        <span>PeopleOPS</span>
+        <small>Intelligence Dashboard</small>
+      </div>
+    </div>
+    <h2>Sign in</h2>
+    <p class="login-sub">Enter your credentials to access the dashboard.</p>
+    <form id="loginForm">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="login-btn" id="loginBtn">Sign in</button>
+      <div class="error-msg" id="errorMsg"></div>
+    </form>
+  </div>
+  <script>
+    // If already logged in, go straight to dashboard.
+    if (localStorage.getItem("po_token")) {
+      window.location.href = "/";
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("loginBtn");
+      const err = document.getElementById("errorMsg");
+      btn.disabled = true;
+      btn.textContent = "Signing in…";
+      err.style.display = "none";
+
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: document.getElementById("username").value.trim(),
+            password: document.getElementById("password").value,
+          }),
+        });
+        const data = await res.json();
+        if (res.ok && data.token) {
+          localStorage.setItem("po_token", data.token);
+          window.location.href = "/";
+        } else {
+          err.textContent = data.error || "Invalid credentials. Please try again.";
+          err.style.display = "block";
+        }
+      } catch {
+        err.textContent = "Cannot reach server. Make sure the backend is running.";
+        err.style.display = "block";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Sign in";
+      }
+    });
+  </script>
+</body>
+</html>

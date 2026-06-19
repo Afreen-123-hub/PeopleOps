@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PeopleOPS Intelligence</title>
+    <link rel="stylesheet" href="styles.css?v=20260618-heatmap2">
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="rail" aria-label="Data source status">
+        <div class="brand-mark">PeopleOPS</div>
+        <button class="rail-item active" data-view="overview" title="Overview">Overview</button>
+        <button class="rail-item" data-view="kpi" title="KPI">KPI</button>
+        <button class="rail-item" data-view="people" title="Employees">Employees</button>
+        <button class="rail-item" data-view="attendance" title="Attendance">Attendance</button>
+        <button class="rail-item" data-view="teams" title="Teams">Teams</button>
+        <button class="rail-item" data-view="projects" title="Projects">Projects</button>
+        <button class="rail-item" data-view="insights" title="Insights">Insights</button>
+        <button class="rail-item" data-view="integrations" title="Integrations">Integrations</button>
+        <button class="rail-item rail-logout" onclick="logout()" title="Sign out" style="margin-top:auto;opacity:0.7;">Sign out</button>
+      </aside>
+
+      <section class="workspace">
+        <header class="hero">
+          <div>
+            <h1>PeopleOPS Intelligence</h1>
+            <p class="hero-copy">Unified employee performance intelligence across attendance, collaboration, delivery, and workforce signals.</p>
+          </div>
+          <div class="hero-actions">
+            <button id="exportCsv" class="button">Export CSV</button>
+          </div>
+        </header>
+
+        <section class="controls" aria-label="Dashboard controls">
+          <label>
+            Search
+            <input id="searchInput" type="search" placeholder="Name, ID, team, designation">
+          </label>
+          <label>
+            Band
+            <select id="bandFilter">
+              <option value="all">All bands</option>
+            </select>
+          </label>
+          <label>
+            Team
+            <select id="teamFilter">
+              <option value="all">All teams</option>
+            </select>
+          </label>
+          <label>
+            Source confidence
+            <select id="confidenceFilter">
+              <option value="0">Any confidence</option>
+              <option value="50">50% and above</option>
+              <option value="75">75% and above</option>
+              <option value="100">Full confidence</option>
+            </select>
+          </label>
+        </section>
+
+        <section id="overview" class="view active-view">
+          <div id="totalEmployeeBadge" class="total-employee-badge"></div>
+          <div id="metricGrid" class="metric-grid"></div>
+          <div id="bandSummary" class="band-summary"></div>
+          <div id="bandEmployeesPanel" class="band-employees-panel" hidden></div>
+          <article class="panel alerts-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Automatic flagging</p>
+                <h2>Needs Attention</h2>
+              </div>
+              <span class="pill">Click a row to open employee</span>
+            </div>
+            <div id="alertsPanel"></div>
+          </article>
+
+          <article class="panel donut-panel">
+            <div class="donut-wrap">
+              <div class="donut-canvas-wrap">
+                <p class="eyebrow">Performance distribution</p>
+                <h2>Team Health</h2>
+                <canvas id="donutChart"></canvas>
+              </div>
+              <div id="donutLegend" class="donut-legend"></div>
+            </div>
+          </article>
+          <div class="dashboard-grid">
+            <article class="panel xl">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Department performance</p>
+                  <h2>Overall KPI by Department</h2>
+                </div>
+                <span id="filteredCount" class="pill"></span>
+              </div>
+              <canvas id="scatterChart" height="420"></canvas>
+              <div id="departmentTooltip" class="department-tooltip" hidden></div>
+              <div id="departmentEmployeesPanel" class="department-employees-panel" hidden></div>
+            </article>
+            <article class="panel">
+              <p class="eyebrow">Source fusion</p>
+              <h2>Integration Coverage</h2>
+              <div id="sourceCoverage" class="coverage-list"></div>
+            </article>
+            <article class="panel">
+              <p class="eyebrow">Score formula</p>
+              <h2>KPI Weights</h2>
+              <div id="weightBars" class="weight-bars"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="kpi" class="view">
+          <div class="kpi-layout">
+            <article class="panel kpi-chart-panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">KPI performance</p>
+                  <h2>Team-wise KPI Bar Chart</h2>
+                </div>
+                <div class="kpi-head-actions">
+                  <span id="kpiRefreshStatus" class="pill"></span>
+                  <span id="kpiTeamCount" class="pill"></span>
+                  <button id="clearKpiTeam" class="button secondary-button" type="button">All teams</button>
+                  <button id="refreshKpi" class="button" type="button">Refresh KPI</button>
+                </div>
+              </div>
+              <div id="kpiTeamBars" class="kpi-team-bars"></div>
+            </article>
+
+            <article class="panel">
+              <p class="eyebrow">API score mix</p>
+              <h2>Worklogix + Teams Signals</h2>
+              <div id="kpiSignalSummary" class="kpi-signal-summary"></div>
+            </article>
+
+            <article class="panel heatmap-panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Team performance breakdown</p>
+                  <h2>KPI Drivers by Team</h2>
+                </div>
+                <span class="pill">Green = good &nbsp;·&nbsp; Amber = watch &nbsp;·&nbsp; Red = act now</span>
+              </div>
+              <div id="teamHeatmap"></div>
+            </article>
+
+            <article class="panel table-panel kpi-employee-panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Employee KPI</p>
+                  <h2>Performance And Lagging Areas</h2>
+                </div>
+                <span id="kpiEmployeeCount" class="pill"></span>
+              </div>
+              <div class="table-wrap">
+                <table class="kpi-table">
+                  <thead>
+                    <tr>
+                      <th>Employee</th>
+                      <th>Team</th>
+                      <th>KPI</th>
+                      <th>Worklogix</th>
+                      <th>Teams</th>
+                      <th>Lagging Area</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="kpiEmployeeTable"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="attendance" class="view">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Attendance intelligence</p>
+                <h2>Employee Attendance Details</h2>
+              </div>
+              <label class="employee-picker">
+                Select employee
+                <select id="attendanceEmployee"></select>
+              </label>
+            </div>
+            <div id="attendanceDetail" class="attendance-detail"></div>
+          </article>
+        </section>
+
+        <section id="teams" class="view">
+          <article class="panel table-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Microsoft Teams activity</p>
+                <h2>Teams Data Register</h2>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span id="teamsRefreshLabel" class="pill" style="font-size:0.75rem;opacity:0.7;"></span>
+                <button class="button" onclick="autoRefreshTeams()" style="padding:6px 14px;font-size:0.8rem;">Refresh now</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Employee</th>
+                    <th>Team</th>
+                    <th>Status</th>
+                    <th>Work Location</th>
+                    <th>Reports</th>
+                    <th>Confidence</th>
+                  </tr>
+                </thead>
+                <tbody id="teamsTable"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section id="people" class="view">
+          <article class="panel table-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Employee intelligence</p>
+                <h2>Ranked KPI Register</h2>
+              </div>
+              <span class="pill">Click a row for details</span>
+            </div>
+            <div class="table-wrap">
+              <table class="employees-table">
+                <colgroup>
+                  <col class="col-employee">
+                  <col class="col-kpi">
+                  <col class="col-band">
+                  <col class="col-status">
+                  <col class="col-confidence">
+                  <col class="col-small">
+                  <col class="col-small">
+                  <col class="col-small">
+                  <col class="col-small">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>Employee</th>
+                    <th>KPI</th>
+                    <th>Band</th>
+                    <th>Status</th>
+                    <th>Confidence</th>
+                    <th>Tasks</th>
+                    <th>Present Days</th>
+                    <th>Absent Days</th>
+                    <th>Teams Status</th>
+                  </tr>
+                </thead>
+                <tbody id="peopleTable"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section id="insights" class="view">
+          <div class="insights-header">
+            <div>
+              <p class="eyebrow">Cross-source intelligence</p>
+              <h1 class="insights-title">Work Pattern Analysis</h1>
+              <p class="insights-sub">Comparing Worklogix delivery against Teams presence to surface mismatches — who's delivering without being online, and who's online without delivering.</p>
+            </div>
+          </div>
+          <div class="insights-quadrant-cards" id="insightsSummaryCards"></div>
+          <div id="insightsBody"></div>
+        </section>
+
+        <section id="projects" class="view">
+          <div id="projectGrid" class="project-grid"></div>
+        </section>
+
+        <section id="integrations" class="view">
+          <div id="integrationGrid" class="integration-grid"></div>
+          <article class="panel">
+            <p class="eyebrow">API-ready architecture</p>
+            <h2>Connector Roadmap</h2>
+            <div class="roadmap">
+              <span>Current: live Worklogix, Biometrics, and Teams APIs</span>
+              <span>Next: scheduled API refresh jobs</span>
+              <span>Optional: add GreytHR API later</span>
+            </div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <div id="heatmapPopup" class="hmp-overlay" hidden>
+      <div id="heatmapPopupContent" class="hmp-popup"></div>
+    </div>
+
+    <dialog id="employeeDialog">
+      <button id="closeDialog" class="dialog-close" aria-label="Close">x</button>
+      <div id="employeeDetail"></div>
+    </dialog>
+
+    <script src="app.js?v=20260618-heatmap2"></script>
+  </body>
+</html>
