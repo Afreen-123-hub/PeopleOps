@@ -1120,6 +1120,7 @@ function renderIntegrations() {
   const sourceFiles = dataset.meta.sourceFiles;
   const items = [
     ["Worklogix", sourceFiles.worklogix, "Live API data for users, projects, tasks, and work activity."],
+    ["GreytHR", sourceFiles.greythr, "Live attendance API — present, absent, leave, and week off records."],
     ["Biometrics", sourceFiles.biometrics, "Live presence report API — office hours and biometric days per employee."],
     ["Teams", sourceFiles.teams, "Live Microsoft Graph API presence data."],
   ];
