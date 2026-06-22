@@ -485,15 +485,8 @@ def main():
         stats["meetingHours"] += num(row.get("meeting_hours"))
         project_hours[clean(row.get("project_id"))] += stats["workHours"]
 
-    greythr_start, greythr_end = period_to_date_range(target_period)
-    if not greythr_start and all_daily_rows:
-        date_months = Counter(
-            clean(r.get("assigned_date", ""))[:7]
-            for r in all_daily_rows
-            if len(clean(r.get("assigned_date", ""))) >= 7
-        )
-        if date_months:
-            greythr_start, greythr_end = period_to_date_range(date_months.most_common(1)[0][0])
+    greythr_start = input("Enter GreytHR attendance start date (YYYY-MM-DD): ").strip()
+    greythr_end = input("Enter GreytHR attendance end date (YYYY-MM-DD): ").strip()
     greythr = read_greythr_api(greythr_start, greythr_end)
     teams = read_teams_api(users)
     presence_month = to_presence_month_label(target_period)

@@ -170,15 +170,26 @@ def get_department_details(token: str, domain: str) -> dict[str, dict]:
 # ATTENDANCE
 # ==========================
 
-def get_attendance_muster(token: str, domain: str, start: str, end: str) -> list[dict]:
-    """Return raw attendance records list from the muster endpoint."""
-    data = _api_get(
-        f"{API_BASE}/attendance/v2/employee/muster",
-        token,
-        domain,
-        params={"start": start, "end": end},
-    )
-    return data.get("data", [])
+def get_attendance_muster(token: str, domain: str, start: str, end: str, active_ids: set | None = None) -> list[dict]:
+    """Return attendance records with pagination. Filters by active_ids if provided."""
+    records = []
+    page = 0
+    size = 25
+    while True:
+        data = _api_get(
+            f"{API_BASE}/attendance/v2/employee/muster",
+            token,
+            domain,
+            params={"start": start, "end": end, "page": page, "size": size},
+        )
+        for emp in data.get("data", []):
+            if active_ids and str(emp.get("employeeId", "")).strip() not in active_ids:
+                continue
+            records.append(emp)
+        if not data.get("pages", {}).get("hasNext"):
+            break
+        page += 1
+    return records
 
 
 # ==========================
@@ -196,12 +207,15 @@ def get_greythr_attendance(start: str, end: str) -> dict[str, Counter]:
 
     master = get_employee_master(token, domain)
     try:
-        get_department_details(token, domain)  # available for future enrichment
+        get_department_details(token, domain)
     except GreytHRApiError:
         pass
-    records = get_attendance_muster(token, domain, start, end)
+    active_ids = set(master.keys())
+    records = get_attendance_muster(token, domain, start, end, active_ids)
 
     emp_no_map = {emp_id: info["employee_no"] for emp_id, info in master.items()}
+
+    leave_codes = {"CL", "SL", "EL", "LOP", "ML", "PL", "CO", "LWP", "OD", "WFH"}
 
     result: dict[str, Counter] = defaultdict(Counter)
     for emp in records:
@@ -210,7 +224,23 @@ def get_greythr_attendance(start: str, end: str) -> dict[str, Counter]:
         if not emp_no:
             continue
         for rec in emp.get("records", []):
-            label = rec.get("summary", {}).get("session1Label", "") or "Blank"
+            summary = rec.get("summary", {})
+            s1 = summary.get("session1Label", "") or ""
+            s2 = summary.get("session2Label", "") or ""
+
+            if s1 == "P" and s2 == "P":
+                label = "P"
+            elif s1 == "A" and s2 == "A":
+                label = "A"
+            elif s1 == "H" and s2 == "H":
+                label = "H"
+            elif s1 == "WO" and s2 == "WO":
+                label = "OFF"
+            elif s1 == s2 and s1 in leave_codes:
+                label = s1
+            else:
+                label = f"{s1}/{s2}" if s2 else s1 or "Blank"
+
             result[emp_no][label] += 1
 
     return result
