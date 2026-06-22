@@ -9,7 +9,7 @@ const state = {
   confidence: 0,
 };
 
-const DEMO_MODE = true;
+const DEMO_MODE = false;
 const DEMO_REFRESH_MESSAGE = "Demo mode: backend refresh is disabled";
 
 const money = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
