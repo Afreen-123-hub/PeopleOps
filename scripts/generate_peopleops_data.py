@@ -5,6 +5,7 @@ import math
 import re
 import statistics
 import sys
+from calendar import monthrange
 from collections import Counter, defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -18,6 +19,7 @@ OUT = PROJECT / "data" / "peopleops-data.json"
 SAMPLE_PERIOD_LABEL = "Sample evaluation data"
 sys.path.insert(0, str(PROJECT))
 
+from services.greythr_api_client import GreytHRApiError, GreytHRAuthError, GreytHRConfigError, get_greythr_attendance
 from services.teams_api_client import TeamsApiError, get_presences_by_user_id, get_teams_users
 from services.teams_auth import TeamsAuthError
 from services.teams_transformer import teams_presence_dataframe_from_payload
@@ -363,6 +365,36 @@ def read_biometric_api(month_label):
     return result
 
 
+def period_to_date_range(period: str):
+    period = clean(period)
+    if not period:
+        return "", ""
+    for fmt in ("%Y-%m", "%b %Y", "%B %Y"):
+        try:
+            dt = datetime.strptime(period, fmt)
+            start = dt.replace(day=1).strftime("%Y-%m-%d")
+            end = dt.replace(day=monthrange(dt.year, dt.month)[1]).strftime("%Y-%m-%d")
+            return start, end
+        except ValueError:
+            continue
+    return "", ""
+
+
+def read_greythr_api(start: str, end: str) -> defaultdict:
+    result = defaultdict(lambda: Counter())
+    if not start or not end:
+        print("WARNING: GreytHR skipped — could not determine date range", file=sys.stderr)
+        return result
+    try:
+        raw = get_greythr_attendance(start, end)
+        for emp_no, counter in raw.items():
+            result[emp_no] = counter
+        print(f"GreytHR attendance loaded: {len(raw)} employees ({start} to {end})")
+    except (GreytHRConfigError, GreytHRAuthError, GreytHRApiError) as exc:
+        print(f"WARNING: GreytHR attendance skipped: {exc}", file=sys.stderr)
+    return result
+
+
 def main():
     # KPI generation now uses live Worklogix and Teams API data. Local
     # Biometrics, GreytHR, Teams, and Worklogix input files are no longer read.
@@ -453,7 +485,16 @@ def main():
         stats["meetingHours"] += num(row.get("meeting_hours"))
         project_hours[clean(row.get("project_id"))] += stats["workHours"]
 
-    greythr = defaultdict(lambda: Counter())
+    greythr_start, greythr_end = period_to_date_range(target_period)
+    if not greythr_start and all_daily_rows:
+        date_months = Counter(
+            clean(r.get("assigned_date", ""))[:7]
+            for r in all_daily_rows
+            if len(clean(r.get("assigned_date", ""))) >= 7
+        )
+        if date_months:
+            greythr_start, greythr_end = period_to_date_range(date_months.most_common(1)[0][0])
+    greythr = read_greythr_api(greythr_start, greythr_end)
     teams = read_teams_api(users)
     presence_month = to_presence_month_label(target_period)
     attendance = read_biometric_api(presence_month)
@@ -517,6 +558,7 @@ def main():
         )
         sources = {
             "worklogix": emp_id in allowed_employee_ids,
+            "greythr": bool(greythr.get(emp_id)),
             "biometrics": bool(attendance.get(emp_id)),
             "teams": bool(tm),
         }
@@ -607,9 +649,10 @@ def main():
             "name": "PeopleOPS Intelligence",
             "period": SAMPLE_PERIOD_LABEL,
             "generatedAt": datetime.now().isoformat(timespec="seconds"),
-            "dataMode": "Worklogix API + Biometrics API + Teams API",
+            "dataMode": "Worklogix API + GreytHR API + Biometrics API + Teams API",
             "sourceFiles": {
                 "worklogix": "api",
+                "greythr": "api",
                 "biometrics": "api",
                 "teams": "api",
             },
