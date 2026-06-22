@@ -2,7 +2,7 @@
   "meta": {
     "name": "PeopleOPS Intelligence",
     "period": "Sample evaluation data",
-    "generatedAt": "2026-06-22T12:13:55",
+    "generatedAt": "2026-06-22T12:34:21",
     "dataMode": "Worklogix API + GreytHR API + Biometrics API + Teams API",
     "sourceFiles": {
       "worklogix": "api",
@@ -22,20 +22,20 @@
     "employees": 99,
     "activeEmployees": 99,
     "inactiveEmployees": 0,
-    "avgKpi": 55.0,
-    "medianKpi": 56.8,
-    "topQuartile": 64.1,
+    "avgKpi": 54.2,
+    "medianKpi": 56.3,
+    "topQuartile": 61.4,
     "scoredEmployees": 53,
     "unscoredEmployees": 46,
-    "riskCount": 23,
-    "watchCount": 22,
+    "riskCount": 26,
+    "watchCount": 19,
     "totalWorkItems": 1275,
     "completedWorkItems": 1012,
     "blockedWorkItems": 19,
     "officeHours": 7900.0,
-    "teamsActiveCount": 62,
-    "teamsAwayCount": 10,
-    "teamsOfflineCount": 12,
+    "teamsActiveCount": 59,
+    "teamsAwayCount": 14,
+    "teamsOfflineCount": 10,
     "teamsOutOfOfficeCount": 0,
     "sourceCoverage": {
       "worklogix": 99,
@@ -1016,83 +1016,6 @@
       "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Workload volume 6.6, Weighted efficiency 8.6, Delivery 56.7"
     },
     {
-      "id": "CWINE100",
-      "name": "Priyadarshini V",
-      "designation": "Junior HR Executive",
-      "team": "HR Team",
-      "active": true,
-      "teamsId": "eaec440e-07e9-48d1-a91a-007770e1887c",
-      "sourceKeys": {
-        "worklogix": "CWINE100",
-        "teams": "CWINE100",
-        "biometric": "CWINE100"
-      },
-      "kpi": 64.1,
-      "band": "Need Improvement",
-      "sourceConfidence": 75,
-      "sources": {
-        "worklogix": true,
-        "greythr": false,
-        "biometrics": true,
-        "teams": true
-      },
-      "worklogixScore": {},
-      "worklogix": {
-        "workItems": 0,
-        "completed": 0,
-        "todo": 0,
-        "inProgress": 0,
-        "approved": 0,
-        "pending": 0,
-        "blocked": 0,
-        "workHours": 0,
-        "meetingHours": 0,
-        "priorityPoints": 0,
-        "weightedPointsCompleted": 0,
-        "totalWeightedPoints": 0,
-        "efficiencyScore": 0.0,
-        "efficiencyHours": 0
-      },
-      "attendance": {
-        "present": 0,
-        "absent": 0,
-        "off": 0,
-        "holidays": 0,
-        "leave": 0,
-        "blank": 0,
-        "biometricDays": 36,
-        "officeHours": 221.0,
-        "avgOfficeHours": 6.0
-      },
-      "teams": {
-        "status": "Available",
-        "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
-        "isOffline": 0,
-        "isOutOfOffice": 0,
-        "reports": 1
-      },
-      "scoreDrivers": {
-        "delivery": 50,
-        "efficiency": 50,
-        "attendance": 82.8,
-        "collaboration": 100.0,
-        "volume": 50,
-        "quality": 50
-      },
-      "missingSources": [
-        "GreytHR"
-      ],
-      "laggingDrivers": [
-        "Delivery 50",
-        "Weighted efficiency 50",
-        "Workload volume 50",
-        "Completion quality 50"
-      ],
-      "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Delivery 50, Weighted efficiency 50, Workload volume 50"
-    },
-    {
       "id": "CWINE162",
       "name": "Glady Andrew P",
       "designation": "Full Stack Developer Trainee",
@@ -1372,7 +1295,7 @@
         "avgOfficeHours": 4.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Busy",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
@@ -1635,84 +1558,6 @@
       "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Delivery 50, Weighted efficiency 50, Workload volume 50"
     },
     {
-      "id": "CWINE140",
-      "name": "Iftikhaar Ali S D",
-      "designation": "Jr. Project Manager",
-      "team": "Management Team",
-      "active": true,
-      "teamsId": "85d8a2e2-67a6-4347-8a6a-510d58efb711",
-      "sourceKeys": {
-        "worklogix": "CWINE140",
-        "teams": "CWINE140",
-        "biometric": "CWINE140"
-      },
-      "kpi": 58.0,
-      "band": "Need Improvement",
-      "sourceConfidence": 75,
-      "sources": {
-        "worklogix": true,
-        "greythr": false,
-        "biometrics": true,
-        "teams": true
-      },
-      "worklogixScore": {},
-      "worklogix": {
-        "workItems": 0,
-        "completed": 0,
-        "todo": 0,
-        "inProgress": 0,
-        "approved": 0,
-        "pending": 0,
-        "blocked": 0,
-        "workHours": 0,
-        "meetingHours": 0,
-        "priorityPoints": 0,
-        "weightedPointsCompleted": 0,
-        "totalWeightedPoints": 0,
-        "efficiencyScore": 0.0,
-        "efficiencyHours": 0
-      },
-      "attendance": {
-        "present": 0,
-        "absent": 0,
-        "off": 0,
-        "holidays": 0,
-        "leave": 0,
-        "blank": 0,
-        "biometricDays": 25,
-        "officeHours": 161.0,
-        "avgOfficeHours": 5.8
-      },
-      "teams": {
-        "status": "Busy",
-        "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
-        "isOffline": 0,
-        "isOutOfOffice": 0,
-        "reports": 1
-      },
-      "scoreDrivers": {
-        "delivery": 50,
-        "efficiency": 50,
-        "attendance": 52.5,
-        "collaboration": 100.0,
-        "volume": 50,
-        "quality": 50
-      },
-      "missingSources": [
-        "GreytHR"
-      ],
-      "laggingDrivers": [
-        "Delivery 50",
-        "Weighted efficiency 50",
-        "Workload volume 50",
-        "Completion quality 50",
-        "Attendance 52.5"
-      ],
-      "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Delivery 50, Weighted efficiency 50, Workload volume 50"
-    },
-    {
       "id": "CWINE159",
       "name": "Manju Krishna",
       "designation": "Devops Trainee",
@@ -1840,7 +1685,7 @@
         "avgOfficeHours": 5.3
       },
       "teams": {
-        "status": "Busy",
+        "status": "Available",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
@@ -2178,84 +2023,6 @@
       "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Attendance 46.0, Delivery 50, Weighted efficiency 50"
     },
     {
-      "id": "CWINE158",
-      "name": "Megala K",
-      "designation": "Software intern",
-      "team": "Software Development",
-      "active": true,
-      "teamsId": "bd12ab62-f936-48b7-94cb-aefb2f41708b",
-      "sourceKeys": {
-        "worklogix": "CWINE158",
-        "teams": "CWINE158",
-        "biometric": "CWINI078"
-      },
-      "kpi": 56.5,
-      "band": "Need Improvement",
-      "sourceConfidence": 75,
-      "sources": {
-        "worklogix": true,
-        "greythr": false,
-        "biometrics": true,
-        "teams": true
-      },
-      "worklogixScore": {},
-      "worklogix": {
-        "workItems": 0,
-        "completed": 0,
-        "todo": 0,
-        "inProgress": 0,
-        "approved": 0,
-        "pending": 0,
-        "blocked": 0,
-        "workHours": 0,
-        "meetingHours": 0,
-        "priorityPoints": 0,
-        "weightedPointsCompleted": 0,
-        "totalWeightedPoints": 0,
-        "efficiencyScore": 0.0,
-        "efficiencyHours": 0
-      },
-      "attendance": {
-        "present": 0,
-        "absent": 0,
-        "off": 0,
-        "holidays": 0,
-        "leave": 0,
-        "blank": 0,
-        "biometricDays": 3,
-        "officeHours": 146.0,
-        "avgOfficeHours": 6.3
-      },
-      "teams": {
-        "status": "Available",
-        "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
-        "isOffline": 0,
-        "isOutOfOffice": 0,
-        "reports": 1
-      },
-      "scoreDrivers": {
-        "delivery": 50,
-        "efficiency": 50,
-        "attendance": 44.9,
-        "collaboration": 100.0,
-        "volume": 50,
-        "quality": 50
-      },
-      "missingSources": [
-        "GreytHR"
-      ],
-      "laggingDrivers": [
-        "Attendance 44.9",
-        "Delivery 50",
-        "Weighted efficiency 50",
-        "Workload volume 50",
-        "Completion quality 50"
-      ],
-      "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Attendance 44.9, Delivery 50, Weighted efficiency 50"
-    },
-    {
       "id": "CWINE121",
       "name": "Divya R",
       "designation": "Jr. Project Manager",
@@ -2461,7 +2228,7 @@
         "avgOfficeHours": 5.2
       },
       "teams": {
-        "status": "Busy",
+        "status": "Available",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
@@ -2878,6 +2645,84 @@
       "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Teams collaboration 0.0, Workload volume 15.2, Weighted efficiency 16.7"
     },
     {
+      "id": "CWINE100",
+      "name": "Priyadarshini V",
+      "designation": "Junior HR Executive",
+      "team": "HR Team",
+      "active": true,
+      "teamsId": "eaec440e-07e9-48d1-a91a-007770e1887c",
+      "sourceKeys": {
+        "worklogix": "CWINE100",
+        "teams": "CWINE100",
+        "biometric": "CWINE100"
+      },
+      "kpi": 49.1,
+      "band": "Low Performance",
+      "sourceConfidence": 75,
+      "sources": {
+        "worklogix": true,
+        "greythr": false,
+        "biometrics": true,
+        "teams": true
+      },
+      "worklogixScore": {},
+      "worklogix": {
+        "workItems": 0,
+        "completed": 0,
+        "todo": 0,
+        "inProgress": 0,
+        "approved": 0,
+        "pending": 0,
+        "blocked": 0,
+        "workHours": 0,
+        "meetingHours": 0,
+        "priorityPoints": 0,
+        "weightedPointsCompleted": 0,
+        "totalWeightedPoints": 0,
+        "efficiencyScore": 0.0,
+        "efficiencyHours": 0
+      },
+      "attendance": {
+        "present": 0,
+        "absent": 0,
+        "off": 0,
+        "holidays": 0,
+        "leave": 0,
+        "blank": 0,
+        "biometricDays": 36,
+        "officeHours": 221.0,
+        "avgOfficeHours": 6.0
+      },
+      "teams": {
+        "status": "Away",
+        "workLocation": "",
+        "isActive": 0,
+        "isAway": 1,
+        "isOffline": 0,
+        "isOutOfOffice": 0,
+        "reports": 1
+      },
+      "scoreDrivers": {
+        "delivery": 50,
+        "efficiency": 50,
+        "attendance": 82.8,
+        "collaboration": 0.0,
+        "volume": 50,
+        "quality": 50
+      },
+      "missingSources": [
+        "GreytHR"
+      ],
+      "laggingDrivers": [
+        "Teams collaboration 0.0",
+        "Delivery 50",
+        "Weighted efficiency 50",
+        "Workload volume 50",
+        "Completion quality 50"
+      ],
+      "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Teams collaboration 0.0, Delivery 50, Weighted efficiency 50"
+    },
+    {
       "id": "CWINE019",
       "name": "Ganesan Ashokkumar",
       "designation": "Quality Analyst",
@@ -3035,6 +2880,85 @@
       "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Teams collaboration 0.0, Delivery 50, Weighted efficiency 50"
     },
     {
+      "id": "CWINE140",
+      "name": "Iftikhaar Ali S D",
+      "designation": "Jr. Project Manager",
+      "team": "Management Team",
+      "active": true,
+      "teamsId": "85d8a2e2-67a6-4347-8a6a-510d58efb711",
+      "sourceKeys": {
+        "worklogix": "CWINE140",
+        "teams": "CWINE140",
+        "biometric": "CWINE140"
+      },
+      "kpi": 43.0,
+      "band": "Low Performance",
+      "sourceConfidence": 75,
+      "sources": {
+        "worklogix": true,
+        "greythr": false,
+        "biometrics": true,
+        "teams": true
+      },
+      "worklogixScore": {},
+      "worklogix": {
+        "workItems": 0,
+        "completed": 0,
+        "todo": 0,
+        "inProgress": 0,
+        "approved": 0,
+        "pending": 0,
+        "blocked": 0,
+        "workHours": 0,
+        "meetingHours": 0,
+        "priorityPoints": 0,
+        "weightedPointsCompleted": 0,
+        "totalWeightedPoints": 0,
+        "efficiencyScore": 0.0,
+        "efficiencyHours": 0
+      },
+      "attendance": {
+        "present": 0,
+        "absent": 0,
+        "off": 0,
+        "holidays": 0,
+        "leave": 0,
+        "blank": 0,
+        "biometricDays": 25,
+        "officeHours": 161.0,
+        "avgOfficeHours": 5.8
+      },
+      "teams": {
+        "status": "Away",
+        "workLocation": "",
+        "isActive": 0,
+        "isAway": 1,
+        "isOffline": 0,
+        "isOutOfOffice": 0,
+        "reports": 1
+      },
+      "scoreDrivers": {
+        "delivery": 50,
+        "efficiency": 50,
+        "attendance": 52.5,
+        "collaboration": 0.0,
+        "volume": 50,
+        "quality": 50
+      },
+      "missingSources": [
+        "GreytHR"
+      ],
+      "laggingDrivers": [
+        "Teams collaboration 0.0",
+        "Delivery 50",
+        "Weighted efficiency 50",
+        "Workload volume 50",
+        "Completion quality 50",
+        "Attendance 52.5"
+      ],
+      "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Teams collaboration 0.0, Delivery 50, Weighted efficiency 50"
+    },
+    {
       "id": "CWINI154",
       "name": "Karan Kumar M",
       "designation": "Software intern",
@@ -3112,6 +3036,85 @@
         "Completion quality 50"
       ],
       "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Teams collaboration 0.0, Attendance 46.0, Delivery 50"
+    },
+    {
+      "id": "CWINE158",
+      "name": "Megala K",
+      "designation": "Software intern",
+      "team": "Software Development",
+      "active": true,
+      "teamsId": "bd12ab62-f936-48b7-94cb-aefb2f41708b",
+      "sourceKeys": {
+        "worklogix": "CWINE158",
+        "teams": "CWINE158",
+        "biometric": "CWINI078"
+      },
+      "kpi": 41.5,
+      "band": "Low Performance",
+      "sourceConfidence": 75,
+      "sources": {
+        "worklogix": true,
+        "greythr": false,
+        "biometrics": true,
+        "teams": true
+      },
+      "worklogixScore": {},
+      "worklogix": {
+        "workItems": 0,
+        "completed": 0,
+        "todo": 0,
+        "inProgress": 0,
+        "approved": 0,
+        "pending": 0,
+        "blocked": 0,
+        "workHours": 0,
+        "meetingHours": 0,
+        "priorityPoints": 0,
+        "weightedPointsCompleted": 0,
+        "totalWeightedPoints": 0,
+        "efficiencyScore": 0.0,
+        "efficiencyHours": 0
+      },
+      "attendance": {
+        "present": 0,
+        "absent": 0,
+        "off": 0,
+        "holidays": 0,
+        "leave": 0,
+        "blank": 0,
+        "biometricDays": 3,
+        "officeHours": 146.0,
+        "avgOfficeHours": 6.3
+      },
+      "teams": {
+        "status": "Away",
+        "workLocation": "",
+        "isActive": 0,
+        "isAway": 1,
+        "isOffline": 0,
+        "isOutOfOffice": 0,
+        "reports": 1
+      },
+      "scoreDrivers": {
+        "delivery": 50,
+        "efficiency": 50,
+        "attendance": 44.9,
+        "collaboration": 0.0,
+        "volume": 50,
+        "quality": 50
+      },
+      "missingSources": [
+        "GreytHR"
+      ],
+      "laggingDrivers": [
+        "Teams collaboration 0.0",
+        "Attendance 44.9",
+        "Delivery 50",
+        "Weighted efficiency 50",
+        "Workload volume 50",
+        "Completion quality 50"
+      ],
+      "gapReason": "KPI is below high-performance level; Missing data from GreytHR; Lagging drivers: Teams collaboration 0.0, Attendance 44.9, Delivery 50"
     },
     {
       "id": "CWINE163",
@@ -4584,11 +4587,11 @@
         "avgOfficeHours": 0.0
       },
       "teams": {
-        "status": "Offline",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
-        "isOffline": 1,
+        "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1
       },
@@ -4596,7 +4599,7 @@
         "delivery": 50,
         "efficiency": 50,
         "attendance": -28.8,
-        "collaboration": 0.0,
+        "collaboration": 100.0,
         "volume": 50,
         "quality": 50
       },
@@ -4606,13 +4609,12 @@
       ],
       "laggingDrivers": [
         "Attendance -28.8",
-        "Teams collaboration 0.0",
         "Delivery 50",
         "Weighted efficiency 50",
         "Workload volume 50",
         "Completion quality 50"
       ],
-      "gapReason": "KPI not calculated because source confidence is below 75%; Missing data from GreytHR, Biometrics; Lagging drivers: Attendance -28.8, Teams collaboration 0.0, Delivery 50"
+      "gapReason": "KPI not calculated because source confidence is below 75%; Missing data from GreytHR, Biometrics; Lagging drivers: Attendance -28.8, Delivery 50, Weighted efficiency 50"
     },
     {
       "id": "505c84c3-0db4-40f7-904b-43f7ea6ebe10",
@@ -4983,10 +4985,10 @@
         "avgOfficeHours": 0.0
       },
       "teams": {
-        "status": "Away",
+        "status": "AvailableIdle",
         "workLocation": "",
         "isActive": 0,
-        "isAway": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1
@@ -6647,10 +6649,10 @@
         "avgOfficeHours": 0.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1
@@ -6659,7 +6661,7 @@
         "delivery": 50,
         "efficiency": 50,
         "attendance": -28.8,
-        "collaboration": 100.0,
+        "collaboration": 0.0,
         "volume": 50,
         "quality": 50
       },
@@ -6669,12 +6671,13 @@
       ],
       "laggingDrivers": [
         "Attendance -28.8",
+        "Teams collaboration 0.0",
         "Delivery 50",
         "Weighted efficiency 50",
         "Workload volume 50",
         "Completion quality 50"
       ],
-      "gapReason": "KPI not calculated because source confidence is below 75%; Missing data from GreytHR, Biometrics; Lagging drivers: Attendance -28.8, Delivery 50, Weighted efficiency 50"
+      "gapReason": "KPI not calculated because source confidence is below 75%; Missing data from GreytHR, Biometrics; Lagging drivers: Attendance -28.8, Teams collaboration 0.0, Delivery 50"
     },
     {
       "id": "bfd6218b-6a41-4fb5-a8b5-51ca79e30f78",
@@ -6805,11 +6808,11 @@
         "avgOfficeHours": 0.0
       },
       "teams": {
-        "status": "Offline",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
-        "isOffline": 1,
+        "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1
       },
@@ -6817,7 +6820,7 @@
         "delivery": 50,
         "efficiency": 50,
         "attendance": -28.8,
-        "collaboration": 0.0,
+        "collaboration": 100.0,
         "volume": 50,
         "quality": 50
       },
@@ -6827,13 +6830,12 @@
       ],
       "laggingDrivers": [
         "Attendance -28.8",
-        "Teams collaboration 0.0",
         "Delivery 50",
         "Weighted efficiency 50",
         "Workload volume 50",
         "Completion quality 50"
       ],
-      "gapReason": "KPI not calculated because source confidence is below 75%; Missing data from GreytHR, Biometrics; Lagging drivers: Attendance -28.8, Teams collaboration 0.0, Delivery 50"
+      "gapReason": "KPI not calculated because source confidence is below 75%; Missing data from GreytHR, Biometrics; Lagging drivers: Attendance -28.8, Delivery 50, Weighted efficiency 50"
     },
     {
       "id": "fd08ab0e-74e3-48f7-bb78-269cf78a6431",
@@ -7762,10 +7764,10 @@
         "avgOfficeHours": 0.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1
@@ -7774,7 +7776,7 @@
         "delivery": 42.0,
         "efficiency": 40.8,
         "attendance": -28.8,
-        "collaboration": 100.0,
+        "collaboration": 0.0,
         "volume": 43.0,
         "quality": 48.5
       },
@@ -7784,12 +7786,13 @@
       ],
       "laggingDrivers": [
         "Attendance -28.8",
+        "Teams collaboration 0.0",
         "Weighted efficiency 40.8",
         "Delivery 42.0",
         "Workload volume 43.0",
         "Completion quality 48.5"
       ],
-      "gapReason": "KPI not calculated because source confidence is below 75%; Missing data from GreytHR, Biometrics; Lagging drivers: Attendance -28.8, Weighted efficiency 40.8, Delivery 42.0"
+      "gapReason": "KPI not calculated because source confidence is below 75%; Missing data from GreytHR, Biometrics; Lagging drivers: Attendance -28.8, Teams collaboration 0.0, Weighted efficiency 40.8"
     }
   ],
   "projects": [
@@ -7950,8 +7953,8 @@
   ],
   "bands": {
     "High Performance": 8,
-    "Need Improvement": 22,
-    "Low Performance": 23,
+    "Need Improvement": 19,
+    "Low Performance": 26,
     "Insufficient Data": 46
   }
 }
