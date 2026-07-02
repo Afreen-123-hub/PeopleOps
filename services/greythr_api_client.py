@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import json
 import os
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
 from urllib.error import HTTPError, URLError
@@ -196,12 +197,54 @@ def get_attendance_muster(token: str, domain: str, start: str, end: str, active_
 # HIGH-LEVEL FETCH
 # ==========================
 
+def _normalise_attendance_label(value: str) -> str:
+    label = str(value or "").strip().upper()
+    label = label.replace(" ", "").replace("-", "")
+    aliases = {
+        "": "Blank",
+        "NULL": "Blank",
+        "NONE": "Blank",
+        "NAN": "Blank",
+        "PRESENT": "P",
+        "ABSENT": "A",
+        "HOLIDAY": "H",
+        "WO": "OFF",
+        "W/O": "OFF",
+        "WEEKOFF": "OFF",
+        "WEEKLYOFF": "OFF",
+        "OFFDAY": "OFF",
+        "OFF": "OFF",
+    }
+    return aliases.get(label, label)
+
+
+def _attendance_bucket(label: str) -> str:
+    label = _normalise_attendance_label(label)
+    leave_codes = {
+        "CL", "SL", "EL", "LOP", "ML", "PL", "CO", "LWP", "OD", "WFH",
+        "COMP", "COMPOFF", "LEAVE", "PAIDLEAVE", "UNPAIDLEAVE",
+    }
+    if label in {"P", "A", "H", "OFF", "Blank"}:
+        return label
+    if label in leave_codes:
+        return "Leave"
+    return "Leave"
+
+
+def _normalise_match_key(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "", str(value or "").strip().lower())
+
+
 def get_greythr_attendance(start: str, end: str) -> dict[str, Counter]:
-    """Return {employeeNo: Counter(label: count)} for the given date range.
+    """Return {employeeNo: Counter(bucket: days)} for the given date range.
 
     Calls get_employee_master, get_department_details, and get_attendance_muster
-    separately then merges them. Labels: P=Present, A=Absent, H=Holiday,
-    OFF/WO=WeekOff, CL/SL/EL/LOP/ML/PL/CO=leave types.
+    separately then merges them.
+
+    GreytHR muster is session based. Counting a whole day as one combined label
+    misclassifies half-day records such as P/A or P/CL, so each session is
+    counted as 0.5 day and rolled up into dashboard buckets:
+    P, A, H, OFF, Leave, Blank.
     """
     token, domain = get_token()
 
@@ -213,34 +256,32 @@ def get_greythr_attendance(start: str, end: str) -> dict[str, Counter]:
     active_ids = set(master.keys())
     records = get_attendance_muster(token, domain, start, end, active_ids)
 
-    emp_no_map = {emp_id: info["employee_no"] for emp_id, info in master.items()}
-
-    leave_codes = {"CL", "SL", "EL", "LOP", "ML", "PL", "CO", "LWP", "OD", "WFH"}
-
-    result: dict[str, Counter] = defaultdict(Counter)
+    raw_by_employee_id: dict[str, Counter] = defaultdict(Counter)
     for emp in records:
         emp_id = str(emp.get("employeeId", "")).strip()
-        emp_no = emp_no_map.get(emp_id, "").strip()
-        if not emp_no:
+        if not emp_id:
             continue
         for rec in emp.get("records", []):
             summary = rec.get("summary", {})
-            s1 = summary.get("session1Label", "") or ""
-            s2 = summary.get("session2Label", "") or ""
+            sessions = [
+                summary.get("session1Label", ""),
+                summary.get("session2Label", ""),
+            ]
+            for session_label in sessions:
+                bucket = _attendance_bucket(session_label)
+                raw_by_employee_id[emp_id][bucket] += 0.5
 
-            if s1 == "P" and s2 == "P":
-                label = "P"
-            elif s1 == "A" and s2 == "A":
-                label = "A"
-            elif s1 == "H" and s2 == "H":
-                label = "H"
-            elif s1 == "WO" and s2 == "WO":
-                label = "OFF"
-            elif s1 == s2 and s1 in leave_codes:
-                label = s1
-            else:
-                label = f"{s1}/{s2}" if s2 else s1 or "Blank"
-
-            result[emp_no][label] += 1
+    result: dict[str, Counter] = {}
+    for emp_id, counter in raw_by_employee_id.items():
+        info = master.get(emp_id, {})
+        aliases = {
+            emp_id,
+            info.get("employee_no", ""),
+            f"name:{_normalise_match_key(info.get('name', ''))}",
+        }
+        for alias in aliases:
+            alias = str(alias or "").strip()
+            if alias and alias != "name:":
+                result[alias] = Counter(counter)
 
     return result

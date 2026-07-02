@@ -12,18 +12,27 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from chatbot.services import answer as tara_answer
+from auth_ms import login_url as ms_login_url, handle_callback as ms_handle_callback
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_FILE = PROJECT_ROOT / "data" / "peopleops-data.json"
+GITHUB_DATA_FILE = PROJECT_ROOT / "data" / "github-data.json"
+GRAPH_DATA_FILE = PROJECT_ROOT / "data" / "graph-activity.json"
 GENERATOR = PROJECT_ROOT / "scripts" / "generate_peopleops_data.py"
 TEAMS_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_teams.py"
+GITHUB_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_github.py"
+GRAPH_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_graph_activity.py"
 API_FETCHER = PROJECT_ROOT / "scripts" / "fetch_real_api_data.py"
 ENV_FILE = PROJECT_ROOT.parent / ".env"
 
 SESSION_TTL = 8 * 3600  # 8 hours
 _sessions: dict[str, float] = {}  # token -> expiry timestamp
 
-PUBLIC_PATHS = {"/login.html", "/api/login", "/styles.css", "/favicon.ico"}
+PUBLIC_PATHS = {"/login.html", "/api/login", "/styles.css", "/favicon.ico", "/auth/login", "/auth/callback"}
+_instance_lock = None
 
 
 def _load_env():
@@ -55,6 +64,12 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(PROJECT_ROOT), **kwargs)
 
+    def end_headers(self):
+        self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+        self.send_header("Pragma", "no-cache")
+        self.send_header("Expires", "0")
+        super().end_headers()
+
     def _authenticated(self) -> bool:
         auth = self.headers.get("Authorization", "")
         if auth.startswith("Bearer "):
@@ -71,6 +86,16 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         path = urlparse(self.path).path
 
         # Always allow login page and static assets
+        if path == "/auth/login":
+            self.send_response(302)
+            self.send_header("Location", ms_login_url())
+            self.end_headers()
+            return
+
+        if path == "/auth/callback":
+            self._handle_sso_callback()
+            return
+
         if path in PUBLIC_PATHS:
             if path == "/login.html":
                 self.path = "/login.html"
@@ -111,10 +136,44 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         if path == "/api/refresh-teams":
             self.refresh_teams()
             return
+        if path == "/api/refresh-github":
+            self.refresh_github()
+            return
+        if path == "/api/refresh-graph":
+            self.refresh_graph()
+            return
         if path == "/api/fetch-real-data":
             self.fetch_real_data()
             return
+        if path == "/api/chat":
+            self.handle_chat()
+            return
         self.send_json({"error": "Route not found"}, HTTPStatus.NOT_FOUND)
+
+    def _handle_sso_callback(self):
+        from urllib.parse import parse_qs, urlparse, quote
+        qs = parse_qs(urlparse(self.path).query)
+        error = qs.get("error", [""])[0]
+        if error:
+            desc = qs.get("error_description", [error])[0]
+            self.send_response(302)
+            self.send_header("Location", "/login.html?error=" + quote(desc[:200]))
+            self.end_headers()
+            return
+        code  = qs.get("code",  [""])[0]
+        state = qs.get("state", [""])[0]
+        result = ms_handle_callback(code, state)
+        if not result["ok"]:
+            self.send_response(302)
+            self.send_header("Location", "/login.html?error=" + quote(result["reason"]))
+            self.end_headers()
+            return
+        token = secrets.token_hex(32)
+        _sessions[token] = time.time() + SESSION_TTL
+        name = quote(result.get("name", ""))
+        self.send_response(302)
+        self.send_header("Location", f"/login.html?sso_token={token}&sso_name={name}")
+        self.end_headers()
 
     def handle_login(self):
         length = int(self.headers.get("Content-Length", 0))
@@ -168,6 +227,8 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 for employee in data.get("employees", [])
             ],
             "/api/projects": lambda: data.get("projects", []),
+            "/api/github-data": lambda: self.load_github_data(),
+            "/api/graph-data": lambda: self.load_graph_data(),
         }
 
         if path in routes:
@@ -257,6 +318,91 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "stderr": result.stderr,
             }, HTTPStatus.INTERNAL_SERVER_ERROR)
 
+    def refresh_github(self):
+        length = int(self.headers.get("Content-Length", 0))
+        month = ""
+        if length:
+            try:
+                body = json.loads(self.rfile.read(length))
+                month = body.get("month", "")
+            except (json.JSONDecodeError, ValueError):
+                pass
+        cmd = [sys.executable, str(GITHUB_REFRESHER)]
+        if month:
+            cmd += ["--month", month]
+        result = subprocess.run(
+            cmd,
+            cwd=str(PROJECT_ROOT),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            github_data = self.load_github_data()
+            self.send_json({
+                "status": "refreshed",
+                "message": result.stdout.strip(),
+                "lastUpdated": (github_data or {}).get("lastUpdated", ""),
+                "github": github_data,
+            })
+        else:
+            self.send_json({
+                "status": "failed",
+                "stdout": result.stdout,
+                "stderr": result.stderr,
+            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+
+    def refresh_graph(self):
+        result = subprocess.run(
+            [sys.executable, str(GRAPH_REFRESHER)],
+            cwd=str(PROJECT_ROOT),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            graph_data = self.load_graph_data()
+            self.send_json({
+                "status": "refreshed",
+                "message": result.stdout.strip(),
+                "generatedAt": (graph_data or {}).get("meta", {}).get("generatedAt", ""),
+                "graph": graph_data,
+            })
+        else:
+            self.send_json({
+                "status": "failed",
+                "stdout": result.stdout,
+                "stderr": result.stderr,
+            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+
+    def load_github_data(self):
+        if not GITHUB_DATA_FILE.exists():
+            return {"projects": [], "contributors": [], "lastUpdated": None}
+        try:
+            return json.loads(GITHUB_DATA_FILE.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return {"projects": [], "contributors": [], "lastUpdated": None}
+
+    def load_graph_data(self):
+        if not GRAPH_DATA_FILE.exists():
+            return {
+                "meta": {"generatedAt": None},
+                "overview": {},
+                "employees": [],
+                "planner": {"plans": []},
+                "sharePoint": {"sites": []},
+            }
+        try:
+            return json.loads(GRAPH_DATA_FILE.read_text(encoding="utf-8-sig"))
+        except (json.JSONDecodeError, OSError):
+            return {
+                "meta": {"generatedAt": None},
+                "overview": {},
+                "employees": [],
+                "planner": {"plans": []},
+                "sharePoint": {"sites": []},
+            }
+
     def fetch_real_data(self):
         result = subprocess.run(
             [sys.executable, str(API_FETCHER)],
@@ -276,6 +422,37 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "stdout": result.stdout,
                 "stderr": result.stderr,
             }, HTTPStatus.INTERNAL_SERVER_ERROR)
+
+    def handle_chat(self):
+        length = int(self.headers.get("Content-Length", 0))
+        try:
+            body = json.loads(self.rfile.read(length))
+        except (json.JSONDecodeError, ValueError):
+            self.send_json({"error": "Invalid request body."}, HTTPStatus.BAD_REQUEST)
+            return
+        question = str(body.get("question", "")).strip()
+        history = body.get("history", [])
+        if not isinstance(history, list):
+            history = []
+        if not question:
+            self.send_json({"error": "No question provided."}, HTTPStatus.BAD_REQUEST)
+            return
+        try:
+            reply, category = tara_answer(question, history)
+            self.send_json({"answer": reply, "category": category})
+        except Exception as exc:
+            import traceback
+            traceback.print_exc()
+            msg = str(exc)
+            if "429" in msg or "rate_limit" in msg.lower() or "rate limit" in msg.lower() or "too many requests" in msg.lower():
+                friendly = "Tara is getting a lot of questions right now. Please wait a few seconds and try again."
+            elif "503" in msg or "over capacity" in msg.lower():
+                friendly = "Tara is a bit busy right now. Please try again in a few seconds."
+            elif "401" in msg or "invalid_api_key" in msg.lower():
+                friendly = "There's an issue with the AI configuration. Please contact your admin."
+            else:
+                friendly = "Something went wrong on my end. Please try again."
+            self.send_json({"answer": friendly}, HTTPStatus.INTERNAL_SERVER_ERROR)
 
     def load_data(self):
         try:
@@ -317,7 +494,34 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         return guessed or super().guess_type(path)
 
 
+def _acquire_instance_lock(port: int):
+    """Prevent multiple PeopleOPS processes from serving stale code on one port."""
+    global _instance_lock
+    if os.name != "nt":
+        return
+    import msvcrt
+
+    lock_path = PROJECT_ROOT / "data" / f".server-{port}.lock"
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    handle = lock_path.open("a+b")
+    handle.seek(0, os.SEEK_END)
+    if handle.tell() == 0:
+        handle.write(b"0")
+        handle.flush()
+    handle.seek(0)
+    try:
+        msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+    except OSError as exc:
+        handle.close()
+        raise RuntimeError(
+            f"PeopleOPS is already running on port {port}. "
+            "Stop the existing backend before starting another copy."
+        ) from exc
+    _instance_lock = handle
+
+
 def run(port=8000, host="0.0.0.0"):
+    _acquire_instance_lock(port)
     server = ThreadingHTTPServer((host, port), PeopleOpsHandler)
     print(f"PeopleOPS Intelligence backend running on {host}:{port}", flush=True)
     print(f"API health endpoint available at /api/health on port {port}", flush=True)

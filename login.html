@@ -79,6 +79,7 @@
       color: var(--ink);
       transition: border-color 0.15s;
       outline: none;
+      box-sizing: border-box;
     }
     .field input:focus {
       border-color: var(--blue);
@@ -99,11 +100,64 @@
     }
     .login-btn:hover { opacity: 0.88; }
     .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .ms-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: white;
+      color: #1a1a1a;
+      border: 1.5px solid #d0d0d0;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      text-decoration: none;
+    }
+    .ms-btn:hover {
+      background: #f3f3f3;
+      border-color: #0078d4;
+    }
+    .ms-btn svg {
+      flex-shrink: 0;
+    }
+
     .error-msg {
       display: none;
       background: #fff0f1;
       color: var(--red);
       border: 1px solid #fcd0d4;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      margin-top: 14px;
+      font-weight: 600;
+    }
+    .success-msg {
+      display: none;
+      background: #f0fff4;
+      color: #1a7f4b;
+      border: 1px solid #b2f2cb;
       border-radius: 8px;
       padding: 10px 14px;
       font-size: 0.85rem;
@@ -122,7 +176,22 @@
       </div>
     </div>
     <h2>Sign in</h2>
-    <p class="login-sub">Enter your credentials to access the dashboard.</p>
+    <p class="login-sub">Use your Microsoft account or admin credentials.</p>
+
+    <!-- Microsoft SSO -->
+    <a href="/auth/login" class="ms-btn" id="msBtn">
+      <svg width="20" height="20" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
+        <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
+        <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
+        <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
+      </svg>
+      Sign in with Microsoft
+    </a>
+
+    <div class="divider">or</div>
+
+    <!-- Password fallback -->
     <form id="loginForm">
       <div class="field">
         <label for="username">Username</label>
@@ -133,18 +202,46 @@
         <input type="password" id="password" name="password" autocomplete="current-password" required />
       </div>
       <button type="submit" class="login-btn" id="loginBtn">Sign in</button>
-      <div class="error-msg" id="errorMsg"></div>
     </form>
-  </div>
-  <script>
-    const DEMO_USERNAME = "admin";
-    const DEMO_PASSWORD = "PeopleOPS@2026!";
 
+    <div class="error-msg" id="errorMsg"></div>
+    <div class="success-msg" id="successMsg"></div>
+  </div>
+
+  <script>
+    // If already logged in, go straight to dashboard
     if (localStorage.getItem("po_token")) {
       window.location.href = "index.html";
     }
 
-    document.getElementById("loginForm").addEventListener("submit", (e) => {
+    // Handle SSO callback: ?sso_token=...&sso_name=...
+    (function handleSsoCallback() {
+      const params = new URLSearchParams(window.location.search);
+      const ssoToken = params.get("sso_token");
+      const ssoName  = params.get("sso_name");
+      const error    = params.get("error");
+
+      if (ssoToken) {
+        localStorage.setItem("po_token", ssoToken);
+        const name = ssoName ? decodeURIComponent(ssoName) : "there";
+        const successEl = document.getElementById("successMsg");
+        successEl.textContent = "Welcome, " + name + "! Redirecting...";
+        successEl.style.display = "block";
+        setTimeout(() => { window.location.href = "index.html"; }, 800);
+        return;
+      }
+
+      if (error) {
+        const errEl = document.getElementById("errorMsg");
+        errEl.textContent = decodeURIComponent(error);
+        errEl.style.display = "block";
+        // Clean up URL
+        history.replaceState(null, "", window.location.pathname);
+      }
+    })();
+
+    // Password login form
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const btn = document.getElementById("loginBtn");
       const err = document.getElementById("errorMsg");
@@ -155,16 +252,28 @@
       btn.textContent = "Signing in...";
       err.style.display = "none";
 
-      if (username === DEMO_USERNAME && password === DEMO_PASSWORD) {
-        localStorage.setItem("po_token", "peopleops-demo-token");
-        window.location.href = "index.html";
-        return;
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+        const data = await res.json();
+        if (res.ok && data.token) {
+          localStorage.setItem("po_token", data.token);
+          window.location.href = "index.html";
+        } else {
+          err.textContent = data.error || "Invalid username or password.";
+          err.style.display = "block";
+          btn.disabled = false;
+          btn.textContent = "Sign in";
+        }
+      } catch {
+        err.textContent = "Could not reach the server. Make sure the backend is running.";
+        err.style.display = "block";
+        btn.disabled = false;
+        btn.textContent = "Sign in";
       }
-
-      err.textContent = "Invalid demo credentials. Use admin / PeopleOPS@2026!.";
-      err.style.display = "block";
-      btn.disabled = false;
-      btn.textContent = "Sign in";
     });
   </script>
 </body>

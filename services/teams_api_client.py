@@ -121,6 +121,27 @@ class TeamsApiClient:
             path = next_link.replace(GRAPH_BASE_URL, "") if next_link else None
         return users
 
+    def get_users_with_manager(self) -> list[dict]:
+        """Fetch all Azure AD users with their manager expanded (User.Read.All — no extra permissions needed)."""
+        select = "id,userPrincipalName,displayName,mail,mailNickname,employeeId,accountEnabled,jobTitle,department"
+        users = []
+        path = f"/users?$select={select}&$expand=manager($select=id,displayName,mail,userPrincipalName)&$top=999"
+        while path:
+            data = self.get_json(path, "usersWithManager")
+            users.extend(data.get("value", []))
+            next_link = data.get("@odata.nextLink", "")
+            path = next_link.replace(GRAPH_BASE_URL, "") if next_link else None
+        return users
+
+    def get_direct_reports(self, user_id: str) -> list[dict]:
+        """Fetch direct reports for a given Azure AD user (User.Read.All)."""
+        select = "id,displayName,mail,userPrincipalName,jobTitle,department"
+        try:
+            data = self.get_json(f"/users/{user_id}/directReports?$select={select}", "directReports")
+            return data.get("value", [])
+        except (TeamsApiError, TeamsAuthError):
+            return []
+
 
 def get_presences_by_user_id(ids: list[str]):
     return TeamsApiClient().get_presences_by_user_id(ids)
@@ -132,3 +153,11 @@ def get_teams_activity_report(period: str = "D30") -> str:
 
 def get_teams_users() -> list[dict]:
     return TeamsApiClient().get_users()
+
+
+def get_teams_users_with_manager() -> list[dict]:
+    return TeamsApiClient().get_users_with_manager()
+
+
+def get_teams_direct_reports(user_id: str) -> list[dict]:
+    return TeamsApiClient().get_direct_reports(user_id)

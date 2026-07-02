@@ -125,3 +125,7 @@ def get_token() -> str:
             "Teams token request succeeded but access_token was not found in the response."
         )
     return access_token
+
+
+# Alias used by graph_activity_client and any other Graph API consumers
+get_graph_token = get_token

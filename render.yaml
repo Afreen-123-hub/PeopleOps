@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: peopleops-intelligence
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python backend/server.py
+    envVars:
+      - key: TEAMS_TENANT_ID
+        sync: false
+      - key: TEAMS_CLIENT_ID
+        sync: false
+      - key: TEAMS_CLIENT_SECRET
+        sync: false
+      - key: GRAPH_CLIENT_ID
+        sync: false
+      - key: GRAPH_CLIENT_SECRET
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: PEOPLEOPS_USERNAME
+        sync: false
+      - key: PEOPLEOPS_PASSWORD
+        sync: false
+      - key: ALLOWED_EMAILS
+        sync: false
+      - key: SSO_REDIRECT_URI
+        sync: false

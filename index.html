@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260618-heatmap2">
+    <link rel="stylesheet" href="styles.css?v=20260701-teamsinsights11">
   </head>
   <body>
     <main class="app-shell">
@@ -16,7 +16,8 @@
         <button class="rail-item" data-view="attendance" title="Attendance">Attendance</button>
         <button class="rail-item" data-view="teams" title="Teams">Teams</button>
         <button class="rail-item" data-view="projects" title="Projects">Projects</button>
-        <button class="rail-item" data-view="insights" title="Insights">Insights</button>
+        <button class="rail-item" data-view="github" title="GitHub">GitHub</button>
+        <button class="rail-item" data-view="graph" title="Microsoft Graph">Graph</button>
         <button class="rail-item" data-view="integrations" title="Integrations">Integrations</button>
         <button class="rail-item rail-logout" onclick="logout()" title="Sign out" style="margin-top:auto;opacity:0.7;">Sign out</button>
       </aside>
@@ -49,6 +50,10 @@
               <option value="all">All teams</option>
             </select>
           </label>
+          <label class="toggle-label">
+            <input type="checkbox" id="internToggle">
+            Show Interns
+          </label>
           <label>
             Source confidence
             <select id="confidenceFilter">
@@ -61,22 +66,34 @@
         </section>
 
         <section id="overview" class="view active-view">
+          <div class="overview-heading">
+            <div>
+              <p class="eyebrow">Executive dashboard</p>
+              <h2>Workforce Performance Overview</h2>
+              <p>Live people, delivery, attendance and collaboration signals in one decision-ready view.</p>
+            </div>
+            <div class="overview-heading-meta">
+              <span class="overview-live-dot"></span>
+              <span>Live integrated data</span>
+            </div>
+          </div>
           <div id="totalEmployeeBadge" class="total-employee-badge"></div>
           <div id="metricGrid" class="metric-grid"></div>
-          <div id="bandSummary" class="band-summary"></div>
-          <div id="bandEmployeesPanel" class="band-employees-panel" hidden></div>
-          <article class="panel alerts-panel">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Automatic flagging</p>
-                <h2>Needs Attention</h2>
-              </div>
-              <span class="pill">Click a row to open employee</span>
+          <div id="teamsInsightRow" class="teams-insight-row"></div>
+          <div class="overview-section-label" style="margin-top:24px">
+            <div>
+              <p class="eyebrow">Employee Insight Quadrants</p>
+              <h2>Engagement & Output Matrix</h2>
             </div>
-            <div id="alertsPanel"></div>
-          </article>
-
-          <article class="panel donut-panel">
+            <span>Click a quadrant to see employees</span>
+          </div>
+          <div id="quadrantGrid" class="band-summary quadrant-grid"></div>
+          <div id="bandDrawerOverlay" class="teams-drawer-overlay" hidden onclick="closeBandDrawer()"></div>
+          <aside id="bandDrawer" class="teams-drawer" hidden>
+            <button class="teams-drawer-close" onclick="closeBandDrawer()">&#x2715;</button>
+            <div id="bandDrawerContent"></div>
+          </aside>
+          <article class="panel donut-panel overview-team-health">
             <div class="donut-wrap">
               <div class="donut-canvas-wrap">
                 <p class="eyebrow">Performance distribution</p>
@@ -86,6 +103,12 @@
               <div id="donutLegend" class="donut-legend"></div>
             </div>
           </article>
+          <div class="overview-section-label overview-analytics-label">
+            <div>
+              <p class="eyebrow">Organizational analytics</p>
+              <h2>Department & Data Quality</h2>
+            </div>
+          </div>
           <div class="dashboard-grid">
             <article class="panel xl">
               <div class="panel-head">
@@ -95,7 +118,7 @@
                 </div>
                 <span id="filteredCount" class="pill"></span>
               </div>
-              <canvas id="scatterChart" height="420"></canvas>
+              <div id="scatterChart" class="department-ranking-chart"></div>
               <div id="departmentTooltip" class="department-tooltip" hidden></div>
               <div id="departmentEmployeesPanel" class="department-employees-panel" hidden></div>
             </article>
@@ -162,8 +185,8 @@
                       <th>Employee</th>
                       <th>Team</th>
                       <th>KPI</th>
-                      <th>Worklogix</th>
-                      <th>Teams</th>
+                      <th>Drivers</th>
+                      <th>Quadrant</th>
                       <th>Lagging Area</th>
                       <th>Action</th>
                     </tr>
@@ -192,6 +215,7 @@
         </section>
 
         <section id="teams" class="view">
+          <div id="teamsStatusBar" class="teams-status-bar"></div>
           <article class="panel table-panel">
             <div class="panel-head">
               <div>
@@ -210,15 +234,19 @@
                     <th>Employee</th>
                     <th>Team</th>
                     <th>Status</th>
-                    <th>Work Location</th>
-                    <th>Reports</th>
-                    <th>Confidence</th>
                   </tr>
                 </thead>
                 <tbody id="teamsTable"></tbody>
               </table>
             </div>
           </article>
+
+          <!-- Teams presence detail drawer -->
+          <div id="teamsDrawerOverlay" class="teams-drawer-overlay" hidden onclick="closeTeamsPanel()"></div>
+          <aside id="teamsDrawer" class="teams-drawer" hidden>
+            <button class="teams-drawer-close" onclick="closeTeamsPanel()">✕</button>
+            <div id="teamsDrawerContent"></div>
+          </aside>
         </section>
 
         <section id="people" class="view">
@@ -236,24 +264,20 @@
                   <col class="col-employee">
                   <col class="col-kpi">
                   <col class="col-band">
-                  <col class="col-status">
-                  <col class="col-confidence">
                   <col class="col-small">
                   <col class="col-small">
                   <col class="col-small">
-                  <col class="col-small">
+                  <col style="width:120px">
                 </colgroup>
                 <thead>
                   <tr>
                     <th>Employee</th>
                     <th>KPI</th>
                     <th>Band</th>
-                    <th>Status</th>
-                    <th>Confidence</th>
                     <th>Tasks</th>
-                    <th>Present Days</th>
-                    <th>Absent Days</th>
-                    <th>Teams Status</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>Teams</th>
                   </tr>
                 </thead>
                 <tbody id="peopleTable"></tbody>
@@ -262,20 +286,92 @@
           </article>
         </section>
 
-        <section id="insights" class="view">
-          <div class="insights-header">
-            <div>
-              <p class="eyebrow">Cross-source intelligence</p>
-              <h1 class="insights-title">Work Pattern Analysis</h1>
-              <p class="insights-sub">Comparing Worklogix delivery against Teams presence to surface mismatches — who's delivering without being online, and who's online without delivering.</p>
-            </div>
-          </div>
-          <div class="insights-quadrant-cards" id="insightsSummaryCards"></div>
-          <div id="insightsBody"></div>
+        <section id="projects" class="view">
+          <div id="projectGrid"></div>
         </section>
 
-        <section id="projects" class="view">
-          <div id="projectGrid" class="project-grid"></div>
+        <dialog id="projDetailDialog">
+          <div class="projd-wrap">
+            <div class="projd-header">
+              <div>
+                <h2 id="projd-title" class="projd-title"></h2>
+                <div id="projd-meta" class="projd-meta"></div>
+              </div>
+              <button class="dialog-close" onclick="document.getElementById('projDetailDialog').close()">&times;</button>
+            </div>
+            <div id="projd-body"></div>
+          </div>
+        </dialog>
+
+        <section id="github" class="view">
+          <div class="gh-header">
+            <div>
+              <p class="eyebrow">CodeWork-ai · GitHub Projects</p>
+              <h1 class="gh-title">Project Tracker</h1>
+              <p class="gh-sub">Tasks, assignees, and completion status across all active GitHub Projects.</p>
+              <span id="ghPeriodLabel" style="font-size:0.78rem;color:var(--muted);margin-top:2px;display:inline-block;"></span>
+            </div>
+            <div class="gh-header-actions">
+              <select id="ghMonthPicker" style="padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:0.8rem;cursor:pointer;"></select>
+              <span id="ghRefreshLabel" class="pill" style="font-size:0.75rem;opacity:0.7;"></span>
+              <button class="button" onclick="refreshGitHub()" style="padding:6px 14px;font-size:0.8rem;">Refresh now</button>
+            </div>
+          </div>
+          <div id="ghSummaryCards" class="gh-stat-bar"></div>
+          <div class="gh-tabs-bar">
+            <button class="gh-tab gh-tab--active" data-tab="projects" onclick="switchGhTab('projects',this)">Projects</button>
+            <button class="gh-tab" data-tab="contributors" onclick="switchGhTab('contributors',this)">Contributors</button>
+          </div>
+          <div id="gh-tab-projects" class="gh-tab-panel">
+            <div id="ghProjectsList"></div>
+          </div>
+          <div id="gh-tab-contributors" class="gh-tab-panel" hidden>
+            <div id="ghContributors"></div>
+          </div>
+        </section>
+
+        <section id="graph" class="view">
+          <div class="graph-command">
+            <div>
+              <p class="eyebrow">Microsoft Graph</p>
+              <h1 class="gh-title">Planner, Calendar & SharePoint</h1>
+              <div id="graphBreadcrumbs" class="graph-breadcrumbs">Microsoft Graph / Overview</div>
+            </div>
+            <div class="gh-header-actions">
+              <span id="graphRefreshLabel" class="pill"></span>
+              <button id="graphRefreshButton" class="button" type="button">Refresh now</button>
+            </div>
+          </div>
+          <section class="graph-people-search">
+            <div class="graph-search-copy">
+              <span class="graph-search-icon">⌕</span>
+              <div>
+                <strong>Employee 360° Search</strong>
+                <small>Search by employee name, ID or Microsoft 365 email</small>
+              </div>
+            </div>
+            <div class="graph-search-field">
+              <input id="graphEmployeeSearch" type="search" placeholder="Search by employee or name or ID or email" autocomplete="off">
+              <button id="graphEmployeeSearchClear" type="button" hidden>Clear</button>
+            </div>
+            <div id="graphEmployeeSuggestions" class="graph-employee-suggestions" hidden></div>
+          </section>
+          <div id="graphSummaryCards" class="graph-kpi-grid"></div>
+          <div class="graph-explorer">
+            <aside class="graph-subnav">
+              <button class="graph-subnav-item active" data-graph-section="plans">Planner Plans</button>
+              <button class="graph-subnav-item" data-graph-section="tasks">Planner Tasks</button>
+              <button class="graph-subnav-item" data-graph-section="completed">Completed Tasks</button>
+              <button class="graph-subnav-item" data-graph-section="calendar">Calendar</button>
+              <button class="graph-subnav-item" data-graph-section="sites">SharePoint Sites</button>
+              <button class="graph-subnav-item" data-graph-section="employees">Matched Employees</button>
+            </aside>
+            <section class="graph-content">
+              <div id="graphToolbar" class="graph-toolbar"></div>
+              <div id="graphWorkspace" class="graph-workspace"></div>
+              <div id="graphPagination" class="graph-pagination"></div>
+            </section>
+          </div>
         </section>
 
         <section id="integrations" class="view">
@@ -284,7 +380,7 @@
             <p class="eyebrow">API-ready architecture</p>
             <h2>Connector Roadmap</h2>
             <div class="roadmap">
-              <span>Current: live Worklogix, Biometrics, and Teams APIs</span>
+              <span>Current: live Worklogix, GreytHR, Biometrics, Teams, Planner, Calendar, SharePoint, and GitHub APIs</span>
               <span>Next: scheduled API refresh jobs</span>
               <span>Optional: add GreytHR API later</span>
             </div>
@@ -297,11 +393,69 @@
       <div id="heatmapPopupContent" class="hmp-popup"></div>
     </div>
 
+    <div id="graphDrawerOverlay" class="graph-drawer-overlay" hidden>
+      <aside id="graphDrawer" class="graph-drawer">
+        <button id="graphDrawerClose" class="graph-drawer-close" type="button" aria-label="Close">×</button>
+        <div id="graphDrawerContent"></div>
+      </aside>
+    </div>
+
     <dialog id="employeeDialog">
       <button id="closeDialog" class="dialog-close" aria-label="Close">x</button>
       <div id="employeeDetail"></div>
     </dialog>
 
-    <script src="app.js?v=20260618-heatmap2"></script>
+    <dialog id="ghContribDialog">
+      <button id="closeGhContribDialog" class="dialog-close" aria-label="Close">x</button>
+      <div id="ghContribDetail"></div>
+    </dialog>
+
+    <!-- Tara Chatbot -->
+    <div id="taraBtn" class="tara-btn" onclick="toggleTara()">
+      <span class="tara-btn-icon">✦</span>
+      <span class="tara-btn-label">Ask Tara</span>
+    </div>
+
+    <div id="taraPanel" class="tara-panel" hidden>
+      <div class="tara-header">
+        <div class="tara-header-info">
+          <div class="tara-avatar-wrap">
+            <span class="tara-avatar">✦</span>
+            <span class="tara-avatar-dot"></span>
+          </div>
+          <div>
+            <strong>Tara</strong>
+            <small>PeopleOps Intelligence · Online</small>
+          </div>
+        </div>
+        <div class="tara-header-actions">
+          <button class="tara-clear-btn" onclick="clearTara()" title="Clear chat">Clear</button>
+          <button class="tara-close" onclick="toggleTara()" aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div id="taraMessages" class="tara-messages">
+        <div class="tara-msg-row">
+          <div class="tara-msg-row-avatar">✦</div>
+          <div class="tara-msg tara-msg--bot">
+            <p style="white-space:pre-wrap;margin:0">Hi! I'm Tara, your PeopleOps assistant. Ask me anything about your team's performance, attendance, or productivity.</p>
+          </div>
+        </div>
+      </div>
+      <div id="taraChips" class="tara-chips">
+        <button class="tara-chip" onclick="askTara('Who are the top 3 performers?')">🏆 Top performers</button>
+        <button class="tara-chip" onclick="askTara('Who was absent most this month?')">📅 Attendance issues</button>
+        <button class="tara-chip" onclick="askTara('Who has pending tasks?')">📋 Pending tasks</button>
+        <button class="tara-chip" onclick="askTara('Who is online on Teams right now?')">🟢 Online now</button>
+      </div>
+      <div class="tara-input-row">
+        <input id="taraInput" type="text" placeholder="Ask Tara anything…" onkeydown="if(event.key==='Enter') sendTaraMessage()">
+        <button class="tara-send" onclick="sendTaraMessage()" title="Send">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <script src="app.js?v=20260701-teamsinsights11"></script>
+    <script src="graph-explorer.js?v=20260629-searchbar1"></script>
   </body>
 </html>

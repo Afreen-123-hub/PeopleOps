@@ -7,6 +7,7 @@ const state = {
   band: "all",
   team: "all",
   confidence: 0,
+  showInterns: false,
 };
 
 const DEMO_MODE = false;
@@ -63,9 +64,11 @@ function drawDonutChart() {
   const total = filteredEmployees.length || 1;
 
   const segments = [
-    { label: "High Performance",  color: "#2fb36d", count: 0 },
-    { label: "Need Improvement",  color: "#f3a229", count: 0 },
-    { label: "Low Performance",   color: "#db4d5c", count: 0 },
+    { label: "Excellent",         color: "#0f6b3a", count: 0 },
+    { label: "Good",              color: "#2fb36d", count: 0 },
+    { label: "Average",           color: "#3b82f6", count: 0 },
+    { label: "Needs Improvement", color: "#f3a229", count: 0 },
+    { label: "Critical",          color: "#db4d5c", count: 0 },
     { label: "Insufficient Data", color: "#dfe6ee", count: 0 },
   ];
   filteredEmployees.forEach((e) => {
@@ -102,15 +105,16 @@ function drawDonutChart() {
   const legend = document.getElementById("donutLegend");
   if (legend) {
     legend.innerHTML = segments.filter((s) => s.count > 0).map((s) => `
-      <div class="donut-legend-item">
+      <button class="donut-legend-item" type="button" data-band="${s.label}">
         <span class="donut-dot" style="background:${s.color}"></span>
-        <div class="donut-legend-info">
-          <strong>${s.count}</strong>
-          <span>${s.label}</span>
-        </div>
+        <span class="donut-legend-label">${s.label}</span>
+        <span class="donut-legend-count">${s.count}</span>
         <span class="donut-pct">${Math.round((s.count / total) * 100)}%</span>
-      </div>
+      </button>
     `).join("");
+    legend.querySelectorAll("[data-band]").forEach((btn) => {
+      btn.addEventListener("click", () => openBandDrawer(btn.dataset.band));
+    });
   }
 }
 
@@ -373,7 +377,7 @@ function drawEfficiencyScatter() {
     ...sorted.slice(-3).map((e) => e.id),
   ]);
 
-  const bandColors = { "High Performance": "#2fb36d", "Need Improvement": "#f3a229", "Low Performance": "#db4d5c" };
+  const bandColors = { "Excellent": "#0f6b3a", "Good": "#2fb36d", "Average": "#3b82f6", "Needs Improvement": "#f3a229", "Critical": "#db4d5c", "Insufficient Data": "#94a3b8" };
   efficiencyScatterDots = [];
   rows.forEach((e) => {
     const x = pad.left + (e.scoreDrivers.delivery / 100) * cw;
@@ -392,9 +396,11 @@ function drawEfficiencyScatter() {
   });
 
   const legendItems = [
-    { color: "#2fb36d", label: "High Performance" },
+    { color: "#0f6b3a", label: "Excellent" },
+    { color: "#2fb36d", label: "Good" },
+    { color: "#3b82f6", label: "Average" },
     { color: "#f3a229", label: "Needs Improvement" },
-    { color: "#db4d5c", label: "Low Performance" },
+    { color: "#db4d5c", label: "Critical" },
   ];
   let lx = pad.left;
   const ly = pad.top + ch + 46;
@@ -416,7 +422,12 @@ async function boot() {
   }
   dataset = await loadDataset();
   if (!dataset) return;
-  filteredEmployees = dataset.employees.slice();
+  filteredEmployees = dataset.employees.filter(e => !isIntern(e)).sort((a, b) => {
+    if (a.kpi == null && b.kpi == null) return 0;
+    if (a.kpi == null) return 1;
+    if (b.kpi == null) return -1;
+    return b.kpi - a.kpi;
+  });
   setupNavigation();
   setupFilters();
   setupDepartmentChartEvents();
@@ -440,8 +451,8 @@ function updateTeamsRefreshLabel(ts) {
 }
 
 async function loadDataset({ fresh = false } = {}) {
-  const suffix = fresh ? `?t=${Date.now()}` : "";
-  const fileResponse = await fetch(`data/peopleops-data.json${suffix}`, { cache: fresh ? "no-store" : "default" }).catch(() => null);
+  const suffix = `?t=${Date.now()}`;
+  const fileResponse = await fetch(`data/peopleops-data.json${suffix}`, { cache: "no-store" }).catch(() => null);
   return fileResponse?.ok ? fileResponse.json() : null;
 }
 
@@ -455,14 +466,15 @@ function setupNavigation() {
       toggleControls(button.dataset.view);
       if (button.dataset.view === "overview") drawScatter();
       if (button.dataset.view === "kpi") renderKpiPerformance();
-      if (button.dataset.view === "insights") drawInsightsChart();
+      if (button.dataset.view === "github") renderGitHub();
+      if (button.dataset.view === "graph") renderGraph();
     });
   });
 }
 
 function toggleControls(view) {
   const controls = document.querySelector(".controls");
-  controls.hidden = ["attendance", "projects", "integrations"].includes(view);
+  controls.hidden = ["attendance", "projects", "integrations", "github", "graph"].includes(view);
 }
 
 function setupFilters() {
@@ -484,10 +496,16 @@ function setupFilters() {
     state.confidence = Number(event.target.value);
     applyFilters();
   });
+  document.getElementById("internToggle").addEventListener("change", (event) => {
+    state.showInterns = event.target.checked;
+    applyFilters();
+  });
   document.getElementById("exportCsv").addEventListener("click", exportCsv);
   document.getElementById("refreshKpi").addEventListener("click", refreshKpiPerformance);
   document.getElementById("clearKpiTeam").addEventListener("click", clearKpiTeamFilter);
   document.getElementById("closeDialog").addEventListener("click", () => document.getElementById("employeeDialog").close());
+  document.getElementById("closeGhContribDialog").addEventListener("click", () => document.getElementById("ghContribDialog").close());
+  document.getElementById("graphRefreshButton")?.addEventListener("click", () => refreshGraph());
   populateAttendanceOptions();
   document.getElementById("attendanceEmployee").addEventListener("change", () => renderAttendanceDetail(document.getElementById("attendanceEmployee").value));
   window.addEventListener("resize", () => { drawScatter(); drawDonutChart(); });
@@ -521,16 +539,28 @@ function populateAttendanceOptions() {
   }
 }
 
+function isIntern(employee) {
+  return employee.id && employee.id.includes("-");
+}
+
 function applyFilters() {
-  filteredEmployees = dataset.employees.filter((employee) => {
-    const text = [employee.name, employee.id, employee.team, employee.designation].join(" ").toLowerCase();
-    return (
-      text.includes(state.search) &&
-      (state.band === "all" || employee.band === state.band) &&
-      (state.team === "all" || employee.team === state.team) &&
-      employee.sourceConfidence >= state.confidence
-    );
-  });
+  filteredEmployees = dataset.employees
+    .filter((employee) => {
+      if (!state.showInterns && isIntern(employee)) return false;
+      const text = [employee.name, employee.id, employee.team, employee.designation].join(" ").toLowerCase();
+      return (
+        text.includes(state.search) &&
+        (state.band === "all" || employee.band === state.band) &&
+        (state.team === "all" || employee.team === state.team) &&
+        employee.sourceConfidence >= state.confidence
+      );
+    })
+    .sort((a, b) => {
+      if (a.kpi == null && b.kpi == null) return 0;
+      if (a.kpi == null) return 1;
+      if (b.kpi == null) return -1;
+      return b.kpi - a.kpi;
+    });
   renderAll();
 }
 
@@ -582,7 +612,8 @@ function renderAlerts() {
 function renderAll() {
   renderTotalEmployeeBadge();
   renderMetrics();
-  renderBandSummary();
+  renderTeamsInsights();
+  renderQuadrantSummary();
   renderKpiPerformance();
   renderSourceCoverage();
   renderWeights();
@@ -591,8 +622,6 @@ function renderAll() {
   renderAttendanceDetail(document.getElementById("attendanceEmployee").value || dataset.employees[0]?.id);
   renderProjects();
   renderIntegrations();
-  renderInsights();
-  renderAlerts();
   drawDonutChart();
   drawScatter();
   document.getElementById("filteredCount").textContent = `${filteredEmployees.length} employees in view`;
@@ -603,22 +632,24 @@ function getKpiRows() {
 }
 
 function laggingAreas(employee) {
+  const d = employee.scoreDrivers || {};
   const drivers = [
-    ["Worklogix delivery", employee.scoreDrivers.delivery, "Review task completion, approval status, blocked work, and workload quality."],
-    ["Weighted efficiency", employee.scoreDrivers.efficiency, "Low weighted output per hour — check if high-priority or primary tasks are being completed vs. rework."],
-    ["Worklogix workload", employee.scoreDrivers.volume, "Check workload allocation and whether enough work items are assigned."],
-    ["Worklogix quality", employee.scoreDrivers.quality, "Review completion quality and repeated rework or pending approvals."],
-    ["Teams collaboration", employee.scoreDrivers.collaboration, "Check Teams presence, availability pattern, and collaboration visibility."],
+    ["Productivity", d.productivity, "Review task completion, workload, and work hours logged in Worklogix."],
+    ["Attendance", d.attendance, "Check attendance record — present days vs. expected working days in GreytHR."],
+    ["Task Completion", d.taskCompletion, "Review completion rate and pending/blocked items in Worklogix."],
+    ["Punctuality", d.punctuality, "Review biometric check-in times — arriving after 9:15 AM lowers this score."],
+    ["Collaboration", d.collaboration, "Check Teams presence, availability pattern, and collaboration visibility."],
+    ["GitHub", d.github, "No GitHub contributions found — verify commits or PRs in the org."],
   ];
   const weak = drivers
     .filter(([, value]) => Number(value) < 60)
     .sort((a, b) => a[1] - b[1]);
-  return weak.length ? weak : [["On track", 100, "Keep monitoring Worklogix delivery and Teams collaboration together."]];
+  return weak.length ? weak : [["On track", 100, "Keep monitoring all KPI drivers together."]];
 }
 
 function kpiTone(value) {
-  if (value >= 70) return "good";
-  if (value >= 55) return "watch";
+  if (value >= 80) return "good";
+  if (value >= 60) return "watch";
   return "risk";
 }
 
@@ -651,8 +682,8 @@ function renderKpiPerformance() {
   const teamRows = teamKpiSummary(rows);
   const maxKpi = Math.max(100, ...teamRows.map((team) => team.avgKpi));
   const avgKpi = rows.length ? average(rows.map((employee) => employee.kpi)) : 0;
-  const avgDelivery = rows.length ? average(rows.map((employee) => employee.scoreDrivers.delivery)) : 0;
-  const avgCollaboration = rows.length ? average(rows.map((employee) => employee.scoreDrivers.collaboration)) : 0;
+  const avgProductivity = rows.length ? average(rows.map((employee) => employee.scoreDrivers?.productivity || 0)) : 0;
+  const avgTaskCompletion = rows.length ? average(rows.map((employee) => employee.scoreDrivers?.taskCompletion || 0)) : 0;
   const laggingEmployees = rows.filter((employee) => laggingAreas(employee)[0][0] !== "On track");
   document.getElementById("clearKpiTeam").hidden = state.team === "all";
   renderTeamHeatmap();
@@ -662,8 +693,8 @@ function renderKpiPerformance() {
 
   document.getElementById("kpiSignalSummary").innerHTML = [
     ["Overall KPI", number.format(avgKpi), `${laggingEmployees.length} employees lagging`, kpiTone(avgKpi)],
-    ["Worklogix", number.format(avgDelivery), "delivery, workload, quality", kpiTone(avgDelivery)],
-    ["Teams", number.format(avgCollaboration), "collaboration presence", kpiTone(avgCollaboration)],
+    ["Productivity", number.format(avgProductivity), "Worklogix delivery — 35% weight", kpiTone(avgProductivity)],
+    ["Task Completion", number.format(avgTaskCompletion), "Work items completed — 20% weight", kpiTone(avgTaskCompletion)],
   ].map(([label, value, hint, tone]) => `
     <div class="kpi-signal-card ${tone}">
       <strong>${value}</strong>
@@ -704,11 +735,11 @@ function renderKpiPerformance() {
         <tr data-id="${employee.id}">
           <td><div class="person"><strong>${employee.name}</strong><small>${employee.id} | ${employee.designation || "Unassigned"}</small></div></td>
           <td>${employee.team || "Unassigned"}</td>
-          <td class="numeric-cell"><span class="kpi-score ${kpiTone(employee.kpi)}">${number.format(employee.kpi)}</span></td>
+          <td class="numeric-cell"><span class="kpi-score ${kpiTone(employee.kpi)}">${number.format(employee.kpi)}</span> ${lowConfidenceWarning(employee)}</td>
           <td>
-            <div class="mini-driver"><span>Delivery ${number.format(employee.scoreDrivers.delivery)}</span><span>Quality ${number.format(employee.scoreDrivers.quality)}</span></div>
+            <div class="mini-driver"><span>Prod ${number.format(employee.scoreDrivers?.productivity ?? "—")}</span><span>Att ${number.format(employee.scoreDrivers?.attendance ?? "—")}</span></div>
           </td>
-          <td>${number.format(employee.scoreDrivers.collaboration)}</td>
+          <td><span class="quadrant-chip qc-${(employee.quadrant || 'none').toLowerCase().replace(/\s+/g,'-')}">${employee.quadrant || '—'}</span></td>
           <td><span class="lag-chip ${area === "On track" ? "good" : kpiTone(employee.kpi)}">${area}</span></td>
           <td class="kpi-action">${action}</td>
         </tr>
@@ -736,31 +767,13 @@ async function refreshKpiPerformance() {
 }
 
 function setupDepartmentChartEvents() {
-  const canvas = document.getElementById("scatterChart");
-  if (!canvas) return;
-  const tooltip = document.getElementById("departmentTooltip");
-  canvas.addEventListener("mousemove", (event) => {
-    const hit = findDepartmentBar(event);
-    if (!hit) {
-      tooltip.hidden = true;
-      canvas.style.cursor = "default";
-      return;
-    }
-    canvas.style.cursor = "pointer";
-    tooltip.hidden = false;
-    tooltip.style.left = `${canvas.offsetLeft + event.offsetX + 18}px`;
-    tooltip.style.top = `${canvas.offsetTop + event.offsetY + 18}px`;
-    tooltip.innerHTML = `<strong>${hit.department}</strong><span>${hit.avgKpi === null ? "No KPI" : `${number.format(hit.avgKpi)} KPI`} | ${hit.employees.length} employees</span>`;
-  });
-  canvas.addEventListener("mouseleave", () => {
-    tooltip.hidden = true;
-    canvas.style.cursor = "default";
-  });
-  canvas.addEventListener("click", (event) => {
-    const hit = findDepartmentBar(event);
-    if (hit) {
-      renderDepartmentEmployees(hit);
-    }
+  const chart = document.getElementById("scatterChart");
+  if (!chart) return;
+  chart.addEventListener("click", (event) => {
+    const row = event.target.closest("[data-department-index]");
+    if (!row) return;
+    const department = departmentChartBars[Number(row.dataset.departmentIndex)];
+    if (department) renderDepartmentEmployees(department);
   });
 }
 
@@ -794,12 +807,21 @@ function renderDepartmentEmployees(department) {
 }
 
 function renderTotalEmployeeBadge() {
+  const overview = dataset.overview || {};
+  const total = overview.employees || dataset.employees.length;
   document.getElementById("totalEmployeeBadge").innerHTML = `
-    <div class="employee-count-circle">
-      <strong>${dataset.overview.employees}</strong>
-      <span>Total<br>Employees</span>
-    </div>
+    <button class="workforce-total-banner" type="button" data-overview-metric="employees">
+      <span class="workforce-banner-watermark">${number.format(total)}</span>
+      <div class="workforce-banner-content">
+        <strong>${number.format(total)}</strong>
+        <span>Employees</span>
+      </div>
+      <span class="workforce-banner-action">View all employees →</span>
+    </button>
   `;
+  document.querySelector("[data-overview-metric='employees']").addEventListener("click", () => {
+    renderOverviewMetricEmployees("employees", "All Employees");
+  });
 }
 
 function renderMetrics() {
@@ -812,18 +834,181 @@ function renderMetrics() {
   const teamsActive = rows.filter((e) => e.teams.isActive).length;
   const fullConfidence = rows.filter((e) => e.sourceConfidence === 100).length;
   const metrics = [
-    ["Employees", rows.length, "filtered population"],
-    ["Active", rows.filter((e) => e.active).length, "active employees"],
-    ["Inactive", rows.filter((e) => !e.active).length, "inactive employees"],
-    ["Avg KPI", scoredRows.length ? number.format(avgKpi) : "", "confidence 75% and above"],
-    ["Completed", `${workItems ? Math.round((completed / workItems) * 100) : 0}%`, `${completed}/${workItems} work items`],
-    ["Office Hours", number.format(officeHours), "attendance signal"],
-    ["Online Now", teamsActive, "Teams presence signal"],
-    ["Full Fusion", fullConfidence, "API sources matched"],
+    ["Employees", rows.length, "Filtered population", "people", "blue"],
+    ["Active", rows.filter((e) => e.active).length, "Currently active", "pulse", "green"],
+    ["Inactive", rows.filter((e) => !e.active).length, "Inactive records", "pause", "slate"],
+    ["Avg KPI", scoredRows.length ? number.format(avgKpi) : "—", "75%+ confidence", "trend", "violet"],
+    ["Completed", `${workItems ? Math.round((completed / workItems) * 100) : 0}%`, `${completed}/${workItems} work items`, "check", "teal"],
+    ["Office Hours", number.format(officeHours), "Attendance signal", "clock", "amber"],
+    ["Online Now", teamsActive, "Teams presence", "online", "cyan"],
+    ["Full Fusion", fullConfidence, "All sources matched", "fusion", "indigo"],
   ];
   document.getElementById("metricGrid").innerHTML = metrics
-    .map(([label, value, hint]) => `<article class="metric-card ${label === "Total Employees" ? "total-employees-card" : ""}"><strong>${value}</strong><span>${label}<br>${hint}</span></article>`)
+    .map(([label, value, hint, icon, tone]) => `
+      <button type="button" class="metric-card executive-metric tone-${tone}" data-overview-metric="${icon}">
+        <div class="metric-card-top">
+          <span class="metric-icon metric-icon-${icon}">${metricIcon(icon)}</span>
+          <span class="metric-status-dot"></span>
+        </div>
+        <strong>${value}</strong>
+        <span class="metric-label">${label}</span>
+        <small>${hint}</small>
+      </button>`)
     .join("");
+  document.querySelectorAll("#metricGrid [data-overview-metric]").forEach((card) => {
+    card.addEventListener("click", () => {
+      const labels = {
+        people: "Employees in Current View",
+        pulse: "Active Employees",
+        pause: "Inactive Employees",
+        trend: "KPI-Scored Employees",
+        check: "Employees with Completed Work",
+        clock: "Employees with Office Hours",
+        online: "Employees Online on Teams",
+        fusion: "Employees with Full Data Fusion",
+      };
+      renderOverviewMetricEmployees(card.dataset.overviewMetric, labels[card.dataset.overviewMetric]);
+    });
+  });
+}
+
+function renderTeamsInsights() {
+  const emps = dataset.employees || [];
+
+  // Leaderboard: top 10 by messages + meetingCount*2 (same as collab signal), only licensed users
+  const licensed = emps.filter(e => e.teams?.activityMatched);
+  const ranked = [...licensed]
+    .filter(e => (e.teams.messagesCount || 0) + (e.teams.meetingCount || 0) > 0)
+    .sort((a, b) => {
+      const sa = (a.teams.messagesCount || 0) + (a.teams.meetingCount || 0) * 2;
+      const sb = (b.teams.messagesCount || 0) + (b.teams.meetingCount || 0) * 2;
+      return sb - sa;
+    })
+    .slice(0, 10);
+
+  // Ghosts: licensed, active in Worklogix, but 0 Teams activity
+  const ghosts = licensed.filter(e =>
+    (e.worklogix?.workItems || 0) > 0 &&
+    (e.teams.messagesCount || 0) === 0 &&
+    (e.teams.meetingCount || 0) === 0 &&
+    (e.teams.callCount || 0) === 0
+  );
+
+  const maxScore = ranked.length ? (ranked[0].teams.messagesCount || 0) + (ranked[0].teams.meetingCount || 0) * 2 : 1;
+
+  const leaderboardRows = ranked.map((e, i) => {
+    const score = (e.teams.messagesCount || 0) + (e.teams.meetingCount || 0) * 2;
+    const pct = Math.round(score / maxScore * 100);
+    const medal = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `${i + 1}.`;
+    return `
+      <div class="tl-row">
+        <span class="tl-rank">${medal}</span>
+        <div class="tl-info">
+          <span class="tl-name">${e.name}</span>
+          <div class="tl-bar-wrap"><div class="tl-bar-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="tl-stats">
+          <span title="Messages">${(e.teams.messagesCount || 0).toLocaleString()} msg</span>
+          <span title="Meetings">${e.teams.meetingCount || 0} mtg</span>
+        </div>
+      </div>`;
+  }).join("");
+
+  const ghostRows = ghosts.map(e => `
+    <div class="ghost-row">
+      <span class="ghost-name">${e.name}</span>
+      <span class="ghost-meta">${e.worklogix?.workItems || 0} tasks in Worklogix · 0 Teams activity</span>
+      <span class="ghost-badge">Ghost</span>
+    </div>`).join("");
+
+  document.getElementById("teamsInsightRow").innerHTML = `
+    <div class="teams-insight-panel">
+      <div class="ti-section">
+        <p class="eyebrow">Teams Activity · Last 30 days</p>
+        <h2 class="ti-title">Top 10 Most Active on Teams</h2>
+        <div class="tl-list">${ranked.length ? leaderboardRows : '<p class="proj-empty">No Teams activity data yet.</p>'}</div>
+      </div>
+      <div class="ti-section">
+        <p class="eyebrow">Attention needed</p>
+        <h2 class="ti-title">Ghost on Teams <span class="ghost-count-badge">${ghosts.length}</span></h2>
+        <p class="ti-sub">Active in Worklogix but no Teams messages, meetings or calls in 30 days.</p>
+        <div class="ghost-list">${ghosts.length ? ghostRows : '<p class="proj-empty">No ghosts — everyone is active.</p>'}</div>
+      </div>
+    </div>`;
+}
+
+function renderOverviewMetricEmployees(metric, label) {
+  const source = metric === "employees" ? dataset.employees : filteredEmployees;
+  const filters = {
+    employees: () => true,
+    people: () => true,
+    pulse: (employee) => employee.active,
+    pause: (employee) => !employee.active,
+    trend: (employee) => employee.kpi !== null && employee.kpi !== undefined,
+    check: (employee) => Number(employee.worklogix?.completed || 0) > 0,
+    clock: (employee) => Number(employee.attendance?.officeHours || 0) > 0,
+    online: (employee) => Boolean(employee.teams?.isActive),
+    fusion: (employee) => employee.sourceConfidence === 100,
+  };
+  const employees = source
+    .filter(filters[metric] || filters.people)
+    .sort((a, b) => {
+      const aKpi = a.kpi === null || a.kpi === undefined ? -1 : a.kpi;
+      const bKpi = b.kpi === null || b.kpi === undefined ? -1 : b.kpi;
+      return bKpi - aKpi || a.name.localeCompare(b.name);
+    });
+  const panel = document.getElementById("bandEmployeesPanel");
+  panel.hidden = false;
+  panel.innerHTML = `
+    <div class="overview-drilldown-head">
+      <div>
+        <p class="eyebrow">Overview drill-down</p>
+        <h3>${escapeHtml(label)}</h3>
+        <span>${employees.length} employee${employees.length === 1 ? "" : "s"}</span>
+      </div>
+      <button type="button" id="closeOverviewDrilldown" aria-label="Close">×</button>
+    </div>
+    <div class="overview-employee-grid">
+      ${employees.map((employee) => `
+        <button type="button" class="overview-employee-card" data-overview-employee="${escapeHtml(employee.id)}">
+          <span class="overview-employee-avatar">${escapeHtml(employee.name?.[0] || "?")}</span>
+          <span class="overview-employee-info">
+            <strong>${escapeHtml(employee.name)}</strong>
+            <small>${escapeHtml(employee.id)} · ${escapeHtml(employee.team || "Unassigned")}</small>
+          </span>
+          <span class="overview-employee-stats">
+            <b>${formatKpi(employee.kpi)}</b>
+            <small>KPI</small>
+          </span>
+          <span class="employee-status ${employee.active ? "active" : "inactive"}">${employee.active ? "Active" : "Inactive"}</span>
+        </button>
+      `).join("") || '<p class="overview-empty-result">No employees match this category.</p>'}
+    </div>
+  `;
+  panel.scrollIntoView({ behavior: "smooth", block: "center" });
+  document.getElementById("closeOverviewDrilldown").addEventListener("click", () => {
+    panel.hidden = true;
+  });
+  panel.querySelectorAll("[data-overview-employee]").forEach((row) => {
+    row.addEventListener("click", () => {
+      const employee = dataset.employees.find((item) => item.id === row.dataset.overviewEmployee);
+      if (employee) showEmployee(employee);
+    });
+  });
+}
+
+function metricIcon(name) {
+  const icons = {
+    people: '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.87"/></svg>',
+    pulse: '<svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>',
+    pause: '<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>',
+    trend: '<svg viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-9M15 6h6v6"/></svg>',
+    check: '<svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg>',
+    clock: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    online: '<svg viewBox="0 0 24 24"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 20h.01"/></svg>',
+    fusion: '<svg viewBox="0 0 24 24"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="12" cy="17" r="3"/><path d="m9 9 2 5M15 9l-2 5M10 7h4"/></svg>',
+  };
+  return icons[name] || "";
 }
 
 function renderSourceCoverage() {
@@ -846,23 +1031,70 @@ function renderSourceCoverage() {
     .join("");
 }
 
+function renderQuadrantSummary() {
+  const container = document.getElementById("quadrantGrid");
+  if (!container) return;
+  const total = filteredEmployees.length || 1;
+  const counts = { "High Performer": 0, "Ghost Worker": 0, "Present but Idle": 0, "Disengaged": 0 };
+  filteredEmployees.forEach((e) => {
+    if (e.quadrant && counts[e.quadrant] !== undefined) counts[e.quadrant]++;
+  });
+  const cards = [
+    { label: "High Performer",    count: counts["High Performer"],    tone: "hp",  desc: "High productivity + high attendance" },
+    { label: "Ghost Worker",      count: counts["Ghost Worker"],      tone: "gw",  desc: "High output but low physical presence" },
+    { label: "Present but Idle",  count: counts["Present but Idle"],  tone: "pi",  desc: "Present in office, low work output" },
+    { label: "Disengaged",        count: counts["Disengaged"],        tone: "dis", desc: "Low productivity and low attendance" },
+  ];
+  container.innerHTML = cards.map(({ label, count, tone, desc }) => {
+    const pct = Math.round((count / total) * 100);
+    return `<button class="quadrant-card qcard-${tone}" type="button" data-quadrant="${label}">
+      <div class="band-card-heading"><span class="band-indicator"></span><span>${label}</span><strong>${pct}%</strong></div>
+      <div class="band-card-value"><strong>${count}</strong><span>employees</span></div>
+      <p>${desc}</p>
+      <div class="band-progress"><span style="width:${pct}%"></span></div>
+    </button>`;
+  }).join("");
+  container.querySelectorAll("[data-quadrant]").forEach((card) => {
+    card.addEventListener("click", () => {
+      const q = card.dataset.quadrant;
+      const employees = filteredEmployees.filter((e) => e.quadrant === q).sort((a, b) => (b.kpi || 0) - (a.kpi || 0));
+      openBandDrawer(q, employees);
+    });
+  });
+}
+
 function renderBandSummary() {
   const counts = {
-    "High Performance": 0,
-    "Need Improvement": 0,
-    "Low Performance": 0,
+    "Excellent": 0,
+    "Good": 0,
+    "Average": 0,
+    "Needs Improvement": 0,
+    "Critical": 0,
   };
   filteredEmployees.forEach((employee) => {
     if (!employee.band) return;
     counts[employee.band] = (counts[employee.band] || 0) + 1;
   });
+  const total = filteredEmployees.length || 1;
   const cards = [
-    ["High Performance", counts["High Performance"], "Consistent delivery and healthy attendance/collaboration signals", "high"],
-    ["Need Improvement", counts["Need Improvement"], "Good signals with visible gaps to review", "need"],
-    ["Low Performance", counts["Low Performance"], "Needs manager attention and support", "low"],
+    ["Excellent",         counts["Excellent"],         "Outstanding performance across all metrics",          "excellent", "Excellent"],
+    ["Good",              counts["Good"],              "Strong performance with consistent delivery",          "good-band",  "Good"],
+    ["Average",           counts["Average"],           "Meets expectations with room to improve",             "average",   "Average"],
+    ["Needs Improvement", counts["Needs Improvement"], "Visible gaps requiring coaching and follow-up",       "need",      "Monitor closely"],
+    ["Critical",          counts["Critical"],          "Requires immediate manager attention and support",    "low",       "Action required"],
+    ["Insufficient Data", counts["Insufficient Data"] || 0, "No attendance record — score cannot be calculated", "no-info",   "No data"],
   ];
   document.getElementById("bandSummary").innerHTML = cards
-    .map(([label, value, hint, tone]) => `<button class="band-card ${tone}" data-band="${label}"><strong>${value}</strong><span>${label}</span><span>${hint}</span></button>`)
+    .map(([label, value, hint, tone, status]) => {
+      const pct = Math.round(value / total * 100);
+      return `<button class="band-card ${tone}" data-band="${label}">
+        <div class="band-card-heading"><span class="band-indicator"></span><span>${status}</span><strong>${pct}%</strong></div>
+        <div class="band-card-value"><strong>${value}</strong><span>employees</span></div>
+        <h3>${label}</h3>
+        <p>${hint}</p>
+        <div class="band-progress"><span style="width:${pct}%"></span></div>
+      </button>`;
+    })
     .join("");
   document.querySelectorAll(".band-card").forEach((card) => {
     card.addEventListener("click", () => renderBandEmployees(card.dataset.band));
@@ -905,14 +1137,20 @@ function renderWeights() {
     .join("");
 }
 
+function lowConfidenceWarning(e) {
+  if (e.band === "Insufficient Data") return "";
+  if ((e.band === "Critical" || e.band === "Needs Improvement") && (e.sourceConfidence || 0) < 75) {
+    return `<span class="low-conf-warn" title="Score based on limited data (${e.sourceConfidence}% confidence) — may not reflect actual performance">⚠ Low data</span>`;
+  }
+  return "";
+}
+
 function renderPeopleTable() {
   document.getElementById("peopleTable").innerHTML = filteredEmployees
-    .map((e, index) => `<tr data-index="${index}">
-      <td><div class="person"><strong>${e.name}</strong><small>${e.id} | ${e.designation || "Unassigned"} | ${e.team || "Unassigned"}</small></div></td>
-      <td class="numeric-cell"><span class="score">${formatKpi(e.kpi)}</span></td>
-      <td>${e.band ? `<span class="band ${bandClass(e.band)}">${e.band}</span>` : '<span class="band no-info">Need more information</span>'}</td>
-      <td><span class="employee-status ${e.active ? "active" : "inactive"}">${e.active ? "Active" : "Inactive"}</span></td>
-      <td class="numeric-cell">${e.sourceConfidence}%</td>
+    .map((e, index) => `<tr data-index="${index}"${e.kpi == null ? ' class="row-no-data"' : ""}>
+      <td><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${e.team || "Unassigned"}</small></div></td>
+      <td class="numeric-cell"><span class="score">${e.kpi != null ? e.kpi : "—"}</span></td>
+      <td>${e.band ? `<span class="band ${bandClass(e.band)}">${e.band}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
       <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
       <td class="numeric-cell">${e.attendance.present}</td>
       <td class="numeric-cell">${e.attendance.absent}</td>
@@ -925,195 +1163,549 @@ function renderPeopleTable() {
   });
 }
 
-function teamsStatusBadge(teams) {
+function teamsStatusBadge(teams, clickable = false, empIndex = -1) {
   const status = teams.status || "";
   if (!status) return '<span class="presence-badge offline">No Data</span>';
   const cls = status === "Busy" ? "busy" : teams.isActive ? "active" : teams.isOutOfOffice ? "ooo" : teams.isAway ? "away" : "offline";
   const label = status.replace(/([A-Z])/g, " $1").trim();
+  if (clickable && empIndex >= 0) {
+    return `<span class="presence-badge ${cls} clickable-badge" data-emp-index="${empIndex}" title="Click for details">${label} ›</span>`;
+  }
   const loc = teams.workLocation ? ` · ${teams.workLocation}` : "";
   return `<span class="presence-badge ${cls}">${label}${loc}</span>`;
+}
+
+function formatCheckinHour(h) {
+  if (h == null) return "—";
+  const hours = Math.floor(h);
+  const mins = Math.round((h - hours) * 60);
+  const period = hours >= 12 ? "PM" : "AM";
+  const h12 = hours > 12 ? hours - 12 : hours === 0 ? 12 : hours;
+  return `${h12}:${String(mins).padStart(2, "0")} ${period}`;
 }
 
 function renderTeamsTable() {
   const rows = filteredEmployees
     .slice()
     .sort((a, b) => (b.teams.isActive || 0) - (a.teams.isActive || 0));
+
+  // Status summary bar
+  const active = rows.filter(e => e.teams.isActive).length;
+  const away   = rows.filter(e => e.teams.isAway).length;
+  const ooo    = rows.filter(e => e.teams.isOutOfOffice).length;
+  const offline = rows.filter(e => e.teams.isOffline).length;
+  const noData  = rows.filter(e => !e.teams.status).length;
+  document.getElementById("teamsStatusBar").innerHTML = `
+    <span class="tsb-pill active">${active} Active</span>
+    <span class="tsb-pill away">${away} Away</span>
+    <span class="tsb-pill ooo">${ooo} Out of Office</span>
+    <span class="tsb-pill offline">${offline} Offline</span>
+    ${noData ? `<span class="tsb-pill nodata">${noData} No Data</span>` : ""}
+  `;
+
   document.getElementById("teamsTable").innerHTML = rows
-    .map((e) => `<tr>
-      <td><div class="person"><strong>${e.name}</strong><small>${e.id} | ${e.designation || "Unassigned"}</small></div></td>
-      <td>${e.team || "Unassigned"}</td>
-      <td>${teamsStatusBadge(e.teams)}</td>
-      <td>${e.teams.workLocation || "-"}</td>
-      <td>${e.teams.reports || 0}</td>
-      <td>${e.sources.teams ? `${e.sourceConfidence}%` : "No Teams match"}</td>
-    </tr>`)
+    .map((e, i) => {
+      return `<tr>
+        <td><div class="person"><strong>${e.name}</strong><small>${e.id} | ${e.designation || "Unassigned"}</small></div></td>
+        <td>${e.team || "Unassigned"}</td>
+        <td>${teamsStatusBadge(e.teams, true, i)}</td>
+      </tr>`;
+    })
     .join("");
-}
 
-// ── Insights: Work Pattern Analysis ──────────────────────────────────────────
-
-function insightsQuadrant(delivery, collab) {
-  const high_d = delivery >= 50, high_c = collab >= 50;
-  if (high_d && high_c) return { key: "high_performer", label: "High Performer",   color: "#2fb36d", bg: "#e8f7ef", border: "#b7e8ce" };
-  if (high_d && !high_c) return { key: "ghost_worker",  label: "Ghost Worker",     color: "#c07f10", bg: "#fff8e1", border: "#f3d9a0" };
-  if (!high_d && high_c) return { key: "present_idle",  label: "Present but Idle", color: "#3366ff", bg: "#eef2ff", border: "#c0cfff" };
-  return                        { key: "disengaged",     label: "Disengaged",       color: "#db4d5c", bg: "#fff0f1", border: "#f5c0c6" };
-}
-
-function insightsAvatar(name, color) {
-  const initials = name.split(" ").slice(0, 2).map((w) => w[0]).join("").toUpperCase();
-  return `<div class="ins-avatar" style="background:${color}22;color:${color};border:1.5px solid ${color}44">${initials}</div>`;
-}
-
-function renderInsights() {
-  const employees = filteredEmployees.filter((e) => e.kpi !== null && e.sources.teams);
-
-  const sections = [
-    { key: "disengaged",     label: "Disengaged",       color: "#db4d5c", bg: "#fff0f1", tag: "Urgent",     tagBg: "#db4d5c",
-      desc: "Low output AND rarely online — needs a manager conversation now." },
-    { key: "ghost_worker",   label: "Ghost Workers",    color: "#c07f10", bg: "#fffbf0", tag: "Watch",      tagBg: "#f3a229",
-      desc: "Good output in Worklogix but barely visible on Teams — mismatch worth investigating." },
-    { key: "present_idle",   label: "Present but Idle", color: "#3366ff", bg: "#f0f4ff", tag: "Coaching",   tagBg: "#3366ff",
-      desc: "Always online on Teams but task delivery is low — being busy isn't the same as being productive." },
-    { key: "high_performer", label: "High Performers",  color: "#2fb36d", bg: "#f0fbf5", tag: "On Track",   tagBg: "#2fb36d",
-      desc: "Delivering well and active on Teams — both signals align perfectly." },
-  ];
-
-  const grouped = {};
-  sections.forEach((s) => { grouped[s.key] = []; });
-  employees.forEach((e) => {
-    const q = insightsQuadrant(e.scoreDrivers.delivery, e.scoreDrivers.collaboration);
-    grouped[q.key].push(e);
-  });
-
-  // Summary cards
-  document.getElementById("insightsSummaryCards").innerHTML = sections.map((s) => `
-    <div class="insights-card" style="border-top:3px solid ${s.color}">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div class="insights-card-count" style="color:${s.color}">${grouped[s.key].length}</div>
-        <span style="background:${s.tagBg};color:white;font-size:0.65rem;font-weight:800;padding:3px 8px;border-radius:99px;letter-spacing:0.05em;">${s.tag}</span>
-      </div>
-      <div class="insights-card-label">${s.label}</div>
-    </div>`).join("");
-
-  // Section panels
-  const visibleSections = sections.filter((s) => grouped[s.key].length > 0);
-  document.getElementById("insightsBody").innerHTML = visibleSections.map((s) => `
-    <article class="panel ins-section" style="border-left:4px solid ${s.color}">
-      <div class="ins-section-head">
-        <div>
-          <span class="ins-section-tag" style="background:${s.tagBg}22;color:${s.tagBg}">${s.tag}</span>
-          <h2 class="ins-section-title" style="color:${s.color}">${s.label} <span class="ins-section-count">${grouped[s.key].length}</span></h2>
-          <p class="ins-section-desc">${s.desc}</p>
-        </div>
-      </div>
-      <div class="ins-rows">
-        ${grouped[s.key].map((e) => {
-          const d = e.scoreDrivers.delivery, c = e.scoreDrivers.collaboration;
-          return `<div class="ins-row" data-id="${e.id}">
-            ${insightsAvatar(e.name, s.color)}
-            <div class="ins-row-name">
-              <strong>${e.name}</strong>
-              <small>${e.team || "Unassigned"} · ${e.designation || ""}</small>
-            </div>
-            <div class="ins-row-bars">
-              <div class="ins-bar-line">
-                <span class="ins-bar-lbl">Delivery</span>
-                <div class="ins-bar-track"><div class="ins-bar-fill" style="width:${d}%;background:#00a99d"></div></div>
-                <span class="ins-bar-val">${number.format(d)}</span>
-              </div>
-              <div class="ins-bar-line">
-                <span class="ins-bar-lbl">Teams</span>
-                <div class="ins-bar-track"><div class="ins-bar-fill" style="width:${c}%;background:#7b55d9"></div></div>
-                <span class="ins-bar-val">${number.format(c)}</span>
-              </div>
-            </div>
-            <div class="ins-row-meta">
-              ${teamsStatusBadge(e.teams)}
-              <span class="ins-tasks">${e.worklogix.completed}/${e.worklogix.workItems} tasks</span>
-            </div>
-          </div>`;
-        }).join("")}
-      </div>
-    </article>`).join("");
-
-  document.querySelectorAll(".ins-row").forEach((row) => {
-    row.addEventListener("click", () => {
-      const emp = dataset.employees.find((e) => e.id === row.dataset.id);
-      if (emp) showEmployee(emp);
+  document.querySelectorAll(".clickable-badge").forEach(badge => {
+    badge.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      const emp = rows[Number(badge.dataset.empIndex)];
+      if (emp) openTeamsPanel(emp);
     });
   });
 }
 
-function drawInsightsChart() { /* replaced by HTML grid */ }
+function openTeamsPanel(e) {
+  const att  = e.attendance || {};
+  const tm   = e.teams || {};
+  const cal  = e.graphActivity?.calendar || {};
+  const plan = e.graphActivity?.planner || {};
+  const sp   = e.graphActivity?.sharePoint || {};
+  const cls  = tm.status === "Busy" ? "busy" : tm.isActive ? "active" : tm.isOutOfOffice ? "ooo" : tm.isAway ? "away" : "offline";
+  const statusLabel = (tm.status || "No Data").replace(/([A-Z])/g, " $1").trim();
+
+  document.getElementById("teamsDrawerContent").innerHTML = `
+    <div class="tsd-header">
+      <div class="tsd-avatar">${e.name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase()}</div>
+      <div>
+        <strong class="tsd-name">${e.name}</strong>
+        <small class="tsd-meta">${e.designation || "Unassigned"} · ${e.team || "Unassigned"}</small>
+        <span class="presence-badge ${cls}" style="margin-top:6px;display:inline-flex">${statusLabel}</span>
+        ${tm.workLocation ? `<span class="tsd-location">📍 ${tm.workLocation}</span>` : ""}
+        ${tm.reports ? `<span class="tsd-location">👥 ${tm.reports} direct report${tm.reports > 1 ? "s" : ""}</span>` : ""}
+      </div>
+    </div>
+
+    <div class="tsd-section">
+      <p class="tsd-section-title">Office Presence${att.officeLocation ? ` <small style="opacity:.5">${att.officeLocation}</small>` : ""}</p>
+      <div class="tsd-grid">
+        <div class="tsd-stat"><span class="tsd-val">${formatCheckinHour(att.avgCheckinHour)}</span><span class="tsd-lbl">Avg Check-in</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${formatCheckinHour(att.avgCheckoutHour)}</span><span class="tsd-lbl">Avg Check-out</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${att.avgOfficeHours != null ? att.avgOfficeHours + " hrs" : "—"}</span><span class="tsd-lbl">Avg Daily Hours</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${att.punctualityScore != null ? att.punctualityScore + "%" : "—"}</span><span class="tsd-lbl">Punctuality</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${att.validOfficeDays != null ? att.validOfficeDays + " days" : "—"}</span><span class="tsd-lbl">Days Tracked</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${att.present} / ${att.present + att.absent}</span><span class="tsd-lbl">Present / Working Days</span></div>
+      </div>
+    </div>
+
+    ${(att.teamsAvailableHours || att.teamsAwayHours || att.teamsOfflineHours) ? `
+    <div class="tsd-section">
+      <p class="tsd-section-title">Teams Presence <small style="opacity:.5">(Worklogix · daily avg)</small></p>
+      <div class="tsd-grid">
+        <div class="tsd-stat tsd-available"><span class="tsd-val">${att.teamsAvailableHours != null ? att.teamsAvailableHours + " hrs" : "—"}</span><span class="tsd-lbl">Available</span></div>
+        <div class="tsd-stat tsd-away"><span class="tsd-val">${att.teamsAwayHours != null ? att.teamsAwayHours + " hrs" : "—"}</span><span class="tsd-lbl">Away</span></div>
+        <div class="tsd-stat tsd-offline"><span class="tsd-val">${att.teamsOfflineHours != null ? att.teamsOfflineHours + " hrs" : "—"}</span><span class="tsd-lbl">Offline</span></div>
+      </div>
+    </div>` : ""}
+
+    <div class="tsd-section">
+      <p class="tsd-section-title">Meeting Load <small style="opacity:.5">(Calendar · June 24)</small></p>
+      <div class="tsd-grid">
+        <div class="tsd-stat"><span class="tsd-val">${cal.meetingHours != null ? cal.meetingHours + " hrs" : "—"}</span><span class="tsd-lbl">Meeting Hours</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${cal.events != null ? cal.events : "—"}</span><span class="tsd-lbl">Calendar Events</span></div>
+      </div>
+    </div>
+
+    <div class="tsd-section">
+      ${(() => {
+        const hasActivity = tm.meetingHours || tm.videoCallHours || tm.messagesCount || tm.callCount;
+        const activeHrs = Math.round(((tm.meetingHours || 0) + (tm.videoCallHours || 0) + (tm.screenShareHours || 0)) * 10) / 10;
+        return `
+        <p class="tsd-section-title">Teams Activity ${hasActivity ? "" : "<small style='opacity:.5'>(pending · Reports.Read.All)</small>"}</p>
+        ${hasActivity ? `
+        <div class="tsd-teams-active-banner">
+          <span class="tsd-teams-active-hrs">${activeHrs}h</span>
+          <span class="tsd-teams-active-lbl">Active on Teams this month</span>
+        </div>` : `
+        <div class="tsd-teams-active-banner tsd-teams-active-banner--na">
+          <span class="tsd-teams-active-hrs">—</span>
+          <span class="tsd-teams-active-lbl">Active on Teams this month · available once permission is granted</span>
+        </div>`}
+        <div class="tsd-grid" style="margin-top:10px">
+          <div class="tsd-stat ${tm.meetingHours ? "" : "tsd-na"}"><span class="tsd-val">${tm.meetingHours || "—"}</span><span class="tsd-lbl">Meeting Hrs</span></div>
+          <div class="tsd-stat ${tm.videoCallHours ? "" : "tsd-na"}"><span class="tsd-val">${tm.videoCallHours || "—"}</span><span class="tsd-lbl">Video Call Hrs</span></div>
+          <div class="tsd-stat ${tm.screenShareHours ? "" : "tsd-na"}"><span class="tsd-val">${tm.screenShareHours || "—"}</span><span class="tsd-lbl">Screen Share Hrs</span></div>
+          <div class="tsd-stat ${tm.callCount ? "" : "tsd-na"}"><span class="tsd-val">${tm.callCount || "—"}</span><span class="tsd-lbl">Calls Made</span></div>
+          <div class="tsd-stat ${tm.messagesCount ? "" : "tsd-na"}"><span class="tsd-val">${tm.messagesCount || "—"}</span><span class="tsd-lbl">Messages Sent</span></div>
+          <div class="tsd-stat ${tm.meetingCount ? "" : "tsd-na"}"><span class="tsd-val">${tm.meetingCount || "—"}</span><span class="tsd-lbl">Meetings Attended</span></div>
+        </div>`;
+      })()}
+    </div>
+
+    ${plan.assigned != null ? `
+    <div class="tsd-section">
+      <p class="tsd-section-title">Planner Tasks</p>
+      <div class="tsd-grid">
+        <div class="tsd-stat"><span class="tsd-val">${plan.assigned}</span><span class="tsd-lbl">Assigned</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${plan.completed}</span><span class="tsd-lbl">Completed</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${plan.overdueOpen ?? "—"}</span><span class="tsd-lbl">Overdue</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${plan.onTimeRate != null ? plan.onTimeRate + "%" : "—"}</span><span class="tsd-lbl">On-Time Rate</span></div>
+      </div>
+    </div>` : ""}
+
+    ${e.managerName ? `
+    <div class="tsd-section">
+      <p class="tsd-section-title">Reports To</p>
+      <div class="tsd-manager">${e.managerName}</div>
+    </div>` : ""}
+
+    ${(e.directReports && e.directReports.length) ? `
+    <div class="tsd-section">
+      <p class="tsd-section-title">Direct Reports <small style="opacity:.5">(${e.directReports.length})</small></p>
+      <div class="tsd-reportee-list">
+        ${e.directReports.map(r => `
+          <div class="tsd-reportee">
+            <span class="tsd-reportee-avatar">${r.name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase()}</span>
+            <span class="tsd-reportee-info"><strong>${r.name}</strong><br><small>${r.designation || ""}</small></span>
+          </div>`).join("")}
+      </div>
+    </div>` : ""}
+  `;
+
+  document.getElementById("teamsDrawerOverlay").hidden = false;
+  document.getElementById("teamsDrawer").hidden = false;
+  requestAnimationFrame(() => document.getElementById("teamsDrawer").classList.add("open"));
+}
+
+function closeTeamsPanel() {
+  const drawer = document.getElementById("teamsDrawer");
+  drawer.classList.remove("open");
+  drawer.addEventListener("transitionend", () => {
+    drawer.hidden = true;
+    document.getElementById("teamsDrawerOverlay").hidden = true;
+  }, { once: true });
+}
+
+const QUADRANT_COLORS = {
+  "High Performer":   "#2fb36d",
+  "Ghost Worker":     "#3b82f6",
+  "Present but Idle": "#f3a229",
+  "Disengaged":       "#db4d5c",
+  "Excellent":        "#0f6b3a",
+  "Good":             "#2fb36d",
+  "Average":          "#3b82f6",
+  "Needs Improvement":"#f3a229",
+  "Critical":         "#db4d5c",
+  "Executive":        "#7c3aed",
+};
+
+function openBandDrawer(label, employees) {
+  if (!employees) {
+    employees = filteredEmployees
+      .filter((e) => e.band === label)
+      .sort((a, b) => (b.kpi || 0) - (a.kpi || 0));
+  }
+  const color = QUADRANT_COLORS[label] || "#627084";
+
+  const content = document.getElementById("bandDrawerContent");
+  content.innerHTML = `
+    <div class="bd-header">
+      <span class="bd-dot" style="background:${color}"></span>
+      <div>
+        <p class="eyebrow">Employee group</p>
+        <strong class="bd-title">${escapeHtml(label)}</strong>
+        <small class="bd-count">${employees.length} employee${employees.length !== 1 ? "s" : ""}</small>
+      </div>
+    </div>
+    ${employees.length ? `
+    <div class="bd-list">
+      ${employees.map((e) => {
+        const initials = e.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
+        const kpiColor = e.kpi >= 80 ? "#2fb36d" : e.kpi >= 60 ? "#f3a229" : "#db4d5c";
+        return `
+          <button class="bd-emp-card" data-id="${escapeHtml(e.id)}" type="button">
+            <div class="bd-avatar">${initials}</div>
+            <div class="bd-info">
+              <strong>${escapeHtml(e.name)}</strong>
+              <small>${escapeHtml(e.team || "Unassigned")} · ${escapeHtml(e.designation || "")}</small>
+              <small>${escapeHtml(e.id)}</small>
+            </div>
+            <div class="bd-kpi">
+              <strong style="color:${e.kpi != null ? kpiColor : "#aaa"}">${e.kpi != null ? number.format(e.kpi) : "—"}</strong>
+              <small>KPI</small>
+            </div>
+          </button>
+        `;
+      }).join("")}
+    </div>
+    ` : '<p class="bd-empty">No employees in this category.</p>'}
+  `;
+
+  content.querySelectorAll(".bd-emp-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      const emp = dataset.employees.find((e) => e.id === card.dataset.id);
+      if (emp) { closeBandDrawer(); showEmployee(emp); }
+    });
+  });
+
+  document.getElementById("bandDrawerOverlay").hidden = false;
+  const drawer = document.getElementById("bandDrawer");
+  drawer.hidden = false;
+  requestAnimationFrame(() => drawer.classList.add("open"));
+}
+
+function closeBandDrawer() {
+  const drawer = document.getElementById("bandDrawer");
+  drawer.classList.remove("open");
+  drawer.addEventListener("transitionend", () => {
+    drawer.hidden = true;
+    document.getElementById("bandDrawerOverlay").hidden = true;
+  }, { once: true });
+}
 
 function renderAttendanceDetail(employeeId) {
   const employee = dataset.employees.find((item) => item.id === employeeId) || dataset.employees[0];
   if (!employee) return;
   const attendance = employee.attendance;
   const workingDays = attendance.present + attendance.absent + attendance.leave;
+  const trackedDays = workingDays + attendance.off + attendance.holidays;
   const presentRate = workingDays ? Math.round((attendance.present / workingDays) * 100) : 0;
+  const absentRate = workingDays ? Math.round((attendance.absent / workingDays) * 100) : 0;
+  const biometricCoverage = attendance.present
+    ? Math.min(100, Math.round((attendance.biometricDays / attendance.present) * 100))
+    : 0;
+  const avgOfficeHours = Number.isFinite(attendance.avgOfficeHours) ? attendance.avgOfficeHours : 0;
+  const monthlyOfficeHours = Number.isFinite(attendance.officeHours) ? attendance.officeHours : 0;
+  const health = presentRate >= 90 && absentRate <= 5
+    ? { label: "Excellent", tone: "good", note: "Attendance is consistent for the selected period." }
+    : presentRate >= 75
+      ? { label: "Stable", tone: "watch", note: "Attendance is acceptable, with a few days to review." }
+      : { label: "Needs Review", tone: "risk", note: "Attendance requires manager attention for the selected period." };
   const biometricStatus = employee.sources.biometrics
     ? `${attendance.biometricDays} biometric days captured`
     : "No biometric match found";
+  const initials = employee.name
+    .split(" ")
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
   const attendanceBars = [
     ["Present days", attendance.present, "#2fb36d"],
     ["Absent days", attendance.absent, "#db4d5c"],
     ["Leave/status days", attendance.leave, "#f3a229"],
-    ["Off days", attendance.off, "#627084"],
+    ["Week off days", attendance.off, "#627084"],
     ["Holidays", attendance.holidays, "#7b55d9"],
     ["Biometric days", attendance.biometricDays, "#3366ff"],
   ];
   const maxAttendanceValue = Math.max(1, ...attendanceBars.map(([, value]) => value));
+  const summaryCards = [
+    ["Present", attendance.present, "days", "good"],
+    ["Absent", attendance.absent, "days", attendance.absent ? "risk" : "neutral"],
+    ["Leave / Status", attendance.leave, "days", "watch"],
+    ["Week Off", attendance.off, "days", "neutral"],
+    ["Holidays", attendance.holidays, "days", "neutral"],
+    ["Biometric", attendance.biometricDays, "days", employee.sources.biometrics ? "info" : "neutral"],
+  ];
+  const sourceRows = [
+    ["GreytHR attendance", employee.sources.greythr ? "Matched" : "Missing", employee.sources.greythr ? "good" : "risk"],
+    ["Biometric presence", employee.sources.biometrics ? "Matched" : "Missing", employee.sources.biometrics ? "good" : "risk"],
+    ["Source confidence", `${employee.sourceConfidence}%`, employee.sourceConfidence >= 75 ? "good" : "watch"],
+    ["Performance band", employee.band || "KPI blank", employee.band ? "info" : "neutral"],
+  ];
+
   document.getElementById("attendanceDetail").innerHTML = `
-    <section class="attendance-hero">
-      <div>
-        <p class="eyebrow">${employee.id} | ${employee.team || "Unassigned"}</p>
-        <h1>${employee.name}</h1>
-        <p class="subtle">${employee.designation || "Unassigned"} | ${employee.band || "KPI blank"} | Source confidence ${employee.sourceConfidence}%</p>
-        <p>${attendance.present} present days, ${attendance.absent} absent days, ${attendance.leave} leave/status days, and ${attendance.off} off days are available from the attendance systems.</p>
-      </div>
-      <div class="attendance-score">${presentRate}%</div>
-    </section>
-    <section class="attendance-chart">
-      <div class="attendance-chart-head">
+    <section class="attendance-hero attendance-hero-${health.tone}">
+      <div class="attendance-person">
+        <div class="attendance-avatar">${initials}</div>
         <div>
-          <p class="eyebrow">Attendance breakdown</p>
-          <h2>Attendance Status Chart</h2>
+          <p class="eyebrow">${employee.id} | ${employee.team || "Unassigned"}</p>
+          <h1>${employee.name}</h1>
+          <p class="subtle">${employee.designation || "Unassigned"} | ${trackedDays} tracked days | ${biometricStatus}</p>
         </div>
-        <span class="pill">${biometricStatus}</span>
       </div>
-      <div class="attendance-bars">
-        ${attendanceBars.map(([label, value, color]) => `
-          <div class="attendance-bar-row">
-            <span class="attendance-bar-label">${label}</span>
-            <span class="attendance-bar-track">
-              <span class="attendance-bar-fill" style="width:${Math.max(3, (value / maxAttendanceValue) * 100)}%; background:${color}"></span>
-            </span>
-            <strong>${value}</strong>
+      <div class="attendance-scorecard">
+        <span class="attendance-status attendance-status-${health.tone}">${health.label}</span>
+        <strong>${presentRate}%</strong>
+        <span>present rate</span>
+      </div>
+    </section>
+
+    <section class="attendance-explain">
+      <strong>${health.note}</strong>
+      <span>${attendance.present} present, ${attendance.absent} absent, ${attendance.leave} leave/status, ${attendance.off} week off, and ${attendance.holidays} holidays are recorded for this employee.</span>
+    </section>
+
+    <section class="attendance-grid">
+      ${summaryCards.map(([label, value, unit, tone]) => `
+        <div class="attendance-metric attendance-metric-${tone}">
+          <span>${label}</span>
+          <strong>${value}</strong>
+          <small>${unit}</small>
+        </div>
+      `).join("")}
+    </section>
+
+    <section class="attendance-layout">
+      <article class="attendance-chart">
+        <div class="attendance-chart-head">
+          <div>
+            <p class="eyebrow">Status breakdown</p>
+            <h2>Attendance Days</h2>
           </div>
-        `).join("")}
-      </div>
-      <div class="attendance-hours">
-        <div><strong>${number.format(attendance.officeHours)} h</strong><span class="subtle">Office hours</span></div>
-        <div><strong>${number.format(attendance.avgOfficeHours)} h</strong><span class="subtle">Avg office hours</span></div>
-      </div>
+          <span class="pill">${workingDays} working days</span>
+        </div>
+        <div class="attendance-bars">
+          ${attendanceBars.map(([label, value, color]) => `
+            <div class="attendance-bar-row">
+              <span class="attendance-bar-label">${label}</span>
+              <span class="attendance-bar-track">
+                <span class="attendance-bar-fill" style="width:${Math.max(3, (value / maxAttendanceValue) * 100)}%; background:${color}"></span>
+              </span>
+              <strong>${value}</strong>
+            </div>
+          `).join("")}
+        </div>
+      </article>
+
+      <article class="attendance-chart attendance-facts">
+        <div class="attendance-chart-head">
+          <div>
+            <p class="eyebrow">Workplace presence</p>
+            <h2>Hours and Sources</h2>
+          </div>
+        </div>
+        <div class="attendance-hours">
+          <div><strong>${number.format(monthlyOfficeHours)} h</strong><span class="subtle">Total office hours</span></div>
+          <div><strong>${number.format(avgOfficeHours)} h</strong><span class="subtle">Average office hours/day</span></div>
+          <div><strong>${biometricCoverage}%</strong><span class="subtle">Biometric coverage</span></div>
+          <div><strong>${absentRate}%</strong><span class="subtle">Absent rate</span></div>
+        </div>
+        <div class="attendance-source-list">
+          ${sourceRows.map(([label, value, tone]) => `
+            <div>
+              <span>${label}</span>
+              <strong class="attendance-source-${tone}">${value}</strong>
+            </div>
+          `).join("")}
+        </div>
+      </article>
     </section>
   `;
 }
 
-function renderProjects() {
-  document.getElementById("projectGrid").innerHTML = dataset.projects.slice(0, 18).map((project) => `
-    <article class="project-card">
-      <p class="eyebrow">${project.status || "unknown"} project</p>
-      <strong>${project.name || project.id}</strong>
-      <p class="subtle">${project.id}</p>
-      <div class="project-meta">
-        <span>${project.members}<br>members</span>
-        <span>${number.format(project.estimatedHours)}<br>est. hours</span>
-      </div>
-    </article>
-  `).join("");
+let _projSort = "completion";
+let _projStatus = "all";
+
+function renderProjects(filterText) {
+  const query = (filterText !== undefined ? filterText : document.getElementById("projectSearch")?.value || "").toLowerCase().trim();
+  const all = dataset.projects || [];
+
+  const totalTasks = all.reduce((s, p) => s + (p.tasksTotal || 0), 0);
+  const totalCompleted = all.reduce((s, p) => s + (p.tasksCompleted || 0), 0);
+  const totalHours = all.reduce((s, p) => s + (p.hoursWorked || 0), 0);
+  const overallPct = totalTasks ? Math.round(totalCompleted / totalTasks * 100) : 0;
+  const atRiskCount = all.filter(p => p.tasksTotal > 0 && (p.tasksCompleted / p.tasksTotal * 100) < 40 && p.members >= 5).length;
+
+  const statBar = `
+    <div class="proj-stat-bar">
+      <div class="proj-stat-item"><span class="proj-stat-val">${all.length}</span><span class="proj-stat-lbl">Projects</span></div>
+      <div class="proj-stat-item"><span class="proj-stat-val">${totalTasks.toLocaleString()}</span><span class="proj-stat-lbl">Total Tasks</span></div>
+      <div class="proj-stat-item"><span class="proj-stat-val">${overallPct}%</span><span class="proj-stat-lbl">Completion Rate</span></div>
+      <div class="proj-stat-item"><span class="proj-stat-val">${totalHours >= 1000 ? (totalHours/1000).toFixed(1)+"K" : Math.round(totalHours)}h</span><span class="proj-stat-lbl">Hours Logged</span></div>
+      ${atRiskCount ? `<div class="proj-stat-item proj-stat-item--risk"><span class="proj-stat-val proj-stat-val--risk">${atRiskCount}</span><span class="proj-stat-lbl">At Risk</span></div>` : ""}
+    </div>`;
+
+  const statusValues = [...new Set(all.map(p => p.status || ""))];
+  const hasStatuses = statusValues.some(s => s.length > 0);
+  const tabs = hasStatuses ? `
+    <div class="proj-filter-tabs">
+      ${["all", ...statusValues.filter(Boolean)].map(s =>
+        `<button class="proj-filter-tab${_projStatus === s ? " proj-filter-tab--active" : ""}" onclick="_projStatus='${s}';renderProjects()">${s === "all" ? "All" : s}</button>`
+      ).join("")}
+    </div>` : "";
+
+  const sortBar = `
+    <div class="proj-sort-row">
+      <div class="proj-sort-label">Sort by:</div>
+      ${[["completion","Completion %"],["hours","Hours Logged"],["members","Members"],["name","Name"]].map(([val, lbl]) =>
+        `<button class="proj-sort-btn${_projSort === val ? " proj-sort-btn--active" : ""}" onclick="_projSort='${val}';renderProjects()">${lbl}</button>`
+      ).join("")}
+    </div>`;
+
+  const searchBar = `
+    <div class="proj-search-row">
+      <input id="projectSearch" class="proj-search" type="search" placeholder="Search by project or manager..." value="${query}" oninput="renderProjects(this.value)">
+    </div>`;
+
+  let visible = all;
+  if (_projStatus !== "all") visible = visible.filter(p => (p.status || "") === _projStatus);
+  if (query) visible = visible.filter(p => (p.name || "").toLowerCase().includes(query) || (p.manager || "").toLowerCase().includes(query));
+
+  visible = [...visible].sort((a, b) => {
+    if (_projSort === "completion") {
+      const pa = a.tasksTotal ? a.tasksCompleted / a.tasksTotal : 0;
+      const pb = b.tasksTotal ? b.tasksCompleted / b.tasksTotal : 0;
+      return pb - pa;
+    }
+    if (_projSort === "hours") return (b.hoursWorked || 0) - (a.hoursWorked || 0);
+    if (_projSort === "members") return (b.members || 0) - (a.members || 0);
+    return (a.name || "").localeCompare(b.name || "");
+  });
+
+  const cards = visible.map(p => {
+    const pct = p.tasksTotal ? Math.round(p.tasksCompleted / p.tasksTotal * 100) : 0;
+    const approvalPct = p.tasksTotal ? Math.round(p.tasksApproved / p.tasksTotal * 100) : 0;
+    const workedH = p.hoursWorked || 0;
+    const statusLabel = p.status || "Active";
+    const statusClass = statusLabel.toLowerCase().includes("complet") ? "proj-badge--done"
+      : statusLabel.toLowerCase().includes("hold") ? "proj-badge--hold"
+      : "proj-badge--active";
+    const completionColor = pct >= 75 ? "#22c55e" : pct >= 40 ? "#f59e0b" : "#ef4444";
+    const atRisk = p.tasksTotal > 0 && pct < 40 && p.members >= 5;
+    return `
+      <article class="project-card proj-card-v2" onclick="showProjDetail('${p.id}')" style="cursor:pointer">
+        <div class="proj-card-top">
+          <div>
+            <div class="proj-card-name">${p.name || p.id}</div>
+            ${p.manager ? `<div class="proj-card-pm">PM: ${p.manager}</div>` : ""}
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
+            <span class="proj-badge ${statusClass}">${statusLabel}</span>
+            ${atRisk ? `<span class="proj-badge proj-badge--risk">At Risk</span>` : ""}
+          </div>
+        </div>
+
+        <div class="proj-progress-section">
+          <div class="proj-progress-label">
+            <span>Task completion</span>
+            <strong style="color:${completionColor}">${pct}%</strong>
+          </div>
+          <div class="proj-bar-wrap"><div class="proj-bar-fill" style="width:${pct}%;background:${completionColor}"></div></div>
+          <div class="proj-progress-sub">${p.tasksCompleted} of ${p.tasksTotal} tasks done · ${approvalPct}% approved</div>
+        </div>
+
+        ${workedH > 0 ? `
+        <div class="proj-progress-section">
+          <div class="proj-progress-label">
+            <span>Hours logged this month</span>
+            <strong>${workedH >= 1000 ? (workedH/1000).toFixed(1)+"K" : workedH}h</strong>
+          </div>
+        </div>` : ""}
+
+        <div class="proj-card-footer">
+          <span class="proj-chip">${p.members} member${p.members !== 1 ? "s" : ""}</span>
+          ${p.tasksTotal === 0 ? '<span class="proj-chip proj-chip--warn">No tasks logged</span>' : ""}
+          <span class="proj-chip proj-chip--link">View members &rsaquo;</span>
+        </div>
+      </article>`;
+  }).join("");
+
+  document.getElementById("projectGrid").innerHTML =
+    statBar + tabs + sortBar + searchBar +
+    (visible.length
+      ? `<div class="project-grid">${cards}</div>`
+      : `<p class="proj-empty">No projects match the current filter.</p>`);
+}
+
+function showProjDetail(projId) {
+  const p = (dataset.projects || []).find(x => x.id === projId);
+  if (!p) return;
+  const pct = p.tasksTotal ? Math.round(p.tasksCompleted / p.tasksTotal * 100) : 0;
+  const completionColor = pct >= 75 ? "#22c55e" : pct >= 40 ? "#f59e0b" : "#ef4444";
+  const atRisk = p.tasksTotal > 0 && pct < 40 && p.members >= 5;
+
+  const memberRows = (p.memberStats || []).map(m => {
+    const noTasks = m.tasksTotal === 0;
+    const mpct = m.tasksTotal ? Math.round(m.tasksCompleted / m.tasksTotal * 100) : 0;
+    const mColor = noTasks ? "#94a3b8" : mpct >= 75 ? "#22c55e" : mpct >= 40 ? "#f59e0b" : "#ef4444";
+    const mH = m.hoursWorked || 0;
+    return `
+      <tr class="projd-member-row${noTasks ? " projd-member-idle" : ""}">
+        <td class="projd-member-name">${m.name}${noTasks ? ' <span class="projd-no-tasks-badge">No tasks</span>' : ""}</td>
+        <td class="projd-member-tasks" style="color:${noTasks ? "#94a3b8" : "inherit"}">${noTasks ? "—" : m.tasksTotal}</td>
+        <td class="projd-member-comp">
+          ${noTasks ? '<span style="color:#94a3b8;font-size:0.78rem">Not logged</span>' : `
+          <div class="projd-mini-bar-wrap">
+            <div class="projd-mini-bar-fill" style="width:${mpct}%;background:${mColor}"></div>
+          </div>
+          <span style="color:${mColor};font-weight:600">${mpct}%</span>`}
+        </td>
+        <td class="projd-member-hours" style="color:${noTasks ? "#94a3b8" : "inherit"}">${noTasks ? "—" : (mH >= 1000 ? (mH/1000).toFixed(1)+"K" : mH)+"h"}</td>
+      </tr>`;
+  }).join("");
+
+  document.getElementById("projd-title").textContent = p.name || p.id;
+  document.getElementById("projd-meta").innerHTML = `
+    ${p.manager ? `<span>PM: <strong>${p.manager}</strong></span>` : ""}
+    <span>${p.members} member${p.members !== 1 ? "s" : ""}</span>
+    <span style="color:${completionColor};font-weight:600">${pct}% complete</span>
+    ${atRisk ? `<span class="proj-badge proj-badge--risk" style="font-size:0.72rem">At Risk</span>` : ""}
+  `;
+  document.getElementById("projd-body").innerHTML = p.memberStats?.length ? `
+    <table class="projd-table">
+      <thead><tr><th>Member</th><th>Tasks</th><th>Completion</th><th>Hours</th></tr></thead>
+      <tbody>${memberRows}</tbody>
+    </table>` : `<p class="proj-empty">No individual task data available for this project.</p>`;
+
+  document.getElementById("projDetailDialog").showModal();
 }
 
 function renderIntegrations() {
@@ -1123,6 +1715,9 @@ function renderIntegrations() {
     ["GreytHR", sourceFiles.greythr, "Live attendance API — present, absent, leave, and week off records."],
     ["Biometrics", sourceFiles.biometrics, "Live presence report API — office hours and biometric days per employee."],
     ["Teams", sourceFiles.teams, "Live Microsoft Graph API presence data."],
+    ["Microsoft Planner", "api", "Live Microsoft Graph plans, task assignments, progress, priorities, and due dates."],
+    ["Microsoft Calendar", "api", "Live employee calendar events and meeting-hour activity for the current month."],
+    ["Microsoft SharePoint", "api", "Live SharePoint sites, lists, files, and reporting assets."],
   ];
   document.getElementById("integrationGrid").innerHTML = items.map(([name, files, detail]) => `
     <article class="integration-card">
@@ -1134,23 +1729,10 @@ function renderIntegrations() {
 }
 
 function drawScatter() {
-  const canvas = document.getElementById("scatterChart");
-  if (!canvas || !canvas.offsetParent) return;
-  const ctx = canvas.getContext("2d");
-  const rect = canvas.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = rect.width * dpr;
-  const width = rect.width;
+  const chart = document.getElementById("scatterChart");
+  if (!chart || !chart.offsetParent) return;
   const chartEmployees = filteredEmployees.filter((employee) => employee.active);
   const groupSource = chartEmployees.length ? chartEmployees : filteredEmployees;
-  const departmentNames = new Set(groupSource.map((employee) => employee.team || "Unassigned"));
-  const height = Math.max(420, departmentNames.size * 44 + 70);
-  canvas.height = height * dpr;
-  ctx.scale(dpr, dpr);
-  ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = "#f8fafc";
-  ctx.fillRect(0, 0, width, height);
-
   const groups = new Map();
   groupSource.forEach((employee) => {
     const department = employee.team || "Unassigned";
@@ -1171,76 +1753,57 @@ function drawScatter() {
     })
     .sort((a, b) => (b.avgKpi ?? -1) - (a.avgKpi ?? -1));
   if (!bars.length) {
-    ctx.fillStyle = "#627084";
-    ctx.font = "14px Segoe UI, sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText("No department KPI available for employees with confidence 75% and above.", width / 2, height / 2);
+    chart.innerHTML = '<div class="department-chart-empty">No department KPI available for employees with confidence 75% and above.</div>';
     departmentChartBars = [];
     return;
   }
-
-  const chartLeft = Math.min(260, Math.max(150, width * 0.26));
-  const chartRight = width - 72;
-  const chartTop = 28;
-  const chartBottom = height - 34;
-  const chartWidth = chartRight - chartLeft;
-  const chartHeight = chartBottom - chartTop;
-  const rowHeight = chartHeight / Math.max(1, bars.length);
-  const barHeight = Math.min(26, rowHeight * 0.52);
-  departmentChartBars = [];
-
-  ctx.strokeStyle = "#dfe6ee";
-  ctx.lineWidth = 1;
-  ctx.font = "11px Segoe UI, sans-serif";
-  ctx.fillStyle = "#8a96a8";
-  ctx.textAlign = "center";
-  [0, 25, 50, 75, 100].forEach((tick) => {
-    const x = chartLeft + (tick / 100) * chartWidth;
-    ctx.beginPath();
-    ctx.moveTo(x, chartTop - 8);
-    ctx.lineTo(x, chartBottom);
-    ctx.stroke();
-    ctx.fillText(String(tick), x, height - 10);
-  });
-
-  bars.forEach((bar) => {
-    const index = bars.indexOf(bar);
-    const y = chartTop + index * rowHeight + rowHeight / 2;
-    const barWidth = ((bar.avgKpi ?? 0) / 100) * chartWidth;
-    const gradient = ctx.createLinearGradient(chartLeft, 0, chartLeft + barWidth, 0);
-    gradient.addColorStop(0, "#00a99d");
-    gradient.addColorStop(1, "#3366ff");
-
-    ctx.fillStyle = "#172033";
-    ctx.font = "700 13px Segoe UI, sans-serif";
-    ctx.textAlign = "right";
-    ctx.fillText(shortLabel(bar.department, 28), chartLeft - 14, y + 4);
-
-    ctx.fillStyle = "#e8edf4";
-    roundRect(ctx, chartLeft, y - barHeight / 2, chartWidth, barHeight, 7);
-    ctx.fill();
-
-    ctx.fillStyle = gradient;
-    roundRect(ctx, chartLeft, y - barHeight / 2, barWidth, barHeight, 7);
-    ctx.fill();
-
-    ctx.fillStyle = "#172033";
-    ctx.font = "700 12px Segoe UI, sans-serif";
-    ctx.textAlign = "left";
-    ctx.fillText(bar.avgKpi === null ? "No KPI" : `${number.format(bar.avgKpi)} KPI`, chartLeft + barWidth + 10, y - 2);
-    ctx.fillStyle = "#627084";
-    ctx.font = "11px Segoe UI, sans-serif";
-    ctx.fillText(`${bar.employees.length} employees | ${bar.scoredEmployees.length} scored`, chartLeft + barWidth + 10, y + 14);
-    departmentChartBars.push({
-      department: bar.department,
-      avgKpi: bar.avgKpi,
-      employees: bar.employees,
-      x: chartLeft,
-      y: y - barHeight / 2,
-      width: chartWidth,
-      height: barHeight,
-    });
-  });
+  departmentChartBars = bars;
+  const scored = bars.filter((bar) => bar.avgKpi !== null);
+  const companyAverage = scored.length ? average(scored.map((bar) => bar.avgKpi)) : 0;
+  const topScore = scored[0]?.avgKpi || 0;
+  chart.innerHTML = `
+    <div class="department-chart-summary">
+      <div><span>Company average</span><strong>${number.format(companyAverage)}</strong></div>
+      <div><span>Top department</span><strong>${escapeHtml(bars[0].department)}</strong></div>
+      <div><span>Highest KPI</span><strong>${number.format(topScore)}</strong></div>
+      <div><span>Departments</span><strong>${bars.length}</strong></div>
+    </div>
+    <div class="department-chart-scale">
+      <span>Department ranking</span>
+      <div><i>0</i><i>25</i><i>50</i><i>75</i><i>100</i></div>
+    </div>
+    <div class="department-ranking-list">
+      ${bars.map((bar, index) => {
+        const score = bar.avgKpi ?? 0;
+        const tone = score >= 80 ? "excellent" : score >= 70 ? "strong" : score >= 55 ? "watch" : "risk";
+        const difference = bar.avgKpi === null ? null : bar.avgKpi - companyAverage;
+        return `
+          <button class="department-rank-row tone-${tone}" data-department-index="${index}" type="button">
+            <span class="department-rank-number">${index + 1}</span>
+            <span class="department-rank-name">
+              <strong>${escapeHtml(bar.department)}</strong>
+              <small>${bar.employees.length} employees · ${bar.scoredEmployees.length} scored</small>
+            </span>
+            <span class="department-bullet-chart">
+              <span class="department-benchmark" style="left:${companyAverage}%"></span>
+              <span class="department-bullet-fill" style="width:${score}%"></span>
+              <span class="department-score-marker" style="left:${score}%"></span>
+            </span>
+            <span class="department-score-block">
+              <strong>${bar.avgKpi === null ? "—" : number.format(bar.avgKpi)}</strong>
+              <small>${difference === null ? "No KPI" : `${difference >= 0 ? "+" : ""}${number.format(difference)} vs avg`}</small>
+            </span>
+            <span class="department-rank-arrow">›</span>
+          </button>`;
+      }).join("")}
+    </div>
+    <div class="department-chart-legend">
+      <span><i class="excellent"></i>80+ Excellent</span>
+      <span><i class="strong"></i>70–79 Strong</span>
+      <span><i class="watch"></i>55–69 Watch</span>
+      <span><i class="risk"></i>Below 55 Risk</span>
+      <span class="benchmark-key"><i></i>Company average</span>
+    </div>`;
 }
 
 function shortLabel(value, limit = 18) {
@@ -1263,41 +1826,187 @@ function roundRect(ctx, x, y, width, height, radius) {
 }
 
 function showEmployee(e) {
-  const sources = Object.entries(e.sources)
-    .filter(([, available]) => available)
-    .map(([name]) => `<span>${name}</span>`)
+  const att  = e.attendance  || {};
+  const wl   = e.worklogix   || {};
+  const tm   = e.teams       || {};
+  const cal  = e.graphActivity?.calendar || {};
+  const plan = e.graphActivity?.planner  || {};
+  const gc   = e.github;
+
+  const bandCls = e.band ? `band ${bandClass(e.band)}` : "band no-info";
+  const bandLabel = e.band || "No Data";
+  const initials = e.name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+
+  const sources = Object.entries(e.sources || {})
+    .map(([name, ok]) => `<span class="source-chip ${ok ? "ok" : "missing"}">${ok ? "✓" : "✗"} ${name}</span>`)
     .join("");
+
   document.getElementById("employeeDetail").innerHTML = `
     <section class="detail">
-      <p class="eyebrow">${e.id} | ${e.team || "Unassigned"}</p>
-      <h1>${e.name}</h1>
-      <p class="subtle">${e.designation || "Unassigned"} | Source confidence ${e.sourceConfidence}%</p>
-      <div class="source-chips">${sources || "<span>No matched source</span>"}</div>
-      <div class="detail-grid">
-        <div><strong>${formatKpi(e.kpi)}</strong><br><span class="subtle">KPI</span></div>
-        <div><strong>${e.worklogix.completed}/${e.worklogix.workItems}</strong><br><span class="subtle">Delivery</span></div>
-        <div><strong>${e.attendance.present}</strong><br><span class="subtle">Present days</span></div>
-        <div><strong>${number.format(e.attendance.officeHours)}</strong><br><span class="subtle">Office hours</span></div>
-        <div><strong>${teamsStatusBadge(e.teams)}</strong><br><span class="subtle">Teams status</span></div>
+
+      <!-- Header -->
+      <div class="emp-detail-header">
+        <div class="emp-detail-avatar">${initials}</div>
+        <div class="emp-detail-identity">
+          <h1>${e.name}</h1>
+          <p>${e.designation || "Unassigned"} &middot; ${e.team || "Unassigned"}${e.managerName ? ` &middot; Reports to <strong>${e.managerName}</strong>` : ""}</p>
+          <div class="emp-detail-badges">
+            <span class="${bandCls}">${bandLabel}</span>
+            ${e.quadrant ? `<span class="quadrant-badge">${e.quadrant}</span>` : ""}
+            <span class="conf-badge">${e.sourceConfidence}% confidence</span>
+          </div>
+        </div>
+        <div class="emp-detail-kpi ${e.band ? bandClass(e.band) : "no-info"}">
+          ${e.roleCategory === "executive"
+            ? `<span class="emp-kpi-val">${e.scoreDrivers?.teamAvgKpi != null ? e.scoreDrivers.teamAvgKpi : "—"}</span>
+               <span class="emp-kpi-lbl">Team KPI</span>`
+            : e.band === "Insufficient Data"
+            ? `<span class="emp-kpi-val" style="font-size:1.1rem">—</span>
+               <span class="emp-kpi-lbl">No attendance data</span>`
+            : `<span class="emp-kpi-val">${e.kpi != null ? e.kpi : "—"}</span>
+               <span class="emp-kpi-lbl">KPI</span>`
+          }
+        </div>
       </div>
-      <h2>Score drivers</h2>
+
+      <p class="detail-period">Period: <strong>${dataset.meta?.period || "May 2026"}</strong> &nbsp;·&nbsp; Teams status is live &nbsp;·&nbsp; Planner/Calendar as of Jun 24</p>
+      <div class="source-chips">${sources}</div>
+
+      <!-- Work Activity -->
+      <h3 class="detail-section-title">Work Activity</h3>
+      <div class="detail-grid4">
+        <div class="dg-stat"><span class="dg-val">${wl.completed}/${wl.workItems}</span><span class="dg-lbl">Tasks Completed</span></div>
+        <div class="dg-stat"><span class="dg-val">${wl.approved ?? "—"}</span><span class="dg-lbl">Approved</span></div>
+        <div class="dg-stat ${wl.blocked ? "dg-warn" : ""}"><span class="dg-val">${wl.blocked ?? 0}</span><span class="dg-lbl">Blocked</span></div>
+        <div class="dg-stat"><span class="dg-val">${wl.inProgress ?? 0}</span><span class="dg-lbl">In Progress</span></div>
+      </div>
+
+      <!-- Attendance & Biometrics -->
+      <h3 class="detail-section-title">Attendance &amp; Biometrics</h3>
+      ${(() => {
+        // calendarDays from GreytHR is authoritative (session halves sum to calendar days).
+        // att.present may be biometricDays (raw swipe count) — cap it at working days.
+        const calendarDays = att.calendarDays || ((att.present ?? 0) + (att.absent ?? 0) + (att.off ?? 0) + (att.leave ?? 0) + (att.holidays ?? 0));
+        const scheduledDays = Math.max(1, calendarDays - (att.off ?? 0) - (att.holidays ?? 0));
+        const presentCapped  = Math.min(att.present ?? 0, scheduledDays);
+        const attPct = Math.round(presentCapped / scheduledDays * 100);
+        const absentWarn = (att.absent ?? 0) > 3 ? "dg-warn" : "";
+        return `
+        <div class="att-summary-row">
+          <div class="att-summary-main">
+            <span class="att-pct ${attPct >= 90 ? "att-pct--good" : attPct >= 70 ? "att-pct--warn" : "att-pct--bad"}">${attPct}%</span>
+            <span class="att-pct-lbl">Attendance &nbsp;<small>${presentCapped} of ${scheduledDays} working days</small></span>
+          </div>
+          <div class="att-chips">
+            <span class="att-chip att-chip--off">WO ${att.off ?? 0}d</span>
+            <span class="att-chip att-chip--leave">Leave ${att.leave ?? 0}d</span>
+            <span class="att-chip ${(att.absent ?? 0) > 0 ? "att-chip--absent" : "att-chip--off"}">Absent ${att.absent ?? 0}d</span>
+            ${att.holidays ? `<span class="att-chip att-chip--off">Holiday ${att.holidays}d</span>` : ""}
+          </div>
+        </div>
+        <div class="detail-grid4">
+          <div class="dg-stat"><span class="dg-val">${formatCheckinHour(att.avgCheckinHour)}</span><span class="dg-lbl">Avg Check-in</span></div>
+          <div class="dg-stat"><span class="dg-val">${formatCheckinHour(att.avgCheckoutHour)}</span><span class="dg-lbl">Avg Check-out</span></div>
+          <div class="dg-stat"><span class="dg-val">${att.avgOfficeHours ?? "—"} hrs</span><span class="dg-lbl">Avg Daily Hours</span></div>
+          <div class="dg-stat"><span class="dg-val">${att.officeHours ?? "—"} hrs</span><span class="dg-lbl">Total Office Hours</span></div>
+          <div class="dg-stat ${att.punctualityScore < 50 ? "dg-warn" : att.punctualityScore >= 80 ? "dg-good" : ""}"><span class="dg-val">${att.punctualityScore != null ? att.punctualityScore + "%" : "—"}</span><span class="dg-lbl">Punctuality</span></div>
+          <div class="dg-stat"><span class="dg-val">${att.officeLocation || "—"}</span><span class="dg-lbl">Office Location</span></div>
+        </div>`;
+      })()}
+
+      <!-- Collaboration -->
+      <h3 class="detail-section-title">Collaboration &amp; Meetings</h3>
+      <div class="detail-grid4">
+        <div class="dg-stat"><span class="dg-val">${cal.events ?? "—"}</span><span class="dg-lbl">Calendar Events</span></div>
+        <div class="dg-stat"><span class="dg-val">${cal.meetingHours != null ? cal.meetingHours + " hrs" : "—"}</span><span class="dg-lbl">Meeting Hours</span></div>
+        <div class="dg-stat"><span class="dg-val">${plan.assigned ?? "—"}</span><span class="dg-lbl">Planner Tasks</span></div>
+        <div class="dg-stat"><span class="dg-val">${plan.completed ?? "—"}</span><span class="dg-lbl">Planner Done</span></div>
+      </div>
+
+      ${gc ? `
+      <!-- GitHub -->
+      <h3 class="detail-section-title">GitHub Contributions</h3>
+      <div class="detail-grid4">
+        <div class="dg-stat dg-good"><span class="dg-val">${gc.commits}</span><span class="dg-lbl">Commits</span></div>
+        <div class="dg-stat dg-good"><span class="dg-val">${gc.prs}</span><span class="dg-lbl">Pull Requests</span></div>
+        <div class="dg-stat"><span class="dg-val">${gc.done}</span><span class="dg-lbl">Issues Closed</span></div>
+        <div class="dg-stat"><span class="dg-val">${gc.contributionScore}</span><span class="dg-lbl">Contribution Score</span></div>
+      </div>` : ""}
+
+      ${e.directReports?.length ? `
+      <!-- Direct Reports -->
+      <h3 class="detail-section-title">Direct Reports <span style="font-weight:400;color:var(--muted)">(${e.directReports.length})</span></h3>
+      <div class="dr-table-wrap">
+        <table class="dr-table">
+          <thead><tr><th>Name</th><th>Role</th><th>KPI</th><th>Band</th></tr></thead>
+          <tbody>
+            ${e.directReports.map(r => {
+              const bc = r.band ? `band ${bandClass(r.band)}` : "band no-info";
+              return `<tr class="dr-row">
+                <td class="dr-name">${r.name}</td>
+                <td class="dr-role">${r.designation || "—"}</td>
+                <td class="dr-kpi">${r.kpi != null ? r.kpi : "—"}</td>
+                <td><span class="${bc}">${r.band || "No data"}</span></td>
+              </tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>` : ""}
+
+      ${e.roleCategory === "executive" ? (() => {
+          const teamKpi = e.scoreDrivers?.teamAvgKpi;
+          const count   = e.scoreDrivers?.reporteeCount ?? 0;
+          if (teamKpi == null) return `
+            <div class="exec-team-panel exec-team-no-data">
+              <p>No reportee KPI data available yet. Ensure direct reports are active in the system.</p>
+            </div>`;
+          const tb = teamKpi >= 90 ? "Excellent" : teamKpi >= 80 ? "Good" : teamKpi >= 70 ? "Average" : teamKpi >= 60 ? "Needs Improvement" : "Critical";
+          const tColor = teamKpi >= 80 ? "#22c55e" : teamKpi >= 60 ? "#f59e0b" : "#ef4444";
+          return `
+          <h3 class="detail-section-title">Team Performance</h3>
+          <div class="exec-team-panel">
+            <div class="exec-team-kpi-block" style="border-left:4px solid ${tColor}">
+              <span class="exec-team-kpi-val" style="color:${tColor}">${teamKpi}</span>
+              <span class="exec-team-kpi-lbl">Average team KPI across <strong>${count}</strong> direct report${count !== 1 ? "s" : ""}</span>
+            </div>
+            <div class="exec-team-band">
+              <span class="band ${bandClass(tb)}">${tb}</span>
+              <span style="font-size:0.8rem;color:var(--muted);margin-left:8px">team performance band</span>
+            </div>
+            <p class="exec-team-note">This executive's performance is measured by their team's average KPI. Personal attendance and collaboration are still tracked below.</p>
+          </div>`;
+        })() : ""}
+
+      <!-- Score Drivers -->
+      <h3 class="detail-section-title">Score Drivers</h3>
       <div class="radar-section">
         <canvas id="radarChart"></canvas>
         <div class="radar-legend">
-          ${Object.entries(e.scoreDrivers).map(([key, value]) => `
+          ${Object.entries(e.scoreDrivers)
+            .filter(([key]) => key !== "reporteeCount")
+            .map(([key, value]) => `
             <div class="radar-legend-row">
               <span class="radar-lbl">${title(key)}</span>
+              <div class="radar-bar-wrap"><div class="radar-bar-fill" style="width:${Math.min(value,100)}%"></div></div>
               <span class="radar-val">${number.format(value)}</span>
             </div>
           `).join("")}
         </div>
       </div>
+
+      ${e.gapReason ? `<p class="gap-reason-note">⚠ ${e.gapReason}</p>` : ""}
+
     </section>
   `;
   document.getElementById("employeeDialog").showModal();
   requestAnimationFrame(() => {
     const rc = document.getElementById("radarChart");
-    if (rc) drawRadarChart(rc, e.scoreDrivers);
+    if (rc) {
+      const radarDrivers = Object.fromEntries(
+        Object.entries(e.scoreDrivers).filter(([k]) => k !== "reporteeCount")
+      );
+      drawRadarChart(rc, radarDrivers);
+    }
   });
 }
 
@@ -1358,3 +2067,525 @@ function title(value) {
 boot().catch((error) => {
   document.body.innerHTML = `<main class="workspace"><article class="panel"><h1>Unable to load dashboard data</h1><p>${error.message}</p></article></main>`;
 });
+
+// ======= MICROSOFT GRAPH =======
+
+let graphData = null;
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+
+// ======= GITHUB PROJECTS =======
+
+let githubData = null;
+
+const STATUS_COLOR = {
+  "done":        "#22c55e",
+  "in progress": "#3b82f6",
+  "todo":        "#f59e0b",
+  "backlog":     "#94a3b8",
+  "production":  "#8b5cf6",
+};
+
+function ghStatusColor(s) {
+  return STATUS_COLOR[(s || "").toLowerCase()] || "#94a3b8";
+}
+
+function ghAvatarColor(login) {
+  const colors = ["#3b82f6","#8b5cf6","#ec4899","#f59e0b","#10b981","#ef4444","#06b6d4","#f97316"];
+  let h = 0;
+  for (let i = 0; i < (login||"").length; i++) h = (h * 31 + login.charCodeAt(i)) & 0xffff;
+  return colors[h % colors.length];
+}
+
+function fmtLoc(n) {
+  if (!n) return "0";
+  return n >= 1000 ? (n / 1000).toFixed(1) + "K" : String(n);
+}
+
+function showGhContributor(login) {
+  const c = (githubData?.contributors || []).find(x => x.login === login);
+  if (!c) return;
+  const realName    = ghLoginToName(c.login);
+  const displayName = realName || c.login;
+  const color       = ghAvatarColor(c.login);
+  const initials    = displayName.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+  const mergeRate   = c.prs > 0 ? Math.round((c.prsMerged || 0) / c.prs * 100) : null;
+  const locTotal    = (c.additions || 0) + (c.deletions || 0);
+
+  // Group tasks by project
+  const byProject = {};
+  for (const t of (c.tasks || [])) {
+    if (!byProject[t.project]) byProject[t.project] = [];
+    byProject[t.project].push(t);
+  }
+  const taskSection = Object.entries(byProject).map(([proj, tasks]) => `
+    <div class="ghcd-project-group">
+      <div class="ghcd-project-name">${proj}</div>
+      ${tasks.map(t => `
+        <div class="ghcd-task-row">
+          <span class="gh-task-dot" style="background:${ghStatusColor(t.status)}"></span>
+          <span class="ghcd-task-title">${t.title}</span>
+          <span class="ghcd-task-status" style="color:${ghStatusColor(t.status)}">${t.status}</span>
+        </div>
+      `).join("")}
+    </div>
+  `).join("");
+
+  document.getElementById("ghContribDetail").innerHTML = `
+    <div class="ghcd-wrap">
+    <div class="ghcd-header">
+      <div class="gh-contrib-avatar2 ghcd-avatar" style="background:${color}">${initials}</div>
+      <div>
+        <h2 class="ghcd-name">${displayName}</h2>
+        ${realName ? `<p class="ghcd-login">${c.login}</p>` : ""}
+        <p class="ghcd-projects">${(c.projects || []).join(" · ") || "—"}</p>
+      </div>
+    </div>
+
+    <div class="ghcd-stats-row">
+      ${c.commits > 0 ? `<div class="ghcd-stat"><span class="ghcd-stat-val">${c.commits}</span><span class="ghcd-stat-lbl">Code Saves</span></div>` : ""}
+      ${c.prs > 0     ? `<div class="ghcd-stat"><span class="ghcd-stat-val">${c.prs}</span><span class="ghcd-stat-lbl">Code Reviews</span></div>` : ""}
+      ${mergeRate !== null ? `<div class="ghcd-stat"><span class="ghcd-stat-val" style="color:#22c55e">${mergeRate}%</span><span class="ghcd-stat-lbl">Merge Rate</span></div>` : ""}
+      ${c.total > 0   ? `<div class="ghcd-stat"><span class="ghcd-stat-val">${c.done}/${c.total}</span><span class="ghcd-stat-lbl">Tasks Done</span></div>` : ""}
+      ${locTotal > 0  ? `<div class="ghcd-stat"><span class="ghcd-stat-val">${fmtLoc(locTotal)}</span><span class="ghcd-stat-lbl">Lines Changed</span></div>` : ""}
+    </div>
+
+    ${taskSection ? `
+      <h3 class="ghcd-section-title">Tasks</h3>
+      ${taskSection}
+    ` : `<p style="color:var(--muted);margin-top:16px">No tasks assigned in this period.</p>`}
+    </div>
+  `;
+  document.getElementById("ghContribDialog").showModal();
+}
+
+function switchGhTab(tab, btn) {
+  document.querySelectorAll(".gh-tab").forEach(b => b.classList.remove("gh-tab--active"));
+  document.querySelectorAll(".gh-tab-panel").forEach(p => p.hidden = true);
+  btn.classList.add("gh-tab--active");
+  document.getElementById(`gh-tab-${tab}`).hidden = false;
+}
+
+function ghLoginToName(login) {
+  const employees = dataset?.employees;
+  if (!login || !employees?.length) return null;
+  // Strip numbers, split on hyphens/underscores, keep words ≥4 chars
+  const parts = login.toLowerCase()
+    .replace(/[0-9]/g, "")
+    .split(/[-_]/)
+    .map(p => p.trim())
+    .filter(p => p.length >= 4);
+  if (!parts.length) return null;
+  for (const emp of employees) {
+    const n = (emp.name || "").toLowerCase().replace(/[^a-z ]/g, "");
+    if (parts.every(p => n.includes(p))) return emp.name;
+  }
+  // Single-word fallback: try if any part ≥5 chars matches start of any name word
+  for (const emp of employees) {
+    const nameWords = (emp.name || "").toLowerCase().replace(/[^a-z ]/g, "").split(" ");
+    if (parts.some(p => p.length >= 5 && nameWords.some(w => w.startsWith(p) || p.startsWith(w)))) {
+      return emp.name;
+    }
+  }
+  return null;
+}
+
+function toggleGhProject(listId, header) {
+  const list    = document.getElementById(listId);
+  const chevron = header.querySelector(".gh-chevron");
+  if (!list) return;
+  const isOpen = list.style.display !== "none";
+  list.style.display    = isOpen ? "none" : "";
+  chevron?.classList.toggle("open", !isOpen);
+}
+
+function buildMonthOptions() {
+  const sel = document.getElementById("ghMonthPicker");
+  if (!sel || sel.options.length > 1) return;
+  const now = new Date();
+  for (let i = 0; i < 12; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const val = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    const lbl = d.toLocaleString("default", { month: "long", year: "numeric" });
+    const opt = document.createElement("option");
+    opt.value = val;
+    opt.textContent = lbl;
+    sel.appendChild(opt);
+  }
+}
+
+async function refreshGitHub() {
+  const label = document.getElementById("ghRefreshLabel");
+  const month = (document.getElementById("ghMonthPicker")?.value) || "";
+  label.textContent = "Refreshing…";
+  try {
+    const res = await apiFetch("/api/refresh-github", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ month }),
+    });
+    const json = await res.json();
+    if (json.status === "refreshed") {
+      githubData = json.github;
+      renderGitHub(false);
+      label.textContent = "Refreshed just now";
+    } else {
+      label.textContent = "Refresh failed";
+    }
+  } catch {
+    label.textContent = "Refresh failed";
+  }
+}
+
+async function renderGitHub(fetchFresh = true) {
+  buildMonthOptions();
+  if (fetchFresh) {
+    try {
+      const res = await apiFetch("/api/github-data");
+      githubData = await res.json();
+    } catch {
+      document.getElementById("ghProjectsList").innerHTML =
+        `<p style="color:var(--muted)">Could not load GitHub data. Click "Refresh now" to fetch.</p>`;
+      return;
+    }
+  }
+
+  const projects     = githubData.projects     || [];
+  const contributors = githubData.contributors || [];
+  const lastUpdated  = githubData.lastUpdated;
+  const period       = githubData.period        || {};
+
+  if (lastUpdated) {
+    document.getElementById("ghRefreshLabel").textContent =
+      "Last updated: " + new Date(lastUpdated).toLocaleString();
+  }
+
+  if (period.since && period.until) {
+    const fmt = s => {
+      const [y, m] = s.split("-");
+      return new Date(y, m - 1, 1).toLocaleString("default", { month: "short", year: "numeric" });
+    };
+    const same = period.since.slice(0, 7) === period.until.slice(0, 7);
+    document.getElementById("ghPeriodLabel").textContent =
+      same ? `Period: ${fmt(period.since)}` : `Period: ${fmt(period.since)} – ${fmt(period.until)}`;
+    const sel = document.getElementById("ghMonthPicker");
+    if (sel && !sel.value) sel.value = period.since.slice(0, 7);
+  }
+
+  // ── Summary stat bar ───────────────────────────────────────────────────
+  const totalTasks   = projects.reduce((s, p) => s + (p.stats?.total      || 0), 0);
+  const doneTasks    = projects.reduce((s, p) => s + (p.stats?.done       || 0), 0);
+  const inProg       = projects.reduce((s, p) => s + (p.stats?.inProgress || 0), 0);
+  const inProd       = projects.reduce((s, p) => s + (p.stats?.production || 0), 0);
+  const totalContrib = contributors.length;
+  const totalCommits = contributors.reduce((s, c) => s + (c.commits || 0), 0);
+  const totalLoc     = contributors.reduce((s, c) => s + (c.additions || 0) + (c.deletions || 0), 0);
+  const donePct      = totalTasks > 0 ? Math.round(doneTasks / totalTasks * 100) : 0;
+
+  document.getElementById("ghSummaryCards").innerHTML = `
+    <div class="gh-stat-item gh-stat-item--accent">
+      <span class="gh-stat-val">${projects.length}</span>
+      <span class="gh-stat-lbl">Active Projects</span>
+    </div>
+    <div class="gh-stat-item">
+      <span class="gh-stat-val">${doneTasks}<span class="gh-stat-sub"> / ${totalTasks}</span></span>
+      <span class="gh-stat-lbl">Tasks Done &nbsp;<span style="color:#22c55e;font-weight:600">${donePct}%</span></span>
+    </div>
+    <div class="gh-stat-item">
+      <span class="gh-stat-val" style="color:#3b82f6">${inProg}</span>
+      <span class="gh-stat-lbl">In Progress</span>
+    </div>
+    <div class="gh-stat-item">
+      <span class="gh-stat-val" style="color:#8b5cf6">${inProd}</span>
+      <span class="gh-stat-lbl">In Production</span>
+    </div>
+    <div class="gh-stat-item">
+      <span class="gh-stat-val">${totalContrib}</span>
+      <span class="gh-stat-lbl">Contributors</span>
+    </div>
+    <div class="gh-stat-item">
+      <span class="gh-stat-val">${totalCommits}</span>
+      <span class="gh-stat-lbl">Total Code Saves</span>
+    </div>
+    ${totalLoc ? `
+    <div class="gh-stat-item">
+      <span class="gh-stat-val">${fmtLoc(totalLoc)}</span>
+      <span class="gh-stat-lbl">Lines Changed</span>
+    </div>` : ""}
+  `;
+
+  // ── Projects list ──────────────────────────────────────────────────────
+  document.getElementById("ghProjectsList").innerHTML = projects.length
+    ? projects.map(proj => {
+        const s = proj.stats || {};
+        const pct = s.total > 0 ? Math.round(s.done / s.total * 100) : 0;
+        const taskCount = (proj.items || []).length;
+        const startOpen = taskCount <= 5;
+        const listId = `gh-tasks-${proj.number}`;
+        const items = (proj.items || []).map(item => `
+          <div class="gh-task-row">
+            <span class="gh-task-dot" style="background:${ghStatusColor(item.status)}"></span>
+            <span class="gh-task-title">${item.title}</span>
+            <span class="gh-task-badges">
+              ${item.priority ? `<span class="gh-badge gh-badge--pri">${item.priority}</span>` : ""}
+              ${item.size     ? `<span class="gh-badge">${item.size}</span>` : ""}
+              ${(item.assignees || []).map(a => `<span class="gh-badge gh-badge--user">${a}</span>`).join("")}
+            </span>
+            <span class="gh-task-status" style="color:${ghStatusColor(item.status)}">${item.status}</span>
+          </div>
+        `).join("");
+
+        return `
+          <article class="panel gh-project-card">
+            <div class="gh-project-head gh-project-toggle" onclick="toggleGhProject('${listId}', this)" style="cursor:pointer">
+              <div>
+                <h3 class="gh-project-name">${proj.title}</h3>
+                <span class="gh-project-meta">${s.total} tasks · ${pct}% done</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                <div class="gh-status-pills">
+                  ${s.done       ? `<span class="gh-pill" style="background:#dcfce7;color:#15803d">✓ ${s.done} Done</span>` : ""}
+                  ${s.inProgress ? `<span class="gh-pill" style="background:#dbeafe;color:#1d4ed8">⟳ ${s.inProgress} In Progress</span>` : ""}
+                  ${s.todo       ? `<span class="gh-pill" style="background:#fef9c3;color:#a16207">○ ${s.todo} Todo</span>` : ""}
+                  ${s.backlog    ? `<span class="gh-pill" style="background:#f1f5f9;color:#475569">· ${s.backlog} Backlog</span>` : ""}
+                  ${s.production ? `<span class="gh-pill" style="background:#ede9fe;color:#6d28d9">▲ ${s.production} Production</span>` : ""}
+                </div>
+                <span class="gh-chevron ${startOpen ? "open" : ""}">&#8964;</span>
+              </div>
+            </div>
+            <div class="gh-progress-bar-wrap">
+              <div class="gh-progress-bar" style="width:${pct}%"></div>
+            </div>
+            <div class="gh-task-list" id="${listId}" ${startOpen ? "" : 'style="display:none"'}>${items}</div>
+          </article>
+        `;
+      }).join("")
+    : `<p style="color:var(--muted)">No project data yet. Click "Refresh now".</p>`;
+
+  // ── Contributors grid ──────────────────────────────────────────────────
+  const maxCommits = Math.max(...contributors.map(c => c.commits || 0), 1);
+  document.getElementById("ghContributors").innerHTML = contributors.length ? `
+    <div class="gh-contrib-grid">
+      ${contributors.map(c => {
+        const realName  = ghLoginToName(c.login);
+        const displayName = realName || c.login;
+        const mergeRate = c.prs > 0 ? Math.round((c.prsMerged || 0) / c.prs * 100) : null;
+        const initials  = displayName.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+        const color     = ghAvatarColor(c.login);
+        const barPct    = Math.round((c.commits || 0) / maxCommits * 100);
+        const locTotal  = (c.additions || 0) + (c.deletions || 0);
+        return `
+        <div class="gh-contrib-card" onclick="showGhContributor('${c.login}')" style="cursor:pointer">
+          <div class="gh-contrib-card-header">
+            <div class="gh-contrib-avatar2" style="background:${color}">${initials}</div>
+            <div class="gh-contrib-card-identity">
+              <div class="gh-contrib-card-name">${displayName}</div>
+              ${realName ? `<div class="gh-contrib-card-login">${c.login}</div>` : ""}
+            </div>
+          </div>
+          <div class="gh-contrib-card-projects">${(c.projects || []).join(", ") || "—"}</div>
+          <div class="gh-commit-bar-wrap" title="${c.commits} code saves">
+            <div class="gh-commit-bar-fill" style="width:${barPct}%;background:${color}"></div>
+          </div>
+          <div class="gh-contrib-card-stats">
+            ${c.commits > 0 ? `<span class="gh-cs"><b>${c.commits}</b> code saves</span>` : ""}
+            ${c.total  > 0 ? `<span class="gh-cs"><b>${c.done}/${c.total}</b> tasks</span>` : ""}
+            ${c.prs    > 0 ? `<span class="gh-cs"><b>${c.prs}</b> review${c.prs!==1?"s":""}${mergeRate!==null?` <span class="gh-merged">${mergeRate}% merged</span>`:"" }</span>` : ""}
+            ${locTotal > 0 ? `<span class="gh-cs"><b>${fmtLoc(locTotal)}</b> lines changed</span>` : ""}
+          </div>
+        </div>`;
+      }).join("")}
+    </div>
+  ` : `<p style="color:var(--muted);padding:24px">No contributors found for this period.</p>`;
+}
+
+// ======= TARA CHATBOT =======
+let taraHistory = [];
+let taraInitialized = false;
+let taraLastQuestion = "";
+
+const TARA_FOLLOWUPS = {
+  performance: ["Who is in Low Performance band?", "Show their attendance", "Which team leads in KPI?"],
+  attendance:  ["Who was absent most?", "Show their KPI score", "Which team attends best?"],
+  availability:["Who is online right now?", "Show their task progress", "Who is away on Teams?"],
+  task:        ["Who has pending tasks?", "Show their KPI score", "Who completed most tasks?"],
+  efficiency:  ["Who has lowest efficiency?", "Show top performers", "Compare with attendance"],
+  github:      ["Who has the most commits?", "Which project has the most pending tasks?", "Show all contributors"],
+  planner:     ["Show overdue Planner tasks", "Which Planner plan has the most tasks?", "Show completed Planner tasks"],
+  calendar:    ["Show today's meetings", "Which employee has the most calendar events?", "Show cancelled events"],
+  sharepoint:  ["Show all SharePoint sites", "Which sites have document libraries?", "Show recently active sites"],
+  employee360: ["Show their Planner tasks", "Show their calendar events", "Show their attendance"],
+  general:     ["Show top 3 performers", "Who needs improvement?", "Who was absent this month?"],
+};
+
+function detectCategory(question) {
+  const q = question.toLowerCase();
+  if (/kpi|perform|score|band|top|bottom|rank|best|worst|rating/.test(q)) return "performance";
+  if (/absent|attend|present|leave|holiday|late|half.?day|lop/.test(q))    return "attendance";
+  if (/teams|online|offline|available|busy|away|status|active|presence/.test(q)) return "availability";
+  if (/task|project|worklogix|complet|pending|block|deliver|deadline|progress|ticket/.test(q)) return "task";
+  if (/efficien|hours|working.?hours|output|productiv|weighted|workload|volume/.test(q)) return "efficiency";
+  return "general";
+}
+
+function toggleTara() {
+  const panel = document.getElementById("taraPanel");
+  if (panel.hidden) {
+    panel.hidden = false;
+    document.getElementById("taraInput").focus();
+    if (!taraInitialized) {
+      restoreTaraSession();
+      taraInitialized = true;
+    }
+  } else {
+    panel.hidden = true;
+  }
+}
+
+function askTara(question) {
+  document.getElementById("taraInput").value = question;
+  sendTaraMessage();
+}
+
+function clearTara() {
+  document.getElementById("taraMessages").innerHTML =
+    `<div class="tara-msg tara-msg--bot">
+       <p style="white-space:pre-wrap;margin:0">Hi! I'm Tara, your PeopleOps AI assistant. Ask me anything about your team's performance, attendance, or productivity.</p>
+     </div>`;
+  taraHistory = [];
+  localStorage.removeItem("tara_history");
+  document.getElementById("taraChips").hidden = false;
+}
+
+function saveTaraSession() {
+  localStorage.setItem("tara_history", JSON.stringify(taraHistory));
+}
+
+function restoreTaraSession() {
+  try {
+    const saved = JSON.parse(localStorage.getItem("tara_history") || "[]");
+    if (!saved.length) return;
+    taraHistory = saved;
+    saved.forEach(({ role, content }) => {
+      appendTaraMessage(content, role === "assistant" ? "bot" : "user");
+    });
+    document.getElementById("taraChips").hidden = true;
+  } catch {}
+}
+
+async function sendTaraMessage() {
+  const input = document.getElementById("taraInput");
+  const question = input.value.trim();
+  if (!question) return;
+
+  input.value = "";
+  taraLastQuestion = question;
+
+  // Hide chips after first message
+  document.getElementById("taraChips").hidden = true;
+
+  // Remove previous follow-ups so only the latest set shows
+  document.querySelectorAll(".tara-followups").forEach(el => el.remove());
+
+  appendTaraMessage(question, "user");
+  const typing = appendTaraMessage("Tara is thinking...", "typing");
+
+  try {
+    const res = await apiFetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, history: taraHistory }),
+    });
+    const data = await res.json();
+    typing.remove();
+    const reply = data.answer || "Sorry, I couldn't get a response.";
+    appendTaraMessage(reply, "bot");
+    taraHistory.push({ role: "user", content: question });
+    taraHistory.push({ role: "assistant", content: reply });
+    if (taraHistory.length > 20) taraHistory.splice(0, 2);
+    showFollowUps(data.category || detectCategory(question));
+    saveTaraSession();
+  } catch {
+    typing.remove();
+    appendTaraMessage("Something went wrong. Please try again.", "bot");
+  }
+}
+
+function showFollowUps(category) {
+  const suggestions = TARA_FOLLOWUPS[category] || TARA_FOLLOWUPS.general;
+  const div = document.createElement("div");
+  div.className = "tara-followups";
+  suggestions.slice(0, 2).forEach(q => {
+    const btn = document.createElement("button");
+    btn.className = "tara-followup-btn";
+    btn.textContent = q;
+    btn.onclick = () => askTara(q);
+    div.appendChild(btn);
+  });
+  const msgs = document.getElementById("taraMessages");
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function appendTaraMessage(text, type) {
+  const messages = document.getElementById("taraMessages");
+
+  if (type === "bot" || type === "typing") {
+    const row = document.createElement("div");
+    row.className = "tara-msg-row";
+
+    const avatar = document.createElement("div");
+    avatar.className = "tara-msg-row-avatar";
+    avatar.textContent = "✦";
+
+    const bubble = document.createElement("div");
+    bubble.className = `tara-msg tara-msg--${type === "typing" ? "typing" : "bot"}`;
+
+    if (type === "typing") {
+      bubble.innerHTML = `<div class="tara-typing-dots"><span></span><span></span><span></span></div>`;
+    } else {
+      const escaped = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const withShowMore = escaped.replace(
+        /\.\.\.and (\d+) more\./gi,
+        (_, n) => {
+          if (parseInt(n, 10) === 0) return "";
+          const q = (taraLastQuestion || "").replace(/'/g, "\\'");
+          return `<button class="tara-show-more-btn" onclick="askTara('show all ${q}')">▼ Show ${n} more</button>`;
+        }
+      );
+      bubble.innerHTML = `<p style="white-space:pre-wrap;margin:0">${withShowMore}</p>
+        <button class="tara-copy-btn" onclick="copyTaraMsg(this)">⎘ Copy</button>`;
+    }
+
+    row.appendChild(avatar);
+    row.appendChild(bubble);
+    messages.appendChild(row);
+    messages.scrollTop = messages.scrollHeight;
+    return row;
+  }
+
+  // user message
+  const div = document.createElement("div");
+  div.className = "tara-msg tara-msg--user";
+  const escaped = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  div.innerHTML = `<p style="white-space:pre-wrap;margin:0">${escaped}</p>`;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+  return div;
+}
+
+function copyTaraMsg(btn) {
+  const text = btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = "✓ Copied";
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  });
+}
