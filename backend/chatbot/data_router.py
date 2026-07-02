@@ -193,22 +193,29 @@ def get_performance_data(question: str = "", history: list | None = None) -> dic
                     "footer": "",
                 }
 
-    records.sort(
-        key=lambda employee: employee.get("kpi")
-        if employee.get("kpi") is not None else -1,
-        reverse=True,
-    )
-    if any(keyword in q for keyword in ("worst", "bottom")):
+    _LOW_KEYWORDS = ("low perform", "poor perform", "bottom perform", "worst perform",
+                     "critical", "needs improvement", "need improvement",
+                     "bottom", "worst", "struggling", "underperform")
+    _HIGH_KEYWORDS = ("top perform", "best perform", "high perform", "good perform",
+                      "top", "best", "highest", "star")
+    is_low_question  = any(kw in q for kw in _LOW_KEYWORDS)
+    is_high_question = any(kw in q for kw in _HIGH_KEYWORDS)
+
+    if is_low_question:
+        # Show Critical + Needs Improvement bands sorted by KPI ascending (worst first)
+        low_bands = {"Critical", "Needs Improvement"}
+        low_records = [e for e in records if e.get("band") in low_bands]
+        if low_records:
+            records = low_records
         records.sort(
-            key=lambda employee: employee.get("kpi")
-            if employee.get("kpi") is not None else 999
+            key=lambda e: e.get("kpi") if e.get("kpi") is not None else 999
         )
-    elif "need improvement" in q:
-        records = [e for e in records if e.get("band") == "Need Improvement"]
-    elif "high performance" in q:
-        records = [e for e in records if e.get("band") == "High Performance"]
-    elif "low performance" in q:
-        records = [e for e in records if e.get("band") == "Low Performance"]
+    else:
+        # Default: highest KPI first
+        records.sort(
+            key=lambda e: e.get("kpi") if e.get("kpi") is not None else -1,
+            reverse=True,
+        )
     requested = re.search(r"\b(?:top|bottom|show)\s+(\d+)\b", q)
     limit = int(requested.group(1)) if requested else 10
     if any(keyword in q for keyword in _SHOW_ALL_KEYWORDS):
