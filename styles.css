@@ -3103,6 +3103,18 @@ dialog::backdrop {
 .source-chip.ok      { background: #d1fae5; color: #065f46; }
 .source-chip.missing { background: #fee2e2; color: #991b1b; }
 
+/* ── Missing source tags on table rows ── */
+.no-source-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.no-source-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #fef3c7;
+  color: #92400e;
+  letter-spacing: 0.02em;
+}
+
 /* ── Direct reports ── */
 .emp-reports-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
 .emp-report-chip {

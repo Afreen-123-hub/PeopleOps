@@ -958,9 +958,11 @@ def main():
 
         sources = {
             "worklogix": emp_id in allowed_employee_ids,
+            "worklogixActivity": has_real_worklogix,
             "greythr": bool(gh),
             "biometrics": bool(attendance.get(emp_id)),
             "teams": bool(tm),
+            "github": gc is not None,
         }
         role_cat = get_role_category(emp.get("designation", ""))
         in_worklogix = emp_id in allowed_employee_ids

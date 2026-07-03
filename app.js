@@ -1203,7 +1203,7 @@ function lowConfidenceWarning(e) {
 function renderPeopleTable() {
   document.getElementById("peopleTable").innerHTML = filteredEmployees
     .map((e, index) => `<tr data-index="${index}"${e.kpi == null ? ' class="row-no-data"' : ""}>
-      <td><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${e.team || "Unassigned"}</small></div></td>
+      <td><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${e.team || "Unassigned"}</small></div>${missingSourceTags(e)}</td>
       <td class="numeric-cell"><span class="score">${e.kpi != null ? e.kpi : "—"}</span></td>
       <td>${e.band ? `<span class="band ${bandClass(e.band)}">${e.band}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
       <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
@@ -2107,6 +2107,17 @@ function formatList(values) {
 
 function missingSource(employee, source) {
   return employee.sources[source] ? '<span class="available-source">-</span>' : '<span class="missing-source">Missing</span>';
+}
+
+function missingSourceTags(e) {
+  const s = e.sources || {};
+  const tags = [];
+  if (!s.worklogix) tags.push("No Worklogix");
+  else if (!s.worklogixActivity) tags.push("No Tasks");
+  if (!s.github) tags.push("No GitHub");
+  if (!s.greythr && !s.biometrics) tags.push("No Attendance");
+  if (!tags.length) return "";
+  return `<div class="no-source-tags">${tags.map(t => `<span class="no-source-tag">${t}</span>`).join("")}</div>`;
 }
 
 function sum(values) {
