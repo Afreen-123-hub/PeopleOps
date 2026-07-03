@@ -4154,6 +4154,285 @@ dialog::backdrop {
   text-align: center;
 }
 
+.graph-search-result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 12px;
+}
+
+.graph-search-result-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 105px;
+  padding: 16px;
+  border: 1px solid #dfe6ef;
+  border-radius: 13px;
+  color: var(--ink);
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.graph-search-result-card:hover {
+  transform: translateY(-2px);
+  border-color: #9ab7ef;
+  box-shadow: 0 12px 28px rgba(31, 44, 71, .1);
+}
+
+.graph-search-result-card > span:nth-child(2) {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.graph-search-result-card small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: .74rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.graph-profile-identity { min-width: 0; }
+
+.graph-identity-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(120px, 1fr));
+  gap: 8px;
+  margin-top: 13px;
+}
+
+.graph-identity-grid > div {
+  display: grid;
+  gap: 3px;
+  padding: 9px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .75);
+}
+
+.graph-identity-grid span {
+  color: var(--muted);
+  font-size: .65rem;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.graph-identity-grid strong {
+  overflow: hidden;
+  font-size: .78rem;
+  text-overflow: ellipsis;
+}
+
+.graph-employee-tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(120px, 1fr));
+  gap: 7px;
+  margin: 16px 0;
+  padding: 6px;
+  border: 1px solid #dfe6ef;
+  border-radius: 12px;
+  background: #f4f7fb;
+}
+
+.graph-employee-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  color: #52627a;
+  background: transparent;
+  font-size: .76rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .16s ease;
+}
+
+.graph-employee-tabs button:hover {
+  color: #175cd3;
+  background: #fff;
+}
+
+.graph-employee-tabs button.active {
+  color: #fff;
+  background: linear-gradient(135deg, #3366ff, #2152d6);
+  box-shadow: 0 5px 12px rgba(51, 102, 255, .2);
+}
+
+.graph-employee-tabs strong {
+  min-width: 22px;
+  padding: 3px 6px;
+  border-radius: 99px;
+  color: inherit;
+  background: rgba(128, 145, 169, .14);
+  font-size: .68rem;
+}
+
+.graph-employee-tabs .active strong { background: rgba(255, 255, 255, .2); }
+
+.graph-profile-callout {
+  margin-top: 14px;
+  padding: 18px;
+  border: 1px dashed #b7c8e7;
+  border-radius: 12px;
+  color: #53647d;
+  background: #f7faff;
+  text-align: center;
+}
+
+.graph-profile-callout p { margin: 5px 0 0; font-size: .8rem; }
+
+.graph-attendance-period {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) auto auto;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 16px 18px;
+  border: 1px solid #cfdcf0;
+  border-left: 4px solid #3366ff;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #f8fbff, #eef4ff);
+}
+
+.graph-attendance-period > div {
+  display: grid;
+  gap: 3px;
+}
+
+.graph-attendance-period strong { color: #17366e; }
+
+.graph-attendance-period small {
+  color: #64748b;
+  font-size: .72rem;
+}
+
+.graph-attendance-period label {
+  display: grid;
+  gap: 5px;
+  color: #52627a;
+  font-size: .7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.graph-attendance-period input {
+  min-height: 40px;
+  padding: 7px 10px;
+  border: 1px solid #b8c8df;
+  border-radius: 8px;
+  color: #172033;
+  background: #fff;
+  font: inherit;
+  text-transform: none;
+}
+
+.graph-attendance-period > button {
+  min-height: 40px;
+  padding: 9px 14px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: #275fe4;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.graph-attendance-period > button:hover { background: #1749c7; }
+.graph-attendance-period > button:disabled { opacity: .55; cursor: wait; }
+
+.graph-attendance-status {
+  grid-column: 1 / -1;
+  min-height: 0;
+  color: #52627a;
+  font-size: .74rem;
+}
+
+.graph-attendance-status:empty { display: none; }
+.graph-attendance-status.loading { color: #175cd3; }
+.graph-attendance-status.success { color: #087a4d; }
+.graph-attendance-status.error { color: #b42318; }
+
+.graph-employee-option-content {
+  min-height: 310px;
+  padding-top: 4px;
+}
+
+.graph-calendar-selection-header,
+.graph-employee-calendar-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 13px;
+  padding: 14px 16px;
+  border: 1px solid #dfe7f2;
+  border-radius: 11px;
+  background: #f8fbff;
+}
+
+.graph-calendar-selection-header button {
+  padding: 8px 11px;
+  border: 1px solid #cbd8eb;
+  border-radius: 8px;
+  color: #174ea6;
+  background: #fff;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.graph-calendar-selection-header h3,
+.graph-employee-calendar-heading h3 {
+  margin: 0;
+  color: #152544;
+}
+
+.graph-employee-calendar-heading > span {
+  color: var(--muted);
+  font-size: .76rem;
+}
+
+#graph .graph-employee-calendar .graph-calendar-day {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 5px;
+  width: 100%;
+  min-height: 105px;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+#graph .graph-employee-calendar .graph-calendar-day.has-events {
+  background: linear-gradient(145deg, #fff, #eef4ff);
+}
+
+#graph .graph-employee-calendar .graph-calendar-day:hover {
+  position: relative;
+  z-index: 1;
+  border-color: #8eafe8;
+  box-shadow: inset 0 0 0 2px #b9cef4;
+}
+
+.graph-employee-calendar .graph-calendar-day > strong {
+  margin-top: 8px;
+  color: #175cd3;
+  font-size: 1.05rem;
+}
+
+.graph-employee-calendar .graph-calendar-day > small {
+  color: var(--muted);
+  font-size: .68rem;
+}
+
 .graph-subnav {
   display: grid;
   align-content: start;
@@ -4190,6 +4469,69 @@ dialog::backdrop {
   padding: 18px;
 }
 
+#graph .graph-section-header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+  padding: 18px 20px;
+  border: 1px solid #dce6f4;
+  border-radius: 14px;
+  background: linear-gradient(120deg, #fff 35%, #f0f5ff);
+  box-shadow: 0 8px 22px rgba(31, 59, 112, .06);
+}
+
+.graph-section-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  color: #fff;
+  background: linear-gradient(135deg, #3366ff, #1746bd);
+  box-shadow: 0 8px 18px rgba(51, 102, 255, .25);
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+.graph-section-completed { background: linear-gradient(135deg, #22a06b, #087a4d); }
+.graph-section-calendar { background: linear-gradient(135deg, #845ef7, #5f3dc4); }
+.graph-section-sites { background: linear-gradient(135deg, #00a99d, #087f78); }
+.graph-section-employees { background: linear-gradient(135deg, #f59f00, #d97706); }
+
+.graph-section-header .eyebrow { margin: 0 0 3px; }
+.graph-section-header h2 { margin: 0; color: #152544; font-size: 1.15rem; }
+.graph-section-header h2 span {
+  margin-left: 7px;
+  color: #587092;
+  font-size: .72rem;
+  font-weight: 750;
+}
+.graph-section-header p:last-child { margin: 4px 0 0; color: #64748b; font-size: .78rem; }
+
+.graph-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid #b7e6cf;
+  border-radius: 999px;
+  color: #087a4d;
+  background: #effbf5;
+  font-size: .72rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.graph-live-badge i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22a06b;
+  box-shadow: 0 0 0 4px rgba(34, 160, 107, .12);
+}
+
 .graph-toolbar {
   display: grid;
   grid-template-columns: minmax(220px, 1fr) 180px 170px auto;
@@ -4219,6 +4561,65 @@ dialog::backdrop {
 .graph-view-switch button.active {
   color: white;
   background: var(--blue);
+}
+
+.graph-calendar-nav {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+}
+
+.graph-calendar-nav button {
+  min-width: 34px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 7px;
+  color: #344054;
+  background: transparent;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.graph-calendar-nav button:hover {
+  color: #175cd3;
+  background: #eef4ff;
+}
+
+.graph-empty-state {
+  display: grid;
+  place-items: center;
+  min-height: 320px;
+  padding: 40px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  color: var(--muted);
+  background: #fafcff;
+  text-align: center;
+}
+
+.graph-empty-state.compact { min-height: 220px; }
+.graph-empty-state > span { color: #8ba8df; font-size: 2.2rem; }
+.graph-empty-state h3 { margin: 8px 0 0; color: var(--ink); }
+.graph-empty-state p { margin: 5px 0 0; }
+
+body.graph-drawer-open { overflow: hidden; }
+
+body.graph-drawer-open .tara-btn,
+body.graph-drawer-open .tara-panel {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.graph-plan-card:focus-visible,
+.graph-task-card:focus-visible,
+.graph-event-row:focus-visible,
+.graph-employee-row:focus-visible,
+.graph-subnav-item:focus-visible {
+  outline: 3px solid rgba(51, 102, 255, .28);
+  outline-offset: 2px;
 }
 
 .graph-plan-grid,
@@ -4773,6 +5174,87 @@ dialog::backdrop {
 
 .graph-drawer-overlay.open .graph-drawer { transform: translateX(0); }
 
+#graphDrawerOverlay { z-index: 3000; }
+
+#graphDrawer {
+  width: min(680px, 94vw);
+  padding: 32px 34px 44px;
+}
+
+#graphDrawerContent > h2 {
+  max-width: calc(100% - 48px);
+  margin: 7px 0 0;
+  color: #12213d;
+  font-size: 1.35rem;
+  line-height: 1.35;
+}
+
+#graphDrawer .graph-detail-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 24px 0;
+  border: 1px solid #dfe6ef;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+#graphDrawer .graph-detail-row {
+  display: grid;
+  grid-template-columns: minmax(130px, 32%) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 13px 15px;
+  border: 0;
+  border-top: 1px solid #e8edf3;
+  border-radius: 0;
+  background: #fff;
+}
+
+#graphDrawer .graph-detail-row:first-child { border-top: 0; }
+
+#graphDrawer .graph-detail-row:nth-child(even) { background: #f8fafc; }
+
+#graphDrawer .graph-detail-row span {
+  margin: 0;
+  color: #64748b;
+  font-size: .7rem;
+  font-weight: 750;
+  line-height: 1.45;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+
+#graphDrawer .graph-detail-row strong {
+  min-width: 0;
+  color: #172033;
+  font-size: .84rem;
+  font-weight: 700;
+  line-height: 1.55;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+#graphDrawer .graph-mini-list {
+  margin-bottom: 22px;
+}
+
+#graphDrawer .graph-mini-list > div {
+  padding: 12px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  background: #f8fafc;
+  line-height: 1.5;
+}
+
+#graphDrawer .graph-open-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+}
+
 /* ── Quadrant grid ──────────────────────────────────────────────────────── */
 .quadrant-grid {
   grid-template-columns: repeat(4, 1fr) !important;
@@ -4906,6 +5388,7 @@ dialog::backdrop {
   .graph-toolbar { grid-template-columns: 1fr 160px 160px; }
   .graph-view-switch { grid-column: 1 / -1; width: fit-content; }
   .graph-profile-metrics { grid-template-columns: repeat(3, 1fr); }
+  .graph-identity-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 850px) {
@@ -4934,6 +5417,12 @@ dialog::backdrop {
   .graph-profile-grid { grid-template-columns: 1fr; }
   .graph-profile-metrics { grid-template-columns: repeat(2, 1fr); }
   .graph-profile-sites { grid-template-columns: 1fr; }
+  .graph-employee-tabs { grid-template-columns: repeat(2, 1fr); }
+  .graph-identity-grid { grid-template-columns: repeat(2, 1fr); }
+  .graph-search-result-grid { grid-template-columns: 1fr; }
+  .graph-attendance-period { grid-template-columns: 1fr; align-items: stretch; }
+  #graph .graph-section-header { grid-template-columns: auto 1fr; }
+  .graph-live-badge { display: none; }
 }
 
 /* ======= DIRECT REPORTS TABLE (employee detail panel) ======= */

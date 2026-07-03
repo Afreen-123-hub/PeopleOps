@@ -22,6 +22,7 @@ DATA_FILE = PROJECT_ROOT / "data" / "peopleops-data.json"
 GITHUB_DATA_FILE = PROJECT_ROOT / "data" / "github-data.json"
 GRAPH_DATA_FILE = PROJECT_ROOT / "data" / "graph-activity.json"
 GENERATOR = PROJECT_ROOT / "scripts" / "generate_peopleops_data.py"
+ATTENDANCE_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_attendance_month.py"
 TEAMS_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_teams.py"
 GITHUB_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_github.py"
 GRAPH_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_graph_activity.py"
@@ -132,6 +133,12 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
 
         if path == "/api/regenerate":
             self.regenerate_data()
+            return
+        if path == "/api/attendance-month":
+            self.refresh_attendance_month()
+            return
+        if path == "/api/refresh-month":
+            self.refresh_all_for_month()
             return
         if path == "/api/refresh-teams":
             self.refresh_teams()
@@ -283,6 +290,113 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "stdout": result.stdout,
                 "stderr": result.stderr,
             }, HTTPStatus.INTERNAL_SERVER_ERROR)
+
+    def refresh_attendance_month(self):
+        import re
+
+        length = int(self.headers.get("Content-Length", 0))
+        try:
+            body = json.loads(self.rfile.read(length))
+        except (json.JSONDecodeError, ValueError):
+            self.send_json({"error": "Invalid request body."}, HTTPStatus.BAD_REQUEST)
+            return
+        month = str(body.get("month", "")).strip()
+        employee_id = str(body.get("employeeId", "")).strip()
+        if not re.fullmatch(r"\d{4}-\d{2}", month):
+            self.send_json({"error": "Month must use YYYY-MM format."}, HTTPStatus.BAD_REQUEST)
+            return
+
+        result = subprocess.run(
+            [sys.executable, str(ATTENDANCE_REFRESHER), "--month", month],
+            cwd=str(PROJECT_ROOT),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode != 0:
+            # Extract the first ERROR: line from stderr for a user-friendly message
+            detail = next(
+                (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
+                "Attendance data could not be refreshed for that month.",
+            )
+            self.send_json({
+                "status": "failed",
+                "message": detail,
+                "stdout": result.stdout,
+                "stderr": result.stderr,
+            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+            return
+
+        data = self.load_data() or {}
+        graph_data = self.load_graph_data() or {}
+        employees_by_id = {
+            str(employee.get("id", "")).strip(): employee
+            for employee in data.get("employees", [])
+        }
+        for graph_employee in graph_data.get("employees", []):
+            source = employees_by_id.get(str(graph_employee.get("id", "")).strip())
+            if not source:
+                continue
+            graph_employee["attendance"] = source.get("attendance", {})
+            graph_employee["kpi"] = source.get("kpi")
+            graph_employee["band"] = source.get("band")
+        graph_data.setdefault("meta", {})["attendancePeriod"] = data.get("meta", {}).get("period", "")
+        GRAPH_DATA_FILE.write_text(json.dumps(graph_data, indent=2), encoding="utf-8")
+
+        selected_employee = employees_by_id.get(employee_id, {})
+        self.send_json({
+            "status": "refreshed",
+            "month": month,
+            "period": data.get("meta", {}).get("period", ""),
+            "employee": {
+                "id": selected_employee.get("id"),
+                "attendance": selected_employee.get("attendance", {}),
+                "kpi": selected_employee.get("kpi"),
+                "band": selected_employee.get("band"),
+            },
+        })
+
+    def refresh_all_for_month(self):
+        import re
+
+        length = int(self.headers.get("Content-Length", 0))
+        try:
+            body = json.loads(self.rfile.read(length))
+        except (json.JSONDecodeError, ValueError):
+            self.send_json({"error": "Invalid request body."}, HTTPStatus.BAD_REQUEST)
+            return
+        month = str(body.get("month", "")).strip()
+        if not re.fullmatch(r"\d{4}-\d{2}", month):
+            self.send_json({"error": "Month must use YYYY-MM format."}, HTTPStatus.BAD_REQUEST)
+            return
+
+        result = subprocess.run(
+            [sys.executable, str(GENERATOR), "--month", month],
+            cwd=str(PROJECT_ROOT),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode != 0:
+            detail = next(
+                (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
+                "Data could not be refreshed for that month. Check API connectivity and try again.",
+            )
+            self.send_json({
+                "status": "failed",
+                "message": detail,
+                "stdout": result.stdout,
+                "stderr": result.stderr,
+            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+            return
+
+        data = self.load_data() or {}
+        self.send_json({
+            "status": "refreshed",
+            "month": month,
+            "period": data.get("meta", {}).get("period", ""),
+            "employees": len(data.get("employees", [])),
+        })
 
     def refresh_teams(self):
         result = subprocess.run(

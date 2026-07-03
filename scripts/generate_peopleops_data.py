@@ -264,10 +264,19 @@ def dataframe_records(frame):
 def read_worklogix_api():
     # Worklogix CSV usage is replaced here with live API data. The transformer
     # keeps the old column names so the KPI logic can continue unchanged.
-    employees_payload = get_worklogix_employee_info()
-    tasks_payload = get_worklogix_tasks()
-    daily_payload = get_worklogix_daily_updates()
-    projects_payload = get_worklogix_projects()
+    from services.worklogix_api_client import WorklogixApiError
+    from services.worklogix_auth import WorklogixAuthError
+    try:
+        employees_payload = get_worklogix_employee_info()
+        tasks_payload = get_worklogix_tasks()
+        daily_payload = get_worklogix_daily_updates()
+        projects_payload = get_worklogix_projects()
+    except WorklogixAuthError as exc:
+        print(f"ERROR: Worklogix login failed — check credentials in .env: {exc}", file=sys.stderr)
+        sys.exit(1)
+    except WorklogixApiError as exc:
+        print(f"ERROR: Worklogix API unavailable — try again in a moment: {exc}", file=sys.stderr)
+        sys.exit(1)
 
     # These DataFrame names mirror the old CSV-driven flow as closely as possible.
     employees_df = employees_dataframe_from_payload(employees_payload)
@@ -558,11 +567,8 @@ def previous_full_month_range(reference=None):
 
 
 def resolve_greythr_date_range(target_period: str):
-    start = clean(os.environ.get("GREYTHR_START_DATE"))
-    end = clean(os.environ.get("GREYTHR_END_DATE"))
-    if start and end:
-        return start, end
-
+    start = ""
+    end = ""
     args = sys.argv[1:]
     for idx, arg in enumerate(args):
         if arg == "--greythr-start" and idx + 1 < len(args):
@@ -573,6 +579,16 @@ def resolve_greythr_date_range(target_period: str):
             end = clean(args[idx + 1])
         elif arg.startswith("--greythr-end="):
             end = clean(arg.split("=", 1)[1])
+    if start and end:
+        return start, end
+
+    if any(arg == "--month" or arg.startswith("--month=") for arg in args):
+        start, end = period_to_date_range(target_period)
+        if start and end:
+            return start, end
+
+    start = clean(os.environ.get("GREYTHR_START_DATE"))
+    end = clean(os.environ.get("GREYTHR_END_DATE"))
     if start and end:
         return start, end
 
@@ -608,7 +624,16 @@ def main():
     allowed_employee_ids = set(users)
     all_daily_rows = worklogix["daily"]
     month_counts = Counter(clean(r.get("month")) for r in all_daily_rows if clean(r.get("month")))
-    target_period = month_counts.most_common(1)[0][0] if month_counts else ""
+    requested_month = ""
+    args = sys.argv[1:]
+    for idx, arg in enumerate(args):
+        if arg == "--month" and idx + 1 < len(args):
+            requested_month = clean(args[idx + 1])
+        elif arg.startswith("--month="):
+            requested_month = clean(arg.split("=", 1)[1])
+    if requested_month and not re.fullmatch(r"\d{4}-\d{2}", requested_month):
+        raise ValueError("--month must use YYYY-MM format")
+    target_period = requested_month or (month_counts.most_common(1)[0][0] if month_counts else "")
     monthly = {
         clean(r["employee_id"]): r
         for r in worklogix["monthly"]

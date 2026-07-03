@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260701-teamsinsights11">
+    <link rel="stylesheet" href="styles.css?v=20260703-attendance-month1">
   </head>
   <body>
     <main class="app-shell">
@@ -77,6 +77,24 @@
               <span>Live integrated data</span>
             </div>
           </div>
+          <!-- Global attendance month picker -->
+          <div class="panel" style="margin-bottom:16px;">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Attendance period</p>
+                <strong id="globalMonthLabel" style="font-size:1rem;font-weight:700;">Loading…</strong>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;font-weight:600;color:var(--blue);background:rgba(51,102,255,0.07);border:2px solid rgba(51,102,255,0.35);border-radius:8px;padding:4px 10px;cursor:pointer;">
+                  📅 Select month
+                  <input id="globalMonthInput" type="month" style="padding:4px 6px;border:none;border-radius:6px;background:transparent;color:var(--blue);font:inherit;font-weight:700;cursor:pointer;outline:none;">
+                </label>
+                <button id="globalMonthBtn" class="button" type="button">Fetch all data for this month</button>
+                <span id="globalMonthStatus" class="graph-attendance-status" style="font-size:0.82rem;"></span>
+              </div>
+            </div>
+          </div>
+
           <div id="totalEmployeeBadge" class="total-employee-badge"></div>
           <div id="metricGrid" class="metric-grid"></div>
           <div id="teamsInsightRow" class="teams-insight-row"></div>
@@ -267,6 +285,7 @@
                   <col class="col-small">
                   <col class="col-small">
                   <col class="col-small">
+                  <col class="col-small">
                   <col style="width:120px">
                 </colgroup>
                 <thead>
@@ -276,6 +295,7 @@
                     <th>Band</th>
                     <th>Tasks</th>
                     <th>Present</th>
+                    <th>Leave</th>
                     <th>Absent</th>
                     <th>Teams</th>
                   </tr>
@@ -331,6 +351,84 @@
         </section>
 
         <section id="graph" class="view">
+          <style>
+            #graph { --g-blue:#2563eb; --g-ink:#172033; --g-muted:#64748b; --g-line:#e2e8f0; --g-bg:#f6f8fc; color:var(--g-ink); }
+            #graph button,#graph select,#graph input { font:inherit; }
+            #graph button:focus-visible,#graph a:focus-visible,#graph input:focus-visible,#graph select:focus-visible { outline:3px solid #93c5fd; outline-offset:2px; }
+            #graph .graph-command { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; padding:24px 28px; border:1px solid var(--g-line); border-radius:18px; background:linear-gradient(130deg,#fff 35%,#eef4ff); box-shadow:0 8px 28px #1e3a5f0d; }
+            #graph .graph-breadcrumbs { margin-top:8px; color:var(--g-muted); font-size:13px; }
+            #graph .graph-people-search { position:relative; display:flex; align-items:center; gap:18px; margin:18px 0; padding:14px 18px; border:1px solid var(--g-line); border-radius:14px; background:#fff; }
+            #graph .graph-search-copy { display:flex; align-items:center; gap:10px; min-width:260px; }
+            #graph .graph-search-copy small { display:block; color:var(--g-muted); }
+            #graph .graph-search-icon { display:grid; place-items:center; width:34px; height:34px; border-radius:9px; background:#e8f0ff; color:var(--g-blue); font-size:22px; }
+            #graph .graph-search-field { display:flex; flex:1; gap:8px; }
+            #graph .graph-search-field input { width:100%; padding:10px 12px; border:1px solid var(--g-line); border-radius:9px; }
+            #graph .graph-employee-suggestions { position:absolute; z-index:30; top:67px; right:18px; width:min(650px,calc(100% - 36px)); padding:8px; border:1px solid var(--g-line); border-radius:12px; background:#fff; box-shadow:0 18px 45px #17203324; }
+            #graph .graph-employee-suggestions button { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:10px; width:100%; padding:10px; border:0; border-radius:9px; background:transparent; text-align:left; cursor:pointer; }
+            #graph .graph-employee-suggestions button:hover { background:#f1f5f9; }
+            #graph .graph-employee-suggestions small { display:block; color:var(--g-muted); }
+            #graph .graph-kpi-grid { display:grid; grid-template-columns:repeat(6,minmax(140px,1fr)); gap:12px; margin:18px 0; }
+            #graph .graph-kpi-card { position:relative; display:grid; gap:4px; min-height:132px; padding:16px; overflow:hidden; border:1px solid var(--g-line); border-radius:14px; background:#fff; color:var(--g-ink); text-align:left; cursor:pointer; transition:.2s ease; }
+            #graph .graph-kpi-card::before { content:""; position:absolute; inset:0 auto 0 0; width:4px; background:var(--accent); }
+            #graph .graph-kpi-card:hover,#graph .graph-kpi-card.active { transform:translateY(-3px); border-color:var(--accent); box-shadow:0 12px 28px #17203314; }
+            #graph .graph-kpi-card strong { font-size:26px; }
+            #graph .graph-kpi-card small { color:var(--g-muted); }
+            #graph .graph-kpi-icon { display:grid; place-items:center; width:28px; height:28px; border-radius:8px; background:color-mix(in srgb,var(--accent) 13%,white); color:var(--accent); }
+            #graph .graph-explorer { display:grid; grid-template-columns:210px minmax(0,1fr); min-height:600px; border:1px solid var(--g-line); border-radius:16px; overflow:hidden; background:#fff; }
+            #graph .graph-subnav { padding:14px 10px; border-right:1px solid var(--g-line); background:#f8fafc; }
+            #graph .graph-subnav-item { width:100%; padding:11px 12px; border:0; border-radius:9px; background:transparent; color:#475569; text-align:left; cursor:pointer; }
+            #graph .graph-subnav-item:hover,#graph .graph-subnav-item.active { background:#e8f0ff; color:#174ea6; font-weight:700; }
+            #graph .graph-content { min-width:0; padding:18px; background:var(--g-bg); }
+            #graph .graph-toolbar { display:flex; align-items:center; gap:10px; margin-bottom:16px; padding:12px; border:1px solid var(--g-line); border-radius:12px; background:#fff; }
+            #graph .graph-toolbar-search { flex:1; min-width:180px; padding:9px 12px; border:1px solid var(--g-line); border-radius:8px; }
+            #graph .graph-toolbar select { padding:9px 30px 9px 10px; border:1px solid var(--g-line); border-radius:8px; background:#fff; }
+            #graph .graph-view-switch { display:flex; padding:3px; border-radius:9px; background:#eef2f7; }
+            #graph .graph-view-switch button { padding:7px 12px; border:0; border-radius:7px; background:transparent; cursor:pointer; }
+            #graph .graph-view-switch button.active { background:#fff; color:var(--g-blue); box-shadow:0 1px 5px #1720331c; }
+            #graph .graph-plan-grid,#graph .graph-task-grid,#graph .graph-site-grid,#graph .graph-employee-card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px; }
+            #graph .graph-plan-card,#graph .graph-task-card,#graph .graph-site-card,#graph .graph-employee-card { min-height:170px; padding:17px; border:1px solid var(--g-line); border-radius:14px; background:#fff; color:var(--g-ink); text-align:left; cursor:pointer; transition:transform .18s,box-shadow .18s,border-color .18s; }
+            #graph .graph-plan-card:hover,#graph .graph-task-card:hover,#graph .graph-site-card:hover,#graph .graph-employee-card:hover { transform:translateY(-3px); box-shadow:0 12px 24px #17203314; }
+            #graph .graph-plan-card { border-top:5px solid var(--plan); background:linear-gradient(150deg,color-mix(in srgb,var(--plan) 8%,white),#fff 55%); }
+            #graph .graph-plan-card h3,#graph .graph-task-card h3,#graph .graph-site-card h3 { margin:10px 0 6px; font-size:16px; }
+            #graph .graph-plan-card p,#graph .graph-task-card p,#graph .graph-site-card p { color:var(--g-muted); }
+            #graph .graph-progress { height:6px; overflow:hidden; border-radius:10px; background:#e8edf4; }
+            #graph .graph-progress span { display:block; height:100%; border-radius:inherit; background:var(--plan,var(--g-blue)); }
+            #graph .graph-task-card { border-left:4px solid #94a3b8; }
+            #graph .graph-task-card.status-completed { border-left-color:#16a34a; }
+            #graph .graph-task-card.status-in-progress { border-left-color:#2563eb; }
+            #graph .graph-task-card.status-overdue { border-left-color:#dc2626; }
+            #graph .graph-task-top,#graph .graph-task-meta { display:flex; justify-content:space-between; gap:8px; }
+            #graph .graph-task-meta { margin:16px 0 10px; color:var(--g-muted); font-size:12px; }
+            #graph .graph-status { padding:4px 8px; border-radius:999px; background:#f1f5f9; font-size:11px; font-weight:800; }
+            #graph .status-completed .graph-status { color:#15803d; background:#dcfce7; } #graph .status-in-progress .graph-status { color:#1d4ed8; background:#dbeafe; } #graph .status-overdue .graph-status { color:#b91c1c; background:#fee2e2; }
+            #graph .graph-site-card { padding:0; overflow:hidden; border-top:4px solid var(--site); }
+            #graph .graph-site-card>button { width:100%; padding:17px; border:0; background:transparent; text-align:left; cursor:pointer; }
+            #graph .graph-site-card>a { display:block; padding:11px 17px; border-top:1px solid var(--g-line); color:var(--g-blue); text-decoration:none; }
+            #graph .graph-site-icon { display:grid; place-items:center; width:36px; height:36px; border-radius:8px; background:#038387; color:#fff; font-weight:800; }
+            #graph .graph-employee-table { overflow:hidden; border:1px solid var(--g-line); border-radius:12px; background:#fff; }
+            #graph .graph-table-head,#graph .graph-employee-row { display:grid; grid-template-columns:2fr .8fr .8fr .8fr .5fr; gap:12px; align-items:center; padding:12px 15px; }
+            #graph .graph-table-head { background:#eef2f7; color:#475569; font-size:12px; font-weight:800; }
+            #graph .graph-employee-row { width:100%; border:0; border-top:1px solid var(--g-line); background:#fff; text-align:left; cursor:pointer; }
+            #graph .graph-employee-row:hover { background:#f8fbff; }
+            #graph .graph-employee-row small { display:block; color:var(--g-muted); }
+            #graph .graph-match { display:inline-block; width:max-content; padding:4px 8px; border-radius:999px; font-size:11px; font-style:normal; font-weight:800; } #graph .graph-match.yes { color:#15803d;background:#dcfce7; } #graph .graph-match.no { color:#b91c1c;background:#fee2e2; }
+            #graph .graph-calendar-titlebar { display:flex; justify-content:space-between; align-items:end; margin-bottom:12px; padding:16px; border-radius:12px; background:#fff; }
+            #graph .graph-calendar-head,#graph .graph-calendar-grid { display:grid; grid-template-columns:repeat(7,1fr); }
+            #graph .graph-calendar-head span { padding:9px; color:var(--g-muted); font-size:12px; font-weight:700; text-align:center; }
+            #graph .graph-calendar-day { min-height:128px; padding:6px; border:solid var(--g-line); border-width:1px 0 0 1px; background:#fff; }
+            #graph .graph-calendar-day.today { background:#eff6ff; }
+            #graph .graph-day-number { width:28px;height:28px;border:0;border-radius:50%;background:transparent;cursor:pointer; }
+            #graph .graph-calendar-day.today .graph-day-number { background:var(--g-blue);color:#fff; }
+            #graph .graph-calendar-event,#graph .graph-more { display:block;width:100%;margin:3px 0;padding:4px 6px;overflow:hidden;border:0;border-left:3px solid #2563eb;border-radius:4px;background:#dbeafe;color:#1e3a8a;font-size:10px;text-align:left;text-overflow:ellipsis;white-space:nowrap;cursor:pointer; }
+            #graph .event-tentative { border-color:#d97706!important;background:#fef3c7!important;color:#92400e!important; } #graph .event-free { border-color:#059669!important;background:#d1fae5!important;color:#065f46!important; }
+            #graph .graph-agenda { display:grid; gap:8px; } #graph .graph-event-row { display:grid;grid-template-columns:180px 1fr auto;gap:16px;align-items:center;padding:13px;border:1px solid var(--g-line);border-left:4px solid #2563eb;border-radius:10px;background:#fff;text-align:left;cursor:pointer; }
+            #graph .graph-week-grid { display:grid;grid-template-columns:72px repeat(7,minmax(110px,1fr));overflow:auto;border:1px solid var(--g-line);border-radius:12px;background:#fff; } #graph .graph-week-cell { min-height:110px;padding:6px;border:solid var(--g-line);border-width:0 0 1px 1px; } #graph .graph-week-head { min-height:auto;background:#eef2f7;font-size:12px;font-weight:800;text-align:center; } #graph .graph-week-time { color:var(--g-muted);font-size:11px;text-align:right; }
+            #graph .graph-pagination { display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:15px;color:var(--g-muted); } #graph .graph-pagination button { padding:7px 11px;border:1px solid var(--g-line);border-radius:8px;background:#fff;cursor:pointer; } #graph .graph-pagination button:disabled { opacity:.45;cursor:default; }
+            #graph .graph-skeleton { border-radius:12px;background:linear-gradient(90deg,#eef2f7 25%,#f8fafc 50%,#eef2f7 75%);background-size:200% 100%;animation:graphShimmer 1.2s infinite; } #graph .graph-skeleton-card { height:132px; } #graph .graph-skeleton-row { height:90px;margin-bottom:10px; }
+            @keyframes graphShimmer { to { background-position:-200% 0; } }
+            .graph-drawer-overlay { position:fixed;z-index:1000;inset:0;background:#0f172a66;opacity:0;transition:opacity .18s; } .graph-drawer-overlay.open { opacity:1; } .graph-drawer { position:absolute;inset:0 0 0 auto;width:min(560px,94vw);padding:28px;overflow:auto;background:#fff;box-shadow:-20px 0 55px #0f172a33;transform:translateX(100%);transition:transform .22s; } .graph-drawer-overlay.open .graph-drawer { transform:none; } .graph-drawer-close { position:absolute;top:18px;right:18px;width:34px;height:34px;border:0;border-radius:50%;background:#eef2f7;font-size:22px;cursor:pointer; } .graph-detail-stack { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0; } .graph-detail-row { padding:12px;border:1px solid #e2e8f0;border-radius:9px;background:#f8fafc; } .graph-detail-row span { display:block;margin-bottom:5px;color:#64748b;font-size:11px;text-transform:uppercase; } .graph-detail-row strong { overflow-wrap:anywhere; } .graph-mini-list { display:grid;gap:6px; } .graph-mini-list button,.graph-mini-list a { display:flex;justify-content:space-between;gap:10px;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#172033;text-align:left;text-decoration:none;cursor:pointer; }
+            @media(max-width:1200px){#graph .graph-kpi-grid{grid-template-columns:repeat(3,1fr)}} @media(max-width:800px){#graph .graph-explorer{grid-template-columns:1fr}#graph .graph-subnav{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--g-line)}#graph .graph-subnav-item{min-width:max-content}#graph .graph-command,#graph .graph-people-search{align-items:stretch;flex-direction:column}#graph .graph-kpi-grid{grid-template-columns:repeat(2,1fr)}#graph .graph-toolbar{flex-wrap:wrap}#graph .graph-calendar-day{min-height:90px}.graph-detail-stack{grid-template-columns:1fr}}
+          </style>
           <div class="graph-command">
             <div>
               <p class="eyebrow">Microsoft Graph</p>
@@ -367,6 +465,7 @@
               <button class="graph-subnav-item" data-graph-section="employees">Matched Employees</button>
             </aside>
             <section class="graph-content">
+              <header id="graphSectionHeader" class="graph-section-header"></header>
               <div id="graphToolbar" class="graph-toolbar"></div>
               <div id="graphWorkspace" class="graph-workspace"></div>
               <div id="graphPagination" class="graph-pagination"></div>
@@ -394,7 +493,7 @@
     </div>
 
     <div id="graphDrawerOverlay" class="graph-drawer-overlay" hidden>
-      <aside id="graphDrawer" class="graph-drawer">
+      <aside id="graphDrawer" class="graph-drawer" role="dialog" aria-modal="true" aria-label="Record details">
         <button id="graphDrawerClose" class="graph-drawer-close" type="button" aria-label="Close">×</button>
         <div id="graphDrawerContent"></div>
       </aside>
@@ -455,7 +554,7 @@
       </div>
     </div>
 
-    <script src="app.js?v=20260701-teamsinsights11"></script>
-    <script src="graph-explorer.js?v=20260629-searchbar1"></script>
+    <script src="app.js?v=20260703-leavecol1"></script>
+    <script src="graph-explorer.js?v=20260703-attendance-month1"></script>
   </body>
 </html>
