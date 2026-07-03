@@ -912,17 +912,24 @@ def main():
         efficiency_driver = minmax(raw_efficiency, all_efficiencies) if stats["workItems"] else 50
         if monthly_final:
             worklogix_score = monthly_final
+            has_real_worklogix = True
         elif stats["workItems"]:
             weighted_completion_rate = stats["weightedPointsCompleted"] / max(1, stats["totalWeightedPoints"])
             approval_rate = stats["approval:approved"] / max(1, stats["workItems"])
             efficiency_signal = efficiency_driver / 100
             worklogix_score = (weighted_completion_rate * 55 + approval_rate * 25 + efficiency_signal * 20)
+            has_real_worklogix = True
         else:
             worklogix_score = 50
+            has_real_worklogix = False
         attendance_score = 100 - minmax(gh["A"], absence_counts, invert=False) if gh else minmax(bio["officeHours"], office_hours)
-        task_completion_score = emp.get("worklogixScore", {}).get("completion") or (
-            stats["status:Completed"] / max(1, stats["workItems"]) * 100 if stats["workItems"] else 50
-        )
+        _wl_completion = emp.get("worklogixScore", {}).get("completion")
+        if _wl_completion:
+            task_completion_score = _wl_completion
+        elif stats["workItems"]:
+            task_completion_score = stats["status:Completed"] / max(1, stats["workItems"]) * 100
+        else:
+            task_completion_score = None  # no Worklogix data — excluded from formula
 
         # Punctuality: use biometric check-in data if available, else avg office hours proxy
         punct_raw = bio.get("punctualityScore")
@@ -1018,29 +1025,51 @@ def main():
                     + collaboration_score * 0.30,
                     1,
                 )
-            elif has_github:
-                # Technical with GitHub data
-                kpi = round(
-                    worklogix_score         * 0.35
-                    + task_completion_score * 0.20
-                    + attendance_score      * 0.15
-                    + punctuality_score     * 0.10
-                    + collaboration_score   * 0.10
-                    + github_score          * 0.10,
-                    1,
-                )
             else:
-                # Technical without GitHub: redistribute 10% proportionally across other 5
-                # Base weights: prod=35, task=20, att=15, punct=10, collab=10 → total=90
-                # Scaled to 100: prod=38.9, task=22.2, att=16.7, punct=11.1, collab=11.1
-                kpi = round(
-                    worklogix_score         * 0.389
-                    + task_completion_score * 0.222
-                    + attendance_score      * 0.167
-                    + punctuality_score     * 0.111
-                    + collaboration_score   * 0.111,
-                    1,
-                )
+                # Technical: build formula from only the sources that exist.
+                # If no Worklogix data at all → don't penalise, score like support.
+                # If Worklogix exists but no GitHub → redistribute GitHub weight.
+                tc = task_completion_score  # None if no Worklogix data
+                if has_real_worklogix and has_github:
+                    # Full formula: Worklogix 35% + Tasks 20% + Attendance 15% + Punctuality 10% + Collaboration 10% + GitHub 10%
+                    kpi = round(
+                        worklogix_score * 0.35
+                        + tc            * 0.20
+                        + attendance_score    * 0.15
+                        + punctuality_score   * 0.10
+                        + collaboration_score * 0.10
+                        + github_score        * 0.10,
+                        1,
+                    )
+                elif has_real_worklogix:
+                    # Worklogix but no GitHub: redistribute GitHub 10% across remaining
+                    # Worklogix 38.9% + Tasks 22.2% + Attendance 16.7% + Punctuality 11.1% + Collaboration 11.1%
+                    kpi = round(
+                        worklogix_score * 0.389
+                        + tc            * 0.222
+                        + attendance_score    * 0.167
+                        + punctuality_score   * 0.111
+                        + collaboration_score * 0.111,
+                        1,
+                    )
+                elif has_github:
+                    # GitHub but no Worklogix: GitHub 30% + Attendance 30% + Punctuality 20% + Collaboration 20%
+                    kpi = round(
+                        github_score          * 0.30
+                        + attendance_score    * 0.30
+                        + punctuality_score   * 0.20
+                        + collaboration_score * 0.20,
+                        1,
+                    )
+                else:
+                    # No Worklogix, no GitHub: score exactly like support staff
+                    # Attendance 40% + Punctuality 30% + Collaboration 30%
+                    kpi = round(
+                        attendance_score      * 0.40
+                        + punctuality_score   * 0.30
+                        + collaboration_score * 0.30,
+                        1,
+                    )
             band = (
                 "Excellent"        if kpi >= 90 else
                 "Good"             if kpi >= 80 else
@@ -1069,9 +1098,9 @@ def main():
             quadrant = ""
 
         score_drivers = {
-            "productivity": round(worklogix_score, 1),
+            "productivity": round(worklogix_score, 1) if has_real_worklogix else None,
             "attendance": round(attendance_score, 1),
-            "taskCompletion": round(task_completion_score, 1),
+            "taskCompletion": round(task_completion_score, 1) if task_completion_score is not None else None,
             "punctuality": round(punctuality_score, 1),
             "collaboration": round(collaboration_score, 1),
             "github": round(github_score, 1),
