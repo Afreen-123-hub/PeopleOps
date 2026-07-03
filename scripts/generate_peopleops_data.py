@@ -966,10 +966,13 @@ def main():
         }
         role_cat = get_role_category(emp.get("designation", ""))
         in_worklogix = emp_id in allowed_employee_ids
+        # Confidence uses only the 4 core sources — worklogixActivity and github
+        # are informational tags and must NOT dilute the confidence score.
+        core_sources = {k: sources[k] for k in ("worklogix", "greythr", "biometrics", "teams")}
         if role_cat == "technical" or in_worklogix:
-            relevant = sources          # all 4 sources count
+            relevant = core_sources
         else:
-            relevant = {k: v for k, v in sources.items() if k != "worklogix"}  # 3 sources
+            relevant = {k: v for k, v in core_sources.items() if k != "worklogix"}
         source_confidence = round(sum(relevant.values()) / len(relevant) * 100)
         # gh is truthy even when all entries are "Blank" (no real record).
         # Require at least one meaningful status (P/A/OFF/H/Leave) to count as real data.
