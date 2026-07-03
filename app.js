@@ -1207,22 +1207,23 @@ function renderLeadershipStrip() {
   const executives = (dataset.employees || []).filter(e => e.band === "Executive");
   if (!executives.length) { strip.innerHTML = ""; return; }
   strip.innerHTML = `
+
     <div class="leadership-strip">
       <div class="leadership-strip-header">
         <span class="eyebrow">Leadership</span>
         <span class="pill">${executives.length} executives · scored by team performance</span>
       </div>
       <div class="leadership-cards">
-        ${executives.map(e => {
-          const teamKpi  = e.scoreDrivers?.teamAvgKpi ?? null;
-          const reports  = e.scoreDrivers?.reporteeCount ?? 0;
-          const status   = e.teams?.presence || "";
+        ${executives.map((e, i) => {
+          const teamKpi   = e.scoreDrivers?.teamAvgKpi ?? null;
+          const reports   = e.scoreDrivers?.reporteeCount ?? 0;
+          const status    = e.teams?.presence || "";
           const statusCls = status === "Available" ? "avail" : status === "Away" ? "away" : "offline";
-          const kpiBlock = teamKpi != null
+          const kpiBlock  = teamKpi != null
             ? `<div class="lc-kpi">${teamKpi}<span class="lc-kpi-label">Team Avg KPI</span></div>`
             : `<div class="lc-kpi lc-kpi-none">—<span class="lc-kpi-label">No team data yet</span></div>`;
           return `
-          <div class="leadership-card">
+          <div class="leadership-card" data-exec-index="${i}" style="cursor:pointer" title="Click for details">
             <div class="lc-top">
               <div class="lc-avatar">${e.name.trim().split(" ").map(w => w[0]).slice(0,2).join("")}</div>
               <div class="lc-info">
@@ -1237,6 +1238,12 @@ function renderLeadershipStrip() {
         }).join("")}
       </div>
     </div>`;
+  strip.querySelectorAll(".leadership-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const exec = executives[Number(card.dataset.execIndex)];
+      if (exec) showEmployee(exec);
+    });
+  });
 }
 
 function renderPeopleTable() {
