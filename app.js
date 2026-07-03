@@ -672,6 +672,7 @@ function renderAll() {
   renderKpiPerformance();
   renderSourceCoverage();
   renderWeights();
+  renderLeadershipStrip();
   renderPeopleTable();
   renderTeamsTable();
   renderAttendanceDetail(document.getElementById("attendanceEmployee").value || dataset.employees[0]?.id);
@@ -1200,8 +1201,47 @@ function lowConfidenceWarning(e) {
   return "";
 }
 
+function renderLeadershipStrip() {
+  const strip = document.getElementById("leadershipStrip");
+  if (!strip || !dataset) return;
+  const executives = (dataset.employees || []).filter(e => e.band === "Executive");
+  if (!executives.length) { strip.innerHTML = ""; return; }
+  strip.innerHTML = `
+    <div class="leadership-strip">
+      <div class="leadership-strip-header">
+        <span class="eyebrow">Leadership</span>
+        <span class="pill">${executives.length} executives · scored by team performance</span>
+      </div>
+      <div class="leadership-cards">
+        ${executives.map(e => {
+          const teamKpi  = e.scoreDrivers?.teamAvgKpi ?? null;
+          const reports  = e.scoreDrivers?.reporteeCount ?? 0;
+          const status   = e.teams?.presence || "";
+          const statusCls = status === "Available" ? "avail" : status === "Away" ? "away" : "offline";
+          const kpiBlock = teamKpi != null
+            ? `<div class="lc-kpi">${teamKpi}<span class="lc-kpi-label">Team Avg KPI</span></div>`
+            : `<div class="lc-kpi lc-kpi-none">—<span class="lc-kpi-label">No team data yet</span></div>`;
+          return `
+          <div class="leadership-card">
+            <div class="lc-top">
+              <div class="lc-avatar">${e.name.trim().split(" ").map(w => w[0]).slice(0,2).join("")}</div>
+              <div class="lc-info">
+                <strong class="lc-name">${e.name}</strong>
+                <span class="lc-title">${e.designation || ""}</span>
+                ${status ? `<span class="lc-status ${statusCls}">${status}</span>` : ""}
+              </div>
+            </div>
+            ${kpiBlock}
+            ${reports ? `<div class="lc-reports">${reports} direct report${reports > 1 ? "s" : ""}</div>` : ""}
+          </div>`;
+        }).join("")}
+      </div>
+    </div>`;
+}
+
 function renderPeopleTable() {
   document.getElementById("peopleTable").innerHTML = filteredEmployees
+    .filter(e => e.band !== "Executive")
     .map((e, index) => `<tr data-index="${index}"${e.kpi == null ? ' class="row-no-data"' : ""}>
       <td><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${e.team || "Unassigned"}</small></div>${missingSourceTags(e)}</td>
       <td class="numeric-cell"><span class="score">${e.kpi != null ? e.kpi : "—"}</span></td>
