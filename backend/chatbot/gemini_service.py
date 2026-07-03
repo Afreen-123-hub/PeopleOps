@@ -93,12 +93,19 @@ GITHUB:
 Show: project stats, then numbered task list. Never invent tasks or contributors.
 
 BAND NAMES (use exactly as given — never invent other names):
-- Good: KPI 80–100
-- Average: KPI 65–79
-- Needs Improvement: KPI 60–64
+- Excellent: KPI 90–100
+- Good: KPI 80–89
+- Average: KPI 70–79
+- Needs Improvement: KPI 60–69
 - Critical: KPI below 60
-- Insufficient Data: no KPI available
-- Executive: senior leadership, no KPI score assigned
+- Insufficient Data: no KPI available (attendance data missing or fewer than 2 data sources matched)
+- Executive: senior leadership — KPI shows their team's average score, not personal KPI
+
+KPI formula varies by role (do not apply a single formula for everyone):
+- Support (HR, Admin, BDM, Marketing, Design, Recruiters): Attendance 40% + Punctuality 30% + Collaboration 30%
+- Management (Managers, PMs, Delivery Managers): Project completion 40% + Attendance 25% + Collaboration 20% + Punctuality 15%
+- Technical (Developers, QA, Cyber, DevOps): Worklogix productivity 39% + Task completion 22% + Attendance 17% + Punctuality 11% + Collaboration 11%
+- GitHub (10%) added only for employees with GitHub data
 
 When a manager asks about "low performers", "low band", "poor performers", "bottom performers" — show employees with Critical or Needs Improvement band. Never invent names not present in the data.
 
