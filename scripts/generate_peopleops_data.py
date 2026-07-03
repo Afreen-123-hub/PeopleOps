@@ -626,11 +626,16 @@ def main():
     month_counts = Counter(clean(r.get("month")) for r in all_daily_rows if clean(r.get("month")))
     requested_month = ""
     args = sys.argv[1:]
+    out_path = OUT  # default output path; overridden by --out
     for idx, arg in enumerate(args):
         if arg == "--month" and idx + 1 < len(args):
             requested_month = clean(args[idx + 1])
         elif arg.startswith("--month="):
             requested_month = clean(arg.split("=", 1)[1])
+        elif arg == "--out" and idx + 1 < len(args):
+            out_path = Path(args[idx + 1])
+        elif arg.startswith("--out="):
+            out_path = Path(arg.split("=", 1)[1])
     if requested_month and not re.fullmatch(r"\d{4}-\d{2}", requested_month):
         raise ValueError("--month must use YYYY-MM format")
     target_period = requested_month or (month_counts.most_common(1)[0][0] if month_counts else "")
@@ -1415,8 +1420,8 @@ def main():
         "bands": dict(Counter(e["band"] or "Insufficient Data" for e in employee_rows)),
         "quadrants": dict(Counter(e["quadrant"] for e in employee_rows if e["quadrant"])),
     }
-    OUT.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    print(f"Wrote {OUT.relative_to(PROJECT)} with {len(employee_rows)} employees")
+    out_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    print(f"Wrote {out_path} with {len(employee_rows)} employees")
 
 
 if __name__ == "__main__":

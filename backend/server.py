@@ -19,6 +19,7 @@ from auth_ms import login_url as ms_login_url, handle_callback as ms_handle_call
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_FILE = PROJECT_ROOT / "data" / "peopleops-data.json"
+DATA_FILE_MONTH = PROJECT_ROOT / "data" / "peopleops-data-month.json"  # temp file for month refresh — never overwrites main
 GITHUB_DATA_FILE = PROJECT_ROOT / "data" / "github-data.json"
 GRAPH_DATA_FILE = PROJECT_ROOT / "data" / "graph-activity.json"
 GENERATOR = PROJECT_ROOT / "scripts" / "generate_peopleops_data.py"
@@ -371,7 +372,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             return
 
         result = subprocess.run(
-            [sys.executable, str(GENERATOR), "--month", month],
+            [sys.executable, str(GENERATOR), "--month", month, "--out", str(DATA_FILE_MONTH)],
             cwd=str(PROJECT_ROOT),
             capture_output=True,
             text=True,
@@ -390,12 +391,16 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             }, HTTPStatus.INTERNAL_SERVER_ERROR)
             return
 
-        data = self.load_data() or {}
+        try:
+            data = json.loads(DATA_FILE_MONTH.read_text(encoding="utf-8-sig"))
+        except Exception:
+            data = {}
         self.send_json({
             "status": "refreshed",
             "month": month,
             "period": data.get("meta", {}).get("period", ""),
             "employees": len(data.get("employees", [])),
+            "data": data,
         })
 
     def refresh_teams(self):

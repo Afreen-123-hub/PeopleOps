@@ -453,9 +453,9 @@ async function fetchGlobalAttendanceMonth(month) {
     });
     const payload = await res.json();
     if (!res.ok) throw new Error(payload.message || payload.error || "Failed to refresh");
-    const fresh = await loadDataset({ fresh: true });
-    if (fresh) {
-      dataset = fresh;
+    // Use data returned in response — never reload the main data file
+    if (payload.data && payload.data.employees) {
+      dataset = payload.data;
       applyFilters();
     }
     status.className = "graph-attendance-status success";
