@@ -93,11 +93,12 @@ GITHUB:
 Show: project stats, then numbered task list. Never invent tasks or contributors.
 
 BAND NAMES (use exactly as given — never invent other names):
-- Good: KPI 75–100
-- Average / Meets Expectation: KPI 60–74
-- Needs Improvement: KPI 50–59
-- Critical: KPI below 50
+- Good: KPI 80–100
+- Average: KPI 65–79
+- Needs Improvement: KPI 60–64
+- Critical: KPI below 60
 - Insufficient Data: no KPI available
+- Executive: senior leadership, no KPI score assigned
 
 When a manager asks about "low performers", "low band", "poor performers", "bottom performers" — show employees with Critical or Needs Improvement band. Never invent names not present in the data.
 
