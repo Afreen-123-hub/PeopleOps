@@ -415,6 +415,59 @@ function drawEfficiencyScatter() {
 }
 
 
+function setupGlobalMonthPicker() {
+  const input = document.getElementById("globalMonthInput");
+  const btn = document.getElementById("globalMonthBtn");
+  if (!input || !btn) return;
+  input.max = new Date().toISOString().slice(0, 7);
+  const period = dataset?.meta?.period || "";
+  const m = period.match(/(\d{4}-\d{2})/);
+  if (m) input.value = m[1];
+  btn.addEventListener("click", () => {
+    if (input.value) fetchGlobalAttendanceMonth(input.value);
+  });
+}
+
+function updateGlobalMonthLabel() {
+  const el = document.getElementById("globalMonthLabel");
+  if (!el || !dataset?.meta?.period) return;
+  const m = dataset.meta.period.match(/(\d{4}-\d{2})/);
+  if (!m) return;
+  const date = new Date(`${m[1]}-01T00:00:00`);
+  el.textContent = `Currently showing: ${date.toLocaleDateString([], { month: "long", year: "numeric" })}`;
+}
+
+async function fetchGlobalAttendanceMonth(month) {
+  const btn = document.getElementById("globalMonthBtn");
+  const status = document.getElementById("globalMonthStatus");
+  if (!btn || !status) return;
+  btn.disabled = true;
+  status.className = "graph-attendance-status loading";
+  const label = new Date(`${month}-01T00:00:00`).toLocaleDateString([], { month: "long", year: "numeric" });
+  status.textContent = `Fetching ${label} data…`;
+  try {
+    const res = await apiFetch("/api/refresh-month", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ month }),
+    });
+    const payload = await res.json();
+    if (!res.ok) throw new Error(payload.message || payload.error || "Failed to refresh");
+    const fresh = await loadDataset({ fresh: true });
+    if (fresh) {
+      dataset = fresh;
+      applyFilters();
+    }
+    status.className = "graph-attendance-status success";
+    status.textContent = `✓ Loaded ${label} — all systems updated`;
+  } catch (err) {
+    status.className = "graph-attendance-status error";
+    status.textContent = `✗ ${err.message}`;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
 async function boot() {
   if (!getToken()) {
     window.location.href = "login.html";
@@ -432,6 +485,7 @@ async function boot() {
   setupFilters();
   setupDepartmentChartEvents();
   renderAll();
+  setupGlobalMonthPicker();
   updateTeamsRefreshLabel();
   if (!DEMO_MODE) setInterval(autoRefreshTeams, TEAMS_REFRESH_INTERVAL);
 }
@@ -610,6 +664,7 @@ function renderAlerts() {
 }
 
 function renderAll() {
+  updateGlobalMonthLabel();
   renderTotalEmployeeBadge();
   renderMetrics();
   renderTeamsInsights();
@@ -1153,6 +1208,7 @@ function renderPeopleTable() {
       <td>${e.band ? `<span class="band ${bandClass(e.band)}">${e.band}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
       <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
       <td class="numeric-cell">${e.attendance.present}</td>
+      <td class="numeric-cell">${e.attendance.leave ?? 0}</td>
       <td class="numeric-cell">${e.attendance.absent}</td>
       <td>${teamsStatusBadge(e.teams)}</td>
     </tr>`)
@@ -1251,7 +1307,7 @@ function openTeamsPanel(e) {
         <div class="tsd-stat"><span class="tsd-val">${att.avgOfficeHours != null ? att.avgOfficeHours + " hrs" : "—"}</span><span class="tsd-lbl">Avg Daily Hours</span></div>
         <div class="tsd-stat"><span class="tsd-val">${att.punctualityScore != null ? att.punctualityScore + "%" : "—"}</span><span class="tsd-lbl">Punctuality</span></div>
         <div class="tsd-stat"><span class="tsd-val">${att.validOfficeDays != null ? att.validOfficeDays + " days" : "—"}</span><span class="tsd-lbl">Days Tracked</span></div>
-        <div class="tsd-stat"><span class="tsd-val">${att.present} / ${att.present + att.absent}</span><span class="tsd-lbl">Present / Working Days</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${att.present} / ${att.present + att.absent + att.leave}</span><span class="tsd-lbl">Present / Working Days</span></div>
       </div>
     </div>
 
@@ -2011,7 +2067,7 @@ function showEmployee(e) {
 }
 
 function exportCsv() {
-  const headers = ["id", "name", "team", "designation", "kpi", "band", "confidence", "work_items", "completed", "present", "absent", "teams_status"];
+  const headers = ["id", "name", "team", "designation", "kpi", "band", "confidence", "work_items", "completed", "present", "leave", "absent", "teams_status"];
   const rows = filteredEmployees.map((e) => [
     e.id,
     e.name,
@@ -2023,6 +2079,7 @@ function exportCsv() {
     e.worklogix.workItems,
     e.worklogix.completed,
     e.attendance.present,
+    e.attendance.leave ?? 0,
     e.attendance.absent,
     e.teams.status || "",
   ]);
