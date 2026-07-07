@@ -210,8 +210,10 @@ def main():
         )
         bio = biometric.get(emp_id) or biometric.get(biometric_key) or Counter()
 
-        present_days = bio["biometricDays"] or gh["P"]
         c = round(gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["Blank"]) if gh else 0
+        # Cap biometric at calendarDays — API sometimes returns duplicate records per day
+        bio_days = min(bio["biometricDays"], c) if c and bio["biometricDays"] else bio["biometricDays"]
+        present_days = bio_days or (gh["P"] if gh else 0)
         valid_days = min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"]
 
         emp["attendance"] = {

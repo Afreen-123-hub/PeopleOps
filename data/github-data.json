@@ -1,8 +1,8 @@
 {
-  "lastUpdated": "2026-07-02T05:32:03.061325Z",
+  "lastUpdated": "2026-07-07T10:48:14.713224Z",
   "period": {
-    "since": "2026-06-01",
-    "until": "2026-06-30"
+    "since": "2026-07-01",
+    "until": "2026-07-31"
   },
   "org": "CodeWork-ai",
   "projects": [
@@ -50,7 +50,112 @@
       "title": "Acadamiq AI",
       "items": [
         {
-          "title": "Past Dates Are Allowed in the Send Email Notification Date Field",
+          "title": "Previously Created Teacher Data Is Visible to a Newly Created Teacher Account",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/87",
+          "createdAt": "2026-06-30T09:30:15Z",
+          "closedAt": null,
+          "startDate": "2026-07-06",
+          "endDate": ""
+        },
+        {
+          "title": "Incorrect Message Timestamp Displayed in the Communication Tab for Teacher Role",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/94",
+          "createdAt": "2026-06-30T12:32:07Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "View Announcement Link in Email Redirects to 404 Page Not Found",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/187",
+          "createdAt": "2026-07-03T11:24:54Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Recent Messages Are Not Retained and Conversations Are Not Sorted Correctly in the Communication Tab",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/96",
+          "createdAt": "2026-07-01T04:02:13Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Teacher Role - Change Heatmap Visual",
+          "status": "TODO",
+          "priority": "P0",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/163",
+          "createdAt": "2026-07-03T06:05:32Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Teacher Profile Edit Displays Blank Password and Incorrectly Maps Address 2 to Address 1",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/115",
+          "createdAt": "2026-07-01T10:42:03Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Announcements checkbox overlap",
+          "status": "TODO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/136",
+          "createdAt": "2026-07-02T06:01:12Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
+          "title": "Newly Created Parent Is Not Displayed in the Frontend and No Success Toast Is Shown",
           "status": "In progress",
           "priority": "",
           "size": "",
@@ -58,8 +163,98 @@
             "Kxrthikeyan-76"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/109",
-          "createdAt": "2026-07-01T09:38:00Z",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/138",
+          "createdAt": "2026-07-02T06:10:02Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
+          "title": "User List Flickers While Typing or Deleting Text in the Search Field Across All User Roles",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/230",
+          "createdAt": "2026-07-07T06:13:07Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Type Dropdown Preselects First Option Instead of Displaying a Placeholder in Add New Period",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/234",
+          "createdAt": "2026-07-07T07:12:39Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Class Teacher and Class Subject Dropdowns Have Incorrect Default Behavior in Add Teacher",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/236",
+          "createdAt": "2026-07-07T08:57:17Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Student Creation Displays Browser Confirmation Popup and Fails with 422 Response",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/130",
+          "createdAt": "2026-07-02T04:50:25Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
+          "title": "Edit screen overlaps the search field and search icon on the Manage Users > Parents page.",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "suruthisagar97"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/127",
+          "createdAt": "2026-07-02T04:34:42Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Delete Timetable Action Displays Browser Confirmation Popup Instead of Application Delete Dialog",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/119",
+          "createdAt": "2026-07-01T11:36:12Z",
           "closedAt": null,
           "startDate": "2026-07-02",
           "endDate": ""
@@ -81,11 +276,11 @@
         },
         {
           "title": "OTP Field Is Not Cleared Immediately After Clicking Resend OTP",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/76",
@@ -96,11 +291,11 @@
         },
         {
           "title": "Email Validation Occurs Only on Add Teacher",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/107",
@@ -111,11 +306,11 @@
         },
         {
           "title": "Date of Birth Field Accepts Future Dates",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/114",
@@ -171,11 +366,11 @@
         },
         {
           "title": "Success Toast Message Is Not Displayed After Uploading School Logo",
-          "status": "QA",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Glad-Andrew"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/55",
@@ -186,11 +381,11 @@
         },
         {
           "title": "Unable to Delete Published Announcement from the All Published Section",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/70",
@@ -201,11 +396,11 @@
         },
         {
           "title": "Users Can Edit Announcements from the Bin Section",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/69",
@@ -219,9 +414,7 @@
           "status": "QA",
           "priority": "",
           "size": "",
-          "assignees": [
-            "Kxrthikeyan-76"
-          ],
+          "assignees": [],
           "state": "CLOSED",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/20",
           "createdAt": "2026-05-27T08:53:06Z",
@@ -230,12 +423,57 @@
           "endDate": ""
         },
         {
+          "title": "Edit action is not working properly for subjects.",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "suruthisagar97"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/110",
+          "createdAt": "2026-07-01T09:39:02Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
+          "title": "Past Dates Are Allowed in the Send Email Notification Date Field",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/109",
+          "createdAt": "2026-07-01T09:38:00Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
+          "title": "Admin Column Displays Hyphen Instead of Admin Name in the Schools List",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/84",
+          "createdAt": "2026-06-30T07:36:53Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
           "title": "User Is Not Redirected to the Sign In Page After Successful Account Creation",
           "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/50",
@@ -250,7 +488,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/52",
@@ -265,7 +503,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/51",
@@ -279,9 +517,7 @@
           "status": "QA",
           "priority": "",
           "size": "",
-          "assignees": [
-            "Kxrthikeyan-76"
-          ],
+          "assignees": [],
           "state": "CLOSED",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/13",
           "createdAt": "2026-05-25T09:39:09Z",
@@ -294,9 +530,7 @@
           "status": "QA",
           "priority": "",
           "size": "",
-          "assignees": [
-            "Kxrthikeyan-76"
-          ],
+          "assignees": [],
           "state": "CLOSED",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/15",
           "createdAt": "2026-05-25T09:42:10Z",
@@ -451,27 +685,12 @@
           "endDate": ""
         },
         {
-          "title": "500 Internal Server Error Occurs When Adding a New School",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "nithisha-01"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/57",
-          "createdAt": "2026-06-29T10:33:03Z",
-          "closedAt": null,
-          "startDate": "2026-06-30",
-          "endDate": ""
-        },
-        {
           "title": "Email Notification Is Not Triggered After Publishing an Announcement with \"Send Email Notification\" Enabled",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/86",
@@ -482,32 +701,62 @@
         },
         {
           "title": "School Status Is Updated to Inactive Instead of Suspended When Using the Suspend Action",
-          "status": "In progress",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "nithisha-01"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/61",
           "createdAt": "2026-06-29T11:05:22Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-01",
           "endDate": ""
         },
         {
-          "title": "Admin Column Displays Hyphen Instead of Admin Name in the Schools List",
+          "title": "Building Deletion Displays Browser Confirmation Popup and Fails with 500 Response",
           "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Kxrthikeyan-76"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/84",
-          "createdAt": "2026-06-30T07:36:53Z",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/142",
+          "createdAt": "2026-07-02T06:53:50Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
+          "title": "Curriculum Management Filter Displays Incorrect Option",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/233",
+          "createdAt": "2026-07-07T06:27:06Z",
           "closedAt": null,
           "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Edit and Mark as Inactive Actions Are Not Working in the Teacher Action Menu",
+          "status": "TODO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/123",
+          "createdAt": "2026-07-01T11:57:51Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
           "endDate": ""
         },
         {
@@ -522,52 +771,67 @@
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/104",
           "createdAt": "2026-07-01T07:10:09Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-01",
           "endDate": ""
         },
         {
           "title": "500 Internal Server Error Occurs When Adding a New Teacher",
-          "status": "In progress",
+          "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "nithisha-01"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/108",
           "createdAt": "2026-07-01T08:55:38Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-01",
+          "endDate": ""
+        },
+        {
+          "title": "500 Internal Server Error Occurs When Adding a New School",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/57",
+          "createdAt": "2026-06-29T10:33:03Z",
+          "closedAt": null,
+          "startDate": "2026-06-30",
           "endDate": ""
         },
         {
           "title": "Updated Inactive Status Is Not Reflected in Periods & Classes",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/124",
           "createdAt": "2026-07-01T12:33:02Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-01",
           "endDate": ""
         },
         {
           "title": "School Information Is Not Saved After Clicking Save Changes",
-          "status": "In progress",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Kxrthikeyan-76"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/105",
           "createdAt": "2026-07-01T07:28:39Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-01",
           "endDate": ""
         },
         {
@@ -587,11 +851,11 @@
         },
         {
           "title": "Incorrect Failure Toast Message Displayed for Invalid Login Credentials",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/71",
@@ -602,11 +866,11 @@
         },
         {
           "title": "Generic Error Message Displayed for Invalid Email in Forgot Password",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/74",
@@ -617,11 +881,11 @@
         },
         {
           "title": "Incorrect Error Message Displayed When Submitting Add School Form Without Required Details",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/67",
@@ -632,11 +896,11 @@
         },
         {
           "title": "Draft Information Section Shakes While Typing in the Search Field",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/64",
@@ -647,11 +911,11 @@
         },
         {
           "title": "Incorrect Error Message Displayed for Expired OTP in Forgot Password",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/75",
@@ -662,11 +926,11 @@
         },
         {
           "title": "Announcement Is Created Without Validating Mandatory Fields",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/80",
@@ -677,11 +941,11 @@
         },
         {
           "title": "Verify OTP Button Flickers When Clicked on the Verify OTP Page",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/77",
@@ -692,11 +956,11 @@
         },
         {
           "title": "Newly created subject is not displayed at the top of the table.",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "suruthisagar97"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/103",
@@ -707,41 +971,41 @@
         },
         {
           "title": "Add New Teacher form is not cleared after clicking Cancel or X.",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "suruthisagar97"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/100",
           "createdAt": "2026-07-01T06:05:33Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-01",
           "endDate": ""
         },
         {
           "title": "Delete confirmation dialog is not displayed.",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "suruthisagar97"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/101",
           "createdAt": "2026-07-01T06:37:07Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-01",
           "endDate": ""
         },
         {
           "title": "Published Announcement Count Does Not Match the Number of Displayed Announcements",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/79",
@@ -752,17 +1016,17 @@
         },
         {
           "title": "Announcement Type Dropdown Placeholder Overlaps with Arrow and Priority Level Defaults to High",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/85",
           "createdAt": "2026-06-30T07:53:42Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-01",
           "endDate": ""
         },
         {
@@ -823,7 +1087,7 @@
         },
         {
           "title": "Remember Me Checkbox Is Not Functioning on the Sign In Page",
-          "status": "In progress",
+          "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
@@ -837,31 +1101,136 @@
           "endDate": ""
         },
         {
-          "title": "Calendar Class Filter Displays Incorrect Default Selection and Clear All Does Not Reset Programme",
-          "status": "TODO",
+          "title": "Update Incident Status in Incident Report Writing",
+          "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
             "nithisha-01"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/83",
-          "createdAt": "2026-06-30T07:28:38Z",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/170",
+          "createdAt": "2026-07-03T07:05:05Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
-          "title": "Previously Created Teacher Data Is Visible to a Newly Created Teacher Account",
+          "title": "Download Button Opens Print Dialog Instead of Downloading Timetable",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/91",
+          "createdAt": "2026-06-30T11:06:09Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Scrolling Affects the Entire Page Instead of Only the All Schools List",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/111",
+          "createdAt": "2026-07-01T09:47:27Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Update Announcement and Notification Icons",
+          "status": "DEV",
+          "priority": "P0",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/171",
+          "createdAt": "2026-07-03T07:07:10Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Teacher UUID Is Displayed Instead of Teacher ID in Add Timetable Page",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/117",
+          "createdAt": "2026-07-01T11:14:36Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Update Icon for Incident Report Writing",
+          "status": "DEV",
+          "priority": "P0",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/174",
+          "createdAt": "2026-07-03T07:27:58Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Past dates are accepted when creating an event.",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/148",
+          "createdAt": "2026-07-02T09:45:09Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
+          "title": "Move Communication Chat Icon to the Right",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/172",
+          "createdAt": "2026-07-03T07:22:49Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Calendar Class Filter Displays Incorrect Default Selection and Clear All Does Not Reset Programme",
           "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Glad-Andrew"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/87",
-          "createdAt": "2026-06-30T09:30:15Z",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/83",
+          "createdAt": "2026-06-30T07:28:38Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -895,51 +1264,6 @@
           "endDate": ""
         },
         {
-          "title": "Download Button Opens Print Dialog Instead of Downloading Timetable",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "nithisha-01"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/91",
-          "createdAt": "2026-06-30T11:06:09Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Incorrect Message Timestamp Displayed in the Communication Tab for Teacher Role",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/94",
-          "createdAt": "2026-06-30T12:32:07Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Recent Messages Are Not Retained and Conversations Are Not Sorted Correctly in the Communication Tab",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/96",
-          "createdAt": "2026-07-01T04:02:13Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Request to Add Environment Variables for Academiq AI",
           "status": "Completed",
           "priority": "",
@@ -968,147 +1292,42 @@
           "endDate": ""
         },
         {
-          "title": "Edit action is not working properly for subjects.",
+          "title": "Search field is not working properly on the AI Nova page.",
           "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Glad-Andrew"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/110",
-          "createdAt": "2026-07-01T09:39:02Z",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/134",
+          "createdAt": "2026-07-02T05:27:32Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
-          "title": "Scrolling Affects the Entire Page Instead of Only the All Schools List",
+          "title": "Long description breaks event details display.",
           "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Glad-Andrew"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/111",
-          "createdAt": "2026-07-01T09:47:27Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Teacher Profile Edit Displays Blank Password and Incorrectly Maps Address 2 to Address 1",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Kxrthikeyan-76"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/115",
-          "createdAt": "2026-07-01T10:42:03Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Teacher UUID Is Displayed Instead of Teacher ID in Add Timetable Page",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "nithisha-01"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/117",
-          "createdAt": "2026-07-01T11:14:36Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Add Teacher Timetable Modal Overlay Does Not Cover the Entire Viewport",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Kxrthikeyan-76"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/118",
-          "createdAt": "2026-07-01T11:21:35Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Delete Timetable Action Displays Browser Confirmation Popup Instead of Application Delete Dialog",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Kxrthikeyan-76"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/119",
-          "createdAt": "2026-07-01T11:36:12Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Teacher Timetable Page Flickers When Opened",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Kxrthikeyan-76"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/120",
-          "createdAt": "2026-07-01T11:41:09Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "AI Timetable Generation Popup Overlay Does Not Cover the Entire Page",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Kxrthikeyan-76"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/121",
-          "createdAt": "2026-07-01T11:47:18Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Edit and Mark as Inactive Actions Are Not Working in the Teacher Action Menu",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Kxrthikeyan-76"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/123",
-          "createdAt": "2026-07-01T11:57:51Z",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/147",
+          "createdAt": "2026-07-02T09:17:14Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
           "title": "Column Sorting Is Not Working in School Setup Tables",
-          "status": "TODO",
+          "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Glad-Andrew"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/126",
@@ -1118,18 +1337,78 @@
           "endDate": ""
         },
         {
-          "title": "Edit screen overlaps the search field and search icon on the Manage Users > Parents page.",
-          "status": "TODO",
+          "title": "Building Form Allows Empty Submission and Total Rooms Field Accepts Negative Values",
+          "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Glad-Andrew"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/127",
-          "createdAt": "2026-07-02T04:34:42Z",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/151",
+          "createdAt": "2026-07-02T10:29:51Z",
           "closedAt": null,
           "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Event details overlap the screen when clicking a created event.",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/150",
+          "createdAt": "2026-07-02T10:23:20Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Teacher Timetable Page Flickers When Opened",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/120",
+          "createdAt": "2026-07-01T11:41:09Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
+          "title": "AI Timetable Generation Popup Overlay Does Not Cover the Entire Page",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/121",
+          "createdAt": "2026-07-01T11:47:18Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
+          "title": "Duplicate Date Picker Icons Displayed for Start Date and End Date Fields",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/135",
+          "createdAt": "2026-07-02T05:48:17Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
           "endDate": ""
         },
         {
@@ -1163,86 +1442,101 @@
           "endDate": ""
         },
         {
-          "title": "Student Creation Displays Browser Confirmation Popup and Fails with 422 Response",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/130",
-          "createdAt": "2026-07-02T04:50:25Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Resources button is unresponsive on the Dashboard page.",
-          "status": "TODO",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "suruthisagar97"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/131",
           "createdAt": "2026-07-02T04:57:22Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-02",
           "endDate": ""
         },
         {
-          "title": "Parent Users List Displays Data from a Previously Created Admin Account",
-          "status": "TODO",
+          "title": "Add Teacher Timetable Modal Overlay Does Not Cover the Entire Viewport",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/132",
-          "createdAt": "2026-07-02T05:19:45Z",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/118",
+          "createdAt": "2026-07-01T11:21:35Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-02",
           "endDate": ""
         },
         {
-          "title": "School Admin Profile Displays Date of Birth as N/A Despite No Date of Birth Field During School Creation",
-          "status": "TODO",
+          "title": "Cancelled Grade/Class Selections Are Still Displayed in Create Event Filters",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/133",
-          "createdAt": "2026-07-02T05:27:03Z",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/145",
+          "createdAt": "2026-07-02T07:18:02Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-02",
           "endDate": ""
         },
         {
-          "title": "Search field is not working properly on the AI Nova page.",
-          "status": "TODO",
+          "title": "Room Count Exceeds Configured Total Rooms for a Floor",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Santhakumar082"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/134",
-          "createdAt": "2026-07-02T05:27:32Z",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/152",
+          "createdAt": "2026-07-02T10:38:41Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
+          "title": "Operational Days Are Preselected by Default in School Information",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/141",
+          "createdAt": "2026-07-02T06:41:52Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
+          "endDate": ""
+        },
+        {
+          "title": "Add Grades field overlaps the screen on the Calendar page while creating an event.",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "suruthisagar97"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/143",
+          "createdAt": "2026-07-02T06:56:03Z",
+          "closedAt": null,
+          "startDate": "2026-07-02",
           "endDate": ""
         }
       ],
       "stats": {
-        "total": 80,
+        "total": 100,
         "done": 4,
-        "inProgress": 30,
-        "todo": 24,
+        "inProgress": 15,
+        "todo": 13,
         "backlog": 2,
         "production": 0
       }
@@ -1251,6 +1545,21 @@
       "number": 26,
       "title": "Worklogix",
       "items": [
+        {
+          "title": "Multiple Role Login Allowed in the Same Browser Session",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/52",
+          "createdAt": "2026-07-06T10:18:42Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Intern Attendance Sign-In Button",
           "status": "Todo",
@@ -1295,13 +1604,118 @@
           "closedAt": "2026-06-29T05:42:24Z",
           "startDate": "2026-06-10",
           "endDate": "2026-06-16"
+        },
+        {
+          "title": "Selected Intern Name Overflows the Card",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/53",
+          "createdAt": "2026-07-07T04:51:04Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Application Error Occurs When Selecting a Project ID in Test Leadership",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/89",
+          "createdAt": "2026-07-07T05:54:52Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Application Displays Blank Page After API Failure",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/90",
+          "createdAt": "2026-07-07T06:04:59Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Incorrect Status Symbol Displayed for Pending Approval in HR Daily Updates",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/91",
+          "createdAt": "2026-07-07T07:36:39Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Weekly Report Data Not Displayed After Selecting an Intern",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/56",
+          "createdAt": "2026-07-07T08:54:46Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Application Error Occurs When Accessing Projects and Daily Updates in Test Employee Module",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/92",
+          "createdAt": "2026-07-07T09:27:52Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Unable to Login with Client Credentials",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/57",
+          "createdAt": "2026-07-07T09:32:42Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 3,
+        "total": 11,
         "done": 0,
         "inProgress": 0,
-        "todo": 2,
+        "todo": 10,
         "backlog": 0,
         "production": 0
       }
@@ -1614,10 +2028,58 @@
           "closedAt": "2026-07-01T06:31:49Z",
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Create Azure Database for Oman Smart Tourism App",
+          "status": "Completed",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "manju-209",
+            "Thariq-Abbas"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/204",
+          "createdAt": "2026-07-06T07:27:45Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Grant Repository Access to Worklogix",
+          "status": "Completed",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "manju-209",
+            "Thariq-Abbas"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/51",
+          "createdAt": "2026-07-06T10:46:20Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Grant Repository Access to Academiq AI",
+          "status": "Completed",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "manju-209",
+            "Thariq-Abbas"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/237",
+          "createdAt": "2026-07-07T09:15:42Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 2,
+        "total": 5,
         "done": 0,
         "inProgress": 0,
         "todo": 0,
@@ -1654,6 +2116,268 @@
   ],
   "contributors": [
     {
+      "login": "Santhakumar082",
+      "projects": [
+        "Acadamiq AI"
+      ],
+      "tasks": [
+        {
+          "project": "Acadamiq AI",
+          "title": "Previously Created Teacher Data Is Visible to a Newly Created Teacher Account",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Teacher Profile Edit Displays Blank Password and Incorrectly Maps Address 2 to Address 1",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Student Creation Displays Browser Confirmation Popup and Fails with 422 Response",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Delete Timetable Action Displays Browser Confirmation Popup Instead of Application Delete Dialog",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "AI Timetable Schedule for Student",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "OTP Field Is Not Cleared Immediately After Clicking Resend OTP",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Email Validation Occurs Only on Add Teacher",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Date of Birth Field Accepts Future Dates",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Action Menu Popup Is Partially Hidden After Applying Status Filter",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "School Admin - Curriculum Management UI",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Frontend: AI Chatbot",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Unable to Delete Published Announcement from the All Published Section",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Users Can Edit Announcements from the Bin Section",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Past Dates Are Allowed in the Send Email Notification Date Field",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Admin Column Displays Hyphen Instead of Admin Name in the Schools List",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "User Is Not Redirected to the Sign In Page After Successful Account Creation",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Success Toast Message Is Not Displayed After Successful Account Creation",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Incorrect Failure Toast Message Displayed When Signing Up with an Existing Email Address",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "School Logo Upload Rejects Files Below the Documented 5 MB Limit",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Summary Panel Displays \"Admin\" Instead of \"Name\" While Entering Admin Details",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Email Notification Is Not Triggered After Publishing an Announcement with \"Send Email Notification\" Enabled",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Updated Inactive Status Is Not Reflected in Periods & Classes",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Default School Records Are Displayed for a Newly Created Account",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Incorrect Failure Toast Message Displayed for Invalid Login Credentials",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Generic Error Message Displayed for Invalid Email in Forgot Password",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Incorrect Error Message Displayed When Submitting Add School Form Without Required Details",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Draft Information Section Shakes While Typing in the Search Field",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Incorrect Error Message Displayed for Expired OTP in Forgot Password",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Announcement Is Created Without Validating Mandatory Fields",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Verify OTP Button Flickers When Clicked on the Verify OTP Page",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Published Announcement Count Does Not Match the Number of Displayed Announcements",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Announcement Type Dropdown Placeholder Overlaps with Arrow and Priority Level Defaults to High",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Action Menu Popup Is Clipped and Scroll bar Is Missing in Schools Section",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Incorrect Failure Toast Message Displayed for Invalid Sign-In Credentials",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Teacher Timetable Page Flickers When Opened",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "AI Timetable Generation Popup Overlay Does Not Cover the Entire Page",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Duplicate Date Picker Icons Displayed for Start Date and End Date Fields",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Add Teacher Timetable Modal Overlay Does Not Cover the Entire Viewport",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Cancelled Grade/Class Selections Are Still Displayed in Create Event Filters",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Room Count Exceeds Configured Total Rooms for a Floor",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Operational Days Are Preselected by Default in School Information",
+          "status": "QA",
+          "priority": ""
+        }
+      ],
+      "total": 41,
+      "done": 1,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
       "login": "nithisha-01",
       "projects": [
         "Acadamiq AI",
@@ -1662,6 +2386,12 @@
         "HireLens"
       ],
       "tasks": [
+        {
+          "project": "Acadamiq AI",
+          "title": "Teacher Role - Change Heatmap Visual",
+          "status": "TODO",
+          "priority": "P0"
+        },
         {
           "project": "Acadamiq AI",
           "title": "School Admin - School Set up UI",
@@ -1676,37 +2406,73 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "School Status Is Updated to Inactive Instead of Suspended When Using the Suspend Action",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "500 Internal Server Error Occurs When Adding a New Teacher",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "500 Internal Server Error Occurs When Adding a New School",
-          "status": "In progress",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Remember Me Checkbox Is Not Functioning on the Sign In Page",
-          "status": "In progress",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Calendar Class Filter Displays Incorrect Default Selection and Clear All Does Not Reset Programme",
-          "status": "TODO",
+          "title": "Update Incident Status in Incident Report Writing",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Download Button Opens Print Dialog Instead of Downloading Timetable",
-          "status": "TODO",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Scrolling Affects the Entire Page Instead of Only the All Schools List",
-          "status": "In progress",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
+          "title": "Update Announcement and Notification Icons",
+          "status": "DEV",
+          "priority": "P0"
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "Teacher UUID Is Displayed Instead of Teacher ID in Add Timetable Page",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Update Icon for Incident Report Writing",
+          "status": "DEV",
+          "priority": "P0"
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Past dates are accepted when creating an event.",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Move Communication Chat Icon to the Right",
           "status": "In progress",
           "priority": ""
         },
@@ -1735,6 +2501,18 @@
           "priority": "P0"
         },
         {
+          "project": "Worklogix",
+          "title": "Application Error Occurs When Selecting a Project ID in Test Leadership",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Unable to Login with Client Credentials",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
           "project": "Hirelysze",
           "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
           "status": "Todo",
@@ -1759,199 +2537,68 @@
           "priority": ""
         }
       ],
-      "total": 16,
+      "total": 25,
       "done": 2,
-      "inProgress": 4,
-      "commits": 52,
-      "prs": 31,
-      "prsMerged": 31,
-      "additions": 2466,
-      "deletions": 670
+      "inProgress": 1,
+      "commits": 4,
+      "prs": 9,
+      "prsMerged": 9,
+      "additions": 0,
+      "deletions": 0
     },
     {
       "login": "Kxrthikeyan-76",
       "projects": [
-        "Acadamiq AI"
+        "Acadamiq AI",
+        "Worklogix"
       ],
       "tasks": [
         {
           "project": "Acadamiq AI",
-          "title": "Past Dates Are Allowed in the Send Email Notification Date Field",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "OTP Field Is Not Cleared Immediately After Clicking Resend OTP",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Email Validation Occurs Only on Add Teacher",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Date of Birth Field Accepts Future Dates",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Unable to Delete Published Announcement from the All Published Section",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Users Can Edit Announcements from the Bin Section",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "School Admin - Grade Report UI",
+          "title": "Incorrect Message Timestamp Displayed in the Communication Tab for Teacher Role",
           "status": "QA",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "User Is Not Redirected to the Sign In Page After Successful Account Creation",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Success Toast Message Is Not Displayed After Successful Account Creation",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Incorrect Failure Toast Message Displayed When Signing Up with an Existing Email Address",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "School Admin - Teacher Timetable UI",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "School Admin - Calendar UI",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Incorrect Failure Toast Message Displayed for Invalid Login Credentials",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Generic Error Message Displayed for Invalid Email in Forgot Password",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Incorrect Error Message Displayed When Submitting Add School Form Without Required Details",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Draft Information Section Shakes While Typing in the Search Field",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Incorrect Error Message Displayed for Expired OTP in Forgot Password",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Announcement Is Created Without Validating Mandatory Fields",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Verify OTP Button Flickers When Clicked on the Verify OTP Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Newly created subject is not displayed at the top of the table.",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Add New Teacher form is not cleared after clicking Cancel or X.",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Delete confirmation dialog is not displayed.",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Published Announcement Count Does Not Match the Number of Displayed Announcements",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Announcement Type Dropdown Placeholder Overlaps with Arrow and Priority Level Defaults to High",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Edit action is not working properly for subjects.",
+          "title": "Announcements checkbox overlap",
           "status": "TODO",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Teacher Profile Edit Displays Blank Password and Incorrectly Maps Address 2 to Address 1",
-          "status": "TODO",
+          "title": "Newly Created Parent Is Not Displayed in the Frontend and No Success Toast Is Shown",
+          "status": "In progress",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Add Teacher Timetable Modal Overlay Does Not Cover the Entire Viewport",
-          "status": "TODO",
+          "title": "User List Flickers While Typing or Deleting Text in the Search Field Across All User Roles",
+          "status": "In progress",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Delete Timetable Action Displays Browser Confirmation Popup Instead of Application Delete Dialog",
-          "status": "TODO",
+          "title": "Type Dropdown Preselects First Option Instead of Displaying a Placeholder in Add New Period",
+          "status": "In progress",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Teacher Timetable Page Flickers When Opened",
-          "status": "TODO",
+          "title": "Class Teacher and Class Subject Dropdowns Have Incorrect Default Behavior in Add Teacher",
+          "status": "In progress",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "AI Timetable Generation Popup Overlay Does Not Cover the Entire Page",
-          "status": "TODO",
+          "title": "Building Deletion Displays Browser Confirmation Popup and Fails with 500 Response",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Curriculum Management Filter Displays Incorrect Option",
+          "status": "In progress",
           "priority": ""
         },
         {
@@ -1962,13 +2609,7 @@
         },
         {
           "project": "Acadamiq AI",
-          "title": "Column Sorting Is Not Working in School Setup Tables",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Edit screen overlaps the search field and search icon on the Manage Users > Parents page.",
+          "title": "School Information Is Not Saved After Clicking Save Changes",
           "status": "TODO",
           "priority": ""
         },
@@ -1979,15 +2620,79 @@
           "priority": ""
         },
         {
+          "project": "Worklogix",
+          "title": "Multiple Role Login Allowed in the Same Browser Session",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Selected Intern Name Overflows the Card",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Application Displays Blank Page After API Failure",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Incorrect Status Symbol Displayed for Pending Approval in HR Daily Updates",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Weekly Report Data Not Displayed After Selecting an Intern",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Application Error Occurs When Accessing Projects and Daily Updates in Test Employee Module",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 17,
+      "done": 0,
+      "inProgress": 6,
+      "commits": 0,
+      "prs": 4,
+      "prsMerged": 4,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "Glad-Andrew",
+      "projects": [
+        "Acadamiq AI"
+      ],
+      "tasks": [
+        {
           "project": "Acadamiq AI",
-          "title": "Resources button is unresponsive on the Dashboard page.",
+          "title": "Success Toast Message Is Not Displayed After Uploading School Logo",
           "status": "TODO",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "School Admin Profile Displays Date of Birth as N/A Despite No Date of Birth Field During School Creation",
+          "title": "Calendar Class Filter Displays Incorrect Default Selection and Clear All Does Not Reset Programme",
           "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Progress Report Tab Displays 404 Page Not Found for Teacher Role",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Subject Form Does Not Validate Before Adding New Row",
+          "status": "In progress",
           "priority": ""
         },
         {
@@ -1995,16 +2700,111 @@
           "title": "Search field is not working properly on the AI Nova page.",
           "status": "TODO",
           "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Long description breaks event details display.",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Column Sorting Is Not Working in School Setup Tables",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Building Form Allows Empty Submission and Total Rooms Field Accepts Negative Values",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Event details overlap the screen when clicking a created event.",
+          "status": "In progress",
+          "priority": ""
         }
       ],
-      "total": 37,
+      "total": 9,
       "done": 0,
-      "inProgress": 18,
-      "commits": 8,
-      "prs": 8,
-      "prsMerged": 8,
-      "additions": 4169,
-      "deletions": 2217
+      "inProgress": 5,
+      "commits": 0,
+      "prs": 5,
+      "prsMerged": 5,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "suruthisagar97",
+      "projects": [
+        "Acadamiq AI"
+      ],
+      "tasks": [
+        {
+          "project": "Acadamiq AI",
+          "title": "Edit screen overlaps the search field and search icon on the Manage Users > Parents page.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Edit action is not working properly for subjects.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Newly created subject is not displayed at the top of the table.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Add New Teacher form is not cleared after clicking Cancel or X.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Delete confirmation dialog is not displayed.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Resources button is unresponsive on the Dashboard page.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Add Grades field overlaps the screen on the Calendar page while creating an event.",
+          "status": "QA",
+          "priority": ""
+        }
+      ],
+      "total": 7,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "xavierrnelson",
+      "projects": [],
+      "tasks": [],
+      "total": 0,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 6,
+      "prs": 0,
+      "prsMerged": 0,
+      "additions": 0,
+      "deletions": 0
     },
     {
       "login": "Lakshana-Lakshmanan",
@@ -2012,6 +2812,18 @@
         "Acadamiq AI"
       ],
       "tasks": [
+        {
+          "project": "Acadamiq AI",
+          "title": "View Announcement Link in Email Redirects to 404 Page Not Found",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Recent Messages Are Not Retained and Conversations Are Not Sorted Correctly in the Communication Tab",
+          "status": "In progress",
+          "priority": ""
+        },
         {
           "project": "Acadamiq AI",
           "title": "AI Timetable Schedule for Student",
@@ -2026,215 +2838,87 @@
         },
         {
           "project": "Acadamiq AI",
-          "title": "Email Notification Is Not Triggered After Publishing an Announcement with \"Send Email Notification\" Enabled",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "School Status Is Updated to Inactive Instead of Suspended When Using the Suspend Action",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Admin Column Displays Hyphen Instead of Admin Name in the Schools List",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
           "title": "Delete action is not working properly for subjects.",
           "status": "In progress",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "500 Internal Server Error Occurs When Adding a New Teacher",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Updated Inactive Status Is Not Reflected in Periods & Classes",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "School Information Is Not Saved After Clicking Save Changes",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Previously Created Teacher Data Is Visible to a Newly Created Teacher Account",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Incorrect Message Timestamp Displayed in the Communication Tab for Teacher Role",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Recent Messages Are Not Retained and Conversations Are Not Sorted Correctly in the Communication Tab",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Student Creation Displays Browser Confirmation Popup and Fails with 422 Response",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Parent Users List Displays Data from a Previously Created Admin Account",
-          "status": "TODO",
-          "priority": ""
         }
       ],
-      "total": 14,
+      "total": 5,
       "done": 0,
-      "inProgress": 7,
-      "commits": 15,
-      "prs": 6,
-      "prsMerged": 6,
-      "additions": 1249,
-      "deletions": 116
-    },
-    {
-      "login": "Antony-Bilgates",
-      "projects": [],
-      "tasks": [],
-      "total": 0,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 20,
-      "prs": 17,
-      "prsMerged": 15,
-      "additions": 4585,
-      "deletions": 3204
-    },
-    {
-      "login": "Glad-Andrew",
-      "projects": [
-        "Acadamiq AI"
-      ],
-      "tasks": [
-        {
-          "project": "Acadamiq AI",
-          "title": "Progress Report Tab Displays 404 Page Not Found for Teacher Role",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Subject Form Does Not Validate Before Adding New Row",
-          "status": "In progress",
-          "priority": ""
-        }
-      ],
-      "total": 2,
-      "done": 0,
-      "inProgress": 1,
-      "commits": 11,
-      "prs": 12,
-      "prsMerged": 11,
-      "additions": 5519,
-      "deletions": 4447
-    },
-    {
-      "login": "vahithcw",
-      "projects": [],
-      "tasks": [],
-      "total": 0,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 13,
-      "prs": 5,
-      "prsMerged": 5,
-      "additions": 6172,
-      "deletions": 1322
-    },
-    {
-      "login": "Santhakumar082",
-      "projects": [
-        "Acadamiq AI"
-      ],
-      "tasks": [
-        {
-          "project": "Acadamiq AI",
-          "title": "AI Timetable Schedule for Student",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Action Menu Popup Is Partially Hidden After Applying Status Filter",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "School Admin - Curriculum Management UI",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Frontend: AI Chatbot",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Success Toast Message Is Not Displayed After Uploading School Logo",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "School Logo Upload Rejects Files Below the Documented 5 MB Limit",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Summary Panel Displays \"Admin\" Instead of \"Name\" While Entering Admin Details",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Default School Records Are Displayed for a Newly Created Account",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Action Menu Popup Is Clipped and Scroll bar Is Missing in Schools Section",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Incorrect Failure Toast Message Displayed for Invalid Sign-In Credentials",
-          "status": "QA",
-          "priority": ""
-        }
-      ],
-      "total": 10,
-      "done": 1,
-      "inProgress": 0,
+      "inProgress": 3,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
       "additions": 0,
       "deletions": 0
+    },
+    {
+      "login": "manju-209",
+      "projects": [
+        "Devops"
+      ],
+      "tasks": [
+        {
+          "project": "Devops",
+          "title": "Create Azure Database for Oman Smart Tourism App",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Grant Repository Access to Worklogix",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Grant Repository Access to Academiq AI",
+          "status": "Completed",
+          "priority": ""
+        }
+      ],
+      "total": 3,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 1,
+      "prs": 0,
+      "prsMerged": 0,
+      "additions": 58,
+      "deletions": 0
+    },
+    {
+      "login": "Thariq-Abbas",
+      "projects": [
+        "Devops"
+      ],
+      "tasks": [
+        {
+          "project": "Devops",
+          "title": "Create Azure Database for Oman Smart Tourism App",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Grant Repository Access to Worklogix",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Grant Repository Access to Academiq AI",
+          "status": "Completed",
+          "priority": ""
+        }
+      ],
+      "total": 3,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 1,
+      "prs": 0,
+      "prsMerged": 0,
+      "additions": 0,
+      "deletions": 31
     },
     {
       "login": "Iftikhaar-ali",
@@ -2306,54 +2990,28 @@
       "deletions": 0
     },
     {
-      "login": "manju-209",
-      "projects": [],
-      "tasks": [],
-      "total": 0,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 3,
-      "prs": 0,
-      "prsMerged": 0,
-      "additions": 56,
-      "deletions": 37
-    },
-    {
-      "login": "xavierrnelson",
-      "projects": [],
-      "tasks": [],
-      "total": 0,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 3,
-      "prs": 0,
-      "prsMerged": 0,
-      "additions": 3861,
-      "deletions": 1115
-    },
-    {
-      "login": "vahith33",
-      "projects": [],
-      "tasks": [],
-      "total": 0,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 2,
-      "prs": 1,
-      "prsMerged": 1,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "gladandrew001",
+      "login": "Antony-Bilgates",
       "projects": [],
       "tasks": [],
       "total": 0,
       "done": 0,
       "inProgress": 0,
       "commits": 1,
-      "prs": 1,
-      "prsMerged": 1,
+      "prs": 2,
+      "prsMerged": 2,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "vahithcw",
+      "projects": [],
+      "tasks": [],
+      "total": 0,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 1,
+      "prs": 2,
+      "prsMerged": 2,
       "additions": 0,
       "deletions": 0
     }

@@ -425,6 +425,10 @@ def read_biometric_api(month_label):
         emp_id = clean(row.get("user_id"))
         if not emp_id:
             continue
+        # Also index by normalised name so UUID-keyed employees (interns) can match
+        user_name_key = norm_key(row.get("user_name", ""))
+        if user_name_key:
+            result[f"name:{user_name_key}"] = result[emp_id]
 
         bio = row.get("biometric_in_office_status") or {}
         if bio:
@@ -908,7 +912,7 @@ def main():
     for emp_id, emp in employees.items():
         stats = work_item_stats[emp_id]
         gh = greythr_for_employee(emp_id, emp)
-        bio = attendance[emp_id]
+        bio = attendance.get(emp_id) or attendance.get(f"name:{norm_key(emp.get('name',''))}") or Counter()
         present_days = bio["biometricDays"] or gh["P"]
         tm = teams[emp_id]
         monthly_final = emp.get("worklogixScore", {}).get("final", 0)
@@ -965,7 +969,7 @@ def main():
             "worklogix": emp_id in allowed_employee_ids,
             "worklogixActivity": has_real_worklogix,
             "greythr": bool(gh),
-            "biometrics": bool(attendance.get(emp_id)),
+            "biometrics": bool(attendance.get(emp_id) or attendance.get(f"name:{norm_key(emp.get('name',''))}")),
             "teams": bool(tm),
             "github": gc is not None,
         }
@@ -1147,7 +1151,7 @@ def main():
                 # Use this as a hard cap so biometric rows leaked from adjacent months
                 # (e.g. validOfficeDays=33 in a 30-day June) are trimmed.
                 **( lambda c: {
-                    "present": present_days,
+                    "present": min(present_days, c) if c else present_days,
                     "absent": gh["A"],
                     "off": gh["OFF"],
                     "holidays": gh["H"],
