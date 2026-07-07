@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import io
 import json
@@ -302,13 +303,24 @@ def refresh():
                 }
             )
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--month", default="", help="YYYY-MM to fetch (default: current month)")
+    args, _ = parser.parse_known_args()
+
     india_timezone = timezone(timedelta(hours=5, minutes=30))
     now = datetime.now(india_timezone)
-    start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-    if now.month == 12:
-        end = start.replace(year=now.year + 1, month=1)
+    if args.month:
+        try:
+            ref = datetime.strptime(args.month, "%Y-%m").replace(tzinfo=india_timezone)
+        except ValueError:
+            ref = now
     else:
-        end = start.replace(month=now.month + 1)
+        ref = now
+    start = ref.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    if start.month == 12:
+        end = start.replace(year=start.year + 1, month=1)
+    else:
+        end = start.replace(month=start.month + 1)
 
     events_by_employee = {}
     calendar_errors = []

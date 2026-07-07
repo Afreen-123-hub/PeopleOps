@@ -1,5 +1,7 @@
 let dataset;
 let filteredEmployees = [];
+let loggedInUserName = "";
+let loggedInUserEmail = "";
 let departmentChartBars = [];
 
 const state = {
@@ -46,7 +48,7 @@ function logout() {
   window.location.href = "login.html";
 }
 
-const TEAMS_REFRESH_INTERVAL = 10 * 60 * 1000; // 10 minutes
+const TEAMS_REFRESH_INTERVAL = 5 * 60 * 1000; // 5 minutes
 
 function drawDonutChart() {
   const canvas = document.getElementById("donutChart");
@@ -473,6 +475,27 @@ async function boot() {
     window.location.href = "login.html";
     return;
   }
+  // Validate token with server — catches expired sessions before any data loads
+  const ping = await apiFetch("/api/health");
+  if (!ping) return; // apiFetch already cleared token and redirected to login.html
+  // Load logged-in user profile — await so loggedInUserName is set before first render
+  const meRes = await apiFetch("/api/me");
+  if (meRes) {
+    const me = await meRes.json();
+    if (me.name) {
+      loggedInUserName = me.name;
+      loggedInUserEmail = (me.email || "").toLowerCase();
+      const initials = me.name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+      const avatarEl = document.getElementById("railUserAvatar");
+      const nameEl   = document.getElementById("railUserName");
+      const typeEl   = document.getElementById("railUserType");
+      const wrapEl   = document.getElementById("railUser");
+      if (avatarEl) avatarEl.textContent = initials;
+      if (nameEl)   { nameEl.textContent = me.name; nameEl.title = me.name; }
+      if (typeEl)   typeEl.textContent   = me.type === "sso" ? "Microsoft account" : "Admin";
+      if (wrapEl)   wrapEl.style.display = "flex";
+    }
+  }
   dataset = await loadDataset();
   if (!dataset) return;
   filteredEmployees = dataset.employees.filter(e => !isIntern(e)).sort((a, b) => {
@@ -487,11 +510,26 @@ async function boot() {
   renderAll();
   setupGlobalMonthPicker();
   updateTeamsRefreshLabel();
-  if (!DEMO_MODE) setInterval(autoRefreshTeams, TEAMS_REFRESH_INTERVAL);
+  if (!DEMO_MODE) {
+    setInterval(autoRefreshTeams, TEAMS_REFRESH_INTERVAL);
+    setInterval(() => { if (typeof refreshGraph === "function") refreshGraph(); }, TEAMS_REFRESH_INTERVAL);
+  }
 }
 
 async function autoRefreshTeams() {
-  updateTeamsRefreshLabel();
+  const res = await apiFetch("/api/refresh-teams", { method: "POST" });
+  if (!res || !res.ok) return;
+  const result = await res.json();
+  if (result.status !== "refreshed" || !result.teams) return;
+  // Patch teams data into dataset without re-fetching everything
+  result.teams.forEach(fresh => {
+    const emp = dataset.employees.find(e => e.id === fresh.id);
+    if (emp) emp.teams = { status: fresh.status, isActive: fresh.isActive, isAway: fresh.isAway,
+      isOffline: fresh.isOffline, isOutOfOffice: fresh.isOutOfOffice, workLocation: fresh.workLocation };
+  });
+  filteredEmployees = filteredEmployees.map(e => dataset.employees.find(d => d.id === e.id) || e);
+  renderTeamsTable();
+  updateTeamsRefreshLabel(result.teamsRefreshedAt || Date.now());
 }
 
 function updateTeamsRefreshLabel(ts) {
@@ -517,6 +555,7 @@ function setupNavigation() {
       document.querySelectorAll(".view").forEach((view) => view.classList.remove("active-view"));
       button.classList.add("active");
       document.getElementById(button.dataset.view).classList.add("active-view");
+      window.scrollTo({ top: 0, behavior: "instant" });
       toggleControls(button.dataset.view);
       if (button.dataset.view === "overview") drawScatter();
       if (button.dataset.view === "kpi") renderKpiPerformance();
@@ -554,7 +593,22 @@ function setupFilters() {
     state.showInterns = event.target.checked;
     applyFilters();
   });
-  document.getElementById("exportCsv").addEventListener("click", exportCsv);
+  document.getElementById("exportBtn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    document.getElementById("exportMenu").classList.toggle("open");
+  });
+  document.addEventListener("click", () => {
+    document.getElementById("exportMenu").classList.remove("open");
+    const um = document.getElementById("railUserMenu");
+    if (um) um.classList.remove("open");
+  });
+  const dotsBtn = document.getElementById("railUserDotsBtn");
+  if (dotsBtn) dotsBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    document.getElementById("railUserMenu").classList.toggle("open");
+  });
+  document.getElementById("exportCsv").addEventListener("click", () => { exportCsv(); document.getElementById("exportMenu").classList.remove("open"); });
+  document.getElementById("exportXlsx").addEventListener("click", () => { exportExcel(); document.getElementById("exportMenu").classList.remove("open"); });
   document.getElementById("refreshKpi").addEventListener("click", refreshKpiPerformance);
   document.getElementById("clearKpiTeam").addEventListener("click", clearKpiTeamFilter);
   document.getElementById("closeDialog").addEventListener("click", () => document.getElementById("employeeDialog").close());
@@ -583,13 +637,22 @@ function populateFilterOptions() {
 function populateAttendanceOptions() {
   const attendanceSelect = document.getElementById("attendanceEmployee");
   const previousEmployee = attendanceSelect.value;
-  attendanceSelect.innerHTML = dataset.employees
+  const meNorm = loggedInUserName.trim().toLowerCase();
+  const sorted = dataset.employees
     .slice()
-    .sort((a, b) => a.name.localeCompare(b.name))
+    .sort((a, b) => {
+      const aMe = meNorm && a.name.trim().toLowerCase() === meNorm ? -1 : 0;
+      const bMe = meNorm && b.name.trim().toLowerCase() === meNorm ? 1 : 0;
+      return aMe + bMe || a.name.localeCompare(b.name);
+    });
+  attendanceSelect.innerHTML = sorted
     .map((employee) => `<option value="${employee.id}">${employee.name} (${employee.id})</option>`)
     .join("");
-  if (dataset.employees.some((employee) => employee.id === previousEmployee)) {
+  if (previousEmployee && dataset.employees.some((employee) => employee.id === previousEmployee)) {
     attendanceSelect.value = previousEmployee;
+  } else if (meNorm) {
+    const match = dataset.employees.find(e => e.name.trim().toLowerCase() === meNorm);
+    if (match) attendanceSelect.value = match.id;
   }
 }
 
@@ -1247,8 +1310,16 @@ function renderLeadershipStrip() {
 }
 
 function renderPeopleTable() {
-  document.getElementById("peopleTable").innerHTML = filteredEmployees
+  const meNorm = loggedInUserName.trim().toLowerCase();
+  const sorted = filteredEmployees
     .filter(e => e.band !== "Executive")
+    .slice()
+    .sort((a, b) => {
+      const aMe = meNorm && a.name.trim().toLowerCase() === meNorm ? -1 : 0;
+      const bMe = meNorm && b.name.trim().toLowerCase() === meNorm ? 1 : 0;
+      return aMe + bMe;
+    });
+  document.getElementById("peopleTable").innerHTML = sorted
     .map((e, index) => `<tr data-index="${index}"${e.kpi == null ? ' class="row-no-data"' : ""}>
       <td><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${e.team || "Unassigned"}</small></div>${missingSourceTags(e)}</td>
       <td class="numeric-cell"><span class="score">${e.kpi != null ? e.kpi : "—"}</span></td>
@@ -1262,7 +1333,7 @@ function renderPeopleTable() {
     .join("");
 
   document.querySelectorAll("#peopleTable tr").forEach((row) => {
-    row.addEventListener("click", () => showEmployee(filteredEmployees[Number(row.dataset.index)]));
+    row.addEventListener("click", () => showEmployee(sorted[Number(row.dataset.index)]));
   });
 }
 
@@ -1288,9 +1359,11 @@ function formatCheckinHour(h) {
 }
 
 function renderTeamsTable() {
+  const statusPriority = (e) =>
+    e.teams.isActive ? 0 : e.teams.isAway ? 1 : e.teams.isOutOfOffice ? 2 : e.teams.isOffline ? 3 : 4;
   const rows = filteredEmployees
     .slice()
-    .sort((a, b) => (b.teams.isActive || 0) - (a.teams.isActive || 0));
+    .sort((a, b) => statusPriority(a) - statusPriority(b) || a.name.localeCompare(b.name));
 
   // Status summary bar
   const active = rows.filter(e => e.teams.isActive).length;
@@ -1527,9 +1600,11 @@ function renderAttendanceDetail(employeeId) {
   const employee = dataset.employees.find((item) => item.id === employeeId) || dataset.employees[0];
   if (!employee) return;
   const attendance = employee.attendance;
-  const workingDays = attendance.present + attendance.absent + attendance.leave;
+  const workingDays = attendance.calendarDays
+    ? attendance.calendarDays - attendance.off - attendance.holidays
+    : attendance.present + attendance.absent + attendance.leave;
   const trackedDays = workingDays + attendance.off + attendance.holidays;
-  const presentRate = workingDays ? Math.round((attendance.present / workingDays) * 100) : 0;
+  const presentRate = workingDays ? Math.min(100, Math.round((attendance.present / workingDays) * 100)) : 0;
   const absentRate = workingDays ? Math.round((attendance.absent / workingDays) * 100) : 0;
   const biometricCoverage = attendance.present
     ? Math.min(100, Math.round((attendance.biometricDays / attendance.present) * 100))
@@ -1940,8 +2015,10 @@ function showEmployee(e) {
   const bandLabel = e.band || "No Data";
   const initials = e.name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
 
+  const sourceLabels = { worklogix: "Worklogix", greythr: "GreytHR", biometrics: "Biometrics", teams: "Teams" };
   const sources = Object.entries(e.sources || {})
-    .map(([name, ok]) => `<span class="source-chip ${ok ? "ok" : "missing"}">${ok ? "✓" : "✗"} ${name}</span>`)
+    .filter(([name]) => name in sourceLabels)
+    .map(([name, ok]) => `<span class="source-chip ${ok ? "ok" : "missing"}">${ok ? "✓" : "✗"} ${sourceLabels[name]}</span>`)
     .join("");
 
   document.getElementById("employeeDetail").innerHTML = `
@@ -2138,6 +2215,42 @@ function exportCsv() {
   link.download = "peopleops-sample-kpi.csv";
   link.click();
   URL.revokeObjectURL(url);
+}
+
+function exportExcel() {
+  if (typeof XLSX === "undefined") {
+    alert("Excel library not loaded. Please check your internet connection and reload the page.");
+    return;
+  }
+  const period = dataset?.meta?.period || "export";
+  const headers = ["ID", "Name", "Team", "Designation", "KPI Score", "Band", "Confidence", "Work Items", "Completed", "Present Days", "Leave Days", "Absent Days", "Teams Status"];
+  const rows = filteredEmployees.map((e) => [
+    e.id,
+    e.name,
+    e.team || "",
+    e.designation || "",
+    e.kpi != null ? e.kpi : "",
+    e.band || "",
+    e.sourceConfidence || "",
+    e.worklogix.workItems,
+    e.worklogix.completed,
+    e.attendance.present,
+    e.attendance.leave ?? 0,
+    e.attendance.absent,
+    e.teams.status || "",
+  ]);
+  const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
+  // Bold header row
+  const headerRange = XLSX.utils.decode_range(ws["!ref"]);
+  for (let col = headerRange.s.c; col <= headerRange.e.c; col++) {
+    const cell = ws[XLSX.utils.encode_cell({ r: 0, c: col })];
+    if (cell) cell.s = { font: { bold: true } };
+  }
+  // Column widths
+  ws["!cols"] = [10, 22, 18, 22, 10, 12, 12, 12, 12, 13, 11, 13, 16].map(w => ({ wch: w }));
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "PeopleOPS KPI");
+  XLSX.writeFile(wb, `peopleops-kpi-${period.replace(/\s+/g, "-").toLowerCase()}.xlsx`);
 }
 
 function csvCell(value) {

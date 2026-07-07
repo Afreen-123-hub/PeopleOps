@@ -209,10 +209,21 @@
   </div>
 
   <script>
-    // If already logged in, go straight to dashboard
-    if (localStorage.getItem("po_token")) {
-      window.location.href = "index.html";
-    }
+    // If already logged in, validate token with server before skipping to dashboard
+    (async function checkExistingSession() {
+      const token = localStorage.getItem("po_token");
+      if (!token) return;
+      try {
+        const res = await fetch("/api/health", { headers: { "Authorization": "Bearer " + token } });
+        if (res.ok) {
+          window.location.href = "index.html";
+        } else {
+          localStorage.removeItem("po_token");
+        }
+      } catch {
+        // Server unreachable — stay on login page
+      }
+    })();
 
     // Handle SSO callback: ?sso_token=...&sso_name=...
     (function handleSsoCallback() {

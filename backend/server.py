@@ -31,7 +31,7 @@ API_FETCHER = PROJECT_ROOT / "scripts" / "fetch_real_api_data.py"
 ENV_FILE = PROJECT_ROOT.parent / ".env"
 
 SESSION_TTL = 8 * 3600  # 8 hours
-_sessions: dict[str, float] = {}  # token -> expiry timestamp
+_sessions: dict[str, dict] = {}  # token -> {expiry, name, type}
 
 PUBLIC_PATHS = {"/login.html", "/api/login", "/styles.css", "/favicon.ico", "/auth/login", "/auth/callback"}
 _instance_lock = None
@@ -55,8 +55,8 @@ def _get_credentials():
 
 
 def _is_valid_token(token: str) -> bool:
-    expiry = _sessions.get(token)
-    if expiry and expiry > time.time():
+    session = _sessions.get(token)
+    if session and session.get("expiry", 0) > time.time():
         return True
     _sessions.pop(token, None)
     return False
@@ -177,8 +177,10 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             return
         token = secrets.token_hex(32)
-        _sessions[token] = time.time() + SESSION_TTL
-        name = quote(result.get("name", ""))
+        user_name = result.get("name", "") or result.get("displayName", "")
+        user_email = result.get("email", "")
+        _sessions[token] = {"expiry": time.time() + SESSION_TTL, "name": user_name, "email": user_email, "type": "sso"}
+        name = quote(user_name)
         self.send_response(302)
         self.send_header("Location", f"/login.html?sso_token={token}&sso_name={name}")
         self.end_headers()
@@ -196,8 +198,8 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             return
         if body.get("username", "").strip() == username and body.get("password", "") == password:
             token = secrets.token_hex(32)
-            _sessions[token] = time.time() + SESSION_TTL
-            self.send_json({"token": token, "expires_in": SESSION_TTL})
+            _sessions[token] = {"expiry": time.time() + SESSION_TTL, "name": username, "type": "password"}
+            self.send_json({"token": token, "name": username, "expires_in": SESSION_TTL})
         else:
             time.sleep(1)  # slow brute-force attempts
             self.send_json({"error": "Invalid username or password."}, HTTPStatus.UNAUTHORIZED)
@@ -213,11 +215,20 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         if data is None:
             return
 
+        auth = self.headers.get("Authorization", "")
+        current_token = auth[7:] if auth.startswith("Bearer ") else ""
+        current_session = _sessions.get(current_token, {})
+
         routes = {
             "/api/health": lambda: {
                 "status": "ok",
                 "app": data.get("meta", {}).get("name", "PeopleOPS Intelligence"),
                 "dataMode": data.get("meta", {}).get("dataMode", "Local sample files"),
+            },
+            "/api/me": lambda: {
+                "name": current_session.get("name", ""),
+                "email": current_session.get("email", ""),
+                "type": current_session.get("type", "password"),
             },
             "/api/data": lambda: data,
             "/api/meta": lambda: data.get("meta", {}),
@@ -472,8 +483,19 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             }, HTTPStatus.INTERNAL_SERVER_ERROR)
 
     def refresh_graph(self):
+        length = int(self.headers.get("Content-Length", 0))
+        month = ""
+        if length:
+            try:
+                body = json.loads(self.rfile.read(length))
+                month = body.get("month", "").strip()
+            except (json.JSONDecodeError, ValueError):
+                pass
+        cmd = [sys.executable, str(GRAPH_REFRESHER)]
+        if month:
+            cmd += ["--month", month]
         result = subprocess.run(
-            [sys.executable, str(GRAPH_REFRESHER)],
+            cmd,
             cwd=str(PROJECT_ROOT),
             capture_output=True,
             text=True,

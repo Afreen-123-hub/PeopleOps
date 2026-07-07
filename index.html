@@ -19,7 +19,19 @@
         <button class="rail-item" data-view="github" title="GitHub">GitHub</button>
         <button class="rail-item" data-view="graph" title="Microsoft Graph">Graph</button>
         <button class="rail-item" data-view="integrations" title="Integrations">Integrations</button>
-        <button class="rail-item rail-logout" onclick="logout()" title="Sign out" style="margin-top:auto;opacity:0.7;">Sign out</button>
+        <div id="railUser" class="rail-user-pill" style="display:none;">
+          <div id="railUserAvatar" class="rail-user-avatar"></div>
+          <div class="rail-user-info">
+            <div id="railUserName" class="rail-user-name"></div>
+            <div id="railUserType" class="rail-user-type"></div>
+          </div>
+          <div class="rail-user-menu-wrap">
+            <button class="rail-user-dots" id="railUserDotsBtn" title="Options">&#8942;</button>
+            <div class="rail-user-menu" id="railUserMenu">
+              <button onclick="logout()">Sign out</button>
+            </div>
+          </div>
+        </div>
       </aside>
 
       <section class="workspace">
@@ -29,7 +41,13 @@
             <p class="hero-copy">Unified employee performance intelligence across attendance, collaboration, delivery, and workforce signals.</p>
           </div>
           <div class="hero-actions">
-            <button id="exportCsv" class="button">Export CSV</button>
+            <div class="export-dropdown" id="exportDropdown">
+              <button class="button export-btn" id="exportBtn">Export ▾</button>
+              <div class="export-menu" id="exportMenu">
+                <button id="exportCsv">CSV (.csv)</button>
+                <button id="exportXlsx">Excel (.xlsx)</button>
+              </div>
+            </div>
           </div>
         </header>
 
@@ -375,7 +393,7 @@
             #graph .graph-kpi-card strong { font-size:26px; }
             #graph .graph-kpi-card small { color:var(--g-muted); }
             #graph .graph-kpi-icon { display:grid; place-items:center; width:28px; height:28px; border-radius:8px; background:color-mix(in srgb,var(--accent) 13%,white); color:var(--accent); }
-            #graph .graph-explorer { display:grid; grid-template-columns:210px minmax(0,1fr); min-height:600px; border:1px solid var(--g-line); border-radius:16px; overflow:hidden; background:#fff; }
+            #graph .graph-explorer { display:block; min-height:600px; border:1px solid var(--g-line); border-radius:16px; overflow:hidden; background:#fff; }
             #graph .graph-subnav { padding:14px 10px; border-right:1px solid var(--g-line); background:#f8fafc; }
             #graph .graph-subnav-item { width:100%; padding:11px 12px; border:0; border-radius:9px; background:transparent; color:#475569; text-align:left; cursor:pointer; }
             #graph .graph-subnav-item:hover,#graph .graph-subnav-item.active { background:#e8f0ff; color:#174ea6; font-weight:700; }
@@ -433,12 +451,12 @@
           <div class="graph-command">
             <div>
               <p class="eyebrow">Microsoft Graph</p>
-              <h1 class="gh-title">Planner, Calendar & SharePoint</h1>
               <div id="graphBreadcrumbs" class="graph-breadcrumbs">Microsoft Graph / Overview</div>
             </div>
             <div class="gh-header-actions">
               <span id="graphRefreshLabel" class="pill"></span>
-              <button id="graphRefreshButton" class="button" type="button">Refresh now</button>
+              <input type="month" id="graphMonthPicker" style="padding:5px 10px;border:1px solid var(--line);border-radius:8px;font-size:0.85rem;background:white;color:var(--ink);">
+              <button id="graphRefreshButton" class="button" type="button">Refresh</button>
             </div>
           </div>
           <section class="graph-people-search">
@@ -457,14 +475,6 @@
           </section>
           <div id="graphSummaryCards" class="graph-kpi-grid"></div>
           <div class="graph-explorer">
-            <aside class="graph-subnav">
-              <button class="graph-subnav-item active" data-graph-section="plans">Planner Plans</button>
-              <button class="graph-subnav-item" data-graph-section="tasks">Planner Tasks</button>
-              <button class="graph-subnav-item" data-graph-section="completed">Completed Tasks</button>
-              <button class="graph-subnav-item" data-graph-section="calendar">Calendar</button>
-              <button class="graph-subnav-item" data-graph-section="sites">SharePoint Sites</button>
-              <button class="graph-subnav-item" data-graph-section="employees">Matched Employees</button>
-            </aside>
             <section class="graph-content">
               <header id="graphSectionHeader" class="graph-section-header"></header>
               <div id="graphToolbar" class="graph-toolbar"></div>
@@ -555,7 +565,8 @@
       </div>
     </div>
 
-    <script src="app.js?v=20260703-leavecol1"></script>
-    <script src="graph-explorer.js?v=20260703-attendance-month1"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+    <script src="app.js?v=20260707-excel1"></script>
+    <script src="graph-explorer.js?v=20260707-fix-header"></script>
   </body>
 </html>

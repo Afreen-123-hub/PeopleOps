@@ -90,6 +90,14 @@ async function renderGraph() {
     graphData = await response.json();
     setupGraphExplorer();
     renderGraphExplorer();
+    // Auto-open logged-in user's profile in Matched Employees
+    const email = (typeof loggedInUserEmail !== "undefined" ? loggedInUserEmail : "").toLowerCase();
+    const meNorm = (typeof loggedInUserName !== "undefined" ? loggedInUserName : "").trim().toLowerCase();
+    const match = (graphData?.employees || []).find(e =>
+      (email && (e.email || "").toLowerCase() === email) ||
+      (meNorm && e.name.trim().toLowerCase() === meNorm)
+    );
+    if (match) showEmployeeWorkspaceLegacy(match);
   } catch {
     document.getElementById("graphRefreshLabel").textContent = "Graph data is not available yet";
   }
@@ -98,17 +106,27 @@ async function renderGraph() {
 async function refreshGraph() {
   const label = document.getElementById("graphRefreshLabel");
   const button = document.getElementById("graphRefreshButton");
-  label.textContent = "Refreshing Microsoft Graph...";
-  button.disabled = true;
+  const picker = document.getElementById("graphMonthPicker");
+  const month = picker?.value || "";
+  label.textContent = month ? `Fetching ${month}...` : "Refreshing Microsoft Graph...";
+  if (button) button.disabled = true;
   try {
-    const response = await apiFetch("/api/graph-data");
-    if (!response.ok) throw new Error("Graph data could not be loaded");
-    graphData = await response.json();
+    const body = month ? JSON.stringify({ month }) : "{}";
+    const response = await apiFetch("/api/refresh-graph", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+    });
+    if (!response || !response.ok) throw new Error("Graph refresh failed");
+    const result = await response.json();
+    if (result.status !== "refreshed") throw new Error(result.stderr || "Refresh failed");
+    graphData = result.graph;
     renderGraphExplorer();
+    label.textContent = result.generatedAt ? `Updated ${new Date(result.generatedAt).toLocaleString()}` : "Updated";
   } catch (error) {
     label.textContent = `Refresh failed: ${error.message}`;
   } finally {
-    button.disabled = false;
+    if (button) button.disabled = false;
   }
 }
 
@@ -198,6 +216,7 @@ function showEmployeeWorkspaceLegacy(employee) {
   document.getElementById("graphEmployeeSearchClear").hidden = false;
   document.getElementById("graphBreadcrumbs").textContent = `Microsoft Graph / Employee 360° / ${employee.name}`;
   document.querySelectorAll(".graph-subnav-item").forEach(button => button.classList.remove("active"));
+  renderEmployeeContextHeader(employee);
   const tasks = employee.planner?.tasks || [];
   const events = employee.calendar?.items || [];
   const sites = employeeRelevantSites(employee);
@@ -436,7 +455,7 @@ function showEmployeeWorkspace(employee) {
   graphEmployeeState.employeeId = employee.id;
   graphEmployeeState.tab = "overview";
   document.getElementById("graphEmployeeSuggestions").hidden = true;
-  document.getElementById("graphEmployeeSearch").value = graphEmployeeState.query || employee.name;
+  document.getElementById("graphEmployeeSearch").value = employee.name;
   document.getElementById("graphEmployeeSearchClear").hidden = false;
   document.getElementById("graphBreadcrumbs").textContent = `Microsoft Graph / Employee 360° / ${employee.name}`;
   document.querySelectorAll(".graph-subnav-item").forEach(button => button.classList.remove("active"));
@@ -662,6 +681,15 @@ function setGraphSection(section) {
     graphExplorerState.calendarDate = graphData?.meta?.periodStart || new Date().toISOString();
   }
   renderGraphExplorer();
+  if (section === "employees") {
+    const email = (typeof loggedInUserEmail !== "undefined" ? loggedInUserEmail : "").toLowerCase();
+    const meNorm = (typeof loggedInUserName !== "undefined" ? loggedInUserName : "").trim().toLowerCase();
+    const match = (graphData?.employees || []).find(e =>
+      (email && (e.email || "").toLowerCase() === email) ||
+      (meNorm && e.name.trim().toLowerCase() === meNorm)
+    );
+    if (match) showEmployeeWorkspaceLegacy(match);
+  }
 }
 
 function renderGraphExplorer() {
@@ -973,8 +1001,14 @@ function renderGraphEmployees() {
   let rows = [...(graphData?.employees || [])].filter(employee => graphSearch(employee.name, employee.id, employee.team, employee.email));
   rows = rows.filter(employee => graphExplorerState.filter === "all" ||
     (graphExplorerState.filter === "matched" ? employee.matched : !employee.matched));
-  rows.sort((a, b) => graphExplorerState.sort === "count"
-    ? (b.calendar?.events || 0) - (a.calendar?.events || 0) : a.name.localeCompare(b.name));
+  const meNorm = (typeof loggedInUserName !== "undefined" ? loggedInUserName : "").trim().toLowerCase();
+  rows.sort((a, b) => {
+    const aMe = meNorm && a.name.trim().toLowerCase() === meNorm ? -1 : 0;
+    const bMe = meNorm && b.name.trim().toLowerCase() === meNorm ? 1 : 0;
+    if (aMe + bMe !== 0) return aMe + bMe;
+    return graphExplorerState.sort === "count"
+      ? (b.calendar?.events || 0) - (a.calendar?.events || 0) : a.name.localeCompare(b.name);
+  });
   if (!rows.length) return graphEmpty("No employees found", "Try changing the search or match filter.");
   const page = graphPage(rows);
   if (graphExplorerState.employeeView === "cards") {
