@@ -438,7 +438,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.send_json({
                 "status": "refreshed",
                 "message": result.stdout.strip(),
-                "teamsRefreshedAt": (data or {}).get("meta", {}).get("teamsRefreshedAt", ""),
+                "teamsRefreshedAt": time.time() * 1000,
                 "teams": teams_data,
             })
         else:
