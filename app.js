@@ -217,7 +217,7 @@ function renderTeamHeatmap() {
 
   const teamMap = {};
   rows.forEach((e) => {
-    const team = e.team || "Unassigned";
+    const team = mergedTeam(e.team || "Unassigned");
     if (!teamMap[team]) teamMap[team] = [];
     teamMap[team].push(e);
   });
@@ -642,7 +642,7 @@ function populateFilterOptions() {
   const previousBand = state.band;
   const previousTeam = state.team;
   const bands = [...new Set(dataset.employees.map((e) => e.band).filter(Boolean))];
-  const teams = [...new Set(dataset.employees.map((e) => e.team || "Unassigned"))].sort();
+  const teams = [...new Set(dataset.employees.map((e) => mergedTeam(e.team || "Unassigned")))].sort();
   bandFilter.innerHTML = `<option value="all">All performance bands</option>${bands.map((b) => `<option>${b}</option>`).join("")}`;
   teamFilter.innerHTML = `<option value="all">All teams</option>${teams.map((t) => `<option>${t}</option>`).join("")}`;
   state.band = bands.includes(previousBand) ? previousBand : "all";
@@ -685,7 +685,7 @@ function applyFilters() {
       return (
         text.includes(state.search) &&
         (state.band === "all" || employee.band === state.band) &&
-        (state.team === "all" || employee.team === state.team) &&
+        (state.team === "all" || mergedTeam(employee.team || "Unassigned") === state.team) &&
         employee.sourceConfidence >= state.confidence
       );
     })
@@ -729,7 +729,7 @@ function renderAlerts() {
     <div class="alert-row alert-${level}" data-id="${e.id}">
       <div class="alert-info">
         <span class="alert-name">${e.name}</span>
-        <span class="alert-team">${e.team || "Unassigned"}</span>
+        <span class="alert-team">${mergedTeam(e.team || "Unassigned")}</span>
       </div>
       <span class="alert-reason">${reason}</span>
       <span class="alert-kpi">${number.format(e.kpi)}</span>
@@ -1110,7 +1110,7 @@ function renderOverviewMetricEmployees(metric, label) {
           <span class="overview-employee-avatar">${escapeHtml(employee.name?.[0] || "?")}</span>
           <span class="overview-employee-info">
             <strong>${escapeHtml(employee.name)}</strong>
-            <small>${escapeHtml(employee.id)} · ${escapeHtml(employee.team || "Unassigned")}</small>
+            <small>${escapeHtml(employee.id)} · ${escapeHtml(mergedTeam(employee.team || "Unassigned"))}</small>
           </span>
           <span class="overview-employee-stats">
             <b>${formatKpi(employee.kpi)}</b>
@@ -1342,7 +1342,7 @@ function renderPeopleTable() {
     });
   document.getElementById("peopleTable").innerHTML = sorted
     .map((e, index) => `<tr data-index="${index}"${e.kpi == null ? ' class="row-no-data"' : ""}>
-      <td><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${e.team || "Unassigned"}</small></div>${missingSourceTags(e)}</td>
+      <td><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}</small></div>${missingSourceTags(e)}</td>
       <td class="numeric-cell"><span class="score">${e.kpi != null ? e.kpi : "—"}</span></td>
       <td>${e.band ? `<span class="band ${bandClass(e.band)}">${e.band}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
       <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
@@ -1433,7 +1433,7 @@ function openTeamsPanel(e) {
       <div class="tsd-avatar">${e.name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase()}</div>
       <div>
         <strong class="tsd-name">${e.name}</strong>
-        <small class="tsd-meta">${e.designation || "Unassigned"} · ${e.team || "Unassigned"}</small>
+        <small class="tsd-meta">${e.designation || "Unassigned"} · ${mergedTeam(e.team || "Unassigned")}</small>
         <span class="presence-badge ${cls}" style="margin-top:6px;display:inline-flex">${statusLabel}</span>
         ${tm.workLocation ? `<span class="tsd-location">📍 ${tm.workLocation}</span>` : ""}
         ${tm.reports ? `<span class="tsd-location">👥 ${tm.reports} direct report${tm.reports > 1 ? "s" : ""}</span>` : ""}
@@ -1581,7 +1581,7 @@ function openBandDrawer(label, employees) {
             <div class="bd-avatar">${initials}</div>
             <div class="bd-info">
               <strong>${escapeHtml(e.name)}</strong>
-              <small>${escapeHtml(e.team || "Unassigned")} · ${escapeHtml(e.designation || "")}</small>
+              <small>${escapeHtml(mergedTeam(e.team || "Unassigned"))} · ${escapeHtml(e.designation || "")}</small>
               <small>${escapeHtml(e.id)}</small>
             </div>
             <div class="bd-kpi">
@@ -1675,7 +1675,7 @@ function renderAttendanceDetail(employeeId) {
       <div class="attendance-person">
         <div class="attendance-avatar">${initials}</div>
         <div>
-          <p class="eyebrow">${employee.id} | ${employee.team || "Unassigned"}</p>
+          <p class="eyebrow">${employee.id} | ${mergedTeam(employee.team || "Unassigned")}</p>
           <h1>${employee.name}</h1>
           <p class="subtle">${employee.designation || "Unassigned"} | ${trackedDays} tracked days | ${biometricStatus}</p>
         </div>
@@ -2050,7 +2050,7 @@ function showEmployee(e) {
         <div class="emp-detail-avatar">${initials}</div>
         <div class="emp-detail-identity">
           <h1>${e.name}</h1>
-          <p>${e.designation || "Unassigned"} &middot; ${e.team || "Unassigned"}${e.managerName ? ` &middot; Reports to <strong>${e.managerName}</strong>` : ""}</p>
+          <p>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}${e.managerName ? ` &middot; Reports to <strong>${e.managerName}</strong>` : ""}</p>
           <div class="emp-detail-badges">
             <span class="${bandCls}">${bandLabel}</span>
             ${e.quadrant ? `<span class="quadrant-badge">${e.quadrant}</span>` : ""}
