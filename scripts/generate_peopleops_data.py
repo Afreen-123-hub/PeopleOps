@@ -97,6 +97,12 @@ def normalize_name(value):
     return re.sub(r"[^a-z0-9]+", "", clean(value).lower())
 
 
+# Manual team corrections — applied after data is loaded from all sources
+TEAM_OVERRIDES = {
+    "92aeedc1-492b-4dae-ab4b-cefc91956c4a": "Management Team",  # Bala Prasanna R — PM Intern moved from Business Development
+}
+
+
 def get_role_category(designation: str) -> str:
     """Return 'executive', 'technical', 'management', or 'support' based on designation.
 
@@ -306,6 +312,11 @@ def read_teams_api(users):
         if ms_id:
             teams_id_map[ms_id] = emp_id
             user["ms_teams_id"] = ms_id
+        # Use Teams jobTitle as designation if available — it's maintained by HR in Microsoft 365
+        if graph_user:
+            job_title = clean(graph_user.get("jobTitle"))
+            if job_title:
+                user["designation"] = job_title
 
     result = defaultdict(lambda: Counter())
     if not teams_id_map:
@@ -1045,25 +1056,25 @@ def main():
                 # If Worklogix exists but no GitHub → redistribute GitHub weight.
                 tc = task_completion_score  # None if no Worklogix data
                 if has_real_worklogix and has_github:
-                    # Full formula: Worklogix 35% + Tasks 20% + Attendance 15% + Punctuality 10% + Collaboration 10% + GitHub 10%
+                    # Full formula: Worklogix 40% + Tasks 20% + Attendance 15% + Punctuality 10% + Collaboration 10% + GitHub 5%
                     kpi = round(
-                        worklogix_score * 0.35
+                        worklogix_score * 0.40
                         + tc            * 0.20
                         + attendance_score    * 0.15
                         + punctuality_score   * 0.10
                         + collaboration_score * 0.10
-                        + github_score        * 0.10,
+                        + github_score        * 0.05,
                         1,
                     )
                 elif has_real_worklogix:
-                    # Worklogix but no GitHub: redistribute GitHub 10% across remaining
-                    # Worklogix 38.9% + Tasks 22.2% + Attendance 16.7% + Punctuality 11.1% + Collaboration 11.1%
+                    # Worklogix but no GitHub: redistribute GitHub 5% proportionally across remaining
+                    # Worklogix 42.1% + Tasks 21.1% + Attendance 15.8% + Punctuality 10.5% + Collaboration 10.5%
                     kpi = round(
-                        worklogix_score * 0.389
-                        + tc            * 0.222
-                        + attendance_score    * 0.167
-                        + punctuality_score   * 0.111
-                        + collaboration_score * 0.111,
+                        worklogix_score * 0.421
+                        + tc            * 0.211
+                        + attendance_score    * 0.158
+                        + punctuality_score   * 0.105
+                        + collaboration_score * 0.105,
                         1,
                     )
                 elif has_github:
@@ -1419,7 +1430,7 @@ def main():
             "teamsOutOfOfficeCount": sum(e["teams"]["isOutOfOffice"] for e in employee_rows),
             "sourceCoverage": dict(source_counts),
         },
-        "employees": employee_rows,
+        "employees": [{**e, "team": TEAM_OVERRIDES.get(e["id"], e.get("team", ""))} for e in employee_rows],
         "projects": sorted(project_cards, key=lambda p: (p["members"], p["estimatedHours"]), reverse=True),
         "bands": dict(Counter(e["band"] or "Insufficient Data" for e in employee_rows)),
         "quadrants": dict(Counter(e["quadrant"] for e in employee_rows if e["quadrant"])),

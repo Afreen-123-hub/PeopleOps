@@ -15,6 +15,23 @@ const state = {
 const DEMO_MODE = false;
 const DEMO_REFRESH_MESSAGE = "Demo mode: backend refresh is disabled";
 
+const DEPT_MERGE_MAP = {
+  "AI Development": "AI Team",
+  "AI Engineer": "AI Team",
+  "BDM": "Business Development",
+  "Backend": "Software Development",
+  "Frontend": "Software Development",
+  "Fullstack": "Software Development",
+  "Technology & Development": "Software Development",
+  "HR": "HR Team",
+  "Quality Analyst": "Quality & Testing",
+  "Testing Team": "Quality & Testing",
+};
+
+function mergedTeam(team) {
+  return DEPT_MERGE_MAP[team] || team;
+}
+
 const money = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
 const number = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 1 });
 
@@ -775,7 +792,7 @@ function kpiTone(value) {
 function teamKpiSummary(rows) {
   const teams = new Map();
   rows.forEach((employee) => {
-    const team = employee.team || "Unassigned";
+    const team = mergedTeam(employee.team || "Unassigned");
     if (!teams.has(team)) teams.set(team, []);
     teams.get(team).push(employee);
   });
@@ -853,7 +870,7 @@ function renderKpiPerformance() {
       return `
         <tr data-id="${employee.id}">
           <td><div class="person"><strong>${employee.name}</strong><small>${employee.id} | ${employee.designation || "Unassigned"}</small></div></td>
-          <td>${employee.team || "Unassigned"}</td>
+          <td>${mergedTeam(employee.team || "Unassigned")}</td>
           <td class="numeric-cell"><span class="kpi-score ${kpiTone(employee.kpi)}">${number.format(employee.kpi)}</span> ${lowConfidenceWarning(employee)}</td>
           <td>
             <div class="mini-driver"><span>Prod ${number.format(employee.scoreDrivers?.productivity ?? "—")}</span><span>Att ${number.format(employee.scoreDrivers?.attendance ?? "—")}</span></div>
@@ -1134,11 +1151,14 @@ function renderSourceCoverage() {
   const total = dataset.overview.employees;
   const labels = {
     worklogix: "Worklogix employee records",
+    worklogixActivity: "Worklogix activity",
     teams: "Teams activity",
     greythr: "GreytHR muster",
     biometrics: "Biometric swipes",
+    github: "GitHub contributions",
   };
   document.getElementById("sourceCoverage").innerHTML = Object.entries(dataset.overview.sourceCoverage)
+    .filter(([key]) => key in labels)
     .map(([key, value]) => {
       const pct = Math.round((value / total) * 100);
       return `<div class="coverage-item">
@@ -1242,15 +1262,16 @@ function renderBandEmployees(band) {
 
 function renderWeights() {
   const labels = {
-    worklogixDelivery: "Delivery score",
+    productivity: "Productivity score",
+    taskCompletion: "Task completion",
     attendance: "Attendance reliability",
-    teamsCollaboration: "Collaboration activity",
-    workloadVolume: "Workload volume",
-    completionQuality: "Completion quality",
+    punctuality: "Punctuality",
+    collaboration: "Collaboration activity",
+    githubContribution: "GitHub contribution",
   };
   document.getElementById("weightBars").innerHTML = Object.entries(dataset.meta.weights)
     .map(([key, value]) => `<div class="weight-item">
-      <strong>${labels[key]} ${value}%</strong>
+      <strong>${labels[key] || key} ${value}%</strong>
       <div class="bar"><span style="width:${value * 2}%"></span></div>
     </div>`)
     .join("");
@@ -1382,8 +1403,8 @@ function renderTeamsTable() {
   document.getElementById("teamsTable").innerHTML = rows
     .map((e, i) => {
       return `<tr>
-        <td><div class="person"><strong>${e.name}</strong><small>${e.id} | ${e.designation || "Unassigned"}</small></div></td>
-        <td>${e.team || "Unassigned"}</td>
+        <td><div class="person"><strong>${e.name}</strong><small>${e.id} | ${mergedTeam(e.team || "Unassigned")}</small></div></td>
+        <td>${e.designation || "Unassigned"}</td>
         <td>${teamsStatusBadge(e.teams, true, i)}</td>
       </tr>`;
     })
@@ -1913,7 +1934,7 @@ function drawScatter() {
   const groupSource = chartEmployees.length ? chartEmployees : filteredEmployees;
   const groups = new Map();
   groupSource.forEach((employee) => {
-    const department = employee.team || "Unassigned";
+    const department = mergedTeam(employee.team || "Unassigned");
     if (!groups.has(department)) {
       groups.set(department, []);
     }
