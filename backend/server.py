@@ -6,6 +6,7 @@ import os
 import secrets
 import subprocess
 import sys
+import threading
 import time
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -31,7 +32,10 @@ API_FETCHER = PROJECT_ROOT / "scripts" / "fetch_real_api_data.py"
 ENV_FILE = PROJECT_ROOT.parent / ".env"
 
 SESSION_TTL = 8 * 3600  # 8 hours
+AUTO_REFRESH_INTERVAL = 24 * 3600  # refresh all data once every 24 hours
 _sessions: dict[str, dict] = {}  # token -> {expiry, name, type}
+_last_full_refresh: float = 0.0   # epoch seconds of last successful full refresh
+_refresh_lock = threading.Lock()
 
 PUBLIC_PATHS = {"/login.html", "/api/login", "/styles.css", "/favicon.ico", "/auth/login", "/auth/callback"}
 _instance_lock = None
@@ -153,6 +157,9 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         if path == "/api/fetch-real-data":
             self.fetch_real_data()
             return
+        if path == "/api/refresh-full":
+            self.refresh_full()
+            return
         if path == "/api/chat":
             self.handle_chat()
             return
@@ -224,6 +231,8 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "status": "ok",
                 "app": data.get("meta", {}).get("name", "PeopleOPS Intelligence"),
                 "dataMode": data.get("meta", {}).get("dataMode", "Local sample files"),
+                "lastFullRefresh": _last_full_refresh * 1000 if _last_full_refresh else None,
+                "nextRefreshIn": max(0, AUTO_REFRESH_INTERVAL - (time.time() - _last_full_refresh)) if _last_full_refresh else None,
             },
             "/api/me": lambda: {
                 "name": current_session.get("name", ""),
@@ -564,6 +573,38 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "stderr": result.stderr,
             }, HTTPStatus.INTERNAL_SERVER_ERROR)
 
+    def refresh_full(self):
+        """Run the full data pipeline: generate (GreytHR + Worklogix + biometrics + KPI)
+        then refresh Teams presence, GitHub, and Graph activity.
+        Employees removed from Worklogix are automatically dropped; new joiners appear."""
+        steps = [
+            ("generate",  [sys.executable, str(GENERATOR)]),
+            ("teams",     [sys.executable, str(TEAMS_REFRESHER)]),
+            ("github",    [sys.executable, str(GITHUB_REFRESHER)]),
+            ("graph",     [sys.executable, str(GRAPH_REFRESHER)]),
+        ]
+        results = {}
+        failed = None
+        for name, cmd in steps:
+            r = subprocess.run(cmd, cwd=str(PROJECT_ROOT), capture_output=True, text=True, check=False)
+            results[name] = {"ok": r.returncode == 0, "stdout": r.stdout.strip(), "stderr": r.stderr.strip()}
+            if r.returncode != 0 and failed is None:
+                failed = name
+
+        global _last_full_refresh
+        if not failed:
+            _last_full_refresh = time.time()
+
+        data = self.load_data() or {}
+        self.send_json({
+            "status": "failed" if failed else "refreshed",
+            "failedStep": failed,
+            "steps": results,
+            "employees": len(data.get("employees", [])),
+            "refreshedAt": _last_full_refresh * 1000,
+            "period": data.get("meta", {}).get("period", ""),
+        }, HTTPStatus.INTERNAL_SERVER_ERROR if failed else HTTPStatus.OK)
+
     def handle_chat(self):
         length = int(self.headers.get("Content-Length", 0))
         try:
@@ -661,11 +702,51 @@ def _acquire_instance_lock(port: int):
     _instance_lock = handle
 
 
+def _run_full_refresh_pipeline():
+    """Run the full data pipeline in a background thread (no HTTP context)."""
+    global _last_full_refresh
+    if not _refresh_lock.acquire(blocking=False):
+        print("Auto-refresh: another refresh already running, skipping.", flush=True)
+        return
+    try:
+        print("Auto-refresh: starting full data pipeline...", flush=True)
+        steps = [
+            ("generate", [sys.executable, str(GENERATOR)]),
+            ("teams",    [sys.executable, str(TEAMS_REFRESHER)]),
+            ("github",   [sys.executable, str(GITHUB_REFRESHER)]),
+            ("graph",    [sys.executable, str(GRAPH_REFRESHER)]),
+        ]
+        for name, cmd in steps:
+            r = subprocess.run(cmd, cwd=str(PROJECT_ROOT), capture_output=True, text=True, check=False)
+            status = "OK" if r.returncode == 0 else "FAILED"
+            print(f"Auto-refresh [{name}]: {status}", flush=True)
+            if r.returncode != 0:
+                print(r.stderr[:500], flush=True)
+                return
+        _last_full_refresh = time.time()
+        print(f"Auto-refresh: complete at {time.strftime('%Y-%m-%d %H:%M:%S')}", flush=True)
+    finally:
+        _refresh_lock.release()
+
+
+def _auto_refresh_loop():
+    """Background thread: refresh all data on startup then every AUTO_REFRESH_INTERVAL seconds."""
+    # Wait 30 s after startup so the server is fully up before the first run
+    time.sleep(30)
+    while True:
+        _run_full_refresh_pipeline()
+        time.sleep(AUTO_REFRESH_INTERVAL)
+
+
 def run(port=8000, host="0.0.0.0"):
     _acquire_instance_lock(port)
+    # Start background auto-refresh (runs once on startup then every 24 h)
+    t = threading.Thread(target=_auto_refresh_loop, daemon=True, name="auto-refresh")
+    t.start()
     server = ThreadingHTTPServer((host, port), PeopleOpsHandler)
     print(f"PeopleOPS Intelligence backend running on {host}:{port}", flush=True)
     print(f"API health endpoint available at /api/health on port {port}", flush=True)
+    print(f"Auto-refresh scheduled every {AUTO_REFRESH_INTERVAL // 3600}h (first run in 30s)", flush=True)
     server.serve_forever()
 
 
