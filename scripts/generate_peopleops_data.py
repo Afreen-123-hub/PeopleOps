@@ -258,6 +258,9 @@ def is_real_employee(user):
     # Ex-employees marked inline (e.g. "Nithisha Ex-PM")
     if " ex-" in name or name.endswith(" ex"):
         return False
+    # Inactive employees (marked as left in Worklogix)
+    if clean(user.get("is_active")).lower() == "false":
+        return False
     return True
 
 
