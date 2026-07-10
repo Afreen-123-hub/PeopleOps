@@ -574,36 +574,14 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             }, HTTPStatus.INTERNAL_SERVER_ERROR)
 
     def refresh_full(self):
-        """Run the full data pipeline: generate (GreytHR + Worklogix + biometrics + KPI)
-        then refresh Teams presence, GitHub, and Graph activity.
-        Employees removed from Worklogix are automatically dropped; new joiners appear."""
-        steps = [
-            ("generate",  [sys.executable, str(GENERATOR)]),
-            ("teams",     [sys.executable, str(TEAMS_REFRESHER)]),
-            ("github",    [sys.executable, str(GITHUB_REFRESHER)]),
-            ("graph",     [sys.executable, str(GRAPH_REFRESHER)]),
-        ]
-        results = {}
-        failed = None
-        for name, cmd in steps:
-            r = subprocess.run(cmd, cwd=str(PROJECT_ROOT), capture_output=True, text=True, check=False)
-            results[name] = {"ok": r.returncode == 0, "stdout": r.stdout.strip(), "stderr": r.stderr.strip()}
-            if r.returncode != 0 and failed is None:
-                failed = name
-
-        global _last_full_refresh
-        if not failed:
-            _last_full_refresh = time.time()
-
-        data = self.load_data() or {}
-        self.send_json({
-            "status": "failed" if failed else "refreshed",
-            "failedStep": failed,
-            "steps": results,
-            "employees": len(data.get("employees", [])),
-            "refreshedAt": _last_full_refresh * 1000,
-            "period": data.get("meta", {}).get("period", ""),
-        }, HTTPStatus.INTERNAL_SERVER_ERROR if failed else HTTPStatus.OK)
+        """Trigger full pipeline in background — returns immediately with 202.
+        Poll /api/health for lastFullRefresh to know when it finishes."""
+        if _refresh_lock.locked():
+            self.send_json({"status": "already_running", "message": "A full refresh is already in progress."}, HTTPStatus.ACCEPTED)
+            return
+        t = threading.Thread(target=_run_full_refresh_pipeline, daemon=True, name="manual-refresh")
+        t.start()
+        self.send_json({"status": "started", "message": "Full refresh started in background. Check /api/health for lastFullRefresh when done."}, HTTPStatus.ACCEPTED)
 
     def handle_chat(self):
         length = int(self.headers.get("Content-Length", 0))
