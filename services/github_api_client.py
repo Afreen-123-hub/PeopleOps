@@ -317,6 +317,44 @@ def fetch_prs_per_contributor(repos: list[str], since: str = "", until: str = ""
     return counts
 
 
+def fetch_pr_reviews_per_contributor(repos: list[str], since: str = "", until: str = "") -> dict[str, int]:
+    """Returns {login: review_count} — how many PRs each person reviewed (not authored)."""
+    since_date = since[:10] if since else ""
+    until_date = until[:10] if until else ""
+    counts: dict[str, int] = {}
+    for repo in repos:
+        try:
+            prs = _rest_get(f"/repos/{GITHUB_ORG}/{repo}/pulls?state=all&per_page=100")
+            if not isinstance(prs, list):
+                continue
+            for pr in prs:
+                created = (pr.get("created_at") or "")[:10]
+                in_period = (
+                    (not since_date or created >= since_date) and
+                    (not until_date or created <= until_date)
+                )
+                if not in_period:
+                    continue
+                pr_number = pr.get("number")
+                if not pr_number:
+                    continue
+                try:
+                    reviews = _rest_get(f"/repos/{GITHUB_ORG}/{repo}/pulls/{pr_number}/reviews")
+                    if not isinstance(reviews, list):
+                        continue
+                    for review in reviews:
+                        login = (review.get("user") or {}).get("login", "")
+                        state = review.get("state", "")
+                        # Count only substantive reviews (approved/changes requested/commented)
+                        if login and state in ("APPROVED", "CHANGES_REQUESTED", "COMMENTED"):
+                            counts[login] = counts.get(login, 0) + 1
+                except GitHubApiError:
+                    continue
+        except GitHubApiError:
+            continue
+    return counts
+
+
 def fetch_loc_per_contributor(repos: list[str], since_ts: int, until_ts: int) -> dict[str, dict]:
     """Lines of code added/deleted per contributor using GitHub weekly contributor stats.
     since_ts / until_ts are Unix timestamps (start of week granularity).
@@ -382,6 +420,7 @@ def build_github_data(since: str = "", until: str = "") -> dict:
     repos    = fetch_org_repos()
     commits  = fetch_commits_per_contributor(repos, since, until)
     prs      = fetch_prs_per_contributor(repos, since, until)
+    reviews  = fetch_pr_reviews_per_contributor(repos, since, until)
     loc      = fetch_loc_per_contributor(repos, since_ts, until_ts)
 
     # Build contributor summary from project assignees
@@ -393,17 +432,18 @@ def build_github_data(since: str = "", until: str = "") -> dict:
                     pr_data  = prs.get(assignee, {})
                     loc_data = loc.get(assignee, {})
                     contrib_map[assignee] = {
-                        "login":      assignee,
-                        "projects":   [],
-                        "tasks":      [],
-                        "total":      0,
-                        "done":       0,
-                        "inProgress": 0,
-                        "commits":    commits.get(assignee, 0),
-                        "prs":        pr_data.get("prs", 0),
-                        "prsMerged":  pr_data.get("merged", 0),
-                        "additions":  loc_data.get("additions", 0),
-                        "deletions":  loc_data.get("deletions", 0),
+                        "login":        assignee,
+                        "projects":     [],
+                        "tasks":        [],
+                        "total":        0,
+                        "done":         0,
+                        "inProgress":   0,
+                        "commits":      commits.get(assignee, 0),
+                        "prs":          pr_data.get("prs", 0),
+                        "prsMerged":    pr_data.get("merged", 0),
+                        "prReviews":    reviews.get(assignee, 0),
+                        "additions":    loc_data.get("additions", 0),
+                        "deletions":    loc_data.get("deletions", 0),
                     }
                 c = contrib_map[assignee]
                 if proj["title"] not in c["projects"]:
@@ -432,6 +472,7 @@ def build_github_data(since: str = "", until: str = "") -> dict:
                 "commits":   count,
                 "prs":       pr_data.get("prs", 0),
                 "prsMerged": pr_data.get("merged", 0),
+                "prReviews": reviews.get(login, 0),
                 "additions": loc_data.get("additions", 0),
                 "deletions": loc_data.get("deletions", 0),
             }

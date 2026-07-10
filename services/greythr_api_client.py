@@ -116,7 +116,7 @@ def _api_get(url: str, token: str, domain: str, params: dict | None = None) -> d
 # ==========================
 
 def get_employee_master(token: str, domain: str) -> dict[str, dict]:
-    """Return {employeeId: {employee_no, name, date_of_joining}} for active employees."""
+    """Return {employeeId: {employee_no, name, date_of_joining, employment_type, probation_end}} for active employees."""
     employees = {}
     page = 0
     while True:
@@ -133,9 +133,11 @@ def get_employee_master(token: str, domain: str) -> dict[str, dict]:
             if not emp_id:
                 continue
             employees[emp_id] = {
-                "employee_no": str(emp.get("employeeNo", "")).strip(),
-                "name": str(emp.get("name", "")).strip(),
+                "employee_no":    str(emp.get("employeeNo", "")).strip(),
+                "name":           str(emp.get("name", "")).strip(),
                 "date_of_joining": str(emp.get("dateOfJoin", "")).strip(),
+                "employment_type": str(emp.get("employmentType", "") or emp.get("empType", "") or "").strip(),
+                "probation_end":  str(emp.get("probationEndDate", "") or "").strip(),
             }
         if not data.get("pages", {}).get("hasNext"):
             break
@@ -235,7 +237,7 @@ def _normalise_match_key(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", str(value or "").strip().lower())
 
 
-def get_greythr_attendance(start: str, end: str) -> dict[str, Counter]:
+def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], dict[str, dict]]:
     """Return {employeeNo: Counter(bucket: days)} for the given date range.
 
     Calls get_employee_master, get_department_details, and get_attendance_muster
@@ -284,4 +286,5 @@ def get_greythr_attendance(start: str, end: str) -> dict[str, Counter]:
             if alias and alias != "name:":
                 result[alias] = Counter(counter)
 
-    return result
+    # Return attendance counters AND master data (joining date, employment type, etc.)
+    return result, master

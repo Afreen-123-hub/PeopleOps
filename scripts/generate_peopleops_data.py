@@ -614,19 +614,23 @@ def resolve_greythr_date_range(target_period: str):
     return previous_full_month_range()
 
 
-def read_greythr_api(start: str, end: str) -> defaultdict:
+def read_greythr_api(start: str, end: str) -> tuple[defaultdict, dict]:
+    """Returns (attendance_counters, master_data).
+    master_data: {employeeId: {employee_no, name, date_of_joining, employment_type, probation_end}}
+    """
     result = defaultdict(lambda: Counter())
+    master = {}
     if not start or not end:
         print("WARNING: GreytHR skipped — could not determine date range", file=sys.stderr)
-        return result
+        return result, master
     try:
-        raw = get_greythr_attendance(start, end)
+        raw, master = get_greythr_attendance(start, end)
         for emp_no, counter in raw.items():
             result[emp_no] = counter
         print(f"GreytHR attendance loaded: {len(raw)} employees ({start} to {end})")
     except (GreytHRConfigError, GreytHRAuthError, GreytHRApiError) as exc:
         print(f"WARNING: GreytHR attendance skipped: {exc}", file=sys.stderr)
-    return result
+    return result, master
 
 
 def main():
@@ -736,7 +740,13 @@ def main():
         project_hours[clean(row.get("project_id"))] += stats["workHours"]
 
     greythr_start, greythr_end = resolve_greythr_date_range(target_period)
-    greythr = read_greythr_api(greythr_start, greythr_end)
+    greythr, greythr_master = read_greythr_api(greythr_start, greythr_end)
+    # Build name-keyed lookup for joining date matching (CWINE employees only)
+    greythr_master_by_name = {
+        normalize_name(info.get("name", "")): info
+        for info in greythr_master.values()
+        if info.get("name")
+    }
     teams = read_teams_api(users)
     presence_month = to_presence_month_label(target_period) or to_presence_month_label(greythr_start)
     attendance = read_biometric_api(presence_month)
@@ -1215,6 +1225,10 @@ def main():
             "laggingDrivers": gap_analysis["laggingDrivers"],
             "gapReason": gap_analysis["gapReason"],
             "insufficientReason": insufficient_reason,
+            **({
+                "dateOfJoining": gm["date_of_joining"],
+                "employmentType": gm["employment_type"],
+            } if (gm := greythr_master_by_name.get(normalize_name(emp.get("name", "")))) else {}),
         })
 
     # --- Executive KPI: average KPI of direct reportees (from Teams org chart) ---
