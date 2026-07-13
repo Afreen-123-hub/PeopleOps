@@ -126,8 +126,12 @@ def get_employee_master(token: str, domain: str) -> dict[str, dict]:
             domain,
             params={"page": page, "size": 25},
         )
+        today = __import__("datetime").date.today().isoformat()
         for emp in data.get("data", []):
             if emp.get("leftorg"):
+                continue
+            leaving = str(emp.get("leavingDate") or "").strip()
+            if leaving and leaving <= today:
                 continue
             emp_id = str(emp.get("employeeId", "")).strip()
             if not emp_id:
@@ -237,8 +241,8 @@ def _normalise_match_key(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", str(value or "").strip().lower())
 
 
-def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], dict[str, dict]]:
-    """Return {employeeNo: Counter(bucket: days)} for the given date range.
+def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], dict[str, dict], dict[str, dict]]:
+    """Return ({employeeNo: Counter(bucket: days)}, master_data, dept_details).
 
     Calls get_employee_master, get_department_details, and get_attendance_muster
     separately then merges them.
@@ -251,8 +255,15 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
     token, domain = get_token()
 
     master = get_employee_master(token, domain)
+    dept_details: dict[str, dict] = {}
     try:
-        get_department_details(token, domain)
+        raw_dept = get_department_details(token, domain)
+        dept_details = dict(raw_dept)
+        # Also index by employee_no so callers can look up by CWINI code
+        for gt_id, emp_info in master.items():
+            emp_no = emp_info.get("employee_no", "")
+            if emp_no and gt_id in raw_dept:
+                dept_details[emp_no] = raw_dept[gt_id]
     except GreytHRApiError:
         pass
     active_ids = set(master.keys())
@@ -286,5 +297,5 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
             if alias and alias != "name:":
                 result[alias] = Counter(counter)
 
-    # Return attendance counters AND master data (joining date, employment type, etc.)
-    return result, master
+    # Return attendance counters, master data, and department/designation details
+    return result, master, dept_details

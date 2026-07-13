@@ -88,7 +88,7 @@ def rows_to_dataframe(rows, columns):
 
 def transform_users(payload):
     mapping = {
-        "id": ("id", "employee_id", "user_id", "emp_id", "code"),
+        "id": ("user_id", "id", "employee_id", "emp_id", "code"),
         "name": ("name", "employee_name", "full_name"),
         "email": ("email", "work_email"),
         "role": ("role", "role_id"),

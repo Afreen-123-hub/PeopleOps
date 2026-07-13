@@ -104,25 +104,42 @@ TEAM_OVERRIDES = {
 
 
 def get_role_category(designation: str) -> str:
-    """Return 'executive', 'technical', 'management', or 'support' based on designation.
+    """Return 'executive', 'technical', 'management', 'support', or 'intern' per the
+    KPI Calculation Framework's role categories.
 
-    - executive : CEO, MD, Advisors — no KPI scored (band = 'Executive')
-    - support   : HR, Admin, BDM, Marketing, Design, Recruiters
-                  → KPI = Attendance 40% + Punctuality 30% + Collaboration 30%
-    - management: Managers, PMs, Delivery Managers
-                  → KPI = Attendance 35% + Punctuality 25% + Collaboration 25% + Worklogix 15%
-    - technical : everyone else (developers, engineers, interns, trainees, QA, DevOps, cyber)
-                  → KPI = full formula; GitHub 10% redistributed if no GitHub data
+    - executive : CEO, MD, Advisors, Chiefs — no KPI scored (band = 'Executive')
+    - management: Delivery Manager, Project Manager, Junior Manager (incl. "PM Intern",
+                  which is an established exception carried over from the org chart)
+                  → Management KPI (Team Avg 35% + Project Delivery 25% + Approval Speed 10%
+                    + Attendance 10% + Punctuality 5% + Collaboration 10% + Planner Completion 5%)
+    - intern    : any other designation containing "intern" (excl. "PM Intern" above).
+                  "Trainee" designations are NOT treated as interns — they fall through
+                  to whichever category their actual role implies (e.g. "AI Trainee" →
+                  technical, "Cyber Security Trainee" → support), same as any employee.
+                  → Intern KPI (Task Completion 30% + Punctuality 20% + Collaboration 20%
+                    + Mentor Feedback 30%)
+    - support   : HR, Recruiter, Marketing, BDM/Business Development, Admin, Accounts,
+                  UI/UX, Cyber Security
+                  → Support KPI (Attendance 25% + Punctuality 15% + Collaboration 20%
+                    + Task Completion 30% + Manager Ratings 10%)
+    - technical : everyone else (Developers, QA, AI Engineers, DevOps, Fullstack, etc.)
+                  → Technical KPI (Productivity 55% + Code Contribution 5% + Attendance 15%
+                    + Punctuality 15% + Teams Collaboration 10%)
     """
     d = (designation or "").lower()
     exec_keys = ["managing director", "director", "advisor", "chief"]
     if any(k in d for k in exec_keys):
         return "executive"
+    if "pm intern" in d:
+        return "management"
+    if "intern" in d:
+        return "intern"
     support_keys = ["hr", "human resource", "recruiter", "admin", "bdm",
-                    "business development", "marketing", "ui /", "ui/", "ux", "account"]
+                    "business development", "marketing", "ui /", "ui/", "ux", "account",
+                    "cyber security", "cyber"]
     if any(k in d for k in support_keys):
         return "support"
-    mgmt_keys = ["delivery manager", "project manager", "pm intern", "manager"]
+    mgmt_keys = ["delivery manager", "project manager", "manager"]
     if any(k in d for k in mgmt_keys):
         return "management"
     return "technical"
@@ -210,10 +227,14 @@ def build_gap_analysis(sources, source_confidence, score_drivers, kpi):
         "punctuality": "Punctuality",
         "collaboration": "Collaboration",
         "github": "GitHub Contribution",
+        "codeContribution": "Code Contribution",
         "pmProjectScore": "Project Delivery",
+        "projectDelivery": "Project Delivery",
+        "taskApprovalSpeed": "Task Approval Speed",
+        "plannerCompletion": "Planner Completion",
     }
     weak_drivers = [
-        f"{driver_labels[key]} {value}"
+        f"{driver_labels.get(key, key)} {value}"
         for key, value in sorted(score_drivers.items(), key=lambda item: item[1])
         if value < 60
     ]
@@ -234,7 +255,7 @@ def build_gap_analysis(sources, source_confidence, score_drivers, kpi):
 
 
 def is_real_employee(user):
-    emp_id = clean(user.get("id"))
+    emp_id = clean(user.get("user_id") or user.get("id"))
     name = clean(user.get("name")).lower()
     role = clean(user.get("role"))
     team = clean(user.get("team")).lower()
@@ -382,6 +403,106 @@ def minmax(value, values, invert=False):
     return max(0.0, min(100.0, score))
 
 
+def weighted_score(components):
+    """components: iterable of (label, score_or_None, weight).
+
+    Implements the KPI Calculation Framework's weighted-composite formula while
+    handling sub-metrics that have no data source (e.g. Manager Ratings, Mentor
+    Feedback, Task Approval Speed when timestamps are missing): components with
+    score=None are dropped and the remaining weights are renormalized to sum to
+    100, so the KPI is always computed purely from real, available data instead
+    of guessing a value for the missing input.
+
+    Returns (rounded_score_or_None, {label: effective_weight_pct}).
+    """
+    available = [(label, score, weight) for label, score, weight in components if score is not None]
+    total_weight = sum(weight for _, _, weight in available)
+    if not available or total_weight <= 0:
+        return None, {}
+    result = sum(score * (weight / total_weight) for _, score, weight in available)
+    weights_used = {label: round(weight / total_weight * 100, 1) for label, _, weight in available}
+    return round(result, 1), weights_used
+
+
+def band_for_kpi(kpi):
+    return (
+        "Excellent" if kpi >= 90 else
+        "Good" if kpi >= 80 else
+        "Average" if kpi >= 70 else
+        "Needs Improvement" if kpi >= 60 else
+        "Critical"
+    )
+
+
+def quadrant_for(prod_high, att_high):
+    if prod_high and att_high:
+        return "High Performer"
+    if prod_high and not att_high:
+        return "Ghost Worker"
+    if not prod_high and att_high:
+        return "Present but Idle"
+    return "Disengaged"
+
+
+def approval_turnaround_score(created_at, updated_at):
+    """Score how quickly a submitted task was reviewed/approved, per the KPI
+    framework's turnaround table: <=4h=100, <=1 day=90, <=2 days=80, beyond
+    that scaled down 15 points per additional day. Returns None if the
+    timestamps are missing/unparseable (caller should redistribute the weight)."""
+    created = pd.to_datetime(clean(created_at), errors="coerce")
+    updated = pd.to_datetime(clean(updated_at), errors="coerce")
+    if pd.isna(created) or pd.isna(updated):
+        return None
+    hours = (updated - created).total_seconds() / 3600
+    if hours < 0:
+        return None
+    if hours <= 4:
+        return 100.0
+    if hours <= 24:
+        return 90.0
+    if hours <= 48:
+        return 80.0
+    days_over = (hours - 48) / 24
+    return max(0.0, 80.0 - days_over * 15)
+
+
+def compute_attendance_pct(gh, bio, fallback):
+    """Attendance = (Present Days / Working Days) x 100. Working Days = Present +
+    Absent + Leave (days the employee was expected to work). Falls back to the
+    biometric-derived proxy, then the pre-computed minmax fallback, when GreytHR
+    data isn't available for this employee."""
+    working_days = (gh["P"] + gh["A"] + gh["Leave"]) if gh else 0
+    if working_days > 0:
+        return round(min(100.0, gh["P"] / working_days * 100), 1)
+    if bio.get("validOfficeDays"):
+        return round(min(100.0, bio["biometricDays"] / bio["validOfficeDays"] * 100), 1)
+    return round(fallback, 1)
+
+
+def compute_punctuality_pct(bio, fallback):
+    """Punctuality = (On-time Days / Working Days) x 100, from biometric check-in
+    times. Falls back to the pre-computed minmax proxy when unavailable."""
+    punct_raw = bio.get("punctualityScore")
+    return round(punct_raw, 1) if punct_raw is not None else round(fallback, 1)
+
+
+def compute_collaboration_pct(bio, ta, all_meeting_counts, fallback):
+    """Teams Collaboration = (Availability Score x 50%) + (Meeting Score x 50%).
+    Availability Score = Productive Hours / Total Tracked Hours x 100 (Teams
+    presence). Meeting Score = meeting count normalized against the org (the
+    Teams activity export has no "meetings invited" count to divide by)."""
+    avail_total = bio.get("teamsAvailableHours", 0) + bio.get("teamsAwayHours", 0) + bio.get("teamsOfflineHours", 0)
+    availability_score = (bio.get("teamsAvailableHours", 0) / avail_total * 100) if avail_total > 0 else None
+    meeting_score = minmax(ta["meetingCount"], all_meeting_counts) if ta else None
+    if availability_score is not None and meeting_score is not None:
+        return round(availability_score * 0.5 + meeting_score * 0.5, 1)
+    if availability_score is not None:
+        return round(availability_score, 1)
+    if meeting_score is not None:
+        return round(meeting_score, 1)
+    return round(fallback, 1)
+
+
 def parse_duration_string(value):
     if not value:
         return 0.0
@@ -405,8 +526,8 @@ def to_presence_month_label(period):
     return ""
 
 
-OFFICE_START_HOUR = 9.0   # 9:00 AM
-LATE_GRACE_MINUTES = 15   # 15-min grace window
+OFFICE_START_HOUR = 9.5   # 9:30 AM
+LATE_GRACE_MINUTES = 30   # 30-min grace window — on-time cutoff is 10:00 AM
 
 
 def parse_time_ampm(s: str):
@@ -440,7 +561,7 @@ def read_biometric_api(month_label):
         if not emp_id:
             continue
         # Also index by normalised name so UUID-keyed employees (interns) can match
-        user_name_key = norm_key(row.get("user_name", ""))
+        user_name_key = normalize_name(row.get("user_name", ""))
         if user_name_key:
             result[f"name:{user_name_key}"] = result[emp_id]
 
@@ -617,23 +738,25 @@ def resolve_greythr_date_range(target_period: str):
     return previous_full_month_range()
 
 
-def read_greythr_api(start: str, end: str) -> tuple[defaultdict, dict]:
-    """Returns (attendance_counters, master_data).
+def read_greythr_api(start: str, end: str) -> tuple[defaultdict, dict, dict]:
+    """Returns (attendance_counters, master_data, dept_details).
     master_data: {employeeId: {employee_no, name, date_of_joining, employment_type, probation_end}}
+    dept_details: {employeeId: {designation, department}} from GreytHR reporting hierarchy
     """
     result = defaultdict(lambda: Counter())
     master = {}
+    dept_details: dict = {}
     if not start or not end:
         print("WARNING: GreytHR skipped — could not determine date range", file=sys.stderr)
-        return result, master
+        return result, master, dept_details
     try:
-        raw, master = get_greythr_attendance(start, end)
+        raw, master, dept_details = get_greythr_attendance(start, end)
         for emp_no, counter in raw.items():
             result[emp_no] = counter
-        print(f"GreytHR attendance loaded: {len(raw)} employees ({start} to {end})")
+        print(f"GreytHR attendance loaded: {len(raw)} employees ({start} to {end}), {len(dept_details)} with designations")
     except (GreytHRConfigError, GreytHRAuthError, GreytHRApiError) as exc:
         print(f"WARNING: GreytHR attendance skipped: {exc}", file=sys.stderr)
-    return result, master
+    return result, master, dept_details
 
 
 def main():
@@ -743,7 +866,7 @@ def main():
         project_hours[clean(row.get("project_id"))] += stats["workHours"]
 
     greythr_start, greythr_end = resolve_greythr_date_range(target_period)
-    greythr, greythr_master = read_greythr_api(greythr_start, greythr_end)
+    greythr, greythr_master, greythr_dept = read_greythr_api(greythr_start, greythr_end)
     # Build name-keyed lookup for joining date matching (CWINE employees only)
     greythr_master_by_name = {
         normalize_name(info.get("name", "")): info
@@ -751,6 +874,19 @@ def main():
         if info.get("name")
     }
     teams = read_teams_api(users)
+
+    # Apply designation overrides after all API calls:
+    # 1. Teams jobTitle (read_teams_api may have updated users[emp_id]["designation"])
+    # 2. GreytHR designation takes final priority (HR system of record)
+    for emp_id, emp in employees.items():
+        user = users.get(emp_id, {})
+        teams_desig = clean(user.get("designation"))
+        if teams_desig:
+            emp["designation"] = teams_desig
+        gt_info = greythr_dept.get(emp_id) or greythr_dept.get(emp.get("sourceKeys", {}).get("greythr", ""))
+        gt_desig = clean((gt_info or {}).get("designation"))
+        if gt_desig:
+            emp["designation"] = gt_desig
     presence_month = to_presence_month_label(target_period) or to_presence_month_label(greythr_start)
     attendance = read_biometric_api(presence_month)
     teams_activity = read_teams_activity_report()
@@ -804,17 +940,38 @@ def main():
         for p in projects
         if clean(p.get("id")) and clean(p.get("managed_by"))
     }
-    pm_project_stats = defaultdict(lambda: {"total": 0, "completed": 0, "approved": 0})
+    pm_project_stats = defaultdict(lambda: {"total": 0, "completed": 0, "approved": 0, "onTime": 0, "hasDueDates": False})
+    # Task Approval Speed (Management KPI, 10%): how quickly each manager reviews/approves
+    # tasks submitted by their team, bucketed per the framework's turnaround table.
+    pm_approval_scores = defaultdict(list)
     for row in daily:
         proj_id = clean(row.get("project_id"))
         pm_id = project_manager_map.get(proj_id)
         if not pm_id or pm_id not in allowed_employee_ids:
             continue
-        pm_project_stats[pm_id]["total"] += 1
-        if clean(row.get("status", "")).lower() == "completed":
-            pm_project_stats[pm_id]["completed"] += 1
-        if clean(row.get("approval_status", "")).lower() == "approved":
-            pm_project_stats[pm_id]["approved"] += 1
+        ps = pm_project_stats[pm_id]
+        ps["total"] += 1
+        is_completed = clean(row.get("status", "")).lower() == "completed"
+        if is_completed:
+            ps["completed"] += 1
+        is_approved = clean(row.get("approval_status", "")).lower() == "approved"
+        if is_approved:
+            ps["approved"] += 1
+            approval_score = approval_turnaround_score(row.get("created_at"), row.get("updated_at"))
+            if approval_score is not None:
+                pm_approval_scores[pm_id].append(approval_score)
+        # Project Delivery (Management KPI, 25%): "Projects Delivered On Time / Projects
+        # Assigned" — evaluated at task granularity since projects have no due date field,
+        # only individual tasks do. Falls back to plain completion rate for managers whose
+        # projects have no due-date data at all, so on-time tracking never unfairly zeroes them out.
+        due_date = clean(row.get("due_date"))
+        completion_date = clean(row.get("completion_date"))
+        if due_date and completion_date:
+            ps["hasDueDates"] = True
+            due_dt = pd.to_datetime(due_date, errors="coerce")
+            completed_dt = pd.to_datetime(completion_date, errors="coerce")
+            if is_completed and pd.notna(due_dt) and pd.notna(completed_dt) and completed_dt <= due_dt:
+                ps["onTime"] += 1
 
     # Build employee id → name map for PM name lookup in project cards.
     emp_id_to_name = {
@@ -924,6 +1081,13 @@ def main():
         for ta in [get_teams_activity_for(emp)]
         if ta
     ] or [0, 1]
+    # Meeting Score sub-component of Teams Collaboration: raw meeting counts for minmax normalisation
+    all_meeting_counts = [
+        ta["meetingCount"]
+        for emp in employees.values()
+        for ta in [get_teams_activity_for(emp)]
+        if ta
+    ] or [0, 1]
     # GitHub: raw contribution scores for minmax normalisation
     all_github_scores = [
         gc["contributionScore"]
@@ -936,7 +1100,8 @@ def main():
     for emp_id, emp in employees.items():
         stats = work_item_stats[emp_id]
         gh = greythr_for_employee(emp_id, emp)
-        bio = attendance.get(emp_id) or attendance.get(f"name:{norm_key(emp.get('name',''))}") or Counter()
+        _wl_uid = clean(emp.get("user_id", ""))
+        bio = attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}") or Counter()
         present_days = bio["biometricDays"] or gh["P"]
         tm = teams[emp_id]
         monthly_final = emp.get("worklogixScore", {}).get("final", 0)
@@ -993,7 +1158,7 @@ def main():
             "worklogix": emp_id in allowed_employee_ids,
             "worklogixActivity": has_real_worklogix,
             "greythr": bool(gh),
-            "biometrics": bool(attendance.get(emp_id) or attendance.get(f"name:{norm_key(emp.get('name',''))}")),
+            "biometrics": bool(attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}")),
             "teams": bool(tm),
             "github": gc is not None,
         }
@@ -1013,9 +1178,28 @@ def main():
         # Only biometricDays (actual swipe) counts as confirmed physical presence.
         gh_has_real_data = bool(gh) and (gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"]) > 0
         has_attendance_data = gh_has_real_data or bio["biometricDays"] > 0
+        # --- KPI Calculation Framework: category-specific formulas ---
+        # Attendance / Punctuality / Collaboration are computed the same way for every
+        # category (they share identical formulas in the framework); only the weights
+        # and the extra category-specific sub-metrics differ below.
+        attendance_pct = compute_attendance_pct(gh, bio, attendance_score)
+        punctuality_pct = compute_punctuality_pct(bio, punctuality_score)
+        teams_collab_pct = compute_collaboration_pct(bio, ta, all_meeting_counts, collaboration_score)
+        assigned_tasks = stats["workItems"]
+        completed_tasks = stats["status:Completed"]
+        approved_tasks = stats["approval:approved"]
+        task_completion_pct = (
+            round(min(100.0, completed_tasks / assigned_tasks * 100), 1) if assigned_tasks else None
+        )
+
         pm_project_score = None
+        productivity_score = None
+        code_contribution_score = None
+        project_delivery_score = None
+        task_approval_speed_score = None
         kpi = None
         band = ""
+        weights_used = {}
         insufficient_reason = None
         if role_cat == "executive":
             band = "Executive"
@@ -1026,131 +1210,111 @@ def main():
             insufficient_reason = "no-attendance"
         elif source_confidence >= 50:
             has_github = gc is not None
+
             if role_cat == "management":
-                # PMs are scored on how well the projects they manage are completing.
+                # Management KPI = Team Avg KPI 35% + Project Delivery 25% + Approval Speed 10%
+                #                 + Attendance 10% + Punctuality 5% + Collaboration 10% + Planner Completion 5%
+                # Team Average KPI needs every other employee's KPI, so it's filled in
+                # during the post-loop pass below; here we score everything else and
+                # redistribute its 35% weight for a preliminary value.
                 ps = pm_project_stats.get(emp_id)
                 if ps and ps["total"] > 0:
-                    completion_rate = ps["completed"] / ps["total"] * 100
-                    approval_rate   = ps["approved"]  / ps["total"] * 100
-                    pm_project_score = completion_rate * 0.6 + approval_rate * 0.4
-                elif in_worklogix:
-                    # PM intern / manager tracking own tasks in Worklogix
-                    pm_project_score = worklogix_score
-                # If no Worklogix data at all, fall back to support formula
-                if pm_project_score is not None:
-                    # Project performance 40% + Attendance 25% + Collaboration 20% + Punctuality 15%
-                    kpi = round(
-                        pm_project_score      * 0.40
-                        + attendance_score    * 0.25
-                        + collaboration_score * 0.20
-                        + punctuality_score   * 0.15,
-                        1,
+                    project_delivery_score = round(
+                        min(100.0, (ps["onTime"] if ps["hasDueDates"] else ps["completed"]) / ps["total"] * 100), 1
                     )
-                else:
-                    # Management staff not in Worklogix: score on attendance + punctuality + collaboration
-                    kpi = round(
-                        attendance_score      * 0.40
-                        + punctuality_score   * 0.30
-                        + collaboration_score * 0.30,
-                        1,
-                    )
+                approval_scores = pm_approval_scores.get(emp_id)
+                task_approval_speed_score = round(statistics.mean(approval_scores), 1) if approval_scores else None
+                pm_project_score = project_delivery_score  # kept for the executive/UI "project performance" driver
+                kpi, weights_used = weighted_score([
+                    ("projectDelivery", project_delivery_score, 25),
+                    ("taskApprovalSpeed", task_approval_speed_score, 10),
+                    ("attendance", attendance_pct, 10),
+                    ("punctuality", punctuality_pct, 5),
+                    ("collaboration", teams_collab_pct, 10),
+                    ("plannerCompletion", task_completion_pct, 5),
+                ])
+            elif role_cat == "intern":
+                # Intern KPI = Task Completion 30% + Punctuality 20% + Collaboration 20% + Mentor Feedback 30%.
+                # Mentor Feedback isn't collected anywhere in this pipeline — its weight is redistributed.
+                kpi, weights_used = weighted_score([
+                    ("taskCompletion", task_completion_pct, 30),
+                    ("punctuality", punctuality_pct, 20),
+                    ("collaboration", teams_collab_pct, 20),
+                    ("mentorFeedback", None, 30),
+                ])
             elif role_cat == "support":
-                # HR / Admin / BDM / Marketing / Design — no task entry, no GitHub
-                # Attendance 40% + Punctuality 30% + Collaboration 30%
-                kpi = round(
-                    attendance_score      * 0.40
-                    + punctuality_score   * 0.30
-                    + collaboration_score * 0.30,
-                    1,
-                )
+                # Support KPI = Attendance 25% + Punctuality 15% + Collaboration 20%
+                #             + Task Completion 30% + Manager Ratings 10%.
+                # Manager Ratings isn't collected anywhere in this pipeline — its weight is redistributed.
+                kpi, weights_used = weighted_score([
+                    ("attendance", attendance_pct, 25),
+                    ("punctuality", punctuality_pct, 15),
+                    ("collaboration", teams_collab_pct, 20),
+                    ("taskCompletion", task_completion_pct, 30),
+                    ("managerRatings", None, 10),
+                ])
             else:
-                # Technical: build formula from only the sources that exist.
-                # If no Worklogix data at all → don't penalise, score like support.
-                # If Worklogix exists but no GitHub → redistribute GitHub weight.
-                tc = task_completion_score  # None if no Worklogix data
-                if has_real_worklogix and has_github:
-                    # Full formula: Worklogix 40% + Tasks 20% + Attendance 15% + Punctuality 10% + Collaboration 10% + GitHub 5%
-                    kpi = round(
-                        worklogix_score * 0.40
-                        + tc            * 0.20
-                        + attendance_score    * 0.15
-                        + punctuality_score   * 0.10
-                        + collaboration_score * 0.10
-                        + github_score        * 0.05,
-                        1,
+                # Technical KPI = Productivity 55% + Code Contribution 5% + Attendance 15%
+                #               + Punctuality 15% + Teams Collaboration 10%.
+                # Productivity = Task Completion Efficiency 60% + Approval Rate 15% + Work Efficiency 25%.
+                if task_completion_pct is not None:
+                    approval_rate = round(min(100.0, approved_tasks / completed_tasks * 100), 1) if completed_tasks else 0.0
+                    productivity_score = round(
+                        task_completion_pct * 0.60 + approval_rate * 0.15 + efficiency_driver * 0.25, 1
                     )
-                elif has_real_worklogix:
-                    # Worklogix but no GitHub: redistribute GitHub 5% proportionally across remaining
-                    # Worklogix 42.1% + Tasks 21.1% + Attendance 15.8% + Punctuality 10.5% + Collaboration 10.5%
-                    kpi = round(
-                        worklogix_score * 0.421
-                        + tc            * 0.211
-                        + attendance_score    * 0.158
-                        + punctuality_score   * 0.105
-                        + collaboration_score * 0.105,
-                        1,
-                    )
-                elif has_github:
-                    # GitHub but no Worklogix: GitHub 30% + Attendance 30% + Punctuality 20% + Collaboration 20%
-                    kpi = round(
-                        github_score          * 0.30
-                        + attendance_score    * 0.30
-                        + punctuality_score   * 0.20
-                        + collaboration_score * 0.20,
-                        1,
-                    )
-                else:
-                    # No Worklogix, no GitHub: score exactly like support staff
-                    # Attendance 40% + Punctuality 30% + Collaboration 30%
-                    kpi = round(
-                        attendance_score      * 0.40
-                        + punctuality_score   * 0.30
-                        + collaboration_score * 0.30,
-                        1,
-                    )
-            band = (
-                "Excellent"        if kpi >= 90 else
-                "Good"             if kpi >= 80 else
-                "Average"          if kpi >= 70 else
-                "Needs Improvement" if kpi >= 60 else
-                "Critical"
-            )
+                code_contribution_score = round(github_score, 1) if has_github else None
+                kpi, weights_used = weighted_score([
+                    ("productivity", productivity_score, 55),
+                    ("codeContribution", code_contribution_score, 5),
+                    ("attendance", attendance_pct, 15),
+                    ("punctuality", punctuality_pct, 15),
+                    ("collaboration", teams_collab_pct, 10),
+                ])
+
+            if kpi is not None:
+                band = band_for_kpi(kpi)
+            else:
+                band = "Insufficient Data"
+                insufficient_reason = "no-scoreable-metrics"
 
         # Quadrant: 2D grid of productivity vs attendance
-        # Executives are excluded; management/support use collaboration as productivity proxy
-        if role_cat in ("management", "support"):
+        # Executives are excluded; management/support/intern use collaboration as productivity proxy
+        if role_cat in ("management", "support", "intern"):
             prod_high = collaboration_score >= 60
         else:
             prod_high = worklogix_score >= 60
         att_high = attendance_score >= 60
-        if kpi is not None:
-            if prod_high and att_high:
-                quadrant = "High Performer"
-            elif prod_high and not att_high:
-                quadrant = "Ghost Worker"
-            elif not prod_high and att_high:
-                quadrant = "Present but Idle"
-            else:
-                quadrant = "Disengaged"
-        else:
-            quadrant = ""
+        quadrant = quadrant_for(prod_high, att_high) if kpi is not None else ""
 
         score_drivers = {
-            "productivity": round(worklogix_score, 1) if has_real_worklogix else None,
-            "attendance": round(attendance_score, 1),
-            "taskCompletion": round(task_completion_score, 1) if task_completion_score is not None else None,
-            "punctuality": round(punctuality_score, 1),
-            "collaboration": round(collaboration_score, 1),
+            "productivity": round(productivity_score, 1) if productivity_score is not None else None,
+            "codeContribution": code_contribution_score,
+            "attendance": round(attendance_pct, 1),
+            "taskCompletion": task_completion_pct,
+            "punctuality": round(punctuality_pct, 1),
+            "collaboration": round(teams_collab_pct, 1),
             "github": round(github_score, 1),
+            "projectDelivery": project_delivery_score,
+            "taskApprovalSpeed": task_approval_speed_score,
+            "plannerCompletion": task_completion_pct if role_cat == "management" else None,
+            "managerRatings": None,
+            "mentorFeedback": None,
             "pmProjectScore": round(pm_project_score, 1) if pm_project_score is not None else None,
         }
-        gap_analysis = build_gap_analysis(sources, source_confidence, {k: v for k, v in score_drivers.items() if v is not None}, kpi)
+        gap_analysis = build_gap_analysis(
+            sources, source_confidence,
+            {k: v for k, v in score_drivers.items() if isinstance(v, (int, float))},
+            kpi,
+        )
         employee_rows.append({
             **emp,
             "kpi": kpi,
             "band": band,
             "quadrant": quadrant,
             "roleCategory": role_cat,
+            # Diagnostic only — NOT nested in scoreDrivers, which the dashboard renders
+            # generically as a list of 0-100 percentage bars (a dict value would break that).
+            "weightsApplied": weights_used,
             "sourceConfidence": source_confidence,
             "sources": sources,
             "worklogixScore": emp.get("worklogixScore", {}),
@@ -1291,43 +1455,39 @@ def main():
                 row["scoreDrivers"]["reporteeCount"] = len(scored_kpis)
             # kpi stays None, band stays "Executive"
 
-        # For management employees with Teams reportees but no Worklogix projects assigned,
-        # replace their fallback pm_project_score with their team's actual avg KPI.
+        # Management KPI, pass 2: Team Average KPI (35%) is the average of every direct
+        # report's KPI, which is only known once every employee has been scored above.
+        # Recompute each manager's KPI now that it's available, using the same
+        # weighted_score redistribution rule for whichever components (Project
+        # Delivery, Task Approval Speed, Team Avg KPI itself) don't apply to them.
         for row in employee_rows:
             if row.get("roleCategory") != "management":
                 continue
-            ps = pm_project_stats.get(row["id"])
-            if ps and ps["total"] > 0:
-                continue  # already has real Worklogix project data, don't override
-            reportee_ids = mgr_to_reportees.get(row["id"], [])
+            reportee_ids = list(dict.fromkeys(mgr_to_reportees.get(row["id"], [])))
             scored_kpis = [emp_id_to_kpi[rid] for rid in reportee_ids if rid in emp_id_to_kpi]
-            if not scored_kpis:
+            team_avg_kpi = round(sum(scored_kpis) / len(scored_kpis), 1) if scored_kpis else None
+            sd = row["scoreDrivers"]
+            new_kpi, weights_used = weighted_score([
+                ("teamAverageKpi", team_avg_kpi, 35),
+                ("projectDelivery", sd.get("projectDelivery"), 25),
+                ("taskApprovalSpeed", sd.get("taskApprovalSpeed"), 10),
+                ("attendance", sd.get("attendance"), 10),
+                ("punctuality", sd.get("punctuality"), 5),
+                ("collaboration", sd.get("collaboration"), 10),
+                ("plannerCompletion", sd.get("plannerCompletion"), 5),
+            ])
+            if team_avg_kpi is not None:
+                sd["teamAvgKpi"] = team_avg_kpi
+                sd["reporteeCount"] = len(scored_kpis)
+            if new_kpi is None:
                 continue
-            team_avg = round(sum(scored_kpis) / len(scored_kpis), 1)
-            # Recalculate KPI using team avg as the project performance signal
-            att  = row["scoreDrivers"]["attendance"]
-            col  = row["scoreDrivers"]["collaboration"]
-            punc = row["scoreDrivers"]["punctuality"]
-            new_kpi = round(team_avg * 0.40 + att * 0.25 + col * 0.20 + punc * 0.15, 1)
             row["kpi"] = new_kpi
-            row["scoreDrivers"]["pmProjectScore"] = team_avg
-            row["scoreDrivers"]["teamAvgKpi"] = team_avg
-            row["scoreDrivers"]["reporteeCount"] = len(scored_kpis)
-            row["band"] = (
-                "Excellent"         if new_kpi >= 90 else
-                "Good"              if new_kpi >= 80 else
-                "Average"           if new_kpi >= 70 else
-                "Needs Improvement" if new_kpi >= 60 else
-                "Critical"
-            )
-            prod_high = col >= 60
-            att_high  = att >= 60
-            row["quadrant"] = (
-                "High Performer"    if prod_high and att_high else
-                "Ghost Worker"      if prod_high and not att_high else
-                "Present but Idle"  if not prod_high and att_high else
-                "Disengaged"
-            )
+            row["scoreDrivers"]["pmProjectScore"] = sd.get("projectDelivery")
+            row["weightsApplied"] = weights_used
+            row["band"] = band_for_kpi(new_kpi)
+            col = sd.get("collaboration") or 0
+            att = sd.get("attendance") or 0
+            row["quadrant"] = quadrant_for(col >= 60, att >= 60)
 
         # Build reverse map: employee ID → manager employee ID
         emp_id_to_manager_id = {}
@@ -1414,12 +1574,35 @@ def main():
                 "github": "file",
             },
             "weights": {
-                "productivity": 35,
-                "taskCompletion": 20,
+                "productivity": 55,
                 "attendance": 15,
-                "punctuality": 10,
+                "punctuality": 15,
                 "collaboration": 10,
-                "githubContribution": 10,
+                "githubContribution": 5,
+            },
+            "kpiFramework": {
+                "technical": {
+                    "productivity": 55, "codeContribution": 5, "attendance": 15,
+                    "punctuality": 15, "collaboration": 10,
+                },
+                "support": {
+                    "attendance": 25, "punctuality": 15, "collaboration": 20,
+                    "taskCompletion": 30, "managerRatings": 10,
+                },
+                "management": {
+                    "teamAverageKpi": 35, "projectDelivery": 25, "taskApprovalSpeed": 10,
+                    "attendance": 10, "punctuality": 5, "collaboration": 10, "plannerCompletion": 5,
+                },
+                "intern": {
+                    "taskCompletion": 30, "punctuality": 20, "collaboration": 20, "mentorFeedback": 30,
+                },
+                "note": (
+                    "Weights shown are the framework's target weights. managerRatings, "
+                    "taskApprovalSpeed (when timestamps are unavailable), and mentorFeedback "
+                    "have no data source in this pipeline; their weight is redistributed "
+                    "proportionally across the other components for each affected employee "
+                    "— see scoreDrivers.weightsApplied per employee for the actual weights used."
+                ),
             },
         },
         "overview": {
