@@ -104,8 +104,7 @@ TEAM_OVERRIDES = {
 
 
 def get_role_category(designation: str) -> str:
-    """Return 'executive', 'technical', 'management', 'support', or 'intern' per the
-    KPI Calculation Framework's role categories.
+    """Return 'executive', 'technical', 'management', 'support', 'intern', or 'trainee'.
 
     - executive : CEO, MD, Advisors, Chiefs — no KPI scored (band = 'Executive')
     - management: Delivery Manager, Project Manager, Junior Manager (incl. "PM Intern",
@@ -113,11 +112,11 @@ def get_role_category(designation: str) -> str:
                   → Management KPI (Team Avg 35% + Project Delivery 25% + Approval Speed 10%
                     + Attendance 10% + Punctuality 5% + Collaboration 10% + Planner Completion 5%)
     - intern    : any other designation containing "intern" (excl. "PM Intern" above).
-                  "Trainee" designations are NOT treated as interns — they fall through
-                  to whichever category their actual role implies (e.g. "AI Trainee" →
-                  technical, "Cyber Security Trainee" → support), same as any employee.
                   → Intern KPI (Task Completion 30% + Punctuality 20% + Collaboration 20%
                     + Mentor Feedback 30%)
+    - trainee   : any designation containing "trainee".
+                  → Trainee KPI (Task Completion 30% + Attendance 15% + Punctuality 15%
+                    + Collaboration 10% + Mentor Feedback 30%)
     - support   : HR, Recruiter, Marketing, BDM/Business Development, Admin, Accounts,
                   UI/UX, Cyber Security
                   → Support KPI (Attendance 25% + Punctuality 15% + Collaboration 20%
@@ -134,6 +133,8 @@ def get_role_category(designation: str) -> str:
         return "management"
     if "intern" in d:
         return "intern"
+    if "trainee" in d:
+        return "trainee"
     support_keys = ["hr", "human resource", "recruiter", "admin", "bdm",
                     "business development", "marketing", "ui /", "ui/", "ux", "account",
                     "cyber security", "cyber"]
@@ -1200,6 +1201,7 @@ def main():
         code_contribution_score = None
         project_delivery_score = None
         task_approval_speed_score = None
+        mentor_score = None
         kpi = None
         band = ""
         weights_used = {}
@@ -1245,6 +1247,21 @@ def main():
                     ("collaboration", teams_collab_pct, 20),
                     ("mentorFeedback", None, 30),
                 ])
+            elif role_cat == "trainee":
+                # Trainee KPI = Task Completion 30% + Attendance 15% + Punctuality 15%
+                #             + Collaboration 10% + Mentor Feedback 30%.
+                # Mentor Feedback = Worklogix monthly final_rating (1–5 scale → ×20 = 0–100).
+                # The monthly report API currently returns 403; weight is redistributed until
+                # the Worklogix account is granted monthly-report access.
+                _monthly_rating = num(emp.get("worklogixScore", {}).get("rating"))
+                mentor_score = round(_monthly_rating * 20, 1) if _monthly_rating else None
+                kpi, weights_used = weighted_score([
+                    ("taskCompletion", task_completion_pct, 30),
+                    ("attendance", attendance_pct, 15),
+                    ("punctuality", punctuality_pct, 15),
+                    ("collaboration", teams_collab_pct, 10),
+                    ("mentorFeedback", mentor_score, 30),
+                ])
             elif role_cat == "support":
                 # Support KPI = Attendance 25% + Punctuality 15% + Collaboration 20%
                 #             + Task Completion 30% + Manager Ratings 10%.
@@ -1281,8 +1298,8 @@ def main():
                 insufficient_reason = "no-scoreable-metrics"
 
         # Quadrant: 2D grid of productivity vs attendance
-        # Executives are excluded; management/support/intern use collaboration as productivity proxy
-        if role_cat in ("management", "support", "intern"):
+        # Executives are excluded; management/support/intern/trainee use collaboration as productivity proxy
+        if role_cat in ("management", "support", "intern", "trainee"):
             prod_high = collaboration_score >= 60
         else:
             prod_high = worklogix_score >= 60
@@ -1301,7 +1318,7 @@ def main():
             "taskApprovalSpeed": task_approval_speed_score,
             "plannerCompletion": task_completion_pct if role_cat == "management" else None,
             "managerRatings": None,
-            "mentorFeedback": None,
+            "mentorFeedback": mentor_score,
             "pmProjectScore": round(pm_project_score, 1) if pm_project_score is not None else None,
         }
         gap_analysis = build_gap_analysis(
@@ -1598,6 +1615,10 @@ def main():
                 },
                 "intern": {
                     "taskCompletion": 30, "punctuality": 20, "collaboration": 20, "mentorFeedback": 30,
+                },
+                "trainee": {
+                    "taskCompletion": 30, "attendance": 15, "punctuality": 15,
+                    "collaboration": 10, "mentorFeedback": 30,
                 },
                 "note": (
                     "Weights shown are the framework's target weights. managerRatings, "
