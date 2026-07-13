@@ -883,7 +883,10 @@ def main():
         teams_desig = clean(user.get("designation"))
         if teams_desig:
             emp["designation"] = teams_desig
-        gt_info = greythr_dept.get(emp_id) or greythr_dept.get(emp.get("sourceKeys", {}).get("greythr", ""))
+        _name_key = f"name:{normalize_name(emp.get('name', ''))}"
+        gt_info = (greythr_dept.get(emp_id)
+                   or greythr_dept.get(emp.get("sourceKeys", {}).get("greythr", ""))
+                   or greythr_dept.get(_name_key))
         gt_desig = clean((gt_info or {}).get("designation"))
         if gt_desig:
             emp["designation"] = gt_desig

@@ -259,11 +259,18 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
     try:
         raw_dept = get_department_details(token, domain)
         dept_details = dict(raw_dept)
-        # Also index by employee_no so callers can look up by CWINI code
+        # Also index by employee_no and normalised name so CWINI-coded employees
+        # (interns whose Worklogix id doesn't match their GreytHR CWINE code) can
+        # still get their GreytHR designation via name-based fallback lookup.
         for gt_id, emp_info in master.items():
+            if gt_id not in raw_dept:
+                continue
             emp_no = emp_info.get("employee_no", "")
-            if emp_no and gt_id in raw_dept:
+            if emp_no:
                 dept_details[emp_no] = raw_dept[gt_id]
+            name_key = f"name:{_normalise_match_key(emp_info.get('name', ''))}"
+            if name_key and name_key != "name:":
+                dept_details[name_key] = raw_dept[gt_id]
     except GreytHRApiError:
         pass
     active_ids = set(master.keys())
