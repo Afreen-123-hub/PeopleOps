@@ -126,7 +126,7 @@ def get_role_category(designation: str) -> str:
                     + Punctuality 15% + Teams Collaboration 10%)
     """
     d = (designation or "").lower()
-    exec_keys = ["managing director", "director", "advisor", "chief"]
+    exec_keys = ["managing director", "director", "advisor", "chief", "ceo"]
     if any(k in d for k in exec_keys):
         return "executive"
     if "pm intern" in d:
@@ -1167,6 +1167,10 @@ def main():
             "github": gc is not None,
         }
         role_cat = get_role_category(emp.get("designation", ""))
+        # Leadership structure overrides: Senthil Kumar (Delivery Manager) and
+        # Lexila T A (HR Manager) are confirmed C-suite/leadership — exempt from KPI.
+        if emp_id in {"CWINE053", "CWINE154"}:
+            role_cat = "executive"
         in_worklogix = emp_id in allowed_employee_ids
         # Confidence uses only the 4 core sources — worklogixActivity and github
         # are informational tags and must NOT dilute the confidence score.
