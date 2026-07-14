@@ -490,12 +490,16 @@ def compute_attendance_pct(gh, bio, fallback):
     """Attendance = (Present Days / Working Days) x 100. Working Days = Present +
     Absent + Leave (days the employee was expected to work). Falls back to the
     biometric-derived proxy, then the pre-computed minmax fallback, when GreytHR
-    data isn't available for this employee."""
+    data isn't available for this employee.
+    Returns None when there is genuinely no data source so weighted_score can
+    redistribute the weight rather than counting a misleading 0."""
     working_days = (gh["P"] + gh["A"] + gh["Leave"]) if gh else 0
     if working_days > 0:
         return round(min(100.0, gh["P"] / working_days * 100), 1)
     if bio.get("validOfficeDays"):
         return round(min(100.0, bio["biometricDays"] / bio["validOfficeDays"] * 100), 1)
+    if not bio.get("presenceReports"):
+        return None
     return round(fallback, 1)
 
 
@@ -565,11 +569,34 @@ def parse_time_ampm(s: str):
         return None
 
 
+def _previous_month_label(month_label: str) -> str:
+    """Return the prior month as 'Mon YYYY', or '' on parse failure."""
+    for fmt in ("%b %Y", "%B %Y"):
+        try:
+            dt = datetime.strptime(month_label, fmt)
+            prev = (dt.replace(day=1) - timedelta(days=1))
+            return prev.strftime("%b %Y")
+        except ValueError:
+            continue
+    return ""
+
+
 def read_biometric_api(month_label):
+    payload = None
+    used_label = month_label
     try:
         payload = get_worklogix_employee_presence_report(month=month_label)
     except Exception as exc:
-        print(f"WARNING: biometric presence report skipped: {exc}", file=sys.stderr)
+        print(f"WARNING: biometric presence report unavailable for {month_label}: {exc}", file=sys.stderr)
+        prev = _previous_month_label(month_label)
+        if prev:
+            try:
+                payload = get_worklogix_employee_presence_report(month=prev)
+                used_label = prev
+                print(f"INFO: Using biometric data from {prev} as fallback", file=sys.stderr)
+            except Exception as exc2:
+                print(f"WARNING: Fallback biometric also failed ({prev}): {exc2}", file=sys.stderr)
+    if payload is None:
         return defaultdict(lambda: Counter())
 
     result = defaultdict(lambda: Counter())
@@ -629,6 +656,9 @@ def read_biometric_api(month_label):
         if loc_counts:
             result[emp_id]["officeLocation"] = max(loc_counts, key=loc_counts.get)
 
+    emp_count = len([k for k in result if not k.startswith("name:")])
+    bio_count = sum(1 for k, v in result.items() if not k.startswith("name:") and v.get("biometricDays", 0) > 0)
+    print(f"Biometric presence report loaded ({used_label}): {emp_count} employees, {bio_count} with biometric swipes")
     return result
 
 
@@ -1337,7 +1367,7 @@ def main():
         score_drivers = {
             "productivity": round(productivity_score, 1) if productivity_score is not None else None,
             "codeContribution": code_contribution_score,
-            "attendance": round(attendance_pct, 1),
+            "attendance": round(attendance_pct, 1) if attendance_pct is not None else None,
             "taskCompletion": task_completion_pct,
             "punctuality": round(punctuality_pct, 1),
             "collaboration": round(teams_collab_pct, 1),
