@@ -674,7 +674,7 @@ function populateAttendanceOptions() {
 }
 
 function isIntern(employee) {
-  return employee.id && employee.id.includes("-");
+  return employee.roleCategory === "intern" || employee.roleCategory === "trainee";
 }
 
 function applyFilters() {
