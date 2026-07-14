@@ -862,9 +862,8 @@ function renderKpiPerformance() {
   document.querySelectorAll(".kpi-team-row").forEach((row) => {
     row.addEventListener("click", () => {
       const team = decodeURIComponent(row.dataset.team);
-      state.team = team;
-      document.getElementById("teamFilter").value = team;
-      applyFilters();
+      const members = filteredEmployees.filter((e) => mergedTeam(e.team || "Unassigned") === team);
+      showTeamMembersModal(team, members);
     });
   });
 
@@ -928,24 +927,64 @@ function findDepartmentBar(event) {
   ));
 }
 
-function renderDepartmentEmployees(department) {
-  const panel = document.getElementById("departmentEmployeesPanel");
-  const rows = department.employees
-    .slice()
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .map((employee) => `<li><strong>${employee.name}</strong><span>${employee.id}</span></li>`)
-    .join("");
-  panel.hidden = false;
-  panel.innerHTML = `
-    <div class="department-panel-head">
-      <div>
-        <p class="eyebrow">Department employees</p>
-        <h3>${department.department}</h3>
+function showTeamMembersModal(teamName, employees) {
+  const existing = document.getElementById("teamMembersModal");
+  if (existing) existing.remove();
+
+  const sorted = [...employees].sort((a, b) => {
+    if (a.kpi == null && b.kpi == null) return a.name.localeCompare(b.name);
+    if (a.kpi == null) return 1;
+    if (b.kpi == null) return -1;
+    return b.kpi - a.kpi;
+  });
+
+  const modal = document.createElement("div");
+  modal.id = "teamMembersModal";
+  modal.className = "team-modal-overlay";
+  modal.innerHTML = `
+    <div class="team-modal-box">
+      <div class="team-modal-head">
+        <div>
+          <p class="eyebrow">Team Members</p>
+          <h3>${escapeHtml(teamName)}</h3>
+        </div>
+        <div class="team-modal-meta">
+          <span class="pill">${employees.length} member${employees.length !== 1 ? "s" : ""}</span>
+          <button class="dialog-close" id="closeTeamModal">✕</button>
+        </div>
       </div>
-      <span class="pill">${department.employees.length} employees</span>
+      <ul class="team-modal-list">
+        ${sorted.map((e) => {
+          const initials = e.name.split(" ").map((w) => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
+          const tone = e.kpi == null ? "no-kpi" : e.kpi >= 80 ? "excellent" : e.kpi >= 70 ? "strong" : e.kpi >= 55 ? "watch" : "risk";
+          return `
+            <li class="team-modal-row" data-id="${escapeHtml(e.id)}">
+              <div class="team-modal-avatar">${initials}</div>
+              <div class="team-modal-info">
+                <strong>${escapeHtml(e.name)}</strong>
+                <small>${escapeHtml(e.designation || e.id)}</small>
+              </div>
+              <span class="team-modal-kpi ${tone}">${e.kpi != null ? number.format(e.kpi) : "—"}</span>
+            </li>`;
+        }).join("")}
+      </ul>
+      <p class="team-modal-footer">Click any member to open their full profile</p>
     </div>
-    <ul>${rows}</ul>
   `;
+
+  document.body.appendChild(modal);
+  document.getElementById("closeTeamModal").addEventListener("click", () => modal.remove());
+  modal.addEventListener("click", (evt) => { if (evt.target === modal) modal.remove(); });
+  modal.querySelectorAll(".team-modal-row").forEach((row) => {
+    row.addEventListener("click", () => {
+      const emp = dataset.employees.find((e) => e.id === row.dataset.id);
+      if (emp) { modal.remove(); showEmployee(emp); }
+    });
+  });
+}
+
+function renderDepartmentEmployees(department) {
+  showTeamMembersModal(department.department, department.employees);
 }
 
 function renderTotalEmployeeBadge() {
@@ -1250,20 +1289,7 @@ function renderBandEmployees(band) {
   const employees = filteredEmployees
     .filter((employee) => employee.band === band)
     .sort((a, b) => b.kpi - a.kpi);
-  const panel = document.getElementById("bandEmployeesPanel");
-  panel.hidden = false;
-  panel.innerHTML = `
-    <div class="department-panel-head">
-      <div>
-        <p class="eyebrow">Performance group</p>
-        <h3>${band}</h3>
-      </div>
-      <span class="pill">${employees.length} employees</span>
-    </div>
-    <ul>
-      ${employees.map((employee) => `<li><strong>${employee.name}</strong><span>${employee.id} | ${formatKpi(employee.kpi)} KPI</span></li>`).join("")}
-    </ul>
-  `;
+  showTeamMembersModal(band, employees);
 }
 
 function renderWeights() {
