@@ -194,13 +194,33 @@ def standardize_team(value):
     team = clean(value) or "Unassigned"
     key = re.sub(r"[^a-z0-9]+", "", team.lower())
     mapping = {
+        # Software Development variants
         "softwaredevelopment": "Software Development",
         "softwaredevelopmentteam": "Software Development",
         "softwaredeveloper": "Software Development",
         "developmentteam": "Software Development",
-        "aidevelopment": "AI Development",
-        "technologydevelopment": "Technology & Development",
+        "backend": "Software Development",
+        "frontend": "Software Development",
+        "fullstack": "Software Development",
+        "technologydevelopment": "Software Development",
+        # AI Team variants
+        "ai": "AI Team",
+        "aiteam": "AI Team",
+        "aidevelopment": "AI Team",
+        "aiengineer": "AI Team",
+        # Cyber Security variants
+        "cybersecurity": "Cyber Security Team",
+        "cybersecurityteam": "Cyber Security Team",
+        # HR variants
+        "hr": "HR Team",
+        # Business Development variants
         "businessdevelopment": "Business Development",
+        "bdm": "Business Development",
+        # Quality & Testing variants
+        "testingteam": "Quality & Testing",
+        "qualityanalyst": "Quality & Testing",
+        "testing": "Quality & Testing",
+        # DevOps
         "devopsteam": "DevOps Team",
     }
     return mapping.get(key, team)
