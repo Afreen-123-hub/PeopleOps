@@ -353,11 +353,14 @@ def read_teams_api(users):
         if ms_id:
             teams_id_map[ms_id] = emp_id
             user["ms_teams_id"] = ms_id
-        # Use Teams jobTitle as designation if available — it's maintained by HR in Microsoft 365
+        # Use Teams jobTitle as designation and displayName as name if available
         if graph_user:
             job_title = clean(graph_user.get("jobTitle"))
             if job_title:
                 user["designation"] = job_title
+            display_name = clean(graph_user.get("displayName"))
+            if display_name and len(display_name) > len(clean(user.get("name", ""))):
+                user["name"] = display_name
 
     result = defaultdict(lambda: Counter())
     if not teams_id_map:
@@ -905,7 +908,7 @@ def main():
                    or greythr_dept.get(emp.get("sourceKeys", {}).get("greythr", ""))
                    or greythr_dept.get(_name_key))
         gt_desig = clean((gt_info or {}).get("designation"))
-        if gt_desig:
+        if gt_desig and get_role_category(gt_desig) != "executive" and emp_id not in {"CWINE053", "CWINE154"}:
             emp["designation"] = gt_desig
     presence_month = to_presence_month_label(target_period) or to_presence_month_label(greythr_start)
     attendance = read_biometric_api(presence_month)
@@ -1183,9 +1186,14 @@ def main():
             "github": gc is not None,
         }
         role_cat = get_role_category(emp.get("designation", ""))
-        # Leadership structure overrides: Senthil Kumar (Delivery Manager) and
-        # Lexila T A (HR Manager) are confirmed C-suite/leadership — exempt from KPI.
-        if emp_id in {"CWINE053", "CWINE154"}:
+        # Leadership structure overrides: Senthil Kumar and Lexila T A are confirmed
+        # C-suite/leadership — exempt from KPI. Names/designations corrected here
+        # because Teams Graph API does not return their profiles reliably.
+        if emp_id == "CWINE053":
+            role_cat = "executive"
+            emp["name"] = "Senthil Kumar"
+            emp["designation"] = "People Manager"
+        if emp_id in {"CWINE154"}:
             role_cat = "executive"
         in_worklogix = emp_id in allowed_employee_ids
         # Confidence uses only the 4 core sources — worklogixActivity and github
