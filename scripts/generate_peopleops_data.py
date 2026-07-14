@@ -107,8 +107,7 @@ def get_role_category(designation: str) -> str:
     """Return 'executive', 'technical', 'management', 'support', 'intern', or 'trainee'.
 
     - executive : CEO, MD, Advisors, Chiefs — no KPI scored (band = 'Executive')
-    - management: Delivery Manager, Project Manager, Junior Manager (incl. "PM Intern",
-                  which is an established exception carried over from the org chart)
+    - management: Delivery Manager, Project Manager, Junior Manager
                   → Management KPI (Team Avg 35% + Project Delivery 25% + Approval Speed 10%
                     + Attendance 10% + Punctuality 5% + Collaboration 10% + Planner Completion 5%)
     - intern    : any other designation containing "intern" (excl. "PM Intern" above).
@@ -129,8 +128,6 @@ def get_role_category(designation: str) -> str:
     exec_keys = ["managing director", "director", "advisor", "chief", "ceo"]
     if any(k in d for k in exec_keys):
         return "executive"
-    if "pm intern" in d:
-        return "management"
     if "intern" in d:
         return "intern"
     if "trainee" in d:
