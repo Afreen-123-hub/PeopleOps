@@ -98,9 +98,7 @@ def normalize_name(value):
 
 
 # Manual team corrections — applied after data is loaded from all sources
-TEAM_OVERRIDES = {
-    "92aeedc1-492b-4dae-ab4b-cefc91956c4a": "Management Team",  # Bala Prasanna R — PM Intern moved from Business Development
-}
+TEAM_OVERRIDES = {}
 
 
 def get_role_category(designation: str) -> str:
