@@ -1676,7 +1676,7 @@ def main():
             "teamsOutOfOfficeCount": sum(e["teams"]["isOutOfOffice"] for e in employee_rows),
             "sourceCoverage": dict(source_counts),
         },
-        "employees": [{**e, "team": TEAM_OVERRIDES.get(e["id"], e.get("team", ""))} for e in employee_rows],
+        "employees": [{**e, "team": standardize_team(TEAM_OVERRIDES.get(e["id"], e.get("team", "")))} for e in employee_rows],
         "projects": sorted(project_cards, key=lambda p: (p["members"], p["estimatedHours"]), reverse=True),
         "bands": dict(Counter(e["band"] or "Insufficient Data" for e in employee_rows)),
         "quadrants": dict(Counter(e["quadrant"] for e in employee_rows if e["quadrant"])),

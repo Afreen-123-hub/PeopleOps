@@ -16,6 +16,7 @@ const DEMO_MODE = false;
 const DEMO_REFRESH_MESSAGE = "Demo mode: backend refresh is disabled";
 
 const DEPT_MERGE_MAP = {
+  "AI": "AI Team",
   "AI Development": "AI Team",
   "AI Engineer": "AI Team",
   "BDM": "Business Development",
@@ -24,8 +25,13 @@ const DEPT_MERGE_MAP = {
   "Fullstack": "Software Development",
   "Technology & Development": "Software Development",
   "HR": "HR Team",
+  "HR Team": "HR Team",
   "Quality Analyst": "Quality & Testing",
+  "Testing": "Quality & Testing",
   "Testing Team": "Quality & Testing",
+  "cyber security": "Cyber Security Team",
+  "Cyber security": "Cyber Security Team",
+  "Cyber Security": "Cyber Security Team",
 };
 
 function mergedTeam(team) {
