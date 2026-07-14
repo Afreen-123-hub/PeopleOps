@@ -870,22 +870,13 @@ function renderKpiPerformance() {
   document.getElementById("kpiEmployeeTable").innerHTML = rows
     .slice()
     .sort((a, b) => a.kpi - b.kpi || a.name.localeCompare(b.name))
-    .map((employee) => {
-      const [area,, action] = laggingAreas(employee)[0];
-      return `
+    .map((employee) => `
         <tr data-id="${employee.id}">
           <td><div class="person"><strong>${employee.name}</strong><small>${employee.id} | ${employee.designation || "Unassigned"}</small></div></td>
           <td>${mergedTeam(employee.team || "Unassigned")}</td>
           <td class="numeric-cell"><span class="kpi-score ${kpiTone(employee.kpi)}">${number.format(employee.kpi)}</span> ${lowConfidenceWarning(employee)}</td>
-          <td>
-            <div class="mini-driver"><span>Prod ${number.format(employee.scoreDrivers?.productivity ?? "—")}</span><span>Att ${number.format(employee.scoreDrivers?.attendance ?? "—")}</span></div>
-          </td>
-          <td><span class="quadrant-chip qc-${(employee.quadrant || 'none').toLowerCase().replace(/\s+/g,'-')}">${employee.quadrant || '—'}</span></td>
-          <td><span class="lag-chip ${area === "On track" ? "good" : kpiTone(employee.kpi)}">${area}</span></td>
-          <td class="kpi-action">${action}</td>
         </tr>
-      `;
-    })
+      `)
     .join("");
 
   document.querySelectorAll("#kpiEmployeeTable tr").forEach((row) => {
