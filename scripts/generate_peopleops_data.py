@@ -551,8 +551,10 @@ def to_presence_month_label(period):
 # Shift cutoffs (start + 15 min grace):
 #   Interns / Trainees → 9:00 AM + 15 min = 9:15 AM cutoff
 #   HR / Others        → 9:30 AM + 15 min = 9:45 AM cutoff
+#   Management         → 10:00 AM + 15 min = 10:15 AM cutoff
 _CUTOFF_9   = 9.0  + 15 / 60   # 9.25
 _CUTOFF_930 = 9.5  + 15 / 60   # 9.75
+_CUTOFF_10  = 10.0 + 15 / 60   # 10.25
 
 
 def parse_time_ampm(s: str):
@@ -642,10 +644,11 @@ def read_biometric_api(month_label):
         result[emp_id]["teamsOfflineHours"] += offline
         result[emp_id]["presenceReports"] += 1
 
-    # Compute punctuality scores for both shift cutoffs
+    # Compute punctuality scores for all shift cutoffs
     for emp_id, times in checkin_times.items():
         result[emp_id]["punctualityScore_9"]   = round(sum(1 for t in times if t <= _CUTOFF_9)   / len(times) * 100, 1)
         result[emp_id]["punctualityScore_930"] = round(sum(1 for t in times if t <= _CUTOFF_930) / len(times) * 100, 1)
+        result[emp_id]["punctualityScore_10"]  = round(sum(1 for t in times if t <= _CUTOFF_10)  / len(times) * 100, 1)
         result[emp_id]["avgCheckinHour"] = round(sum(times) / len(times), 2)
     for emp_id, times in checkout_times.items():
         result[emp_id]["avgCheckoutHour"] = round(sum(times) / len(times), 2)
@@ -1226,9 +1229,16 @@ def main():
         # Only biometricDays (actual swipe) counts as confirmed physical presence.
         gh_has_real_data = bool(gh) and (gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["WFH"]) > 0
         has_attendance_data = gh_has_real_data or bio["biometricDays"] > 0
-        # Punctuality cutoff depends on role: interns/trainees start at 9:00 AM (grace 15 min → 9:15);
-        # HR/others start at 9:30 AM (grace 15 min → 9:45).
-        _punct_key = "punctualityScore_9" if role_cat in ("intern", "trainee") else "punctualityScore_930"
+        # Punctuality cutoff depends on role:
+        #   intern/trainee → 9:00 AM + 15 min grace (9:15)
+        #   management     → 10:00 AM + 15 min grace (10:15)
+        #   everyone else  → 9:30 AM + 15 min grace (9:45)
+        if role_cat in ("intern", "trainee"):
+            _punct_key = "punctualityScore_9"
+        elif role_cat == "management":
+            _punct_key = "punctualityScore_10"
+        else:
+            _punct_key = "punctualityScore_930"
         _punct_raw = bio.get(_punct_key)
         if _punct_raw is not None:
             punctuality_score = _punct_raw
