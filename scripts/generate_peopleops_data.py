@@ -910,6 +910,9 @@ def main():
             elif isinstance(working_hours, (int, float)):
                 stats["workHours"] += num(working_hours)
         stats["meetingHours"] += num(row.get("meeting_hours"))
+        mr = row.get("mentor_rating")
+        if mr is True or str(mr).strip().lower() in ("true", "1", "yes"):
+            stats["mentorRated"] += 1
         project_hours[clean(row.get("project_id"))] += stats["workHours"]
 
     greythr_start, greythr_end = resolve_greythr_date_range(target_period)
@@ -1302,22 +1305,23 @@ def main():
                     ("collaboration", teams_collab_pct, 10),
                 ])
             elif role_cat == "intern":
-                # Intern KPI = Attendance 30% + Punctuality 20% + Collaboration 20% + Mentor Feedback 30%.
-                # Mentor Feedback isn't collected anywhere in this pipeline — its weight is redistributed.
+                # mentor_rating_pct = % of tickets the mentor has rated (True = rated)
+                _rated = stats["mentorRated"]
+                _total = stats["workItems"]
+                mentor_rating_pct = round(_rated / _total * 100, 1) if _rated > 0 and _total > 0 else None
                 kpi, weights_used = weighted_score([
                     ("attendance", attendance_pct, 30),
                     ("punctuality", punctuality_pct, 20),
                     ("collaboration", teams_collab_pct, 20),
-                    ("mentorFeedback", None, 30),
+                    ("mentorFeedback", mentor_rating_pct, 30),
                 ])
             elif role_cat == "trainee":
-                # Trainee KPI = Task Completion 30% + Attendance 15% + Punctuality 15%
-                #             + Collaboration 10% + Mentor Feedback 30%.
-                # Mentor Feedback = Worklogix monthly final_rating (1–5 scale → ×20 = 0–100).
-                # The monthly report API currently returns 403; weight is redistributed until
-                # the Worklogix account is granted monthly-report access.
+                _rated = stats["mentorRated"]
+                _total = stats["workItems"]
+                mentor_rating_pct = round(_rated / _total * 100, 1) if _rated > 0 and _total > 0 else None
+                # Fall back to monthly final_rating if available (403 blocked currently)
                 _monthly_rating = num(emp.get("worklogixScore", {}).get("rating"))
-                mentor_score = round(_monthly_rating * 20, 1) if _monthly_rating else None
+                mentor_score = mentor_rating_pct or (round(_monthly_rating * 20, 1) if _monthly_rating else None)
                 kpi, weights_used = weighted_score([
                     ("taskCompletion", task_completion_pct, 30),
                     ("attendance", attendance_pct, 15),
@@ -1326,15 +1330,15 @@ def main():
                     ("mentorFeedback", mentor_score, 30),
                 ])
             elif role_cat == "support":
-                # Support KPI = Attendance 25% + Punctuality 15% + Collaboration 20%
-                #             + Task Completion 30% + Manager Ratings 10%.
-                # Manager Ratings isn't collected anywhere in this pipeline — its weight is redistributed.
+                _rated = stats["mentorRated"]
+                _total = stats["workItems"]
+                manager_rating_pct = round(_rated / _total * 100, 1) if _rated > 0 and _total > 0 else None
                 kpi, weights_used = weighted_score([
                     ("attendance", attendance_pct, 25),
                     ("punctuality", punctuality_pct, 15),
                     ("collaboration", teams_collab_pct, 20),
                     ("taskCompletion", task_completion_pct, 30),
-                    ("managerRatings", None, 10),
+                    ("managerRatings", manager_rating_pct, 10),
                 ])
             else:
                 # Technical KPI = Productivity 55% + Code Contribution 5% + Attendance 15%

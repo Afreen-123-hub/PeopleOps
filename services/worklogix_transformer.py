@@ -14,7 +14,7 @@ DAILY_COLUMNS = [
     "employee_id", "project_id", "month", "ticket_id", "description", "assigned_date",
     "due_date", "start_date", "completion_date", "working_hours", "dependency_status",
     "priority", "work_type", "status", "created_at", "updated_at", "approval_status",
-    "reason", "meeting_hours", "allow_fields", "created_by", "updated_by",
+    "reason", "meeting_hours", "allow_fields", "created_by", "updated_by", "mentor_rating",
 ]
 MONTHLY_COLUMNS = [
     "employee_id", "name", "month", "created_at", "updated_at", "completion_score",
@@ -126,6 +126,7 @@ def transform_daily_updates(payload):
         "meeting_hours": ("meeting_hours",),
         "created_by": ("created_by", "employee_id", "user_id"),
         "updated_by": ("updated_by", "employee_id", "user_id"),
+        "mentor_rating": ("mentor_rating", "manager_rating", "rating"),
     }
     return [normalize_row(row, DAILY_COLUMNS, mapping) for row in extract_rows(payload)]
 
