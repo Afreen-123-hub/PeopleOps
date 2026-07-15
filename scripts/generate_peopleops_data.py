@@ -131,8 +131,7 @@ def get_role_category(designation: str) -> str:
     if "trainee" in d:
         return "trainee"
     support_keys = ["hr", "human resource", "recruiter", "admin", "bdm",
-                    "business development", "marketing", "ui /", "ui/", "ux", "account",
-                    "cyber security", "cyber"]
+                    "business development", "marketing", "account"]
     if any(k in d for k in support_keys):
         return "support"
     mgmt_keys = ["delivery manager", "project manager", "manager"]
@@ -879,10 +878,8 @@ def main():
 
     work_item_stats = defaultdict(lambda: Counter())
     project_hours = defaultdict(float)
-    priority_weights = {"Low": 1, "Medium": 2, "High": 3, "Critical": 4}
-    # Weighted efficiency: Primary tasks require more skill/effort than Rework
-    work_type_weights = {"Primary": 2.0, "Rework": 1.0}
-    priority_multipliers = {"High": 1.5, "Medium": 1.0, "Low": 0.5}
+    # PDF formula: High=5, Medium=3, Low=2
+    priority_weights = {"Low": 2, "Medium": 3, "High": 5, "Critical": 5}
     for row in daily:
         emp_id = clean(row.get("employee_id"))
         if not emp_id:
@@ -891,12 +888,8 @@ def main():
         stats["workItems"] += 1
         stats[f"status:{clean(row.get('status')) or 'Unknown'}"] += 1
         stats[f"approval:{clean(row.get('approval_status')) or 'Unknown'}"] += 1
-        stats["priorityPoints"] += priority_weights.get(clean(row.get("priority")), 1)
-        # Task weight = work_type_weight × priority_multiplier
-        task_weight = (
-            work_type_weights.get(clean(row.get("work_type")), 1.5)
-            * priority_multipliers.get(clean(row.get("priority")), 1.0)
-        )
+        task_weight = priority_weights.get(clean(row.get("priority")), 2)
+        stats["priorityPoints"] += task_weight
         stats["totalWeightedPoints"] += task_weight
         if clean(row.get("status")) == "Completed":
             stats["weightedPointsCompleted"] += task_weight
@@ -1290,17 +1283,15 @@ def main():
                 pm_project_score = project_delivery_score  # kept for the executive/UI "project performance" driver
                 kpi, weights_used = weighted_score([
                     ("projectDelivery", project_delivery_score, 25),
-                    ("taskApprovalSpeed", task_approval_speed_score, 10),
+                    ("taskReviewEffectiveness", None, 20),
                     ("attendance", attendance_pct, 10),
-                    ("punctuality", punctuality_pct, 5),
                     ("collaboration", teams_collab_pct, 10),
-                    ("plannerCompletion", task_completion_pct, 5),
                 ])
             elif role_cat == "intern":
-                # Intern KPI = Task Completion 30% + Punctuality 20% + Collaboration 20% + Mentor Feedback 30%.
+                # Intern KPI = Attendance 30% + Punctuality 20% + Collaboration 20% + Mentor Feedback 30%.
                 # Mentor Feedback isn't collected anywhere in this pipeline — its weight is redistributed.
                 kpi, weights_used = weighted_score([
-                    ("taskCompletion", task_completion_pct, 30),
+                    ("attendance", attendance_pct, 30),
                     ("punctuality", punctuality_pct, 20),
                     ("collaboration", teams_collab_pct, 20),
                     ("mentorFeedback", None, 30),
@@ -1549,11 +1540,9 @@ def main():
             new_kpi, weights_used = weighted_score([
                 ("teamAverageKpi", team_avg_kpi, 35),
                 ("projectDelivery", sd.get("projectDelivery"), 25),
-                ("taskApprovalSpeed", sd.get("taskApprovalSpeed"), 10),
+                ("taskReviewEffectiveness", None, 20),
                 ("attendance", sd.get("attendance"), 10),
-                ("punctuality", sd.get("punctuality"), 5),
                 ("collaboration", sd.get("collaboration"), 10),
-                ("plannerCompletion", sd.get("plannerCompletion"), 5),
             ])
             if team_avg_kpi is not None:
                 sd["teamAvgKpi"] = team_avg_kpi

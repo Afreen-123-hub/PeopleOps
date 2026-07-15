@@ -109,6 +109,8 @@ def _api_get(url: str, token: str, domain: str, params: dict | None = None) -> d
         raise GreytHRApiError(f"GreytHR API HTTP {exc.code}: {body}") from exc
     except URLError as exc:
         raise GreytHRApiError(f"GreytHR API unreachable: {exc.reason}") from exc
+    except (TimeoutError, OSError) as exc:
+        raise GreytHRApiError(f"GreytHR API timed out: {exc}") from exc
 
 
 # ==========================
