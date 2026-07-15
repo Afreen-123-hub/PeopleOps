@@ -1448,6 +1448,8 @@ function openTeamsPanel(e) {
   const cal  = e.graphActivity?.calendar || {};
   const plan = e.graphActivity?.planner || {};
   const sp   = e.graphActivity?.sharePoint || {};
+  const calNew = e.calendar || {};
+  const spNew  = e.sharepoint || {};
   const cls  = tm.status === "Busy" ? "busy" : tm.isActive ? "active" : tm.isOutOfOffice ? "ooo" : tm.isAway ? "away" : "offline";
   const statusLabel = (tm.status || "No Data").replace(/([A-Z])/g, " $1").trim();
 
@@ -1486,12 +1488,25 @@ function openTeamsPanel(e) {
     </div>` : ""}
 
     <div class="tsd-section">
-      <p class="tsd-section-title">Meeting Load <small style="opacity:.5">(Calendar · June 24)</small></p>
+      <p class="tsd-section-title">Meeting Load <small style="opacity:.5">(Calendar · this period)</small></p>
       <div class="tsd-grid">
-        <div class="tsd-stat"><span class="tsd-val">${cal.meetingHours != null ? cal.meetingHours + " hrs" : "—"}</span><span class="tsd-lbl">Meeting Hours</span></div>
-        <div class="tsd-stat"><span class="tsd-val">${cal.events != null ? cal.events : "—"}</span><span class="tsd-lbl">Calendar Events</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${calNew.invited != null ? calNew.invited : cal.events ?? "—"}</span><span class="tsd-lbl">Meetings Invited</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${calNew.attended != null ? calNew.attended : "—"}</span><span class="tsd-lbl">Meetings Attended</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${calNew.attendanceRate != null ? calNew.attendanceRate + "%" : "—"}</span><span class="tsd-lbl">Attendance Rate</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${cal.meetingHours != null ? cal.meetingHours + " hrs" : tm.meetingHours || "—"}</span><span class="tsd-lbl">Meeting Hours</span></div>
       </div>
     </div>
+
+    ${(spNew.filesViewed != null || spNew.pageVisits != null) ? `
+    <div class="tsd-section">
+      <p class="tsd-section-title">SharePoint Activity <small style="opacity:.5">(last 30 days)</small></p>
+      <div class="tsd-grid">
+        <div class="tsd-stat"><span class="tsd-val">${spNew.filesViewed ?? "—"}</span><span class="tsd-lbl">Files Viewed/Edited</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${spNew.filesSynced ?? "—"}</span><span class="tsd-lbl">Files Synced</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${spNew.filesShared ?? "—"}</span><span class="tsd-lbl">Files Shared</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${spNew.pageVisits ?? "—"}</span><span class="tsd-lbl">Page Visits</span></div>
+      </div>
+    </div>` : ""}
 
     <div class="tsd-section">
       ${(() => {
@@ -2059,7 +2074,7 @@ function showEmployee(e) {
   const bandLabel = e.band || "No Data";
   const initials = e.name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
 
-  const sourceLabels = { worklogix: "Worklogix", greythr: "GreytHR", biometrics: "Biometrics", teams: "Teams" };
+  const sourceLabels = { worklogix: "Worklogix", greythr: "GreytHR", biometrics: "Biometrics", teams: "Teams", calendar: "Calendar", sharepoint: "SharePoint" };
   const sources = Object.entries(e.sources || {})
     .filter(([name]) => name in sourceLabels)
     .map(([name, ok]) => `<span class="source-chip ${ok ? "ok" : "missing"}">${ok ? "✓" : "✗"} ${sourceLabels[name]}</span>`)
@@ -2155,6 +2170,26 @@ function showEmployee(e) {
         <div class="dg-stat dg-good"><span class="dg-val">${gc.prs}</span><span class="dg-lbl">Pull Requests</span></div>
         <div class="dg-stat"><span class="dg-val">${gc.done}</span><span class="dg-lbl">Issues Closed</span></div>
         <div class="dg-stat"><span class="dg-val">${gc.contributionScore}</span><span class="dg-lbl">Contribution Score</span></div>
+      </div>` : ""}
+
+      ${e.calendar ? `
+      <!-- Calendar -->
+      <h3 class="detail-section-title">Calendar Activity</h3>
+      <div class="detail-grid4">
+        <div class="dg-stat"><span class="dg-val">${e.calendar.invited}</span><span class="dg-lbl">Meetings Invited</span></div>
+        <div class="dg-stat dg-good"><span class="dg-val">${e.calendar.attended}</span><span class="dg-lbl">Meetings Attended</span></div>
+        <div class="dg-stat dg-good"><span class="dg-val">${e.calendar.attendanceRate}%</span><span class="dg-lbl">Attendance Rate</span></div>
+        <div class="dg-stat"><span class="dg-val">${e.calendar.invited > 0 ? (e.calendar.invited - e.calendar.attended) : 0}</span><span class="dg-lbl">Missed</span></div>
+      </div>` : ""}
+
+      ${e.sharepoint ? `
+      <!-- SharePoint -->
+      <h3 class="detail-section-title">SharePoint Activity <small style="font-weight:400;color:var(--muted)">(last 30 days)</small></h3>
+      <div class="detail-grid4">
+        <div class="dg-stat"><span class="dg-val">${e.sharepoint.filesViewed}</span><span class="dg-lbl">Files Viewed/Edited</span></div>
+        <div class="dg-stat"><span class="dg-val">${e.sharepoint.filesSynced}</span><span class="dg-lbl">Files Synced</span></div>
+        <div class="dg-stat"><span class="dg-val">${e.sharepoint.filesShared}</span><span class="dg-lbl">Files Shared</span></div>
+        <div class="dg-stat"><span class="dg-val">${e.sharepoint.pageVisits}</span><span class="dg-lbl">Page Visits</span></div>
       </div>` : ""}
 
       ${e.directReports?.length ? `
