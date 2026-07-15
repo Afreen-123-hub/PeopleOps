@@ -493,7 +493,7 @@ def compute_attendance_pct(gh, bio, fallback):
     data isn't available for this employee.
     Returns None when there is genuinely no data source so weighted_score can
     redistribute the weight rather than counting a misleading 0."""
-    working_days = (gh["P"] + gh["A"] + gh["Leave"]) if gh else 0
+    working_days = (gh["P"] + gh["A"] + gh["Leave"] + gh["WFH"]) if gh else 0
     if working_days > 0:
         return round(min(100.0, gh["P"] / working_days * 100), 1)
     if bio.get("validOfficeDays"):
@@ -1238,7 +1238,7 @@ def main():
         # Require at least one meaningful status (P/A/OFF/H/Leave) to count as real data.
         # validOfficeDays comes from Teams online presence — not physical attendance.
         # Only biometricDays (actual swipe) counts as confirmed physical presence.
-        gh_has_real_data = bool(gh) and (gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"]) > 0
+        gh_has_real_data = bool(gh) and (gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["WFH"]) > 0
         has_attendance_data = gh_has_real_data or bio["biometricDays"] > 0
         # --- KPI Calculation Framework: category-specific formulas ---
         # Attendance / Punctuality / Collaboration are computed the same way for every
@@ -1422,6 +1422,7 @@ def main():
                     "off": gh["OFF"],
                     "holidays": gh["H"],
                     "leave": gh["Leave"],
+                    "wfh": gh["WFH"],
                     "blank": gh["Blank"],
                     "calendarDays": c,
                     "biometricDays": min(bio["biometricDays"], c) if c else bio["biometricDays"],
@@ -1430,7 +1431,7 @@ def main():
                     "avgOfficeHours": round(
                         bio["officeHours"] / max(1, min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"]), 1
                     ),
-                })(round(gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["Blank"]) if gh else 0),
+                })(round(gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["WFH"] + gh["Blank"]) if gh else 0),
                 "avgCheckinHour": bio.get("avgCheckinHour"),
                 "avgCheckoutHour": bio.get("avgCheckoutHour"),
                 "officeLocation": bio.get("officeLocation", ""),

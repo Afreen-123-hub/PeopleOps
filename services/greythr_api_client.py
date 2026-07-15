@@ -226,8 +226,10 @@ def _normalise_attendance_label(value: str) -> str:
 
 def _attendance_bucket(label: str) -> str:
     label = _normalise_attendance_label(label)
+    if label == "WFH":
+        return "WFH"
     leave_codes = {
-        "CL", "SL", "EL", "LOP", "ML", "PL", "CO", "LWP", "OD", "WFH",
+        "CL", "SL", "EL", "LOP", "ML", "PL", "CO", "LWP", "OD",
         "COMP", "COMPOFF", "LEAVE", "PAIDLEAVE", "UNPAIDLEAVE",
     }
     if label in {"P", "A", "H", "OFF", "Blank"}:
