@@ -508,14 +508,19 @@ def compute_punctuality_pct(selected_raw, fallback):
     return round(selected_raw, 1) if selected_raw is not None else round(fallback, 1)
 
 
-def compute_collaboration_pct(bio, ta, all_meeting_counts, fallback):
+def compute_collaboration_pct(bio, ta, all_meeting_counts, fallback, cal=None):
     """Teams Collaboration = (Availability Score x 50%) + (Meeting Score x 50%).
-    Availability Score = Productive Hours / Total Tracked Hours x 100 (Teams
-    presence). Meeting Score = meeting count normalized against the org (the
-    Teams activity export has no "meetings invited" count to divide by)."""
+    Availability Score = Productive Hours / Total Tracked Hours x 100 (Teams presence).
+    Meeting Score: uses actual Attended/Invited x 100 from Calendar API when available,
+    otherwise falls back to minmax of meeting count from the Teams activity report."""
     avail_total = bio.get("teamsAvailableHours", 0) + bio.get("teamsAwayHours", 0) + bio.get("teamsOfflineHours", 0)
     availability_score = (bio.get("teamsAvailableHours", 0) / avail_total * 100) if avail_total > 0 else None
-    meeting_score = minmax(ta["meetingCount"], all_meeting_counts) if ta else None
+    if cal and cal.get("invited", 0) > 0:
+        meeting_score = round(cal["attended"] / cal["invited"] * 100, 1)
+    elif ta:
+        meeting_score = minmax(ta["meetingCount"], all_meeting_counts)
+    else:
+        meeting_score = None
     if availability_score is not None and meeting_score is not None:
         return round(availability_score * 0.5 + meeting_score * 0.5, 1)
     if availability_score is not None:
@@ -701,6 +706,104 @@ def read_teams_activity_report() -> dict:
     except Exception as exc:
         print(f"WARNING: Teams activity CSV parse failed: {exc}", file=sys.stderr)
     print(f"Teams activity report loaded: {len([k for k in result if not k.startswith('name:')])} users")
+    return result
+
+
+def read_calendar_data(teams_id_map: dict, start: str, end: str) -> dict:
+    """Fetch calendar meetings per Teams user for the date range.
+    Uses actual attended/invited ratio instead of the minmax meeting-count proxy.
+    Returns {emp_id: {"invited": N, "attended": N}}.
+    """
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    try:
+        from services.graph_activity_client import GraphActivityClient, GraphActivityError
+    except ImportError:
+        return {}
+
+    if not teams_id_map:
+        return {}
+
+    start_dt = f"{start}T00:00:00"
+    end_dt = f"{end}T23:59:59"
+
+    try:
+        client = GraphActivityClient()
+    except Exception as exc:
+        print(f"WARNING: Calendar data skipped — Graph auth failed: {exc}", file=sys.stderr)
+        return {}
+
+    result: dict = {}
+
+    def fetch_one(ms_id: str, emp_id: str):
+        try:
+            events = client.get_calendar_view(ms_id, start_dt, end_dt)
+            invited = 0
+            attended = 0
+            for event in events:
+                if event.get("isCancelled") or event.get("isAllDay"):
+                    continue
+                invited += 1
+                show_as = (event.get("showAs") or "").lower()
+                if show_as in ("busy", "oof", "workingelsewehere"):
+                    attended += 1
+            return emp_id, {"invited": invited, "attended": attended}
+        except Exception:
+            return emp_id, None
+
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        futures = {executor.submit(fetch_one, ms_id, emp_id): emp_id
+                   for ms_id, emp_id in teams_id_map.items()}
+        for future in as_completed(futures):
+            emp_id, data = future.result()
+            if data is not None:
+                result[emp_id] = data
+
+    loaded = len(result)
+    total_attended = sum(d["attended"] for d in result.values())
+    print(f"Calendar data loaded: {loaded} users, {total_attended} meeting slots attended in period")
+    return result
+
+
+def read_sharepoint_activity() -> dict:
+    """Fetch SharePoint user activity report (D30 window) indexed by email local part.
+    Returns {local_email: {filesViewed, filesSynced, filesShared, pageVisits}}.
+    """
+    try:
+        from services.graph_activity_client import GraphActivityClient, GraphActivityError
+    except ImportError:
+        return {}
+
+    try:
+        csv_text = GraphActivityClient().get_sharepoint_activity_report(period="D30")
+    except Exception as exc:
+        print(f"WARNING: SharePoint activity skipped: {exc}", file=sys.stderr)
+        return {}
+
+    result: dict = {}
+    try:
+        reader = csv.DictReader(io.StringIO(csv_text))
+        for row in reader:
+            upn = clean(row.get("User Principal Name") or "")
+            if not upn:
+                continue
+            local = email_local(upn)
+            entry = {
+                "filesViewed": int(num(row.get("Viewed Or Edited File Count") or 0)),
+                "filesSynced": int(num(row.get("Synced File Count") or 0)),
+                "filesShared": int(num(row.get("Shared Internally File Count") or 0)
+                                   + num(row.get("Shared Externally File Count") or 0)),
+                "pageVisits": int(num(row.get("Visited Page Count") or 0)),
+            }
+            if local:
+                result[local] = entry
+            display = clean(row.get("Display Name") or "")
+            if display:
+                result[f"name:{normalize_name(display)}"] = entry
+    except Exception as exc:
+        print(f"WARNING: SharePoint activity CSV parse failed: {exc}", file=sys.stderr)
+
+    user_count = len([k for k in result if not k.startswith("name:")])
+    print(f"SharePoint activity loaded: {user_count} users")
     return result
 
 
@@ -943,6 +1046,13 @@ def main():
     presence_month = to_presence_month_label(target_period) or to_presence_month_label(greythr_start)
     attendance = read_biometric_api(presence_month)
     teams_activity = read_teams_activity_report()
+    teams_id_map_cal = {
+        clean(user.get("ms_teams_id")): emp_id
+        for emp_id, user in users.items()
+        if clean(user.get("ms_teams_id"))
+    }
+    calendar_data = read_calendar_data(teams_id_map_cal, greythr_start, greythr_end)
+    sharepoint_data = read_sharepoint_activity()
     github_contributions = load_github_contributions()
 
     def greythr_for_employee(emp_id, emp):
@@ -1083,6 +1193,13 @@ def main():
         name_key = f"name:{normalize_name(emp.get('name', ''))}"
         return teams_activity.get(name_key)
 
+    def get_sharepoint_for(emp):
+        local = email_local(emp.get("email", ""))
+        if local and local in sharepoint_data:
+            return sharepoint_data[local]
+        name_key = f"name:{normalize_name(emp.get('name', ''))}"
+        return sharepoint_data.get(name_key)
+
     def get_github_for(emp):
         # Direct lookup (works if login == normalize_name(emp name))
         norm = normalize_name(emp.get("name", ""))
@@ -1155,6 +1272,8 @@ def main():
         gh = greythr_for_employee(emp_id, emp)
         _wl_uid = clean(emp.get("user_id", ""))
         bio = attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}") or Counter()
+        cal = calendar_data.get(emp_id)
+        sp = get_sharepoint_for(emp)
         present_days = bio["biometricDays"] or gh["P"]
         tm = teams[emp_id]
         monthly_final = emp.get("worklogixScore", {}).get("final", 0)
@@ -1205,6 +1324,8 @@ def main():
             "greythr": bool(gh),
             "biometrics": bool(attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}")),
             "teams": bool(tm),
+            "calendar": cal is not None,
+            "sharepoint": sp is not None,
             "github": gc is not None,
         }
         role_cat = get_role_category(emp.get("designation", ""))
@@ -1256,7 +1377,7 @@ def main():
         # and the extra category-specific sub-metrics differ below.
         attendance_pct = compute_attendance_pct(gh, bio, attendance_score)
         punctuality_pct = compute_punctuality_pct(_punct_raw, punctuality_score)
-        teams_collab_pct = compute_collaboration_pct(bio, ta, all_meeting_counts, collaboration_score)
+        teams_collab_pct = compute_collaboration_pct(bio, ta, all_meeting_counts, collaboration_score, cal=cal)
         assigned_tasks = stats["workItems"]
         completed_tasks = stats["status:Completed"]
         approved_tasks = stats["approval:approved"]
@@ -1467,6 +1588,17 @@ def main():
                 "teamMessages": ta["teamMessages"] if ta else 0,
                 "privateMessages": ta["privateMessages"] if ta else 0,
             },
+            "calendar": {
+                "invited": cal["invited"],
+                "attended": cal["attended"],
+                "attendanceRate": round(cal["attended"] / cal["invited"] * 100, 1) if cal["invited"] > 0 else 0,
+            } if cal else None,
+            "sharepoint": {
+                "filesViewed": sp["filesViewed"],
+                "filesSynced": sp["filesSynced"],
+                "filesShared": sp["filesShared"],
+                "pageVisits": sp["pageVisits"],
+            } if sp else None,
             "github": {
                 "login": gc["login"],
                 "commits": gc["commits"],
