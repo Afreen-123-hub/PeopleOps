@@ -486,14 +486,29 @@ def quadrant_for(prod_high, att_high):
     return "Disengaged"
 
 
+def _parse_dt(value):
+    """Pure-Python datetime parser — avoids pd.to_datetime's numpy native code
+    which can SIGSEGV on Render when called repeatedly with scalar strings."""
+    text = clean(value)
+    if not text:
+        return None
+    text = text.replace("T", " ").replace("Z", "").split(".")[0].strip()
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(text, fmt)
+        except ValueError:
+            continue
+    return None
+
+
 def approval_turnaround_score(created_at, updated_at):
     """Score how quickly a submitted task was reviewed/approved, per the KPI
     framework's turnaround table: <=4h=100, <=1 day=90, <=2 days=80, beyond
     that scaled down 15 points per additional day. Returns None if the
     timestamps are missing/unparseable (caller should redistribute the weight)."""
-    created = pd.to_datetime(clean(created_at), errors="coerce")
-    updated = pd.to_datetime(clean(updated_at), errors="coerce")
-    if pd.isna(created) or pd.isna(updated):
+    created = _parse_dt(created_at)
+    updated = _parse_dt(updated_at)
+    if created is None or updated is None:
         return None
     hours = (updated - created).total_seconds() / 3600
     if hours < 0:
@@ -1103,6 +1118,7 @@ def main():
     print(f"CHECKPOINT: sharepoint done, calling load_github_contributions", flush=True)
     github_contributions = load_github_contributions()
     print(f"CHECKPOINT: github done, starting KPI loop", flush=True)
+    import gc; gc.collect()  # free API loader DataFrames before computation
 
     def greythr_for_employee(emp_id, emp):
         keys = [
@@ -1174,9 +1190,9 @@ def main():
             approval_score = approval_turnaround_score(row.get("created_at"), row.get("updated_at"))
             if approval_score is not None:
                 pm_approval_scores[pm_id].append(approval_score)
-            created = pd.to_datetime(clean(row.get("created_at")), errors="coerce")
-            updated = pd.to_datetime(clean(row.get("updated_at")), errors="coerce")
-            if pd.notna(created) and pd.notna(updated):
+            created = _parse_dt(row.get("created_at"))
+            updated = _parse_dt(row.get("updated_at"))
+            if created is not None and updated is not None:
                 hours = (updated - created).total_seconds() / 3600
                 sla_limit = _SLA_HOURS.get(clean(row.get("priority")), 48)
                 pm_sla_counts[pm_id]["within"] += 1 if hours <= sla_limit else 0
@@ -1189,9 +1205,9 @@ def main():
         completion_date = clean(row.get("completion_date"))
         if due_date and completion_date:
             ps["hasDueDates"] = True
-            due_dt = pd.to_datetime(due_date, errors="coerce")
-            completed_dt = pd.to_datetime(completion_date, errors="coerce")
-            if is_completed and pd.notna(due_dt) and pd.notna(completed_dt) and completed_dt <= due_dt:
+            due_dt = _parse_dt(due_date)
+            completed_dt = _parse_dt(completion_date)
+            if is_completed and due_dt is not None and completed_dt is not None and completed_dt <= due_dt:
                 ps["onTime"] += 1
 
     # Build employee id → name map for PM name lookup in project cards.
@@ -1278,7 +1294,6 @@ def main():
                 return entry
         return None
 
-    import gc; gc.collect()  # free residual DataFrames from API loaders before KPI computation
     work_scores = [e.get("worklogixScore", {}).get("final", 0) for e in employees.values()]
     team_active = [teams[eid]["isActive"] for eid in employees if teams[eid]]
     office_hours = [attendance[eid]["officeHours"] for eid in employees if attendance[eid]]
