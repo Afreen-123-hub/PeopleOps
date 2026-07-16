@@ -501,6 +501,7 @@ async function boot() {
   // Validate token with server — catches expired sessions before any data loads
   const ping = await apiFetch("/api/health");
   if (!ping) return; // apiFetch already cleared token and redirected to login.html
+  document.body.style.visibility = "visible"; // auth confirmed — reveal the app
   // Load logged-in user profile — await so loggedInUserName is set before first render
   const meRes = await apiFetch("/api/me");
   if (meRes) {
