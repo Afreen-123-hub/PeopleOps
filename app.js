@@ -763,6 +763,7 @@ function renderAll() {
   renderTeamsTable();
   renderAttendanceDetail(document.getElementById("attendanceEmployee").value || dataset.employees[0]?.id);
   renderProjects();
+  renderAlerts();
   renderIntegrations();
   drawDonutChart();
   drawScatter();
@@ -1318,7 +1319,7 @@ function renderWeights() {
   document.getElementById("weightBars").innerHTML = Object.entries(dataset.meta.weights)
     .map(([key, value]) => `<div class="weight-item">
       <strong>${labels[key] || key} ${value}%</strong>
-      <div class="bar"><span style="width:${value * 2}%"></span></div>
+      <div class="bar"><span style="width:${Math.min(value * 2, 100)}%"></span></div>
     </div>`)
     .join("");
 }
@@ -2131,7 +2132,7 @@ function showEmployee(e) {
         </div>
       </div>
 
-      <p class="detail-period">Period: <strong>${dataset.meta?.period || "May 2026"}</strong> &nbsp;·&nbsp; Teams status is live &nbsp;·&nbsp; Planner/Calendar as of Jun 24</p>
+      <p class="detail-period">Period: <strong>${dataset.meta?.period || "—"}</strong> &nbsp;·&nbsp; Teams status is live &nbsp;·&nbsp; Generated: ${dataset.meta?.generatedAt ? new Date(dataset.meta.generatedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "—"}</p>
       <div class="source-chips">${sources}</div>
 
       <!-- Work Activity -->
@@ -2314,7 +2315,7 @@ function exportCsv() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "peopleops-sample-kpi.csv";
+  link.download = `peopleops-kpi-${dataset.meta?.period?.replace(/\s/g, "-") || "export"}.csv`;
   link.click();
   URL.revokeObjectURL(url);
 }
