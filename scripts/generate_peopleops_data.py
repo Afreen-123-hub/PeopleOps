@@ -1104,9 +1104,11 @@ def main():
         if clean(p.get("id")) and clean(p.get("managed_by"))
     }
     pm_project_stats = defaultdict(lambda: {"total": 0, "completed": 0, "approved": 0, "onTime": 0, "hasDueDates": False})
-    # Task Approval Speed (Management KPI, 10%): how quickly each manager reviews/approves
-    # tasks submitted by their team, bucketed per the framework's turnaround table.
-    pm_approval_scores = defaultdict(list)
+    # Task Review Effectiveness — Approval Timeliness (PDF §3.3):
+    # SLA thresholds per priority; created_at = submission time, updated_at = approval time proxy.
+    _SLA_HOURS = {"High": 6, "Medium": 24, "Low": 48, "Critical": 6}
+    pm_approval_scores = defaultdict(list)   # diagnostic: continuous turnaround scores
+    pm_sla_counts = defaultdict(lambda: {"within": 0, "total": 0})  # for timeliness rate
     for row in daily:
         proj_id = clean(row.get("project_id"))
         pm_id = project_manager_map.get(proj_id)
@@ -1123,6 +1125,13 @@ def main():
             approval_score = approval_turnaround_score(row.get("created_at"), row.get("updated_at"))
             if approval_score is not None:
                 pm_approval_scores[pm_id].append(approval_score)
+            created = pd.to_datetime(clean(row.get("created_at")), errors="coerce")
+            updated = pd.to_datetime(clean(row.get("updated_at")), errors="coerce")
+            if pd.notna(created) and pd.notna(updated):
+                hours = (updated - created).total_seconds() / 3600
+                sla_limit = _SLA_HOURS.get(clean(row.get("priority")), 48)
+                pm_sla_counts[pm_id]["within"] += 1 if hours <= sla_limit else 0
+                pm_sla_counts[pm_id]["total"] += 1
         # Project Delivery (Management KPI, 25%): "Projects Delivered On Time / Projects
         # Assigned" — evaluated at task granularity since projects have no due date field,
         # only individual tasks do. Falls back to plain completion rate for managers whose
@@ -1404,6 +1413,7 @@ def main():
         code_contribution_score = None
         project_delivery_score = None
         task_approval_speed_score = None
+        task_review_effectiveness = None
         planner_completion_score = None
         mentor_score = None
         kpi = None
@@ -1437,11 +1447,16 @@ def main():
                 _pl = graph_planner_by_id.get(clean(emp_id), {})
                 if _pl.get("assigned", 0) > 0:
                     planner_completion_score = round(_pl["completed"] / _pl["assigned"] * 100, 1)
+                # Task Review Effectiveness = Approval Timeliness (PDF §3.3A)
+                # Only timeliness is computable now (created_at → updated_at proxy).
+                # Approval Accuracy (§3.3B) needs rejection/reopen history — pending.
+                sla = pm_sla_counts.get(emp_id)
+                task_review_effectiveness = round(sla["within"] / sla["total"] * 100, 1) if sla and sla["total"] > 0 else None
                 # Management KPI (PDF): Team Avg KPI 35% (post-loop) + Project Delivery 25%
                 # + Task Review Effectiveness 20% + Attendance 10% + Collaboration 10%
                 kpi, weights_used = weighted_score([
                     ("projectDelivery", project_delivery_score, 25),
-                    ("taskReviewEffectiveness", None, 20),
+                    ("taskReviewEffectiveness", task_review_effectiveness, 20),
                     ("attendance", attendance_pct, 10),
                     ("collaboration", teams_collab_pct, 10),
                 ])
@@ -1532,6 +1547,7 @@ def main():
             "github": round(github_score, 1),
             "projectDelivery": project_delivery_score,
             "taskApprovalSpeed": task_approval_speed_score,
+            "taskReviewEffectiveness": task_review_effectiveness if role_cat == "management" else None,
             "plannerCompletion": planner_completion_score if role_cat == "management" else None,
             "managerRatings": None,
             "mentorFeedback": mentor_score,
@@ -1718,7 +1734,7 @@ def main():
             new_kpi, weights_used = weighted_score([
                 ("teamAverageKpi", team_avg_kpi, 35),
                 ("projectDelivery", sd.get("projectDelivery"), 25),
-                ("taskReviewEffectiveness", None, 20),
+                ("taskReviewEffectiveness", sd.get("taskReviewEffectiveness"), 20),
                 ("attendance", sd.get("attendance"), 10),
                 ("collaboration", sd.get("collaboration"), 10),
             ])
