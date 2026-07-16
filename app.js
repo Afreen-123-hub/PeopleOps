@@ -895,7 +895,29 @@ function clearKpiTeamFilter() {
 
 async function refreshKpiPerformance() {
   const status = document.getElementById("kpiRefreshStatus");
-  status.textContent = DEMO_REFRESH_MESSAGE;
+  if (DEMO_MODE) {
+    status.textContent = DEMO_REFRESH_MESSAGE;
+    return;
+  }
+  status.textContent = "Refreshing…";
+  try {
+    const res = await apiFetch("/api/refresh-month", { method: "POST" });
+    if (!res) return;
+    if (res.ok) {
+      status.textContent = "Refreshed — reloading…";
+      dataset = await loadDataset();
+      if (dataset) {
+        filteredEmployees = dataset.employees.filter(e => !isIntern(e));
+        applyFilters();
+        status.textContent = "KPI data updated ✓";
+      }
+    } else {
+      const body = await res.json().catch(() => ({}));
+      status.textContent = body.message || "Refresh failed — try again";
+    }
+  } catch {
+    status.textContent = "Refresh failed — check connection";
+  }
 }
 
 function setupDepartmentChartEvents() {
@@ -1047,8 +1069,8 @@ function renderMetrics() {
 function renderTeamsInsights() {
   const emps = dataset.employees || [];
 
-  // Leaderboard: top 10 by messages + meetingCount*2 (same as collab signal), only licensed users
-  const licensed = emps.filter(e => e.teams?.activityMatched);
+  // Leaderboard: top 10 by messages + meetingCount*2 (same as collab signal)
+  const licensed = emps.filter(e => e.teams?.activityMatched || (e.teams?.messagesCount || 0) > 0 || (e.teams?.meetingCount || 0) > 0 || (e.teams?.callCount || 0) > 0);
   const ranked = [...licensed]
     .filter(e => (e.teams.messagesCount || 0) + (e.teams.meetingCount || 0) > 0)
     .sort((a, b) => {
@@ -1130,6 +1152,7 @@ function renderOverviewMetricEmployees(metric, label) {
       return bKpi - aKpi || a.name.localeCompare(b.name);
     });
   const panel = document.getElementById("bandEmployeesPanel");
+  if (!panel) return;
   panel.hidden = false;
   panel.innerHTML = `
     <div class="overview-drilldown-head">

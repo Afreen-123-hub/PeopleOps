@@ -1496,6 +1496,9 @@ def main():
 
         score_drivers = {
             "productivity": round(productivity_score, 1) if productivity_score is not None else None,
+            # delivery and efficiency are the two heatmap columns the dashboard renders
+            "delivery": round(productivity_score, 1) if productivity_score is not None else (round(project_delivery_score, 1) if project_delivery_score is not None else None),
+            "efficiency": round(efficiency_driver, 1),
             "codeContribution": code_contribution_score,
             "attendance": round(attendance_pct, 1) if attendance_pct is not None else None,
             "taskCompletion": task_completion_pct,
