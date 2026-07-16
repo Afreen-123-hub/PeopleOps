@@ -1057,8 +1057,11 @@ def main():
             stats["mentorRated"] += 1
         project_hours[clean(row.get("project_id"))] += stats["workHours"]
 
+    print(f"CHECKPOINT: work_item_stats done, {len(work_item_stats)} employees", flush=True)
     greythr_start, greythr_end = resolve_greythr_date_range(target_period)
+    print(f"CHECKPOINT: calling read_greythr_api({greythr_start}, {greythr_end})", flush=True)
     greythr, greythr_master, greythr_dept = read_greythr_api(greythr_start, greythr_end)
+    print(f"CHECKPOINT: greythr done, calling read_teams_api", flush=True)
     # Build name-keyed lookup for joining date matching (CWINE employees only)
     greythr_master_by_name = {
         normalize_name(info.get("name", "")): info
@@ -1066,6 +1069,7 @@ def main():
         if info.get("name")
     }
     teams = read_teams_api(users)
+    print(f"CHECKPOINT: teams done", flush=True)
 
     # Apply designation overrides after all API calls:
     # 1. Teams jobTitle (read_teams_api may have updated users[emp_id]["designation"])
