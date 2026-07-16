@@ -354,7 +354,7 @@ def read_worklogix_api(month: str = ""):
     # row. Backfill it so the downstream month_counts filter works correctly.
     if api_month and not daily_df.empty and "month" in daily_df.columns:
         if daily_df["month"].str.strip().eq("").all():
-            daily_df["month"] = api_month
+            daily_df = daily_df.assign(month=api_month)
 
     months_found = sorted(set(str(r.get("month", "")).strip() for r in dataframe_records(daily_df) if str(r.get("month", "")).strip()))
     print(f"Worklogix daily rows: {len(dataframe_records(daily_df))}, months in data: {months_found}", flush=True)
