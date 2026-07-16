@@ -940,6 +940,13 @@ def main():
     if requested_month and not re.fullmatch(r"\d{4}-\d{2}", requested_month):
         raise ValueError("--month must use YYYY-MM format")
     target_period = requested_month or (month_counts.most_common(1)[0][0] if month_counts else "")
+    # --month passes YYYY-MM but Worklogix stores months as "Jun 2026" / "June 2026".
+    # Find the matching key in month_counts so daily/monthly filters work correctly.
+    if re.fullmatch(r"\d{4}-\d{2}", target_period):
+        _tp_range = period_to_date_range(target_period)
+        _matched = next((k for k in month_counts if k and period_to_date_range(k) == _tp_range), "")
+        if _matched:
+            target_period = _matched
     monthly = {
         clean(r["employee_id"]): r
         for r in worklogix["monthly"]
