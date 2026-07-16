@@ -1976,6 +1976,7 @@ function renderIntegrations() {
     ["GreytHR", sourceFiles.greythr, "Live attendance API — present, absent, leave, and week off records."],
     ["Biometrics", sourceFiles.biometrics, "Live presence report API — office hours and biometric days per employee."],
     ["Teams", sourceFiles.teams, "Live Microsoft Graph API presence data."],
+    ["GitHub", sourceFiles.github, "Repository contribution data — commits, pull requests, and closed issues per employee."],
     ["Microsoft Planner", "api", "Live Microsoft Graph plans, task assignments, progress, priorities, and due dates."],
     ["Microsoft Calendar", "api", "Live employee calendar events and meeting-hour activity for the current month."],
     ["Microsoft SharePoint", "api", "Live SharePoint sites, lists, files, and reporting assets."],
@@ -2787,8 +2788,11 @@ function askTara(question) {
 
 function clearTara() {
   document.getElementById("taraMessages").innerHTML =
-    `<div class="tara-msg tara-msg--bot">
-       <p style="white-space:pre-wrap;margin:0">Hi! I'm Tara, your PeopleOps AI assistant. Ask me anything about your team's performance, attendance, or productivity.</p>
+    `<div class="tara-msg-row">
+       <div class="tara-msg-row-avatar">✦</div>
+       <div class="tara-msg tara-msg--bot">
+         <p style="white-space:pre-wrap;margin:0">Hi! I'm Tara, your PeopleOps assistant. Ask me anything about your team's performance, attendance, or productivity.</p>
+       </div>
      </div>`;
   taraHistory = [];
   localStorage.removeItem("tara_history");
