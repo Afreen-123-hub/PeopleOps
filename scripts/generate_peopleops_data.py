@@ -1437,13 +1437,13 @@ def main():
                 _pl = graph_planner_by_id.get(clean(emp_id), {})
                 if _pl.get("assigned", 0) > 0:
                     planner_completion_score = round(_pl["completed"] / _pl["assigned"] * 100, 1)
+                # Management KPI (PDF): Team Avg KPI 35% (post-loop) + Project Delivery 25%
+                # + Task Review Effectiveness 20% + Attendance 10% + Collaboration 10%
                 kpi, weights_used = weighted_score([
                     ("projectDelivery", project_delivery_score, 25),
-                    ("taskApprovalSpeed", task_approval_speed_score, 10),
+                    ("taskReviewEffectiveness", None, 20),
                     ("attendance", attendance_pct, 10),
-                    ("punctuality", punctuality_pct, 5),
                     ("collaboration", teams_collab_pct, 10),
-                    ("plannerCompletion", planner_completion_score, 5),
                 ])
             elif role_cat == "intern":
                 # mentor_rating_pct = % of tickets the mentor has rated (True = rated)
@@ -1484,11 +1484,16 @@ def main():
             else:
                 # Technical KPI = Productivity 55% + Code Contribution 5% + Attendance 15%
                 #               + Punctuality 15% + Teams Collaboration 10%.
-                # Productivity = Task Completion Efficiency 60% + Approval Rate 15% + Work Efficiency 25%.
+                # Productivity = Task Completion Efficiency 60% + Approval Rate 15% + Priority Achievement 25%.
+                # Priority Achievement = (completed priority points / assigned priority points) x 100.
+                # Priority weights: High=5, Medium=3, Low=2 (applied when tasks are logged).
                 if task_completion_pct is not None:
                     approval_rate = round(min(100.0, approved_tasks / completed_tasks * 100), 1) if completed_tasks else 0.0
+                    priority_achievement = round(
+                        stats["weightedPointsCompleted"] / max(1, stats["totalWeightedPoints"]) * 100, 1
+                    )
                     productivity_score = round(
-                        task_completion_pct * 0.60 + approval_rate * 0.15 + efficiency_driver * 0.25, 1
+                        task_completion_pct * 0.60 + approval_rate * 0.15 + priority_achievement * 0.25, 1
                     )
                 code_contribution_score = round(github_score, 1) if has_github else None
                 kpi, weights_used = weighted_score([
@@ -1518,7 +1523,7 @@ def main():
             "productivity": round(productivity_score, 1) if productivity_score is not None else None,
             # delivery and efficiency are the two heatmap columns the dashboard renders
             "delivery": round(productivity_score, 1) if productivity_score is not None else (round(project_delivery_score, 1) if project_delivery_score is not None else None),
-            "efficiency": round(efficiency_driver, 1),
+            "efficiency": round(stats["weightedPointsCompleted"] / max(1, stats["totalWeightedPoints"]) * 100, 1),
             "codeContribution": code_contribution_score,
             "attendance": round(attendance_pct, 1) if attendance_pct is not None else None,
             "taskCompletion": task_completion_pct,
