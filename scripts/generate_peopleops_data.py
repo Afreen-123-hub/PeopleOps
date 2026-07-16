@@ -340,24 +340,18 @@ def read_worklogix_api(month: str = ""):
     if daily_df.empty and not tasks_df.empty:
         daily_df = daily_updates_dataframe_from_payload(tasks_payload)
 
-    # If a month filter was applied and returned no data, the API may not support
-    # month filtering on the daily-update endpoint — fall back to unfiltered fetch.
+    # If a month filter was applied and returned no data, fall back to unfiltered fetch.
     if api_month and daily_df.empty:
         print(f"WARNING: daily-update?month={api_month} returned no data — retrying without month filter", file=sys.stderr)
         try:
             fallback_payload = get_worklogix_daily_updates()
             daily_df = daily_updates_dataframe_from_payload(fallback_payload)
+            api_month = ""  # fallback data contains mixed months; let month_counts decide
         except Exception:
             pass
 
-    # The daily-update API filters by month but doesn't include the month field in each
-    # row. Backfill it so the downstream month_counts filter works correctly.
-    if api_month and not daily_df.empty and "month" in daily_df.columns:
-        if daily_df["month"].str.strip().eq("").all():
-            daily_df = daily_df.assign(month=api_month)
-
     months_found = sorted(set(str(r.get("month", "")).strip() for r in dataframe_records(daily_df) if str(r.get("month", "")).strip()))
-    print(f"Worklogix daily rows: {len(dataframe_records(daily_df))}, months in data: {months_found}", flush=True)
+    print(f"Worklogix daily rows: {len(dataframe_records(daily_df))}, months in data: {months_found}, api_month={api_month!r}", flush=True)
 
     return {
         "users": dataframe_records(employees_df),
@@ -366,6 +360,9 @@ def read_worklogix_api(month: str = ""):
         # Monthly Update API disabled because current account has no permission.
         "monthly": [],
         "projects": dataframe_records(projects_df),
+        # When api_month is set the API already filtered rows to that month,
+        # so main() can skip the month-field filter entirely.
+        "api_month": api_month,
     }
 
 
@@ -975,16 +972,22 @@ def main():
         _matched = next((k for k in month_counts if k and period_to_date_range(k) == _tp_range), "")
         if _matched:
             target_period = _matched
-    print(f"month_counts={dict(month_counts.most_common(6))}, target_period={target_period!r}", flush=True)
+    api_month_used = worklogix.get("api_month", "")
+    print(f"month_counts={dict(month_counts.most_common(6))}, target_period={target_period!r}, api_month_used={api_month_used!r}", flush=True)
     monthly = {
         clean(r["employee_id"]): r
         for r in worklogix["monthly"]
         if clean(r.get("month")) == target_period and clean(r.get("employee_id")) in allowed_employee_ids
     }
-    daily = [
-        r for r in all_daily_rows
-        if clean(r.get("month")) == target_period and clean(r.get("employee_id")) in allowed_employee_ids
-    ]
+    if api_month_used:
+        # API already filtered rows to this month; skip month-field filter (field is empty in rows)
+        daily = [r for r in all_daily_rows if clean(r.get("employee_id")) in allowed_employee_ids]
+    else:
+        daily = [
+            r for r in all_daily_rows
+            if clean(r.get("month")) == target_period and clean(r.get("employee_id")) in allowed_employee_ids
+        ]
+    print(f"daily rows matched: {len(daily)}", flush=True)
     projects = worklogix["projects"]
 
     employees = {}
