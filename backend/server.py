@@ -398,6 +398,11 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             text=True,
             check=False,
         )
+        # Always surface subprocess output so Render logs show GreytHR/API warnings
+        for line in result.stdout.splitlines():
+            print(f"[refresh-month] {line}", flush=True)
+        for line in result.stderr.splitlines():
+            print(f"[refresh-month:err] {line}", flush=True)
         if result.returncode != 0:
             detail = next(
                 (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
