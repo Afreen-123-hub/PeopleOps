@@ -391,14 +391,26 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.send_json({"error": "Month must use YYYY-MM format."}, HTTPStatus.BAD_REQUEST)
             return
 
-        result = subprocess.run(
-            [sys.executable, str(GENERATOR), "--month", month, "--out", str(DATA_FILE_MONTH)],
-            cwd=str(PROJECT_ROOT),
-            capture_output=True,
-            text=True,
-            check=False,
-        )
+        # Acquire the same lock used by auto-refresh so both subprocesses
+        # never run simultaneously and exhaust Render's 512 MB RAM limit.
+        if not _refresh_lock.acquire(blocking=True, timeout=10):
+            self.send_json({
+                "status": "busy",
+                "message": "A data refresh is already running. Please wait a minute and try again.",
+            }, HTTPStatus.ACCEPTED)
+            return
+        try:
+            result = subprocess.run(
+                [sys.executable, "-u", str(GENERATOR), "--month", month, "--out", str(DATA_FILE_MONTH)],
+                cwd=str(PROJECT_ROOT),
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        finally:
+            _refresh_lock.release()
         # Always surface subprocess output so Render logs show GreytHR/API warnings
+        print(f"[refresh-month] process exited with code {result.returncode}", flush=True)
         for line in result.stdout.splitlines():
             print(f"[refresh-month] {line}", flush=True)
         for line in result.stderr.splitlines():

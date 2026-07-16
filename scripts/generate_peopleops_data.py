@@ -1278,6 +1278,7 @@ def main():
                 return entry
         return None
 
+    import gc; gc.collect()  # free residual DataFrames from API loaders before KPI computation
     work_scores = [e.get("worklogixScore", {}).get("final", 0) for e in employees.values()]
     team_active = [teams[eid]["isActive"] for eid in employees if teams[eid]]
     office_hours = [attendance[eid]["officeHours"] for eid in employees if attendance[eid]]
