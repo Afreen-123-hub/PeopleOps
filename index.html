@@ -102,7 +102,12 @@
                 <p class="eyebrow">Attendance period</p>
                 <strong id="globalMonthLabel" style="font-size:1rem;font-weight:700;">Loading…</strong>
               </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <input type="month" id="globalMonthInput" style="padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-size:0.85rem;background:white;color:var(--ink);">
+                <button id="globalMonthBtn" class="button" type="button">Load month</button>
+              </div>
             </div>
+            <div id="globalMonthStatus" style="font-size:0.82rem;margin-top:6px;"></div>
           </div>
 
           <div id="totalEmployeeBadge" class="total-employee-badge"></div>

@@ -1266,6 +1266,20 @@ def main():
         if gc
     ] or [0, 1]
 
+    # Load Planner data from graph-activity.json before the loop so management KPI can use it
+    _graph_file_early = PROJECT / "data" / "graph-activity.json"
+    graph_planner_by_id: dict = {}
+    if _graph_file_early.exists():
+        try:
+            _gd_early = json.loads(_graph_file_early.read_text(encoding="utf-8"))
+            graph_planner_by_id = {
+                clean(ge.get("id")): ge.get("planner", {})
+                for ge in _gd_early.get("employees", [])
+                if clean(ge.get("id"))
+            }
+        except Exception:
+            pass
+
     employee_rows = []
     for emp_id, emp in employees.items():
         stats = work_item_stats[emp_id]
@@ -1390,6 +1404,7 @@ def main():
         code_contribution_score = None
         project_delivery_score = None
         task_approval_speed_score = None
+        planner_completion_score = None
         mentor_score = None
         kpi = None
         band = ""
@@ -1419,11 +1434,16 @@ def main():
                 approval_scores = pm_approval_scores.get(emp_id)
                 task_approval_speed_score = round(statistics.mean(approval_scores), 1) if approval_scores else None
                 pm_project_score = project_delivery_score  # kept for the executive/UI "project performance" driver
+                _pl = graph_planner_by_id.get(clean(emp_id), {})
+                if _pl.get("assigned", 0) > 0:
+                    planner_completion_score = round(_pl["completed"] / _pl["assigned"] * 100, 1)
                 kpi, weights_used = weighted_score([
                     ("projectDelivery", project_delivery_score, 25),
-                    ("taskReviewEffectiveness", None, 20),
+                    ("taskApprovalSpeed", task_approval_speed_score, 10),
                     ("attendance", attendance_pct, 10),
+                    ("punctuality", punctuality_pct, 5),
                     ("collaboration", teams_collab_pct, 10),
+                    ("plannerCompletion", planner_completion_score, 5),
                 ])
             elif role_cat == "intern":
                 # mentor_rating_pct = % of tickets the mentor has rated (True = rated)
@@ -1507,7 +1527,7 @@ def main():
             "github": round(github_score, 1),
             "projectDelivery": project_delivery_score,
             "taskApprovalSpeed": task_approval_speed_score,
-            "plannerCompletion": task_completion_pct if role_cat == "management" else None,
+            "plannerCompletion": planner_completion_score if role_cat == "management" else None,
             "managerRatings": None,
             "mentorFeedback": mentor_score,
             "pmProjectScore": round(pm_project_score, 1) if pm_project_score is not None else None,
