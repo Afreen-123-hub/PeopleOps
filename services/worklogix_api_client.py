@@ -177,8 +177,14 @@ def get_worklogix_tasks():
 
 
 
-def get_worklogix_daily_updates():
-    return WorklogixApiClient().get_worklogix_daily_updates()
+def get_worklogix_daily_updates(month: str | None = None):
+    client = WorklogixApiClient()
+    if month:
+        from urllib.parse import urlencode as _urlencode
+        query = _urlencode({"month": month})
+        path = f"{client.ENDPOINTS['daily_updates']}?{query}"
+        return client.get_json_by_path(path, "daily_updates")
+    return client.get_worklogix_daily_updates()
 
 
 def get_worklogix_monthly_updates(month: str, user_id: str):

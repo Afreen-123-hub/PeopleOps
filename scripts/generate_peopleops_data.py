@@ -307,15 +307,22 @@ def dataframe_records(frame):
     return frame.fillna("").to_dict("records")
 
 
-def read_worklogix_api():
+def read_worklogix_api(month: str = ""):
     # Worklogix CSV usage is replaced here with live API data. The transformer
     # keeps the old column names so the KPI logic can continue unchanged.
     from services.worklogix_api_client import WorklogixApiError
     from services.worklogix_auth import WorklogixAuthError
+    # Convert YYYY-MM to "Jun 2026" format for the Worklogix API
+    api_month = ""
+    if month and re.fullmatch(r"\d{4}-\d{2}", month):
+        try:
+            api_month = datetime.strptime(month, "%Y-%m").strftime("%b %Y")
+        except ValueError:
+            api_month = ""
     try:
         employees_payload = get_worklogix_employee_info()
         tasks_payload = get_worklogix_tasks()
-        daily_payload = get_worklogix_daily_updates()
+        daily_payload = get_worklogix_daily_updates(month=api_month if api_month else None)
         projects_payload = get_worklogix_projects()
     except WorklogixAuthError as exc:
         print(f"ERROR: Worklogix login failed — check credentials in .env: {exc}", file=sys.stderr)
@@ -332,6 +339,19 @@ def read_worklogix_api():
 
     if daily_df.empty and not tasks_df.empty:
         daily_df = daily_updates_dataframe_from_payload(tasks_payload)
+
+    # If a month filter was applied and returned no data, the API may not support
+    # month filtering on the daily-update endpoint — fall back to unfiltered fetch.
+    if api_month and daily_df.empty:
+        print(f"WARNING: daily-update?month={api_month} returned no data — retrying without month filter", file=sys.stderr)
+        try:
+            fallback_payload = get_worklogix_daily_updates()
+            daily_df = daily_updates_dataframe_from_payload(fallback_payload)
+        except Exception:
+            pass
+
+    months_found = sorted(set(str(r.get("month", "")).strip() for r in dataframe_records(daily_df) if str(r.get("month", "")).strip()))
+    print(f"Worklogix daily rows: {len(dataframe_records(daily_df))}, months in data: {months_found}", flush=True)
 
     return {
         "users": dataframe_records(employees_df),
@@ -916,18 +936,10 @@ def read_greythr_api(start: str, end: str) -> tuple[defaultdict, dict, dict]:
 
 
 def main():
-    # KPI generation now uses live Worklogix and Teams API data. Local
-    # Biometrics, GreytHR, Teams, and Worklogix input files are no longer read.
-    worklogix = read_worklogix_api()
-    all_users = {clean(r["id"]): r for r in worklogix["users"]}
-    all_users = {k: v for k, v in all_users.items() if k}
-    users = {emp_id: user for emp_id, user in all_users.items() if is_real_employee(user)}
-    allowed_employee_ids = set(users)
-    all_daily_rows = worklogix["daily"]
-    month_counts = Counter(clean(r.get("month")) for r in all_daily_rows if clean(r.get("month")))
+    # Parse CLI args first so requested_month can be passed to read_worklogix_api().
     requested_month = ""
     args = sys.argv[1:]
-    out_path = OUT  # default output path; overridden by --out
+    out_path = OUT
     for idx, arg in enumerate(args):
         if arg == "--month" and idx + 1 < len(args):
             requested_month = clean(args[idx + 1])
@@ -939,6 +951,16 @@ def main():
             out_path = Path(arg.split("=", 1)[1])
     if requested_month and not re.fullmatch(r"\d{4}-\d{2}", requested_month):
         raise ValueError("--month must use YYYY-MM format")
+
+    # KPI generation now uses live Worklogix and Teams API data. Local
+    # Biometrics, GreytHR, Teams, and Worklogix input files are no longer read.
+    worklogix = read_worklogix_api(month=requested_month)
+    all_users = {clean(r["id"]): r for r in worklogix["users"]}
+    all_users = {k: v for k, v in all_users.items() if k}
+    users = {emp_id: user for emp_id, user in all_users.items() if is_real_employee(user)}
+    allowed_employee_ids = set(users)
+    all_daily_rows = worklogix["daily"]
+    month_counts = Counter(clean(r.get("month")) for r in all_daily_rows if clean(r.get("month")))
     target_period = requested_month or (month_counts.most_common(1)[0][0] if month_counts else "")
     # --month passes YYYY-MM but Worklogix stores months as "Jun 2026" / "June 2026".
     # Find the matching key in month_counts so daily/monthly filters work correctly.
@@ -947,6 +969,7 @@ def main():
         _matched = next((k for k in month_counts if k and period_to_date_range(k) == _tp_range), "")
         if _matched:
             target_period = _matched
+    print(f"month_counts={dict(month_counts.most_common(6))}, target_period={target_period!r}", flush=True)
     monthly = {
         clean(r["employee_id"]): r
         for r in worklogix["monthly"]
