@@ -1682,7 +1682,7 @@ def main():
                 "avgCheckinHour": bio.get("avgCheckinHour"),
                 "avgCheckoutHour": bio.get("avgCheckoutHour"),
                 "officeLocation": bio.get("officeLocation", ""),
-                "punctualityScore": bio.get("punctualityScore"),
+                "punctualityScore": bio.get(_punct_key),
                 "teamsAvailableHours": round(bio.get("teamsAvailableHours", bio["officeHours"]), 1),
                 "teamsAwayHours": round(bio.get("teamsAwayHours", 0), 1),
                 "teamsOfflineHours": round(bio.get("teamsOfflineHours", 0), 1),
