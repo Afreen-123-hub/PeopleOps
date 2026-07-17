@@ -524,15 +524,16 @@ def approval_turnaround_score(created_at, updated_at):
 
 
 def compute_attendance_pct(gh, bio, fallback):
-    """Attendance = (Present Days / Working Days) x 100. Working Days = Present +
-    Absent + Leave (days the employee was expected to work). Falls back to the
-    biometric-derived proxy, then the pre-computed minmax fallback, when GreytHR
-    data isn't available for this employee.
+    """Attendance = (Present + WFH Days / Working Days) x 100.
+    WFH counts as present — employee was working, just remotely.
+    Working Days = Present + Absent + Leave + WFH (days expected to work).
+    Falls back to biometric-derived proxy, then minmax fallback, when GreytHR
+    data isn't available.
     Returns None when there is genuinely no data source so weighted_score can
     redistribute the weight rather than counting a misleading 0."""
     working_days = (gh["P"] + gh["A"] + gh["Leave"] + gh["WFH"]) if gh else 0
     if working_days > 0:
-        return round(min(100.0, gh["P"] / working_days * 100), 1)
+        return round(min(100.0, (gh["P"] + gh["WFH"]) / working_days * 100), 1)
     if bio.get("validOfficeDays"):
         return round(min(100.0, bio["biometricDays"] / bio["validOfficeDays"] * 100), 1)
     if not bio.get("presenceReports"):
