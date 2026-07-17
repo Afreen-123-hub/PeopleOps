@@ -1516,11 +1516,9 @@ def main():
             has_github = gc is not None
 
             if role_cat == "management":
-                # Management KPI = Team Avg KPI 35% + Project Delivery 25% + Approval Speed 10%
-                #                 + Attendance 10% + Punctuality 5% + Collaboration 10% + Planner Completion 5%
-                # Team Average KPI needs every other employee's KPI, so it's filled in
-                # during the post-loop pass below; here we score everything else and
-                # redistribute its 35% weight for a preliminary value.
+                # Management KPI = Project Delivery 50% + Attendance 30% + Collaboration 20%
+                # Team avg KPI / task review effectiveness removed — org hierarchy not fully
+                # set up in Teams and managers don't log task approvals in Worklogix.
                 ps = pm_project_stats.get(emp_id)
                 if ps and ps["total"] > 0:
                     project_delivery_score = round(
@@ -1532,18 +1530,12 @@ def main():
                 _pl = graph_planner_by_id.get(clean(emp_id), {})
                 if _pl.get("assigned", 0) > 0:
                     planner_completion_score = round(_pl["completed"] / _pl["assigned"] * 100, 1)
-                # Task Review Effectiveness = Approval Timeliness (PDF §3.3A)
-                # Only timeliness is computable now (created_at → updated_at proxy).
-                # Approval Accuracy (§3.3B) needs rejection/reopen history — pending.
                 sla = pm_sla_counts.get(emp_id)
                 task_review_effectiveness = round(sla["within"] / sla["total"] * 100, 1) if sla and sla["total"] > 0 else None
-                # Management KPI (PDF): Team Avg KPI 35% (post-loop) + Project Delivery 25%
-                # + Task Review Effectiveness 20% + Attendance 10% + Collaboration 10%
                 kpi, weights_used = weighted_score([
-                    ("projectDelivery", project_delivery_score, 25),
-                    ("taskReviewEffectiveness", task_review_effectiveness, 20),
-                    ("attendance", attendance_pct, 10),
-                    ("collaboration", teams_collab_pct, 10),
+                    ("projectDelivery", project_delivery_score, 50),
+                    ("attendance", attendance_pct, 30),
+                    ("collaboration", teams_collab_pct, 20),
                 ])
             elif role_cat == "intern":
                 # mentor_rating_pct = % of tickets the mentor has rated (True = rated)
@@ -1825,11 +1817,9 @@ def main():
             team_avg_kpi = round(sum(scored_kpis) / len(scored_kpis), 1) if scored_kpis else None
             sd = row["scoreDrivers"]
             new_kpi, weights_used = weighted_score([
-                ("teamAverageKpi", team_avg_kpi, 35),
-                ("projectDelivery", sd.get("projectDelivery"), 25),
-                ("taskReviewEffectiveness", sd.get("taskReviewEffectiveness"), 20),
-                ("attendance", sd.get("attendance"), 10),
-                ("collaboration", sd.get("collaboration"), 10),
+                ("projectDelivery", sd.get("projectDelivery"), 50),
+                ("attendance", sd.get("attendance"), 30),
+                ("collaboration", sd.get("collaboration"), 20),
             ])
             if team_avg_kpi is not None:
                 sd["teamAvgKpi"] = team_avg_kpi
