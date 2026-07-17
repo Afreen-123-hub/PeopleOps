@@ -672,6 +672,10 @@ def read_biometric_api(month_label):
                     checkin_times[emp_id].append(cin)
                 if cout is not None:
                     checkout_times[emp_id].append(cout)
+                # Actual work hours = checkout − checkin (biometric, not Teams status)
+                if cin is not None and cout is not None and cout > cin:
+                    result[emp_id]["biometricWorkHours"] += (cout - cin)
+                    result[emp_id]["biometricWorkDays"] += 1
             loc = clean(bio.get("location", ""))
             if loc:
                 result[emp_id][f"loc:{loc}"] += 1
@@ -1667,9 +1671,12 @@ def main():
                     "calendarDays": c,
                     "biometricDays": min(bio["biometricDays"], c) if c else bio["biometricDays"],
                     "validOfficeDays": min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"],
-                    "officeHours": round(bio["officeHours"], 1),
+                    "officeHours": round(
+                        bio["biometricWorkHours"] if bio["biometricWorkDays"] > 0 else bio["officeHours"], 1
+                    ),
                     "avgOfficeHours": round(
-                        bio["officeHours"] / max(1, min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"]), 1
+                        bio["biometricWorkHours"] / bio["biometricWorkDays"] if bio["biometricWorkDays"] > 0
+                        else bio["officeHours"] / max(1, min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"]), 1
                     ),
                 })(round(gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["WFH"] + gh["Blank"]) if gh else 0),
                 "avgCheckinHour": bio.get("avgCheckinHour"),
