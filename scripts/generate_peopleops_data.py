@@ -659,23 +659,38 @@ def read_biometric_api(month_label):
         if user_name_key:
             result[f"name:{user_name_key}"] = result[emp_id]
 
+        # Detect weekends so their swipes don't skew work-day averages.
+        # Biometric terminals record every calendar day including Saturday/Sunday.
+        _row_date_str = clean(row.get("date") or row.get("report_date") or row.get("attendance_date") or "")
+        _is_weekend = False
+        if _row_date_str:
+            for _fmt in ("%Y-%m-%d", "%d-%m-%Y", "%d/%m/%Y"):
+                try:
+                    _is_weekend = datetime.strptime(_row_date_str, _fmt).weekday() >= 5
+                    break
+                except ValueError:
+                    continue
+
         bio = row.get("biometric_in_office_status") or {}
         if bio:
-            result[emp_id]["biometricDays"] += 1
+            if not _is_weekend:
+                result[emp_id]["biometricDays"] += 1
             # "09:13 AM - 06:05 PM"
             time_range = clean(bio.get("time", ""))
             if " - " in time_range:
                 cin_str, cout_str = time_range.split(" - ", 1)
                 cin = parse_time_ampm(cin_str)
                 cout = parse_time_ampm(cout_str)
-                if cin is not None:
-                    checkin_times[emp_id].append(cin)
-                if cout is not None:
-                    checkout_times[emp_id].append(cout)
-                # Actual work hours = checkout − checkin (biometric, not Teams status)
-                if cin is not None and cout is not None and cout > cin:
-                    result[emp_id]["biometricWorkHours"] += (cout - cin)
-                    result[emp_id]["biometricWorkDays"] += 1
+                if not _is_weekend:
+                    # Only include weekday swipes in check-in/out averages
+                    if cin is not None:
+                        checkin_times[emp_id].append(cin)
+                    if cout is not None:
+                        checkout_times[emp_id].append(cout)
+                    # Actual work hours = checkout − checkin (biometric, not Teams status)
+                    if cin is not None and cout is not None and cout > cin:
+                        result[emp_id]["biometricWorkHours"] += (cout - cin)
+                        result[emp_id]["biometricWorkDays"] += 1
             loc = clean(bio.get("location", ""))
             if loc:
                 result[emp_id][f"loc:{loc}"] += 1
@@ -1672,7 +1687,12 @@ def main():
                     "biometricDays": min(bio["biometricDays"], c) if c else bio["biometricDays"],
                     "validOfficeDays": min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"],
                     "officeHours": round(
-                        bio["biometricWorkHours"] if bio["biometricWorkDays"] > 0 else bio["officeHours"], 1
+                        # Cap total hours when biometric has more days than calendar period
+                        # (adjacent month leak: e.g. biometricDays=33 in a 30-day month)
+                        (bio["biometricWorkHours"] * c / bio["biometricDays"]
+                         if (c and bio["biometricDays"] > 0 and bio["biometricDays"] > c)
+                         else bio["biometricWorkHours"])
+                        if bio["biometricWorkDays"] > 0 else bio["officeHours"], 1
                     ),
                     "avgOfficeHours": round(
                         bio["biometricWorkHours"] / bio["biometricWorkDays"] if bio["biometricWorkDays"] > 0
