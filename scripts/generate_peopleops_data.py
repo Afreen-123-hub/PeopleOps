@@ -787,7 +787,7 @@ def read_calendar_data(teams_id_map: dict, start: str, end: str) -> dict:
                     continue
                 invited += 1
                 response = (event.get("responseStatus") or {}).get("response", "").lower()
-                if response in ("accepted", "organizer"):
+                if response in ("accepted", "organizer", "tentativelyaccepted"):
                     attended += 1
             return emp_id, {"invited": invited, "attended": attended}
         except Exception:
