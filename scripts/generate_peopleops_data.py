@@ -786,8 +786,8 @@ def read_calendar_data(teams_id_map: dict, start: str, end: str) -> dict:
                 if event.get("isCancelled") or event.get("isAllDay"):
                     continue
                 invited += 1
-                show_as = (event.get("showAs") or "").lower()
-                if show_as in ("busy", "oof", "workingelsewehere"):
+                response = (event.get("responseStatus") or {}).get("response", "").lower()
+                if response in ("accepted", "organizer"):
                     attended += 1
             return emp_id, {"invited": invited, "attended": attended}
         except Exception:
