@@ -9,7 +9,7 @@ const state = {
   band: "all",
   team: "all",
   confidence: 0,
-  showInterns: false,
+  showInterns: true,
 };
 
 const DEMO_MODE = false;
