@@ -2267,15 +2267,28 @@ function showEmployee(e) {
       <div class="radar-section">
         <canvas id="radarChart"></canvas>
         <div class="radar-legend">
-          ${Object.entries(e.scoreDrivers)
-            .filter(([key]) => key !== "reporteeCount")
-            .map(([key, value]) => `
-            <div class="radar-legend-row">
-              <span class="radar-lbl">${title(key)}</span>
-              <div class="radar-bar-wrap"><div class="radar-bar-fill" style="width:${Math.min(value,100)}%"></div></div>
-              <span class="radar-val">${number.format(value)}</span>
-            </div>
-          `).join("")}
+          ${(() => {
+            const roleDrivers = {
+              technical: ["productivity","delivery","efficiency","attendance","taskCompletion","punctuality","collaboration","codeContribution","github"],
+              management: ["projectDelivery","attendance","collaboration","taskApprovalSpeed","taskReviewEffectiveness","teamAvgKpi","plannerCompletion"],
+              executive:  ["teamAvgKpi","attendance","collaboration","pmProjectScore"],
+              support:    ["attendance","punctuality","collaboration","taskCompletion","managerRatings"],
+              intern:     ["attendance","punctuality","collaboration","mentorFeedback","taskCompletion"],
+              trainee:    ["taskCompletion","attendance","punctuality","collaboration","mentorFeedback"],
+            };
+            const allowed = roleDrivers[e.roleCategory] || roleDrivers.technical;
+            return allowed
+              .filter(k => e.scoreDrivers[k] != null)
+              .map(k => {
+                const value = e.scoreDrivers[k];
+                return `
+                <div class="radar-legend-row">
+                  <span class="radar-lbl">${title(k)}</span>
+                  <div class="radar-bar-wrap"><div class="radar-bar-fill" style="width:${Math.min(value,100)}%"></div></div>
+                  <span class="radar-val">${number.format(value)}</span>
+                </div>`;
+              }).join("");
+          })()}
         </div>
       </div>
 
@@ -2287,8 +2300,17 @@ function showEmployee(e) {
   requestAnimationFrame(() => {
     const rc = document.getElementById("radarChart");
     if (rc) {
+      const roleDrivers = {
+        technical: ["productivity","delivery","efficiency","attendance","taskCompletion","punctuality","collaboration","codeContribution","github"],
+        management: ["projectDelivery","attendance","collaboration","taskApprovalSpeed","taskReviewEffectiveness","teamAvgKpi","plannerCompletion"],
+        executive:  ["teamAvgKpi","attendance","collaboration","pmProjectScore"],
+        support:    ["attendance","punctuality","collaboration","taskCompletion","managerRatings"],
+        intern:     ["attendance","punctuality","collaboration","mentorFeedback","taskCompletion"],
+        trainee:    ["taskCompletion","attendance","punctuality","collaboration","mentorFeedback"],
+      };
+      const allowed = roleDrivers[e.roleCategory] || roleDrivers.technical;
       const radarDrivers = Object.fromEntries(
-        Object.entries(e.scoreDrivers).filter(([k]) => k !== "reporteeCount")
+        allowed.filter(k => e.scoreDrivers[k] != null).map(k => [k, e.scoreDrivers[k]])
       );
       drawRadarChart(rc, radarDrivers);
     }
