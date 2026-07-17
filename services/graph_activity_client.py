@@ -143,7 +143,7 @@ class GraphActivityClient:
             {
                 "startDateTime": start,
                 "endDateTime": end,
-                "$select": "id,subject,start,end,organizer,isAllDay,showAs,webLink,"
+                "$select": "id,subject,start,end,organizer,isAllDay,showAs,responseStatus,webLink,"
                 "attendees,location,onlineMeeting,bodyPreview,categories,isCancelled",
                 "$top": "100",
             }
