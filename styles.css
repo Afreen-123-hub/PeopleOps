@@ -3179,6 +3179,7 @@ tbody tr.row-no-data:hover {
 
 dialog {
   width: min(760px, calc(100vw - 28px));
+  height: min(90vh, 880px);
   max-height: min(90vh, 880px);
   display: flex;
   flex-direction: column;
@@ -3193,13 +3194,14 @@ dialog {
 #employeeDetail {
   overflow-y: auto;
   flex: 1;
+  min-height: 0;
 }
 
 dialog::backdrop {
   background: rgba(16, 23, 39, 0.55);
 }
 
-.dialog-close {
+#closeDialog {
   position: absolute;
   right: 14px;
   top: 14px;
@@ -3207,8 +3209,15 @@ dialog::backdrop {
   height: 34px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: white;
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1;
   cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .detail {
