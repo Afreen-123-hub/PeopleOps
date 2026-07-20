@@ -1398,7 +1398,13 @@ def main():
         bio = attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}") or Counter()
         cal = calendar_data.get(emp_id)
         sp = get_sharepoint_for(emp)
-        present_days = bio["biometricDays"] or gh["P"]
+        # Fewer than 3 biometric swipes for a full month = WFH or card-reader miss.
+        # Use GreytHR present count instead so profile shows realistic attendance.
+        _bio_sparse = bio["biometricDays"] < 3
+        present_days = (
+            gh["P"] if (_bio_sparse and gh["P"] > bio["biometricDays"])
+            else bio["biometricDays"]
+        ) or gh["P"]
         tm = teams[emp_id]
         monthly_final = emp.get("worklogixScore", {}).get("final", 0)
         efficiency_hours = efficiency_hours_map.get(emp_id, stats["workHours"])
@@ -1488,7 +1494,10 @@ def main():
         else:
             _punct_key = "punctualityScore_930"
         _punct_raw = bio.get(_punct_key)
-        if _punct_raw is not None:
+        if _bio_sparse:
+            # < 3 biometric swipes — WFH or card-reader miss; can't judge punctuality
+            punctuality_score = None
+        elif _punct_raw is not None:
             punctuality_score = _punct_raw
         elif bio["validOfficeDays"]:
             avg_hrs = bio["officeHours"] / bio["validOfficeDays"]
