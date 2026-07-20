@@ -1394,385 +1394,391 @@ def main():
 
     employee_rows = []
     for emp_id, emp in employees.items():
-        stats = work_item_stats[emp_id]
-        gh = greythr_for_employee(emp_id, emp)
-        _wl_uid = clean(emp.get("user_id", ""))
-        bio = attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}") or Counter()
-        cal = calendar_data.get(emp_id)
-        sp = get_sharepoint_for(emp)
-        # Fewer than 3 biometric swipes for a full month = WFH or card-reader miss.
-        # Use GreytHR present count instead so profile shows realistic attendance.
-        _bio_sparse = bio["biometricDays"] < 3
-        present_days = (
-            gh["P"] if (_bio_sparse and gh["P"] > bio["biometricDays"])
-            else bio["biometricDays"]
-        ) or gh["P"]
-        tm = teams[emp_id]
-        monthly_final = emp.get("worklogixScore", {}).get("final", 0)
-        efficiency_hours = efficiency_hours_map.get(emp_id, stats["workHours"])
-        raw_efficiency = stats["weightedPointsCompleted"] / max(1, efficiency_hours)
-        efficiency_driver = minmax(raw_efficiency, all_efficiencies) if stats["workItems"] else 50
-        if monthly_final:
-            worklogix_score = monthly_final
-            has_real_worklogix = True
-        elif stats["workItems"]:
-            weighted_completion_rate = stats["weightedPointsCompleted"] / max(1, stats["totalWeightedPoints"])
-            approval_rate = stats["approval:approved"] / max(1, stats["workItems"])
-            efficiency_signal = efficiency_driver / 100
-            worklogix_score = (weighted_completion_rate * 55 + approval_rate * 25 + efficiency_signal * 20)
-            has_real_worklogix = True
-        else:
-            worklogix_score = 50
-            has_real_worklogix = False
-        attendance_score = 100 - minmax(gh["A"], absence_counts, invert=False) if gh else minmax(bio["officeHours"], office_hours)
-        _wl_completion = emp.get("worklogixScore", {}).get("completion")
-        if _wl_completion:
-            task_completion_score = _wl_completion
-        elif stats["workItems"]:
-            task_completion_score = stats["status:Completed"] / max(1, stats["workItems"]) * 100
-        else:
-            task_completion_score = None  # no Worklogix data — excluded from formula
-
-        punctuality_score = 50  # resolved per-role after role_cat is known (below)
-
-        # Collaboration: Teams activity messages + meetings if available.
-        # No match = no paid license (personal Teams) → neutral 50, not penalised.
-        # The old presence (isActive) fallback gave 0 for offline users, which
-        # incorrectly pushed support/management staff into Disengaged.
-        ta = get_teams_activity_for(emp)
-        if ta:
-            collab_signal = ta["messagesCount"] + ta["meetingCount"] * 2
-            collaboration_score = minmax(collab_signal, all_collab_signals)
-        else:
-            collaboration_score = 50
-
-        # GitHub contribution
-        gc = get_github_for(emp)
-        github_score = minmax(gc["contributionScore"], all_github_scores) if gc else 0
-
-        sources = {
-            "worklogix": emp_id in allowed_employee_ids,
-            "worklogixActivity": has_real_worklogix,
-            "greythr": bool(gh),
-            "biometrics": bool(attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}")),
-            "teams": bool(tm),
-            "calendar": cal is not None,
-            "sharepoint": sp is not None,
-            "github": gc is not None,
-        }
-        role_cat = get_role_category(emp.get("designation", ""))
-        # Leadership structure overrides: Senthil Kumar and Lexila T A are confirmed
-        # C-suite/leadership — exempt from KPI. Names/designations corrected here
-        # because Teams Graph API does not return their profiles reliably.
-        if emp_id == "CWINE053":
-            role_cat = "executive"
-            emp["name"] = "Senthil Kumar"
-            emp["designation"] = "People Manager"
-        if emp_id in {"CWINE154"}:
-            role_cat = "executive"
-        in_worklogix = emp_id in allowed_employee_ids
-        # Confidence uses only the 4 core sources — worklogixActivity and github
-        # are informational tags and must NOT dilute the confidence score.
-        core_sources = {k: sources[k] for k in ("worklogix", "greythr", "biometrics", "teams")}
-        if role_cat == "technical" or in_worklogix:
-            relevant = core_sources
-        else:
-            relevant = {k: v for k, v in core_sources.items() if k != "worklogix"}
-        source_confidence = round(sum(relevant.values()) / len(relevant) * 100)
-        # gh is truthy even when all entries are "Blank" (no real record).
-        # Require at least one meaningful status (P/A/OFF/H/Leave) to count as real data.
-        # validOfficeDays comes from Teams online presence — not physical attendance.
-        # Only biometricDays (actual swipe) counts as confirmed physical presence.
-        gh_has_real_data = bool(gh) and (gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["WFH"]) > 0
-        has_attendance_data = gh_has_real_data or bio["biometricDays"] > 0
-        # Punctuality cutoff depends on role:
-        #   intern/trainee → 9:00 AM + 15 min grace (9:15)
-        #   management     → 10:00 AM + 15 min grace (10:15)
-        #   everyone else  → 9:30 AM + 15 min grace (9:45)
-        if role_cat in ("intern", "trainee"):
-            _punct_key = "punctualityScore_9"
-        elif role_cat == "management":
-            _punct_key = "punctualityScore_10"
-        else:
-            _punct_key = "punctualityScore_930"
-        _punct_raw = bio.get(_punct_key)
-        if _bio_sparse:
-            # < 3 biometric swipes — WFH or card-reader miss; can't judge punctuality
-            punctuality_score = None
-        elif _punct_raw is not None:
-            punctuality_score = _punct_raw
-        elif bio["validOfficeDays"]:
-            avg_hrs = bio["officeHours"] / bio["validOfficeDays"]
-            punctuality_score = minmax(avg_hrs, avg_office_hours_list) if avg_office_hours_list else 50
-        else:
-            punctuality_score = 50
-        # --- KPI Calculation Framework: category-specific formulas ---
-        # Attendance / Punctuality / Collaboration are computed the same way for every
-        # category (they share identical formulas in the framework); only the weights
-        # and the extra category-specific sub-metrics differ below.
-        attendance_pct = compute_attendance_pct(gh, bio, attendance_score)
-        punctuality_pct = compute_punctuality_pct(_punct_raw, punctuality_score)
-        teams_collab_pct = compute_collaboration_pct(bio, ta, all_meeting_counts, collaboration_score, cal=cal)
-        assigned_tasks = stats["workItems"]
-        completed_tasks = stats["status:Completed"]
-        approved_tasks = stats["approval:approved"]
-        task_completion_pct = (
-            round(min(100.0, completed_tasks / assigned_tasks * 100), 1) if assigned_tasks else None
-        )
-
-        pm_project_score = None
-        productivity_score = None
-        code_contribution_score = None
-        project_delivery_score = None
-        task_approval_speed_score = None
-        task_review_effectiveness = None
-        planner_completion_score = None
-        mentor_score = None
-        kpi = None
-        band = ""
-        weights_used = {}
-        insufficient_reason = None
-        if role_cat == "executive":
-            band = "Executive"
-        elif not has_attendance_data:
-            # No GreytHR or biometric record — attendance would default to 0,
-            # making the KPI unfairly low. Flag as Insufficient Data instead.
-            band = "Insufficient Data"
-            insufficient_reason = "no-attendance"
-        elif source_confidence >= 50:
-            has_github = gc is not None
-
-            if role_cat == "management":
-                # Management KPI = Project Delivery 50% + Attendance 30% + Collaboration 20%
-                # Team avg KPI / task review effectiveness removed — org hierarchy not fully
-                # set up in Teams and managers don't log task approvals in Worklogix.
-                ps = pm_project_stats.get(emp_id)
-                if ps and ps["total"] > 0:
-                    project_delivery_score = round(
-                        min(100.0, (ps["onTime"] if ps["hasDueDates"] else ps["completed"]) / ps["total"] * 100), 1
-                    )
-                approval_scores = pm_approval_scores.get(emp_id)
-                task_approval_speed_score = round(statistics.mean(approval_scores), 1) if approval_scores else None
-                pm_project_score = project_delivery_score  # kept for the executive/UI "project performance" driver
-                _pl = graph_planner_by_id.get(clean(emp_id), {})
-                if _pl.get("assigned", 0) > 0:
-                    planner_completion_score = round(_pl["completed"] / _pl["assigned"] * 100, 1)
-                sla = pm_sla_counts.get(emp_id)
-                task_review_effectiveness = round(sla["within"] / sla["total"] * 100, 1) if sla and sla["total"] > 0 else None
-                kpi, weights_used = weighted_score([
-                    ("projectDelivery", project_delivery_score, 50),
-                    ("attendance", attendance_pct, 30),
-                    ("collaboration", teams_collab_pct, 20),
-                ])
-            elif role_cat == "intern":
-                # mentor_rating_pct = % of tickets the mentor has rated (True = rated)
-                _rated = stats["mentorRated"]
-                _total = stats["workItems"]
-                mentor_rating_pct = round(_rated / _total * 100, 1) if _rated > 0 and _total > 0 else None
-                kpi, weights_used = weighted_score([
-                    ("attendance", attendance_pct, 30),
-                    ("punctuality", punctuality_pct, 20),
-                    ("collaboration", teams_collab_pct, 20),
-                    ("mentorFeedback", mentor_rating_pct, 30),
-                ])
-            elif role_cat == "trainee":
-                _rated = stats["mentorRated"]
-                _total = stats["workItems"]
-                mentor_rating_pct = round(_rated / _total * 100, 1) if _rated > 0 and _total > 0 else None
-                # Fall back to monthly final_rating if available (403 blocked currently)
-                _monthly_rating = num(emp.get("worklogixScore", {}).get("rating"))
-                mentor_score = mentor_rating_pct or (round(_monthly_rating * 20, 1) if _monthly_rating else None)
-                kpi, weights_used = weighted_score([
-                    ("taskCompletion", task_completion_pct, 30),
-                    ("attendance", attendance_pct, 15),
-                    ("punctuality", punctuality_pct, 15),
-                    ("collaboration", teams_collab_pct, 10),
-                    ("mentorFeedback", mentor_score, 30),
-                ])
-            elif role_cat == "support":
-                _rated = stats["mentorRated"]
-                _total = stats["workItems"]
-                manager_rating_pct = round(_rated / _total * 100, 1) if _rated > 0 and _total > 0 else None
-                kpi, weights_used = weighted_score([
-                    ("attendance", attendance_pct, 25),
-                    ("punctuality", punctuality_pct, 15),
-                    ("collaboration", teams_collab_pct, 20),
-                    ("taskCompletion", task_completion_pct, 30),
-                    ("managerRatings", manager_rating_pct, 10),
-                ])
+        try:
+            stats = work_item_stats[emp_id]
+            gh = greythr_for_employee(emp_id, emp)
+            _wl_uid = clean(emp.get("user_id", ""))
+            bio = attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}") or Counter()
+            cal = calendar_data.get(emp_id)
+            sp = get_sharepoint_for(emp)
+            # Fewer than 3 biometric swipes for a full month = WFH or card-reader miss.
+            # Use GreytHR present count instead so profile shows realistic attendance.
+            _bio_sparse = bio["biometricDays"] < 3
+            present_days = (
+                gh["P"] if (_bio_sparse and gh["P"] > bio["biometricDays"])
+                else bio["biometricDays"]
+            ) or gh["P"]
+            tm = teams[emp_id]
+            monthly_final = emp.get("worklogixScore", {}).get("final", 0)
+            efficiency_hours = efficiency_hours_map.get(emp_id, stats["workHours"])
+            raw_efficiency = stats["weightedPointsCompleted"] / max(1, efficiency_hours)
+            efficiency_driver = minmax(raw_efficiency, all_efficiencies) if stats["workItems"] else 50
+            if monthly_final:
+                worklogix_score = monthly_final
+                has_real_worklogix = True
+            elif stats["workItems"]:
+                weighted_completion_rate = stats["weightedPointsCompleted"] / max(1, stats["totalWeightedPoints"])
+                approval_rate = stats["approval:approved"] / max(1, stats["workItems"])
+                efficiency_signal = efficiency_driver / 100
+                worklogix_score = (weighted_completion_rate * 55 + approval_rate * 25 + efficiency_signal * 20)
+                has_real_worklogix = True
             else:
-                # Technical KPI = Productivity 55% + Code Contribution 5% + Attendance 15%
-                #               + Punctuality 15% + Teams Collaboration 10%.
-                # Productivity = Task Completion Efficiency 60% + Approval Rate 15% + Priority Achievement 25%.
-                # Priority Achievement = (completed priority points / assigned priority points) x 100.
-                # Priority weights: High=5, Medium=3, Low=2 (applied when tasks are logged).
-                if task_completion_pct is not None:
-                    approval_rate = round(min(100.0, approved_tasks / completed_tasks * 100), 1) if completed_tasks else 0.0
-                    priority_achievement = round(
-                        stats["weightedPointsCompleted"] / max(1, stats["totalWeightedPoints"]) * 100, 1
-                    )
-                    productivity_score = round(
-                        task_completion_pct * 0.60 + approval_rate * 0.15 + priority_achievement * 0.25, 1
-                    )
-                code_contribution_score = round(github_score, 1) if has_github else None
-                kpi, weights_used = weighted_score([
-                    ("productivity", productivity_score, 55),
-                    ("codeContribution", code_contribution_score, 5),
-                    ("attendance", attendance_pct, 15),
-                    ("punctuality", punctuality_pct, 15),
-                    ("collaboration", teams_collab_pct, 10),
-                ])
-
-            if kpi is not None:
-                band = band_for_kpi(kpi)
+                worklogix_score = 50
+                has_real_worklogix = False
+            attendance_score = 100 - minmax(gh["A"], absence_counts, invert=False) if gh else minmax(bio["officeHours"], office_hours)
+            _wl_completion = emp.get("worklogixScore", {}).get("completion")
+            if _wl_completion:
+                task_completion_score = _wl_completion
+            elif stats["workItems"]:
+                task_completion_score = stats["status:Completed"] / max(1, stats["workItems"]) * 100
             else:
+                task_completion_score = None  # no Worklogix data — excluded from formula
+    
+            punctuality_score = 50  # resolved per-role after role_cat is known (below)
+    
+            # Collaboration: Teams activity messages + meetings if available.
+            # No match = no paid license (personal Teams) → neutral 50, not penalised.
+            # The old presence (isActive) fallback gave 0 for offline users, which
+            # incorrectly pushed support/management staff into Disengaged.
+            ta = get_teams_activity_for(emp)
+            if ta:
+                collab_signal = ta["messagesCount"] + ta["meetingCount"] * 2
+                collaboration_score = minmax(collab_signal, all_collab_signals)
+            else:
+                collaboration_score = 50
+    
+            # GitHub contribution
+            gc = get_github_for(emp)
+            github_score = minmax(gc["contributionScore"], all_github_scores) if gc else 0
+    
+            sources = {
+                "worklogix": emp_id in allowed_employee_ids,
+                "worklogixActivity": has_real_worklogix,
+                "greythr": bool(gh),
+                "biometrics": bool(attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}")),
+                "teams": bool(tm),
+                "calendar": cal is not None,
+                "sharepoint": sp is not None,
+                "github": gc is not None,
+            }
+            role_cat = get_role_category(emp.get("designation", ""))
+            # Leadership structure overrides: Senthil Kumar and Lexila T A are confirmed
+            # C-suite/leadership — exempt from KPI. Names/designations corrected here
+            # because Teams Graph API does not return their profiles reliably.
+            if emp_id == "CWINE053":
+                role_cat = "executive"
+                emp["name"] = "Senthil Kumar"
+                emp["designation"] = "People Manager"
+            if emp_id in {"CWINE154"}:
+                role_cat = "executive"
+            in_worklogix = emp_id in allowed_employee_ids
+            # Confidence uses only the 4 core sources — worklogixActivity and github
+            # are informational tags and must NOT dilute the confidence score.
+            core_sources = {k: sources[k] for k in ("worklogix", "greythr", "biometrics", "teams")}
+            if role_cat == "technical" or in_worklogix:
+                relevant = core_sources
+            else:
+                relevant = {k: v for k, v in core_sources.items() if k != "worklogix"}
+            source_confidence = round(sum(relevant.values()) / len(relevant) * 100)
+            # gh is truthy even when all entries are "Blank" (no real record).
+            # Require at least one meaningful status (P/A/OFF/H/Leave) to count as real data.
+            # validOfficeDays comes from Teams online presence — not physical attendance.
+            # Only biometricDays (actual swipe) counts as confirmed physical presence.
+            gh_has_real_data = bool(gh) and (gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["WFH"]) > 0
+            has_attendance_data = gh_has_real_data or bio["biometricDays"] > 0
+            # Punctuality cutoff depends on role:
+            #   intern/trainee → 9:00 AM + 15 min grace (9:15)
+            #   management     → 10:00 AM + 15 min grace (10:15)
+            #   everyone else  → 9:30 AM + 15 min grace (9:45)
+            if role_cat in ("intern", "trainee"):
+                _punct_key = "punctualityScore_9"
+            elif role_cat == "management":
+                _punct_key = "punctualityScore_10"
+            else:
+                _punct_key = "punctualityScore_930"
+            _punct_raw = bio.get(_punct_key)
+            if _bio_sparse:
+                # < 3 biometric swipes — WFH or card-reader miss; can't judge punctuality
+                punctuality_score = None
+            elif _punct_raw is not None:
+                punctuality_score = _punct_raw
+            elif bio["validOfficeDays"]:
+                avg_hrs = bio["officeHours"] / bio["validOfficeDays"]
+                punctuality_score = minmax(avg_hrs, avg_office_hours_list) if avg_office_hours_list else 50
+            else:
+                punctuality_score = 50
+            # --- KPI Calculation Framework: category-specific formulas ---
+            # Attendance / Punctuality / Collaboration are computed the same way for every
+            # category (they share identical formulas in the framework); only the weights
+            # and the extra category-specific sub-metrics differ below.
+            attendance_pct = compute_attendance_pct(gh, bio, attendance_score)
+            punctuality_pct = compute_punctuality_pct(_punct_raw, punctuality_score)
+            teams_collab_pct = compute_collaboration_pct(bio, ta, all_meeting_counts, collaboration_score, cal=cal)
+            assigned_tasks = stats["workItems"]
+            completed_tasks = stats["status:Completed"]
+            approved_tasks = stats["approval:approved"]
+            task_completion_pct = (
+                round(min(100.0, completed_tasks / assigned_tasks * 100), 1) if assigned_tasks else None
+            )
+    
+            pm_project_score = None
+            productivity_score = None
+            code_contribution_score = None
+            project_delivery_score = None
+            task_approval_speed_score = None
+            task_review_effectiveness = None
+            planner_completion_score = None
+            mentor_score = None
+            kpi = None
+            band = ""
+            weights_used = {}
+            insufficient_reason = None
+            if role_cat == "executive":
+                band = "Executive"
+            elif not has_attendance_data:
+                # No GreytHR or biometric record — attendance would default to 0,
+                # making the KPI unfairly low. Flag as Insufficient Data instead.
                 band = "Insufficient Data"
-                insufficient_reason = "no-scoreable-metrics"
-
-        # Quadrant: 2D grid of productivity vs attendance
-        # Executives are excluded; management/support/intern/trainee use collaboration as productivity proxy
-        if role_cat in ("management", "support", "intern", "trainee"):
-            prod_high = collaboration_score >= 60
-        else:
-            prod_high = worklogix_score >= 60
-        att_high = attendance_score >= 60
-        quadrant = quadrant_for(prod_high, att_high) if kpi is not None else ""
-
-        score_drivers = {
-            "productivity": round(productivity_score, 1) if productivity_score is not None else None,
-            # delivery and efficiency are the two heatmap columns the dashboard renders
-            "delivery": round(productivity_score, 1) if productivity_score is not None else (round(project_delivery_score, 1) if project_delivery_score is not None else None),
-            "efficiency": round(stats["weightedPointsCompleted"] / max(1, stats["totalWeightedPoints"]) * 100, 1),
-            "codeContribution": code_contribution_score,
-            "attendance": round(attendance_pct, 1) if attendance_pct is not None else None,
-            "taskCompletion": task_completion_pct,
-            "punctuality": round(punctuality_pct, 1) if role_cat not in ("management", "executive") else None,
-            "collaboration": round(teams_collab_pct, 1),
-            "github": round(github_score, 1),
-            "projectDelivery": project_delivery_score,
-            "taskApprovalSpeed": task_approval_speed_score,
-            "taskReviewEffectiveness": task_review_effectiveness if role_cat == "management" else None,
-            "plannerCompletion": planner_completion_score if role_cat == "management" else None,
-            "managerRatings": None,
-            "mentorFeedback": mentor_score,
-            "pmProjectScore": round(pm_project_score, 1) if pm_project_score is not None else None,
-        }
-        gap_analysis = build_gap_analysis(
-            sources, source_confidence,
-            {k: v for k, v in score_drivers.items() if isinstance(v, (int, float))},
-            kpi,
-        )
-        employee_rows.append({
-            **emp,
-            "kpi": kpi,
-            "band": band,
-            "quadrant": quadrant,
-            "roleCategory": role_cat,
-            # Diagnostic only — NOT nested in scoreDrivers, which the dashboard renders
-            # generically as a list of 0-100 percentage bars (a dict value would break that).
-            "weightsApplied": weights_used,
-            "sourceConfidence": source_confidence,
-            "sources": sources,
-            "worklogixScore": emp.get("worklogixScore", {}),
-            "worklogix": {
-                "workItems": stats["workItems"],
-                "completed": stats["status:Completed"],
-                "todo": stats["status:Todo"],
-                "inProgress": stats["status:In Progress"],
-                "approved": stats["approval:approved"],
-                "pending": stats["approval:pending"],
-                "blocked": stats["blocked"],
-                "workHours": round(stats["workHours"], 1),
-                "meetingHours": round(stats["meetingHours"], 1),
-                "priorityPoints": stats["priorityPoints"],
-                "weightedPointsCompleted": round(stats["weightedPointsCompleted"], 1),
-                "totalWeightedPoints": round(stats["totalWeightedPoints"], 1),
-                "efficiencyScore": round(raw_efficiency, 2),
-                "efficiencyHours": round(efficiency_hours, 1),
-            },
-            "attendance": {
-                # GreytHR half-session totals always equal the calendar days in the period.
-                # Use this as a hard cap so biometric rows leaked from adjacent months
-                # (e.g. validOfficeDays=33 in a 30-day June) are trimmed.
-                **( lambda c: {
-                    "present": min(present_days, c) if c else present_days,
-                    "absent": gh["A"],
-                    "off": gh["OFF"],
-                    "holidays": gh["H"],
-                    "leave": gh["Leave"],
-                    "wfh": gh["WFH"],
-                    "blank": gh["Blank"],
-                    "calendarDays": c,
-                    "biometricDays": min(bio["biometricDays"], c) if c else bio["biometricDays"],
-                    "validOfficeDays": min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"],
-                    "officeHours": round(
-                        # Cap total hours when biometric has more days than calendar period
-                        # (adjacent month leak: e.g. biometricDays=33 in a 30-day month)
-                        (bio["biometricWorkHours"] * c / bio["biometricDays"]
-                         if (c and bio["biometricDays"] > 0 and bio["biometricDays"] > c)
-                         else bio["biometricWorkHours"])
-                        if bio["biometricWorkDays"] > 0 else bio["officeHours"], 1
-                    ),
-                    "avgOfficeHours": round(
-                        bio["biometricWorkHours"] / bio["biometricWorkDays"] if bio["biometricWorkDays"] > 0
-                        else bio["officeHours"] / max(1, min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"]), 1
-                    ),
-                })(round(gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["WFH"] + gh["Blank"]) if gh else 0),
-                "avgCheckinHour": bio.get("avgCheckinHour"),
-                "avgCheckoutHour": bio.get("avgCheckoutHour"),
-                "officeLocation": bio.get("officeLocation", ""),
-                "punctualityScore": bio.get(_punct_key) if role_cat not in ("management", "executive") else None,
-                "teamsAvailableHours": round(bio.get("teamsAvailableHours", bio["officeHours"]), 1),
-                "teamsAwayHours": round(bio.get("teamsAwayHours", 0), 1),
-                "teamsOfflineHours": round(bio.get("teamsOfflineHours", 0), 1),
-            },
-            "teams": {
-                "status": tm.get("status", ""),
-                "workLocation": tm.get("workLocation", ""),
-                "isActive": tm["isActive"],
-                "isAway": tm["isAway"],
-                "isOffline": tm["isOffline"],
-                "isOutOfOffice": tm["isOutOfOffice"],
-                "reports": tm["reports"],
-                "activityMatched": ta is not None,
-                "meetingHours": ta["meetingHours"] if ta else 0,
-                "videoCallHours": ta["videoCallHours"] if ta else 0,
-                "screenShareHours": ta["screenShareHours"] if ta else 0,
-                "callCount": ta["callCount"] if ta else 0,
-                "meetingCount": ta["meetingCount"] if ta else 0,
-                "messagesCount": ta["messagesCount"] if ta else 0,
-                "teamMessages": ta["teamMessages"] if ta else 0,
-                "privateMessages": ta["privateMessages"] if ta else 0,
-            },
-            "calendar": {
-                "invited": cal["invited"],
-                "attended": cal["attended"],
-                "attendanceRate": round(cal["attended"] / cal["invited"] * 100, 1) if cal["invited"] > 0 else 0,
-            } if cal else None,
-            "sharepoint": {
-                "filesViewed": sp["filesViewed"],
-                "filesSynced": sp["filesSynced"],
-                "filesShared": sp["filesShared"],
-                "pageVisits": sp["pageVisits"],
-            } if sp else None,
-            "github": {
-                "login": gc["login"],
-                "commits": gc["commits"],
-                "prs": gc["prs"],
-                "done": gc["done"],
-                "total": gc["total"],
-                "contributionScore": gc["contributionScore"],
-            } if gc else None,
-            "scoreDrivers": score_drivers,
-            "missingSources": gap_analysis["missingSources"],
-            "laggingDrivers": gap_analysis["laggingDrivers"],
-            "gapReason": gap_analysis["gapReason"],
-            "insufficientReason": insufficient_reason,
-            **({
-                "dateOfJoining": gm["date_of_joining"],
-                "employmentType": gm["employment_type"],
-            } if (gm := greythr_master_by_name.get(normalize_name(emp.get("name", "")))) else {}),
-        })
+                insufficient_reason = "no-attendance"
+            elif source_confidence >= 50:
+                has_github = gc is not None
+    
+                if role_cat == "management":
+                    # Management KPI = Project Delivery 50% + Attendance 30% + Collaboration 20%
+                    # Team avg KPI / task review effectiveness removed — org hierarchy not fully
+                    # set up in Teams and managers don't log task approvals in Worklogix.
+                    ps = pm_project_stats.get(emp_id)
+                    if ps and ps["total"] > 0:
+                        project_delivery_score = round(
+                            min(100.0, (ps["onTime"] if ps["hasDueDates"] else ps["completed"]) / ps["total"] * 100), 1
+                        )
+                    approval_scores = pm_approval_scores.get(emp_id)
+                    task_approval_speed_score = round(statistics.mean(approval_scores), 1) if approval_scores else None
+                    pm_project_score = project_delivery_score  # kept for the executive/UI "project performance" driver
+                    _pl = graph_planner_by_id.get(clean(emp_id), {})
+                    if _pl.get("assigned", 0) > 0:
+                        planner_completion_score = round(_pl["completed"] / _pl["assigned"] * 100, 1)
+                    sla = pm_sla_counts.get(emp_id)
+                    task_review_effectiveness = round(sla["within"] / sla["total"] * 100, 1) if sla and sla["total"] > 0 else None
+                    kpi, weights_used = weighted_score([
+                        ("projectDelivery", project_delivery_score, 50),
+                        ("attendance", attendance_pct, 30),
+                        ("collaboration", teams_collab_pct, 20),
+                    ])
+                elif role_cat == "intern":
+                    # mentor_rating_pct = % of tickets the mentor has rated (True = rated)
+                    _rated = stats["mentorRated"]
+                    _total = stats["workItems"]
+                    mentor_rating_pct = round(_rated / _total * 100, 1) if _rated > 0 and _total > 0 else None
+                    kpi, weights_used = weighted_score([
+                        ("attendance", attendance_pct, 30),
+                        ("punctuality", punctuality_pct, 20),
+                        ("collaboration", teams_collab_pct, 20),
+                        ("mentorFeedback", mentor_rating_pct, 30),
+                    ])
+                elif role_cat == "trainee":
+                    _rated = stats["mentorRated"]
+                    _total = stats["workItems"]
+                    mentor_rating_pct = round(_rated / _total * 100, 1) if _rated > 0 and _total > 0 else None
+                    # Fall back to monthly final_rating if available (403 blocked currently)
+                    _monthly_rating = num(emp.get("worklogixScore", {}).get("rating"))
+                    mentor_score = mentor_rating_pct or (round(_monthly_rating * 20, 1) if _monthly_rating else None)
+                    kpi, weights_used = weighted_score([
+                        ("taskCompletion", task_completion_pct, 30),
+                        ("attendance", attendance_pct, 15),
+                        ("punctuality", punctuality_pct, 15),
+                        ("collaboration", teams_collab_pct, 10),
+                        ("mentorFeedback", mentor_score, 30),
+                    ])
+                elif role_cat == "support":
+                    _rated = stats["mentorRated"]
+                    _total = stats["workItems"]
+                    manager_rating_pct = round(_rated / _total * 100, 1) if _rated > 0 and _total > 0 else None
+                    kpi, weights_used = weighted_score([
+                        ("attendance", attendance_pct, 25),
+                        ("punctuality", punctuality_pct, 15),
+                        ("collaboration", teams_collab_pct, 20),
+                        ("taskCompletion", task_completion_pct, 30),
+                        ("managerRatings", manager_rating_pct, 10),
+                    ])
+                else:
+                    # Technical KPI = Productivity 55% + Code Contribution 5% + Attendance 15%
+                    #               + Punctuality 15% + Teams Collaboration 10%.
+                    # Productivity = Task Completion Efficiency 60% + Approval Rate 15% + Priority Achievement 25%.
+                    # Priority Achievement = (completed priority points / assigned priority points) x 100.
+                    # Priority weights: High=5, Medium=3, Low=2 (applied when tasks are logged).
+                    if task_completion_pct is not None:
+                        approval_rate = round(min(100.0, approved_tasks / completed_tasks * 100), 1) if completed_tasks else 0.0
+                        priority_achievement = round(
+                            stats["weightedPointsCompleted"] / max(1, stats["totalWeightedPoints"]) * 100, 1
+                        )
+                        productivity_score = round(
+                            task_completion_pct * 0.60 + approval_rate * 0.15 + priority_achievement * 0.25, 1
+                        )
+                    code_contribution_score = round(github_score, 1) if has_github else None
+                    kpi, weights_used = weighted_score([
+                        ("productivity", productivity_score, 55),
+                        ("codeContribution", code_contribution_score, 5),
+                        ("attendance", attendance_pct, 15),
+                        ("punctuality", punctuality_pct, 15),
+                        ("collaboration", teams_collab_pct, 10),
+                    ])
+    
+                if kpi is not None:
+                    band = band_for_kpi(kpi)
+                else:
+                    band = "Insufficient Data"
+                    insufficient_reason = "no-scoreable-metrics"
+    
+            # Quadrant: 2D grid of productivity vs attendance
+            # Executives are excluded; management/support/intern/trainee use collaboration as productivity proxy
+            if role_cat in ("management", "support", "intern", "trainee"):
+                prod_high = collaboration_score >= 60
+            else:
+                prod_high = worklogix_score >= 60
+            att_high = attendance_score >= 60
+            quadrant = quadrant_for(prod_high, att_high) if kpi is not None else ""
+    
+            score_drivers = {
+                "productivity": round(productivity_score, 1) if productivity_score is not None else None,
+                # delivery and efficiency are the two heatmap columns the dashboard renders
+                "delivery": round(productivity_score, 1) if productivity_score is not None else (round(project_delivery_score, 1) if project_delivery_score is not None else None),
+                "efficiency": round(stats["weightedPointsCompleted"] / max(1, stats["totalWeightedPoints"]) * 100, 1),
+                "codeContribution": code_contribution_score,
+                "attendance": round(attendance_pct, 1) if attendance_pct is not None else None,
+                "taskCompletion": task_completion_pct,
+                "punctuality": round(punctuality_pct, 1) if (punctuality_pct is not None and role_cat not in ("management", "executive")) else None,
+                "collaboration": round(teams_collab_pct, 1),
+                "github": round(github_score, 1),
+                "projectDelivery": project_delivery_score,
+                "taskApprovalSpeed": task_approval_speed_score,
+                "taskReviewEffectiveness": task_review_effectiveness if role_cat == "management" else None,
+                "plannerCompletion": planner_completion_score if role_cat == "management" else None,
+                "managerRatings": None,
+                "mentorFeedback": mentor_score,
+                "pmProjectScore": round(pm_project_score, 1) if pm_project_score is not None else None,
+            }
+            gap_analysis = build_gap_analysis(
+                sources, source_confidence,
+                {k: v for k, v in score_drivers.items() if isinstance(v, (int, float))},
+                kpi,
+            )
+            employee_rows.append({
+                **emp,
+                "kpi": kpi,
+                "band": band,
+                "quadrant": quadrant,
+                "roleCategory": role_cat,
+                # Diagnostic only — NOT nested in scoreDrivers, which the dashboard renders
+                # generically as a list of 0-100 percentage bars (a dict value would break that).
+                "weightsApplied": weights_used,
+                "sourceConfidence": source_confidence,
+                "sources": sources,
+                "worklogixScore": emp.get("worklogixScore", {}),
+                "worklogix": {
+                    "workItems": stats["workItems"],
+                    "completed": stats["status:Completed"],
+                    "todo": stats["status:Todo"],
+                    "inProgress": stats["status:In Progress"],
+                    "approved": stats["approval:approved"],
+                    "pending": stats["approval:pending"],
+                    "blocked": stats["blocked"],
+                    "workHours": round(stats["workHours"], 1),
+                    "meetingHours": round(stats["meetingHours"], 1),
+                    "priorityPoints": stats["priorityPoints"],
+                    "weightedPointsCompleted": round(stats["weightedPointsCompleted"], 1),
+                    "totalWeightedPoints": round(stats["totalWeightedPoints"], 1),
+                    "efficiencyScore": round(raw_efficiency, 2),
+                    "efficiencyHours": round(efficiency_hours, 1),
+                },
+                "attendance": {
+                    # GreytHR half-session totals always equal the calendar days in the period.
+                    # Use this as a hard cap so biometric rows leaked from adjacent months
+                    # (e.g. validOfficeDays=33 in a 30-day June) are trimmed.
+                    **( lambda c: {
+                        "present": min(present_days, c) if c else present_days,
+                        "absent": gh["A"],
+                        "off": gh["OFF"],
+                        "holidays": gh["H"],
+                        "leave": gh["Leave"],
+                        "wfh": gh["WFH"],
+                        "blank": gh["Blank"],
+                        "calendarDays": c,
+                        "biometricDays": min(bio["biometricDays"], c) if c else bio["biometricDays"],
+                        "validOfficeDays": min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"],
+                        "officeHours": round(
+                            # Cap total hours when biometric has more days than calendar period
+                            # (adjacent month leak: e.g. biometricDays=33 in a 30-day month)
+                            (bio["biometricWorkHours"] * c / bio["biometricDays"]
+                             if (c and bio["biometricDays"] > 0 and bio["biometricDays"] > c)
+                             else bio["biometricWorkHours"])
+                            if bio["biometricWorkDays"] > 0 else bio["officeHours"], 1
+                        ),
+                        "avgOfficeHours": round(
+                            bio["biometricWorkHours"] / bio["biometricWorkDays"] if bio["biometricWorkDays"] > 0
+                            else bio["officeHours"] / max(1, min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"]), 1
+                        ),
+                    })(round(gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["WFH"] + gh["Blank"]) if gh else 0),
+                    "avgCheckinHour": bio.get("avgCheckinHour"),
+                    "avgCheckoutHour": bio.get("avgCheckoutHour"),
+                    "officeLocation": bio.get("officeLocation", ""),
+                    "punctualityScore": bio.get(_punct_key) if role_cat not in ("management", "executive") else None,
+                    "teamsAvailableHours": round(bio.get("teamsAvailableHours", bio["officeHours"]), 1),
+                    "teamsAwayHours": round(bio.get("teamsAwayHours", 0), 1),
+                    "teamsOfflineHours": round(bio.get("teamsOfflineHours", 0), 1),
+                },
+                "teams": {
+                    "status": tm.get("status", ""),
+                    "workLocation": tm.get("workLocation", ""),
+                    "isActive": tm["isActive"],
+                    "isAway": tm["isAway"],
+                    "isOffline": tm["isOffline"],
+                    "isOutOfOffice": tm["isOutOfOffice"],
+                    "reports": tm["reports"],
+                    "activityMatched": ta is not None,
+                    "meetingHours": ta["meetingHours"] if ta else 0,
+                    "videoCallHours": ta["videoCallHours"] if ta else 0,
+                    "screenShareHours": ta["screenShareHours"] if ta else 0,
+                    "callCount": ta["callCount"] if ta else 0,
+                    "meetingCount": ta["meetingCount"] if ta else 0,
+                    "messagesCount": ta["messagesCount"] if ta else 0,
+                    "teamMessages": ta["teamMessages"] if ta else 0,
+                    "privateMessages": ta["privateMessages"] if ta else 0,
+                },
+                "calendar": {
+                    "invited": cal["invited"],
+                    "attended": cal["attended"],
+                    "attendanceRate": round(cal["attended"] / cal["invited"] * 100, 1) if cal["invited"] > 0 else 0,
+                } if cal else None,
+                "sharepoint": {
+                    "filesViewed": sp["filesViewed"],
+                    "filesSynced": sp["filesSynced"],
+                    "filesShared": sp["filesShared"],
+                    "pageVisits": sp["pageVisits"],
+                } if sp else None,
+                "github": {
+                    "login": gc["login"],
+                    "commits": gc["commits"],
+                    "prs": gc["prs"],
+                    "done": gc["done"],
+                    "total": gc["total"],
+                    "contributionScore": gc["contributionScore"],
+                } if gc else None,
+                "scoreDrivers": score_drivers,
+                "missingSources": gap_analysis["missingSources"],
+                "laggingDrivers": gap_analysis["laggingDrivers"],
+                "gapReason": gap_analysis["gapReason"],
+                "insufficientReason": insufficient_reason,
+                **({
+                    "dateOfJoining": gm["date_of_joining"],
+                    "employmentType": gm["employment_type"],
+                } if (gm := greythr_master_by_name.get(normalize_name(emp.get("name", "")))) else {}),
+            })
+        except Exception as _emp_exc:
+            import traceback
+            _emp_name = emp.get('name', '?')
+            print(f"WARNING: skipping employee {emp_id} ({_emp_name}) due to error: {_emp_exc}", file=sys.stderr)
+            traceback.print_exc()
 
     # --- Executive KPI: average KPI of direct reportees (from Teams org chart) ---
     try:
