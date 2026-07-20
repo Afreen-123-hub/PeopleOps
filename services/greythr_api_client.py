@@ -324,17 +324,16 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
             if not _is_weekend and _attendance_bucket(summary.get("session1Label", "")) == "P":
                 fit_h = _parse_hour(summary.get("firstInTime"), utc_to_ist=False)
                 lot_h = _parse_hour(summary.get("lastOutTime"), utc_to_ist=False)
-                # Shift start in IST (shift.startTime stored as UTC)
+                # Shift start in IST (shift.startTime stored as UTC); +0.25 = 15-min grace
                 shift_start_h = _parse_hour((summary.get("shift") or {}).get("startTime"), utc_to_ist=True)
+                cutoff = (shift_start_h + 0.25) if shift_start_h is not None else 10.25
                 # Skip days where firstInTime == shift start exactly — GreytHR uses
                 # the shift start as a fallback default when no biometric swipe was recorded.
                 fit_is_default = (fit_h is not None and shift_start_h is not None and fit_h == shift_start_h)
                 if fit_h is not None and not fit_is_default:
                     raw_by_employee_id[emp_id]["_cinSum"] += fit_h
                     raw_by_employee_id[emp_id]["_cinCount"] += 1
-                    raw_by_employee_id[emp_id]["_onTime9"]   += (1 if fit_h <= 9.25  else 0)  # 9:15 AM
-                    raw_by_employee_id[emp_id]["_onTime930"] += (1 if fit_h <= 9.75  else 0)  # 9:45 AM
-                    raw_by_employee_id[emp_id]["_onTime10"]  += (1 if fit_h <= 10.25 else 0)  # 10:15 AM
+                    raw_by_employee_id[emp_id]["_onTime"] += (1 if fit_h <= cutoff else 0)
                 if lot_h is not None:
                     raw_by_employee_id[emp_id]["_coutSum"] += lot_h
                     raw_by_employee_id[emp_id]["_coutCount"] += 1
@@ -343,14 +342,12 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
     for emp_id, counter in raw_by_employee_id.items():
         cin_n = counter.get("_cinCount", 0)
         if cin_n > 0:
-            counter["avgCheckinHour_gh"]      = round(counter["_cinSum"] / cin_n, 2)
-            counter["punctualityScore_gh_9"]   = round(counter["_onTime9"]   / cin_n * 100, 1)
-            counter["punctualityScore_gh_930"] = round(counter["_onTime930"] / cin_n * 100, 1)
-            counter["punctualityScore_gh_10"]  = round(counter["_onTime10"]  / cin_n * 100, 1)
+            counter["avgCheckinHour_gh"]    = round(counter["_cinSum"] / cin_n, 2)
+            counter["punctualityScore_gh"]  = round(counter["_onTime"] / cin_n * 100, 1)
         cout_n = counter.get("_coutCount", 0)
         if cout_n > 0:
             counter["avgCheckoutHour_gh"] = round(counter["_coutSum"] / cout_n, 2)
-        for k in ("_cinSum", "_cinCount", "_onTime9", "_onTime930", "_onTime10", "_coutSum", "_coutCount"):
+        for k in ("_cinSum", "_cinCount", "_onTime", "_coutSum", "_coutCount"):
             counter.pop(k, None)
 
     result: dict[str, Counter] = {}
