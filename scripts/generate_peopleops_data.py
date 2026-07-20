@@ -1110,11 +1110,8 @@ def main():
             stats["mentorRated"] += 1
         project_hours[clean(row.get("project_id"))] += stats["workHours"]
 
-    print(f"CHECKPOINT: work_item_stats done, {len(work_item_stats)} employees", flush=True)
     greythr_start, greythr_end = resolve_greythr_date_range(target_period)
-    print(f"CHECKPOINT: calling read_greythr_api({greythr_start}, {greythr_end})", flush=True)
     greythr, greythr_master, greythr_dept = read_greythr_api(greythr_start, greythr_end)
-    print(f"CHECKPOINT: greythr done, calling read_teams_api", flush=True)
     # Build name-keyed lookup for joining date matching (CWINE employees only)
     greythr_master_by_name = {
         normalize_name(info.get("name", "")): info
@@ -1122,7 +1119,6 @@ def main():
         if info.get("name")
     }
     teams = read_teams_api(users)
-    print(f"CHECKPOINT: teams done", flush=True)
 
     # Apply designation overrides after all API calls:
     # 1. Teams jobTitle (read_teams_api may have updated users[emp_id]["designation"])
@@ -1140,22 +1136,16 @@ def main():
         if gt_desig and get_role_category(gt_desig) != "executive" and emp_id not in {"CWINE053", "CWINE154"}:
             emp["designation"] = gt_desig
     presence_month = to_presence_month_label(target_period) or to_presence_month_label(greythr_start)
-    print(f"CHECKPOINT: presence_month={presence_month!r}, calling read_biometric_api", flush=True)
     attendance = read_biometric_api(presence_month)
-    print(f"CHECKPOINT: biometric done, calling read_teams_activity_report", flush=True)
     teams_activity = read_teams_activity_report()
-    print(f"CHECKPOINT: teams_activity done, calling read_calendar_data", flush=True)
     teams_id_map_cal = {
         clean(user.get("ms_teams_id")): emp_id
         for emp_id, user in users.items()
         if clean(user.get("ms_teams_id"))
     }
     calendar_data = read_calendar_data(teams_id_map_cal, greythr_start, greythr_end)
-    print(f"CHECKPOINT: calendar done, calling read_sharepoint_activity", flush=True)
     sharepoint_data = read_sharepoint_activity()
-    print(f"CHECKPOINT: sharepoint done, calling load_github_contributions", flush=True)
     github_contributions = load_github_contributions()
-    print(f"CHECKPOINT: github done, starting KPI loop", flush=True)
     import gc; gc.collect()  # free API loader DataFrames before computation
 
     def greythr_for_employee(emp_id, emp):
