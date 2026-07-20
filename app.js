@@ -477,7 +477,7 @@ async function fetchGlobalAttendanceMonth(month) {
       body: JSON.stringify({ month }),
     });
     const payload = await res.json();
-    if (!res.ok || payload.status === "failed") {
+    if (!res.ok || payload.status === "failed" || payload.status === "busy") {
       const detail = payload.message || payload.error || "Failed to refresh";
       const diag = payload.stdout ? `\n\nDiagnostic: ${payload.stdout.split("\n").slice(-6).join(" | ")}` : "";
       throw new Error(detail + diag);
