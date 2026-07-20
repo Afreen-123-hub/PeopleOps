@@ -1484,7 +1484,9 @@ def main():
                 _punct_key = "punctualityScore_10"
             else:
                 _punct_key = "punctualityScore_930"
-            _punct_raw = bio.get(_punct_key)
+            # Prefer GreytHR punctuality (uses firstInTime from real swipe) over biometric API
+            _gh_punct = gh.get("punctualityScore_gh") if gh else None
+            _punct_raw = _gh_punct if _gh_punct is not None else bio.get(_punct_key)
             if _bio_sparse:
                 # < 3 biometric swipes — WFH or card-reader miss; can't judge punctuality
                 punctuality_score = None
@@ -1707,8 +1709,8 @@ def main():
                             else bio["officeHours"] / max(1, min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"]), 1
                         ),
                     })(round(gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["WFH"] + gh["Blank"]) if gh else 0),
-                    "avgCheckinHour": bio.get("avgCheckinHour"),
-                    "avgCheckoutHour": bio.get("avgCheckoutHour"),
+                    "avgCheckinHour": gh.get("avgCheckinHour_gh") if gh else bio.get("avgCheckinHour"),
+                    "avgCheckoutHour": gh.get("avgCheckoutHour_gh") if gh else bio.get("avgCheckoutHour"),
                     "officeLocation": bio.get("officeLocation", ""),
                     "punctualityScore": bio.get(_punct_key) if role_cat not in ("management", "executive") else None,
                     "teamsAvailableHours": round(bio.get("teamsAvailableHours", bio["officeHours"]), 1),
