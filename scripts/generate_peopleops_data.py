@@ -552,13 +552,11 @@ def compute_punctuality_pct(selected_raw, fallback):
 def compute_collaboration_pct(bio, ta, all_meeting_counts, fallback, cal=None):
     """Teams Collaboration = (Availability Score x 50%) + (Meeting Score x 50%).
     Availability Score = Productive Hours / Total Tracked Hours x 100 (Teams presence).
-    Meeting Score: uses actual Attended/Invited x 100 from Calendar API when available,
-    otherwise falls back to minmax of meeting count from the Teams activity report."""
+    Meeting Score: uses Teams meeting count (actual time in calls) as primary signal.
+    Calendar API acceptance rate is unreliable — many people join without clicking Accept."""
     avail_total = bio.get("teamsAvailableHours", 0) + bio.get("teamsAwayHours", 0) + bio.get("teamsOfflineHours", 0)
     availability_score = (bio.get("teamsAvailableHours", 0) / avail_total * 100) if avail_total > 0 else None
-    if cal and cal.get("invited", 0) > 0:
-        meeting_score = round(cal["attended"] / cal["invited"] * 100, 1)
-    elif ta:
+    if ta:
         meeting_score = minmax(ta["meetingCount"], all_meeting_counts)
     else:
         meeting_score = None
