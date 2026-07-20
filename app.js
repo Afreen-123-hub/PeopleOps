@@ -1973,6 +1973,7 @@ function showProjDetail(projId) {
       <tbody>${memberRows}</tbody>
     </table>` : `<p class="proj-empty">No individual task data available for this project.</p>`;
 
+  document.querySelectorAll("dialog[open]").forEach(d => d.close());
   document.getElementById("projDetailDialog").showModal();
 }
 
@@ -2302,6 +2303,7 @@ function showEmployee(e) {
 
     </section>
   `;
+  document.querySelectorAll("dialog[open]").forEach(d => d.close());
   document.getElementById("employeeDialog").showModal();
   requestAnimationFrame(() => {
     const rc = document.getElementById("radarChart");
@@ -2524,6 +2526,7 @@ function showGhContributor(login) {
     ` : `<p style="color:var(--muted);margin-top:16px">No tasks assigned in this period.</p>`}
     </div>
   `;
+  document.querySelectorAll("dialog[open]").forEach(d => d.close());
   document.getElementById("ghContribDialog").showModal();
 }
 
