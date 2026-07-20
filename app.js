@@ -478,13 +478,14 @@ async function fetchGlobalAttendanceMonth(month) {
     });
     const payload = await res.json();
     if (!res.ok) throw new Error(payload.message || payload.error || "Failed to refresh");
-    // Use data returned in response — never reload the main data file
-    if (payload.data && payload.data.employees) {
-      dataset = payload.data;
-      applyFilters();
+    if (!payload.data || !payload.data.employees || payload.data.employees.length === 0) {
+      throw new Error(`No data available for ${label}. Try the current or previous month.`);
     }
+    dataset = payload.data;
+    applyFilters();
+    const actualPeriod = payload.period || label;
     status.className = "graph-attendance-status success";
-    status.textContent = `✓ Loaded ${label} — all systems updated`;
+    status.textContent = `✓ Loaded ${actualPeriod} (${payload.employees} employees)`;
   } catch (err) {
     status.className = "graph-attendance-status error";
     status.textContent = `✗ ${err.message}`;

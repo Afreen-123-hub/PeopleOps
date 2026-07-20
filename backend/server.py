@@ -432,6 +432,12 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             data = json.loads(DATA_FILE_MONTH.read_text(encoding="utf-8-sig"))
         except Exception:
             data = {}
+        if not data.get("employees"):
+            self.send_json({
+                "status": "failed",
+                "message": f"No employee data was generated for {month}. The APIs may not have data for that period.",
+            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+            return
         self.send_json({
             "status": "refreshed",
             "month": month,
