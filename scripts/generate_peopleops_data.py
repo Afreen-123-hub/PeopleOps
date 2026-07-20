@@ -1484,8 +1484,9 @@ def main():
                 _punct_key = "punctualityScore_10"
             else:
                 _punct_key = "punctualityScore_930"
-            # Prefer GreytHR punctuality (uses firstInTime from real swipe) over biometric API
-            _gh_punct = gh.get("punctualityScore_gh") if gh else None
+            # Prefer GreytHR punctuality (uses firstInTime, role-matched cutoff) over biometric API
+            _gh_punct_key = _punct_key.replace("punctualityScore_", "punctualityScore_gh_")
+            _gh_punct = gh.get(_gh_punct_key) if gh else None
             _punct_raw = _gh_punct if _gh_punct is not None else bio.get(_punct_key)
             if _bio_sparse:
                 # < 3 biometric swipes — WFH or card-reader miss; can't judge punctuality
