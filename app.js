@@ -477,9 +477,13 @@ async function fetchGlobalAttendanceMonth(month) {
       body: JSON.stringify({ month }),
     });
     const payload = await res.json();
-    if (!res.ok) throw new Error(payload.message || payload.error || "Failed to refresh");
+    if (!res.ok || payload.status === "failed") {
+      const detail = payload.message || payload.error || "Failed to refresh";
+      const diag = payload.stdout ? `\n\nDiagnostic: ${payload.stdout.split("\n").slice(-6).join(" | ")}` : "";
+      throw new Error(detail + diag);
+    }
     if (!payload.data || !payload.data.employees || payload.data.employees.length === 0) {
-      throw new Error(`No data available for ${label}. Try the current or previous month.`);
+      throw new Error(`No employee data returned for ${label}. Try the current month instead.`);
     }
     dataset = payload.data;
     applyFilters();

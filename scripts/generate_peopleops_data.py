@@ -996,6 +996,22 @@ def main():
     all_users = {clean(r["id"]): r for r in worklogix["users"]}
     all_users = {k: v for k, v in all_users.items() if k}
     users = {emp_id: user for emp_id, user in all_users.items() if is_real_employee(user)}
+    print(f"Worklogix employees: total={len(all_users)}, real={len(users)}", flush=True)
+    if not users:
+        _reasons = Counter()
+        for _uid, _u in all_users.items():
+            if clean(_u.get("is_active")).lower() != "true":
+                _reasons["is_active!=true"] += 1
+            elif clean(_u.get("role")) == "7" or _uid.startswith("CLT"):
+                _reasons["role7/CLT"] += 1
+            else:
+                _reasons["other_filter"] += 1
+        _raw_count = len({clean(r["id"]): r for r in worklogix["users"] if clean(r.get("id"))})
+        print(f"ERROR: Worklogix returned {_raw_count} employees but 0 passed is_real_employee. "
+              f"Filter breakdown: {dict(_reasons)}. "
+              f"Sample is_active values: {list(set(str(u.get('is_active', '')) for u in list(all_users.values())[:5]))}",
+              file=sys.stderr)
+        sys.exit(1)
     allowed_employee_ids = set(users)
     all_daily_rows = worklogix["daily"]
     month_counts = Counter(clean(r.get("month")) for r in all_daily_rows if clean(r.get("month")))

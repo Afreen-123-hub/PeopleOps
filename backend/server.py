@@ -433,9 +433,16 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         except Exception:
             data = {}
         if not data.get("employees"):
+            # Extract the most descriptive error line from generator output
+            diag = next(
+                (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
+                "",
+            )
+            message = diag or f"No employee data was generated for {month}. Check Worklogix API connectivity."
             self.send_json({
                 "status": "failed",
-                "message": f"No employee data was generated for {month}. The APIs may not have data for that period.",
+                "message": message,
+                "stdout": result.stdout[-3000:] if result.stdout else "",
             }, HTTPStatus.INTERNAL_SERVER_ERROR)
             return
         self.send_json({
