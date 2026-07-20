@@ -3177,7 +3177,11 @@ tbody tr.row-no-data:hover {
 .projd-mini-bar-wrap { flex: 1; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
 .projd-mini-bar-fill { height: 100%; border-radius: 3px; }
 
-dialog {
+dialog:not([open]) {
+  display: none;
+}
+
+dialog[open] {
   width: min(760px, calc(100vw - 28px));
   height: min(90vh, 880px);
   max-height: min(90vh, 880px);
