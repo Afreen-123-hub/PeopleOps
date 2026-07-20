@@ -543,8 +543,10 @@ def compute_attendance_pct(gh, bio, fallback):
 
 def compute_punctuality_pct(selected_raw, fallback):
     """Punctuality = (On-time Days / Working Days) x 100.
-    selected_raw is the biometric score pre-chosen by role (9:15 or 9:45 cutoff)."""
-    return round(selected_raw, 1) if selected_raw is not None else round(fallback, 1)
+    selected_raw is the biometric score pre-chosen by role (9:15 or 9:45 cutoff).
+    Returns None when both inputs are None (e.g. WFH employees with sparse biometric data)."""
+    val = selected_raw if selected_raw is not None else fallback
+    return round(val, 1) if val is not None else None
 
 
 def compute_collaboration_pct(bio, ta, all_meeting_counts, fallback, cal=None):
