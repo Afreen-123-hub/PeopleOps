@@ -641,6 +641,7 @@ function setupFilters() {
   document.getElementById("refreshKpi").addEventListener("click", refreshKpiPerformance);
   document.getElementById("clearKpiTeam").addEventListener("click", clearKpiTeamFilter);
   document.getElementById("closeDialog").addEventListener("click", () => document.getElementById("employeeDialog").close());
+  document.getElementById("employeeDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
   document.getElementById("closeGhContribDialog").addEventListener("click", () => document.getElementById("ghContribDialog").close());
   document.getElementById("graphRefreshButton")?.addEventListener("click", () => refreshGraph());
   populateAttendanceOptions();

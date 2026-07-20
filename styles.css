@@ -3179,10 +3179,20 @@ tbody tr.row-no-data:hover {
 
 dialog {
   width: min(760px, calc(100vw - 28px));
+  max-height: min(90vh, 880px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
   border: 0;
   border-radius: 8px;
   padding: 0;
   box-shadow: 0 24px 80px rgba(16, 23, 39, 0.32);
+}
+
+#employeeDetail {
+  overflow-y: auto;
+  flex: 1;
 }
 
 dialog::backdrop {
@@ -3210,7 +3220,15 @@ dialog::backdrop {
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  margin-bottom: 16px;
+  /* Stick to top of the scrolling #employeeDetail container */
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--panel);
+  /* Stretch to cover the parent padding so background fills edge-to-edge */
+  margin: -28px -28px 16px;
+  padding: 24px 60px 16px 28px; /* right pad leaves room for the X button */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 .emp-detail-avatar {
   width: 52px; height: 52px;
