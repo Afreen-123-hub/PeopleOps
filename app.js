@@ -907,21 +907,25 @@ async function refreshKpiPerformance() {
     status.textContent = DEMO_REFRESH_MESSAGE;
     return;
   }
+  const monthInput = document.getElementById("globalMonthInput");
+  const month = monthInput?.value || new Date().toISOString().slice(0, 7);
   status.textContent = "Refreshing…";
   try {
-    const res = await apiFetch("/api/refresh-month", { method: "POST" });
+    const res = await apiFetch("/api/refresh-month", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ month }),
+    });
     if (!res) return;
-    if (res.ok) {
-      status.textContent = "Refreshed — reloading…";
-      dataset = await loadDataset();
-      if (dataset) {
-        filteredEmployees = dataset.employees.filter(e => !isIntern(e));
-        applyFilters();
-        status.textContent = "KPI data updated ✓";
-      }
+    const payload = await res.json().catch(() => ({}));
+    if (res.ok && payload.data?.employees?.length) {
+      dataset = payload.data;
+      filteredEmployees = dataset.employees.filter(e => !isIntern(e));
+      applyFilters();
+      updateGlobalMonthLabel();
+      status.textContent = `KPI data updated ✓ (${payload.period || month})`;
     } else {
-      const body = await res.json().catch(() => ({}));
-      status.textContent = body.message || "Refresh failed — try again";
+      status.textContent = payload.message || "Refresh failed — try again";
     }
   } catch {
     status.textContent = "Refresh failed — check connection";

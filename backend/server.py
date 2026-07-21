@@ -738,9 +738,9 @@ def _run_full_refresh_pipeline():
 
 
 def _auto_refresh_loop():
-    """Background thread: refresh all data on startup then every AUTO_REFRESH_INTERVAL seconds."""
-    # Wait 30 s after startup so the server is fully up before the first run
-    time.sleep(30)
+    """Background thread: refresh all data every AUTO_REFRESH_INTERVAL seconds.
+    Skips the startup run so committed data is served immediately on deploy."""
+    time.sleep(AUTO_REFRESH_INTERVAL)
     while True:
         _run_full_refresh_pipeline()
         time.sleep(AUTO_REFRESH_INTERVAL)
