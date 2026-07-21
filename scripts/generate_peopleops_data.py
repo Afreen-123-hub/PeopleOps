@@ -551,11 +551,13 @@ def compute_punctuality_pct(selected_raw, fallback):
 
 def compute_collaboration_pct(bio, ta, all_meeting_counts, fallback, cal=None):
     """Teams Collaboration = (Availability Score x 50%) + (Meeting Score x 50%).
-    Availability Score = Productive Hours / Total Tracked Hours x 100 (Teams presence).
+    Availability Score = teamsAvailableHours / expected work hours (validOfficeDays x 9).
+    Using work hours only avoids inflating Away time with nights and weekends.
     Meeting Score: uses Teams meeting count (actual time in calls) as primary signal.
     Calendar API acceptance rate is unreliable — many people join without clicking Accept."""
-    avail_total = bio.get("teamsAvailableHours", 0) + bio.get("teamsAwayHours", 0) + bio.get("teamsOfflineHours", 0)
-    availability_score = (bio.get("teamsAvailableHours", 0) / avail_total * 100) if avail_total > 0 else None
+    valid_days = bio.get("validOfficeDays", 0)
+    expected_work_hours = valid_days * 9 if valid_days > 0 else 0
+    availability_score = min(100.0, bio.get("teamsAvailableHours", 0) / expected_work_hours * 100) if expected_work_hours > 0 else None
     if ta:
         meeting_score = minmax(ta["meetingCount"], all_meeting_counts)
     else:
@@ -1507,8 +1509,10 @@ def main():
             assigned_tasks = stats["workItems"]
             completed_tasks = stats["status:Completed"]
             approved_tasks = stats["approval:approved"]
+            blocked_tasks = stats.get("blocked", 0)
+            scoreable_tasks = assigned_tasks - blocked_tasks
             task_completion_pct = (
-                round(min(100.0, completed_tasks / assigned_tasks * 100), 1) if assigned_tasks else None
+                round(min(100.0, completed_tasks / scoreable_tasks * 100), 1) if scoreable_tasks > 0 else None
             )
     
             pm_project_score = None
