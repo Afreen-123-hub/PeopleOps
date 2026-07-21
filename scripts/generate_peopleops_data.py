@@ -651,6 +651,11 @@ def read_biometric_api(month_label):
     result = defaultdict(lambda: Counter())
     checkin_times: dict[str, list[float]] = defaultdict(list)
     checkout_times: dict[str, list[float]] = defaultdict(list)
+    # Track (emp_id, date) pairs already counted to deduplicate API rows.
+    # The Worklogix presence report sometimes returns multiple rows per employee
+    # per day (e.g. two sessions), which would double-count biometricDays.
+    seen_biometric_dates: set[tuple[str, str]] = set()
+    seen_presence_dates: set[tuple[str, str]] = set()
 
     for row in extract_rows(payload):
         emp_id = clean(row.get("user_id"))
@@ -674,30 +679,30 @@ def read_biometric_api(month_label):
                     continue
 
         bio = row.get("biometric_in_office_status") or {}
-        if bio:
-            if not _is_weekend:
-                result[emp_id]["biometricDays"] += 1
+        _bio_date_key = (emp_id, _row_date_str)
+        if bio and not _is_weekend and _bio_date_key not in seen_biometric_dates:
+            seen_biometric_dates.add(_bio_date_key)
+            result[emp_id]["biometricDays"] += 1
             # "09:13 AM - 06:05 PM"
             time_range = clean(bio.get("time", ""))
             if " - " in time_range:
                 cin_str, cout_str = time_range.split(" - ", 1)
                 cin = parse_time_ampm(cin_str)
                 cout = parse_time_ampm(cout_str)
-                if not _is_weekend:
-                    # Only include weekday swipes in check-in/out averages
-                    if cin is not None:
-                        checkin_times[emp_id].append(cin)
-                    if cout is not None:
-                        checkout_times[emp_id].append(cout)
-                    # Actual work hours = checkout − checkin (biometric, not Teams status)
-                    if cin is not None and cout is not None and cout > cin:
-                        result[emp_id]["biometricWorkHours"] += (cout - cin)
-                        result[emp_id]["biometricWorkDays"] += 1
+                if cin is not None:
+                    checkin_times[emp_id].append(cin)
+                if cout is not None:
+                    checkout_times[emp_id].append(cout)
+                if cin is not None and cout is not None and cout > cin:
+                    result[emp_id]["biometricWorkHours"] += (cout - cin)
+                    result[emp_id]["biometricWorkDays"] += 1
             loc = clean(bio.get("location", ""))
             if loc:
                 result[emp_id][f"loc:{loc}"] += 1
 
-        if not _is_weekend:
+        _pres_date_key = (emp_id, _row_date_str)
+        if not _is_weekend and _pres_date_key not in seen_presence_dates:
+            seen_presence_dates.add(_pres_date_key)
             presence = row.get("microsoft_teams_presence") or {}
             avail = parse_duration_string(presence.get("available"))
             away = parse_duration_string(presence.get("away"))
