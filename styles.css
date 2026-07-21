@@ -2616,6 +2616,29 @@ tbody tr.row-no-data:hover {
   min-width: min(360px, 100%);
 }
 
+.employee-picker-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: min(360px, 100%);
+}
+
+.attendance-search-input {
+  padding: 7px 10px;
+  border: 1px solid var(--border, #d1d5db);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  background: var(--surface, #fff);
+  color: var(--text, #111);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.attendance-search-input:focus {
+  outline: 2px solid var(--accent, #2563eb);
+  outline-offset: 1px;
+}
+
 .attendance-detail {
   display: grid;
   gap: 16px;

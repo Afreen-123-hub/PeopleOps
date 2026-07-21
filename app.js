@@ -646,6 +646,18 @@ function setupFilters() {
   document.getElementById("graphRefreshButton")?.addEventListener("click", () => refreshGraph());
   populateAttendanceOptions();
   document.getElementById("attendanceEmployee").addEventListener("change", () => renderAttendanceDetail(document.getElementById("attendanceEmployee").value));
+  document.getElementById("attendanceSearch").addEventListener("input", function () {
+    const q = this.value.trim().toLowerCase();
+    const sel = document.getElementById("attendanceEmployee");
+    Array.from(sel.options).forEach(opt => {
+      opt.hidden = q && !opt.text.toLowerCase().includes(q);
+    });
+    const firstVisible = Array.from(sel.options).find(o => !o.hidden);
+    if (firstVisible && (q && !sel.options[sel.selectedIndex]?.text.toLowerCase().includes(q))) {
+      sel.value = firstVisible.value;
+      renderAttendanceDetail(sel.value);
+    }
+  });
   window.addEventListener("resize", () => { drawScatter(); drawDonutChart(); });
 }
 
