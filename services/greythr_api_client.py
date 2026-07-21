@@ -334,7 +334,9 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
                     raw_by_employee_id[emp_id]["_cinSum"] += fit_h
                     raw_by_employee_id[emp_id]["_cinCount"] += 1
                     raw_by_employee_id[emp_id]["_onTime"] += (1 if fit_h <= cutoff else 0)
-                if lot_h is not None:
+                # Skip checkout on days where check-in was a GreytHR default placeholder —
+                # if the arrival time was fabricated, the departure time is also fabricated.
+                if lot_h is not None and not fit_is_default:
                     raw_by_employee_id[emp_id]["_coutSum"] += lot_h
                     raw_by_employee_id[emp_id]["_coutCount"] += 1
 
