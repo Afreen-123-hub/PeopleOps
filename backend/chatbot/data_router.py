@@ -241,6 +241,7 @@ def get_attendance_data(question: str = "", history: list | None = None) -> dict
         {
             "name": e.get("name"),
             "team": e.get("team"),
+            "band": e.get("band", ""),
             "present": e.get("attendance", {}).get("present", 0),
             "absent":  e.get("attendance", {}).get("absent", 0),
             "leave":   e.get("attendance", {}).get("leave", 0),
@@ -265,6 +266,12 @@ def get_attendance_data(question: str = "", history: list | None = None) -> dict
                     "employees": filtered,
                     "footer": "",
                 }
+
+    # Executives follow different presence patterns (travel, remote office) —
+    # exclude them from absence ranking unless the question names them specifically
+    is_specific_person = bool(_query_employee(question))
+    if not is_specific_person:
+        employees = [e for e in employees if e.get("band") != "Executive"]
 
     # Filter and sort based on question intent
     if any(w in q for w in ("absent", "miss", "missing")):
@@ -531,6 +538,8 @@ def get_risk_insight_data(question: str = "") -> dict:
         has_data = e.get("has_attendance_data", True)
 
         if not has_data and kpi is None:
+            continue
+        if band == "Executive":
             continue
 
         risks = []
