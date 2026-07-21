@@ -2792,17 +2792,19 @@ let taraInitialized = false;
 let taraLastQuestion = "";
 
 const TARA_FOLLOWUPS = {
-  performance: ["Who is in Low Performance band?", "Show their attendance", "Which team leads in KPI?"],
-  attendance:  ["Who was absent most?", "Show their KPI score", "Which team attends best?"],
-  availability:["Who is online right now?", "Show their task progress", "Who is away on Teams?"],
-  task:        ["Who has pending tasks?", "Show their KPI score", "Who completed most tasks?"],
-  efficiency:  ["Who has lowest efficiency?", "Show top performers", "Compare with attendance"],
-  github:      ["Who has the most commits?", "Which project has the most pending tasks?", "Show all contributors"],
-  planner:     ["Show overdue Planner tasks", "Which Planner plan has the most tasks?", "Show completed Planner tasks"],
-  calendar:    ["Show today's meetings", "Which employee has the most calendar events?", "Show cancelled events"],
-  sharepoint:  ["Show all SharePoint sites", "Which sites have document libraries?", "Show recently active sites"],
-  employee360: ["Show their Planner tasks", "Show their calendar events", "Show their attendance"],
-  general:     ["Show top 3 performers", "Who needs improvement?", "Who was absent this month?"],
+  performance:   ["Who is in Critical band?", "Show their attendance", "Which team leads in KPI?"],
+  attendance:    ["Who was absent most?", "Show their KPI score", "Which team attends best?"],
+  availability:  ["Who is online right now?", "Show their task progress", "Who is away on Teams?"],
+  task:          ["Who has pending tasks?", "Show their KPI score", "Who completed most tasks?"],
+  efficiency:    ["Who has lowest efficiency?", "Show top performers", "Compare with attendance"],
+  github:        ["Who has the most commits?", "Which project has the most pending tasks?", "Show all contributors"],
+  planner:       ["Show overdue Planner tasks", "Which Planner plan has the most tasks?", "Show completed Planner tasks"],
+  calendar:      ["Show today's meetings", "Which employee has the most calendar events?", "Show cancelled events"],
+  sharepoint:    ["Show all SharePoint sites", "Which sites have document libraries?", "Show recently active sites"],
+  employee360:   ["Show their Planner tasks", "Show their calendar events", "Show their attendance"],
+  risk_insight:  ["Show their KPI score", "Show their attendance", "Which team has the most at-risk employees?"],
+  team_summary:  ["Which team has the highest KPI?", "Show attendance by team", "Which team has the most pending tasks?"],
+  general:       ["Show top 3 performers", "Who needs attention?", "Who was absent this month?"],
 };
 
 function detectCategory(question) {

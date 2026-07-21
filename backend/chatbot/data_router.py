@@ -536,7 +536,7 @@ def get_risk_insight_data(question: str = "") -> dict:
         risks = []
         if kpi is not None and kpi < 60:
             risks.append(f"Low KPI: {kpi}")
-        if band in ("Low Performance", "Need Improvement") and not any("KPI" in r for r in risks):
+        if band in ("Critical", "Needs Improvement") and not any("KPI" in r for r in risks):
             risks.append(f"Band: {band}")
         absent = att.get("absent", 0)
         if absent >= 3:
@@ -561,7 +561,7 @@ def get_risk_insight_data(question: str = "") -> dict:
                 "riskCount": len(risks),
                 "absent": absent,
                 "tasksCompleted": completed,
-                "totalTasks": total_tasks,
+                "totalTasks": true_total,
                 "pendingTasks": pending,
                 "gapReason": gap,
                 "teamsStatus": teams_data.get("status", ""),
@@ -610,13 +610,13 @@ def get_team_summary_data(question: str = "") -> dict:
         if kpi is not None:
             t["kpis"].append(kpi)
         band = e.get("band", "")
-        if band == "High Performance":
+        if band in ("Excellent", "Good"):
             t["highPerformers"] += 1
-        elif band == "Meets Expectation":
+        elif band == "Average":
             t["meetsExpectation"] += 1
-        elif band == "Need Improvement":
+        elif band == "Needs Improvement":
             t["needsImprovement"] += 1
-        elif band == "Low Performance":
+        elif band == "Critical":
             t["lowPerformers"] += 1
         else:
             t["insufficientData"] += 1
@@ -855,7 +855,7 @@ def get_employee_360_data(question: str = "") -> dict:
     risk_signals = []
     if kpi is not None and kpi < 60:
         risk_signals.append(f"KPI {kpi} — below threshold")
-    if band in ("Low Performance", "Need Improvement") and not any("KPI" in r for r in risk_signals):
+    if band in ("Critical", "Needs Improvement") and not any("KPI" in r for r in risk_signals):
         risk_signals.append(f"Band: {band}")
     if absent >= 3:
         risk_signals.append(f"{absent} days absent")
@@ -919,9 +919,9 @@ def get_general_data() -> dict:
         if kpi is not None:
             t["kpis"].append(kpi)
         band = e.get("band", "")
-        if band == "High Performance":
+        if band in ("Excellent", "Good"):
             t["highP"] += 1
-        if band in ("Low Performance", "Need Improvement") or (kpi is not None and kpi < 60):
+        if band in ("Critical", "Needs Improvement") or (kpi is not None and kpi < 60):
             t["atRisk"] += 1
 
     team_snapshot = [
