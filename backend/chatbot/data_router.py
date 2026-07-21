@@ -535,19 +535,21 @@ def get_risk_insight_data(question: str = "") -> dict:
 
         risks = []
         if kpi is not None and kpi < 60:
-            risks.append(f"Low KPI: {kpi}")
-        if band in ("Critical", "Needs Improvement") and not any("KPI" in r for r in risks):
-            risks.append(f"Band: {band}")
+            risks.append(f"KPI {kpi} — Critical band")
+        elif band == "Needs Improvement" and kpi is not None:
+            risks.append(f"KPI {kpi} — Needs Improvement")
         absent = att.get("absent", 0)
-        if absent >= 3:
+        if absent >= 4:
             risks.append(f"Absent {absent} days")
         completed = wl.get("completed", 0)
         pending = wl.get("todo", 0) + wl.get("inProgress", 0) + wl.get("pending", 0)
         true_total = completed + pending
-        if true_total > 0 and pending / true_total > 0.5:
+        if true_total >= 3 and pending / true_total > 0.5:
             completion_pct = round(completed / true_total * 100)
             risks.append(f"Only {completion_pct}% tasks completed ({completed} done, {pending} pending)")
-        if len(lagging) >= 2:
+        # Only surface lagging drivers when KPI is already below 70 — prevents
+        # flagging employees who simply lack a data source (e.g. no GitHub account)
+        if kpi is not None and kpi < 70 and len(lagging) >= 2:
             risks.append(f"Lagging: {', '.join(lagging[:3])}")
 
         if risks:
