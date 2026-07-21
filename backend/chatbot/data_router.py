@@ -583,7 +583,7 @@ def get_risk_insight_data(question: str = "") -> dict:
     risk_records.sort(key=lambda x: (-x["riskCount"], x["kpi"] if x["kpi"] is not None else 999))
 
     total = len(risk_records)
-    shown = min(total, 15)
+    shown = min(total, 10)
     return {
         "_note": f"These {shown} employees have performance risk signals needing management attention. Present each with their specific issues clearly.",
         "totalAtRisk": total,
