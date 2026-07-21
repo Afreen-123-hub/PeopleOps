@@ -697,17 +697,18 @@ def read_biometric_api(month_label):
             if loc:
                 result[emp_id][f"loc:{loc}"] += 1
 
-        presence = row.get("microsoft_teams_presence") or {}
-        avail = parse_duration_string(presence.get("available"))
-        away = parse_duration_string(presence.get("away"))
-        offline = parse_duration_string(presence.get("offline") or presence.get("offline_presence"))
-        if avail > 0:
-            result[emp_id]["officeHours"] += avail
-            result[emp_id]["validOfficeDays"] += 1
-        result[emp_id]["teamsAvailableHours"] += avail
-        result[emp_id]["teamsAwayHours"] += away
-        result[emp_id]["teamsOfflineHours"] += offline
-        result[emp_id]["presenceReports"] += 1
+        if not _is_weekend:
+            presence = row.get("microsoft_teams_presence") or {}
+            avail = parse_duration_string(presence.get("available"))
+            away = parse_duration_string(presence.get("away"))
+            offline = parse_duration_string(presence.get("offline") or presence.get("offline_presence"))
+            if avail > 0:
+                result[emp_id]["officeHours"] += avail
+                result[emp_id]["validOfficeDays"] += 1
+            result[emp_id]["teamsAvailableHours"] += avail
+            result[emp_id]["teamsAwayHours"] += away
+            result[emp_id]["teamsOfflineHours"] += offline
+            result[emp_id]["presenceReports"] += 1
 
     # Compute punctuality scores for all shift cutoffs
     for emp_id, times in checkin_times.items():
