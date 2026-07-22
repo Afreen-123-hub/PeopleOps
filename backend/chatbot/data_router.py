@@ -795,11 +795,9 @@ def get_calendar_data(question: str = "") -> dict:
     q = question.lower()
     records = graph.get("employees", [])
     single_person = bool(employee)
-    if single_person:
-        records = [record for record in records if record.get("id") == employee.get("id")]
 
-    # Build raw event list, tagging each with the employee it came from
-    raw_events = [
+    # Build raw event list from ALL employees (needed for attendee-scan for single-person)
+    all_raw_events = [
         {
             **_safe_calendar_event(event),
             "employeeId": record.get("id"),
@@ -809,18 +807,35 @@ def get_calendar_data(question: str = "") -> dict:
         for event in record.get("calendar", {}).get("items", [])
     ]
 
-    # For group queries: deduplicate by (subject, start) — same meeting appears per attendee
-    if not single_person:
+    if single_person:
+        # For a named person: find all meetings they organised OR appear as attendee in
+        emp_name_lower = employee.get("name", "").lower()
+        emp_name_words = [w for w in emp_name_lower.split() if len(w) > 1]
+        def _is_person_event(ev: dict) -> bool:
+            org = str(ev.get("organizer", "")).lower()
+            attendees = " ".join(str(a) for a in ev.get("attendees", [])).lower()
+            emp_name = ev.get("employeeName", "").lower()
+            haystack = f"{org} {attendees} {emp_name}"
+            return any(w in haystack for w in emp_name_words)
+        # Deduplicate by (subject, start) across all employees, keeping only person's events
+        seen_single: dict[tuple, dict] = {}
+        for ev in all_raw_events:
+            if not _is_person_event(ev):
+                continue
+            key = (str(ev.get("subject", "")).lower().strip(), str(ev.get("start", ""))[:16])
+            if key not in seen_single:
+                seen_single[key] = ev
+        events = list(seen_single.values())
+    else:
+        # Group query: deduplicate by (subject, start) across all employees
         seen: dict[tuple, dict] = {}
-        for ev in raw_events:
+        for ev in all_raw_events:
             key = (str(ev.get("subject", "")).lower().strip(), str(ev.get("start", ""))[:16])
             if key not in seen:
                 seen[key] = {**ev, "_attendeeNames": [ev["employeeName"]]}
             else:
                 seen[key]["_attendeeNames"].append(ev["employeeName"])
         events = list(seen.values())
-    else:
-        events = raw_events
 
     # Date filter
     if "today" in q or "tomorrow" in q:
