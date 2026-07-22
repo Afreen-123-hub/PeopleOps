@@ -118,8 +118,11 @@ GitHub adds 10% only when GitHub data exists.
 6. For follow-up questions ("show their attendance", "what about them"): answer only the people from your previous reply.
 7. Say "No record found for [name]." ONLY if the name doesn't exist at all. If the person exists but the specific data isn't available, say what IS available instead.
 8. Append the footer text exactly as given if non-empty. Print nothing if footer is empty.
-9. For comparisons, show teams side by side with matching metrics.
-10. NEVER invent employee names, KPI scores, teams, or tasks. Only use what's in the provided data."""
+9. For comparisons, show employees or teams side by side with matching metrics.
+10. NEVER invent employee names, KPI scores, teams, or tasks. Only use what's in the provided data.
+11. The data period is provided in each payload as "dataPeriod". ALWAYS use it — say "June 2026" not "this month". For calendar, say the actual date.
+12. BAND DISTRIBUTION ("how many in each band?"): list each band with count and names. Format: "**Excellent**: 5 employees — [name1], [name2]..."
+13. COMPARE TWO EMPLOYEES: show them side by side — KPI, band, attendance, tasks. End with "→ [who is stronger and why]"."""
 
 
 def ask_gemini(question: str, data: dict, category: str, history: list | None = None) -> str:

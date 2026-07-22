@@ -15,6 +15,21 @@ def _load() -> dict:
     return json.loads(DATA_FILE.read_text(encoding="utf-8-sig"))
 
 
+def _data_period() -> str:
+    """Returns human-readable period string, e.g. 'June 2026'."""
+    try:
+        meta = _load().get("meta", {})
+        period = meta.get("period", "")
+        if period:
+            start = period.split(" to ")[0].strip()
+            from datetime import datetime
+            dt = datetime.strptime(start, "%Y-%m-%d")
+            return dt.strftime("%B %Y")
+    except Exception:
+        pass
+    return ""
+
+
 def _load_graph() -> dict:
     if not GRAPH_DATA_FILE.exists():
         return {}
@@ -1046,6 +1061,14 @@ _LIST_STARTERS = ("who ", "show ", "list ", "which ", "give me", "find ")
 
 
 def route(category: str, question: str = "", history: list | None = None) -> dict:
+    data = _route_inner(category, question, history)
+    period = _data_period()
+    if period:
+        data["dataPeriod"] = period
+    return data
+
+
+def _route_inner(category: str, question: str = "", history: list | None = None) -> dict:
     # New management intelligence categories
     if category == "risk_insight":
         return get_risk_insight_data(question)
@@ -1066,6 +1089,15 @@ def route(category: str, question: str = "", history: list | None = None) -> dic
 
     q = question.lower().strip()
     is_list_question = any(q.startswith(s) for s in _LIST_STARTERS)
+
+    # Detect "compare [name] and [name]" — redirect to performance with both employees
+    compare_m = re.search(r'\bcompare\b.{1,40}\band\b', q)
+    if compare_m:
+        return get_performance_data(question, history)
+
+    # Detect band distribution queries
+    if any(p in q for p in ("how many in each", "band distribution", "each band", "breakdown by band", "band breakdown", "count by band")):
+        return get_performance_data(question, history)
 
     # For any non-graph category: if a specific employee is named and this is NOT
     # a list question, redirect to employee360 so Tara has full context
