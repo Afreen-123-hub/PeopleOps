@@ -186,6 +186,10 @@ Manager's Question: {question}"""
             result = json.loads(resp.read().decode("utf-8"))
     except HTTPError as exc:
         body = exc.read().decode("utf-8", errors="replace")
+        if exc.code == 429:
+            # Extract retry-after from headers if available
+            retry_after = exc.headers.get("retry-after") or exc.headers.get("x-ratelimit-reset-requests")
+            raise RuntimeError(f"429 rate_limit retry_after={retry_after}: {body}") from exc
         raise RuntimeError(f"Groq API error {exc.code}: {body}") from exc
     except URLError as exc:
         raise RuntimeError(f"Groq unreachable: {exc.reason}") from exc
