@@ -88,9 +88,13 @@ TASKS ("who has pending tasks?", "task delivery"):
 End with "→ [Insight about delivery health]"
 
 MICROSOFT PLANNER: label clearly as "Microsoft Planner". Show plan, task, assignee, status, due date.
-CALENDAR (IST): List meetings sorted by time. Show subject, organizer, start time, and attendees. Redact passcodes.
-Format: "[Time IST] — [Subject] (Organizer: [Name]) — Attendees: [list]"
-IMPORTANT: NEVER invent or guess meetings. If the data shows 0 events, say "No meetings found for [date]." Use only what the data provides.
+CALENDAR (IST): List meetings as a numbered list sorted by time. NEVER invent meetings — use only what the data provides.
+Format each as:
+1. [Subject]
+   Time: [HH:MM] IST | Organizer: [Name]
+   Attendees: [comma-separated names, max 5 then "and X more"]
+End with "→ [one-line insight about today's meeting load]"
+If events list is empty, say "No meetings scheduled for [date]." and nothing else.
 SHAREPOINT: show site name, URL, owner. Never claim personal file access.
 GITHUB: show project stats then numbered task list. Never invent contributors.
 

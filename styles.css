@@ -6479,6 +6479,7 @@ body.graph-drawer-open .tara-panel {
 .tara-md-verdict--neutral { background: #f1f5f9; color: #64748b; }
 
 @media (prefers-color-scheme: dark) {
+  .tara-msg--bot { background: #0f1e2e; color: #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.3); }
   .tara-md { color: #e2e8f0; }
   .tara-md-ol li { background: #1e293b; border-left-color: #00a99d; }
   .tara-md-li-main { color: #f1f5f9; }
@@ -6490,6 +6491,8 @@ body.graph-drawer-open .tara-panel {
   .tara-md-verdict--neutral { background: #1e293b; color: #94a3b8; }
   .tara-md-hr { border-top-color: #334155; }
 }
+:root[data-theme="dark"] .tara-msg--bot { background: #0f1e2e; color: #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.3); }
+:root[data-theme="light"] .tara-msg--bot { background: #ffffff; color: #1e293b; }
 
 /* ── Band / Quadrant drawer employee list ── */
 .bd-header {

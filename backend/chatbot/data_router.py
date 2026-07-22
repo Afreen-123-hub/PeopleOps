@@ -100,7 +100,7 @@ def _safe_calendar_event(event: dict) -> dict:
         "start": event.get("start"),
         "end": event.get("end"),
         "organizer": event.get("organizer"),
-        "attendees": event.get("attendees", [])[:8],
+        "attendees": event.get("attendees", [])[:5],
         "location": event.get("location"),
         "meetingLink": event.get("meetingLink"),
         "categories": event.get("categories", []),
