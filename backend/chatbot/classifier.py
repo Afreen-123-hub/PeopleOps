@@ -34,6 +34,9 @@ CATEGORY_KEYWORDS = {
         "what time is", "what's scheduled", "whats scheduled",
         "'s meetings", "his meetings", "her meetings", "their meetings",
         "show meetings", "list meetings", "meetings this week",
+        "how many meetings", "all meetings", "meetings of", "meetings he",
+        "meetings she", "meetings does", "meetings has", "how many meet",
+        "show all meet", "meetings today", "meetings tomorrow",
     ],
     "sharepoint": [
         "sharepoint", "share point", "document library",
