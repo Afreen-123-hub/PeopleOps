@@ -129,19 +129,19 @@ def ask_gemini(question: str, data: dict, category: str, history: list | None = 
     api_key = get_api_key()
     data_summary = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     context_limits = {
-        "employee360": 7000,
-        "risk_insight": 7500,
-        "team_summary": 6500,
-        "general": 6500,
-        "performance": 6500,
-        "planner": 5500,
-        "attendance": 5500,
-        "task": 5500,
-        "availability": 5000,
-        "calendar": 5000,
-        "sharepoint": 4500,
-        "github": 4500,
-        "efficiency": 4500,
+        "employee360": 5000,
+        "risk_insight": 5000,
+        "team_summary": 4500,
+        "general": 4000,
+        "performance": 4500,
+        "planner": 4000,
+        "attendance": 4000,
+        "task": 4000,
+        "availability": 3500,
+        "calendar": 3500,
+        "sharepoint": 3000,
+        "github": 3500,
+        "efficiency": 3000,
     }
     context_limit = context_limits.get(category, 5500)
     if len(data_summary) > context_limit:
@@ -167,7 +167,7 @@ Manager's Question: {question}"""
         "model": GROQ_MODEL,
         "messages": messages,
         "temperature": 0.25,
-        "max_tokens": 1200,
+        "max_tokens": 800,
     }).encode("utf-8")
 
     req = Request(
