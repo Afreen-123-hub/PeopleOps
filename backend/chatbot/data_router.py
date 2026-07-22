@@ -774,13 +774,17 @@ def get_planner_data(question: str = "", history: list | None = None) -> dict:
 
 
 def get_calendar_data(question: str = "") -> dict:
+    from datetime import datetime, timedelta
     graph = _load_graph()
     employee = _query_employee(question)
     q = question.lower()
     records = graph.get("employees", [])
-    if employee:
+    single_person = bool(employee)
+    if single_person:
         records = [record for record in records if record.get("id") == employee.get("id")]
-    events = [
+
+    # Build raw event list, tagging each with the employee it came from
+    raw_events = [
         {
             **_safe_calendar_event(event),
             "employeeId": record.get("id"),
@@ -789,47 +793,75 @@ def get_calendar_data(question: str = "") -> dict:
         for record in records
         for event in record.get("calendar", {}).get("items", [])
     ]
-    if "cancel" in q:
-        events = [event for event in events if event.get("isCancelled")]
+
+    # For group queries: deduplicate by (subject, start) — same meeting appears per attendee
+    if not single_person:
+        seen: dict[tuple, dict] = {}
+        for ev in raw_events:
+            key = (str(ev.get("subject", "")).lower().strip(), str(ev.get("start", ""))[:16])
+            if key not in seen:
+                seen[key] = {**ev, "_attendeeNames": [ev["employeeName"]]}
+            else:
+                seen[key]["_attendeeNames"].append(ev["employeeName"])
+        events = list(seen.values())
+    else:
+        events = raw_events
+
+    # Date filter
     if "today" in q or "tomorrow" in q:
-        from datetime import datetime, timedelta
         target = datetime.now().date() + (timedelta(days=1) if "tomorrow" in q else timedelta())
-        events = [
-            event for event in events
-            if str(event.get("start", ""))[:10] == target.isoformat()
-        ]
+        events = [e for e in events if str(e.get("start", ""))[:10] == target.isoformat()]
+        date_label = target.strftime("%A, %d %B %Y")
+    else:
+        date_label = None
+
+    # Cancelled filter — by default exclude cancelled for group/today queries
+    want_cancelled = "cancel" in q
+    if want_cancelled:
+        events = [e for e in events if e.get("isCancelled")]
+    elif "today" in q or "tomorrow" in q:
+        events = [e for e in events if not e.get("isCancelled")]
+
+    # Keyword filter for group queries
     terms = [
         word for word in re.findall(r"[a-z0-9]+", q)
         if len(word) > 3 and word not in {
             "calendar", "events", "event", "meeting", "meetings", "show",
-            "employee", "today", "tomorrow", "their", "with",
+            "employee", "today", "tomorrow", "their", "with", "what", "scheduled",
         }
     ]
-    if terms and not employee:
+    if terms and not single_person and not ("today" in q or "tomorrow" in q):
         filtered = [
-            event for event in events
+            e for e in events
             if any(term in " ".join([
-                str(event.get("subject", "")),
-                str(event.get("organizer", "")),
-                str(event.get("employeeName", "")),
-                str(event.get("location", "")),
+                str(e.get("subject", "")),
+                str(e.get("organizer", "")),
+                str(e.get("employeeName", "")),
+                str(e.get("location", "")),
             ]).lower() for term in terms)
         ]
         if filtered:
             events = filtered
-    events.sort(key=lambda event: str(event.get("start", "")))
+
+    events.sort(key=lambda e: str(e.get("start", "")))
     show_all = any(keyword in q for keyword in _SHOW_ALL_KEYWORDS)
-    selected = events[:30] if show_all else events[:6]
+    limit = 30 if show_all else 12
+    selected = events[:limit]
+
+    note = "Calendar timestamps are India Standard Time (IST). Use ONLY these events — do not invent meetings. Never expose passcodes."
+    if date_label:
+        note += f" These are the real meetings for {date_label}."
+    if not events:
+        note += " No meetings found for this query — say so clearly."
+
     return {
-        "_note": "Calendar timestamps are India Standard Time. Use only these events and never expose meeting passcodes.",
+        "_note": note,
         "timeZone": graph.get("meta", {}).get("calendarTimeZone"),
-        "period": {
-            "start": graph.get("meta", {}).get("periodStart"),
-            "end": graph.get("meta", {}).get("periodEnd"),
-        },
+        "date": date_label,
         "employee": _compact_employee(employee) if employee else None,
         "events": selected,
-        "footer": f"...and {len(events) - len(selected)} more calendar events." if len(events) > len(selected) else "",
+        "totalFound": len(events),
+        "footer": f"...and {len(events) - len(selected)} more meetings." if len(events) > len(selected) else "",
     }
 
 
