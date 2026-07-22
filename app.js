@@ -2972,11 +2972,15 @@ async function sendTaraMessage() {
   const typing = appendTaraMessage("Tara is thinking...", "typing");
 
   try {
+    const ctrl = new AbortController();
+    const timeout = setTimeout(() => ctrl.abort(), 35000);
     const res = await apiFetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question, history: taraHistory }),
+      signal: ctrl.signal,
     });
+    clearTimeout(timeout);
     const data = await res.json();
     typing.remove();
     const reply = data.answer || "Sorry, I couldn't get a response.";
