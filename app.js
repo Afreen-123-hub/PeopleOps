@@ -2786,6 +2786,95 @@ async function renderGitHub(fetchFresh = true) {
   ` : `<p style="color:var(--muted);padding:24px">No contributors found for this period.</p>`;
 }
 
+// ======= TARA MARKDOWN RENDERER =======
+function taraMarkdown(raw) {
+  const q = (taraLastQuestion || "").replace(/'/g, "\\'");
+
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function inline(s) {
+    s = esc(s);
+    s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    s = s.replace(/\.\.\.and (\d+) more\./gi, (_, n) => {
+      if (parseInt(n, 10) === 0) return "";
+      return `<button class="tara-show-more-btn" onclick="askTara('show all ${q}')">▼ Show ${n} more</button>`;
+    });
+    s = s.replace(/\b(Issue|Action|Team|Band|KPI|Tasks|Absent|Status|Priority):/g, "<strong>$1:</strong>");
+    return s;
+  }
+
+  const lines = raw.split("\n");
+  const parts = [];
+  let inList = false;
+  let listItems = [];
+  let currentItem = null;
+
+  function flushList() {
+    if (!listItems.length) return;
+    let html = '<ol class="tara-md-ol">';
+    for (const item of listItems) {
+      html += `<li><span class="tara-md-li-main">${item.main}</span>`;
+      if (item.details.length) {
+        html += `<div class="tara-md-li-details">${item.details.map(d => `<div>${d}</div>`).join("")}</div>`;
+      }
+      html += "</li>";
+    }
+    html += "</ol>";
+    parts.push(html);
+    listItems = [];
+    currentItem = null;
+    inList = false;
+  }
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    if (/^[━─]{3,}/.test(trimmed)) {
+      flushList();
+      parts.push('<hr class="tara-md-hr">');
+      continue;
+    }
+
+    const olMatch = line.match(/^(\d+)\.\s+(.+)/);
+    if (olMatch) {
+      inList = true;
+      currentItem = { main: inline(olMatch[2]), details: [] };
+      listItems.push(currentItem);
+      continue;
+    }
+
+    if (inList && currentItem && /^\s{2,}/.test(line) && trimmed) {
+      currentItem.details.push(inline(trimmed));
+      continue;
+    }
+
+    if (inList) flushList();
+
+    if (!trimmed) {
+      parts.push('<div class="tara-md-spacer"></div>');
+      continue;
+    }
+
+    if (trimmed.startsWith("→")) {
+      parts.push(`<div class="tara-md-insight">${inline(trimmed)}</div>`);
+      continue;
+    }
+
+    if (/^[✓⚠—]/.test(trimmed)) {
+      const cls = trimmed.startsWith("✓") ? "ok" : trimmed.startsWith("⚠") ? "warn" : "neutral";
+      parts.push(`<div class="tara-md-verdict tara-md-verdict--${cls}">${inline(trimmed)}</div>`);
+      continue;
+    }
+
+    parts.push(`<div class="tara-md-line">${inline(line)}</div>`);
+  }
+
+  flushList();
+  return parts.join("");
+}
+
 // ======= TARA CHATBOT =======
 let taraHistory = [];
 let taraInitialized = false;
@@ -2936,16 +3025,7 @@ function appendTaraMessage(text, type) {
     if (type === "typing") {
       bubble.innerHTML = `<div class="tara-typing-dots"><span></span><span></span><span></span></div>`;
     } else {
-      const escaped = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      const withShowMore = escaped.replace(
-        /\.\.\.and (\d+) more\./gi,
-        (_, n) => {
-          if (parseInt(n, 10) === 0) return "";
-          const q = (taraLastQuestion || "").replace(/'/g, "\\'");
-          return `<button class="tara-show-more-btn" onclick="askTara('show all ${q}')">▼ Show ${n} more</button>`;
-        }
-      );
-      bubble.innerHTML = `<p style="white-space:pre-wrap;margin:0">${withShowMore}</p>
+      bubble.innerHTML = `<div class="tara-md">${taraMarkdown(text)}</div>
         <button class="tara-copy-btn" onclick="copyTaraMsg(this)">⎘ Copy</button>`;
     }
 

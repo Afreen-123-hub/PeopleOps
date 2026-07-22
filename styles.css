@@ -6411,6 +6411,86 @@ body.graph-drawer-open .tara-panel {
   transform: translateY(-1px);
 }
 
+/* --- Markdown renderer --- */
+.tara-md { font-size: 13.5px; line-height: 1.65; color: #1e293b; }
+.tara-md-line { margin: 0; padding: 1px 0; }
+.tara-md-spacer { height: 8px; }
+.tara-md-hr { border: none; border-top: 1px solid #e2e8f0; margin: 10px 0; }
+
+.tara-md-ol {
+  margin: 6px 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: tara-counter;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tara-md-ol li {
+  counter-increment: tara-counter;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px 8px 36px;
+  position: relative;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 3px solid #00a99d;
+}
+.tara-md-ol li::before {
+  content: counter(tara-counter);
+  position: absolute;
+  left: 10px;
+  top: 9px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #00a99d;
+  width: 18px;
+  text-align: center;
+}
+.tara-md-li-main { font-weight: 600; color: #0f172a; font-size: 13px; }
+.tara-md-li-details { margin-top: 4px; display: flex; flex-direction: column; gap: 2px; }
+.tara-md-li-details div { font-size: 12.5px; color: #475569; }
+.tara-md-li-details strong { color: #0f172a; }
+
+.tara-md-insight {
+  margin: 8px 0 2px;
+  padding: 7px 12px;
+  background: linear-gradient(90deg, #e6faf8, #f0fdf4);
+  border-left: 3px solid #00a99d;
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0f766e;
+}
+
+.tara-md-verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0 8px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.tara-md-verdict--ok   { background: #dcfce7; color: #15803d; }
+.tara-md-verdict--warn { background: #fef9c3; color: #92400e; }
+.tara-md-verdict--neutral { background: #f1f5f9; color: #64748b; }
+
+@media (prefers-color-scheme: dark) {
+  .tara-md { color: #e2e8f0; }
+  .tara-md-ol li { background: #1e293b; border-left-color: #00a99d; }
+  .tara-md-li-main { color: #f1f5f9; }
+  .tara-md-li-details div { color: #94a3b8; }
+  .tara-md-li-details strong { color: #e2e8f0; }
+  .tara-md-insight { background: linear-gradient(90deg, #0f2a28, #0a2520); color: #5eead4; }
+  .tara-md-verdict--ok { background: #14532d; color: #86efac; }
+  .tara-md-verdict--warn { background: #422006; color: #fde68a; }
+  .tara-md-verdict--neutral { background: #1e293b; color: #94a3b8; }
+  .tara-md-hr { border-top-color: #334155; }
+}
+
 /* ── Band / Quadrant drawer employee list ── */
 .bd-header {
   display: flex;
