@@ -62,7 +62,7 @@ def _compact_employee(employee: dict) -> dict:
         "laggingDrivers": employee.get("laggingDrivers", []),
         "scoreDrivers": employee.get("scoreDrivers", {}),
         "worklogix": employee.get("worklogix", {}),
-        "attendance": employee.get("attendance", {}),
+        "attendance": {k: v for k, v in employee.get("attendance", {}).items() if k != "off"},
         "teams": employee.get("teams", {}),
         "planner": {
             "assigned": planner.get("assigned", 0),
@@ -245,7 +245,6 @@ def get_attendance_data(question: str = "", history: list | None = None) -> dict
             "present": e.get("attendance", {}).get("present", 0),
             "absent":  e.get("attendance", {}).get("absent", 0),
             "leave":   e.get("attendance", {}).get("leave", 0),
-            "off":     e.get("attendance", {}).get("off", 0),
             "biometricDays": e.get("attendance", {}).get("biometricDays", 0),
             "avgOfficeHours": e.get("attendance", {}).get("avgOfficeHours"),
             "punctualityScore": e.get("attendance", {}).get("punctualityScore"),
