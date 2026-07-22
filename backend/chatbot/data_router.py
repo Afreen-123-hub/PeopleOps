@@ -307,6 +307,35 @@ def _name_score(full_name: str, query_name: str) -> int:
     return sum(1 for w in query_name.split() if w in fn)
 
 
+def _fetch_live_presence(name: str) -> str | None:
+    """Call Teams API live for a single employee's real-time presence status."""
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parents[2]
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    graph = _load_graph()
+    graph_emp = next(
+        (e for e in graph.get("employees", [])
+         if _name_score(e.get("name", ""), name) > 0),
+        None,
+    )
+    if not graph_emp:
+        return None
+    user_id = graph_emp.get("userId")
+    if not user_id:
+        return None
+    try:
+        from services.teams_api_client import get_presences_by_user_id
+        result = get_presences_by_user_id([user_id])
+        presences = result.get("value", [])
+        if presences:
+            return presences[0].get("availability") or presences[0].get("activity")
+    except Exception:
+        pass
+    return None
+
+
 def get_availability_data(question: str = "") -> dict:
     import re
     data = _load()
@@ -323,36 +352,37 @@ def get_availability_data(question: str = "") -> dict:
     ]
     all_records = _filter_by_team(all_records, question)
 
+    def _single_presence_result(query_name: str, note_suffix: str = "") -> dict | None:
+        scored = [(r, _name_score(r["name"], query_name)) for r in all_records]
+        best_score = max((s for _, s in scored), default=0)
+        if best_score == 0:
+            return None
+        match = max(scored, key=lambda x: x[1])[0]
+        live = _fetch_live_presence(query_name)
+        status = live if live else match["status"]
+        source = " (live)" if live else " (last known)"
+        return {
+            "_note": f"Real-time presence for '{match['name']}'{note_suffix}. Status is{source}.",
+            "employees": [{"name": match["name"], "team": match["team"], "status": status}],
+            "footer": "",
+        }
+
     # Detect "is [name] [status]?" — single-person lookup
     m = re.search(
         r'\bis\s+([a-z][\w\s]{2,35}?)\s+(?:' + '|'.join(_AVAILABILITY_STATUS_WORDS) + r')',
         q,
     )
     if m:
-        query_name = m.group(1).strip()
-        scored = [(r, _name_score(r["name"], query_name)) for r in all_records]
-        best_score = max(s for _, s in scored)
-        if best_score > 0:
-            match = max(scored, key=lambda x: x[1])[0]
-            return {
-                "_note": f"The user asked about ONE person: '{match['name']}'. Report ONLY that person's status — do not list anyone else.",
-                "employees": [{"name": match["name"], "team": match["team"], "status": match["status"]}],
-                "footer": "",
-            }
+        result = _single_presence_result(m.group(1).strip())
+        if result:
+            return result
 
-    # Also detect "[name]'s status / [name] teams status"
+    # Also detect "[name]'s status / [name] teams status" or "how many meetings [name]"
     m2 = re.search(r"([a-z][\w\s]{2,35}?)(?:'s)?\s+(?:teams?\s+)?status", q)
     if m2:
-        query_name = m2.group(1).strip()
-        scored = [(r, _name_score(r["name"], query_name)) for r in all_records]
-        best_score = max(s for _, s in scored)
-        if best_score > 0:
-            match = max(scored, key=lambda x: x[1])[0]
-            return {
-                "_note": f"The user asked about ONE person: '{match['name']}'. Report ONLY that person's status.",
-                "employees": [{"name": match["name"], "team": match["team"], "status": match["status"]}],
-                "footer": "",
-            }
+        result = _single_presence_result(m2.group(1).strip())
+        if result:
+            return result
 
     # Group / list query — filter by status keyword
     if any(w in q for w in ("online", "active", "available")):
