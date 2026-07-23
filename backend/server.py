@@ -239,6 +239,12 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "email": current_session.get("email", ""),
                 "type": current_session.get("type", "password"),
             },
+            "/api/available-months": lambda: {
+                "months": sorted([
+                    p.stem for p in (PROJECT_ROOT / "data" / "months").glob("*.json")
+                    if __import__("re").match(r"^\d{4}-\d{2}$", p.stem)
+                ]) if (PROJECT_ROOT / "data" / "months").exists() else []
+            },
             "/api/data": lambda: data,
             "/api/meta": lambda: data.get("meta", {}),
             "/api/overview": lambda: data.get("overview", {}),
@@ -445,6 +451,17 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "stdout": result.stdout[-3000:] if result.stdout else "",
             }, HTTPStatus.INTERNAL_SERVER_ERROR)
             return
+        # Save a permanent month snapshot so Tara can answer month-specific questions
+        try:
+            months_dir = PROJECT_ROOT / "data" / "months"
+            months_dir.mkdir(exist_ok=True)
+            (months_dir / f"{month}.json").write_text(
+                json.dumps(data, ensure_ascii=False), encoding="utf-8"
+            )
+            print(f"[refresh-month] saved Tara snapshot → data/months/{month}.json", flush=True)
+        except Exception as e:
+            print(f"[refresh-month] WARNING: could not save months snapshot: {e}", flush=True)
+
         self.send_json({
             "status": "refreshed",
             "month": month,

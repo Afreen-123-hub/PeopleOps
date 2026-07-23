@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -42,7 +42,7 @@
           </div>
           <div class="hero-actions">
             <div class="export-dropdown" id="exportDropdown">
-              <button class="button export-btn" id="exportBtn">Export ▾</button>
+              <button class="button export-btn" id="exportBtn">Export â–¾</button>
               <div class="export-menu" id="exportMenu">
                 <button id="exportCsv">CSV (.csv)</button>
                 <button id="exportXlsx">Excel (.xlsx)</button>
@@ -100,7 +100,7 @@
             <div class="panel-head">
               <div>
                 <p class="eyebrow">Attendance period</p>
-                <strong id="globalMonthLabel" style="font-size:1rem;font-weight:700;">Loading…</strong>
+                <strong id="globalMonthLabel" style="font-size:1rem;font-weight:700;">Loadingâ€¦</strong>
               </div>
               <div style="display:flex;align-items:center;gap:8px;">
                 <input type="month" id="globalMonthInput" style="padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-size:0.85rem;background:white;color:var(--ink);">
@@ -108,6 +108,7 @@
               </div>
             </div>
             <div id="globalMonthStatus" style="font-size:0.82rem;margin-top:6px;"></div>
+            <div id="taraAvailableMonths" style="display:none;font-size:0.78rem;margin-top:4px;color:var(--muted);"></div>
           </div>
 
           <div id="totalEmployeeBadge" class="total-employee-badge"></div>
@@ -208,7 +209,7 @@
                   <p class="eyebrow">Team performance breakdown</p>
                   <h2>KPI Drivers by Team</h2>
                 </div>
-                <span class="pill">Green = good &nbsp;·&nbsp; Amber = watch &nbsp;·&nbsp; Red = act now</span>
+                <span class="pill">Green = good &nbsp;Â·&nbsp; Amber = watch &nbsp;Â·&nbsp; Red = act now</span>
               </div>
               <div id="teamHeatmap"></div>
             </article>
@@ -245,7 +246,7 @@
                 <h2>Employee Attendance Details</h2>
               </div>
               <div class="employee-picker-wrap">
-                <input id="attendanceSearch" type="text" placeholder="Search employee…" autocomplete="off" class="attendance-search-input" />
+                <input id="attendanceSearch" type="text" placeholder="Search employeeâ€¦" autocomplete="off" class="attendance-search-input" />
                 <select id="attendanceEmployee"></select>
               </div>
             </div>
@@ -283,7 +284,7 @@
           <!-- Teams presence detail drawer -->
           <div id="teamsDrawerOverlay" class="teams-drawer-overlay" hidden onclick="closeTeamsPanel()"></div>
           <aside id="teamsDrawer" class="teams-drawer" hidden>
-            <button class="teams-drawer-close" onclick="closeTeamsPanel()">✕</button>
+            <button class="teams-drawer-close" onclick="closeTeamsPanel()">âœ•</button>
             <div id="teamsDrawerContent"></div>
           </aside>
         </section>
@@ -348,7 +349,7 @@
         <section id="github" class="view">
           <div class="gh-header">
             <div>
-              <p class="eyebrow">CodeWork-ai · GitHub Projects</p>
+              <p class="eyebrow">CodeWork-ai Â· GitHub Projects</p>
               <h1 class="gh-title">Project Tracker</h1>
               <p class="gh-sub">Tasks, assignees, and completion status across all active GitHub Projects.</p>
               <span id="ghPeriodLabel" style="font-size:0.78rem;color:var(--muted);margin-top:2px;display:inline-block;"></span>
@@ -464,9 +465,9 @@
           </div>
           <section class="graph-people-search">
             <div class="graph-search-copy">
-              <span class="graph-search-icon">⌕</span>
+              <span class="graph-search-icon">âŒ•</span>
               <div>
-                <strong>Employee 360° Search</strong>
+                <strong>Employee 360Â° Search</strong>
                 <small>Search by employee name, ID or Microsoft 365 email</small>
               </div>
             </div>
@@ -508,7 +509,7 @@
 
     <div id="graphDrawerOverlay" class="graph-drawer-overlay" hidden>
       <aside id="graphDrawer" class="graph-drawer" role="dialog" aria-modal="true" aria-label="Record details">
-        <button id="graphDrawerClose" class="graph-drawer-close" type="button" aria-label="Close">×</button>
+        <button id="graphDrawerClose" class="graph-drawer-close" type="button" aria-label="Close">Ã—</button>
         <div id="graphDrawerContent"></div>
       </aside>
     </div>
@@ -525,7 +526,7 @@
 
     <!-- Tara Chatbot -->
     <div id="taraBtn" class="tara-btn" onclick="toggleTara()">
-      <span class="tara-btn-icon">✦</span>
+      <span class="tara-btn-icon">âœ¦</span>
       <span class="tara-btn-label">Ask Tara</span>
     </div>
 
@@ -533,35 +534,35 @@
       <div class="tara-header">
         <div class="tara-header-info">
           <div class="tara-avatar-wrap">
-            <span class="tara-avatar">✦</span>
+            <span class="tara-avatar">âœ¦</span>
             <span class="tara-avatar-dot"></span>
           </div>
           <div>
             <strong>Tara</strong>
-            <small>PeopleOps Intelligence · Online</small>
+            <small>PeopleOps Intelligence Â· Online</small>
           </div>
         </div>
         <div class="tara-header-actions">
           <button class="tara-clear-btn" onclick="clearTara()" title="Clear chat">Clear</button>
-          <button class="tara-close" onclick="toggleTara()" aria-label="Close">✕</button>
+          <button class="tara-close" onclick="toggleTara()" aria-label="Close">âœ•</button>
         </div>
       </div>
       <div id="taraMessages" class="tara-messages">
         <div class="tara-msg-row">
-          <div class="tara-msg-row-avatar">✦</div>
+          <div class="tara-msg-row-avatar">âœ¦</div>
           <div class="tara-msg tara-msg--bot">
             <p style="white-space:pre-wrap;margin:0">Hi! I'm Tara, your PeopleOps assistant. Ask me anything about your team's performance, attendance, or productivity.</p>
           </div>
         </div>
       </div>
       <div id="taraChips" class="tara-chips">
-        <button class="tara-chip" onclick="askTara('Who are the top 3 performers?')">🏆 Top performers</button>
-        <button class="tara-chip" onclick="askTara('Who was absent most this month?')">📅 Attendance issues</button>
-        <button class="tara-chip" onclick="askTara('Who has pending tasks?')">📋 Pending tasks</button>
-        <button class="tara-chip" onclick="askTara('Who is online on Teams right now?')">🟢 Online now</button>
+        <button class="tara-chip" onclick="askTara('Who are the top 3 performers?')">ðŸ† Top performers</button>
+        <button class="tara-chip" onclick="askTara('Who was absent most this month?')">ðŸ“… Attendance issues</button>
+        <button class="tara-chip" onclick="askTara('Who has pending tasks?')">ðŸ“‹ Pending tasks</button>
+        <button class="tara-chip" onclick="askTara('Who is online on Teams right now?')">ðŸŸ¢ Online now</button>
       </div>
       <div class="tara-input-row">
-        <input id="taraInput" type="text" placeholder="Ask Tara anything…" onkeydown="if(event.key==='Enter') sendTaraMessage()">
+        <input id="taraInput" type="text" placeholder="Ask Tara anythingâ€¦" onkeydown="if(event.key==='Enter') sendTaraMessage()">
         <button class="tara-send" onclick="sendTaraMessage()" title="Send">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
@@ -573,3 +574,4 @@
     <script src="graph-explorer.js?v=20260707-fix-header"></script>
   </body>
 </html>
+

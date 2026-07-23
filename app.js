@@ -489,13 +489,30 @@ async function fetchGlobalAttendanceMonth(month) {
     applyFilters();
     const actualPeriod = payload.period || label;
     status.className = "graph-attendance-status success";
-    status.textContent = `✓ Loaded ${actualPeriod} (${payload.employees} employees)`;
+    status.textContent = `✓ Loaded ${actualPeriod} (${payload.employees} employees) — Tara can now answer questions about ${label}`;
+    updateAvailableMonthsBadge();
   } catch (err) {
     status.className = "graph-attendance-status error";
     status.textContent = `✗ ${err.message}`;
   } finally {
     btn.disabled = false;
   }
+}
+
+async function updateAvailableMonthsBadge() {
+  try {
+    const res = await apiFetch("/api/available-months");
+    if (!res) return;
+    const { months } = await res.json();
+    const el = document.getElementById("taraAvailableMonths");
+    if (!el || !months || months.length === 0) return;
+    const labels = months.map(m => {
+      const d = new Date(`${m}-01T00:00:00`);
+      return d.toLocaleDateString([], { month: "short", year: "numeric" });
+    });
+    el.textContent = `Tara has data for: ${labels.join(", ")}`;
+    el.style.display = "inline";
+  } catch (_) {}
 }
 
 async function boot() {
@@ -538,6 +555,7 @@ async function boot() {
   setupDepartmentChartEvents();
   renderAll();
   setupGlobalMonthPicker();
+  updateAvailableMonthsBadge();
   updateTeamsRefreshLabel();
   if (!DEMO_MODE) {
     setInterval(autoRefreshTeams, TEAMS_REFRESH_INTERVAL);
