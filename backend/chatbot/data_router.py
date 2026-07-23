@@ -1155,13 +1155,22 @@ _EMPLOYEE_HOLISTIC_KEYWORDS = (
 _LIST_STARTERS = ("who ", "show ", "list ", "which ", "give me", "find ")
 
 
-def route(category: str, question: str = "", history: list | None = None) -> dict:
+def route(category: str, question: str = "", history: list | None = None, active_month: str | None = None) -> dict:
     _tl.month_data = None  # reset any previous month override
 
     try:
         if category != "calendar":
-            # Detect requested month and load the right data file
+            # Detect requested month — from question text first, then dashboard's active month
             req = _extract_requested_ym(question)
+            if not req and active_month:
+                # No month in the question → use whichever month the dashboard has loaded
+                from datetime import datetime as _dt
+                try:
+                    ym = active_month[:7]  # "YYYY-MM"
+                    dt = _dt.strptime(ym, "%Y-%m")
+                    req = (ym, dt.strftime("%B %Y"))
+                except (ValueError, IndexError):
+                    req = None
             if req:
                 ym_key, display_name = req
                 month_data = _load_month_file(ym_key)

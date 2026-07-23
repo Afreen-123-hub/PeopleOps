@@ -7,7 +7,7 @@ from .data_router import route
 from .gemini_service import ask_gemini
 
 
-def answer(question: str, history: list | None = None) -> tuple[str, str]:
+def answer(question: str, history: list | None = None, active_month: str | None = None) -> tuple[str, str]:
     greeting = question.lower().strip().strip(" \t\r\n!?.,")
     if greeting in {
         "hi", "hii", "hiii", "hello", "helloo", "hey", "heyy", "yo",
@@ -20,7 +20,7 @@ def answer(question: str, history: list | None = None) -> tuple[str, str]:
             "general",
         )
     category = classify(question)
-    data = route(category, question, history)
+    data = route(category, question, history, active_month=active_month)
 
     # Period mismatch — return directly, never pass to LLM (history would leak wrong-month data)
     if "_periodMismatch" in data:

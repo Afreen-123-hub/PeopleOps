@@ -639,13 +639,14 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             return
         question = str(body.get("question", "")).strip()
         history = body.get("history", [])
+        active_month = str(body.get("activeMonth", "")).strip() or None
         if not isinstance(history, list):
             history = []
         if not question:
             self.send_json({"error": "No question provided."}, HTTPStatus.BAD_REQUEST)
             return
         try:
-            reply, category = tara_answer(question, history)
+            reply, category = tara_answer(question, history, active_month=active_month)
             self.send_json({"answer": reply, "category": category})
         except Exception as exc:
             import traceback

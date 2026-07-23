@@ -2995,7 +2995,11 @@ async function sendTaraMessage() {
     const res = await apiFetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, history: taraHistory }),
+      body: JSON.stringify({
+        question,
+        history: taraHistory,
+        activeMonth: dataset?.meta?.period?.match(/(\d{4}-\d{2})/)?.[1] || null,
+      }),
       signal: ctrl.signal,
     });
     clearTimeout(timeout);
