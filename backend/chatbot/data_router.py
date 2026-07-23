@@ -1176,14 +1176,18 @@ def route(category: str, question: str = "", history: list | None = None) -> dic
                         for m in available
                     ]
                     if available_display:
-                        avail_str = ", ".join(available_display)
+                        avail_str = " | ".join(available_display)
                         msg = (
-                            f"I don't have {display_name} data loaded yet. "
-                            f"Available months: {avail_str}. "
-                            f"Ask me about any of those months."
+                            f"{display_name} data is not loaded.\n"
+                            f"Months available: {avail_str}\n"
+                            f"To load {display_name}: go to the Attendance panel on the dashboard, "
+                            f"select {display_name} in the month picker and click 'Load month'."
                         )
                     else:
-                        msg = f"I don't have {display_name} data loaded yet. No monthly data is available."
+                        msg = (
+                            f"{display_name} data is not loaded and no monthly data exists yet.\n"
+                            f"To load data: go to the Attendance panel, select a month and click 'Load month'."
+                        )
                     _tl.month_data = None
                     return {"_periodMismatch": msg, "dataPeriod": display_name}
 

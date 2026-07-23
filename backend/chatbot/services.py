@@ -21,6 +21,11 @@ def answer(question: str, history: list | None = None) -> tuple[str, str]:
         )
     category = classify(question)
     data = route(category, question, history)
+
+    # Period mismatch — return directly, never pass to LLM (history would leak wrong-month data)
+    if "_periodMismatch" in data:
+        return data["_periodMismatch"], category
+
     if data.get("employee") and any(
         key in data for key in ("plannerTasks", "calendarEvents", "sharePointResources", "healthVerdict")
     ):
