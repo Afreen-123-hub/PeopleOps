@@ -430,6 +430,81 @@ def _fetch_live_presence(name: str) -> str | None:
     return None
 
 
+def _fetch_teams_today(name: str) -> dict:
+    """Return live Teams presence + today's meeting hours for a named employee."""
+    import sys
+    from datetime import datetime, timezone, timedelta
+    from pathlib import Path
+
+    project_root = Path(__file__).resolve().parents[2]
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+
+    graph = _load_graph()
+    graph_emp = next(
+        (e for e in graph.get("employees", [])
+         if _name_score(e.get("name", ""), name) > 0),
+        None,
+    )
+
+    result = {
+        "name": name,
+        "liveStatus": None,
+        "meetingHoursToday": None,
+        "meetingCountToday": None,
+        "todayDate": datetime.now().strftime("%A, %d %B %Y"),
+    }
+
+    if not graph_emp:
+        return result
+
+    user_id = graph_emp.get("userId")
+    result["name"] = graph_emp.get("name", name)
+
+    # 1. Live presence status
+    if user_id:
+        try:
+            from services.teams_api_client import get_presences_by_user_id
+            presences = get_presences_by_user_id([user_id]).get("value", [])
+            if presences:
+                result["liveStatus"] = (
+                    presences[0].get("availability") or presences[0].get("activity")
+                )
+        except Exception:
+            pass
+
+    # 2. Today's calendar to calculate meeting hours online in Teams
+    if user_id:
+        try:
+            from services.graph_activity_client import GraphActivityClient
+            now_ist = datetime.now(timezone(timedelta(hours=5, minutes=30)))
+            day_start = now_ist.replace(hour=0, minute=0, second=0, microsecond=0)
+            day_end   = now_ist.replace(hour=23, minute=59, second=59, microsecond=0)
+            events = GraphActivityClient().get_calendar_view(
+                user_id,
+                day_start.strftime("%Y-%m-%dT%H:%M:%S"),
+                day_end.strftime("%Y-%m-%dT%H:%M:%S"),
+            )
+            total_mins = 0
+            count = 0
+            for ev in events:
+                if ev.get("isCancelled"):
+                    continue
+                try:
+                    s = datetime.fromisoformat(ev["start"]["dateTime"].replace("Z", "+00:00"))
+                    e = datetime.fromisoformat(ev["end"]["dateTime"].replace("Z", "+00:00"))
+                    total_mins += max(0, (e - s).seconds // 60)
+                    count += 1
+                except (KeyError, ValueError):
+                    pass
+            result["meetingHoursToday"] = round(total_mins / 60, 1)
+            result["meetingCountToday"] = count
+        except Exception:
+            pass
+
+    return result
+
+
 def get_availability_data(question: str = "") -> dict:
     import re
     data = _load()
@@ -460,6 +535,29 @@ def get_availability_data(question: str = "") -> dict:
             "employees": [{"name": match["name"], "team": match["team"], "status": status}],
             "footer": "",
         }
+
+    # Detect "how many hours [name] in teams today" → live Teams data
+    if "hour" in q and "today" in q:
+        # Extract a name from the question; skip short filler words
+        _filler = {"how", "many", "hours", "is", "in", "on", "teams", "today",
+                   "was", "were", "did", "has", "the", "a", "an", "what",
+                   "much", "time", "spent", "online", "active", "for"}
+        name_tokens = [t for t in re.findall(r"[a-z]+", q) if t not in _filler and len(t) > 2]
+        if name_tokens:
+            candidate = " ".join(name_tokens)
+            # Find best-matching employee name
+            best_emp = max(all_records, key=lambda r: _name_score(r["name"], candidate), default=None)
+            if best_emp and _name_score(best_emp["name"], candidate) > 0:
+                live_data = _fetch_teams_today(best_emp["name"])
+                return {
+                    "_note": (
+                        "Real-time Teams data for today. "
+                        "Report the liveStatus, meetingHoursToday, and meetingCountToday. "
+                        "If meetingHoursToday is 0 or None, say 'no scheduled meetings found for today' "
+                        "but still report the live presence status."
+                    ),
+                    "teamsToday": live_data,
+                }
 
     # Detect "is [name] [status]?" — single-person lookup
     m = re.search(

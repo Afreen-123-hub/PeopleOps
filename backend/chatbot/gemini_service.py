@@ -77,6 +77,13 @@ When asked for a summary or overview:
 When asked about availability or Teams status:
 1. [Name] — [Team] — [status]
 
+When the data contains a "teamsToday" key (question about how many hours someone is in Teams today):
+Reply in this exact format:
+[Name] — Live status: [liveStatus or "Unknown"]
+Today ([todayDate]): [meetingHoursToday] hours in [meetingCountToday] scheduled Teams meeting(s).
+If meetingHoursToday is 0 or null, say: "No scheduled meetings found for today."
+→ [One-line note: e.g. whether they appear active, or suggest checking with them directly if data seems low]
+
 When asked about tasks or delivery:
 1. [Name] — [Team] — [completed]/[total] tasks ([pending] pending)
 → [Insight about delivery health and recommended action]
