@@ -287,16 +287,20 @@ def get_attendance_data(question: str = "", history: list | None = None) -> dict
     if not is_specific_person:
         employees = [e for e in employees if e.get("band") != "Executive"]
 
+    # Add combined total for LLM to display
+    for e in employees:
+        e["totalAbsence"] = e["absent"] + e["leave"]
+
     # Filter and sort based on question intent
     if any(w in q for w in ("absent", "miss", "missing")):
-        # Only employees who actually missed work days — approved leave is separate from absence
-        employees = [e for e in employees if e["absent"] > 0]
-        employees.sort(key=lambda e: e["absent"], reverse=True)
+        # Only show employees with MORE than 3 days absent+leave — real attendance concerns
+        employees = [e for e in employees if e["totalAbsence"] > 3]
+        employees.sort(key=lambda e: e["totalAbsence"], reverse=True)
     elif any(w in q for w in ("perfect", "present", "best attendance", "most present")):
         employees = [e for e in employees if e["absent"] == 0 and e["leave"] == 0]
         employees.sort(key=lambda e: e["present"], reverse=True)
     else:
-        employees.sort(key=lambda e: e["absent"] + e["leave"], reverse=True)
+        employees.sort(key=lambda e: e["totalAbsence"], reverse=True)
 
     show_all = any(kw in q for kw in _SHOW_ALL_KEYWORDS)
     total = len(employees)
@@ -305,8 +309,18 @@ def get_attendance_data(question: str = "", history: list | None = None) -> dict
     remaining = total - shown
     footer = f"...and {remaining} more." if remaining > 0 else ""
 
+    if not shown_list:
+        return {
+            "_note": "No employees exceeded 3 days of absence/leave this period. Attendance is healthy.",
+            "employees": [],
+            "footer": "",
+        }
+
     return {
-        "_note": f"List ONLY these {shown} employees exactly as given. Do not add, repeat, or invent names.",
+        "_note": (
+            f"List ONLY these {shown} employees — all have more than 3 days absent or on leave. "
+            "Show each person's absent days, leave days, and totalAbsence. Do not add or invent names."
+        ),
         "employees": shown_list,
         "footer": footer,
     }
