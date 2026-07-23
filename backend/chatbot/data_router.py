@@ -627,7 +627,8 @@ def get_risk_insight_data(question: str = "") -> dict:
     risk_records.sort(key=lambda x: (-x["riskCount"], x["kpi"] if x["kpi"] is not None else 999))
 
     total = len(risk_records)
-    shown = min(total, 10)
+    show_all = any(kw in question.lower() for kw in _SHOW_ALL_KEYWORDS)
+    shown = total if show_all else min(total, 10)
     return {
         "_note": f"These {shown} employees have performance risk signals needing management attention. Present each with their specific issues clearly.",
         "totalAtRisk": total,
@@ -1077,9 +1078,21 @@ _LIST_STARTERS = ("who ", "show ", "list ", "which ", "give me", "find ")
 
 def route(category: str, question: str = "", history: list | None = None) -> dict:
     data = _route_inner(category, question, history)
-    period = _data_period()
-    if period:
-        data["dataPeriod"] = period
+    if category == "calendar":
+        # Calendar data is from graph-activity.json (July 2026), not June attendance data
+        try:
+            graph_meta = _load_graph().get("meta", {})
+            start = graph_meta.get("periodStart", "")
+            if start:
+                from datetime import datetime
+                dt = datetime.strptime(start, "%Y-%m-%d")
+                data["dataPeriod"] = dt.strftime("%B %Y")
+        except Exception:
+            pass
+    else:
+        period = _data_period()
+        if period:
+            data["dataPeriod"] = period
     return data
 
 
@@ -1105,14 +1118,46 @@ def _route_inner(category: str, question: str = "", history: list | None = None)
     q = question.lower().strip()
     is_list_question = any(q.startswith(s) for s in _LIST_STARTERS)
 
-    # Detect "compare [name] and [name]" — redirect to performance with both employees
+    # Detect "compare [name] and [name]" — return only those two employees
     compare_m = re.search(r'\bcompare\b.{1,40}\band\b', q)
     if compare_m:
+        data = _load()
+        all_emps = data.get("employees", [])
+        # Find the two names in the question
+        emp1 = _query_employee(re.sub(r'\band\b.*', '', compare_m.group(0).replace('compare', '')).strip())
+        emp2 = _query_employee(re.sub(r'.*\band\b', '', compare_m.group(0)).strip())
+        pair = [e for e in all_emps if e.get("id") in {
+            (emp1 or {}).get("id"), (emp2 or {}).get("id")
+        }]
+        if len(pair) == 2:
+            return {
+                "_note": "Compare these two employees side by side — KPI, band, attendance, tasks. End with '→ [who is stronger and why]'.",
+                "employees": [_compact_employee(e) for e in pair],
+                "footer": "",
+            }
         return get_performance_data(question, history)
 
-    # Detect band distribution queries
-    if any(p in q for p in ("how many in each", "band distribution", "each band", "breakdown by band", "band breakdown", "count by band")):
-        return get_performance_data(question, history)
+    # Detect band distribution queries — return band counts across ALL employees
+    if any(p in q for p in ("how many in each", "band distribution", "each band", "breakdown by band", "band breakdown", "count by band", "how many employees in each", "band count")):
+        data = _load()
+        from collections import Counter
+        band_counts: Counter = Counter()
+        band_members: dict[str, list[str]] = {}
+        for e in data.get("employees", []):
+            b = e.get("band") or "Insufficient Data"
+            band_counts[b] += 1
+            band_members.setdefault(b, []).append(e.get("name", ""))
+        band_order = ["Excellent", "Good", "Average", "Needs Improvement", "Critical", "Insufficient Data", "Executive"]
+        summary = [
+            {"band": b, "count": band_counts[b], "employees": band_members[b][:5]}
+            for b in band_order if b in band_counts
+        ]
+        return {
+            "_note": "Show band distribution. Format: **[Band]**: [count] employees — [names]. End with → insight.",
+            "totalEmployees": sum(band_counts.values()),
+            "bandSummary": summary,
+            "footer": "",
+        }
 
     # For any non-graph category: if a specific employee is named and this is NOT
     # a list question, redirect to employee360 so Tara has full context
