@@ -118,7 +118,7 @@ GitHub adds 10% only when GitHub data exists.
 12. Band distribution ("how many in each band?"): list each band with count and first 5 names. Format: "Excellent: 5 employees — name1, name2..."
 13. Compare two employees: show side by side — KPI, band, attendance, tasks. End with "→ [who is stronger and specific reason why]".
 14. Every problem you report must include a "how to fix it" suggestion. Management needs actions, not just data.
-15. If the data contains "_periodMismatch", output that message EXACTLY as written and stop — do not show any employee list or data from a different month. The user asked for a specific month and must be told clearly that it is not available."""
+15. If the data contains "_periodMismatch", output that message EXACTLY as written and stop — do not show any employee list or data from a different month. The user asked for a specific month and must be told clearly what is and is not available."""
 
 
 def ask_gemini(question: str, data: dict, category: str, history: list | None = None) -> str:

@@ -2,43 +2,81 @@ from __future__ import annotations
 
 import json
 import re
+import threading
 from pathlib import Path
 
 DATA_FILE        = Path(__file__).resolve().parents[2] / "data" / "peopleops-data.json"
+MONTHS_DIR       = Path(__file__).resolve().parents[2] / "data" / "months"
 GITHUB_DATA_FILE = Path(__file__).resolve().parents[2] / "data" / "github-data.json"
 GRAPH_DATA_FILE  = Path(__file__).resolve().parents[2] / "data" / "graph-activity.json"
 
+# Thread-local storage so concurrent requests each use their own month data
+_tl = threading.local()
+
 _PRONOUN_TRIGGERS = ("their", "them", "these people", "those people", "the same")
 
-_MONTH_MAP = {
-    "january": "January", "jan": "January",
-    "february": "February", "feb": "February",
-    "march": "March", "mar": "March",
-    "april": "April", "apr": "April",
-    "may": "May",
-    "june": "June", "jun": "June",
-    "july": "July", "jul": "July",
-    "august": "August", "aug": "August",
-    "september": "September", "sep": "September", "sept": "September",
-    "october": "October", "oct": "October",
-    "november": "November", "nov": "November",
-    "december": "December", "dec": "December",
+# Maps lowercase month tokens → (full name, month number)
+_MONTH_MAP: dict[str, tuple[str, int]] = {
+    "january": ("January", 1),   "jan": ("January", 1),
+    "february": ("February", 2), "feb": ("February", 2),
+    "march": ("March", 3),       "mar": ("March", 3),
+    "april": ("April", 4),       "apr": ("April", 4),
+    "may": ("May", 5),
+    "june": ("June", 6),         "jun": ("June", 6),
+    "july": ("July", 7),         "jul": ("July", 7),
+    "august": ("August", 8),     "aug": ("August", 8),
+    "september": ("September", 9), "sep": ("September", 9), "sept": ("September", 9),
+    "october": ("October", 10),  "oct": ("October", 10),
+    "november": ("November", 11),"nov": ("November", 11),
+    "december": ("December", 12),"dec": ("December", 12),
 }
 
 
-def _extract_requested_period(question: str) -> str | None:
-    """Return 'Month YYYY' (or just 'Month') if a month name appears in the question."""
+def _extract_requested_ym(question: str) -> tuple[str, str] | None:
+    """Return (YYYY-MM key, 'Month YYYY' display) if a specific month is named in the question."""
+    from datetime import datetime
     q = question.lower()
-    for token, full_name in _MONTH_MAP.items():
-        # Match whole word only — avoid 'march' matching 'marching'
-        if re.search(r'\b' + token + r'\b', q):
-            year_m = re.search(r'\b(20\d{2})\b', q)
-            return f"{full_name} {year_m.group(1)}" if year_m else full_name
+    year_m = re.search(r'\b(20\d{2})\b', q)
+    year = int(year_m.group(1)) if year_m else datetime.now().year
+    for token, (full_name, month_num) in _MONTH_MAP.items():
+        if re.search(r'\b' + re.escape(token) + r'\b', q):
+            return f"{year}-{month_num:02d}", f"{full_name} {year}"
     return None
 
 
+def _extract_requested_period(question: str) -> str | None:
+    """Return 'Month YYYY' display string if a month is named — used for mismatch messages."""
+    result = _extract_requested_ym(question)
+    return result[1] if result else None
+
+
 def _load() -> dict:
+    """Load peopleops data — uses thread-local month override if set by route()."""
+    override = getattr(_tl, "month_data", None)
+    if override is not None:
+        return override
     return json.loads(DATA_FILE.read_text(encoding="utf-8-sig"))
+
+
+def _available_months() -> list[str]:
+    """Return sorted list of available month keys, e.g. ['2026-05', '2026-06']."""
+    if not MONTHS_DIR.exists():
+        return []
+    return sorted([
+        p.stem for p in MONTHS_DIR.glob("*.json")
+        if re.match(r"^\d{4}-\d{2}$", p.stem)
+    ])
+
+
+def _load_month_file(ym_key: str) -> dict | None:
+    """Load data for a specific YYYY-MM key. Returns None if file doesn't exist."""
+    path = MONTHS_DIR / f"{ym_key}.json"
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8-sig"))
+    except (json.JSONDecodeError, OSError):
+        return None
 
 
 def _data_period() -> str:
@@ -1118,40 +1156,56 @@ _LIST_STARTERS = ("who ", "show ", "list ", "which ", "give me", "find ")
 
 
 def route(category: str, question: str = "", history: list | None = None) -> dict:
-    data = _route_inner(category, question, history)
+    _tl.month_data = None  # reset any previous month override
+
+    try:
+        if category != "calendar":
+            # Detect requested month and load the right data file
+            req = _extract_requested_ym(question)
+            if req:
+                ym_key, display_name = req
+                month_data = _load_month_file(ym_key)
+                if month_data is not None:
+                    _tl.month_data = month_data  # all _load() calls will use this month
+                else:
+                    # Month asked for but no data file — tell user what is available
+                    available = _available_months()
+                    from datetime import datetime
+                    available_display = [
+                        datetime.strptime(m, "%Y-%m").strftime("%B %Y")
+                        for m in available
+                    ]
+                    if available_display:
+                        avail_str = ", ".join(available_display)
+                        msg = (
+                            f"I don't have {display_name} data loaded yet. "
+                            f"Available months: {avail_str}. "
+                            f"Ask me about any of those months."
+                        )
+                    else:
+                        msg = f"I don't have {display_name} data loaded yet. No monthly data is available."
+                    _tl.month_data = None
+                    return {"_periodMismatch": msg, "dataPeriod": display_name}
+
+        data = _route_inner(category, question, history)
+    finally:
+        _tl.month_data = None  # always clean up
 
     if category == "calendar":
-        # Calendar data is from graph-activity.json, not attendance data
         try:
             graph_meta = _load_graph().get("meta", {})
             start = graph_meta.get("periodStart", "")
             if start:
                 from datetime import datetime
                 dt = datetime.strptime(start, "%Y-%m-%d")
-                calendar_period = dt.strftime("%B %Y")
-                data["dataPeriod"] = calendar_period
-                # Check if user asked about a different month
-                requested = _extract_requested_period(question)
-                if requested and requested.lower() not in calendar_period.lower():
-                    data["_periodMismatch"] = (
-                        f"User asked about {requested} but calendar data only covers {calendar_period}. "
-                        f"Tell the user: 'I only have {calendar_period} calendar data. "
-                        f"{requested} data is not loaded yet.'"
-                    )
+                data["dataPeriod"] = dt.strftime("%B %Y")
         except Exception:
             pass
     else:
         period = _data_period()
         if period:
             data["dataPeriod"] = period
-            # Detect if the user is asking about a month we don't have data for
-            requested = _extract_requested_period(question)
-            if requested and requested.lower() not in period.lower():
-                data["_periodMismatch"] = (
-                    f"User asked about {requested} but the only available data is for {period}. "
-                    f"Tell the user clearly: 'I currently only have {period} data loaded. "
-                    f"{requested} data is not available yet.' Do NOT show {period} data as if it answers a {requested} question."
-                )
+
     return data
 
 

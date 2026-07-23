@@ -244,6 +244,13 @@ def main():
     DATA_FILE.write_text(json.dumps(data, indent=2), encoding="utf-8")
     print(f"Updated attendance for {updated} employees ({month})")
 
+    # Also save a month-specific copy so Tara can answer multi-month questions
+    months_dir = PROJECT / "data" / "months"
+    months_dir.mkdir(exist_ok=True)
+    month_file = months_dir / f"{month}.json"
+    month_file.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    print(f"Saved month snapshot → data/months/{month}.json")
+
 
 if __name__ == "__main__":
     main()
