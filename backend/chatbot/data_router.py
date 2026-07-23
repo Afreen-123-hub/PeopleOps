@@ -289,8 +289,9 @@ def get_attendance_data(question: str = "", history: list | None = None) -> dict
 
     # Filter and sort based on question intent
     if any(w in q for w in ("absent", "miss", "missing")):
-        employees = [e for e in employees if e["absent"] > 0 or e["leave"] > 0]
-        employees.sort(key=lambda e: e["absent"] + e["leave"], reverse=True)
+        # Only employees who actually missed work days — approved leave is separate from absence
+        employees = [e for e in employees if e["absent"] > 0]
+        employees.sort(key=lambda e: e["absent"], reverse=True)
     elif any(w in q for w in ("perfect", "present", "best attendance", "most present")):
         employees = [e for e in employees if e["absent"] == 0 and e["leave"] == 0]
         employees.sort(key=lambda e: e["present"], reverse=True)
