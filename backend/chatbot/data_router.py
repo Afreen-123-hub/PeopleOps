@@ -10,6 +10,32 @@ GRAPH_DATA_FILE  = Path(__file__).resolve().parents[2] / "data" / "graph-activit
 
 _PRONOUN_TRIGGERS = ("their", "them", "these people", "those people", "the same")
 
+_MONTH_MAP = {
+    "january": "January", "jan": "January",
+    "february": "February", "feb": "February",
+    "march": "March", "mar": "March",
+    "april": "April", "apr": "April",
+    "may": "May",
+    "june": "June", "jun": "June",
+    "july": "July", "jul": "July",
+    "august": "August", "aug": "August",
+    "september": "September", "sep": "September", "sept": "September",
+    "october": "October", "oct": "October",
+    "november": "November", "nov": "November",
+    "december": "December", "dec": "December",
+}
+
+
+def _extract_requested_period(question: str) -> str | None:
+    """Return 'Month YYYY' (or just 'Month') if a month name appears in the question."""
+    q = question.lower()
+    for token, full_name in _MONTH_MAP.items():
+        # Match whole word only — avoid 'march' matching 'marching'
+        if re.search(r'\b' + token + r'\b', q):
+            year_m = re.search(r'\b(20\d{2})\b', q)
+            return f"{full_name} {year_m.group(1)}" if year_m else full_name
+    return None
+
 
 def _load() -> dict:
     return json.loads(DATA_FILE.read_text(encoding="utf-8-sig"))
@@ -1093,21 +1119,39 @@ _LIST_STARTERS = ("who ", "show ", "list ", "which ", "give me", "find ")
 
 def route(category: str, question: str = "", history: list | None = None) -> dict:
     data = _route_inner(category, question, history)
+
     if category == "calendar":
-        # Calendar data is from graph-activity.json (July 2026), not June attendance data
+        # Calendar data is from graph-activity.json, not attendance data
         try:
             graph_meta = _load_graph().get("meta", {})
             start = graph_meta.get("periodStart", "")
             if start:
                 from datetime import datetime
                 dt = datetime.strptime(start, "%Y-%m-%d")
-                data["dataPeriod"] = dt.strftime("%B %Y")
+                calendar_period = dt.strftime("%B %Y")
+                data["dataPeriod"] = calendar_period
+                # Check if user asked about a different month
+                requested = _extract_requested_period(question)
+                if requested and requested.lower() not in calendar_period.lower():
+                    data["_periodMismatch"] = (
+                        f"User asked about {requested} but calendar data only covers {calendar_period}. "
+                        f"Tell the user: 'I only have {calendar_period} calendar data. "
+                        f"{requested} data is not loaded yet.'"
+                    )
         except Exception:
             pass
     else:
         period = _data_period()
         if period:
             data["dataPeriod"] = period
+            # Detect if the user is asking about a month we don't have data for
+            requested = _extract_requested_period(question)
+            if requested and requested.lower() not in period.lower():
+                data["_periodMismatch"] = (
+                    f"User asked about {requested} but the only available data is for {period}. "
+                    f"Tell the user clearly: 'I currently only have {period} data loaded. "
+                    f"{requested} data is not available yet.' Do NOT show {period} data as if it answers a {requested} question."
+                )
     return data
 
 
