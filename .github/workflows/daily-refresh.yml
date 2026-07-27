@@ -47,9 +47,12 @@ jobs:
         run: python scripts/refresh_graph_activity.py
 
       - name: Commit and push updated data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
           git add data/peopleops-data.json data/graph-activity.json data/github-data.json
           git diff --staged --quiet || git commit -m "chore: daily data refresh [skip ci]"
           git push
