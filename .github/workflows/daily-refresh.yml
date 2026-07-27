@@ -29,6 +29,9 @@ jobs:
           GRAPH_CLIENT_SECRET: ${{ secrets.GRAPH_CLIENT_SECRET }}
           PEOPLEOPS_USERNAME: ${{ secrets.PEOPLEOPS_USERNAME }}
           PEOPLEOPS_PASSWORD: ${{ secrets.PEOPLEOPS_PASSWORD }}
+          WORKLOGIX_BASE_URL: ${{ secrets.WORKLOGIX_BASE_URL }}
+          WORKLOGIX_EMAIL: ${{ secrets.WORKLOGIX_EMAIL }}
+          WORKLOGIX_PASSWORD: ${{ secrets.WORKLOGIX_PASSWORD }}
 
       - name: Refresh Teams data
         run: python scripts/refresh_teams.py
