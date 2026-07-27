@@ -60,6 +60,7 @@ CATEGORY_KEYWORDS = {
         "online", "offline", "available", "busy", "away",
         "active now", "presence", "teams status", "working from",
         "currently online", "who is online", "who is offline",
+        "status", "what is his status", "what is her status",
     ],
     "task": [
         "task", "worklogix", "completed", "pending", "blocked",
