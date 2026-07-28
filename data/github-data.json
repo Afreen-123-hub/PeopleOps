@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-27T09:46:27.417702Z",
+  "lastUpdated": "2026-07-28T06:10:30.009535Z",
   "period": {
     "since": "2026-06-01",
     "until": "2026-06-30"
@@ -11,38 +11,68 @@
       "title": "Edubot_CPLC",
       "items": [
         {
-          "title": "[Version -2 CPLC] “View All” in the Admin Dashboard Leave Approval section navigates only to Student Leave Requests.",
+          "title": "[Version-2 CPLC] Bug: Implement Common UI & UX Improvements",
           "status": "In Progress",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Antony-Bilgates"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/132",
-          "createdAt": "2026-07-27T05:20:11Z",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/35",
+          "createdAt": "2026-07-14T07:12:08Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
-          "title": "[Version-2 CPLC] Leave Balance Is Not Displayed During Leave Application",
+          "title": "[Version-2 CPLC] Leave Application search includes Reason/Description instead of Date",
           "status": "In Progress",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Antony-Bilgates"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/126",
-          "createdAt": "2026-07-24T07:07:49Z",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/136",
+          "createdAt": "2026-07-27T08:59:56Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] User Story : Super Admin Dashboard & Notifications",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "vahithcw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/73",
+          "createdAt": "2026-07-17T09:55:43Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] User Story: Super Admin – Institute Integration & Portal Configuration",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "vahithcw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/76",
+          "createdAt": "2026-07-17T10:01:04Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
           "title": "[Version-2 CPLC] User Story: Super Admin – Institute Management",
-          "status": "To Do",
+          "status": "In Progress",
           "priority": "",
           "size": "",
           "assignees": [
@@ -56,12 +86,72 @@
           "endDate": ""
         },
         {
-          "title": "[Version-2 CPLC] Bug: Implement Student Portal Improvements",
-          "status": "In Progress",
+          "title": "[ Version-2 CPLC ] Present and absent dates are displayed in an incorrect or shuffled order in the Student Attendance module of the Mentor Portal.",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/120",
+          "createdAt": "2026-07-23T11:25:54Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[ Version-2 CPLC ] Changing \"Rows per Page\" Does Not Reset Pagination",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/124",
+          "createdAt": "2026-07-24T06:18:33Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version -2 CPLC] “View All” in the Admin Dashboard Leave Approval section navigates only to Student Leave Requests.",
+          "status": "Dev",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/132",
+          "createdAt": "2026-07-27T05:20:11Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Leave Balance Is Not Displayed During Leave Application",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/126",
+          "createdAt": "2026-07-24T07:07:49Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Bug: Implement Student Portal Improvements",
+          "status": "Dev",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/47",
@@ -87,11 +177,11 @@
         },
         {
           "title": "[Version-2 CPLC] Forgot Password accepts invalid OTP and redirects to Reset Password page",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/130",
@@ -102,11 +192,11 @@
         },
         {
           "title": "[Version-2 CPLC] Admin-created schedules do not display the creator name for students",
-          "status": "In Progress",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/129",
@@ -117,11 +207,11 @@
         },
         {
           "title": "[Version-2 CPLC] Leave Balance Is Not Displayed in the Leave Application Form",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/127",
@@ -132,11 +222,11 @@
         },
         {
           "title": "[Version-2 CPLC] Weightage Field Is Auto-Populated with Default Value in Create Task",
-          "status": "In Progress",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/125",
@@ -147,11 +237,11 @@
         },
         {
           "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
-          "status": "In Progress",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/121",
@@ -162,11 +252,11 @@
         },
         {
           "title": "[ Version-2 CPLC ] Schedule Details Panel Opens by Default Instead of on Event Hover/Click.",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/122",
@@ -191,27 +281,12 @@
           "endDate": ""
         },
         {
-          "title": "[Version-2 CPLC] Bug: Implement Common UI & UX Improvements",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/35",
-          "createdAt": "2026-07-14T07:12:08Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "[Version-2 CPLC] User Story : Student Portal – Dashboard Enhancement",
-          "status": "To Do",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/86",
@@ -222,11 +297,11 @@
         },
         {
           "title": "[ Version-2 CPLC ] Incorrect header “Mentor Task” is displayed in the Student Task module of the Mentor Portal.",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "vahithcw"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/123",
@@ -237,11 +312,11 @@
         },
         {
           "title": "[ Version-2 CPLC ] Student List Is Not Sorted by ID Number",
-          "status": "In Progress",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
-            "vahithcw"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/101",
@@ -251,61 +326,16 @@
           "endDate": ""
         },
         {
-          "title": "[ Version-2 CPLC ] Present and absent dates are displayed in an incorrect or shuffled order in the Student Attendance module of the Mentor Portal.",
-          "status": "In Progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "vahithcw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/120",
-          "createdAt": "2026-07-23T11:25:54Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "[Version-2 CPLC] User Story: Mentor & Student Portals – Leave Management Enhancement",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "vahithcw"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/88",
           "createdAt": "2026-07-19T09:35:38Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] User Story : Super Admin Dashboard & Notifications",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "vahithcw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/73",
-          "createdAt": "2026-07-17T09:55:43Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] User Story: Super Admin – Institute Integration & Portal Configuration",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "vahithcw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/76",
-          "createdAt": "2026-07-17T10:01:04Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -357,11 +387,11 @@
         },
         {
           "title": "[Version-2 CPLC] Incorrect note text is displayed in the Student Attendance History.",
-          "status": "In Progress",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/116",
@@ -372,11 +402,11 @@
         },
         {
           "title": "[Version-2 CPLC] User Story : Common UI/UX Enhancements",
-          "status": "In Progress",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/71",
@@ -507,11 +537,11 @@
         },
         {
           "title": "[Version-2 CPLC] Empty State Message Is Displayed Even When Schedules Exist",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/115",
@@ -537,11 +567,11 @@
         },
         {
           "title": "[Version-2 CPLC] Schedule Month View Is Not Displayed Correctly on Different Screen Resolutions.",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/113",
@@ -1138,11 +1168,11 @@
         },
         {
           "title": "[ Version-2 CPLC ] Assigned Values Are Not Cleared After Mentor–Student Assign",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/103",
@@ -1408,11 +1438,11 @@
         },
         {
           "title": "[ Version-2 CPLC ]Multiple admin notifications are triggered when the Mentor approves the same student leave request repeatedly.",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "vahithcw"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/97",
@@ -1423,7 +1453,7 @@
         },
         {
           "title": "[Version-2 CPLC] Student Task Submission Allows File Uploads Exceeding 10 MB Limit",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1438,30 +1468,15 @@
         },
         {
           "title": "[Version-2 CPLC] Profile page allows users to save empty mandatory fields and invalid phone numbers in the Mentor, Student, and Admin portals.",
-          "status": "To Do",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/119",
           "createdAt": "2026-07-23T11:17:34Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[ Version-2 CPLC ] Changing \"Rows per Page\" Does Not Reset Pagination",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "vahithcw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/124",
-          "createdAt": "2026-07-24T06:18:33Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -1495,27 +1510,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Leave Management summary cards display counts only for the current page instead of total records",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "vahithcw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/134",
-          "createdAt": "2026-07-27T07:38:33Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 2,
-        "inProgress": 23,
+        "inProgress": 8,
         "todo": 0,
         "backlog": 0,
         "production": 0
@@ -2827,11 +2827,11 @@
         },
         {
           "title": "Submission scores are displayed as 0.",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "suruthisagar97"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/384",
@@ -2842,11 +2842,11 @@
         },
         {
           "title": "Success Toast Message Is Displayed at the Bottom of the Page After Worksheet Submission",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/536",
@@ -2857,11 +2857,11 @@
         },
         {
           "title": "Filter By List Does Not Match Event Type Dropdown",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/526",
@@ -2872,11 +2872,11 @@
         },
         {
           "title": "Class dropdown under Classes Filter Issues in Event Calendar",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/525",
@@ -2887,11 +2887,11 @@
         },
         {
           "title": "Period defaults to \"1 Month\" on the Analytics page.",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "suruthisagar97"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/520",
@@ -2902,11 +2902,11 @@
         },
         {
           "title": "Categories & Sub-categories and Actions Filters Are Not Working in Behavioural Management",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/523",
@@ -2932,11 +2932,11 @@
         },
         {
           "title": "City, State, and Country Fields Are Text Fields Instead of Dropdowns in Super Admin School Creation",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/515",
@@ -2962,11 +2962,11 @@
         },
         {
           "title": "Student Name Is Clickable in Gradebook Instead of Only the View Icon",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/506",
@@ -2977,11 +2977,11 @@
         },
         {
           "title": "Analytics Page Triggers 403 Forbidden Error on Load in Teacher Role",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/512",
@@ -2992,11 +2992,11 @@
         },
         {
           "title": "Section Description Displays \"#\" Symbols When Viewing an Assignment",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/511",
@@ -3007,11 +3007,11 @@
         },
         {
           "title": "Sort Icons Are Displayed in Gradebook Columns",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/510",
@@ -3022,11 +3022,11 @@
         },
         {
           "title": "Success Dialog Does Not Disappear After Saving Attendance",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/509",
@@ -3037,11 +3037,11 @@
         },
         {
           "title": "Error message displayed when clicking the Event Calendar.",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "suruthisagar97"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/504",
@@ -3052,11 +3052,11 @@
         },
         {
           "title": "Teacher Can Access \"Mark as Resolved\" Action in Incident Report",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/501",
@@ -3067,11 +3067,11 @@
         },
         {
           "title": "Class Subjects Are Not Filtered Based on the Selected Subject While Creating a Teacher",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/255",
@@ -3082,11 +3082,11 @@
         },
         {
           "title": "Attendance List Is Not Cleared After Clearing the Date Filter",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/500",
@@ -3097,11 +3097,11 @@
         },
         {
           "title": "Event Calendar Displays Time in System Format Instead of 12-Hour Format",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/497",
@@ -3127,11 +3127,11 @@
         },
         {
           "title": "Parent contact number is empty after student creation.",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "suruthisagar97"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/335",
@@ -3156,12 +3156,162 @@
           "endDate": ""
         },
         {
-          "title": "Student Mapping Fails with \"Contact Number Already Exists\" Error During Parent Creation",
+          "title": "Action Menu Is Hidden Behind the Taskbar in Manage Users",
           "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
             "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/569",
+          "createdAt": "2026-07-27T11:11:08Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Success message displayed when saving attendance without data.",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/559",
+          "createdAt": "2026-07-27T06:16:10Z",
+          "closedAt": null,
+          "startDate": "2026-07-27",
+          "endDate": ""
+        },
+        {
+          "title": "Downloaded User PDF Does Not Maintain Alphabetical Order",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/555",
+          "createdAt": "2026-07-27T04:52:16Z",
+          "closedAt": null,
+          "startDate": "2026-07-27",
+          "endDate": ""
+        },
+        {
+          "title": "Mandatory Field Indicators and Inline Validation Are Missing on Student and Parent Edit Profile",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/553",
+          "createdAt": "2026-07-24T11:24:10Z",
+          "closedAt": null,
+          "startDate": "2026-07-27",
+          "endDate": ""
+        },
+        {
+          "title": "Mandatory Field Validation Displays Failure Toast Instead of Inline Message on Teacher Edit Profile",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/552",
+          "createdAt": "2026-07-24T11:10:37Z",
+          "closedAt": null,
+          "startDate": "2026-07-27",
+          "endDate": ""
+        },
+        {
+          "title": "Notification action buttons are missing.",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/545",
+          "createdAt": "2026-07-24T06:54:25Z",
+          "closedAt": null,
+          "startDate": "2026-07-27",
+          "endDate": ""
+        },
+        {
+          "title": "Page flickers when changing the incident status.",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/544",
+          "createdAt": "2026-07-24T06:39:57Z",
+          "closedAt": null,
+          "startDate": "2026-07-27",
+          "endDate": ""
+        },
+        {
+          "title": "Worksheet file appears in the teacher account without being uploaded.",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/533",
+          "createdAt": "2026-07-23T12:01:24Z",
+          "closedAt": null,
+          "startDate": "2026-07-27",
+          "endDate": ""
+        },
+        {
+          "title": "Incorrect submission time is displayed in the submission details.",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/385",
+          "createdAt": "2026-07-15T07:04:43Z",
+          "closedAt": null,
+          "startDate": "2026-07-27",
+          "endDate": ""
+        },
+        {
+          "title": "Staff Tooltip Displays Incorrect Information in the Classes Section",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/388",
+          "createdAt": "2026-07-15T09:00:41Z",
+          "closedAt": null,
+          "startDate": "2026-07-20",
+          "endDate": ""
+        },
+        {
+          "title": "Student Mapping Fails with \"Contact Number Already Exists\" Error During Parent Creation",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/337",
@@ -3172,11 +3322,11 @@
         },
         {
           "title": "Assigned Grade Is Not Displayed for Some Students in the Student List",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/262",
@@ -3202,11 +3352,11 @@
         },
         {
           "title": "Top Panel Overlaps the Student Edit Profile Page",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/219",
@@ -3217,11 +3367,11 @@
         },
         {
           "title": "Attendance details are not displayed in the Parent account.",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "suruthisagar97"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/362",
@@ -3517,7 +3667,7 @@
         },
         {
           "title": "All students are visible in the new teacher's chat.",
-          "status": "DEV",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3528,21 +3678,6 @@
           "createdAt": "2026-07-14T11:18:17Z",
           "closedAt": null,
           "startDate": "2026-07-17",
-          "endDate": ""
-        },
-        {
-          "title": "Staff Tooltip Displays Incorrect Information in the Classes Section",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Dharsan1102codework"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/388",
-          "createdAt": "2026-07-15T09:00:41Z",
-          "closedAt": null,
-          "startDate": "2026-07-20",
           "endDate": ""
         },
         {
@@ -4006,146 +4141,13 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "OTP Field Is Not Cleared Immediately After Clicking Resend OTP",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/76",
-          "createdAt": "2026-06-30T05:37:01Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Email Validation Occurs Only on Add Teacher",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/107",
-          "createdAt": "2026-07-01T08:51:38Z",
-          "closedAt": null,
-          "startDate": "2026-07-10",
-          "endDate": ""
-        },
-        {
-          "title": "Date of Birth Field Accepts Future Dates",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/114",
-          "createdAt": "2026-07-01T10:04:29Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Action Menu Popup Is Partially Hidden After Applying Status Filter",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/53",
-          "createdAt": "2026-06-29T09:27:01Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "School Admin - Curriculum Management UI",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/24",
-          "createdAt": "2026-05-27T09:03:04Z",
-          "closedAt": null,
-          "startDate": "2026-06-25",
-          "endDate": ""
-        },
-        {
-          "title": "Frontend: AI Chatbot",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/59",
-          "createdAt": "2026-06-29T10:48:16Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Unable to Delete Published Announcement from the All Published Section",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/70",
-          "createdAt": "2026-06-30T04:53:56Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Users Can Edit Announcements from the Bin Section",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/69",
-          "createdAt": "2026-06-30T04:46:50Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "School Admin - Grade Report UI",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/20",
-          "createdAt": "2026-05-27T08:53:06Z",
-          "closedAt": "2026-06-29T10:37:50Z",
-          "startDate": "2026-06-25",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
         "inProgress": 2,
-        "todo": 1,
+        "todo": 2,
         "backlog": 8,
         "production": 0
       }
@@ -4896,10 +4898,25 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Create Repositories for Inventory Management Application",
+          "status": "Completed",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "manju-209"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/574",
+          "createdAt": "2026-07-28T05:06:47Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 7,
+        "total": 8,
         "done": 0,
         "inProgress": 0,
         "todo": 0,
@@ -5178,6 +5195,108 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "Success Toast Message Is Displayed at the Bottom of the Page After Worksheet Submission",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Filter By List Does Not Match Event Type Dropdown",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Class dropdown under Classes Filter Issues in Event Calendar",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Categories & Sub-categories and Actions Filters Are Not Working in Behavioural Management",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "City, State, and Country Fields Are Text Fields Instead of Dropdowns in Super Admin School Creation",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Student Name Is Clickable in Gradebook Instead of Only the View Icon",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Analytics Page Triggers 403 Forbidden Error on Load in Teacher Role",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Section Description Displays \"#\" Symbols When Viewing an Assignment",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Sort Icons Are Displayed in Gradebook Columns",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Success Dialog Does Not Disappear After Saving Attendance",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Teacher Can Access \"Mark as Resolved\" Action in Incident Report",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Class Subjects Are Not Filtered Based on the Selected Subject While Creating a Teacher",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Attendance List Is Not Cleared After Clearing the Date Filter",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Event Calendar Displays Time in System Format Instead of 12-Hour Format",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Student Mapping Fails with \"Contact Number Already Exists\" Error During Parent Creation",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Assigned Grade Is Not Displayed for Some Students in the Student List",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Top Panel Overlaps the Student Edit Profile Page",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "Column Sorting Is Not Working in School Setup Tables",
           "status": "QA",
           "priority": ""
@@ -5331,57 +5450,9 @@
           "title": "AI Timetable Schedule for Student",
           "status": "QA",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "OTP Field Is Not Cleared Immediately After Clicking Resend OTP",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Email Validation Occurs Only on Add Teacher",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Date of Birth Field Accepts Future Dates",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Action Menu Popup Is Partially Hidden After Applying Status Filter",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "School Admin - Curriculum Management UI",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Frontend: AI Chatbot",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Unable to Delete Published Announcement from the All Published Section",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Users Can Edit Announcements from the Bin Section",
-          "status": "QA",
-          "priority": ""
         }
       ],
-      "total": 73,
+      "total": 82,
       "done": 0,
       "inProgress": 2,
       "commits": 0,
@@ -5495,6 +5566,66 @@
         "Edubot_CPLC"
       ],
       "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Changing \"Rows per Page\" Does Not Reset Pagination",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Leave Balance Is Not Displayed During Leave Application",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Forgot Password accepts invalid OTP and redirects to Reset Password page",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Admin-created schedules do not display the creator name for students",
+          "status": "Dev",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Leave Balance Is Not Displayed in the Leave Application Form",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Weightage Field Is Auto-Populated with Default Value in Create Task",
+          "status": "Dev",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Schedule Details Panel Opens by Default Instead of on Event Hover/Click.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Student List Is Not Sorted by ID Number",
+          "status": "Dev",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Empty State Message Is Displayed Even When Schedules Exist",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Schedule Month View Is Not Displayed Correctly on Different Screen Resolutions.",
+          "status": "Review in QA",
+          "priority": ""
+        },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Forgot Password Link Is Not Positioned Correctly on the Login Page",
@@ -5701,6 +5832,12 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Assigned Values Are Not Cleared After Mentor–Student Assign",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ]  Duplicate Assignment Is Allowed on Repeated Clicks",
           "status": "Review in QA",
           "priority": ""
@@ -5780,13 +5917,13 @@
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Student Task Submission Allows File Uploads Exceeding 10 MB Limit",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": ""
         }
       ],
-      "total": 48,
+      "total": 59,
       "done": 0,
-      "inProgress": 1,
+      "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -5804,7 +5941,13 @@
       "tasks": [
         {
           "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Bug: Implement Student Portal Improvements",
+          "title": "[Version-2 CPLC] Bug: Implement Common UI & UX Improvements",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Leave Application search includes Reason/Description instead of Date",
           "status": "In Progress",
           "priority": ""
         },
@@ -5816,62 +5959,8 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Admin-created schedules do not display the creator name for students",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Leave Balance Is Not Displayed in the Leave Application Form",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Weightage Field Is Auto-Populated with Default Value in Create Task",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Schedule Details Panel Opens by Default Instead of on Event Hover/Click.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Bug: Implement Common UI & UX Improvements",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story : Common UI/UX Enhancements",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Schedule Month View Is Not Displayed Correctly on Different Screen Resolutions.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Browser Confirmation Popup Displayed During Task Deletion",
           "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Assigned Values Are Not Cleared After Mentor–Student Assign",
-          "status": "In Progress",
           "priority": ""
         },
         {
@@ -5941,15 +6030,213 @@
           "priority": ""
         }
       ],
-      "total": 23,
+      "total": 15,
       "done": 0,
-      "inProgress": 14,
+      "inProgress": 7,
       "commits": 20,
       "prs": 17,
       "prsMerged": 15,
       "prReviews": 0,
       "additions": 4631,
       "deletions": 3327
+    },
+    {
+      "login": "Anisha-cw",
+      "projects": [
+        "Edubot_CPLC",
+        "Worklogix"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Present and absent dates are displayed in an incorrect or shuffled order in the Student Attendance module of the Mentor Portal.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version -2 CPLC] “View All” in the Admin Dashboard Leave Approval section navigates only to Student Leave Requests.",
+          "status": "Dev",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Bug: Implement Student Portal Improvements",
+          "status": "Dev",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
+          "status": "Dev",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story: Student Portal – Learning Path Management",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story : Student Portal – Dashboard Enhancement",
+          "status": "Dev",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Incorrect header “Mentor Task” is displayed in the Student Task module of the Mentor Portal.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story: Mentor & Student Portals – Leave Management Enhancement",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story : Profile Management Across All Portals",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story : Mentor Portal – Attendance Management",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story: Admin Portal – Course Management",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Incorrect note text is displayed in the Student Attendance History.",
+          "status": "Dev",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story : Common UI/UX Enhancements",
+          "status": "Dev",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ version-2 CPLC ] Student can attempt a quiz only twice even though the Mentor has configured three attempts.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Incorrect failure message is displayed before the successful quiz completion message in the Student Portal.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Admin-rejected leave requests are incorrectly displayed under the Approved tab in the Mentor Portal.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC] Non-functional “Weightage: 0%” field is displayed in the Mentor Portal Lesson Plan module.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Task details/submission  is partially hidden behind the sidebar in both Student and Mentor portals.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Course name and batch name are not displayed on the Student Dashboard.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Mentor can create a quiz with blank answer options, and students can select and submit those blank options.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] A Lesson Plan module can be published without adding a section when it is marked as “Important.”",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version -2 CPLC ] Deleted module remains visible in the Mentor Lesson Plan until the page is refreshed.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Admin Portal – “Curriculum” Permission Is Available for Students, but the Curriculum Module Is Missing in the Student Portal",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Student name is not displayed in the Student Portal sidebar profile section.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Start Date and Due Date calendar pop-ups overlap in the Mentor Task form.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Year selection behaviour is inconsistent across the Start Date and Due Date calendars.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ version-2 CPLC ] Previously created question disappears when a new question is added under the same module in the Mentor Portal.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ]Multiple admin notifications are triggered when the Mentor approves the same student leave request repeatedly.",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Profile page allows users to save empty mandatory fields and invalid phone numbers in the Mentor, Student, and Admin portals.",
+          "status": "Dev",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Application Error Occurs When Accessing Projects and Daily Updates in Test Employee Module",
+          "status": "QA",
+          "priority": ""
+        }
+      ],
+      "total": 30,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
     },
     {
       "login": "vahithcw",
@@ -5960,62 +6247,26 @@
       "tasks": [
         {
           "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story: Super Admin – Institute Management",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Incorrect header “Mentor Task” is displayed in the Student Task module of the Mentor Portal.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Student List Is Not Sorted by ID Number",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Present and absent dates are displayed in an incorrect or shuffled order in the Student Attendance module of the Mentor Portal.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story: Mentor & Student Portals – Leave Management Enhancement",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] User Story : Super Admin Dashboard & Notifications",
-          "status": "To Do",
+          "status": "In Progress",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] User Story: Super Admin – Institute Integration & Portal Configuration",
-          "status": "To Do",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story: Super Admin – Institute Management",
+          "status": "In Progress",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Bug: Mentor Portal Functionality",
           "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ]Multiple admin notifications are triggered when the Mentor approves the same student leave request repeatedly.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Changing \"Rows per Page\" Does Not Reset Pagination",
-          "status": "To Do",
           "priority": ""
         },
         {
@@ -6027,12 +6278,6 @@
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Admin-created schedules are assigned to all mentors in the batch due to missing mentor selection",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Leave Management summary cards display counts only for the current page instead of total records",
           "status": "To Do",
           "priority": ""
         },
@@ -6091,350 +6336,15 @@
           "priority": ""
         }
       ],
-      "total": 22,
+      "total": 15,
       "done": 1,
-      "inProgress": 10,
+      "inProgress": 8,
       "commits": 13,
       "prs": 5,
       "prsMerged": 5,
       "prReviews": 0,
       "additions": 6173,
       "deletions": 1323
-    },
-    {
-      "login": "Dharsan1102codework",
-      "projects": [
-        "Acadamiq AI"
-      ],
-      "tasks": [
-        {
-          "project": "Acadamiq AI",
-          "title": "Teacher Profile Page Displays Student Details Instead of Teacher Details",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Submission scores are displayed as 0.",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Success Toast Message Is Displayed at the Bottom of the Page After Worksheet Submission",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Filter By List Does Not Match Event Type Dropdown",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Class dropdown under Classes Filter Issues in Event Calendar",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Period defaults to \"1 Month\" on the Analytics page.",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Categories & Sub-categories and Actions Filters Are Not Working in Behavioural Management",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Parent List data is missing in the downloaded PDF.",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "City, State, and Country Fields Are Text Fields Instead of Dropdowns in Super Admin School Creation",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Success Toast Message Is Displayed at the Bottom of the Page After Assignment Submission",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Student Name Is Clickable in Gradebook Instead of Only the View Icon",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Analytics Page Triggers 403 Forbidden Error on Load in Teacher Role",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Section Description Displays \"#\" Symbols When Viewing an Assignment",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Sort Icons Are Displayed in Gradebook Columns",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Success Dialog Does Not Disappear After Saving Attendance",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Error message displayed when clicking the Event Calendar.",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Teacher Can Access \"Mark as Resolved\" Action in Incident Report",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Class Subjects Are Not Filtered Based on the Selected Subject While Creating a Teacher",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Attendance List Is Not Cleared After Clearing the Date Filter",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Event Calendar Displays Time in System Format Instead of 12-Hour Format",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Student PDF Export Displays UUID Instead of Student ID and Parent Contact Column Is Blank",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Parent contact number is empty after student creation.",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Duplicate Phone Number Are Allowed During User Creation",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Student Mapping Fails with \"Contact Number Already Exists\" Error During Parent Creation",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Assigned Grade Is Not Displayed for Some Students in the Student List",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Duplicate Email IDs Are Accepted Without Displaying a Failure Toast in Manage Roles",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Top Panel Overlaps the Student Edit Profile Page",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Attendance details are not displayed in the Parent account.",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Generate shows an error, prompt history displays incorrect data, and the More button is unresponsive.",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "All students are visible in the new teacher's chat.",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Staff Tooltip Displays Incorrect Information in the Classes Section",
-          "status": "DEV",
-          "priority": ""
-        }
-      ],
-      "total": 31,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Glad-Andrew",
-      "projects": [
-        "Edubot_CPLC",
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version -2 CPLC] “View All” in the Admin Dashboard Leave Approval section navigates only to Student Leave Requests.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Leave Balance Is Not Displayed During Leave Application",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Forgot Password accepts invalid OTP and redirects to Reset Password page",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story : Student Portal – Dashboard Enhancement",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Incorrect note text is displayed in the Student Attendance History.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Empty State Message Is Displayed Even When Schedules Exist",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Bug: Implement Mentor Management",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Profile page allows users to save empty mandatory fields and invalid phone numbers in the Mentor, Student, and Admin portals.",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "OTP Expired Message Displayed Before Timer Ends",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Task Creation Allows Selection of Past Due Dates",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Admin Leave Request Module Is Missing",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Phone Number Field Accepts Unlimited Digits",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Theme Options Are Not Clearly Visible in Settings",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Data Not Loaded on Attendance Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Notifications Are Not Working for Any User",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Section Content Text Box Is Not Properly Displayed",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 19,
-      "done": 1,
-      "inProgress": 13,
-      "commits": 11,
-      "prs": 12,
-      "prsMerged": 11,
-      "prReviews": 0,
-      "additions": 5519,
-      "deletions": 4447
     },
     {
       "login": "Lakshana-Lakshmanan",
@@ -6520,6 +6430,245 @@
       "prReviews": 1,
       "additions": 1249,
       "deletions": 116
+    },
+    {
+      "login": "Glad-Andrew",
+      "projects": [
+        "Edubot_CPLC",
+        "EduBot_University"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Bug: Implement Mentor Management",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "OTP Expired Message Displayed Before Timer Ends",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Task Creation Allows Selection of Past Due Dates",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Admin Leave Request Module Is Missing",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Phone Number Field Accepts Unlimited Digits",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Theme Options Are Not Clearly Visible in Settings",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Profile Data Not Loaded on Attendance Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Notifications Are Not Working for Any User",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Section Content Text Box Is Not Properly Displayed",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 12,
+      "done": 1,
+      "inProgress": 8,
+      "commits": 11,
+      "prs": 12,
+      "prsMerged": 11,
+      "prReviews": 0,
+      "additions": 5519,
+      "deletions": 4447
+    },
+    {
+      "login": "suruthisagar97",
+      "projects": [
+        "Acadamiq AI"
+      ],
+      "tasks": [
+        {
+          "project": "Acadamiq AI",
+          "title": "Download and Upload fields are not working on the Companion page.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "It should be displayed for Parent and Student roles.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Cursor position is incorrect in the Create Assignment page.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Submission scores are displayed as 0.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Period defaults to \"1 Month\" on the Analytics page.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Error message displayed when clicking the Event Calendar.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Parent contact number is empty after student creation.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Attendance details are not displayed in the Parent account.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Worksheet page does not close after clicking 'Submit Worksheet'.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Clicking 'New Messages' opens a new screen in the chat for all roles.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "View Prompt History search text is not displayed properly.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "'All Schools' filter is incorrectly displayed in the Teacher Analytics page.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Error message is displayed when clicking the profile icon.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Attendance page UI is not displayed properly.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "'Assigned Classes' displays incorrect data in the Teacher profile.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Default Chrome confirmation popup appears when deleting an incident.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Selected category is not displayed while editing an incident",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "View Prompt History displays incorrect prompt history.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "The 'Period' dropdown displays a 'Cloud not found' error when clicked.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Search text appears faded in the Add Default Outcome dropdown.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Announcements checkbox overlap",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Edit screen overlaps the search field and search icon on the Manage Users > Parents page.",
+          "status": "QA",
+          "priority": ""
+        }
+      ],
+      "total": 22,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
     },
     {
       "login": "Kxrthikeyan-76",
@@ -6624,247 +6773,121 @@
       "deletions": 2217
     },
     {
-      "login": "Anisha-cw",
-      "projects": [
-        "Edubot_CPLC",
-        "Worklogix"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story: Student Portal – Learning Path Management",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story : Profile Management Across All Portals",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story : Mentor Portal – Attendance Management",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story: Admin Portal – Course Management",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ version-2 CPLC ] Student can attempt a quiz only twice even though the Mentor has configured three attempts.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Incorrect failure message is displayed before the successful quiz completion message in the Student Portal.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Admin-rejected leave requests are incorrectly displayed under the Approved tab in the Mentor Portal.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC] Non-functional “Weightage: 0%” field is displayed in the Mentor Portal Lesson Plan module.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Task details/submission  is partially hidden behind the sidebar in both Student and Mentor portals.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Course name and batch name are not displayed on the Student Dashboard.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Mentor can create a quiz with blank answer options, and students can select and submit those blank options.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] A Lesson Plan module can be published without adding a section when it is marked as “Important.”",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version -2 CPLC ] Deleted module remains visible in the Mentor Lesson Plan until the page is refreshed.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Admin Portal – “Curriculum” Permission Is Available for Students, but the Curriculum Module Is Missing in the Student Portal",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Student name is not displayed in the Student Portal sidebar profile section.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Start Date and Due Date calendar pop-ups overlap in the Mentor Task form.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Year selection behaviour is inconsistent across the Start Date and Due Date calendars.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ version-2 CPLC ] Previously created question disappears when a new question is added under the same module in the Mentor Portal.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Application Error Occurs When Accessing Projects and Daily Updates in Test Employee Module",
-          "status": "QA",
-          "priority": ""
-        }
-      ],
-      "total": 19,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "suruthisagar97",
+      "login": "Dharsan1102codework",
       "projects": [
         "Acadamiq AI"
       ],
       "tasks": [
         {
           "project": "Acadamiq AI",
-          "title": "Download and Upload fields are not working on the Companion page.",
-          "status": "QA",
+          "title": "Teacher Profile Page Displays Student Details Instead of Teacher Details",
+          "status": "TODO",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "It should be displayed for Parent and Student roles.",
-          "status": "QA",
+          "title": "Parent List data is missing in the downloaded PDF.",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Cursor position is incorrect in the Create Assignment page.",
-          "status": "QA",
+          "title": "Success Toast Message Is Displayed at the Bottom of the Page After Assignment Submission",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Worksheet page does not close after clicking 'Submit Worksheet'.",
-          "status": "QA",
+          "title": "Student PDF Export Displays UUID Instead of Student ID and Parent Contact Column Is Blank",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Clicking 'New Messages' opens a new screen in the chat for all roles.",
-          "status": "QA",
+          "title": "Duplicate Phone Number Are Allowed During User Creation",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "View Prompt History search text is not displayed properly.",
-          "status": "QA",
+          "title": "Action Menu Is Hidden Behind the Taskbar in Manage Users",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "'All Schools' filter is incorrectly displayed in the Teacher Analytics page.",
-          "status": "QA",
+          "title": "Success message displayed when saving attendance without data.",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Error message is displayed when clicking the profile icon.",
-          "status": "QA",
+          "title": "Downloaded User PDF Does Not Maintain Alphabetical Order",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Attendance page UI is not displayed properly.",
-          "status": "QA",
+          "title": "Mandatory Field Indicators and Inline Validation Are Missing on Student and Parent Edit Profile",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "'Assigned Classes' displays incorrect data in the Teacher profile.",
-          "status": "QA",
+          "title": "Mandatory Field Validation Displays Failure Toast Instead of Inline Message on Teacher Edit Profile",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Default Chrome confirmation popup appears when deleting an incident.",
-          "status": "QA",
+          "title": "Notification action buttons are missing.",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Selected category is not displayed while editing an incident",
-          "status": "QA",
+          "title": "Page flickers when changing the incident status.",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "View Prompt History displays incorrect prompt history.",
-          "status": "QA",
+          "title": "Worksheet file appears in the teacher account without being uploaded.",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "The 'Period' dropdown displays a 'Cloud not found' error when clicked.",
-          "status": "QA",
+          "title": "Incorrect submission time is displayed in the submission details.",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Search text appears faded in the Add Default Outcome dropdown.",
-          "status": "QA",
+          "title": "Staff Tooltip Displays Incorrect Information in the Classes Section",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Announcements checkbox overlap",
-          "status": "QA",
+          "title": "Duplicate Email IDs Are Accepted Without Displaying a Failure Toast in Manage Roles",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Edit screen overlaps the search field and search icon on the Manage Users > Parents page.",
-          "status": "QA",
+          "title": "Generate shows an error, prompt history displays incorrect data, and the More button is unresponsive.",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "All students are visible in the new teacher's chat.",
+          "status": "TODO",
           "priority": ""
         }
       ],
-      "total": 17,
+      "total": 18,
       "done": 0,
       "inProgress": 0,
       "commits": 0,
@@ -6916,9 +6939,15 @@
           "title": "[DevOps] Provide Repository Access for EduBot CPLC QA Team",
           "status": "Completed",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Create Repositories for Inventory Management Application",
+          "status": "Completed",
+          "priority": ""
         }
       ],
-      "total": 6,
+      "total": 7,
       "done": 0,
       "inProgress": 0,
       "commits": 3,
