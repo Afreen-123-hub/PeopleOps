@@ -3,7 +3,10 @@ from __future__ import annotations
 import csv
 import io
 
-import pandas as pd
+try:
+    import pandas as pd
+except Exception:
+    pd = None  # type: ignore
 
 
 TEAMS_COLUMNS = [

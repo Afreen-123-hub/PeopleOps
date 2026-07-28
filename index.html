@@ -4,21 +4,53 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260703-attendance-month1">
+    <link rel="stylesheet" href="styles.css?v=20260728-dept-panel">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
       <aside class="rail" aria-label="Data source status">
-        <div class="brand-mark">PeopleOPS</div>
-        <button class="rail-item active" data-view="overview" title="Overview">Overview</button>
-        <button class="rail-item" data-view="kpi" title="KPI">KPI</button>
-        <button class="rail-item" data-view="people" title="Employees">Employees</button>
-        <button class="rail-item" data-view="attendance" title="Attendance">Attendance</button>
-        <button class="rail-item" data-view="teams" title="Teams">Teams</button>
-        <button class="rail-item" data-view="projects" title="Projects">Projects</button>
-        <button class="rail-item" data-view="github" title="GitHub">GitHub</button>
-        <button class="rail-item" data-view="graph" title="Microsoft Graph">Graph</button>
-        <button class="rail-item" data-view="integrations" title="Integrations">Integrations</button>
+        <div class="brand-mark">
+          <div class="brand-chip">P</div>
+          <div class="brand-text">PeopleOPS<span>Intelligence</span></div>
+        </div>
+        <div class="rail-nav-label">Main</div>
+        <button class="rail-item active" data-view="overview" title="Overview">
+          <svg class="rail-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Overview
+        </button>
+        <button class="rail-item" data-view="kpi" title="KPI">
+          <svg class="rail-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          KPI
+        </button>
+        <button class="rail-item" data-view="people" title="Employees">
+          <svg class="rail-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Employees
+        </button>
+        <button class="rail-item" data-view="attendance" title="Attendance">
+          <svg class="rail-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Attendance
+        </button>
+        <div class="rail-nav-label">Data Sources</div>
+        <button class="rail-item" data-view="teams" title="Teams">
+          <svg class="rail-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Teams
+        </button>
+        <button class="rail-item" data-view="projects" title="Projects">
+          <svg class="rail-icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          Projects
+        </button>
+        <button class="rail-item" data-view="github" title="GitHub">
+          <svg class="rail-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          GitHub
+        </button>
+        <button class="rail-item" data-view="graph" title="Microsoft Graph">
+          <svg class="rail-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Graph
+        </button>
+        <button class="rail-item" data-view="integrations" title="Integrations">
+          <svg class="rail-icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          Integrations
+        </button>
         <div id="railUser" class="rail-user-pill" style="display:none;">
           <div id="railUserAvatar" class="rail-user-avatar"></div>
           <div class="rail-user-info">
@@ -138,23 +170,16 @@
               <div id="donutLegend" class="donut-legend"></div>
             </div>
           </article>
-          <div class="overview-section-label overview-analytics-label">
+          <!-- Department Performance + Data Quality -->
+          <div class="overview-analytics-label overview-section-label">
             <div>
               <p class="eyebrow">Organizational analytics</p>
-              <h2>Department & Data Quality</h2>
+              <h2>Department &amp; Data Quality</h2>
             </div>
           </div>
           <div class="dashboard-grid">
-            <article class="panel alerts-panel">
-              <div class="panel-head">
-                <div>
-                  <p class="eyebrow">Automated flags</p>
-                  <h2>Risk Alerts</h2>
-                </div>
-              </div>
-              <div id="alertsPanel"></div>
-            </article>
-            <article class="panel xl">
+            <!-- Left: Department KPI chart -->
+            <article class="panel">
               <div class="panel-head">
                 <div>
                   <p class="eyebrow">Department performance</p>
@@ -162,21 +187,34 @@
                 </div>
                 <span id="filteredCount" class="pill"></span>
               </div>
-              <div id="scatterChart" class="department-ranking-chart"></div>
-              <div id="departmentTooltip" class="department-tooltip" hidden></div>
-              <div id="departmentEmployeesPanel" class="department-employees-panel" hidden></div>
+              <div id="scatterChart"></div>
             </article>
-            <article class="panel">
-              <p class="eyebrow">Source fusion</p>
-              <h2>Integration Coverage</h2>
-              <div id="sourceCoverage" class="coverage-list"></div>
-            </article>
-            <article class="panel">
-              <p class="eyebrow">Score formula</p>
-              <h2>KPI Weights</h2>
-              <div id="weightBars" class="weight-bars"></div>
-            </article>
+            <!-- Right: Integration Coverage + KPI Weights stacked -->
+            <div class="dept-right-stack">
+              <article class="panel">
+                <div class="panel-head">
+                  <div>
+                    <p class="eyebrow">Source fusion</p>
+                    <h2>Integration Coverage</h2>
+                  </div>
+                </div>
+                <div id="sourceCoverage"></div>
+              </article>
+              <article class="panel">
+                <div class="panel-head">
+                  <div>
+                    <p class="eyebrow">Score formula</p>
+                    <h2>KPI Weights</h2>
+                  </div>
+                </div>
+                <div id="weightBars"></div>
+              </article>
+            </div>
           </div>
+          <!-- Hidden placeholders for JS functions that reference these IDs -->
+          <div id="alertsPanel" hidden></div>
+          <div id="departmentTooltip" hidden></div>
+          <div id="departmentEmployeesPanel" hidden></div>
         </section>
 
         <section id="kpi" class="view">

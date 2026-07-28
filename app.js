@@ -1158,17 +1158,11 @@ function renderTeamsInsights() {
     </div>`).join("");
 
   document.getElementById("teamsInsightRow").innerHTML = `
-    <div class="teams-insight-panel">
+    <div class="teams-insight-panel teams-insight-single">
       <div class="ti-section">
         <p class="eyebrow">Teams Activity · Last 30 days</p>
         <h2 class="ti-title">Top 10 Most Active on Teams</h2>
         <div class="tl-list">${ranked.length ? leaderboardRows : '<p class="proj-empty">No Teams activity data yet.</p>'}</div>
-      </div>
-      <div class="ti-section">
-        <p class="eyebrow">Attention needed</p>
-        <h2 class="ti-title">Ghost on Teams <span class="ghost-count-badge">${ghosts.length}</span></h2>
-        <p class="ti-sub">Active in Worklogix but no Teams messages, meetings or calls in 30 days.</p>
-        <div class="ghost-list">${ghosts.length ? ghostRows : '<p class="proj-empty">No ghosts — everyone is active.</p>'}</div>
       </div>
     </div>`;
 }

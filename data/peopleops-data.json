@@ -57,8 +57,8 @@
       },
       "note": "Weights shown are the framework's target weights. managerRatings, taskApprovalSpeed (when timestamps are unavailable), and mentorFeedback have no data source in this pipeline; their weight is redistributed proportionally across the other components for each affected employee \u2014 see scoreDrivers.weightsApplied per employee for the actual weights used."
     },
-    "teamsRefreshedAt": "2026-07-28T06:08:38",
-    "graphRefreshedAt": "2026-07-28T06:15:29+00:00",
+    "teamsRefreshedAt": "2026-07-28T15:15:39",
+    "graphRefreshedAt": "2026-07-28T10:05:01+00:00",
     "graphPeriod": {
       "start": "2026-07-01",
       "end": "2026-08-01"
@@ -180,7 +180,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": {
         "invited": 12,
@@ -1663,7 +1667,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 20,
@@ -1781,7 +1789,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 441,
+        "meetingCount": 83,
+        "callCount": 32,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 69,
@@ -4364,7 +4376,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 441,
+          "meetingCount": 83,
+          "callCount": 32,
+          "activityMatched": true
         },
         "attendance": {
           "present": 21,
@@ -4476,13 +4492,17 @@
         "teamsOfflineHours": 109.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 125,
+        "meetingCount": 20,
+        "callCount": 9,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 8,
@@ -5702,13 +5722,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 125,
+          "meetingCount": 20,
+          "callCount": 9,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20,
@@ -5819,13 +5843,17 @@
         "teamsOfflineHours": 83.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 374,
+        "meetingCount": 22,
+        "callCount": 23,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 4,
@@ -6490,13 +6518,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 374,
+          "meetingCount": 22,
+          "callCount": 23,
+          "activityMatched": true
         },
         "attendance": {
           "present": 19,
@@ -6606,13 +6638,17 @@
         "teamsOfflineHours": 27.0
       },
       "teams": {
-        "status": "Busy",
+        "status": "Available",
         "workLocation": "office",
         "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 327,
+        "meetingCount": 102,
+        "callCount": 60,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 66,
@@ -6743,8 +6779,8 @@
           ]
         },
         "calendar": {
-          "events": 112,
-          "meetingHours": 61.2,
+          "events": 113,
+          "meetingHours": 61.8,
           "items": [
             {
               "id": "AAMkADczMTFhZmI5LTM3YzgtNGJlZC05MjkwLWU5YzhiNzVkMDg0MwBGAAAAAAAxo05C5gZrR5p38aEKoxMOBwDyCO7JdColTY6GEr2FBQ0XAAAAAAENAADyCO7JdColTY6GEr2FBQ0XAACdqa6xAAA=",
@@ -7134,6 +7170,26 @@
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_M2RmZWI2ZWYtOWE4Yy00NTI1LWJjZWYtNjU1MGUzZDE3NTk2%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22dd8cfc15-e4d8-405c-8c2d-9d1bf2cebc12%22%7d",
               "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/450522890659721?p=X18lZ1z3MwfrZsWisg\r\nMeeting ID: 450 522 890 659 721\r\nPasscode: iT3kH2Q8\r\n________________",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADczMTFhZmI5LTM3YzgtNGJlZC05MjkwLWU5YzhiNzVkMDg0MwBGAAAAAAAxo05C5gZrR5p38aEKoxMOBwDyCO7JdColTY6GEr2FBQ0XAAAAAAENAADyCO7JdColTY6GEr2FBQ0XAACueN1-AAA=",
+              "subject": "TrustAmend_Discovery Phase",
+              "start": "2026-07-29T20:00:00.0000000+05:30",
+              "end": "2026-07-29T20:30:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "busy",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADczMTFhZmI5LTM3YzgtNGJlZC05MjkwLWU5YzhiNzVkMDg0MwBGAAAAAAAxo05C5gZrR5p38aEKoxMOBwDyCO7JdColTY6GEr2FBQ0XAAAAAAENAADyCO7JdColTY6GEr2FBQ0XAACueN1%2FAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Divya Ravi",
+              "attendees": [
+                "Elizabeth Horstmeyer",
+                "Parham"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjVjMTI2ZTAtMTgzMC00YjkxLWJjODAtMGQ5YWVjM2FhM2M2%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22f399de9a-c91f-4bb0-b12b-6cfa7add107a%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/483042730434397?p=FZ4fDE5u9XRcT02u7y\r\nMeeting ID: 483 042 730 434 397\r\nPasscode: Q6hV6ta2\r\n________________",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
@@ -9406,13 +9462,17 @@
           ]
         },
         "teams": {
-          "status": "Busy",
+          "status": "Available",
           "workLocation": "office",
           "isActive": 1,
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 327,
+          "meetingCount": 102,
+          "callCount": 60,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20,
@@ -9530,7 +9590,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 646,
+        "meetingCount": 73,
+        "callCount": 11,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 9,
@@ -11930,7 +11994,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 646,
+          "meetingCount": 73,
+          "callCount": 11,
+          "activityMatched": true
         },
         "attendance": {
           "present": 21,
@@ -12041,13 +12109,17 @@
         "teamsOfflineHours": 27.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 365,
+        "meetingCount": 81,
+        "callCount": 40,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 48,
@@ -16894,13 +16966,17 @@
           ]
         },
         "teams": {
-          "status": "Away",
+          "status": "Available",
           "workLocation": "",
-          "isActive": 0,
-          "isAway": 1,
+          "isActive": 1,
+          "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 365,
+          "meetingCount": 81,
+          "callCount": 40,
+          "activityMatched": true
         },
         "attendance": {
           "present": 18,
@@ -17016,7 +17092,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 84,
+        "meetingCount": 41,
+        "callCount": 39,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 32,
@@ -18446,7 +18526,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 84,
+          "meetingCount": 41,
+          "callCount": 39,
+          "activityMatched": true
         },
         "attendance": {
           "present": 22.0,
@@ -18564,7 +18648,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 266,
+        "meetingCount": 37,
+        "callCount": 21,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 6,
@@ -20547,7 +20635,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 266,
+          "meetingCount": 37,
+          "callCount": 21,
+          "activityMatched": true
         },
         "attendance": {
           "present": 22,
@@ -20658,13 +20750,17 @@
         "teamsOfflineHours": 333.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 183,
+        "meetingCount": 2,
+        "callCount": 3,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 2,
@@ -20941,13 +21037,17 @@
           ]
         },
         "teams": {
-          "status": "Away",
+          "status": "Available",
           "workLocation": "",
-          "isActive": 0,
-          "isAway": 1,
+          "isActive": 1,
+          "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 183,
+          "meetingCount": 2,
+          "callCount": 3,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20,
@@ -21064,7 +21164,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 851,
+        "meetingCount": 25,
+        "callCount": 22,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 4,
@@ -21462,7 +21566,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 851,
+          "meetingCount": 25,
+          "callCount": 22,
+          "activityMatched": true
         },
         "attendance": {
           "present": 13,
@@ -21578,7 +21686,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 991,
+        "meetingCount": 119,
+        "callCount": 26,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 117,
@@ -22046,8 +22158,8 @@
           ]
         },
         "calendar": {
-          "events": 167,
-          "meetingHours": 78.3,
+          "events": 171,
+          "meetingHours": 80.3,
           "items": [
             {
               "id": "AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot_fHYosBonAAAAAAENAADqhlttgMmSSot_fHYosBonAACFwyLdAAA=",
@@ -25084,28 +25196,6 @@
               "durationMinutes": 30
             },
             {
-              "id": "AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot_fHYosBonAAAAAAENAADqhlttgMmSSot_fHYosBonAACYkO-VAAA=",
-              "subject": "L2 Discussion - BDM - Vignesh",
-              "start": "2026-07-28T14:30:00.0000000+05:30",
-              "end": "2026-07-28T15:00:00.0000000+05:30",
-              "isAllDay": false,
-              "showAs": "busy",
-              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot%2BfHYosBonAAAAAAENAADqhlttgMmSSot%2BfHYosBonAACYkO%2FVAAA%3D&exvsurl=1&path=/calendar/item",
-              "organizer": "Karthikeyan D",
-              "attendees": [
-                "vigneshsubburaj@yahoo.com",
-                "Trinita Rex Anto",
-                "Lexila T A",
-                "Divya Sundar"
-              ],
-              "location": "Microsoft Teams Meeting",
-              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmViNDVkZGMtNWFiYi00Yzk4LTkyY2MtNzkwZGNmYTc1ZmVi%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
-              "description": "Dear Candidate,\r\nGreetings from Codework.\r\nThis is to confirm your scheduled interview discussion for the Senior Business Development Manager role. Please find the Job Description attached for your reference. A calendar invitation has also been shared wit",
-              "categories": [],
-              "isCancelled": false,
-              "durationMinutes": 30
-            },
-            {
               "id": "AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot_fHYosBonAAAAAAENAADqhlttgMmSSot_fHYosBonAACYkO-XAAA=",
               "subject": "L1 Technical Discussion - QA Automation -  S.Shiyam Ganesh",
               "start": "2026-07-28T15:00:00.0000000+05:30",
@@ -25124,6 +25214,29 @@
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTIwY2RmNWItOWY2ZC00OTdhLWE0ZTQtMmM1ZTQ2NjQzODUx%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22dd8cfc15-e4d8-405c-8c2d-9d1bf2cebc12%22%7d",
               "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/460756291507659?p=CYsuE6sbwwjXoFSVKr\r\nMeeting ID: 460 756 291 507 659\r\nPasscode: ou2GN6hM\r\n________________",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot_fHYosBonAAAAAAENAADqhlttgMmSSot_fHYosBonAACYkO-gAAA=",
+              "subject": "L2 Technical Discussion - QA Automation - Praveen Kumar",
+              "start": "2026-07-29T10:30:00.0000000+05:30",
+              "end": "2026-07-29T11:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot%2BfHYosBonAAAAAAENAADqhlttgMmSSot%2BfHYosBonAACYkO%2FgAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Divya Sundar",
+              "attendees": [
+                "Divya Sundar",
+                "rpraveenkumar3518@gmail.com",
+                "Vinoth Xavier",
+                "Lexila T A",
+                "Karthikeyan D"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODQ0MjEzYWEtODY4OC00MDc0LWE3ODEtODEwZTlkMTUwM2U2%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22dd8cfc15-e4d8-405c-8c2d-9d1bf2cebc12%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/474127585295837?p=1xrkMxIJZxYYi54Ck9\r\nMeeting ID: 474 127 585 295 837\r\nPasscode: W6hE3jp3\r\n________________",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
@@ -25219,6 +25332,73 @@
               "durationMinutes": 30
             },
             {
+              "id": "AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot_fHYosBonAAAAAAENAADqhlttgMmSSot_fHYosBonAACYkO-cAAA=",
+              "subject": "Technical Discussion - BDM - Vinothkumar",
+              "start": "2026-07-29T12:30:00.0000000+05:30",
+              "end": "2026-07-29T13:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "busy",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot%2BfHYosBonAAAAAAENAADqhlttgMmSSot%2BfHYosBonAACYkO%2FcAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "vinvinoth007@gmail.com",
+                "Asir Alex Reagan",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzVhM2MzNTAtZmJmMS00MTczLWE3YjctMjQwM2RlNjlhZDg0%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "*\r\nDear Vinothkumar,\r\n\r\nGreetings from Codework.\r\n\r\nThis is to confirm your scheduled interview discussion for the BDM role. Please find the Job Description attached for your reference. A calendar invitation has also been shared with the meeting details",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot_fHYosBonAAAAAAENAADqhlttgMmSSot_fHYosBonAACYkO-eAAA=",
+              "subject": "Discussion Technical - BDM - Ali Reza Borji",
+              "start": "2026-07-29T14:00:00.0000000+05:30",
+              "end": "2026-07-29T14:30:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "busy",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot%2BfHYosBonAAAAAAENAADqhlttgMmSSot%2BfHYosBonAACYkO%2FeAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "alirezaborji7@gmail.com",
+                "Trinita Rex Anto",
+                "Senthil Kumar",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmVkMTRmZTAtMGZhZC00NWQyLWI2NTAtZTJkNDM4N2QxNTA5%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "*\r\nDear Ali Reza Borji,\r\n\r\nGreetings from Codework.\r\n\r\nThis is to confirm your scheduled interview discussion for the BDM role. Please find the Job Description attached for your reference. A calendar invitation has also been shared with the meeting deta",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot_fHYosBonAAAAAAENAADqhlttgMmSSot_fHYosBonAACYkO-fAAA=",
+              "subject": "Technical Discussion - QA Engineer - Vijayalakshmi",
+              "start": "2026-07-29T14:30:00.0000000+05:30",
+              "end": "2026-07-29T15:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "busy",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot%2BfHYosBonAAAAAAENAADqhlttgMmSSot%2BfHYosBonAACYkO%2FfAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "vijayalakshmi962k@gmail.com",
+                "Ganesan Ashokkumar",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmM4NGM0NjMtOTUxMC00NGQyLWI3NzgtYWJjZjgyZTE1NjBl%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "Dear Candidate,\r\nGreetings from CODEWORK AI.\r\nThis email is to confirm the scheduled interview discussion for the QA Engineer with Codework. Please find the candidate\u2019s resume and the corresponding JD attached for your reference. A calendar invite has als",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
               "id": "AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot_fHYosBonAAAAAAENAADqhlttgMmSSot_fHYosBonAACYkO-YAAA=",
               "subject": "L2 Discussion - BDM -Karthikeyan",
               "start": "2026-07-29T15:00:00.0000000+05:30",
@@ -25236,6 +25416,29 @@
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjQwYzE2ZjItN2UzNy00ZWNlLWExMDItOGYxZjQyYWE5MGNm%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
               "description": "Dear Candidate,\r\nGreetings from Codework.\r\nThis is to confirm your scheduled interview discussion for the Senior Business Development Manager role. Please find the Job Description attached for your reference. A calendar invitation has also been shared wit",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot_fHYosBonAAAAAAENAADqhlttgMmSSot_fHYosBonAACYkO-dAAA=",
+              "subject": "L1 Technical Discussion - BDM - Vignesh",
+              "start": "2026-07-29T15:30:00.0000000+05:30",
+              "end": "2026-07-29T16:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADUwYTA3YzcyLTFkNDctNDdhNi1hNGVlLTI5MDM3MTc2ZDBjNABGAAAAAAD98RPrGGttQp6oKaqDrPeHBwDqhlttgMmSSot%2BfHYosBonAAAAAAENAADqhlttgMmSSot%2BfHYosBonAACYkO%2FdAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Divya Sundar",
+              "attendees": [
+                "Divya Sundar",
+                "Asir Alex Reagan",
+                "vigneshwiki8@gmail.com",
+                "Lexila T A",
+                "Karthikeyan D"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDdhY2U3YjgtMjQ2My00M2UwLWJlNDUtZWE1ZDIyMzEwNjg3%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22dd8cfc15-e4d8-405c-8c2d-9d1bf2cebc12%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/41052211831255?p=tvNgzGNvO6jzDciVEK\r\nMeeting ID: 410 522 118 312 55\r\nPasscode: VM79ta9q\r\n__________________",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
@@ -25871,7 +26074,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 991,
+          "meetingCount": 119,
+          "callCount": 26,
+          "activityMatched": true
         },
         "attendance": {
           "present": 21.0,
@@ -25988,7 +26195,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 2267,
+        "meetingCount": 38,
+        "callCount": 22,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 16,
@@ -27859,7 +28070,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 2267,
+          "meetingCount": 38,
+          "callCount": 22,
+          "activityMatched": true
         },
         "attendance": {
           "present": 22,
@@ -27971,13 +28186,17 @@
         "teamsOfflineHours": 30.0
       },
       "teams": {
-        "status": "Busy",
+        "status": "DoNotDisturb",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 505,
+        "meetingCount": 39,
+        "callCount": 40,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 29,
@@ -30019,13 +30238,17 @@
           ]
         },
         "teams": {
-          "status": "Busy",
+          "status": "DoNotDisturb",
           "workLocation": "",
           "isActive": 1,
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 505,
+          "meetingCount": 39,
+          "callCount": 40,
+          "activityMatched": true
         },
         "attendance": {
           "present": 22,
@@ -30136,13 +30359,17 @@
         "teamsOfflineHours": 159.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 231,
+        "meetingCount": 33,
+        "callCount": 2,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 2,
@@ -32227,13 +32454,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 231,
+          "meetingCount": 33,
+          "callCount": 2,
+          "activityMatched": true
         },
         "attendance": {
           "present": 22,
@@ -32349,7 +32580,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 169,
+        "meetingCount": 22,
+        "callCount": 1,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 3,
@@ -33367,7 +33602,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 169,
+          "meetingCount": 22,
+          "callCount": 1,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20,
@@ -33477,13 +33716,17 @@
         "teamsOfflineHours": 21.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 272,
+        "meetingCount": 4,
+        "callCount": 7,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 1,
@@ -33672,13 +33915,17 @@
           ]
         },
         "teams": {
-          "status": "Away",
+          "status": "Available",
           "workLocation": "",
-          "isActive": 0,
-          "isAway": 1,
+          "isActive": 1,
+          "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 272,
+          "meetingCount": 4,
+          "callCount": 7,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20,
@@ -33788,13 +34035,17 @@
         "teamsOfflineHours": 27.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 318,
+        "meetingCount": 2,
+        "callCount": 19,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 0,
@@ -33906,13 +34157,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 318,
+          "meetingCount": 2,
+          "callCount": 19,
+          "activityMatched": true
         },
         "attendance": {
           "present": 12,
@@ -34028,7 +34283,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 252,
+        "meetingCount": 7,
+        "callCount": 0,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 5,
@@ -34197,8 +34456,8 @@
           ]
         },
         "calendar": {
-          "events": 8,
-          "meetingHours": 5.5,
+          "events": 9,
+          "meetingHours": 6.0,
           "items": [
             {
               "id": "AAMkAGI2MGU2N2ZjLTQwMDYtNGI0MC05YjZjLWNkMjIwNjU3M2I5YwBGAAAAAAAsuf4VrImsT4Zewos2-QjfBwCJvUUpCMd9R5BI47TfcndnAAAAAAENAACJvUUpCMd9R5BI47TfcndnAABYmWyEAAA=",
@@ -34280,6 +34539,27 @@
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTIwNGQ2M2UtNmExYi00ZDhkLWIyZjUtMzVmYmI5MDllZDJh%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22eaec440e-07e9-48d1-a91a-007770e1887c%22%7d",
               "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/421486017739871?p=plOrxqcKzsOQ4XNuus\r\nMeeting ID: 421 486 017 739 871\r\nPasscode: ji28ZW3y\r\n________________",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkAGI2MGU2N2ZjLTQwMDYtNGI0MC05YjZjLWNkMjIwNjU3M2I5YwBGAAAAAAAsuf4VrImsT4Zewos2-QjfBwCJvUUpCMd9R5BI47TfcndnAAAAAAENAACJvUUpCMd9R5BI47TfcndnAABbqqN-AAA=",
+              "subject": "One-on-One Discussion with Trinita \u2013 Director of Business Development & Marketing",
+              "start": "2026-07-28T14:00:00.0000000+05:30",
+              "end": "2026-07-28T14:30:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGI2MGU2N2ZjLTQwMDYtNGI0MC05YjZjLWNkMjIwNjU3M2I5YwBGAAAAAAAsuf4VrImsT4Zewos2%2FQjfBwCJvUUpCMd9R5BI47TfcndnAAAAAAENAACJvUUpCMd9R5BI47TfcndnAABbqqN%2FAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Priyadarshini V",
+              "attendees": [
+                "Priyadarshini V",
+                "Trinita Rex Anto",
+                "Varuni Vangaveti"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODFjYTMxNjQtNWY4Yy00MGMzLTk1MzQtY2UyNzRjMmUzOTVj%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22eaec440e-07e9-48d1-a91a-007770e1887c%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/425059041512594?p=e41OwkHAGbK21vzv2r\r\nMeeting ID: 425 059 041 512 594\r\nPasscode: sK7Ga3hK\r\n________________",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
@@ -34523,7 +34803,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 252,
+          "meetingCount": 7,
+          "callCount": 0,
+          "activityMatched": true
         },
         "attendance": {
           "present": 21,
@@ -34633,13 +34917,17 @@
         "teamsOfflineHours": 27.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 1246,
+        "meetingCount": 28,
+        "callCount": 52,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 36,
@@ -35595,8 +35883,8 @@
           ]
         },
         "calendar": {
-          "events": 62,
-          "meetingHours": 45.1,
+          "events": 63,
+          "meetingHours": 46.1,
           "items": [
             {
               "id": "AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgBGAAAAAAAfhnJU6xITSokMJW-3dCizBwCvpqa7OkDBSZ2pfSlSpHmcAAAAAAENAACvpqa7OkDBSZ2pfSlSpHmcAAGPF1YuAAA=",
@@ -35973,7 +36261,7 @@
               "id": "AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgBGAAAAAAAfhnJU6xITSokMJW-3dCizBwCvpqa7OkDBSZ2pfSlSpHmcAAAAAAENAACvpqa7OkDBSZ2pfSlSpHmcAAGfsKSIAAA=",
               "subject": "CPLC Walk-In - Number 2",
               "start": "2026-07-28T10:00:00.0000000+05:30",
-              "end": "2026-07-28T13:00:00.0000000+05:30",
+              "end": "2026-07-28T12:30:00.0000000+05:30",
               "isAllDay": false,
               "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgBGAAAAAAAfhnJU6xITSokMJW%2F3dCizBwCvpqa7OkDBSZ2pfSlSpHmcAAAAAAENAACvpqa7OkDBSZ2pfSlSpHmcAAGfsKSIAAA%3D&exvsurl=1&path=/calendar/item",
@@ -35988,7 +36276,7 @@
               "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/460869221609050?p=o3G8g2IbyypgGaR4Mu\r\nMeeting ID: 460 869 221 609 050\r\nPasscode: 4WC2WT74\r\n________________",
               "categories": [],
               "isCancelled": false,
-              "durationMinutes": 180
+              "durationMinutes": 150
             },
             {
               "id": "AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgBGAAAAAAAfhnJU6xITSokMJW-3dCizBwCvpqa7OkDBSZ2pfSlSpHmcAAAAAAENAACvpqa7OkDBSZ2pfSlSpHmcAAGeJ8t9AAA=",
@@ -36031,6 +36319,26 @@
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 15
+            },
+            {
+              "id": "AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgBGAAAAAAAfhnJU6xITSokMJW-3dCizBwCvpqa7OkDBSZ2pfSlSpHmcAAAAAAENAACvpqa7OkDBSZ2pfSlSpHmcAAGhNCp2AAA=",
+              "subject": "Dhanalakshmi College of Engineering - Visit to CPLC",
+              "start": "2026-07-29T14:00:00.0000000+05:30",
+              "end": "2026-07-29T15:30:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "busy",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgBGAAAAAAAfhnJU6xITSokMJW%2F3dCizBwCvpqa7OkDBSZ2pfSlSpHmcAAAAAAENAACvpqa7OkDBSZ2pfSlSpHmcAAGhNCp2AAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Neaven Christopher Arulraj",
+              "attendees": [
+                "Karthikeyan Balakrishnan",
+                "Codework - Conference Room (SSPDL)"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YWQ4MWUwMDUtNmQxNi00OThhLThjNTktNzZkY2YzOTQ3YzVk%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22a30e8552-67a1-468a-a1ae-e5c9688eb7e7%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/479528586530006?p=wHSmsTZI4if80n1uJC\r\nMeeting ID: 479 528 586 530 006\r\nPasscode: GV2zN9Li\r\n________________",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 90
             },
             {
               "id": "AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgFRAAgI3tiWBpBAAEYAAAAAH4ZyVOsSE0qJDCVv93QoswcAr6amuzpAwUmdqX0pUqR5nAAAAAABDQAAr6amuzpAwUmdqX0pUqR5nAABcRwc5AAAEA==",
@@ -36737,8 +37045,8 @@
             {
               "id": "AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgFRAAgI3uw7KuQAAEYAAAAAH4ZyVOsSE0qJDCVv93QoswcAr6amuzpAwUmdqX0pUqR5nAAAAAABDQAAr6amuzpAwUmdqX0pUqR5nAABigPFAgAAEA==",
               "subject": "CPLC Outreach Sync Meeting",
-              "start": "2026-07-28T16:30:00.0000000+05:30",
-              "end": "2026-07-28T17:00:00.0000000+05:30",
+              "start": "2026-07-28T16:00:00.0000000+05:30",
+              "end": "2026-07-28T16:30:00.0000000+05:30",
               "isAllDay": false,
               "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgFRAAgI3uw7KuQAAEYAAAAAH4ZyVOsSE0qJDCVv93QoswcAr6amuzpAwUmdqX0pUqR5nAAAAAABDQAAr6amuzpAwUmdqX0pUqR5nAABigPFAgAAEA%3D%3D&exvsurl=1&path=/calendar/item",
@@ -36944,13 +37252,17 @@
           ]
         },
         "teams": {
-          "status": "Away",
+          "status": "Available",
           "workLocation": "",
-          "isActive": 0,
-          "isAway": 1,
+          "isActive": 1,
+          "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 1246,
+          "meetingCount": 28,
+          "callCount": 52,
+          "activityMatched": true
         },
         "attendance": {
           "present": 22,
@@ -37060,13 +37372,17 @@
         "teamsOfflineHours": 119.0
       },
       "teams": {
-        "status": "Busy",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 645,
+        "meetingCount": 30,
+        "callCount": 33,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 26,
@@ -37933,13 +38249,17 @@
           ]
         },
         "teams": {
-          "status": "Busy",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 645,
+          "meetingCount": 30,
+          "callCount": 33,
+          "activityMatched": true
         },
         "attendance": {
           "present": 15,
@@ -38056,7 +38376,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 203,
+        "meetingCount": 16,
+        "callCount": 5,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 2,
@@ -38339,7 +38663,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 203,
+          "meetingCount": 16,
+          "callCount": 5,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20,
@@ -38455,7 +38783,11 @@
         "isAway": 0,
         "isOffline": 1,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -38522,7 +38854,11 @@
           "isAway": 0,
           "isOffline": 1,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 12,
@@ -38638,7 +38974,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 839,
+        "meetingCount": 100,
+        "callCount": 52,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 48,
@@ -40526,7 +40866,7 @@
               "start": "2026-07-29T10:30:00.0000000+05:30",
               "end": "2026-07-29T11:00:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGVkN2QxY2M1LWExOGYtNDU2MS05ZjQyLTZiMGZiODNhYzFmMwFRAAgI3u0EVU3AAEYAAAAAsDA51IL2DESpKiWHOAQPFwcA6VthnENu5UCgQItP8eM8EwAAAAABDQAA6VthnENu5UCgQItP8eM8EwAAZDPBmQAAEA%3D%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Christy Arulraj",
               "attendees": [
@@ -40552,7 +40892,7 @@
               "start": "2026-07-30T10:30:00.0000000+05:30",
               "end": "2026-07-30T11:00:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGVkN2QxY2M1LWExOGYtNDU2MS05ZjQyLTZiMGZiODNhYzFmMwFRAAgI3u3Nf7eAAEYAAAAAsDA51IL2DESpKiWHOAQPFwcA6VthnENu5UCgQItP8eM8EwAAAAABDQAA6VthnENu5UCgQItP8eM8EwAAZDPBmQAAEA%3D%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Christy Arulraj",
               "attendees": [
@@ -40803,7 +41143,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 839,
+          "meetingCount": 100,
+          "callCount": 52,
+          "activityMatched": true
         },
         "attendance": {
           "present": 21,
@@ -40918,7 +41262,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 1121,
+        "meetingCount": 61,
+        "callCount": 131,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 38,
@@ -42339,7 +42687,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 1121,
+          "meetingCount": 61,
+          "callCount": 131,
+          "activityMatched": true
         },
         "attendance": {
           "present": 22.0,
@@ -42456,7 +42808,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 357,
+        "meetingCount": 2,
+        "callCount": 3,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 2,
@@ -42762,7 +43118,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 357,
+          "meetingCount": 2,
+          "callCount": 3,
+          "activityMatched": true
         },
         "attendance": {
           "present": 19,
@@ -42872,13 +43232,17 @@
         "teamsOfflineHours": 40.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "remote",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 231,
+        "meetingCount": 3,
+        "callCount": 22,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 3,
@@ -43265,13 +43629,17 @@
           ]
         },
         "teams": {
-          "status": "Away",
+          "status": "Available",
           "workLocation": "remote",
-          "isActive": 0,
-          "isAway": 1,
+          "isActive": 1,
+          "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 231,
+          "meetingCount": 3,
+          "callCount": 22,
+          "activityMatched": true
         },
         "attendance": {
           "present": 16,
@@ -43381,13 +43749,17 @@
         "teamsOfflineHours": 117.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "office",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 562,
+        "meetingCount": 8,
+        "callCount": 16,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 8,
@@ -43957,13 +44329,17 @@
           ]
         },
         "teams": {
-          "status": "Away",
+          "status": "Available",
           "workLocation": "office",
-          "isActive": 0,
-          "isAway": 1,
+          "isActive": 1,
+          "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 562,
+          "meetingCount": 8,
+          "callCount": 16,
+          "activityMatched": true
         },
         "attendance": {
           "present": 17,
@@ -44079,7 +44455,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 308,
+        "meetingCount": 25,
+        "callCount": 5,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 3,
@@ -44654,7 +45034,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 308,
+          "meetingCount": 25,
+          "callCount": 5,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20.0,
@@ -44764,13 +45148,17 @@
         "teamsOfflineHours": 46.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 159,
+        "meetingCount": 7,
+        "callCount": 11,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 19,
@@ -45471,8 +45859,8 @@
           ]
         },
         "calendar": {
-          "events": 30,
-          "meetingHours": 22.8,
+          "events": 31,
+          "meetingHours": 23.8,
           "items": [
             {
               "id": "AAMkADMzZDk0ZTI1LTU0YzAtNDdhZS05NzY3LWI4Yjk1M2ZhMmM3MQBGAAAAAACLe1GNzO-VQ6cWP1sdemcwBwCIhMczpw4uSaBCvbsXIVczAAAAAAENAACIhMczpw4uSaBCvbsXIVczAABP6i5FAAA=",
@@ -45712,7 +46100,7 @@
               "id": "AAMkADMzZDk0ZTI1LTU0YzAtNDdhZS05NzY3LWI4Yjk1M2ZhMmM3MQBGAAAAAACLe1GNzO-VQ6cWP1sdemcwBwCIhMczpw4uSaBCvbsXIVczAAAAAAENAACIhMczpw4uSaBCvbsXIVczAABdq92_AAA=",
               "subject": "CPLC Walk-In - Number 2",
               "start": "2026-07-28T10:00:00.0000000+05:30",
-              "end": "2026-07-28T13:00:00.0000000+05:30",
+              "end": "2026-07-28T12:30:00.0000000+05:30",
               "isAllDay": false,
               "showAs": "tentative",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADMzZDk0ZTI1LTU0YzAtNDdhZS05NzY3LWI4Yjk1M2ZhMmM3MQBGAAAAAACLe1GNzO%2FVQ6cWP1sdemcwBwCIhMczpw4uSaBCvbsXIVczAAAAAAENAACIhMczpw4uSaBCvbsXIVczAABdq92%2BAAA%3D&exvsurl=1&path=/calendar/item",
@@ -45728,7 +46116,28 @@
               "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/460869221609050?p=o3G8g2IbyypgGaR4Mu\r\nMeeting ID: 460 869 221 609 050\r\nPasscode: 4WC2WT74\r\n________________",
               "categories": [],
               "isCancelled": false,
-              "durationMinutes": 180
+              "durationMinutes": 150
+            },
+            {
+              "id": "AAMkADMzZDk0ZTI1LTU0YzAtNDdhZS05NzY3LWI4Yjk1M2ZhMmM3MQBGAAAAAACLe1GNzO-VQ6cWP1sdemcwBwCIhMczpw4uSaBCvbsXIVczAAAAAAENAACIhMczpw4uSaBCvbsXIVczAABgo1gOAAA=",
+              "subject": "Dhanalakshmi College of Engineering - Visit to CPLC",
+              "start": "2026-07-29T14:00:00.0000000+05:30",
+              "end": "2026-07-29T15:30:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADMzZDk0ZTI1LTU0YzAtNDdhZS05NzY3LWI4Yjk1M2ZhMmM3MQBGAAAAAACLe1GNzO%2FVQ6cWP1sdemcwBwCIhMczpw4uSaBCvbsXIVczAAAAAAENAACIhMczpw4uSaBCvbsXIVczAABgo1gOAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Neaven Christopher Arulraj",
+              "attendees": [
+                "Neaven Christopher Arulraj",
+                "Karthikeyan Balakrishnan",
+                "Codework - Conference Room (SSPDL)"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YWQ4MWUwMDUtNmQxNi00OThhLThjNTktNzZkY2YzOTQ3YzVk%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22a30e8552-67a1-468a-a1ae-e5c9688eb7e7%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/479528586530006?p=wHSmsTZI4if80n1uJC\r\nMeeting ID: 479 528 586 530 006\r\nPasscode: GV2zN9Li\r\n________________",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 90
             },
             {
               "id": "AAMkADMzZDk0ZTI1LTU0YzAtNDdhZS05NzY3LWI4Yjk1M2ZhMmM3MQFRAAgI3tiWBpBAAEYAAAAAi3tRjczv1UOnFj9bHXpnMAcAiITHM6cOLkmgQr27FyFXMwAAAAABDQAAiITHM6cOLkmgQr27FyFXMwAABd-6zAAAEA==",
@@ -46159,13 +46568,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 159,
+          "meetingCount": 7,
+          "callCount": 11,
+          "activityMatched": true
         },
         "attendance": {
           "present": 15,
@@ -46275,13 +46688,17 @@
         "teamsOfflineHours": 44.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 1430,
+        "meetingCount": 19,
+        "callCount": 32,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 16,
@@ -47352,8 +47769,8 @@
           ]
         },
         "calendar": {
-          "events": 46,
-          "meetingHours": 43.5,
+          "events": 47,
+          "meetingHours": 44.0,
           "items": [
             {
               "id": "AAMkADNjM2Y2NWY4LTc1MGEtNGMzNi05OTBiLTY3YTFmNWM2Mzg3MwBGAAAAAAA2uo2X9UlGRK-vS3PsD5A3BwCSCtPAYbQVS5t_suEx2ClJAAAAAAENAACSCtPAYbQVS5t_suEx2ClJAADj4TewAAA=",
@@ -47794,6 +48211,26 @@
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MTIwNGQ2M2UtNmExYi00ZDhkLWIyZjUtMzVmYmI5MDllZDJh%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22eaec440e-07e9-48d1-a91a-007770e1887c%22%7d",
               "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/421486017739871?p=plOrxqcKzsOQ4XNuus\r\nMeeting ID: 421 486 017 739 871\r\nPasscode: ji28ZW3y\r\n________________",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADNjM2Y2NWY4LTc1MGEtNGMzNi05OTBiLTY3YTFmNWM2Mzg3MwBGAAAAAAA2uo2X9UlGRK-vS3PsD5A3BwCSCtPAYbQVS5t_suEx2ClJAAAAAAENAACSCtPAYbQVS5t_suEx2ClJAAD7EZ-NAAA=",
+              "subject": "One-on-One Discussion with Trinita \u2013 Director of Business Development & Marketing",
+              "start": "2026-07-28T14:00:00.0000000+05:30",
+              "end": "2026-07-28T14:30:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "busy",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADNjM2Y2NWY4LTc1MGEtNGMzNi05OTBiLTY3YTFmNWM2Mzg3MwBGAAAAAAA2uo2X9UlGRK%2FvS3PsD5A3BwCSCtPAYbQVS5t%2BsuEx2ClJAAAAAAENAACSCtPAYbQVS5t%2BsuEx2ClJAAD7EZ%2FNAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Priyadarshini V",
+              "attendees": [
+                "Trinita Rex Anto",
+                "Varuni Vangaveti"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODFjYTMxNjQtNWY4Yy00MGMzLTk1MzQtY2UyNzRjMmUzOTVj%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22eaec440e-07e9-48d1-a91a-007770e1887c%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/425059041512594?p=e41OwkHAGbK21vzv2r\r\nMeeting ID: 425 059 041 512 594\r\nPasscode: sK7Ga3hK\r\n________________",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
@@ -48461,13 +48898,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 1430,
+          "meetingCount": 19,
+          "callCount": 32,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20,
@@ -48583,7 +49024,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 584,
+        "meetingCount": 13,
+        "callCount": 26,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 8,
@@ -48931,7 +49376,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 584,
+          "meetingCount": 13,
+          "callCount": 26,
+          "activityMatched": true
         },
         "attendance": {
           "present": 22,
@@ -49041,13 +49490,17 @@
         "teamsOfflineHours": 23.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Busy",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 1632,
+        "meetingCount": 130,
+        "callCount": 84,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 132,
@@ -49582,8 +50035,8 @@
           ]
         },
         "calendar": {
-          "events": 211,
-          "meetingHours": 98.5,
+          "events": 216,
+          "meetingHours": 101.0,
           "items": [
             {
               "id": "AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC-2wHf5XfmQpAVCtWr-f3YAAAAAAENAAC-2wHf5XfmQpAVCtWr-f3YAAGN1kkDAAA=",
@@ -53319,25 +53772,25 @@
               "organizer": "Karthikeyan D",
               "attendees": [
                 "Karthikeyan D",
-                "vigneshmohanr9@gmail.com",
-                "Ganesan Ashokkumar",
+                "Divya Sundar",
                 "Lexila T A",
-                "Divya Sundar"
+                "vigneshmohanr9@gmail.com",
+                "Ganesan Ashokkumar"
               ],
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NTNhZjVhYWYtYTdlYi00MTdlLWIyYTQtNmYxZTIwNDQ2NTUx%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
-              "description": "Dear Candidate,\r\nGreetings from CODEWORK AI.\r\nThis email is to confirm the scheduled interview discussion for the QA Engineer with Codework. Please find the candidate\u2019s resume and the corresponding JD attached for your reference. A calendar invite has als",
+              "description": "Hi @Karthikeyan D,\r\n\r\nPlease find my feedback regarding Vignesh's interview.\r\nBased on the interview, Praveen demonstrated good knowledge in Automation Testing and Manual Testing. His logical thinking and problem-solving skills were good, and he was able",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
             },
             {
               "id": "AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC-2wHf5XfmQpAVCtWr-f3YAAAAAAENAAC-2wHf5XfmQpAVCtWr-f3YAAGgY5BvAAA=",
-              "subject": "L2 Discussion - BDM - Vignesh",
+              "subject": "Canceled: L2 Discussion - BDM - Vignesh",
               "start": "2026-07-28T14:30:00.0000000+05:30",
               "end": "2026-07-28T15:00:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "free",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC%2F2wHf5XfmQpAVCtWr%2Ff3YAAAAAAENAAC%2F2wHf5XfmQpAVCtWr%2Ff3YAAGgY5BvAAA%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Karthikeyan D",
               "attendees": [
@@ -53349,9 +53802,9 @@
               ],
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmViNDVkZGMtNWFiYi00Yzk4LTkyY2MtNzkwZGNmYTc1ZmVi%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
-              "description": "Dear Candidate,\r\nGreetings from Codework.\r\nThis is to confirm your scheduled interview discussion for the Senior Business Development Manager role. Please find the Job Description attached for your reference. A calendar invitation has also been shared wit",
+              "description": "",
               "categories": [],
-              "isCancelled": false,
+              "isCancelled": true,
               "durationMinutes": 30
             },
             {
@@ -53397,6 +53850,28 @@
               "description": "",
               "categories": [],
               "isCancelled": true,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC-2wHf5XfmQpAVCtWr-f3YAAAAAAENAAC-2wHf5XfmQpAVCtWr-f3YAAGgY5B6AAA=",
+              "subject": "L2 Technical Discussion - QA Automation - Praveen Kumar",
+              "start": "2026-07-29T10:30:00.0000000+05:30",
+              "end": "2026-07-29T11:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "busy",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC%2F2wHf5XfmQpAVCtWr%2Ff3YAAAAAAENAAC%2F2wHf5XfmQpAVCtWr%2Ff3YAAGgY5B6AAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Divya Sundar",
+              "attendees": [
+                "rpraveenkumar3518@gmail.com",
+                "Vinoth Xavier",
+                "Lexila T A",
+                "Karthikeyan D"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODQ0MjEzYWEtODY4OC00MDc0LWE3ODEtODEwZTlkMTUwM2U2%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22dd8cfc15-e4d8-405c-8c2d-9d1bf2cebc12%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/474127585295837?p=1xrkMxIJZxYYi54Ck9\r\nMeeting ID: 474 127 585 295 837\r\nPasscode: W6hE3jp3\r\n________________",
+              "categories": [],
+              "isCancelled": false,
               "durationMinutes": 30
             },
             {
@@ -53490,6 +53965,76 @@
               "durationMinutes": 30
             },
             {
+              "id": "AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC-2wHf5XfmQpAVCtWr-f3YAAAAAAENAAC-2wHf5XfmQpAVCtWr-f3YAAGgY5B2AAA=",
+              "subject": "Technical Discussion - BDM - Vinothkumar",
+              "start": "2026-07-29T12:30:00.0000000+05:30",
+              "end": "2026-07-29T13:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC%2F2wHf5XfmQpAVCtWr%2Ff3YAAAAAAENAAC%2F2wHf5XfmQpAVCtWr%2Ff3YAAGgY5B2AAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "Karthikeyan D",
+                "vinvinoth007@gmail.com",
+                "Asir Alex Reagan",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzVhM2MzNTAtZmJmMS00MTczLWE3YjctMjQwM2RlNjlhZDg0%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "*\r\nDear Vinothkumar,\r\n\r\nGreetings from Codework.\r\n\r\nThis is to confirm your scheduled interview discussion for the BDM role. Please find the Job Description attached for your reference. A calendar invitation has also been shared with the meeting details",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC-2wHf5XfmQpAVCtWr-f3YAAAAAAENAAC-2wHf5XfmQpAVCtWr-f3YAAGgY5B4AAA=",
+              "subject": "Discussion Technical - BDM - Ali Reza Borji",
+              "start": "2026-07-29T14:00:00.0000000+05:30",
+              "end": "2026-07-29T14:30:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC%2F2wHf5XfmQpAVCtWr%2Ff3YAAAAAAENAAC%2F2wHf5XfmQpAVCtWr%2Ff3YAAGgY5B4AAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "Karthikeyan D",
+                "alirezaborji7@gmail.com",
+                "Trinita Rex Anto",
+                "Senthil Kumar",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmVkMTRmZTAtMGZhZC00NWQyLWI2NTAtZTJkNDM4N2QxNTA5%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "*\r\nDear Ali Reza Borji,\r\n\r\nGreetings from Codework.\r\n\r\nThis is to confirm your scheduled interview discussion for the BDM role. Please find the Job Description attached for your reference. A calendar invitation has also been shared with the meeting deta",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC-2wHf5XfmQpAVCtWr-f3YAAAAAAENAAC-2wHf5XfmQpAVCtWr-f3YAAGgY5B5AAA=",
+              "subject": "Technical Discussion - QA Engineer - Vijayalakshmi",
+              "start": "2026-07-29T14:30:00.0000000+05:30",
+              "end": "2026-07-29T15:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC%2F2wHf5XfmQpAVCtWr%2Ff3YAAAAAAENAAC%2F2wHf5XfmQpAVCtWr%2Ff3YAAGgY5B5AAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "Karthikeyan D",
+                "vijayalakshmi962k@gmail.com",
+                "Ganesan Ashokkumar",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmM4NGM0NjMtOTUxMC00NGQyLWI3NzgtYWJjZjgyZTE1NjBl%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "Dear Candidate,\r\nGreetings from CODEWORK AI.\r\nThis email is to confirm the scheduled interview discussion for the QA Engineer with Codework. Please find the candidate\u2019s resume and the corresponding JD attached for your reference. A calendar invite has als",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
               "id": "AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC-2wHf5XfmQpAVCtWr-f3YAAAAAAENAAC-2wHf5XfmQpAVCtWr-f3YAAGgY5ByAAA=",
               "subject": "L2 Discussion - BDM -Karthikeyan",
               "start": "2026-07-29T15:00:00.0000000+05:30",
@@ -53508,6 +54053,28 @@
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjQwYzE2ZjItN2UzNy00ZWNlLWExMDItOGYxZjQyYWE5MGNm%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
               "description": "Dear Candidate,\r\nGreetings from Codework.\r\nThis is to confirm your scheduled interview discussion for the Senior Business Development Manager role. Please find the Job Description attached for your reference. A calendar invitation has also been shared wit",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC-2wHf5XfmQpAVCtWr-f3YAAAAAAENAAC-2wHf5XfmQpAVCtWr-f3YAAGgY5B3AAA=",
+              "subject": "L1 Technical Discussion - BDM - Vignesh",
+              "start": "2026-07-29T15:30:00.0000000+05:30",
+              "end": "2026-07-29T16:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "busy",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGZiMDZmMzcxLWVjODQtNDUyNC05NWU5LWIwYWMyM2FjOGM1YwBGAAAAAACZD121tacmRosk1KWzKQrZBwC%2F2wHf5XfmQpAVCtWr%2Ff3YAAAAAAENAAC%2F2wHf5XfmQpAVCtWr%2Ff3YAAGgY5B3AAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Divya Sundar",
+              "attendees": [
+                "Asir Alex Reagan",
+                "vigneshwiki8@gmail.com",
+                "Lexila T A",
+                "Karthikeyan D"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDdhY2U3YjgtMjQ2My00M2UwLWJlNDUtZWE1ZDIyMzEwNjg3%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22dd8cfc15-e4d8-405c-8c2d-9d1bf2cebc12%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/41052211831255?p=tvNgzGNvO6jzDciVEK\r\nMeeting ID: 410 522 118 312 55\r\nPasscode: VM79ta9q\r\n__________________",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
@@ -54353,13 +54920,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Busy",
           "workLocation": "",
           "isActive": 1,
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 1632,
+          "meetingCount": 130,
+          "callCount": 84,
+          "activityMatched": true
         },
         "attendance": {
           "present": 21.5,
@@ -54470,13 +55041,17 @@
         "teamsOfflineHours": 303.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 250,
+        "meetingCount": 2,
+        "callCount": 11,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 5,
@@ -54865,13 +55440,17 @@
           ]
         },
         "teams": {
-          "status": "Away",
+          "status": "Available",
           "workLocation": "",
-          "isActive": 0,
-          "isAway": 1,
+          "isActive": 1,
+          "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 250,
+          "meetingCount": 2,
+          "callCount": 11,
+          "activityMatched": true
         },
         "attendance": {
           "present": 21,
@@ -54987,7 +55566,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 206,
+        "meetingCount": 3,
+        "callCount": 1,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 3,
@@ -55300,7 +55883,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 206,
+          "meetingCount": 3,
+          "callCount": 1,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20.0,
@@ -55417,7 +56004,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 272,
+        "meetingCount": 39,
+        "callCount": 21,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 4,
@@ -56781,7 +57372,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 272,
+          "meetingCount": 39,
+          "callCount": 21,
+          "activityMatched": true
         },
         "attendance": {
           "present": 18,
@@ -56897,7 +57492,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": {
         "invited": 1,
@@ -56973,7 +57572,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 10,
@@ -57091,7 +57694,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 324,
+        "meetingCount": 35,
+        "callCount": 9,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 14,
@@ -58603,7 +59210,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 324,
+          "meetingCount": 35,
+          "callCount": 9,
+          "activityMatched": true
         },
         "attendance": {
           "present": 21,
@@ -58721,7 +59332,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 277,
+        "meetingCount": 34,
+        "callCount": 4,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 9,
@@ -60201,7 +60816,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 277,
+          "meetingCount": 34,
+          "callCount": 4,
+          "activityMatched": true
         },
         "attendance": {
           "present": 14,
@@ -60318,7 +60937,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 689,
+        "meetingCount": 35,
+        "callCount": 91,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 6,
@@ -60398,8 +61021,8 @@
           "tasks": []
         },
         "calendar": {
-          "events": 9,
-          "meetingHours": 6.0,
+          "events": 10,
+          "meetingHours": 6.5,
           "items": [
             {
               "id": "AAMkAGE4ODY4OTY2LTE2MTItNDRjMi1hM2IxLTkyYzY4YTYzYTcwMABGAAAAAAARl-8-yEpESq0iWAF2A_9tBwCPIlv8oV20Tq8ZifSspTRJAAAAAAENAACPIlv8oV20Tq8ZifSspTRJAAGQ4-JpAAA=",
@@ -60534,6 +61157,29 @@
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDI4MzkwMDctMzY3ZS00YjJjLTkxMDItM2IxMDczMDNhZmRl%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22960522d5-ace3-4741-ae22-6ef59156f7fe%22%7d",
               "description": "Hello Team,\r\n\r\nThis meeting has been scheduled to discuss the Cyber Security tasks and review the current implementation status.\r\n\r\nWe will require Vijay's input on the areas involving financial transactions to assess the feasibility of implementing the r",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkAGE4ODY4OTY2LTE2MTItNDRjMi1hM2IxLTkyYzY4YTYzYTcwMABGAAAAAAARl-8-yEpESq0iWAF2A_9tBwCPIlv8oV20Tq8ZifSspTRJAAAAAAENAACPIlv8oV20Tq8ZifSspTRJAAGhyd4WAAA=",
+              "subject": "L2 Technical Discussion - QA Automation - Praveen Kumar",
+              "start": "2026-07-29T10:30:00.0000000+05:30",
+              "end": "2026-07-29T11:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGE4ODY4OTY2LTE2MTItNDRjMi1hM2IxLTkyYzY4YTYzYTcwMABGAAAAAAARl%2F8%2FyEpESq0iWAF2A%2B9tBwCPIlv8oV20Tq8ZifSspTRJAAAAAAENAACPIlv8oV20Tq8ZifSspTRJAAGhyd4WAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Divya Sundar",
+              "attendees": [
+                "Divya Sundar",
+                "rpraveenkumar3518@gmail.com",
+                "Vinoth Xavier",
+                "Lexila T A",
+                "Karthikeyan D"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODQ0MjEzYWEtODY4OC00MDc0LWE3ODEtODEwZTlkMTUwM2U2%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22dd8cfc15-e4d8-405c-8c2d-9d1bf2cebc12%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/474127585295837?p=1xrkMxIJZxYYi54Ck9\r\nMeeting ID: 474 127 585 295 837\r\nPasscode: W6hE3jp3\r\n________________",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
@@ -60756,7 +61402,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 689,
+          "meetingCount": 35,
+          "callCount": 91,
+          "activityMatched": true
         },
         "attendance": {
           "present": 22.0,
@@ -60867,13 +61517,17 @@
         "teamsOfflineHours": 307.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "office",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 346,
+        "meetingCount": 28,
+        "callCount": 19,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 17,
@@ -65013,13 +65667,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "office",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 346,
+          "meetingCount": 28,
+          "callCount": 19,
+          "activityMatched": true
         },
         "attendance": {
           "present": 10.0,
@@ -65129,13 +65787,17 @@
         "teamsOfflineHours": 55.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Busy",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 445,
+        "meetingCount": 55,
+        "callCount": 34,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 47,
@@ -65213,8 +65875,8 @@
           "tasks": []
         },
         "calendar": {
-          "events": 83,
-          "meetingHours": 87.8,
+          "events": 85,
+          "meetingHours": 88.8,
           "items": [
             {
               "id": "AAMkADM2MTY1NGUwLTgwZDItNDQ0OC05YjQ1LTA1ODkzMzAzYzc1NABGAAAAAAAzJ8bPPD6gRKJEIqz3t0TABwCJwUQWVQ2ZQJ4sTr9SgvNlAAAAAAENAACJwUQWVQ2ZQJ4sTr9SgvNlAAAyafQFAAA=",
@@ -66063,6 +66725,52 @@
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2Y1NTQzY2QtOWZmYi00NDRhLWExYTctYWEzMzQ0YTgyNDZk%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22dd8cfc15-e4d8-405c-8c2d-9d1bf2cebc12%22%7d",
               "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/411711791090836?p=hZEKZEF54UUgPwKDx2\r\nMeeting ID: 411 711 791 090 836\r\nPasscode: LM2VR7Gu\r\n________________",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADM2MTY1NGUwLTgwZDItNDQ0OC05YjQ1LTA1ODkzMzAzYzc1NABGAAAAAAAzJ8bPPD6gRKJEIqz3t0TABwCJwUQWVQ2ZQJ4sTr9SgvNlAAAAAAENAACJwUQWVQ2ZQJ4sTr9SgvNlAABFCy4pAAA=",
+              "subject": "Technical Discussion - BDM - Vinothkumar",
+              "start": "2026-07-29T12:30:00.0000000+05:30",
+              "end": "2026-07-29T13:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADM2MTY1NGUwLTgwZDItNDQ0OC05YjQ1LTA1ODkzMzAzYzc1NABGAAAAAAAzJ8bPPD6gRKJEIqz3t0TABwCJwUQWVQ2ZQJ4sTr9SgvNlAAAAAAENAACJwUQWVQ2ZQJ4sTr9SgvNlAABFCy4pAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "Karthikeyan D",
+                "vinvinoth007@gmail.com",
+                "Asir Alex Reagan",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzVhM2MzNTAtZmJmMS00MTczLWE3YjctMjQwM2RlNjlhZDg0%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "*\r\nDear Vinothkumar,\r\n\r\nGreetings from Codework.\r\n\r\nThis is to confirm your scheduled interview discussion for the BDM role. Please find the Job Description attached for your reference. A calendar invitation has also been shared with the meeting details",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADM2MTY1NGUwLTgwZDItNDQ0OC05YjQ1LTA1ODkzMzAzYzc1NABGAAAAAAAzJ8bPPD6gRKJEIqz3t0TABwCJwUQWVQ2ZQJ4sTr9SgvNlAAAAAAENAACJwUQWVQ2ZQJ4sTr9SgvNlAABFCy4qAAA=",
+              "subject": "L1 Technical Discussion - BDM - Vignesh",
+              "start": "2026-07-29T15:30:00.0000000+05:30",
+              "end": "2026-07-29T16:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADM2MTY1NGUwLTgwZDItNDQ0OC05YjQ1LTA1ODkzMzAzYzc1NABGAAAAAAAzJ8bPPD6gRKJEIqz3t0TABwCJwUQWVQ2ZQJ4sTr9SgvNlAAAAAAENAACJwUQWVQ2ZQJ4sTr9SgvNlAABFCy4qAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Divya Sundar",
+              "attendees": [
+                "Divya Sundar",
+                "Asir Alex Reagan",
+                "vigneshwiki8@gmail.com",
+                "Lexila T A",
+                "Karthikeyan D"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDdhY2U3YjgtMjQ2My00M2UwLWJlNDUtZWE1ZDIyMzEwNjg3%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22dd8cfc15-e4d8-405c-8c2d-9d1bf2cebc12%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/41052211831255?p=tvNgzGNvO6jzDciVEK\r\nMeeting ID: 410 522 118 312 55\r\nPasscode: VM79ta9q\r\n__________________",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
@@ -67009,16 +67717,16 @@
               "start": "2026-07-29T14:30:00.0000000+05:30",
               "end": "2026-07-29T15:00:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADM2MTY1NGUwLTgwZDItNDQ0OC05YjQ1LTA1ODkzMzAzYzc1NAFRAAgI3u0EVU3AAEYAAAAAMyfGzzw%2BoESiRCKs97dEwAcAicFEFlUNmUCeLE6%2FUoLzZQAAAAABDQAAicFEFlUNmUCeLE6%2FUoLzZQAAQa9f6QAAEA%3D%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Harishivani S",
               "attendees": [
                 "Harishivani S",
                 "Abinesh D",
                 "Asir Alex Reagan",
-                "Codework - Conference Room (SSPDL)"
+                "Codework - Meeting Room (SSPDL)"
               ],
-              "location": "Codework - Conference Room (SSPDL)",
+              "location": "Codework - Meeting Room (SSPDL)",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWFiYjllZWItYjJhMy00Y2ExLTkzYWItYjQzODg0NDJlZmMz%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22699be9bf-9e1c-4fa9-97fb-af406c6cea8e%22%7d",
               "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/42857826843838?p=L0kPBIjQxSzdT5ynfD\r\nMeeting ID: 428 578 268 438 38\r\nPasscode: WG22k8pi\r\n__________________",
               "categories": [],
@@ -67072,13 +67780,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Busy",
           "workLocation": "",
           "isActive": 1,
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 445,
+          "meetingCount": 55,
+          "callCount": 34,
+          "activityMatched": true
         },
         "attendance": {
           "present": 7,
@@ -67195,7 +67907,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 325,
+        "meetingCount": 29,
+        "callCount": 15,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 6,
@@ -68878,7 +69594,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 325,
+          "meetingCount": 29,
+          "callCount": 15,
+          "activityMatched": true
         },
         "attendance": {
           "present": 18,
@@ -68990,13 +69710,17 @@
         "teamsOfflineHours": 163.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 303,
+        "meetingCount": 45,
+        "callCount": 10,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 12,
@@ -69112,8 +69836,8 @@
           "tasks": []
         },
         "calendar": {
-          "events": 69,
-          "meetingHours": 33.5,
+          "events": 70,
+          "meetingHours": 34.0,
           "items": [
             {
               "id": "AAMkADFkN2JiYWQ3LTk3MzktNGQ0NC05MjI5LTc4YzA0MDI4NzAyMQBGAAAAAAB9zTrn6eQTQqODanKbxP_YBwBusg1pMrWpTqhsjhIXljv6AAAAAAENAABusg1pMrWpTqhsjhIXljv6AAGN9v7CAAA=",
@@ -69838,7 +70562,7 @@
               "start": "2026-07-28T12:00:00.0000000+05:30",
               "end": "2026-07-28T12:30:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADFkN2JiYWQ3LTk3MzktNGQ0NC05MjI5LTc4YzA0MDI4NzAyMQBGAAAAAAB9zTrn6eQTQqODanKbxP%2BYBwBusg1pMrWpTqhsjhIXljv6AAAAAAENAABusg1pMrWpTqhsjhIXljv6AAGe4t0HAAA%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Divya Sundar",
               "attendees": [
@@ -69981,6 +70705,29 @@
               ],
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OGQ2MWNiODAtM2JmMy00ZWQyLWI1MGYtMmYzN2U0MzcwNWZl%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "Dear Candidate,\r\nGreetings from CODEWORK AI.\r\nThis email is to confirm the scheduled interview discussion for the QA Engineer with Codework. Please find the candidate\u2019s resume and the corresponding JD attached for your reference. A calendar invite has als",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADFkN2JiYWQ3LTk3MzktNGQ0NC05MjI5LTc4YzA0MDI4NzAyMQBGAAAAAAB9zTrn6eQTQqODanKbxP_YBwBusg1pMrWpTqhsjhIXljv6AAAAAAENAABusg1pMrWpTqhsjhIXljv6AAGge6COAAA=",
+              "subject": "Technical Discussion - QA Engineer - Vijayalakshmi",
+              "start": "2026-07-29T14:30:00.0000000+05:30",
+              "end": "2026-07-29T15:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADFkN2JiYWQ3LTk3MzktNGQ0NC05MjI5LTc4YzA0MDI4NzAyMQBGAAAAAAB9zTrn6eQTQqODanKbxP%2BYBwBusg1pMrWpTqhsjhIXljv6AAAAAAENAABusg1pMrWpTqhsjhIXljv6AAGge6COAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "Karthikeyan D",
+                "vijayalakshmi962k@gmail.com",
+                "Ganesan Ashokkumar",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmM4NGM0NjMtOTUxMC00NGQyLWI3NzgtYWJjZjgyZTE1NjBl%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
               "description": "Dear Candidate,\r\nGreetings from CODEWORK AI.\r\nThis email is to confirm the scheduled interview discussion for the QA Engineer with Codework. Please find the candidate\u2019s resume and the corresponding JD attached for your reference. A calendar invite has als",
               "categories": [],
               "isCancelled": false,
@@ -71241,13 +71988,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 303,
+          "meetingCount": 45,
+          "callCount": 10,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20,
@@ -71358,13 +72109,17 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 121,
+        "meetingCount": 23,
+        "callCount": 1,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 4,
@@ -72784,13 +73539,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 121,
+          "meetingCount": 23,
+          "callCount": 1,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20.0,
@@ -72907,7 +73666,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 622,
+        "meetingCount": 36,
+        "callCount": 5,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 6,
@@ -74602,7 +75365,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 622,
+          "meetingCount": 36,
+          "callCount": 5,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20,
@@ -74714,13 +75481,17 @@
         "teamsOfflineHours": 93.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 228,
+        "meetingCount": 23,
+        "callCount": 1,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 6,
@@ -77845,13 +78616,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 228,
+          "meetingCount": 23,
+          "callCount": 1,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20,
@@ -77957,13 +78732,17 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Busy",
+        "status": "Available",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -78025,13 +78804,17 @@
           "items": []
         },
         "teams": {
-          "status": "Busy",
+          "status": "Available",
           "workLocation": "",
           "isActive": 1,
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -78143,7 +78926,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -78211,7 +78998,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -78323,7 +79114,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -78391,7 +79186,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -78503,7 +79302,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -78571,7 +79374,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -78683,7 +79490,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -78751,7 +79562,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -78857,13 +79672,17 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Busy",
+        "status": "Available",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -78925,13 +79744,17 @@
           "items": []
         },
         "teams": {
-          "status": "Busy",
+          "status": "Available",
           "workLocation": "",
           "isActive": 1,
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -79043,7 +79866,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -79111,7 +79938,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -79223,7 +80054,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -79297,7 +80132,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -79409,7 +80248,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -79477,7 +80320,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -79589,7 +80436,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -79657,7 +80508,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -79769,7 +80624,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -79837,7 +80696,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -79943,13 +80806,17 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Busy",
+        "status": "Available",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -80017,13 +80884,17 @@
           "items": []
         },
         "teams": {
-          "status": "Busy",
+          "status": "Available",
           "workLocation": "",
           "isActive": 1,
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -80135,7 +81006,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -80203,7 +81078,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -80315,7 +81194,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -80383,7 +81266,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -80495,7 +81382,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -80563,7 +81454,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -80669,13 +81564,17 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -80737,13 +81636,17 @@
           "items": []
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -80855,7 +81758,11 @@
         "isAway": 0,
         "isOffline": 1,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -80923,7 +81830,11 @@
           "isAway": 0,
           "isOffline": 1,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -81427,13 +82338,17 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Busy",
+        "status": "Available",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": {
         "invited": 0,
@@ -81498,13 +82413,17 @@
           "items": []
         },
         "teams": {
-          "status": "Busy",
+          "status": "Available",
           "workLocation": "",
           "isActive": 1,
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -81616,7 +82535,11 @@
         "isAway": 0,
         "isOffline": 1,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -81684,7 +82607,11 @@
           "isAway": 0,
           "isOffline": 1,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -81995,7 +82922,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -82063,7 +82994,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -82175,7 +83110,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": {
         "invited": 0,
@@ -82408,7 +83347,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -82520,7 +83463,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -82588,7 +83535,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -82700,7 +83651,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -82768,7 +83723,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -82874,13 +83833,17 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -82942,13 +83905,17 @@
           "items": []
         },
         "teams": {
-          "status": "Away",
+          "status": "Available",
           "workLocation": "",
-          "isActive": 0,
-          "isAway": 1,
+          "isActive": 1,
+          "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -83060,7 +84027,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -83128,7 +84099,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -83240,7 +84215,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -83308,7 +84287,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -83420,7 +84403,11 @@
         "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": {
         "invited": 0,
@@ -83491,7 +84478,11 @@
           "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -83597,13 +84588,17 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "AvailableIdle",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -83665,13 +84660,17 @@
           "items": []
         },
         "teams": {
-          "status": "AvailableIdle",
+          "status": "Available",
           "workLocation": "",
-          "isActive": 0,
+          "isActive": 1,
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -83777,13 +84776,17 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -83845,13 +84848,17 @@
           "items": []
         },
         "teams": {
-          "status": "Away",
+          "status": "Available",
           "workLocation": "",
-          "isActive": 0,
-          "isAway": 1,
+          "isActive": 1,
+          "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -83963,7 +84970,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -84031,7 +85042,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -84137,13 +85152,17 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -84205,13 +85224,17 @@
           "items": []
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -84522,7 +85545,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": {
         "invited": 0,
@@ -85172,7 +86199,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -85278,13 +86309,17 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Busy",
+        "status": "Available",
         "workLocation": "office",
         "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": {
         "invited": 33,
@@ -86033,8 +87068,8 @@
             {
               "id": "AAMkAGI2Mjg1ZDE1LWM4ZjAtNDYyMy1iZjdjLTRlOWFmZmQwMDFiZAFRAAgI3uw7KuQAAEYAAAAAkbXc7eZL-UOzOnvrqaNPJwcA-1lvfYRxDkuDwaZ09Ixw7gAAAAABDQAA-1lvfYRxDkuDwaZ09Ixw7gAANAhjMQAAEA==",
               "subject": "CPLC Outreach Sync Meeting",
-              "start": "2026-07-28T16:30:00.0000000+05:30",
-              "end": "2026-07-28T17:00:00.0000000+05:30",
+              "start": "2026-07-28T16:00:00.0000000+05:30",
+              "end": "2026-07-28T16:30:00.0000000+05:30",
               "isAllDay": false,
               "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGI2Mjg1ZDE1LWM4ZjAtNDYyMy1iZjdjLTRlOWFmZmQwMDFiZAFRAAgI3uw7KuQAAEYAAAAAkbXc7eZL%2FUOzOnvrqaNPJwcA%2F1lvfYRxDkuDwaZ09Ixw7gAAAAABDQAA%2F1lvfYRxDkuDwaZ09Ixw7gAANAhjMQAAEA%3D%3D&exvsurl=1&path=/calendar/item",
@@ -86871,9 +87906,9 @@
               "attendees": [
                 "Abinesh D",
                 "Asir Alex Reagan",
-                "Codework - Conference Room (SSPDL)"
+                "Codework - Meeting Room (SSPDL)"
               ],
-              "location": "Codework - Conference Room (SSPDL)",
+              "location": "Codework - Meeting Room (SSPDL)",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWFiYjllZWItYjJhMy00Y2ExLTkzYWItYjQzODg0NDJlZmMz%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22699be9bf-9e1c-4fa9-97fb-af406c6cea8e%22%7d",
               "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/42857826843838?p=L0kPBIjQxSzdT5ynfD\r\nMeeting ID: 428 578 268 438 38\r\nPasscode: WG22k8pi\r\n__________________",
               "categories": [],
@@ -86925,13 +87960,17 @@
           ]
         },
         "teams": {
-          "status": "Busy",
+          "status": "Available",
           "workLocation": "office",
           "isActive": 1,
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -87043,7 +88082,11 @@
         "isAway": 0,
         "isOffline": 1,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -87111,7 +88154,11 @@
           "isAway": 0,
           "isOffline": 1,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -87223,7 +88270,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -87291,7 +88342,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -87801,7 +88856,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -87869,7 +88928,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -87981,7 +89044,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -88055,7 +89122,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -88167,7 +89238,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -88235,7 +89310,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -88347,7 +89426,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -88415,7 +89498,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -88527,7 +89614,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -88595,7 +89686,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -88906,7 +90001,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -88974,7 +90073,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -89086,7 +90189,11 @@
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -89154,7 +90261,11 @@
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -89260,13 +90371,17 @@
         "teamsOfflineHours": 25.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Busy",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 827,
+        "meetingCount": 78,
+        "callCount": 31,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 110,
@@ -93984,7 +95099,7 @@
               "start": "2026-07-29T11:00:00.0000000+05:30",
               "end": "2026-07-29T11:10:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMAFRAAgI3u0EVU3AAEYAAAAAZypbbBO9Vky2uaJ9JX%2FebwcATfUOQTHXN0y2nNuq46dzTAAAAAABDQAATfUOQTHXN0y2nNuq46dzTAABnBIVmgAAEA%3D%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Iftikhaar Ali  S D",
               "attendees": [
@@ -94011,7 +95126,7 @@
               "start": "2026-07-30T11:00:00.0000000+05:30",
               "end": "2026-07-30T11:10:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMAFRAAgI3u3Nf7eAAEYAAAAAZypbbBO9Vky2uaJ9JX%2FebwcATfUOQTHXN0y2nNuq46dzTAAAAAABDQAATfUOQTHXN0y2nNuq46dzTAABnBIVmgAAEA%3D%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Iftikhaar Ali  S D",
               "attendees": [
@@ -94038,7 +95153,7 @@
               "start": "2026-07-29T11:10:00.0000000+05:30",
               "end": "2026-07-29T11:20:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMAFRAAgI3u0EVU3AAEYAAAAAZypbbBO9Vky2uaJ9JX%2FebwcATfUOQTHXN0y2nNuq46dzTAAAAAABDQAATfUOQTHXN0y2nNuq46dzTAABj%2F1o8QAAEA%3D%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Iftikhaar Ali  S D",
               "attendees": [
@@ -94061,7 +95176,7 @@
               "start": "2026-07-30T11:10:00.0000000+05:30",
               "end": "2026-07-30T11:20:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMAFRAAgI3u3Nf7eAAEYAAAAAZypbbBO9Vky2uaJ9JX%2FebwcATfUOQTHXN0y2nNuq46dzTAAAAAABDQAATfUOQTHXN0y2nNuq46dzTAABj%2F1o8QAAEA%3D%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Iftikhaar Ali  S D",
               "attendees": [
@@ -94084,7 +95199,7 @@
               "start": "2026-07-29T11:20:00.0000000+05:30",
               "end": "2026-07-29T11:30:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMAFRAAgI3u0EVU3AAEYAAAAAZypbbBO9Vky2uaJ9JX%2FebwcATfUOQTHXN0y2nNuq46dzTAAAAAABDQAATfUOQTHXN0y2nNuq46dzTAABj%2F1o8gAAEA%3D%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Iftikhaar Ali  S D",
               "attendees": [
@@ -94111,7 +95226,7 @@
               "start": "2026-07-30T11:20:00.0000000+05:30",
               "end": "2026-07-30T11:30:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMAFRAAgI3u3Nf7eAAEYAAAAAZypbbBO9Vky2uaJ9JX%2FebwcATfUOQTHXN0y2nNuq46dzTAAAAAABDQAATfUOQTHXN0y2nNuq46dzTAABj%2F1o8gAAEA%3D%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Iftikhaar Ali  S D",
               "attendees": [
@@ -94138,7 +95253,7 @@
               "start": "2026-07-29T11:30:00.0000000+05:30",
               "end": "2026-07-29T11:40:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMAFRAAgI3u0EVU3AAEYAAAAAZypbbBO9Vky2uaJ9JX%2FebwcATfUOQTHXN0y2nNuq46dzTAAAAAABDQAATfUOQTHXN0y2nNuq46dzTAABlUblgwAAEA%3D%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Iftikhaar Ali  S D",
               "attendees": [
@@ -94164,7 +95279,7 @@
               "start": "2026-07-30T11:30:00.0000000+05:30",
               "end": "2026-07-30T11:40:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMAFRAAgI3u3Nf7eAAEYAAAAAZypbbBO9Vky2uaJ9JX%2FebwcATfUOQTHXN0y2nNuq46dzTAAAAAABDQAATfUOQTHXN0y2nNuq46dzTAABlUblgwAAEA%3D%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Iftikhaar Ali  S D",
               "attendees": [
@@ -94210,13 +95325,17 @@
           ]
         },
         "teams": {
-          "status": "Away",
+          "status": "Busy",
           "workLocation": "",
-          "isActive": 0,
-          "isAway": 1,
+          "isActive": 1,
+          "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 827,
+          "meetingCount": 78,
+          "callCount": 31,
+          "activityMatched": true
         },
         "attendance": {
           "present": 15,
@@ -94328,7 +95447,11 @@
         "isAway": 0,
         "isOffline": 1,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -94396,7 +95519,11 @@
           "isAway": 0,
           "isOffline": 1,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -95105,7 +96232,11 @@
         "isAway": 0,
         "isOffline": 1,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -95173,7 +96304,11 @@
           "isAway": 0,
           "isOffline": 1,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -95285,7 +96420,11 @@
         "isAway": 0,
         "isOffline": 1,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -95353,7 +96492,11 @@
           "isAway": 0,
           "isOffline": 1,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -95465,7 +96608,11 @@
         "isAway": 0,
         "isOffline": 1,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 0,
+        "meetingCount": 0,
+        "callCount": 0,
+        "activityMatched": false
       },
       "calendar": null,
       "sharepoint": null,
@@ -95533,7 +96680,11 @@
           "isAway": 0,
           "isOffline": 1,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 0,
+          "meetingCount": 0,
+          "callCount": 0,
+          "activityMatched": false
         },
         "attendance": {
           "present": 0,
@@ -95838,13 +96989,17 @@
         "teamsOfflineHours": 15.0
       },
       "teams": {
-        "status": "Away",
+        "status": "AvailableIdle",
         "workLocation": "",
         "isActive": 0,
-        "isAway": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 1376,
+        "meetingCount": 32,
+        "callCount": 15,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 169,
@@ -96277,8 +97432,8 @@
           ]
         },
         "calendar": {
-          "events": 336,
-          "meetingHours": 159.6,
+          "events": 341,
+          "meetingHours": 162.1,
           "items": [
             {
               "id": "AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n_ZtTG0TYR-wQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABYFhYBAAA=",
@@ -101810,25 +102965,25 @@
               "organizer": "Karthikeyan D",
               "attendees": [
                 "Karthikeyan D",
-                "vigneshmohanr9@gmail.com",
-                "Ganesan Ashokkumar",
+                "Divya Sundar",
                 "Lexila T A",
-                "Divya Sundar"
+                "vigneshmohanr9@gmail.com",
+                "Ganesan Ashokkumar"
               ],
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NTNhZjVhYWYtYTdlYi00MTdlLWIyYTQtNmYxZTIwNDQ2NTUx%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
-              "description": "Dear Candidate,\r\nGreetings from CODEWORK AI.\r\nThis email is to confirm the scheduled interview discussion for the QA Engineer with Codework. Please find the candidate\u2019s resume and the corresponding JD attached for your reference. A calendar invite has als",
+              "description": "Hi @Karthikeyan D,\r\n\r\nPlease find my feedback regarding Vignesh's interview.\r\nBased on the interview, Praveen demonstrated good knowledge in Automation Testing and Manual Testing. His logical thinking and problem-solving skills were good, and he was able",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
             },
             {
               "id": "AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n_ZtTG0TYR-wQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWrt3AAA=",
-              "subject": "L2 Discussion - BDM - Vignesh",
+              "subject": "Canceled: L2 Discussion - BDM - Vignesh",
               "start": "2026-07-28T14:30:00.0000000+05:30",
               "end": "2026-07-28T15:00:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "free",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n%2BZtTG0TYR%2FwQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWrt3AAA%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Karthikeyan D",
               "attendees": [
@@ -101840,9 +102995,9 @@
               ],
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmViNDVkZGMtNWFiYi00Yzk4LTkyY2MtNzkwZGNmYTc1ZmVi%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
-              "description": "Dear Candidate,\r\nGreetings from Codework.\r\nThis is to confirm your scheduled interview discussion for the Senior Business Development Manager role. Please find the Job Description attached for your reference. A calendar invitation has also been shared wit",
+              "description": "",
               "categories": [],
-              "isCancelled": false,
+              "isCancelled": true,
               "durationMinutes": 30
             },
             {
@@ -101913,6 +103068,29 @@
               "description": "",
               "categories": [],
               "isCancelled": true,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n_ZtTG0TYR-wQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWruIAAA=",
+              "subject": "L2 Technical Discussion - QA Automation - Praveen Kumar",
+              "start": "2026-07-29T10:30:00.0000000+05:30",
+              "end": "2026-07-29T11:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n%2BZtTG0TYR%2FwQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWruIAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Divya Sundar",
+              "attendees": [
+                "Divya Sundar",
+                "rpraveenkumar3518@gmail.com",
+                "Vinoth Xavier",
+                "Lexila T A",
+                "Karthikeyan D"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODQ0MjEzYWEtODY4OC00MDc0LWE3ODEtODEwZTlkMTUwM2U2%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22dd8cfc15-e4d8-405c-8c2d-9d1bf2cebc12%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/474127585295837?p=1xrkMxIJZxYYi54Ck9\r\nMeeting ID: 474 127 585 295 837\r\nPasscode: W6hE3jp3\r\n________________",
+              "categories": [],
+              "isCancelled": false,
               "durationMinutes": 30
             },
             {
@@ -102008,6 +103186,76 @@
               "durationMinutes": 30
             },
             {
+              "id": "AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n_ZtTG0TYR-wQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWruEAAA=",
+              "subject": "Technical Discussion - BDM - Vinothkumar",
+              "start": "2026-07-29T12:30:00.0000000+05:30",
+              "end": "2026-07-29T13:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n%2BZtTG0TYR%2FwQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWruEAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "Karthikeyan D",
+                "vinvinoth007@gmail.com",
+                "Asir Alex Reagan",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NzVhM2MzNTAtZmJmMS00MTczLWE3YjctMjQwM2RlNjlhZDg0%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "*\r\nDear Vinothkumar,\r\n\r\nGreetings from Codework.\r\n\r\nThis is to confirm your scheduled interview discussion for the BDM role. Please find the Job Description attached for your reference. A calendar invitation has also been shared with the meeting details",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n_ZtTG0TYR-wQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWruGAAA=",
+              "subject": "Discussion Technical - BDM - Ali Reza Borji",
+              "start": "2026-07-29T14:00:00.0000000+05:30",
+              "end": "2026-07-29T14:30:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n%2BZtTG0TYR%2FwQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWruGAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "Karthikeyan D",
+                "alirezaborji7@gmail.com",
+                "Trinita Rex Anto",
+                "Senthil Kumar",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmVkMTRmZTAtMGZhZC00NWQyLWI2NTAtZTJkNDM4N2QxNTA5%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "*\r\nDear Ali Reza Borji,\r\n\r\nGreetings from Codework.\r\n\r\nThis is to confirm your scheduled interview discussion for the BDM role. Please find the Job Description attached for your reference. A calendar invitation has also been shared with the meeting deta",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n_ZtTG0TYR-wQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWruHAAA=",
+              "subject": "Technical Discussion - QA Engineer - Vijayalakshmi",
+              "start": "2026-07-29T14:30:00.0000000+05:30",
+              "end": "2026-07-29T15:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n%2BZtTG0TYR%2FwQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWruHAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "Karthikeyan D",
+                "vijayalakshmi962k@gmail.com",
+                "Ganesan Ashokkumar",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmM4NGM0NjMtOTUxMC00NGQyLWI3NzgtYWJjZjgyZTE1NjBl%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "Dear Candidate,\r\nGreetings from CODEWORK AI.\r\nThis email is to confirm the scheduled interview discussion for the QA Engineer with Codework. Please find the candidate\u2019s resume and the corresponding JD attached for your reference. A calendar invite has als",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
               "id": "AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n_ZtTG0TYR-wQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWruAAAA=",
               "subject": "L2 Discussion - BDM -Karthikeyan",
               "start": "2026-07-29T15:00:00.0000000+05:30",
@@ -102026,6 +103274,29 @@
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjQwYzE2ZjItN2UzNy00ZWNlLWExMDItOGYxZjQyYWE5MGNm%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
               "description": "Dear Candidate,\r\nGreetings from Codework.\r\nThis is to confirm your scheduled interview discussion for the Senior Business Development Manager role. Please find the Job Description attached for your reference. A calendar invitation has also been shared wit",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n_ZtTG0TYR-wQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWruFAAA=",
+              "subject": "L1 Technical Discussion - BDM - Vignesh",
+              "start": "2026-07-29T15:30:00.0000000+05:30",
+              "end": "2026-07-29T16:00:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n%2BZtTG0TYR%2FwQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABqWruFAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Divya Sundar",
+              "attendees": [
+                "Divya Sundar",
+                "Asir Alex Reagan",
+                "vigneshwiki8@gmail.com",
+                "Lexila T A",
+                "Karthikeyan D"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDdhY2U3YjgtMjQ2My00M2UwLWJlNDUtZWE1ZDIyMzEwNjg3%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22dd8cfc15-e4d8-405c-8c2d-9d1bf2cebc12%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/41052211831255?p=tvNgzGNvO6jzDciVEK\r\nMeeting ID: 410 522 118 312 55\r\nPasscode: VM79ta9q\r\n__________________",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
@@ -104029,13 +105300,17 @@
           ]
         },
         "teams": {
-          "status": "Away",
+          "status": "AvailableIdle",
           "workLocation": "",
           "isActive": 0,
-          "isAway": 1,
+          "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 1376,
+          "meetingCount": 32,
+          "callCount": 15,
+          "activityMatched": true
         },
         "attendance": {
           "present": 20,
@@ -105142,7 +106417,11 @@
         "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 266,
+        "meetingCount": 17,
+        "callCount": 24,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 5,
@@ -105289,7 +106568,11 @@
           "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 266,
+          "meetingCount": 17,
+          "callCount": 24,
+          "activityMatched": true
         },
         "attendance": {
           "present": 0,
@@ -105600,13 +106883,17 @@
         "teamsOfflineHours": 36.0
       },
       "teams": {
-        "status": "Busy",
+        "status": "BusyIdle",
         "workLocation": "office",
-        "isActive": 1,
+        "isActive": 0,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 735,
+        "meetingCount": 78,
+        "callCount": 50,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 93,
@@ -106338,8 +107625,8 @@
           ]
         },
         "calendar": {
-          "events": 121,
-          "meetingHours": 64.8,
+          "events": 122,
+          "meetingHours": 65.2,
           "items": [
             {
               "id": "AAMkAGY5YzgzNTA5LWExMjEtNDE4NC1hZTBmLTRjNmE0NDAzNzM1NQBGAAAAAACLXdl0zgVgQZ0KHaKffoFwBwBxTLYa5hXgSI0PMTeYqeqhAAAAAAENAABxTLYa5hXgSI0PMTeYqeqhAACUAfD7AAA=",
@@ -107159,12 +108446,33 @@
               "durationMinutes": 30
             },
             {
+              "id": "AAMkAGY5YzgzNTA5LWExMjEtNDE4NC1hZTBmLTRjNmE0NDAzNzM1NQBGAAAAAACLXdl0zgVgQZ0KHaKffoFwBwBxTLYa5hXgSI0PMTeYqeqhAAAAAAENAABxTLYa5hXgSI0PMTeYqeqhAACmBRjvAAA=",
+              "subject": "One-on-One Discussion with Trinita \u2013 Director of Business Development & Marketing",
+              "start": "2026-07-28T14:00:00.0000000+05:30",
+              "end": "2026-07-28T14:30:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "busy",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGY5YzgzNTA5LWExMjEtNDE4NC1hZTBmLTRjNmE0NDAzNzM1NQBGAAAAAACLXdl0zgVgQZ0KHaKffoFwBwBxTLYa5hXgSI0PMTeYqeqhAAAAAAENAABxTLYa5hXgSI0PMTeYqeqhAACmBRjvAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Priyadarshini V",
+              "attendees": [
+                "Priyadarshini V",
+                "Trinita Rex Anto",
+                "Varuni Vangaveti"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ODFjYTMxNjQtNWY4Yy00MGMzLTk1MzQtY2UyNzRjMmUzOTVj%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22eaec440e-07e9-48d1-a91a-007770e1887c%22%7d",
+              "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/425059041512594?p=e41OwkHAGbK21vzv2r\r\nMeeting ID: 425 059 041 512 594\r\nPasscode: sK7Ga3hK\r\n________________",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
               "id": "AAMkAGY5YzgzNTA5LWExMjEtNDE4NC1hZTBmLTRjNmE0NDAzNzM1NQBGAAAAAACLXdl0zgVgQZ0KHaKffoFwBwBxTLYa5hXgSI0PMTeYqeqhAAAAAAENAABxTLYa5hXgSI0PMTeYqeqhAACkvFuNAAA=",
-              "subject": "L2 Discussion - BDM - Vignesh",
+              "subject": "Canceled: L2 Discussion - BDM - Vignesh",
               "start": "2026-07-28T14:30:00.0000000+05:30",
               "end": "2026-07-28T15:00:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "busy",
+              "showAs": "free",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGY5YzgzNTA5LWExMjEtNDE4NC1hZTBmLTRjNmE0NDAzNzM1NQBGAAAAAACLXdl0zgVgQZ0KHaKffoFwBwBxTLYa5hXgSI0PMTeYqeqhAAAAAAENAABxTLYa5hXgSI0PMTeYqeqhAACkvFuNAAA%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Karthikeyan D",
               "attendees": [
@@ -107176,9 +108484,9 @@
               ],
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmViNDVkZGMtNWFiYi00Yzk4LTkyY2MtNzkwZGNmYTc1ZmVi%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
-              "description": "Dear Candidate,\r\nGreetings from Codework.\r\nThis is to confirm your scheduled interview discussion for the Senior Business Development Manager role. Please find the Job Description attached for your reference. A calendar invitation has also been shared wit",
+              "description": "",
               "categories": [],
-              "isCancelled": false,
+              "isCancelled": true,
               "durationMinutes": 30
             },
             {
@@ -107206,26 +108514,27 @@
               "durationMinutes": 60
             },
             {
-              "id": "AAMkAGY5YzgzNTA5LWExMjEtNDE4NC1hZTBmLTRjNmE0NDAzNzM1NQBGAAAAAACLXdl0zgVgQZ0KHaKffoFwBwBxTLYa5hXgSI0PMTeYqeqhAAAAAAENAABxTLYa5hXgSI0PMTeYqeqhAACkvFuMAAA=",
-              "subject": "Canceled: L2 Discussion - Business Development Manager - NandhaKumar",
-              "start": "2026-07-28T17:00:00.0000000+05:30",
-              "end": "2026-07-28T17:30:00.0000000+05:30",
+              "id": "AAMkAGY5YzgzNTA5LWExMjEtNDE4NC1hZTBmLTRjNmE0NDAzNzM1NQBGAAAAAACLXdl0zgVgQZ0KHaKffoFwBwBxTLYa5hXgSI0PMTeYqeqhAAAAAAENAABxTLYa5hXgSI0PMTeYqeqhAACmBRjwAAA=",
+              "subject": "Discussion Technical - BDM - Ali Reza Borji",
+              "start": "2026-07-29T14:00:00.0000000+05:30",
+              "end": "2026-07-29T14:30:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "free",
-              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGY5YzgzNTA5LWExMjEtNDE4NC1hZTBmLTRjNmE0NDAzNzM1NQBGAAAAAACLXdl0zgVgQZ0KHaKffoFwBwBxTLYa5hXgSI0PMTeYqeqhAAAAAAENAABxTLYa5hXgSI0PMTeYqeqhAACkvFuMAAA%3D&exvsurl=1&path=/calendar/item",
+              "showAs": "busy",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGY5YzgzNTA5LWExMjEtNDE4NC1hZTBmLTRjNmE0NDAzNzM1NQBGAAAAAACLXdl0zgVgQZ0KHaKffoFwBwBxTLYa5hXgSI0PMTeYqeqhAAAAAAENAABxTLYa5hXgSI0PMTeYqeqhAACmBRjwAAA%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Karthikeyan D",
               "attendees": [
                 "Karthikeyan D",
-                "nandha.kathiravan1991@gmail.com",
+                "alirezaborji7@gmail.com",
                 "Trinita Rex Anto",
+                "Senthil Kumar",
                 "Lexila T A",
                 "Divya Sundar"
               ],
               "location": "Microsoft Teams Meeting",
-              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjdmZjQ3ZDUtNWE5My00MWRjLTgyYzctODM3NWI5MTdiMTIx%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
-              "description": "",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmVkMTRmZTAtMGZhZC00NWQyLWI2NTAtZTJkNDM4N2QxNTA5%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "*\r\nDear Ali Reza Borji,\r\n\r\nGreetings from Codework.\r\n\r\nThis is to confirm your scheduled interview discussion for the BDM role. Please find the Job Description attached for your reference. A calendar invitation has also been shared with the meeting deta",
               "categories": [],
-              "isCancelled": true,
+              "isCancelled": false,
               "durationMinutes": 30
             },
             {
@@ -107234,7 +108543,7 @@
               "start": "2026-07-29T15:00:00.0000000+05:30",
               "end": "2026-07-29T15:30:00.0000000+05:30",
               "isAllDay": false,
-              "showAs": "tentative",
+              "showAs": "busy",
               "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGY5YzgzNTA5LWExMjEtNDE4NC1hZTBmLTRjNmE0NDAzNzM1NQBGAAAAAACLXdl0zgVgQZ0KHaKffoFwBwBxTLYa5hXgSI0PMTeYqeqhAAAAAAENAABxTLYa5hXgSI0PMTeYqeqhAACmBRjuAAA%3D&exvsurl=1&path=/calendar/item",
               "organizer": "Karthikeyan D",
               "attendees": [
@@ -109222,13 +110531,17 @@
           ]
         },
         "teams": {
-          "status": "Busy",
+          "status": "BusyIdle",
           "workLocation": "office",
-          "isActive": 1,
+          "isActive": 0,
           "isAway": 0,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 735,
+          "meetingCount": 78,
+          "callCount": 50,
+          "activityMatched": true
         },
         "attendance": {
           "present": 14,
@@ -109269,7 +110582,7 @@
       "id": "TCINMD02",
       "name": "Vijay Anand",
       "email": "vijay@codework.ai",
-      "designation": "Advisor",
+      "designation": "CEO",
       "team": "Management Team",
       "active": true,
       "teamsId": "c9ef6626-d6bc-4422-8f36-6438247add13",
@@ -109340,7 +110653,11 @@
         "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 511,
+        "meetingCount": 50,
+        "callCount": 33,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 30,
@@ -110717,7 +112034,11 @@
           "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 511,
+          "meetingCount": 50,
+          "callCount": 33,
+          "activityMatched": true
         },
         "attendance": {
           "present": 12.0,
@@ -110823,13 +112144,17 @@
         "teamsOfflineHours": 57.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 1
+        "reports": 1,
+        "messagesCount": 81,
+        "meetingCount": 9,
+        "callCount": 10,
+        "activityMatched": true
       },
       "calendar": {
         "invited": 9,
@@ -111104,8 +112429,8 @@
           ]
         },
         "calendar": {
-          "events": 59,
-          "meetingHours": 34.1,
+          "events": 60,
+          "meetingHours": 34.6,
           "items": [
             {
               "id": "AAMkADhlNmM3ZWQyLWYyYTgtNGRkNi04NWNiLWNhOThhYzM2ZmFkZQBGAAAAAABTlW6dWGwHTKaiU7fzvA1kBwAvMIpkB0T1Rp5iakb5YojPAAAAAAENAAAvMIpkB0T1Rp5iakb5YojPAAGRYWIdAAA=",
@@ -111167,6 +112492,30 @@
               "location": "Microsoft Teams Meeting",
               "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MWZjNjcwZGItNjY4Zi00MmY0LTlmZGItY2U2NjZlMjY2N2Vl%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22c9ef6626-d6bc-4422-8f36-6438247add13%22%7d",
               "description": "Could you please provide a status update on the following facility concerns:\r\n\r\n  *   Persistent unpleasant odor throughout the office\r\n  *   Overall office cleanliness\r\n  *   Dirty and stained furniture\r\n  *   Mold observed in the false ceiling\r\n  *   In",
+              "categories": [],
+              "isCancelled": false,
+              "durationMinutes": 30
+            },
+            {
+              "id": "AAMkADhlNmM3ZWQyLWYyYTgtNGRkNi04NWNiLWNhOThhYzM2ZmFkZQBGAAAAAABTlW6dWGwHTKaiU7fzvA1kBwAvMIpkB0T1Rp5iakb5YojPAAAAAAENAAAvMIpkB0T1Rp5iakb5YojPAAGjx6idAAA=",
+              "subject": "Discussion Technical - BDM - Ali Reza Borji",
+              "start": "2026-07-29T14:00:00.0000000+05:30",
+              "end": "2026-07-29T14:30:00.0000000+05:30",
+              "isAllDay": false,
+              "showAs": "tentative",
+              "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADhlNmM3ZWQyLWYyYTgtNGRkNi04NWNiLWNhOThhYzM2ZmFkZQBGAAAAAABTlW6dWGwHTKaiU7fzvA1kBwAvMIpkB0T1Rp5iakb5YojPAAAAAAENAAAvMIpkB0T1Rp5iakb5YojPAAGjx6idAAA%3D&exvsurl=1&path=/calendar/item",
+              "organizer": "Karthikeyan D",
+              "attendees": [
+                "Karthikeyan D",
+                "alirezaborji7@gmail.com",
+                "Trinita Rex Anto",
+                "Senthil Kumar",
+                "Lexila T A",
+                "Divya Sundar"
+              ],
+              "location": "Microsoft Teams Meeting",
+              "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmVkMTRmZTAtMGZhZC00NWQyLWI2NTAtZTJkNDM4N2QxNTA5%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2279ff9af8-2fd5-4a85-b383-4e4e5f7bcd34%22%7d",
+              "description": "*\r\nDear Ali Reza Borji,\r\n\r\nGreetings from Codework.\r\n\r\nThis is to confirm your scheduled interview discussion for the BDM role. Please find the Job Description attached for your reference. A calendar invitation has also been shared with the meeting deta",
               "categories": [],
               "isCancelled": false,
               "durationMinutes": 30
@@ -112483,13 +113832,17 @@
           ]
         },
         "teams": {
-          "status": "Available",
+          "status": "Away",
           "workLocation": "",
-          "isActive": 1,
-          "isAway": 0,
+          "isActive": 0,
+          "isAway": 1,
           "isOffline": 0,
           "isOutOfOffice": 0,
-          "reports": 1
+          "reports": 1,
+          "messagesCount": 81,
+          "meetingCount": 9,
+          "callCount": 10,
+          "activityMatched": true
         },
         "attendance": {
           "present": 17,
@@ -113985,7 +115338,7 @@
     "completedPlannerTasks": 214,
     "onTimePlannerTasks": 10,
     "overduePlannerTasks": 169,
-    "calendarEvents": 3112,
+    "calendarEvents": 3137,
     "sharePointSites": 48,
     "sharePointLists": 56,
     "sharePointFiles": 51,
