@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-28T06:10:30.009535Z",
+  "lastUpdated": "2026-07-29T06:14:41.853034Z",
   "period": {
     "since": "2026-06-01",
     "until": "2026-06-30"
@@ -10,6 +10,96 @@
       "number": 41,
       "title": "Edubot_CPLC",
       "items": [
+        {
+          "title": "[Version-2 CPLC] Application displays a white screen and gets stuck in a continuous loading/synchronization loop",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/139",
+          "createdAt": "2026-07-27T10:36:12Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Leave Management summary cards display counts only for the current page instead of total records",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "vahithcw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/134",
+          "createdAt": "2026-07-27T07:38:33Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Clear Filter Button Does Not Reset Applied Filters in My Students Module",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "vahithcw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/128",
+          "createdAt": "2026-07-24T09:09:22Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Admin-created schedules are assigned to all mentors in the batch due to missing mentor selection",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "vahithcw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/131",
+          "createdAt": "2026-07-27T04:44:03Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Incorrect and unclear toast message is displayed while applying for Casual Leave in the Student Portal.",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/141",
+          "createdAt": "2026-07-27T12:08:26Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[ Version-2 CPLC] “Earned Leave” option is not displayed in the Leave Type dropdown in the Student Portal.",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/140",
+          "createdAt": "2026-07-27T11:46:47Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "[Version-2 CPLC] Bug: Implement Common UI & UX Improvements",
           "status": "In Progress",
@@ -87,7 +177,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Present and absent dates are displayed in an incorrect or shuffled order in the Student Attendance module of the Mentor Portal.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -102,7 +192,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Changing \"Rows per Page\" Does Not Reset Pagination",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -117,7 +207,7 @@
         },
         {
           "title": "[Version -2 CPLC] “View All” in the Admin Dashboard Leave Approval section navigates only to Student Leave Requests.",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -132,7 +222,7 @@
         },
         {
           "title": "[Version-2 CPLC] Leave Balance Is Not Displayed During Leave Application",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -147,7 +237,7 @@
         },
         {
           "title": "[Version-2 CPLC] Bug: Implement Student Portal Improvements",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -177,7 +267,7 @@
         },
         {
           "title": "[Version-2 CPLC] Forgot Password accepts invalid OTP and redirects to Reset Password page",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -192,11 +282,11 @@
         },
         {
           "title": "[Version-2 CPLC] Admin-created schedules do not display the creator name for students",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "ranjini-03"
+            "Antony-Bilgates"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/129",
@@ -207,7 +297,7 @@
         },
         {
           "title": "[Version-2 CPLC] Leave Balance Is Not Displayed in the Leave Application Form",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -222,7 +312,7 @@
         },
         {
           "title": "[Version-2 CPLC] Weightage Field Is Auto-Populated with Default Value in Create Task",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -237,11 +327,11 @@
         },
         {
           "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
-          "status": "Dev",
+          "status": "To Do",
           "priority": "",
           "size": "",
           "assignees": [
-            "Anisha-cw"
+            "Antony-Bilgates"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/121",
@@ -252,7 +342,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Schedule Details Panel Opens by Default Instead of on Event Hover/Click.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -267,7 +357,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story: Student Portal – Learning Path Management",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -282,7 +372,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story : Student Portal – Dashboard Enhancement",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -297,7 +387,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Incorrect header “Mentor Task” is displayed in the Student Task module of the Mentor Portal.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -312,7 +402,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Student List Is Not Sorted by ID Number",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -327,7 +417,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story: Mentor & Student Portals – Leave Management Enhancement",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -342,7 +432,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story : Profile Management Across All Portals",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -357,7 +447,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story : Mentor Portal – Attendance Management",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -372,7 +462,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story: Admin Portal – Course Management",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -387,7 +477,7 @@
         },
         {
           "title": "[Version-2 CPLC] Incorrect note text is displayed in the Student Attendance History.",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -402,7 +492,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story : Common UI/UX Enhancements",
-          "status": "Dev",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -417,7 +507,7 @@
         },
         {
           "title": "[ version-2 CPLC ] Student can attempt a quiz only twice even though the Mentor has configured three attempts.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -432,7 +522,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Incorrect failure message is displayed before the successful quiz completion message in the Student Portal.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -447,7 +537,7 @@
         },
         {
           "title": "[Version-2 CPLC] Admin-rejected leave requests are incorrectly displayed under the Approved tab in the Mentor Portal.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -462,7 +552,7 @@
         },
         {
           "title": "[ Version-2 CPLC] Non-functional “Weightage: 0%” field is displayed in the Mentor Portal Lesson Plan module.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -477,7 +567,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Task details/submission  is partially hidden behind the sidebar in both Student and Mentor portals.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -492,7 +582,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Course name and batch name are not displayed on the Student Dashboard.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -507,7 +597,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Mentor can create a quiz with blank answer options, and students can select and submit those blank options.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -522,7 +612,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] A Lesson Plan module can be published without adding a section when it is marked as “Important.”",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -537,7 +627,7 @@
         },
         {
           "title": "[Version-2 CPLC] Empty State Message Is Displayed Even When Schedules Exist",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -552,7 +642,7 @@
         },
         {
           "title": "[ Version -2 CPLC ] Deleted module remains visible in the Mentor Lesson Plan until the page is refreshed.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -567,7 +657,7 @@
         },
         {
           "title": "[Version-2 CPLC] Schedule Month View Is Not Displayed Correctly on Different Screen Resolutions.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -582,7 +672,7 @@
         },
         {
           "title": "[Version-2 CPLC] Forgot Password Link Is Not Positioned Correctly on the Login Page",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -597,7 +687,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story: Mentor & Student Portals – Community Chat Enhancement",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -612,7 +702,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Student Leave Request Is Sent to Admin Without Mentor Approval",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -627,7 +717,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story: Admin Dashboard Enhancements",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -642,7 +732,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] \"Keep Me Logged In\" Option Is Not Working",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -657,7 +747,7 @@
         },
         {
           "title": "[Version-2 CPLC] \"Active Path\" Label Is Displayed Even When No Tasks Are Available",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -672,7 +762,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Newly Added Lesson/Module Is Inserted in the Middle of the List",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -687,7 +777,7 @@
         },
         {
           "title": "[Version-2 CPLC] Validation Messages Do Not Clear After Entering Valid Input in Schedule a Class",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -702,7 +792,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Management Module Displays \"This Page Couldn't Load\" Error",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -717,7 +807,7 @@
         },
         {
           "title": "[Version-2 CPLC] Uploading Popup Remains Visible After File Upload Success",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -732,7 +822,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Mandatory (*) Indicator Is Displayed Only After Clicking Add in Lesson Plan",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -747,7 +837,7 @@
         },
         {
           "title": "[Version-2 CPLC] Filters Button Displayed Without Functionality",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -762,7 +852,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Admin Portal – “Curriculum” Permission Is Available for Students, but the Curriculum Module Is Missing in the Student Portal",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -777,7 +867,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Student name is not displayed in the Student Portal sidebar profile section.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -792,7 +882,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Start Date and Due Date calendar pop-ups overlap in the Mentor Task form.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -807,7 +897,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Year selection behaviour is inconsistent across the Start Date and Due Date calendars.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -822,7 +912,7 @@
         },
         {
           "title": "[ version-2 CPLC ] Previously created question disappears when a new question is added under the same module in the Mentor Portal.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -837,7 +927,7 @@
         },
         {
           "title": "[Version-2 CPLC] Selected Batch Not Displayed in Edit Resource Form",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -852,7 +942,7 @@
         },
         {
           "title": "[Version-2 CPLC] Attached Document Not Removed After Updating Resource to Link",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -867,7 +957,7 @@
         },
         {
           "title": "[Version-2 CPLC] Validation Message Displays Behind Resource Popup During Batch Edit",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -882,7 +972,7 @@
         },
         {
           "title": "[Version-2 CPLC] Duplicate Student ID Error Not Displayed on UI",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -897,7 +987,7 @@
         },
         {
           "title": "[Version-2 CPLC] Attached File Name Not Displayed in Update Resource",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -912,7 +1002,7 @@
         },
         {
           "title": "[Version-2 CPLC] Mandatory Validation Not Displayed After Resource Type Change",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -927,7 +1017,7 @@
         },
         {
           "title": "[Version-2 CPLC] No Option to Delete Uploaded Resource in Lesson Plan",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -942,7 +1032,7 @@
         },
         {
           "title": "[Version-2 CPLC] Notification Icon and Logout Button Do Not Remain Fixed in Sidebar",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -957,7 +1047,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Validation Message Does Not Clear After Entering Valid Input",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -972,7 +1062,7 @@
         },
         {
           "title": "[Version-2 CPLC] Refresh Button Icon Not Visible Until Hover",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -987,7 +1077,7 @@
         },
         {
           "title": "[Version-2 CPLC] Uploaded Resource File Name Not Displayed in Lesson Plan",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1002,7 +1092,7 @@
         },
         {
           "title": "[Version-2 CPLC] Check-in Auto Sign-out Not Working and Time Format Missing AM/PM in History",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1017,7 +1107,7 @@
         },
         {
           "title": "[Version-2 CPLC] Task Deletion Takes Longer Than Expected",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1032,7 +1122,7 @@
         },
         {
           "title": "[Version-2 CPLC]\"Not Found\" Error Displayed After Selecting Batch and Course",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1047,7 +1137,7 @@
         },
         {
           "title": "[Version-2 CPLC] Resource Upload Does Not Display Supported File Format Information",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1062,7 +1152,7 @@
         },
         {
           "title": "[Version-2 CPLC] Schedule Creation Allows Past Dates",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1077,7 +1167,7 @@
         },
         {
           "title": "[Version-2 CPLC] Incorrect Total Hours Displayed",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1092,7 +1182,7 @@
         },
         {
           "title": "[Version-2 CPLC] Browser Confirmation Popup Displayed During Task Deletion",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1108,7 +1198,7 @@
         },
         {
           "title": "[Version-2 CPLC] Leave Status Filters Display Incorrect Results",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1123,7 +1213,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Task Attachment Is Not Clickable for Student, Mentor, and Admin Users",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1138,7 +1228,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Uploaded Document Is Not Retained While Editing a Task",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1153,7 +1243,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Email Field Is Configured as a Text Field Instead of an Email Field",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1168,7 +1258,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Assigned Values Are Not Cleared After Mentor–Student Assign",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1183,7 +1273,7 @@
         },
         {
           "title": "[ Version-2 CPLC ]  Duplicate Assignment Is Allowed on Repeated Clicks",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1198,7 +1288,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Leave Status Count Cards Display Incorrect Values in Mentor Role",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1213,7 +1303,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Mentor Can Delete Admin-Assigned Tasks",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1228,7 +1318,7 @@
         },
         {
           "title": "[Version-2 CPLC] CPLC Permissions Configuration Not Working",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1273,7 +1363,7 @@
         },
         {
           "title": "[Version-2 CPLC] Bug: Implement Mentor Portal Improvements",
-          "status": "Dev",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1288,7 +1378,7 @@
         },
         {
           "title": "[Version-2 CPLC] Bug: Implement Common Search Improvements",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1333,7 +1423,7 @@
         },
         {
           "title": "[Version-2 CPLC] Bug: Implement Student Attendance & Profile Improvements",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1348,7 +1438,7 @@
         },
         {
           "title": "[Version-2 CPLC] Schedule Creation Allows Duration Exceeding 12 Hours",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1363,7 +1453,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Previously Created Schedule Is Not Displayed When Multiple Classes Are Scheduled for the Same Time Slot",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1378,7 +1468,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story: Admin Portal – User Management",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1393,7 +1483,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story: Mentor Portal – Dashboard Enhancement",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1408,7 +1498,7 @@
         },
         {
           "title": "[ Version-2 CPLC ] Student Task Can Be Submitted Without Uploading the Required Document",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1420,102 +1510,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC]  Task Creation Allows Selecting Past Start Date",
-          "status": "Review in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/95",
-          "createdAt": "2026-07-20T06:57:49Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[ Version-2 CPLC ]Multiple admin notifications are triggered when the Mentor approves the same student leave request repeatedly.",
-          "status": "Review in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/97",
-          "createdAt": "2026-07-20T07:22:14Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Student Task Submission Allows File Uploads Exceeding 10 MB Limit",
-          "status": "Review in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/109",
-          "createdAt": "2026-07-21T06:11:18Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Profile page allows users to save empty mandatory fields and invalid phone numbers in the Mentor, Student, and Admin portals.",
-          "status": "Dev",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/119",
-          "createdAt": "2026-07-23T11:17:34Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Clear Filter Button Does Not Reset Applied Filters in My Students Module",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "vahithcw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/128",
-          "createdAt": "2026-07-24T09:09:22Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Admin-created schedules are assigned to all mentors in the batch due to missing mentor selection",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "vahithcw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/131",
-          "createdAt": "2026-07-27T04:44:03Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 2,
-        "inProgress": 8,
+        "inProgress": 14,
         "todo": 0,
         "backlog": 0,
         "production": 0
@@ -4913,12 +4913,27 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Set Up API Server and Database for Inventory Management",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "manju-209"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/580",
+          "createdAt": "2026-07-28T08:42:50Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 8,
+        "total": 9,
         "done": 0,
-        "inProgress": 0,
+        "inProgress": 1,
         "todo": 0,
         "backlog": 0,
         "production": 0
@@ -5569,359 +5584,341 @@
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Changing \"Rows per Page\" Does Not Reset Pagination",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Leave Balance Is Not Displayed During Leave Application",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Forgot Password accepts invalid OTP and redirects to Reset Password page",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Admin-created schedules do not display the creator name for students",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Leave Balance Is Not Displayed in the Leave Application Form",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Weightage Field Is Auto-Populated with Default Value in Create Task",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Schedule Details Panel Opens by Default Instead of on Event Hover/Click.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Student List Is Not Sorted by ID Number",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Empty State Message Is Displayed Even When Schedules Exist",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Schedule Month View Is Not Displayed Correctly on Different Screen Resolutions.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Forgot Password Link Is Not Positioned Correctly on the Login Page",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] User Story: Mentor & Student Portals – Community Chat Enhancement",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Student Leave Request Is Sent to Admin Without Mentor Approval",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] User Story: Admin Dashboard Enhancements",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] \"Keep Me Logged In\" Option Is Not Working",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] \"Active Path\" Label Is Displayed Even When No Tasks Are Available",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Newly Added Lesson/Module Is Inserted in the Middle of the List",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Validation Messages Do Not Clear After Entering Valid Input in Schedule a Class",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] User Management Module Displays \"This Page Couldn't Load\" Error",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Uploading Popup Remains Visible After File Upload Success",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Mandatory (*) Indicator Is Displayed Only After Clicking Add in Lesson Plan",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Filters Button Displayed Without Functionality",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Selected Batch Not Displayed in Edit Resource Form",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Attached Document Not Removed After Updating Resource to Link",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Validation Message Displays Behind Resource Popup During Batch Edit",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Duplicate Student ID Error Not Displayed on UI",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Attached File Name Not Displayed in Update Resource",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Mandatory Validation Not Displayed After Resource Type Change",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] No Option to Delete Uploaded Resource in Lesson Plan",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Notification Icon and Logout Button Do Not Remain Fixed in Sidebar",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Validation Message Does Not Clear After Entering Valid Input",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Refresh Button Icon Not Visible Until Hover",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Uploaded Resource File Name Not Displayed in Lesson Plan",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Check-in Auto Sign-out Not Working and Time Format Missing AM/PM in History",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Task Deletion Takes Longer Than Expected",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC]\"Not Found\" Error Displayed After Selecting Batch and Course",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Resource Upload Does Not Display Supported File Format Information",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Schedule Creation Allows Past Dates",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Incorrect Total Hours Displayed",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Browser Confirmation Popup Displayed During Task Deletion",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Leave Status Filters Display Incorrect Results",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Task Attachment Is Not Clickable for Student, Mentor, and Admin Users",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Uploaded Document Is Not Retained While Editing a Task",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Email Field Is Configured as a Text Field Instead of an Email Field",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Assigned Values Are Not Cleared After Mentor–Student Assign",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ]  Duplicate Assignment Is Allowed on Repeated Clicks",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Leave Status Count Cards Display Incorrect Values in Mentor Role",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Mentor Can Delete Admin-Assigned Tasks",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] CPLC Permissions Configuration Not Working",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Bug: Implement Mentor Portal Improvements",
-          "status": "Dev",
+          "status": "Review in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Bug: Implement Common Search Improvements",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Bug: Implement Student Attendance & Profile Improvements",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Schedule Creation Allows Duration Exceeding 12 Hours",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Previously Created Schedule Is Not Displayed When Multiple Classes Are Scheduled for the Same Time Slot",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] User Story: Admin Portal – User Management",
-          "status": "Dev",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] User Story: Mentor Portal – Dashboard Enhancement",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[ Version-2 CPLC ] Student Task Can Be Submitted Without Uploading the Required Document",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC]  Task Creation Allows Selecting Past Start Date",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Student Task Submission Allows File Uploads Exceeding 10 MB Limit",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         }
       ],
-      "total": 59,
+      "total": 56,
       "done": 0,
       "inProgress": 0,
       "commits": 0,
@@ -5939,6 +5936,12 @@
         "EduBot_University"
       ],
       "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Application displays a white screen and gets stuck in a continuous loading/synchronization loop",
+          "status": "In Progress",
+          "priority": ""
+        },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Bug: Implement Common UI & UX Improvements",
@@ -5959,8 +5962,20 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Admin-created schedules do not display the creator name for students",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Browser Confirmation Popup Displayed During Task Deletion",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -6030,9 +6045,9 @@
           "priority": ""
         }
       ],
-      "total": 15,
+      "total": 18,
       "done": 0,
-      "inProgress": 7,
+      "inProgress": 8,
       "commits": 20,
       "prs": 17,
       "prsMerged": 15,
@@ -6041,210 +6056,30 @@
       "deletions": 3327
     },
     {
-      "login": "Anisha-cw",
-      "projects": [
-        "Edubot_CPLC",
-        "Worklogix"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Present and absent dates are displayed in an incorrect or shuffled order in the Student Attendance module of the Mentor Portal.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version -2 CPLC] “View All” in the Admin Dashboard Leave Approval section navigates only to Student Leave Requests.",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Bug: Implement Student Portal Improvements",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story: Student Portal – Learning Path Management",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story : Student Portal – Dashboard Enhancement",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Incorrect header “Mentor Task” is displayed in the Student Task module of the Mentor Portal.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story: Mentor & Student Portals – Leave Management Enhancement",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story : Profile Management Across All Portals",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story : Mentor Portal – Attendance Management",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story: Admin Portal – Course Management",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Incorrect note text is displayed in the Student Attendance History.",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story : Common UI/UX Enhancements",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ version-2 CPLC ] Student can attempt a quiz only twice even though the Mentor has configured three attempts.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Incorrect failure message is displayed before the successful quiz completion message in the Student Portal.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Admin-rejected leave requests are incorrectly displayed under the Approved tab in the Mentor Portal.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC] Non-functional “Weightage: 0%” field is displayed in the Mentor Portal Lesson Plan module.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Task details/submission  is partially hidden behind the sidebar in both Student and Mentor portals.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Course name and batch name are not displayed on the Student Dashboard.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Mentor can create a quiz with blank answer options, and students can select and submit those blank options.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] A Lesson Plan module can be published without adding a section when it is marked as “Important.”",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version -2 CPLC ] Deleted module remains visible in the Mentor Lesson Plan until the page is refreshed.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Admin Portal – “Curriculum” Permission Is Available for Students, but the Curriculum Module Is Missing in the Student Portal",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Student name is not displayed in the Student Portal sidebar profile section.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Start Date and Due Date calendar pop-ups overlap in the Mentor Task form.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Year selection behaviour is inconsistent across the Start Date and Due Date calendars.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ version-2 CPLC ] Previously created question disappears when a new question is added under the same module in the Mentor Portal.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ]Multiple admin notifications are triggered when the Mentor approves the same student leave request repeatedly.",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Profile page allows users to save empty mandatory fields and invalid phone numbers in the Mentor, Student, and Admin portals.",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Application Error Occurs When Accessing Projects and Daily Updates in Test Employee Module",
-          "status": "QA",
-          "priority": ""
-        }
-      ],
-      "total": 30,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "vahithcw",
       "projects": [
         "Edubot_CPLC",
         "EduBot_University"
       ],
       "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Leave Management summary cards display counts only for the current page instead of total records",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Clear Filter Button Does Not Reset Applied Filters in My Students Module",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Admin-created schedules are assigned to all mentors in the batch due to missing mentor selection",
+          "status": "In Progress",
+          "priority": ""
+        },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] User Story : Super Admin Dashboard & Notifications",
@@ -6267,18 +6102,6 @@
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Bug: Mentor Portal Functionality",
           "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Clear Filter Button Does Not Reset Applied Filters in My Students Module",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Admin-created schedules are assigned to all mentors in the batch due to missing mentor selection",
-          "status": "To Do",
           "priority": ""
         },
         {
@@ -6336,15 +6159,195 @@
           "priority": ""
         }
       ],
-      "total": 15,
+      "total": 16,
       "done": 1,
-      "inProgress": 8,
+      "inProgress": 11,
       "commits": 13,
       "prs": 5,
       "prsMerged": 5,
       "prReviews": 0,
       "additions": 6173,
       "deletions": 1323
+    },
+    {
+      "login": "Anisha-cw",
+      "projects": [
+        "Edubot_CPLC",
+        "Worklogix"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Present and absent dates are displayed in an incorrect or shuffled order in the Student Attendance module of the Mentor Portal.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version -2 CPLC] “View All” in the Admin Dashboard Leave Approval section navigates only to Student Leave Requests.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Bug: Implement Student Portal Improvements",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story: Student Portal – Learning Path Management",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story : Student Portal – Dashboard Enhancement",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Incorrect header “Mentor Task” is displayed in the Student Task module of the Mentor Portal.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story: Mentor & Student Portals – Leave Management Enhancement",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story : Profile Management Across All Portals",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story : Mentor Portal – Attendance Management",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story: Admin Portal – Course Management",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Incorrect note text is displayed in the Student Attendance History.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] User Story : Common UI/UX Enhancements",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ version-2 CPLC ] Student can attempt a quiz only twice even though the Mentor has configured three attempts.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Incorrect failure message is displayed before the successful quiz completion message in the Student Portal.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Admin-rejected leave requests are incorrectly displayed under the Approved tab in the Mentor Portal.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC] Non-functional “Weightage: 0%” field is displayed in the Mentor Portal Lesson Plan module.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Task details/submission  is partially hidden behind the sidebar in both Student and Mentor portals.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Course name and batch name are not displayed on the Student Dashboard.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Mentor can create a quiz with blank answer options, and students can select and submit those blank options.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] A Lesson Plan module can be published without adding a section when it is marked as “Important.”",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version -2 CPLC ] Deleted module remains visible in the Mentor Lesson Plan until the page is refreshed.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Admin Portal – “Curriculum” Permission Is Available for Students, but the Curriculum Module Is Missing in the Student Portal",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Student name is not displayed in the Student Portal sidebar profile section.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Start Date and Due Date calendar pop-ups overlap in the Mentor Task form.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Year selection behaviour is inconsistent across the Start Date and Due Date calendars.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ version-2 CPLC ] Previously created question disappears when a new question is added under the same module in the Mentor Portal.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Application Error Occurs When Accessing Projects and Daily Updates in Test Employee Module",
+          "status": "QA",
+          "priority": ""
+        }
+      ],
+      "total": 27,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
     },
     {
       "login": "Lakshana-Lakshmanan",
@@ -6440,6 +6443,18 @@
       "tasks": [
         {
           "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Incorrect and unclear toast message is displayed while applying for Casual Leave in the Student Portal.",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC] “Earned Leave” option is not displayed in the Leave Type dropdown in the Student Portal.",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Bug: Implement Mentor Management",
           "status": "Done",
           "priority": ""
@@ -6511,9 +6526,9 @@
           "priority": ""
         }
       ],
-      "total": 12,
+      "total": 14,
       "done": 1,
-      "inProgress": 8,
+      "inProgress": 10,
       "commits": 11,
       "prs": 12,
       "prsMerged": 11,
@@ -6945,11 +6960,17 @@
           "title": "Create Repositories for Inventory Management Application",
           "status": "Completed",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Set Up API Server and Database for Inventory Management",
+          "status": "In Progress",
+          "priority": ""
         }
       ],
-      "total": 7,
+      "total": 8,
       "done": 0,
-      "inProgress": 0,
+      "inProgress": 1,
       "commits": 3,
       "prs": 0,
       "prsMerged": 0,
