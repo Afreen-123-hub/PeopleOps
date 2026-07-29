@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260728-dept-panel">
+    <link rel="stylesheet" href="styles.css?v=20260728-tpc">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -245,9 +245,13 @@
               <div class="panel-head">
                 <div>
                   <p class="eyebrow">Team performance breakdown</p>
-                  <h2>KPI Drivers by Team</h2>
+                  <h2>Team Pulse — KPI by Team</h2>
                 </div>
-                <span class="pill">Green = good &nbsp;·&nbsp; Amber = watch &nbsp;·&nbsp; Red = act now</span>
+                <span class="pill">
+                  <span class="tpc-legend-dot tpc-legend-good"></span>Excellent &nbsp;·&nbsp;
+                  <span class="tpc-legend-dot tpc-legend-watch"></span>Watch &nbsp;·&nbsp;
+                  <span class="tpc-legend-dot tpc-legend-risk"></span>At Risk
+                </span>
               </div>
               <div id="teamHeatmap"></div>
             </article>

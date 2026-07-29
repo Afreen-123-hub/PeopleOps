@@ -215,10 +215,10 @@ function renderTeamHeatmap() {
   if (!container) return;
   const rows = getKpiRows();
   const drivers = [
-    { key: "delivery",      label: "Delivery" },
-    { key: "attendance",    label: "Attendance" },
-    { key: "collaboration", label: "Collaboration" },
-    { key: "efficiency",    label: "Efficiency" },
+    { key: "delivery",      label: "Delivery",       source: "Worklogix",          noData: "No tasks assigned in Worklogix" },
+    { key: "attendance",    label: "Attendance",     source: "GreytHR / Biometrics", noData: "No attendance records found"   },
+    { key: "collaboration", label: "Collaboration",  source: "Microsoft Teams",    noData: "Teams not connected"             },
+    { key: "efficiency",    label: "Efficiency",     source: "GitHub",             noData: "No GitHub contributions"         },
   ];
 
   const teamMap = {};
@@ -229,44 +229,116 @@ function renderTeamHeatmap() {
   });
   const teams = Object.keys(teamMap).sort();
 
-  const heatColor = (v) => {
-    if (v >= 70) return { bg: "rgba(47,179,109,0.15)", color: "#1a7a47" };
-    if (v >= 40) return { bg: "rgba(243,162,41,0.15)", color: "#a05c00" };
-    return { bg: "rgba(219,77,92,0.18)", color: "#a0202e" };
-  };
   const avg = (arr) => arr.length ? Math.round(arr.reduce((a, b) => a + b, 0) / arr.length) : null;
 
   const companyAvg = {};
   drivers.forEach((d) => {
     const vals = rows.map((e) => e.scoreDrivers[d.key]).filter((v) => v != null);
-    companyAvg[d.key] = vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : null;
+    companyAvg[d.key] = vals.length ? avg(vals) : null;
   });
+  const companyAvgKpi = rows.length ? avg(rows.map((e) => e.kpi)) : 0;
 
-  container.innerHTML = `
-    <div class="heatmap-grid" style="grid-template-columns:170px repeat(${drivers.length},1fr);">
-      <div class="heatmap-corner"></div>
-      ${drivers.map((d) => `<div class="heatmap-head">${d.label}<span class="heatmap-cavg">co. avg ${companyAvg[d.key] ?? "—"}</span></div>`).join("")}
-      ${teams.map((team) => {
-        const members = teamMap[team];
-        const cells = drivers.map((d) => {
-          const vals = members.map((e) => e.scoreDrivers[d.key]).filter((v) => v != null);
-          const score = avg(vals);
-          if (score === null) return `<div class="heatmap-cell heatmap-na">—</div>`;
-          const { bg, color } = heatColor(score);
-          return `<div class="heatmap-cell heatmap-clickable" style="background:${bg};color:${color};" data-team="${encodeURIComponent(team)}" data-driver="${d.key}" title="Click for breakdown"><strong>${score}</strong></div>`;
-        }).join("");
-        return `<div class="heatmap-team">${team}<span class="heatmap-count">${members.length} people</span></div>${cells}`;
-      }).join("")}
-    </div>
-  `;
+  const driverTone = (v) => v >= 70 ? "good" : v >= 40 ? "watch" : "risk";
+  const healthClass = (kpi) => kpi >= 80 ? "good" : kpi >= 65 ? "watch" : "risk";
+  const healthLabel = (kpi) => kpi >= 80 ? "Excellent" : kpi >= 65 ? "Watch" : "At Risk";
 
-  container.querySelectorAll(".heatmap-clickable").forEach((cell) => {
-    cell.addEventListener("click", () => {
-      const team = decodeURIComponent(cell.dataset.team);
-      const driverKey = cell.dataset.driver;
-      const driver = drivers.find((d) => d.key === driverKey);
-      showHeatmapDetail(team, driver, teamMap[team], companyAvg);
+  const focusMessage = (driverScores, teamKpi) => {
+    const available = driverScores.filter((d) => d.score !== null);
+    const missing   = driverScores.filter((d) => d.score === null);
+    if (!available.length) return { icon: "⚠", title: "No data", msg: "Connect data sources to unlock KPI drivers" };
+
+    const weakest = [...available].sort((a, b) => a.score - b.score)[0];
+    const diff = companyAvg[weakest.key] != null ? weakest.score - companyAvg[weakest.key] : null;
+
+    const watchMsg = {
+      delivery:      "Check pending Worklogix tasks and completion rate",
+      attendance:    "Review scheduling and leave patterns",
+      collaboration: diff !== null ? `${Math.abs(diff)} pts below avg — review Teams engagement` : "Low Teams activity",
+      efficiency:    "Review GitHub contributions and PR activity",
+    };
+
+    // At risk: KPI is critically low
+    if (teamKpi < 65) {
+      const gap = companyAvgKpi ? Math.abs(Math.round(teamKpi - companyAvgKpi)) : "";
+      return { icon: "🚨", title: "Action needed", msg: `KPI ${gap ? gap + " pts" : ""} below avg — review ${weakest.label.toLowerCase()} & workload` };
+    }
+
+    // Any driver is red (< 40) regardless of overall KPI
+    if (weakest.score < 40) {
+      return { icon: "⚠", title: `Watch: ${weakest.label}`, msg: watchMsg[weakest.key] || `Score: ${weakest.score}` };
+    }
+
+    // Good KPI but all available drivers are genuinely healthy (>= 70)
+    if (teamKpi >= 80 && available.every((d) => d.score >= 70)) {
+      if (missing.length) return { icon: "✦", title: "On track", msg: `Note: ${missing[0].noData} for this team` };
+      return { icon: "✦", title: "All clear", msg: "All drivers healthy — no action needed" };
+    }
+
+    // Watch zone or good KPI with amber drivers — highlight weakest
+    return { icon: "⚠", title: `Watch: ${weakest.label}`, msg: watchMsg[weakest.key] || `Score: ${weakest.score}` };
+  };
+
+  const cards = teams.map((team) => {
+    const members = teamMap[team];
+    const teamKpi = avg(members.map((e) => e.kpi).filter((v) => v != null));
+    const hClass  = healthClass(teamKpi ?? 0);
+    const hLabel  = healthLabel(teamKpi ?? 0);
+
+    const driverScores = drivers.map((d) => {
+      const vals = members.map((e) => e.scoreDrivers[d.key]).filter((v) => v != null);
+      return { ...d, score: avg(vals) };
     });
+
+    const focus = focusMessage(driverScores, teamKpi ?? 0);
+
+    const driverRows = driverScores.map((d) => {
+      if (d.score === null) {
+        return `<div class="tpc-driver-row tpc-no-source">
+          <span class="tpc-driver-name">${d.label}</span>
+          <span class="tpc-no-source-text">${d.noData}</span>
+        </div>`;
+      }
+      const tone = driverTone(d.score);
+      return `<div class="tpc-driver-row" data-team="${encodeURIComponent(team)}" data-driver="${d.key}"
+          role="button" tabindex="0" title="Click for ${d.label} breakdown">
+          <span class="tpc-driver-name">${d.label}</span>
+          <span class="tpc-bar-track"><span class="tpc-bar-fill tpc-${tone}" style="width:${d.score}%"></span></span>
+          <span class="tpc-driver-val tpc-${tone}">${d.score}</span>
+        </div>`;
+    }).join("");
+
+    return `<div class="tpc-card tpc-health-${hClass}">
+      <div class="tpc-header">
+        <div>
+          <div class="tpc-team-name">${escapeHtml(team)}</div>
+          <div class="tpc-headcount">${members.length} ${members.length === 1 ? "person" : "people"} · ${members.length} scored</div>
+        </div>
+        <div class="tpc-kpi-badge">
+          <span class="tpc-kpi-val">${teamKpi != null ? number.format(teamKpi) : "—"}</span>
+          <span class="tpc-kpi-lbl">KPI</span>
+          <span class="tpc-health-pill">${hLabel}</span>
+        </div>
+      </div>
+      <div class="tpc-divider"></div>
+      <div class="tpc-drivers">${driverRows}</div>
+      <div class="tpc-footer">
+        <span class="tpc-footer-icon">${focus.icon}</span>
+        <span class="tpc-footer-text"><strong>${focus.title}</strong>${focus.msg}</span>
+      </div>
+    </div>`;
+  }).join("");
+
+  container.innerHTML = `<div class="tpc-grid">${cards}</div>`;
+
+  container.querySelectorAll(".tpc-driver-row[data-team]").forEach((row) => {
+    const open = () => {
+      const team      = decodeURIComponent(row.dataset.team);
+      const driverKey = row.dataset.driver;
+      const driver    = drivers.find((d) => d.key === driverKey);
+      showHeatmapDetail(team, driver, teamMap[team], companyAvg);
+    };
+    row.addEventListener("click", open);
+    row.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") open(); });
   });
 }
 
@@ -485,12 +557,26 @@ async function fetchGlobalAttendanceMonth(month) {
     if (!payload.data || !payload.data.employees || payload.data.employees.length === 0) {
       throw new Error(`No employee data returned for ${label}. Try the current month instead.`);
     }
+
+    // Preserve Teams live data (presence + activity) before replacing dataset.
+    // Historical month loads only update KPI/attendance — Teams stays live.
+    const teamsCache = new Map();
+    (dataset?.employees || []).forEach(e => { if (e.id) teamsCache.set(e.id, e.teams); });
+
     dataset = payload.data;
-    applyFilters();
+
+    // Re-inject Teams live data so the leaderboard and presence stay current.
+    dataset.employees.forEach(e => {
+      const live = teamsCache.get(e.id);
+      if (live) e.teams = { ...(e.teams || {}), ...live };
+    });
+
+    applyFilters(); // rebuilds filteredEmployees + calls renderAll() — updates every section
+    updateGlobalMonthLabel();
+
     const actualPeriod = payload.period || label;
     status.className = "graph-attendance-status success";
-    status.textContent = `✓ Loaded ${actualPeriod} (${payload.employees} employees) — Tara can now answer questions about ${label}`;
-    updateAvailableMonthsBadge();
+    status.textContent = `✓ Showing ${actualPeriod} data (${payload.employees} employees) — Teams presence stays live`;
   } catch (err) {
     status.className = "graph-attendance-status error";
     status.textContent = `✗ ${err.message}`;
