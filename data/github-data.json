@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-29T06:14:41.853034Z",
+  "lastUpdated": "2026-07-30T06:06:55.401928Z",
   "period": {
     "since": "2026-06-01",
     "until": "2026-06-30"
@@ -10,6 +10,96 @@
       "number": 41,
       "title": "Edubot_CPLC",
       "items": [
+        {
+          "title": "[Version-2 CPLC]  Mentor creation accepts a 9-digit phone number",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/147",
+          "createdAt": "2026-07-29T10:41:19Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[ Version-2 CPLC ] Community Chat unread message count is not displayed for shared links",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/144",
+          "createdAt": "2026-07-29T07:31:07Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[ Version-2 CPLC ] Batch Creation accepts past date",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/145",
+          "createdAt": "2026-07-29T07:39:15Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[ Version-2 CPLC ] Applying a filter retains the current page and displays an empty result",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/146",
+          "createdAt": "2026-07-29T09:21:06Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/121",
+          "createdAt": "2026-07-24T04:30:03Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Bug: Implement Mentor Portal Improvements",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/45",
+          "createdAt": "2026-07-14T10:24:49Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "[Version-2 CPLC] Application displays a white screen and gets stuck in a continuous loading/synchronization loop",
           "status": "In Progress",
@@ -326,21 +416,6 @@
           "endDate": ""
         },
         {
-          "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/121",
-          "createdAt": "2026-07-24T04:30:03Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "[ Version-2 CPLC ] Schedule Details Panel Opens by Default Instead of on Event Hover/Click.",
           "status": "Completed in QA",
           "priority": "",
@@ -492,7 +567,7 @@
         },
         {
           "title": "[Version-2 CPLC] User Story : Common UI/UX Enhancements",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1362,21 +1437,6 @@
           "endDate": ""
         },
         {
-          "title": "[Version-2 CPLC] Bug: Implement Mentor Portal Improvements",
-          "status": "Review in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/45",
-          "createdAt": "2026-07-14T10:24:49Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "[Version-2 CPLC] Bug: Implement Common Search Improvements",
           "status": "Completed in QA",
           "priority": "",
@@ -1393,16 +1453,16 @@
         },
         {
           "title": "[Version-2 CPLC] Bug: Implement Mentor Management",
-          "status": "Done",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "ranjini-03"
           ],
-          "state": "CLOSED",
+          "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/6",
           "createdAt": "2026-07-12T17:59:52Z",
-          "closedAt": "2026-07-13T08:42:59Z",
+          "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
@@ -1450,72 +1510,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "[ Version-2 CPLC ] Previously Created Schedule Is Not Displayed When Multiple Classes Are Scheduled for the Same Time Slot",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/67",
-          "createdAt": "2026-07-17T07:36:27Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] User Story: Admin Portal – User Management",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/81",
-          "createdAt": "2026-07-19T08:03:27Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] User Story: Mentor Portal – Dashboard Enhancement",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/84",
-          "createdAt": "2026-07-19T09:05:56Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[ Version-2 CPLC ] Student Task Can Be Submitted Without Uploading the Required Document",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/91",
-          "createdAt": "2026-07-20T05:24:32Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 2,
-        "inProgress": 14,
+        "done": 1,
+        "inProgress": 20,
         "todo": 0,
         "backlog": 0,
         "production": 0
@@ -1525,21 +1525,6 @@
       "number": 37,
       "title": "SabAi Bible App",
       "items": [
-        {
-          "title": "Forgot Password Email Displays Default Subject and Missing Bible Logo",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/39",
-          "createdAt": "2026-07-13T07:33:26Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
         {
           "title": "Sharing Visualize Report in Community Fails with \"Failed to Create Post\" Toast",
           "status": "DEV",
@@ -1636,11 +1621,41 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/29",
           "createdAt": "2026-07-10T10:17:33Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Forgot Password Email Displays Default Subject and Missing Bible Logo",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/39",
+          "createdAt": "2026-07-13T07:33:26Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Prompt Visual Generation Fails When Multiple Users Generate Content Simultaneously",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/60",
+          "createdAt": "2026-07-27T07:16:58Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -2155,28 +2170,13 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Prompt Visual Generation Fails When Multiple Users Generate Content Simultaneously",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/60",
-          "createdAt": "2026-07-27T07:16:58Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 43,
         "done": 0,
-        "inProgress": 5,
-        "todo": 2,
+        "inProgress": 7,
+        "todo": 0,
         "backlog": 5,
         "production": 0
       }
@@ -2647,11 +2647,11 @@
       "items": [
         {
           "title": "Assign Class Displays Backend Error When Confirmed Without Selecting a Class",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "saimanL"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/258",
@@ -2707,11 +2707,11 @@
         },
         {
           "title": "Application Allows Assigning an Already Assigned Class Teacher to Another Teacher",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "saimanL"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/463",
@@ -2767,7 +2767,7 @@
         },
         {
           "title": "Teacher Profile Page Displays Student Details Instead of Teacher Details",
-          "status": "TODO",
+          "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3666,21 +3666,6 @@
           "endDate": ""
         },
         {
-          "title": "All students are visible in the new teacher's chat.",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Dharsan1102codework"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/370",
-          "createdAt": "2026-07-14T11:18:17Z",
-          "closedAt": null,
-          "startDate": "2026-07-17",
-          "endDate": ""
-        },
-        {
           "title": "Grade ID Update Is Not Reflected and Success Toast Is Missing for Create/Update Operations",
           "status": "QA",
           "priority": "",
@@ -4141,13 +4126,28 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "OTP Field Is Not Cleared Immediately After Clicking Resend OTP",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/76",
+          "createdAt": "2026-06-30T05:37:01Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 2,
-        "todo": 2,
+        "inProgress": 0,
+        "todo": 0,
         "backlog": 8,
         "production": 0
       }
@@ -4994,6 +4994,12 @@
         },
         {
           "project": "SabAi Bible App",
+          "title": "Google SSO Authentication Failure Leaves Loading Indicator Stuck",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
           "title": "Empty Prompt Submission Displays \"Generation Failed\" Page Instead of Required Field Validation",
           "status": "DEV",
           "priority": ""
@@ -5174,6 +5180,12 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "Assign Class Displays Backend Error When Confirmed Without Selecting a Class",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "AM/PM Value Is Not Updated While Editing a Period",
           "status": "QA",
           "priority": ""
@@ -5181,6 +5193,12 @@
         {
           "project": "Acadamiq AI",
           "title": "Mandatory Field Indicators and Inline Validation Are Missing While Creating a Student",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Application Allows Assigning an Already Assigned Class Teacher to Another Teacher",
           "status": "QA",
           "priority": ""
         },
@@ -5465,11 +5483,17 @@
           "title": "AI Timetable Schedule for Student",
           "status": "QA",
           "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "OTP Field Is Not Cleared Immediately After Clicking Resend OTP",
+          "status": "QA",
+          "priority": ""
         }
       ],
-      "total": 82,
+      "total": 86,
       "done": 0,
-      "inProgress": 2,
+      "inProgress": 3,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -5871,14 +5895,14 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Bug: Implement Mentor Portal Improvements",
-          "status": "Review in QA",
+          "title": "[Version-2 CPLC] Bug: Implement Common Search Improvements",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Bug: Implement Common Search Improvements",
-          "status": "Completed in QA",
+          "title": "[Version-2 CPLC] Bug: Implement Mentor Management",
+          "status": "Review in QA",
           "priority": ""
         },
         {
@@ -5892,33 +5916,9 @@
           "title": "[Version-2 CPLC] Schedule Creation Allows Duration Exceeding 12 Hours",
           "status": "Completed in QA",
           "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Previously Created Schedule Is Not Displayed When Multiple Classes Are Scheduled for the Same Time Slot",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story: Admin Portal – User Management",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story: Mentor Portal – Dashboard Enhancement",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Student Task Can Be Submitted Without Uploading the Required Document",
-          "status": "Completed in QA",
-          "priority": ""
         }
       ],
-      "total": 56,
+      "total": 52,
       "done": 0,
       "inProgress": 0,
       "commits": 0,
@@ -5936,6 +5936,18 @@
         "EduBot_University"
       ],
       "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Bug: Implement Mentor Portal Improvements",
+          "status": "In Progress",
+          "priority": ""
+        },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Application displays a white screen and gets stuck in a continuous loading/synchronization loop",
@@ -5964,12 +5976,6 @@
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Admin-created schedules do not display the creator name for students",
           "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
-          "status": "To Do",
           "priority": ""
         },
         {
@@ -6045,9 +6051,9 @@
           "priority": ""
         }
       ],
-      "total": 18,
+      "total": 19,
       "done": 0,
-      "inProgress": 8,
+      "inProgress": 10,
       "commits": 20,
       "prs": 17,
       "prsMerged": 15,
@@ -6170,6 +6176,126 @@
       "deletions": 1323
     },
     {
+      "login": "Glad-Andrew",
+      "projects": [
+        "Edubot_CPLC",
+        "EduBot_University"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC]  Mentor creation accepts a 9-digit phone number",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Community Chat unread message count is not displayed for shared links",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Batch Creation accepts past date",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Applying a filter retains the current page and displays an empty result",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Incorrect and unclear toast message is displayed while applying for Casual Leave in the Student Portal.",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC] “Earned Leave” option is not displayed in the Leave Type dropdown in the Student Portal.",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "OTP Expired Message Displayed Before Timer Ends",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Task Creation Allows Selection of Past Due Dates",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Admin Leave Request Module Is Missing",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Phone Number Field Accepts Unlimited Digits",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Theme Options Are Not Clearly Visible in Settings",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Profile Data Not Loaded on Attendance Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Notifications Are Not Working for Any User",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Section Content Text Box Is Not Properly Displayed",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 17,
+      "done": 0,
+      "inProgress": 14,
+      "commits": 11,
+      "prs": 12,
+      "prsMerged": 11,
+      "prReviews": 0,
+      "additions": 5519,
+      "deletions": 4447
+    },
+    {
       "login": "Anisha-cw",
       "projects": [
         "Edubot_CPLC",
@@ -6245,7 +6371,7 @@
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] User Story : Common UI/UX Enhancements",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -6359,26 +6485,20 @@
       "tasks": [
         {
           "project": "SabAi Bible App",
-          "title": "Forgot Password Email Displays Default Subject and Missing Bible Logo",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
           "title": "AI Insights Takes Time to Load in Read Module",
           "status": "In progress",
           "priority": ""
         },
         {
           "project": "SabAi Bible App",
-          "title": "Google SSO Authentication Failure Leaves Loading Indicator Stuck",
+          "title": "Forgot Password Email Displays Default Subject and Missing Bible Logo",
           "status": "In progress",
           "priority": ""
         },
         {
           "project": "SabAi Bible App",
           "title": "Prompt Visual Generation Fails When Multiple Users Generate Content Simultaneously",
-          "status": "TODO",
+          "status": "In progress",
           "priority": ""
         },
         {
@@ -6424,117 +6544,15 @@
           "priority": ""
         }
       ],
-      "total": 11,
+      "total": 10,
       "done": 0,
-      "inProgress": 2,
+      "inProgress": 3,
       "commits": 15,
       "prs": 6,
       "prsMerged": 6,
       "prReviews": 1,
       "additions": 1249,
       "deletions": 116
-    },
-    {
-      "login": "Glad-Andrew",
-      "projects": [
-        "Edubot_CPLC",
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Incorrect and unclear toast message is displayed while applying for Casual Leave in the Student Portal.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC] “Earned Leave” option is not displayed in the Leave Type dropdown in the Student Portal.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Bug: Implement Mentor Management",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "OTP Expired Message Displayed Before Timer Ends",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Task Creation Allows Selection of Past Due Dates",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Admin Leave Request Module Is Missing",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Phone Number Field Accepts Unlimited Digits",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Theme Options Are Not Clearly Visible in Settings",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Data Not Loaded on Attendance Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Notifications Are Not Working for Any User",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Section Content Text Box Is Not Properly Displayed",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 14,
-      "done": 1,
-      "inProgress": 10,
-      "commits": 11,
-      "prs": 12,
-      "prsMerged": 11,
-      "prReviews": 0,
-      "additions": 5519,
-      "deletions": 4447
     },
     {
       "login": "suruthisagar97",
@@ -6796,7 +6814,7 @@
         {
           "project": "Acadamiq AI",
           "title": "Teacher Profile Page Displays Student Details Instead of Teacher Details",
-          "status": "TODO",
+          "status": "DEV",
           "priority": ""
         },
         {
@@ -6894,15 +6912,9 @@
           "title": "Generate shows an error, prompt history displays incorrect data, and the More button is unresponsive.",
           "status": "DEV",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "All students are visible in the new teacher's chat.",
-          "status": "TODO",
-          "priority": ""
         }
       ],
-      "total": 18,
+      "total": 17,
       "done": 0,
       "inProgress": 0,
       "commits": 0,
@@ -7129,35 +7141,6 @@
       "commits": 0,
       "prs": 2,
       "prsMerged": 1,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "saimanL",
-      "projects": [
-        "Acadamiq AI"
-      ],
-      "tasks": [
-        {
-          "project": "Acadamiq AI",
-          "title": "Assign Class Displays Backend Error When Confirmed Without Selecting a Class",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Application Allows Assigning an Already Assigned Class Teacher to Another Teacher",
-          "status": "In progress",
-          "priority": ""
-        }
-      ],
-      "total": 2,
-      "done": 0,
-      "inProgress": 2,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
