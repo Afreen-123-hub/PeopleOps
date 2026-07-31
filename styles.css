@@ -2244,14 +2244,14 @@ tbody tr.row-no-data:hover {
   margin-bottom: 24px;
 }
 .gh-stat-item {
-  flex: 1 1 120px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  flex: 1 1 150px;
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: 12px;
-  padding: 16px 20px;
+  padding: 14px 16px;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  gap: 12px;
 }
 .gh-stat-item--accent {
   border-color: #3b82f6;
@@ -2260,22 +2260,36 @@ tbody tr.row-no-data:hover {
 .dark .gh-stat-item--accent {
   background: #1e3a5f22;
 }
+.gh-stat-item--urgent { border-color: #fecaca; background: #fef2f2; }
+.gh-stat-item--urgent .gh-stat-val { color: #dc2626; }
+.gh-stat-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: var(--icon-bg, #eff6ff);
+  color: var(--icon-fg, #3b82f6);
+}
+.gh-stat-icon svg { width: 16px; height: 16px; }
 .gh-stat-val {
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: 1.3rem;
+  font-weight: 800;
   line-height: 1;
-  color: var(--text);
+  color: var(--ink);
+  display: block;
 }
 .gh-stat-sub {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 400;
   color: var(--muted);
 }
 .gh-stat-lbl {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  margin-top: 2px;
+  display: block;
 }
 
 /* GitHub tabs */
@@ -6377,7 +6391,9 @@ body.graph-drawer-open .tara-panel {
 }
 @media (max-width: 900px) { .gh-grid { grid-template-columns: 1fr; } }
 
-.gh-project-card { margin-bottom: 16px; }
+.gh-project-card { position: relative; margin-bottom: 14px; padding-left: 24px; overflow: hidden; }
+.gh-project-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--stripe, var(--line)); }
+.gh-project-card--urgent { background: linear-gradient(180deg, rgba(254,242,242,0.7) 0%, rgba(255,255,255,0.92) 90px); }
 .gh-project-head {
   display: flex;
   align-items: flex-start;
@@ -6386,7 +6402,7 @@ body.graph-drawer-open .tara-panel {
   flex-wrap: wrap;
   margin-bottom: 10px;
 }
-.gh-project-name { font-size: 1rem; font-weight: 700; margin: 0 0 2px; }
+.gh-project-name { font-size: 1rem; font-weight: 700; margin: 0 0 2px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .gh-project-meta { font-size: 0.78rem; color: var(--muted); }
 
 .gh-status-pills { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -6396,6 +6412,8 @@ body.graph-drawer-open .tara-panel {
   border-radius: 20px;
   padding: 3px 10px;
 }
+.gh-pill--urgent { background: #fee2e2; color: #b91c1c; display: inline-flex; align-items: center; gap: 4px; }
+.gh-pill--urgent svg { width: 11px; height: 11px; }
 
 .gh-progress-bar-wrap {
   height: 6px;
@@ -6413,12 +6431,47 @@ body.graph-drawer-open .tara-panel {
 }
 
 .gh-task-list  { display: flex; flex-direction: column; gap: 8px; }
-.gh-task-row   { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.gh-task-row   { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-bottom: 1px solid var(--line); border-radius: 6px; }
 .gh-task-row:last-child { border-bottom: none; }
+.gh-task-row--urgent { background: #fef2f2; border-bottom-color: transparent; }
 .gh-task-dot   { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-.gh-task-title { flex: 1; font-size: 13px; color: var(--text); }
+.gh-task-title { flex: 1; font-size: 13px; color: var(--ink); }
 .gh-task-badges { display: flex; gap: 4px; flex-wrap: wrap; }
-.gh-task-status { font-size: 11px; font-weight: 600; white-space: nowrap; }
+.gh-task-status { font-size: 11px; font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; }
+.gh-task-status--urgent svg { width: 11px; height: 11px; }
+
+/* attention banner */
+.gh-attn-banner {
+  display: flex; align-items: center; gap: 12px;
+  background: linear-gradient(90deg, #fef2f2, #fff7ed);
+  border: 1px solid #fecaca; border-radius: 10px;
+  padding: 12px 16px; margin-bottom: 16px;
+}
+.gh-attn-icon { width: 30px; height: 30px; border-radius: 50%; background: #fee2e2; color: #dc2626; display: grid; place-items: center; flex-shrink: 0; }
+.gh-attn-icon svg { width: 15px; height: 15px; }
+.gh-attn-text { font-size: 0.86rem; color: #991b1b; }
+.gh-attn-text b { font-weight: 700; }
+.gh-attn-links { color: #b91c1c; font-weight: 600; }
+
+/* controls row */
+.gh-controls-row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
+.gh-sort-group { display: flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 4px; }
+.gh-sort-label { font-size: 0.78rem; color: var(--muted); font-weight: 600; padding: 0 6px 0 8px; }
+.gh-sort-btn { font-size: 0.8rem; font-weight: 600; color: var(--muted); background: transparent; border: none; border-radius: 7px; padding: 7px 12px; cursor: pointer; }
+.gh-sort-btn--active { background: var(--ink); color: #fff; }
+.gh-search-box { flex: 1; min-width: 200px; display: flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 9px 14px; color: var(--muted); }
+.gh-search-box svg { width: 15px; height: 15px; flex-shrink: 0; }
+.gh-search-box input { flex: 1; border: none; outline: none; background: transparent; font-size: 0.9rem; color: var(--ink); }
+.gh-search-box:focus-within { border-color: var(--blue); }
+
+/* dormant collapsed group */
+.gh-dormant-group { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 16px 18px; }
+.gh-dormant-group-label { font-size: 0.78rem; color: var(--muted); font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
+.gh-dormant-group-label svg { width: 14px; height: 14px; color: #cbd5e1; }
+.gh-dormant-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.gh-dormant-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 10px; background: var(--canvas); border: 1px solid var(--line); border-radius: 20px; font-size: 0.8rem; color: #78889e; }
+.gh-dormant-chip:hover { background: #eef2f7; border-color: #cbd5e1; color: #475569; }
+.gh-dormant-chip svg { width: 12px; height: 12px; color: #cbd5e1; flex-shrink: 0; }
 
 .gh-badge {
   font-size: 10px;

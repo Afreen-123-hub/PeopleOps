@@ -195,20 +195,34 @@ def _parse_item(node: dict) -> dict | None:
     }
 
 
+# Board columns vary by team; these map every real-world label we've seen onto
+# the 5 tracked buckets. "Completed"/"Completed in QA" count as done (QA has
+# verified the work); "DEV"/"QA"/"Review in QA" are still active, not finished.
+_DONE_STATUSES = {"done", "completed", "completed in qa"}
+_IN_PROGRESS_STATUSES = {"in progress", "dev", "qa", "review in qa"}
+
+
+def _status_bucket(status: str | None) -> str | None:
+    s = (status or "").lower()
+    if s in _DONE_STATUSES:
+        return "done"
+    if s in _IN_PROGRESS_STATUSES:
+        return "inProgress"
+    if s == "todo":
+        return "todo"
+    if s == "backlog":
+        return "backlog"
+    if s == "production":
+        return "production"
+    return None
+
+
 def _project_stats(items: list[dict]) -> dict:
     stats = {"total": len(items), "done": 0, "inProgress": 0, "todo": 0, "backlog": 0, "production": 0}
     for item in items:
-        s = (item.get("status") or "").lower()
-        if s == "done":
-            stats["done"] += 1
-        elif s in ("in progress",):
-            stats["inProgress"] += 1
-        elif s == "todo":
-            stats["todo"] += 1
-        elif s == "backlog":
-            stats["backlog"] += 1
-        elif s == "production":
-            stats["production"] += 1
+        bucket = _status_bucket(item.get("status"))
+        if bucket:
+            stats[bucket] += 1
     return stats
 
 
@@ -455,10 +469,10 @@ def build_github_data(since: str = "", until: str = "") -> dict:
                     "priority": item["priority"],
                 })
                 c["total"] += 1
-                s = (item["status"] or "").lower()
-                if s == "done":
+                bucket = _status_bucket(item["status"])
+                if bucket == "done":
                     c["done"] += 1
-                elif s == "in progress":
+                elif bucket == "inProgress":
                     c["inProgress"] += 1
 
     # Add contributors who only have commits/PRs (no project tasks)

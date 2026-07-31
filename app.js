@@ -2728,13 +2728,19 @@ function escapeHtml(value) {
 // ======= GITHUB PROJECTS =======
 
 let githubData = null;
+let _ghSort = "attention";
 
 const STATUS_COLOR = {
-  "done":        "#22c55e",
-  "in progress": "#3b82f6",
-  "todo":        "#f59e0b",
-  "backlog":     "#94a3b8",
-  "production":  "#8b5cf6",
+  "done":            "#22c55e",
+  "completed":       "#22c55e",
+  "completed in qa": "#22c55e",
+  "in progress":     "#3b82f6",
+  "dev":             "#3b82f6",
+  "qa":              "#3b82f6",
+  "review in qa":    "#3b82f6",
+  "todo":            "#f59e0b",
+  "backlog":         "#94a3b8",
+  "production":      "#dc2626",
 };
 
 function ghStatusColor(s) {
@@ -2933,85 +2939,144 @@ async function renderGitHub(fetchFresh = true) {
   const totalCommits = contributors.reduce((s, c) => s + (c.commits || 0), 0);
   const totalLoc     = contributors.reduce((s, c) => s + (c.additions || 0) + (c.deletions || 0), 0);
   const donePct      = totalTasks > 0 ? Math.round(doneTasks / totalTasks * 100) : 0;
+  const warnSvg  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg>`;
+  const folderSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>`;
 
   document.getElementById("ghSummaryCards").innerHTML = `
-    <div class="gh-stat-item gh-stat-item--accent">
-      <span class="gh-stat-val">${projects.length}</span>
-      <span class="gh-stat-lbl">Active Projects</span>
+    <div class="gh-stat-item">
+      <div class="gh-stat-icon" style="--icon-bg:#eff6ff;--icon-fg:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 7v11a2 2 0 002 2h14a2 2 0 002-2V7M3 7l2-4h14l2 4"/></svg></div>
+      <div><span class="gh-stat-val">${projects.length}</span><span class="gh-stat-lbl">Active Projects</span></div>
     </div>
     <div class="gh-stat-item">
-      <span class="gh-stat-val">${doneTasks}<span class="gh-stat-sub"> / ${totalTasks}</span></span>
-      <span class="gh-stat-lbl">Tasks Done &nbsp;<span style="color:#22c55e;font-weight:600">${donePct}%</span></span>
+      <div class="gh-stat-icon" style="--icon-bg:#f0fdf4;--icon-fg:#16a34a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M2 12l3 3L15 5"/></svg></div>
+      <div><span class="gh-stat-val">${doneTasks}<span class="gh-stat-sub"> / ${totalTasks}</span></span><span class="gh-stat-lbl">Tasks Done &nbsp;<span style="color:#16a34a;font-weight:600">${donePct}%</span></span></div>
     </div>
     <div class="gh-stat-item">
-      <span class="gh-stat-val" style="color:#3b82f6">${inProg}</span>
-      <span class="gh-stat-lbl">In Progress</span>
+      <div class="gh-stat-icon" style="--icon-bg:#eff6ff;--icon-fg:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></div>
+      <div><span class="gh-stat-val">${inProg}</span><span class="gh-stat-lbl">In Progress</span></div>
+    </div>
+    <div class="gh-stat-item${inProd ? " gh-stat-item--urgent" : ""}">
+      <div class="gh-stat-icon" style="--icon-bg:${inProd ? "#fee2e2" : "#f1f5f9"};--icon-fg:${inProd ? "#dc2626" : "#64748b"}">${warnSvg}</div>
+      <div><span class="gh-stat-val">${inProd}</span><span class="gh-stat-lbl">Live Production Issues</span></div>
     </div>
     <div class="gh-stat-item">
-      <span class="gh-stat-val" style="color:#8b5cf6">${inProd}</span>
-      <span class="gh-stat-lbl">In Production</span>
+      <div class="gh-stat-icon" style="--icon-bg:#f5f3ff;--icon-fg:#7c3aed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><path d="M2 21v-1a5 5 0 015-5h1M14 21v-1a5 5 0 015-5h-1"/></svg></div>
+      <div><span class="gh-stat-val">${totalContrib}</span><span class="gh-stat-lbl">Contributors</span></div>
     </div>
     <div class="gh-stat-item">
-      <span class="gh-stat-val">${totalContrib}</span>
-      <span class="gh-stat-lbl">Contributors</span>
-    </div>
-    <div class="gh-stat-item">
-      <span class="gh-stat-val">${totalCommits}</span>
-      <span class="gh-stat-lbl">Total Code Saves</span>
+      <div class="gh-stat-icon" style="--icon-bg:#f0fdfa;--icon-fg:#00a99d"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg></div>
+      <div><span class="gh-stat-val">${totalCommits}</span><span class="gh-stat-lbl">Total Code Saves</span></div>
     </div>
     ${totalLoc ? `
     <div class="gh-stat-item">
-      <span class="gh-stat-val">${fmtLoc(totalLoc)}</span>
-      <span class="gh-stat-lbl">Lines Changed</span>
+      <div class="gh-stat-icon" style="--icon-bg:#f5f3ff;--icon-fg:#7c3aed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+      <div><span class="gh-stat-val">${fmtLoc(totalLoc)}</span><span class="gh-stat-lbl">Lines Changed</span></div>
     </div>` : ""}
   `;
 
-  // ── Projects list ──────────────────────────────────────────────────────
-  document.getElementById("ghProjectsList").innerHTML = projects.length
-    ? projects.map(proj => {
-        const s = proj.stats || {};
-        const pct = s.total > 0 ? Math.round(s.done / s.total * 100) : 0;
-        const taskCount = (proj.items || []).length;
-        const startOpen = taskCount <= 5;
-        const listId = `gh-tasks-${proj.number}`;
-        const items = (proj.items || []).map(item => `
-          <div class="gh-task-row">
-            <span class="gh-task-dot" style="background:${ghStatusColor(item.status)}"></span>
-            <span class="gh-task-title">${item.title}</span>
-            <span class="gh-task-badges">
-              ${item.priority ? `<span class="gh-badge gh-badge--pri">${item.priority}</span>` : ""}
-              ${item.size     ? `<span class="gh-badge">${item.size}</span>` : ""}
-              ${(item.assignees || []).map(a => `<span class="gh-badge gh-badge--user">${a}</span>`).join("")}
-            </span>
-            <span class="gh-task-status" style="color:${ghStatusColor(item.status)}">${item.status}</span>
-          </div>
-        `).join("");
+  // ── Attention banner ────────────────────────────────────────────────────
+  const prodProjects = projects.filter(p => (p.stats?.production || 0) > 0);
+  document.getElementById("ghAttentionBanner").innerHTML = prodProjects.length ? `
+    <div class="gh-attn-banner">
+      <div class="gh-attn-icon">${warnSvg}</div>
+      <div class="gh-attn-text"><b>${prodProjects.length} project${prodProjects.length !== 1 ? "s" : ""} have live bugs reported in production</b> — <span class="gh-attn-links">${prodProjects.map(p => p.title).join(", ")}</span>. Sorted to the top below.</div>
+    </div>` : "";
 
-        return `
-          <article class="panel gh-project-card">
-            <div class="gh-project-head gh-project-toggle" onclick="toggleGhProject('${listId}', this)" style="cursor:pointer">
-              <div>
-                <h3 class="gh-project-name">${proj.title}</h3>
-                <span class="gh-project-meta">${s.total} tasks · ${pct}% done</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                <div class="gh-status-pills">
-                  ${s.done       ? `<span class="gh-pill" style="background:#dcfce7;color:#15803d">✓ ${s.done} Done</span>` : ""}
-                  ${s.inProgress ? `<span class="gh-pill" style="background:#dbeafe;color:#1d4ed8">⟳ ${s.inProgress} In Progress</span>` : ""}
-                  ${s.todo       ? `<span class="gh-pill" style="background:#fef9c3;color:#a16207">○ ${s.todo} Todo</span>` : ""}
-                  ${s.backlog    ? `<span class="gh-pill" style="background:#f1f5f9;color:#475569">· ${s.backlog} Backlog</span>` : ""}
-                  ${s.production ? `<span class="gh-pill" style="background:#ede9fe;color:#6d28d9">▲ ${s.production} Production</span>` : ""}
-                </div>
-                <span class="gh-chevron ${startOpen ? "open" : ""}">&#8964;</span>
-              </div>
+  // ── Controls row (sort + search) ────────────────────────────────────────
+  const ghQuery = (document.getElementById("ghProjectSearch")?.value || "").toLowerCase().trim();
+  document.getElementById("ghControlsRow").innerHTML = `
+    <div class="gh-controls-row">
+      <div class="gh-sort-group">
+        <span class="gh-sort-label">Sort by</span>
+        ${[["attention","Needs Attention"],["completion","Completion %"],["tasks","Most Tasks"],["name","Name"]].map(([val, lbl]) =>
+          `<button class="gh-sort-btn${_ghSort === val ? " gh-sort-btn--active" : ""}" onclick="_ghSort='${val}';renderGitHub(false)">${lbl}</button>`
+        ).join("")}
+      </div>
+      <div class="gh-search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="ghProjectSearch" type="search" placeholder="Search projects..." value="${ghQuery}" oninput="renderGitHub(false)">
+      </div>
+    </div>`;
+
+  // ── Projects list ──────────────────────────────────────────────────────
+  const searched = ghQuery ? projects.filter(p => (p.title || "").toLowerCase().includes(ghQuery)) : projects;
+  const activeProjects  = searched.filter(p => (p.stats?.total || 0) > 0);
+  const dormantProjects = searched.filter(p => (p.stats?.total || 0) === 0);
+
+  activeProjects.sort((a, b) => {
+    const sa = a.stats || {}, sb = b.stats || {};
+    if (_ghSort === "attention") {
+      if ((sb.production || 0) !== (sa.production || 0)) return (sb.production || 0) - (sa.production || 0);
+      return (sb.inProgress || 0) - (sa.inProgress || 0);
+    }
+    if (_ghSort === "completion") {
+      const pa = sa.total ? sa.done / sa.total : 0;
+      const pb = sb.total ? sb.done / sb.total : 0;
+      return pb - pa;
+    }
+    if (_ghSort === "tasks") return (sb.total || 0) - (sa.total || 0);
+    return (a.title || "").localeCompare(b.title || "");
+  });
+
+  const cardsHtml = activeProjects.map(proj => {
+    const s = proj.stats || {};
+    const pct = s.total > 0 ? Math.round(s.done / s.total * 100) : 0;
+    const hasProd = (s.production || 0) > 0;
+    const stripeColor = hasProd ? "#e11d48" : pct >= 75 ? "#22c55e" : pct >= 40 ? "#f59e0b" : (s.inProgress || 0) > 0 ? "#3b82f6" : "#ef4444";
+    const taskCount = (proj.items || []).length;
+    const startOpen = taskCount <= 5;
+    const listId = `gh-tasks-${proj.number}`;
+    const items = (proj.items || []).map(item => {
+      const isUrgent = (item.status || "").toLowerCase() === "production";
+      return `
+        <div class="gh-task-row${isUrgent ? " gh-task-row--urgent" : ""}">
+          <span class="gh-task-dot" style="background:${ghStatusColor(item.status)}"></span>
+          <span class="gh-task-title">${item.title}</span>
+          <span class="gh-task-badges">
+            ${item.priority ? `<span class="gh-badge gh-badge--pri">${item.priority}</span>` : ""}
+            ${item.size     ? `<span class="gh-badge">${item.size}</span>` : ""}
+            ${(item.assignees || []).map(a => `<span class="gh-badge gh-badge--user">${a}</span>`).join("")}
+          </span>
+          <span class="gh-task-status${isUrgent ? " gh-task-status--urgent" : ""}" style="color:${ghStatusColor(item.status)}">${isUrgent ? warnSvg + " Live in Production" : item.status}</span>
+        </div>
+      `;
+    }).join("");
+
+    return `
+      <article class="panel gh-project-card${hasProd ? " gh-project-card--urgent" : ""}" style="--stripe:${stripeColor}">
+        <div class="gh-project-head gh-project-toggle" onclick="toggleGhProject('${listId}', this)" style="cursor:pointer">
+          <div>
+            <h3 class="gh-project-name">${proj.title} ${hasProd ? `<span class="gh-pill gh-pill--urgent">${warnSvg} ${s.production} live issue${s.production !== 1 ? "s" : ""}</span>` : ""}</h3>
+            <span class="gh-project-meta">${s.total} tasks · ${pct}% done</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <div class="gh-status-pills">
+              ${s.done       ? `<span class="gh-pill" style="background:#dcfce7;color:#15803d">✓ ${s.done} Done</span>` : ""}
+              ${s.inProgress ? `<span class="gh-pill" style="background:#dbeafe;color:#1d4ed8">⟳ ${s.inProgress} In Progress</span>` : ""}
+              ${s.todo       ? `<span class="gh-pill" style="background:#fef9c3;color:#a16207">○ ${s.todo} Todo</span>` : ""}
+              ${s.backlog    ? `<span class="gh-pill" style="background:#f1f5f9;color:#475569">· ${s.backlog} Backlog</span>` : ""}
             </div>
-            <div class="gh-progress-bar-wrap">
-              <div class="gh-progress-bar" style="width:${pct}%"></div>
-            </div>
-            <div class="gh-task-list" id="${listId}" ${startOpen ? "" : 'style="display:none"'}>${items}</div>
-          </article>
-        `;
-      }).join("")
+            <span class="gh-chevron ${startOpen ? "open" : ""}">&#8964;</span>
+          </div>
+        </div>
+        <div class="gh-progress-bar-wrap">
+          <div class="gh-progress-bar" style="width:${pct}%;background:${pct >= 75 ? "#22c55e" : pct >= 40 ? "#f59e0b" : "#ef4444"}"></div>
+        </div>
+        <div class="gh-task-list" id="${listId}" ${startOpen ? "" : 'style="display:none"'}>${items}</div>
+      </article>
+    `;
+  }).join("");
+
+  const dormantHtml = dormantProjects.length ? `
+    <div class="gh-dormant-group">
+      <div class="gh-dormant-group-label">${folderSvg}${dormantProjects.length} project${dormantProjects.length !== 1 ? "s" : ""} with no tasks logged</div>
+      <div class="gh-dormant-chips">
+        ${dormantProjects.map(p => `<span class="gh-dormant-chip">${folderSvg}${p.title}</span>`).join("")}
+      </div>
+    </div>` : "";
+
+  document.getElementById("ghProjectsList").innerHTML = projects.length
+    ? (cardsHtml + dormantHtml || `<p style="color:var(--muted)">No projects match the current search.</p>`)
     : `<p style="color:var(--muted)">No project data yet. Click "Refresh now".</p>`;
 
   // ── Contributors grid ──────────────────────────────────────────────────
