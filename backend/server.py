@@ -37,7 +37,7 @@ _sessions: dict[str, dict] = {}  # token -> {expiry, name, type}
 _last_full_refresh: float = 0.0   # epoch seconds of last successful full refresh
 _refresh_lock = threading.Lock()
 
-PUBLIC_PATHS = {"/login.html", "/api/login", "/styles.css", "/favicon.ico", "/auth/login", "/auth/callback"}
+PUBLIC_PATHS = {"/landing.html", "/login.html", "/api/login", "/styles.css", "/favicon.ico", "/auth/login", "/auth/callback"}
 _instance_lock = None
 
 
@@ -103,14 +103,12 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             return
 
         if path in PUBLIC_PATHS:
-            if path == "/login.html":
-                self.path = "/login.html"
             super().do_GET()
             return
 
-        # Root → redirect to login if not authenticated, else serve dashboard
+        # Root → landing page (marketing splash before sign-in)
         if path == "/":
-            self.path = "/index.html"
+            self.path = "/landing.html"
             super().do_GET()
             return
 
@@ -300,7 +298,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
 
     def regenerate_data(self):
         result = subprocess.run(
-            [sys.executable, str(GENERATOR)],
+            [sys.executable, str(GENERATOR), "--month", time.strftime("%Y-%m")],
             cwd=str(PROJECT_ROOT),
             capture_output=True,
             text=True,
@@ -736,8 +734,9 @@ def _run_full_refresh_pipeline():
         return
     try:
         print("Auto-refresh: starting full data pipeline...", flush=True)
+        current_month = time.strftime("%Y-%m")
         steps = [
-            ("generate", [sys.executable, str(GENERATOR)]),
+            ("generate", [sys.executable, str(GENERATOR), "--month", current_month]),
             ("teams",    [sys.executable, str(TEAMS_REFRESHER)]),
             ("github",   [sys.executable, str(GITHUB_REFRESHER)]),
             ("graph",    [sys.executable, str(GRAPH_REFRESHER)]),
@@ -772,7 +771,7 @@ def run(port=8000, host="0.0.0.0"):
     server = ThreadingHTTPServer((host, port), PeopleOpsHandler)
     print(f"PeopleOPS Intelligence backend running on {host}:{port}", flush=True)
     print(f"API health endpoint available at /api/health on port {port}", flush=True)
-    print(f"Auto-refresh scheduled every {AUTO_REFRESH_INTERVAL // 3600}h (first run in 30s)", flush=True)
+    print(f"Auto-refresh scheduled every {AUTO_REFRESH_INTERVAL // 3600}h (startup run skipped; first run in {AUTO_REFRESH_INTERVAL // 3600}h)", flush=True)
     server.serve_forever()
 
 

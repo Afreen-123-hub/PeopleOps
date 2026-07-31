@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PeopleOPS Intelligence</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #0f1c2e;
+      --muted: #5a6b82;
+      --line: #e2e8f0;
+      --panel: #ffffff;
+      --canvas: #f4f7fb;
+      --teal: #00a99d;
+      --blue: #2563eb;
+      --shadow: 0 4px 16px rgba(15,28,46,0.08), 0 12px 40px rgba(15,28,46,0.07);
+      --radius-lg: 16px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--panel);
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); width: 100%; }
+
+    /* ---------- One flat surface, edge to edge — no card, no canvas margin ---------- */
+    main.wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .hero-panel {
+      width: 100%;
+      padding: clamp(24px, 3vh, 44px) 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      margin-bottom: clamp(24px, 4vw, 44px);
+    }
+    .brand img { display: block; height: 30px; width: auto; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.15fr;
+      gap: clamp(24px, 4vw, 56px);
+      align-items: start;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--teal);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero-copy h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2.1rem, 3.6vw, 3.1rem);
+      line-height: 1.06;
+      font-weight: 900;
+      letter-spacing: 0;
+      color: #0b1f4d;
+    }
+    /* forced line break so the heading always reads as two clean lines,
+       instead of relying on the text wrapping naturally at whatever
+       width the column happens to be */
+    .hero-copy h1 span { display: block; color: var(--blue); }
+    .dek {
+      margin: 0 0 26px;
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 46ch;
+    }
+    .dek b { color: var(--ink); font-weight: 600; }
+    .cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 10px 24px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+      transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+    }
+    .cta-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+    /* shown at its own natural proportions — not force-cropped */
+    .hero-illo { width: 100%; }
+    .hero-illo img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .foot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 0 20px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-illo { order: -1; max-width: 360px; margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero-panel">
+      <div class="brand">
+        <img src="codework-logo.svg" alt="CodeWork">
+      </div>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Workforce Intelligence Platform</p>
+          <h1>PeopleOps <span>Intelligence</span></h1>
+          <p class="dek">One decision-ready view of attendance, delivery, and collaboration — fused from <b>Worklogix</b>, <b>Microsoft Teams</b>, <b>GitHub</b>, and <b>Microsoft Graph</b> into a single workforce KPI.</p>
+          <a class="cta-primary" href="login.html">Sign In →</a>
+        </div>
+        <div class="hero-illo">
+          <img src="hero-illustration.png" alt="Developer working at a laptop, surrounded by cloud, code, and analytics icons">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="foot">© 2026 CodeWork · PeopleOps Intelligence</div>
+</body>
+</html>
