@@ -2140,28 +2140,38 @@ function showProjDetail(projId) {
   const p = (dataset.projects || []).find(x => x.id === projId);
   if (!p) return;
   const pct = p.tasksTotal ? Math.round(p.tasksCompleted / p.tasksTotal * 100) : 0;
+  const approvalPct = p.tasksTotal ? Math.round(p.tasksApproved / p.tasksTotal * 100) : 0;
   const completionColor = pct >= 75 ? "#22c55e" : pct >= 40 ? "#f59e0b" : "#ef4444";
   const atRisk = p.tasksTotal > 0 && pct < 40 && p.members >= 5;
 
-  const memberRows = (p.memberStats || []).map(m => {
-    const noTasks = m.tasksTotal === 0;
-    const mpct = m.tasksTotal ? Math.round(m.tasksCompleted / m.tasksTotal * 100) : 0;
-    const mColor = noTasks ? "#94a3b8" : mpct >= 75 ? "#22c55e" : mpct >= 40 ? "#f59e0b" : "#ef4444";
+  const allMembers = p.memberStats || [];
+  const activeMembers = allMembers.filter(m => m.tasksTotal > 0);
+  const idleMembers = allMembers.filter(m => m.tasksTotal === 0);
+  const initialsOf = (n) => n.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+
+  const activeRows = activeMembers.map(m => {
+    const mpct = Math.round(m.tasksCompleted / m.tasksTotal * 100);
+    const mColor = mpct >= 75 ? "#22c55e" : mpct >= 40 ? "#f59e0b" : "#ef4444";
     const mH = m.hoursWorked || 0;
     return `
-      <tr class="projd-member-row${noTasks ? " projd-member-idle" : ""}">
-        <td class="projd-member-name">${m.name}${noTasks ? ' <span class="projd-no-tasks-badge">No tasks</span>' : ""}</td>
-        <td class="projd-member-tasks" style="color:${noTasks ? "#94a3b8" : "inherit"}">${noTasks ? "—" : m.tasksTotal}</td>
+      <tr class="projd-member-row">
+        <td class="projd-member-name"><div class="projd-who"><div class="projd-avatar">${initialsOf(m.name)}</div>${m.name}</div></td>
+        <td class="projd-member-tasks">${m.tasksTotal}</td>
         <td class="projd-member-comp">
-          ${noTasks ? '<span style="color:#94a3b8;font-size:0.78rem">Not logged</span>' : `
-          <div class="projd-mini-bar-wrap">
-            <div class="projd-mini-bar-fill" style="width:${mpct}%;background:${mColor}"></div>
+          <div class="projd-comp-inner">
+            <div class="projd-mini-bar-wrap">
+              <div class="projd-mini-bar-fill" style="width:${mpct}%;background:${mColor}"></div>
+            </div>
+            <span style="color:${mColor};font-weight:600">${mpct}%</span>
           </div>
-          <span style="color:${mColor};font-weight:600">${mpct}%</span>`}
         </td>
-        <td class="projd-member-hours" style="color:${noTasks ? "#94a3b8" : "inherit"}">${noTasks ? "—" : (mH >= 1000 ? (mH/1000).toFixed(1)+"K" : mH)+"h"}</td>
+        <td class="projd-member-hours">${(mH >= 1000 ? (mH/1000).toFixed(1)+"K" : mH)}h</td>
       </tr>`;
   }).join("");
+
+  const idleRowsHtml = idleMembers.map(m =>
+    `<div class="idle-row"><div class="projd-avatar">${initialsOf(m.name)}</div>${m.name}</div>`
+  ).join("");
 
   document.getElementById("projd-title").textContent = p.name || p.id;
   document.getElementById("projd-meta").innerHTML = `
@@ -2170,11 +2180,43 @@ function showProjDetail(projId) {
     <span style="color:${completionColor};font-weight:600">${pct}% complete</span>
     ${atRisk ? `<span class="proj-badge proj-badge--risk" style="font-size:0.72rem">At Risk</span>` : ""}
   `;
-  document.getElementById("projd-body").innerHTML = p.memberStats?.length ? `
-    <table class="projd-table">
-      <thead><tr><th>Member</th><th>Tasks</th><th>Completion</th><th>Hours</th></tr></thead>
-      <tbody>${memberRows}</tbody>
-    </table>` : `<p class="proj-empty">No individual task data available for this project.</p>`;
+
+  const ring = document.getElementById("projd-ring");
+  ring.style.setProperty("--pct", pct);
+  ring.style.setProperty("--c", completionColor);
+  document.getElementById("projd-ring-label").textContent = `${pct}%`;
+
+  document.getElementById("projd-stats").innerHTML = `
+    <div class="stat"><strong>${p.tasksCompleted} / ${p.tasksTotal}</strong><span>Tasks Done</span></div>
+    <div class="stat"><strong>${approvalPct}%</strong><span>Approved</span></div>
+    <div class="stat"><strong>${activeMembers.length} of ${allMembers.length || p.members}</strong><span>Logging Time</span></div>
+  `;
+
+  document.getElementById("projd-body").innerHTML = allMembers.length ? `
+    ${activeMembers.length ? `
+      <p class="group-label">Contributing this period</p>
+      <div class="projd-table-wrap">
+        <table class="projd-table">
+          <colgroup><col style="width:40%"><col style="width:15%"><col style="width:30%"><col style="width:15%"></colgroup>
+          <thead><tr><th>Member</th><th>Tasks</th><th>Completion</th><th>Hours</th></tr></thead>
+          <tbody>${activeRows}</tbody>
+        </table>
+      </div>` : ""}
+    ${idleMembers.length ? `
+      <button class="idle-toggle" id="projdIdleToggle" type="button">
+        <span>${idleMembers.length} member${idleMembers.length !== 1 ? "s" : ""} with no tasks logged this period</span>
+        <span class="chev">▾</span>
+      </button>
+      <div class="idle-list" id="projdIdleList">${idleRowsHtml}</div>` : ""}
+  ` : `<p class="proj-empty">No individual task data available for this project.</p>`;
+
+  const idleToggle = document.getElementById("projdIdleToggle");
+  if (idleToggle) {
+    idleToggle.addEventListener("click", () => {
+      const open = document.getElementById("projdIdleList").classList.toggle("open");
+      idleToggle.classList.toggle("open", open);
+    });
+  }
 
   document.querySelectorAll("dialog[open]").forEach(d => d.close());
   document.getElementById("projDetailDialog").showModal();

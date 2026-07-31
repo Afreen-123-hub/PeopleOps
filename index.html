@@ -400,12 +400,16 @@
         <dialog id="projDetailDialog">
           <div class="projd-wrap">
             <div class="projd-header">
-              <div>
-                <h2 id="projd-title" class="projd-title"></h2>
-                <div id="projd-meta" class="projd-meta"></div>
+              <div class="projd-header-main">
+                <div id="projd-ring" class="projd-ring"><div class="projd-ring-inner" id="projd-ring-label"></div></div>
+                <div class="projd-header-text">
+                  <h2 id="projd-title" class="projd-title"></h2>
+                  <div id="projd-meta" class="projd-meta"></div>
+                </div>
               </div>
               <button class="dialog-close" onclick="document.getElementById('projDetailDialog').close()">&times;</button>
             </div>
+            <div id="projd-stats" class="projd-stats"></div>
             <div id="projd-body"></div>
           </div>
         </dialog>
