@@ -402,12 +402,12 @@ def fetch_org_repos() -> list[str]:
 def build_github_data(since: str = "", until: str = "") -> dict:
     import datetime, calendar
 
-    # Default to previous full month if no period given
+    # Default to the current month if no period given — matches how the
+    # rest of the pipeline (Worklogix/GreytHR generator, Graph activity)
+    # defaults, so all sources stay on the same month automatically.
     if not since or not until:
         now = datetime.datetime.utcnow()
-        year, month = now.year, now.month - 1
-        if month == 0:
-            month, year = 12, year - 1
+        year, month = now.year, now.month
         last_day = calendar.monthrange(year, month)[1]
         since = f"{year}-{month:02d}-01T00:00:00Z"
         until = f"{year}-{month:02d}-{last_day}T23:59:59Z"

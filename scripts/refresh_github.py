@@ -43,6 +43,6 @@ def refresh(month: str = ""):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Refresh GitHub data for a given month")
-    parser.add_argument("--month", default="", help="Month to fetch (YYYY-MM). Defaults to previous month.")
+    parser.add_argument("--month", default="", help="Month to fetch (YYYY-MM). Defaults to current month.")
     args = parser.parse_args()
     refresh(month=args.month)

@@ -738,8 +738,8 @@ def _run_full_refresh_pipeline():
         steps = [
             ("generate", [sys.executable, str(GENERATOR), "--month", current_month]),
             ("teams",    [sys.executable, str(TEAMS_REFRESHER)]),
-            ("github",   [sys.executable, str(GITHUB_REFRESHER)]),
-            ("graph",    [sys.executable, str(GRAPH_REFRESHER)]),
+            ("github",   [sys.executable, str(GITHUB_REFRESHER), "--month", current_month]),
+            ("graph",    [sys.executable, str(GRAPH_REFRESHER), "--month", current_month]),
         ]
         for name, cmd in steps:
             r = subprocess.run(cmd, cwd=str(PROJECT_ROOT), capture_output=True, text=True, check=False)
