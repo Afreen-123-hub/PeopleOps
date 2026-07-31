@@ -777,6 +777,7 @@ function setupFilters() {
   document.getElementById("closeDialog").addEventListener("click", () => document.getElementById("employeeDialog").close());
   document.getElementById("employeeDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
   document.getElementById("projDetailDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
+  document.getElementById("ghContribDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
   document.getElementById("closeGhContribDialog").addEventListener("click", () => document.getElementById("ghContribDialog").close());
   document.getElementById("graphRefreshButton")?.addEventListener("click", () => refreshGraph());
   populateAttendanceOptions();
@@ -2772,6 +2773,8 @@ function fmtLoc(n) {
   return n >= 1000 ? (n / 1000).toFixed(1) + "K" : String(n);
 }
 
+const GH_DONE_STATUSES = new Set(["done", "completed", "completed in qa"]);
+
 function showGhContributor(login) {
   const c = (githubData?.contributors || []).find(x => x.login === login);
   if (!c) return;
@@ -2781,25 +2784,44 @@ function showGhContributor(login) {
   const initials    = displayName.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
   const mergeRate   = c.prs > 0 ? Math.round((c.prsMerged || 0) / c.prs * 100) : null;
   const locTotal    = (c.additions || 0) + (c.deletions || 0);
+  const taskPct     = c.total > 0 ? Math.round((c.done || 0) / c.total * 100) : 0;
+  const ringColor   = taskPct >= 75 ? "#22c55e" : taskPct >= 40 ? "#f59e0b" : "#ef4444";
 
-  // Group tasks by project
+  // Group tasks by project, open (not done) tasks first within each group
   const byProject = {};
   for (const t of (c.tasks || [])) {
     if (!byProject[t.project]) byProject[t.project] = [];
     byProject[t.project].push(t);
   }
-  const taskSection = Object.entries(byProject).map(([proj, tasks]) => `
+  const taskSection = Object.entries(byProject).map(([proj, tasks]) => {
+    const sorted = [...tasks].sort((a, b) => {
+      const aDone = GH_DONE_STATUSES.has((a.status || "").toLowerCase());
+      const bDone = GH_DONE_STATUSES.has((b.status || "").toLowerCase());
+      return aDone === bDone ? 0 : aDone ? 1 : -1;
+    });
+    return `
     <div class="ghcd-project-group">
       <div class="ghcd-project-name">${proj}</div>
-      ${tasks.map(t => `
-        <div class="ghcd-task-row">
+      ${sorted.map(t => {
+        const isUrgent = (t.status || "").toLowerCase() === "production";
+        return `
+        <div class="ghcd-task-row${isUrgent ? " ghcd-task-row--urgent" : ""}">
           <span class="gh-task-dot" style="background:${ghStatusColor(t.status)}"></span>
           <span class="ghcd-task-title">${t.title}</span>
           <span class="ghcd-task-status" style="color:${ghStatusColor(t.status)}">${t.status}</span>
         </div>
-      `).join("")}
+      `;
+      }).join("")}
     </div>
-  `).join("");
+  `;
+  }).join("");
+
+  const codeStats = `
+    ${c.commits > 0 ? `<div class="ghcd-code-stat"><strong>${c.commits}</strong><span>Code Saves</span></div>` : ""}
+    ${c.prs > 0     ? `<div class="ghcd-code-stat"><strong>${c.prs}</strong><span>Reviews</span></div>` : ""}
+    ${mergeRate !== null ? `<div class="ghcd-code-stat"><strong class="ghcd-merged">${mergeRate}%</strong><span>Merge Rate</span></div>` : ""}
+    ${locTotal > 0  ? `<div class="ghcd-code-stat"><strong>${fmtLoc(locTotal)}</strong><span>Lines Changed</span></div>` : ""}
+  `;
 
   document.getElementById("ghContribDetail").innerHTML = `
     <div class="ghcd-wrap">
@@ -2812,16 +2834,15 @@ function showGhContributor(login) {
       </div>
     </div>
 
-    <div class="ghcd-stats-row">
-      ${c.commits > 0 ? `<div class="ghcd-stat"><span class="ghcd-stat-val">${c.commits}</span><span class="ghcd-stat-lbl">Code Saves</span></div>` : ""}
-      ${c.prs > 0     ? `<div class="ghcd-stat"><span class="ghcd-stat-val">${c.prs}</span><span class="ghcd-stat-lbl">Code Reviews</span></div>` : ""}
-      ${mergeRate !== null ? `<div class="ghcd-stat"><span class="ghcd-stat-val" style="color:#22c55e">${mergeRate}%</span><span class="ghcd-stat-lbl">Merge Rate</span></div>` : ""}
-      ${c.total > 0   ? `<div class="ghcd-stat"><span class="ghcd-stat-val">${c.done}/${c.total}</span><span class="ghcd-stat-lbl">Tasks Done</span></div>` : ""}
-      ${locTotal > 0  ? `<div class="ghcd-stat"><span class="ghcd-stat-val">${fmtLoc(locTotal)}</span><span class="ghcd-stat-lbl">Lines Changed</span></div>` : ""}
-    </div>
+    ${c.total > 0 ? `
+    <div class="ghcd-stat-strip">
+      <div class="ghcd-ring" style="--pct:${taskPct};--c:${ringColor}"><div class="ghcd-ring-inner" style="color:${ringColor}">${taskPct}%</div></div>
+      <div class="ghcd-stat-strip-text"><strong>${c.done} / ${c.total}</strong><span>Board tasks done this period</span></div>
+    </div>` : ""}
+    ${codeStats.trim() ? `<div class="ghcd-code-stats">${codeStats}</div>` : ""}
 
     ${taskSection ? `
-      <h3 class="ghcd-section-title">Tasks</h3>
+      <h3 class="ghcd-section-title">Tasks${c.total > 0 ? " — open first" : ""}</h3>
       ${taskSection}
     ` : `<p style="color:var(--muted);margin-top:16px">No tasks assigned in this period.</p>`}
     </div>

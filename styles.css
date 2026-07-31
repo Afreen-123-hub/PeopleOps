@@ -2394,11 +2394,11 @@ tbody tr.row-no-data:hover {
 }
 .gh-cs {
   font-size: 0.78rem;
-  background: var(--bg);
-  border: 1px solid var(--border);
+  background: var(--canvas);
+  border: 1px solid var(--line);
   border-radius: 20px;
   padding: 3px 10px;
-  color: var(--text);
+  color: var(--ink);
   white-space: nowrap;
 }
 .gh-merged {
@@ -2411,40 +2411,77 @@ tbody tr.row-no-data:hover {
   width: min(520px, calc(100vw - 28px));
   max-height: 85vh;
   overflow-y: auto;
+  border: 0;
+  border-radius: 14px;
+  padding: 0;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18);
 }
 .ghcd-wrap {
   padding: 28px 28px 24px;
 }
 .ghcd-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--panel);
+  margin: -28px -28px 20px;
+  padding: 24px 56px 16px 28px;
+  border-bottom: 1px solid var(--line);
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 20px;
 }
 .ghcd-avatar { width: 52px; height: 52px; font-size: 1.2rem; flex-shrink: 0; }
 .ghcd-name   { font-size: 1.3rem; font-weight: 700; margin: 0 0 2px; }
 .ghcd-login  { font-size: 0.8rem; color: var(--muted); margin: 0 0 2px; }
 .ghcd-projects { font-size: 0.82rem; color: var(--muted); margin: 0; }
 
-.ghcd-stats-row {
+.ghcd-stat-strip {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 24px;
+  align-items: center;
+  gap: 18px;
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
 }
-.ghcd-stat {
-  flex: 1 1 80px;
-  background: var(--bg);
-  border: 1px solid var(--border);
+.ghcd-ring {
+  --pct: 0;
+  --c: var(--muted);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: conic-gradient(var(--c) calc(var(--pct) * 1%), #e5e7eb 0);
+  display: grid;
+  place-items: center;
+}
+.ghcd-ring-inner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--panel);
+  display: grid;
+  place-items: center;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+.ghcd-stat-strip-text strong { display: block; font-size: 1.05rem; font-weight: 700; }
+.ghcd-stat-strip-text span { font-size: 0.8rem; color: var(--muted); }
+
+.ghcd-code-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.ghcd-code-stat {
+  flex: 1 1 100px;
+  background: var(--canvas);
+  border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 12px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  padding: 10px 12px;
   text-align: center;
 }
-.ghcd-stat-val { font-size: 1.4rem; font-weight: 700; }
-.ghcd-stat-lbl { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.ghcd-code-stat strong { display: block; font-size: 1.1rem; font-weight: 800; }
+.ghcd-code-stat span { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
+.ghcd-merged { color: #16a34a; }
 
 .ghcd-section-title {
   font-size: 0.85rem;
@@ -2463,16 +2500,17 @@ tbody tr.row-no-data:hover {
   letter-spacing: 0.04em;
   margin-bottom: 6px;
   padding-bottom: 4px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
 }
 .ghcd-task-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 4px;
+  padding: 6px 8px;
   border-radius: 6px;
 }
-.ghcd-task-row:hover { background: var(--bg); }
+.ghcd-task-row:hover { background: var(--canvas); }
+.ghcd-task-row--urgent { background: #fef2f2; }
 .ghcd-task-title  { flex: 1; font-size: 0.88rem; }
 .ghcd-task-status { font-size: 0.78rem; font-weight: 500; white-space: nowrap; }
 
@@ -3662,6 +3700,13 @@ dialog::backdrop {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#closeGhContribDialog {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 10;
 }
 
 .detail {
