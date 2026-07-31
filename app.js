@@ -2035,13 +2035,30 @@ function renderProjects(filterText) {
   const overallPct = totalTasks ? Math.round(totalCompleted / totalTasks * 100) : 0;
   const atRiskCount = all.filter(p => p.tasksTotal > 0 && (p.tasksCompleted / p.tasksTotal * 100) < 40 && p.members >= 5).length;
 
+  const completionTierClass = overallPct >= 75 ? "proj-stat-item--good" : overallPct >= 40 ? "proj-stat-item--warn" : "proj-stat-item--bad";
   const statBar = `
     <div class="proj-stat-bar">
-      <div class="proj-stat-item"><span class="proj-stat-val">${all.length}</span><span class="proj-stat-lbl">Projects</span></div>
-      <div class="proj-stat-item"><span class="proj-stat-val">${totalTasks.toLocaleString()}</span><span class="proj-stat-lbl">Total Tasks</span></div>
-      <div class="proj-stat-item"><span class="proj-stat-val">${overallPct}%</span><span class="proj-stat-lbl">Completion Rate</span></div>
-      <div class="proj-stat-item"><span class="proj-stat-val">${totalHours >= 1000 ? (totalHours/1000).toFixed(1)+"K" : Math.round(totalHours)}h</span><span class="proj-stat-lbl">Hours Logged</span></div>
-      ${atRiskCount ? `<div class="proj-stat-item proj-stat-item--risk"><span class="proj-stat-val proj-stat-val--risk">${atRiskCount}</span><span class="proj-stat-lbl">At Risk</span></div>` : ""}
+      <div class="proj-stat-item">
+        <div class="proj-stat-icon" style="--icon-bg:#eff6ff;--icon-fg:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 7v11a2 2 0 002 2h14a2 2 0 002-2V7M3 7l2-4h14l2 4"/></svg></div>
+        <div><span class="proj-stat-val">${all.length}</span><span class="proj-stat-lbl">Projects</span></div>
+      </div>
+      <div class="proj-stat-item">
+        <div class="proj-stat-icon" style="--icon-bg:#f0fdfa;--icon-fg:#00a99d"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M2 12l3 3L15 5"/></svg></div>
+        <div><span class="proj-stat-val">${totalTasks.toLocaleString()}</span><span class="proj-stat-lbl">Total Tasks</span></div>
+      </div>
+      <div class="proj-stat-item ${completionTierClass}">
+        <div class="proj-stat-icon" style="--icon-bg:var(--tier-icon-bg);--icon-fg:var(--tier-icon-fg)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 12l4-4"/></svg></div>
+        <div><span class="proj-stat-val">${overallPct}%</span><span class="proj-stat-lbl">Completion Rate</span></div>
+      </div>
+      <div class="proj-stat-item">
+        <div class="proj-stat-icon" style="--icon-bg:#f5f3ff;--icon-fg:#7c3aed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <div><span class="proj-stat-val">${totalHours >= 1000 ? (totalHours/1000).toFixed(1)+"K" : Math.round(totalHours)}h</span><span class="proj-stat-lbl">Hours Logged</span></div>
+      </div>
+      ${atRiskCount ? `
+      <div class="proj-stat-item proj-stat-item--risk">
+        <div class="proj-stat-icon" style="--icon-bg:#fee2e2;--icon-fg:#dc2626"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></div>
+        <div><span class="proj-stat-val proj-stat-val--risk">${atRiskCount}</span><span class="proj-stat-lbl">At Risk</span></div>
+      </div>` : ""}
     </div>`;
 
   const statusValues = [...new Set(all.map(p => p.status || ""))];
@@ -2053,17 +2070,18 @@ function renderProjects(filterText) {
       ).join("")}
     </div>` : "";
 
-  const sortBar = `
-    <div class="proj-sort-row">
-      <div class="proj-sort-label">Sort by:</div>
-      ${[["completion","Completion %"],["hours","Hours Logged"],["members","Members"],["name","Name"]].map(([val, lbl]) =>
-        `<button class="proj-sort-btn${_projSort === val ? " proj-sort-btn--active" : ""}" onclick="_projSort='${val}';renderProjects()">${lbl}</button>`
-      ).join("")}
-    </div>`;
-
-  const searchBar = `
-    <div class="proj-search-row">
-      <input id="projectSearch" class="proj-search" type="search" placeholder="Search by project or manager..." value="${query}" oninput="renderProjects(this.value)">
+  const controlsRow = `
+    <div class="proj-controls-row">
+      <div class="proj-sort-group">
+        <span class="proj-sort-label">Sort by</span>
+        ${[["completion","Completion %"],["hours","Hours Logged"],["members","Members"],["name","Name"]].map(([val, lbl]) =>
+          `<button class="proj-sort-btn${_projSort === val ? " proj-sort-btn--active" : ""}" onclick="_projSort='${val}';renderProjects()">${lbl}</button>`
+        ).join("")}
+      </div>
+      <div class="proj-search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="projectSearch" type="search" placeholder="Search by project or manager..." value="${query}" oninput="renderProjects(this.value)">
+      </div>
     </div>`;
 
   let visible = all;
@@ -2089,10 +2107,24 @@ function renderProjects(filterText) {
     const statusClass = statusLabel.toLowerCase().includes("complet") ? "proj-badge--done"
       : statusLabel.toLowerCase().includes("hold") ? "proj-badge--hold"
       : "proj-badge--active";
-    const completionColor = pct >= 75 ? "#22c55e" : pct >= 40 ? "#f59e0b" : "#ef4444";
+    const dormant = p.tasksTotal === 0;
+    const completionColor = dormant ? "" : pct >= 75 ? "#22c55e" : pct >= 40 ? "#f59e0b" : "#ef4444";
     const atRisk = p.tasksTotal > 0 && pct < 40 && p.members >= 5;
+    const stripeColor = atRisk ? "#e11d48" : dormant ? "#e2e8f0" : completionColor;
+
+    const initialsOf = (n) => n.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+    const memberStats = p.memberStats || [];
+    const avatarGradient = dormant ? "linear-gradient(135deg,#cbd5e1,#94a3b8)" : "linear-gradient(135deg,var(--blue),var(--teal))";
+    const shown = memberStats.slice(0, 3);
+    const overflowCount = p.members - shown.length;
+    const avatars = shown.length ? `
+      <div class="proj-avatars">
+        ${shown.map(m => `<div class="proj-avatar" style="background:${avatarGradient}">${initialsOf(m.name)}</div>`).join("")}
+        ${overflowCount > 0 ? `<div class="proj-avatar proj-avatar--more">+${overflowCount}</div>` : ""}
+      </div>` : "";
+
     return `
-      <article class="project-card proj-card-v2" onclick="showProjDetail('${p.id}')" style="cursor:pointer">
+      <article class="project-card proj-card-v2${atRisk ? " proj-card--risk" : ""}" onclick="showProjDetail('${p.id}')" style="cursor:pointer;--stripe:${stripeColor}">
         <div class="proj-card-top">
           <div>
             <div class="proj-card-name">${p.name || p.id}</div>
@@ -2104,6 +2136,9 @@ function renderProjects(filterText) {
           </div>
         </div>
 
+        ${dormant ? `
+        <div class="proj-dormant-line"><span class="proj-dormant-dot"></span>No tasks logged this period</div>
+        ` : `
         <div class="proj-progress-section">
           <div class="proj-progress-label">
             <span>Task completion</span>
@@ -2119,18 +2154,18 @@ function renderProjects(filterText) {
             <span>Hours logged this month</span>
             <strong>${workedH >= 1000 ? (workedH/1000).toFixed(1)+"K" : workedH}h</strong>
           </div>
-        </div>` : ""}
+        </div>` : ""}`}
 
         <div class="proj-card-footer">
+          ${avatars}
           <span class="proj-chip">${p.members} member${p.members !== 1 ? "s" : ""}</span>
-          ${p.tasksTotal === 0 ? '<span class="proj-chip proj-chip--warn">No tasks logged</span>' : ""}
           <span class="proj-chip proj-chip--link">View members &rsaquo;</span>
         </div>
       </article>`;
   }).join("");
 
   document.getElementById("projectGrid").innerHTML =
-    statBar + tabs + sortBar + searchBar +
+    statBar + tabs + controlsRow +
     (visible.length
       ? `<div class="project-grid">${cards}</div>`
       : `<p class="proj-empty">No projects match the current filter.</p>`);
