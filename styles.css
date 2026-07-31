@@ -2621,6 +2621,48 @@ tbody tr.row-no-data:hover {
   font-size: 0.9rem;
 }
 
+/* ── Teams search box ── */
+.search-row { position: relative; margin-bottom: 18px; }
+.search-row svg {
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+.search-row input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px 0 42px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.92rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.search-row input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+.search-row .clear-btn {
+  position: absolute;
+  right: 10px; top: 50%;
+  transform: translateY(-50%);
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: var(--line);
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1;
+  cursor: pointer;
+  display: none;
+}
+.search-row.has-value .clear-btn { display: block; }
+
 /* ── Teams drawer ── */
 .teams-drawer-overlay {
   position: fixed;

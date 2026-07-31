@@ -4,6 +4,7 @@ let loggedInUserName = "";
 let loggedInUserEmail = "";
 let departmentChartBars = [];
 let teamsStatusFilter = "all";
+let teamsSearchQuery = "";
 
 const state = {
   search: "",
@@ -744,6 +745,21 @@ function setupFilters() {
   document.getElementById("exportCsv").addEventListener("click", () => { exportCsv(); document.getElementById("exportMenu").classList.remove("open"); });
   document.getElementById("exportXlsx").addEventListener("click", () => { exportExcel(); document.getElementById("exportMenu").classList.remove("open"); });
   document.getElementById("refreshKpi").addEventListener("click", refreshKpiPerformance);
+
+  const teamsSearchInput = document.getElementById("teamsSearch");
+  const teamsSearchRow = document.getElementById("teamsSearchRow");
+  teamsSearchInput.addEventListener("input", () => {
+    teamsSearchQuery = teamsSearchInput.value.trim().toLowerCase();
+    teamsSearchRow.classList.toggle("has-value", !!teamsSearchQuery);
+    renderTeamsTable();
+  });
+  document.getElementById("teamsSearchClear").addEventListener("click", () => {
+    teamsSearchInput.value = "";
+    teamsSearchQuery = "";
+    teamsSearchRow.classList.remove("has-value");
+    teamsSearchInput.focus();
+    renderTeamsTable();
+  });
   document.getElementById("clearKpiTeam").addEventListener("click", clearKpiTeamFilter);
   document.getElementById("closeDialog").addEventListener("click", () => document.getElementById("employeeDialog").close());
   document.getElementById("employeeDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
@@ -1619,9 +1635,13 @@ function renderTeamsTable() {
     });
   });
 
-  const visibleRows = teamsStatusFilter === "all"
-    ? rows
-    : rows.filter(e => teamsStatusKey(e.teams) === teamsStatusFilter);
+  const visibleRows = rows
+    .filter(e => teamsStatusFilter === "all" || teamsStatusKey(e.teams) === teamsStatusFilter)
+    .filter(e => {
+      if (!teamsSearchQuery) return true;
+      const haystack = `${e.name} ${e.id} ${mergedTeam(e.team || "")} ${e.designation || ""}`.toLowerCase();
+      return haystack.includes(teamsSearchQuery);
+    });
 
   document.getElementById("teamsTable").innerHTML = visibleRows.length
     ? visibleRows.map((e, i) => {
@@ -1645,7 +1665,7 @@ function renderTeamsTable() {
           <td><span class="badge clickable-badge" data-emp-index="${i}" style="--c:${meta.color}" title="Click for details"><span class="dot"></span>${meta.label} ›</span></td>
         </tr>`;
       }).join("")
-    : `<tr class="empty-row"><td colspan="3">No employees match this status right now.</td></tr>`;
+    : `<tr class="empty-row"><td colspan="3">${teamsSearchQuery ? `No employees match "${teamsSearchQuery}"${teamsStatusFilter !== "all" ? " in this status" : ""}.` : "No employees match this status right now."}</td></tr>`;
 
   document.querySelectorAll(".clickable-badge").forEach(badge => {
     badge.addEventListener("click", (ev) => {
