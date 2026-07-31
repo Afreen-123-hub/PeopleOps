@@ -763,6 +763,7 @@ function setupFilters() {
   document.getElementById("clearKpiTeam").addEventListener("click", clearKpiTeamFilter);
   document.getElementById("closeDialog").addEventListener("click", () => document.getElementById("employeeDialog").close());
   document.getElementById("employeeDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
+  document.getElementById("projDetailDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
   document.getElementById("closeGhContribDialog").addEventListener("click", () => document.getElementById("ghContribDialog").close());
   document.getElementById("graphRefreshButton")?.addEventListener("click", () => refreshGraph());
   populateAttendanceOptions();
@@ -2224,7 +2225,7 @@ function showProjDetail(projId) {
   document.getElementById("projd-stats").innerHTML = `
     <div class="stat"><strong>${p.tasksCompleted} / ${p.tasksTotal}</strong><span>Tasks Done</span></div>
     <div class="stat"><strong>${approvalPct}%</strong><span>Approved</span></div>
-    <div class="stat"><strong>${activeMembers.length} of ${allMembers.length || p.members}</strong><span>Logging Time</span></div>
+    <div class="stat"><strong>${activeMembers.length} of ${allMembers.length || p.members}</strong><span>Active Contributors</span></div>
   `;
 
   document.getElementById("projd-body").innerHTML = allMembers.length ? `

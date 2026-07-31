@@ -1840,19 +1840,25 @@ canvas {
 }
 
 .dialog-close {
-  background: none;
-  border: none;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  background: var(--canvas);
+  border: 1px solid var(--line);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 17px;
   color: var(--muted);
-  padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: 50%;
   line-height: 1;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .dialog-close:hover {
-  background: var(--canvas);
-  color: var(--ink);
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fecaca;
 }
 
 .coverage-list,
@@ -3441,11 +3447,17 @@ tbody tr.row-no-data:hover {
 #projDetailDialog::backdrop { background: rgba(0,0,0,0.45); }
 .projd-wrap { padding: 28px; }
 .projd-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--panel);
+  margin: -28px -28px 18px;
+  padding: 22px 24px 16px 28px;
+  border-bottom: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 16px;
-  margin-bottom: 18px;
 }
 .projd-header-main { display: flex; align-items: center; gap: 18px; min-width: 0; }
 .projd-ring {
