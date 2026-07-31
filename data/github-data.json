@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-31T04:21:14.495643Z",
+  "lastUpdated": "2026-07-31T06:30:46.102603Z",
   "period": {
     "since": "2026-07-01",
     "until": "2026-07-31"
@@ -1632,11 +1632,11 @@
         },
         {
           "title": "Forgot Password Email Displays Default Subject and Missing Bible Logo",
-          "status": "In progress",
+          "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/39",
@@ -1647,6 +1647,21 @@
         },
         {
           "title": "Prompt Visual Generation Fails When Multiple Users Generate Content Simultaneously",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/60",
+          "createdAt": "2026-07-27T07:16:58Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Video Generation Fails After Multiple Consecutive Requests",
           "status": "In progress",
           "priority": "",
           "size": "",
@@ -1654,8 +1669,8 @@
             "Lakshana-Lakshmanan"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/60",
-          "createdAt": "2026-07-27T07:16:58Z",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/61",
+          "createdAt": "2026-07-30T09:42:16Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -2170,28 +2185,13 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Video Generation Fails After Multiple Consecutive Requests",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/61",
-          "createdAt": "2026-07-30T09:42:16Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 44,
         "done": 0,
-        "inProgress": 3,
-        "todo": 2,
+        "inProgress": 2,
+        "todo": 1,
         "backlog": 5,
         "production": 0
       }
@@ -5021,6 +5021,18 @@
         },
         {
           "project": "SabAi Bible App",
+          "title": "Forgot Password Email Displays Default Subject and Missing Bible Logo",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Prompt Visual Generation Fails When Multiple Users Generate Content Simultaneously",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
           "title": "Empty Prompt Submission Displays \"Generation Failed\" Page Instead of Required Field Validation",
           "status": "DEV",
           "priority": ""
@@ -5554,7 +5566,7 @@
           "priority": ""
         }
       ],
-      "total": 94,
+      "total": 96,
       "done": 0,
       "inProgress": 0,
       "commits": 0,
@@ -6057,9 +6069,9 @@
       "done": 0,
       "inProgress": 2,
       "commits": 29,
-      "prs": 63,
-      "prsMerged": 63,
-      "prReviews": 61,
+      "prs": 65,
+      "prsMerged": 65,
+      "prReviews": 63,
       "additions": 60094,
       "deletions": 1429
     },
@@ -6479,91 +6491,6 @@
       "deletions": 573
     },
     {
-      "login": "Lakshana-Lakshmanan",
-      "projects": [
-        "SabAi Bible App",
-        "Acadamiq AI",
-        "Worklogix"
-      ],
-      "tasks": [
-        {
-          "project": "SabAi Bible App",
-          "title": "AI Insights Takes Time to Load in Read Module",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Forgot Password Email Displays Default Subject and Missing Bible Logo",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Prompt Visual Generation Fails When Multiple Users Generate Content Simultaneously",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Video Generation Fails After Multiple Consecutive Requests",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Update Assignment Format for Teacher Role",
-          "status": "Backlog",
-          "priority": "P0"
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Delete option is missing on the Curriculum Management page.",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Schol.ai Logo Is Missing in Forgot Password OTP Email",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Class Teacher Information Is Not Displayed for Students",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Parent Email Update Displays Browser Dialog and Overview Page Does Not Reflect Updated Email",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Add Visitor Date Support in Add Visitor API",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Unable to Create Task",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 11,
-      "done": 0,
-      "inProgress": 3,
-      "commits": 6,
-      "prs": 3,
-      "prsMerged": 3,
-      "prReviews": 0,
-      "additions": 1743,
-      "deletions": 8
-    },
-    {
       "login": "manju-209",
       "projects": [
         "SabAi Bible App",
@@ -6628,6 +6555,79 @@
       "prReviews": 0,
       "additions": 149,
       "deletions": 52
+    },
+    {
+      "login": "Lakshana-Lakshmanan",
+      "projects": [
+        "SabAi Bible App",
+        "Acadamiq AI",
+        "Worklogix"
+      ],
+      "tasks": [
+        {
+          "project": "SabAi Bible App",
+          "title": "AI Insights Takes Time to Load in Read Module",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Video Generation Fails After Multiple Consecutive Requests",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Update Assignment Format for Teacher Role",
+          "status": "Backlog",
+          "priority": "P0"
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Delete option is missing on the Curriculum Management page.",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Schol.ai Logo Is Missing in Forgot Password OTP Email",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Class Teacher Information Is Not Displayed for Students",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Parent Email Update Displays Browser Dialog and Overview Page Does Not Reflect Updated Email",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Add Visitor Date Support in Add Visitor API",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Unable to Create Task",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 9,
+      "done": 0,
+      "inProgress": 2,
+      "commits": 6,
+      "prs": 3,
+      "prsMerged": 3,
+      "prReviews": 0,
+      "additions": 1743,
+      "deletions": 8
     },
     {
       "login": "Kxrthikeyan-76",
@@ -7086,9 +7086,9 @@
       "done": 0,
       "inProgress": 0,
       "commits": 0,
-      "prs": 10,
-      "prsMerged": 10,
-      "prReviews": 0,
+      "prs": 11,
+      "prsMerged": 11,
+      "prReviews": 2,
       "additions": 54633,
       "deletions": 2
     },
