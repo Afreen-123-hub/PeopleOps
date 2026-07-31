@@ -6,8 +6,10 @@ from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parent.parent
 
+current_month = datetime.utcnow().strftime("%Y-%m")
+
 steps = [
-    ("generate", [sys.executable, str(PROJECT / "scripts" / "generate_peopleops_data.py")]),
+    ("generate", [sys.executable, str(PROJECT / "scripts" / "generate_peopleops_data.py"), "--month", current_month]),
     ("teams",    [sys.executable, str(PROJECT / "scripts" / "refresh_teams.py")]),
     ("github",   [sys.executable, str(PROJECT / "scripts" / "refresh_github.py")]),
     ("graph",    [sys.executable, str(PROJECT / "scripts" / "refresh_graph_activity.py")]),
