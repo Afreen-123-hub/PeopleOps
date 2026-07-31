@@ -23,6 +23,7 @@ function graphEvents() {
   );
 }
 
+
 function graphHue(index) {
   return `hsl(${(index * 137.508 + 205) % 360} 68% 46%)`;
 }
@@ -122,7 +123,7 @@ async function refreshGraph() {
     if (result.status !== "refreshed") throw new Error(result.stderr || "Refresh failed");
     graphData = result.graph;
     renderGraphExplorer();
-    label.textContent = result.generatedAt ? `Updated ${new Date(result.generatedAt).toLocaleString()}` : "Updated";
+    label.innerHTML = result.generatedAt ? CLOCK_SVG + formatRefreshTimestamp(result.generatedAt, "Updated") : "Updated";
   } catch (error) {
     label.textContent = `Refresh failed: ${error.message}`;
   } finally {
@@ -695,8 +696,8 @@ function setGraphSection(section) {
 function renderGraphExplorer() {
   const overview = graphData?.overview || {};
   const meta = graphData?.meta || {};
-  document.getElementById("graphRefreshLabel").textContent = meta.generatedAt
-    ? `Updated ${new Date(meta.generatedAt).toLocaleString()}` : "Not refreshed yet";
+  document.getElementById("graphRefreshLabel").innerHTML = meta.generatedAt
+    ? CLOCK_SVG + formatRefreshTimestamp(meta.generatedAt, "Updated") : "Not refreshed yet";
 
   const cards = [
     ["plans", "Planner plans", overview.plans || 0, "Organized workspaces"],

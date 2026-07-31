@@ -6355,7 +6355,7 @@ body.graph-drawer-open .tara-panel {
 
 .gh-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
   gap: 16px;
@@ -6364,6 +6364,76 @@ body.graph-drawer-open .tara-panel {
 .gh-title { font-size: 1.7rem; font-weight: 800; margin: 4px 0 6px; }
 .gh-sub   { color: var(--muted); font-size: 0.88rem; margin: 0; }
 .gh-header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+/* Shared refresh controls: month picker, "last updated" pill, refresh button —
+   used on GitHub Projects, Teams, and Microsoft Graph headers. */
+.month-picker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 30px 8px 12px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.month-picker:hover { border-color: #cbd5e1; }
+.month-picker:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+.month-picker .cal-icon { width: 15px; height: 15px; color: var(--teal); flex-shrink: 0; }
+.month-picker select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  min-height: auto;
+  width: auto;
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.month-picker .chev {
+  width: 12px;
+  height: 12px;
+  color: var(--muted);
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.month-picker-input {
+  padding: 8px 12px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  min-height: auto;
+  width: auto;
+  cursor: pointer;
+}
+.month-picker-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+
+.refresh-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--canvas);
+  color: var(--muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+.refresh-btn { display: inline-flex; align-items: center; gap: 6px; border-radius: 9px; }
+.refresh-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
 
 .gh-summary-cards {
   display: flex;

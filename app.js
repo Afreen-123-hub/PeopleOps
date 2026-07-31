@@ -667,6 +667,19 @@ async function autoRefreshTeams() {
   updateTeamsRefreshLabel(result.teamsRefreshedAt || Date.now());
 }
 
+const CLOCK_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0;vertical-align:-2px;margin-right:5px"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>`;
+
+// Shows time-only when `ts` falls on today's date, otherwise "Mon D, h:mm AM/PM".
+function formatRefreshTimestamp(ts, prefix) {
+  if (!ts) return "";
+  const d = new Date(ts);
+  if (isNaN(d.getTime())) return "";
+  const now = new Date();
+  const sameDay = d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth() && d.getDate() === now.getDate();
+  const timeStr = d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  return sameDay ? `${prefix} ${timeStr}` : `${prefix} ${d.toLocaleDateString([], { month: "short", day: "numeric" })}, ${timeStr}`;
+}
+
 function updateTeamsRefreshLabel(ts) {
   const el = document.getElementById("teamsRefreshLabel");
   if (!el) return;
@@ -674,7 +687,7 @@ function updateTeamsRefreshLabel(ts) {
     el.textContent = DEMO_REFRESH_MESSAGE;
     return;
   }
-  el.textContent = ts ? `Status as of ${new Date(ts).toLocaleTimeString()}` : "";
+  el.innerHTML = ts ? CLOCK_SVG + formatRefreshTimestamp(ts, "Status as of") : "";
 }
 
 async function loadDataset({ fresh = false } = {}) {
@@ -2914,8 +2927,8 @@ async function renderGitHub(fetchFresh = true) {
   const period       = githubData.period        || {};
 
   if (lastUpdated) {
-    document.getElementById("ghRefreshLabel").textContent =
-      "Last updated: " + new Date(lastUpdated).toLocaleString();
+    document.getElementById("ghRefreshLabel").innerHTML =
+      CLOCK_SVG + formatRefreshTimestamp(lastUpdated, "Updated");
   }
 
   if (period.since && period.until) {
