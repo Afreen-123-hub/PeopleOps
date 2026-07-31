@@ -2484,28 +2484,142 @@ tbody tr.row-no-data:hover {
   background: #eef2f6;
 }
 
-/* ── Teams status bar ── */
-.teams-status-bar {
+/* ── Teams presence card: composition bar + legend chips ── */
+.presence-card {
+  padding: 18px 20px 16px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  margin: 18px 0 22px;
+}
+.presence-top {
   display: flex;
-  gap: 10px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.presence-top strong { font-size: 0.86rem; font-weight: 800; }
+.presence-top span { font-size: 0.78rem; color: var(--muted); }
+
+.comp-bar {
+  display: flex;
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--line);
+  margin-bottom: 16px;
+  box-shadow: inset 0 1px 2px rgba(15,28,46,0.06);
+}
+.comp-bar .seg {
+  height: 100%;
+  transition: flex-grow 0.35s ease;
+}
+.comp-bar .seg:not(:last-child) { border-right: 2px solid #f8fafc; }
+
+.legend-row {
+  display: flex;
   flex-wrap: wrap;
-  margin-bottom: 14px;
+  gap: 8px;
 }
-.tsb-pill {
-  padding: 5px 14px;
-  border-radius: 20px;
+.legend-chip {
+  --c: #64748b;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1.5px solid color-mix(in srgb, var(--c) 32%, transparent);
+  background: #fff;
+  color: color-mix(in srgb, var(--c) 78%, black);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
+}
+.legend-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex-shrink: 0; }
+.legend-chip .count { font-variant-numeric: tabular-nums; opacity: 0.85; }
+.legend-chip:hover { transform: translateY(-1px); box-shadow: 0 4px 10px color-mix(in srgb, var(--c) 25%, transparent); }
+.legend-chip:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.legend-chip.is-active {
+  background: var(--c);
+  border-color: var(--c);
+  color: #fff;
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--c) 40%, transparent);
+}
+.legend-chip.is-active .dot { background: #fff; }
+
+/* ── Teams table: avatar + live presence dot + status-accented rows ── */
+#teamsTable tr { position: relative; }
+#teamsTable td { position: relative; }
+#teamsTable tr td:first-child::before {
+  content: "";
+  position: absolute;
+  left: -1px; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--row-c, transparent);
+}
+.who { display: flex; align-items: center; gap: 12px; }
+.avatar-wrap { position: relative; flex-shrink: 0; }
+.avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--blue), var(--teal));
+}
+.presence-dot {
+  position: absolute;
+  right: -1px; bottom: -1px;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: var(--row-c, #9aa5b1);
+}
+.presence-dot.live { position: absolute; }
+.presence-dot.live::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: inherit;
+  animation: presencePulse 1.8s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .presence-dot.live::after { animation: none; }
+}
+@keyframes presencePulse {
+  0%   { transform: scale(1);   opacity: 0.65; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.who-text strong { display: block; font-size: 0.9rem; }
+.who-text small { color: var(--muted); font-size: 0.78rem; }
+
+.badge {
+  --c: #64748b;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--c) 14%, white);
+  color: color-mix(in srgb, var(--c) 80%, black);
   font-size: 0.78rem;
-  font-weight: 600;
-  cursor: default;
+  font-weight: 700;
 }
-.tsb-pill.active  { background: #e8f7ef; color: #0d7a45; }
-.tsb-pill.away    { background: #fff8e1; color: #7a5c00; }
-.tsb-pill.ooo     { background: #f0ecff; color: #5c4a8a; }
-.tsb-pill.offline { background: #f0f2f4; color: #5a6370; }
-.tsb-pill.nodata  { background: #f5f5f5; color: #888; }
+.badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
 
 .clickable-badge { cursor: pointer; transition: opacity .15s; }
 .clickable-badge:hover { opacity: .8; }
+
+.empty-row td {
+  text-align: center;
+  padding: 34px 16px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
 
 /* ── Teams drawer ── */
 .teams-drawer-overlay {

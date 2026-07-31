@@ -3,6 +3,7 @@ let filteredEmployees = [];
 let loggedInUserName = "";
 let loggedInUserEmail = "";
 let departmentChartBars = [];
+let teamsStatusFilter = "all";
 
 const state = {
   search: "",
@@ -1547,6 +1548,34 @@ function formatCheckinHour(h) {
   return `${h12}:${String(mins).padStart(2, "0")} ${period}`;
 }
 
+function teamsStatusKey(teams) {
+  if (!teams.status) return "nodata";
+  if (teams.isActive) return "active";
+  if (teams.isAway) return "away";
+  if (teams.isOutOfOffice) return "ooo";
+  return "offline";
+}
+
+// "Busy" is a display variant of the "active" bucket — someone in a Teams
+// meeting is still online, just shown differently than plain "Available".
+function teamsBadgeVariant(teams) {
+  if (!teams.status) return "nodata";
+  if (teams.status === "Busy") return "busy";
+  if (teams.isActive) return "available";
+  if (teams.isAway) return "away";
+  if (teams.isOutOfOffice) return "ooo";
+  return "offline";
+}
+
+const TEAMS_BADGE_META = {
+  available: { label: "Available",     color: "#22a06b", live: true },
+  busy:      { label: "Busy",          color: "#e11d48", live: true },
+  away:      { label: "Away",          color: "#e28a0d", live: false },
+  ooo:       { label: "Out of Office", color: "#7c3aed", live: false },
+  offline:   { label: "Offline",       color: "#64748b", live: false },
+  nodata:    { label: "No Data",       color: "#9aa5b1", live: false },
+};
+
 function renderTeamsTable() {
   const statusPriority = (e) =>
     e.teams.isActive ? 0 : e.teams.isAway ? 1 : e.teams.isOutOfOffice ? 2 : e.teams.isOffline ? 3 : 4;
@@ -1554,34 +1583,74 @@ function renderTeamsTable() {
     .slice()
     .sort((a, b) => statusPriority(a) - statusPriority(b) || a.name.localeCompare(b.name));
 
-  // Status summary bar
-  const active = rows.filter(e => e.teams.isActive).length;
-  const away   = rows.filter(e => e.teams.isAway).length;
-  const ooo    = rows.filter(e => e.teams.isOutOfOffice).length;
-  const offline = rows.filter(e => e.teams.isOffline).length;
-  const noData  = rows.filter(e => !e.teams.status).length;
-  document.getElementById("teamsStatusBar").innerHTML = `
-    <span class="tsb-pill active">${active} Active</span>
-    <span class="tsb-pill away">${away} Away</span>
-    <span class="tsb-pill ooo">${ooo} Out of Office</span>
-    <span class="tsb-pill offline">${offline} Offline</span>
-    ${noData ? `<span class="tsb-pill nodata">${noData} No Data</span>` : ""}
-  `;
+  // Status summary
+  const counts = { active: 0, away: 0, ooo: 0, offline: 0, nodata: 0 };
+  rows.forEach(e => { counts[teamsStatusKey(e.teams)]++; });
 
-  document.getElementById("teamsTable").innerHTML = rows
-    .map((e, i) => {
-      return `<tr>
-        <td><div class="person"><strong>${e.name}</strong><small>${e.id} | ${mergedTeam(e.team || "Unassigned")}</small></div></td>
-        <td>${e.designation || "Unassigned"}</td>
-        <td>${teamsStatusBadge(e.teams, true, i)}</td>
-      </tr>`;
-    })
+  document.getElementById("presenceSummary").textContent =
+    `${counts.active} of ${rows.length} online now`;
+
+  // Proportional composition bar
+  document.getElementById("compBar").innerHTML = [
+    ["active", "#22a06b"], ["away", "#e28a0d"], ["ooo", "#7c3aed"], ["offline", "#64748b"], ["nodata", "#9aa5b1"],
+  ]
+    .filter(([key]) => counts[key] > 0)
+    .map(([key, color]) => `<div class="seg" style="flex-grow:${counts[key]};background:${color}" title="${key}: ${counts[key]}"></div>`)
     .join("");
+
+  // Legend chips (double as filters)
+  const legendBtns = [
+    { key: "all",     label: "All",           count: rows.length,    color: "var(--blue)" },
+    { key: "active",  label: "Active",        count: counts.active,  color: "#22a06b" },
+    { key: "away",    label: "Away",          count: counts.away,    color: "#e28a0d" },
+    { key: "ooo",     label: "Out of Office", count: counts.ooo,     color: "#7c3aed" },
+    { key: "offline", label: "Offline",       count: counts.offline, color: "#64748b" },
+    { key: "nodata",  label: "No Data",       count: counts.nodata,  color: "#9aa5b1" },
+  ];
+  document.getElementById("teamsStatusBar").innerHTML = legendBtns
+    .map(b => `<button type="button" class="legend-chip${teamsStatusFilter === b.key ? " is-active" : ""}" data-status="${b.key}" style="--c:${b.color}">
+      <span class="dot"></span>${b.label} <span class="count">${b.count}</span>
+    </button>`)
+    .join("");
+  document.querySelectorAll("#teamsStatusBar .legend-chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      teamsStatusFilter = btn.dataset.status;
+      renderTeamsTable();
+    });
+  });
+
+  const visibleRows = teamsStatusFilter === "all"
+    ? rows
+    : rows.filter(e => teamsStatusKey(e.teams) === teamsStatusFilter);
+
+  document.getElementById("teamsTable").innerHTML = visibleRows.length
+    ? visibleRows.map((e, i) => {
+        const variant = teamsBadgeVariant(e.teams);
+        const meta = TEAMS_BADGE_META[variant];
+        const initials = e.name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+        return `<tr style="--row-c:${meta.color}">
+          <td>
+            <div class="who">
+              <div class="avatar-wrap">
+                <div class="avatar">${initials}</div>
+                <div class="presence-dot${meta.live ? " live" : ""}"></div>
+              </div>
+              <div class="who-text">
+                <strong>${e.name}</strong>
+                <small>${e.id} | ${mergedTeam(e.team || "Unassigned")}</small>
+              </div>
+            </div>
+          </td>
+          <td>${e.designation || "Unassigned"}</td>
+          <td><span class="badge clickable-badge" data-emp-index="${i}" style="--c:${meta.color}" title="Click for details"><span class="dot"></span>${meta.label} ›</span></td>
+        </tr>`;
+      }).join("")
+    : `<tr class="empty-row"><td colspan="3">No employees match this status right now.</td></tr>`;
 
   document.querySelectorAll(".clickable-badge").forEach(badge => {
     badge.addEventListener("click", (ev) => {
       ev.stopPropagation();
-      const emp = rows[Number(badge.dataset.empIndex)];
+      const emp = visibleRows[Number(badge.dataset.empIndex)];
       if (emp) openTeamsPanel(emp);
     });
   });

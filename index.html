@@ -74,55 +74,55 @@
       </aside>
 
       <section class="workspace">
-        <header class="hero">
-          <div>
-            <h1>PeopleOPS Intelligence</h1>
-            <p class="hero-copy">Unified employee performance intelligence across attendance, collaboration, delivery, and workforce signals.</p>
-          </div>
-          <div class="hero-actions">
-            <div class="export-dropdown" id="exportDropdown">
-              <button class="button export-btn" id="exportBtn">Export ▾</button>
-              <div class="export-menu" id="exportMenu">
-                <button id="exportCsv">CSV (.csv)</button>
-                <button id="exportXlsx">Excel (.xlsx)</button>
+        <section id="overview" class="view active-view">
+          <header class="hero">
+            <div>
+              <h1>PeopleOPS Intelligence</h1>
+              <p class="hero-copy">Unified employee performance intelligence across attendance, collaboration, delivery, and workforce signals.</p>
+            </div>
+            <div class="hero-actions">
+              <div class="export-dropdown" id="exportDropdown">
+                <button class="button export-btn" id="exportBtn">Export ▾</button>
+                <div class="export-menu" id="exportMenu">
+                  <button id="exportCsv">CSV (.csv)</button>
+                  <button id="exportXlsx">Excel (.xlsx)</button>
+                </div>
               </div>
             </div>
-          </div>
-        </header>
+          </header>
 
-        <section class="controls" aria-label="Dashboard controls">
-          <label>
-            Search
-            <input id="searchInput" type="search" placeholder="Name, ID, team, designation">
-          </label>
-          <label>
-            Band
-            <select id="bandFilter">
-              <option value="all">All bands</option>
-            </select>
-          </label>
-          <label>
-            Team
-            <select id="teamFilter">
-              <option value="all">All teams</option>
-            </select>
-          </label>
-          <label class="toggle-label">
-            <input type="checkbox" id="internToggle" checked>
-            Show Interns
-          </label>
-          <label>
-            Source confidence
-            <select id="confidenceFilter">
-              <option value="0">Any confidence</option>
-              <option value="50">50% and above</option>
-              <option value="75">75% and above</option>
-              <option value="100">Full confidence</option>
-            </select>
-          </label>
-        </section>
+          <section class="controls" aria-label="Dashboard controls">
+            <label>
+              Search
+              <input id="searchInput" type="search" placeholder="Name, ID, team, designation">
+            </label>
+            <label>
+              Band
+              <select id="bandFilter">
+                <option value="all">All bands</option>
+              </select>
+            </label>
+            <label>
+              Team
+              <select id="teamFilter">
+                <option value="all">All teams</option>
+              </select>
+            </label>
+            <label class="toggle-label">
+              <input type="checkbox" id="internToggle" checked>
+              Show Interns
+            </label>
+            <label>
+              Source confidence
+              <select id="confidenceFilter">
+                <option value="0">Any confidence</option>
+                <option value="50">50% and above</option>
+                <option value="75">75% and above</option>
+                <option value="100">Full confidence</option>
+              </select>
+            </label>
+          </section>
 
-        <section id="overview" class="view active-view">
           <div class="overview-heading">
             <div>
               <p class="eyebrow">Executive dashboard</p>
@@ -304,7 +304,6 @@
         </section>
 
         <section id="teams" class="view">
-          <div id="teamsStatusBar" class="teams-status-bar"></div>
           <article class="panel table-panel">
             <div class="panel-head">
               <div>
@@ -316,6 +315,16 @@
                 <button class="button" onclick="autoRefreshTeams()" style="padding:6px 14px;font-size:0.8rem;">Refresh now</button>
               </div>
             </div>
+
+            <div class="presence-card">
+              <div class="presence-top">
+                <strong>Live Presence</strong>
+                <span id="presenceSummary"></span>
+              </div>
+              <div class="comp-bar" id="compBar"></div>
+              <div class="legend-row" id="teamsStatusBar"></div>
+            </div>
+
             <div class="table-wrap">
               <table>
                 <thead>
