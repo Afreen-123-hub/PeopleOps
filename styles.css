@@ -2329,18 +2329,24 @@ tbody tr.row-no-data:hover {
   padding: 4px 0;
 }
 .gh-contrib-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: 12px;
-  padding: 18px;
+  padding: 18px 18px 18px 22px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   transition: box-shadow 0.15s;
+  overflow: hidden;
 }
+.gh-contrib-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--stripe, var(--line)); }
 .gh-contrib-card:hover {
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
+.gh-contrib-card--warn { background: linear-gradient(180deg, #fffbeb 0%, var(--panel) 80px); }
+.gh-warn-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 0.66rem; font-weight: 700; padding: 2px 7px; border-radius: 20px; background: #fef3c7; color: #92400e; margin-top: 3px; }
+.gh-warn-pill svg { width: 10px; height: 10px; }
 .gh-contrib-card-header {
   display: flex;
   align-items: center;
@@ -2370,18 +2376,18 @@ tbody tr.row-no-data:hover {
   font-size: 0.75rem;
   color: var(--muted);
 }
-.gh-contrib-card-projects {
-  font-size: 0.8rem;
-  color: var(--muted);
-  line-height: 1.4;
-}
-.gh-commit-bar-wrap {
+.gh-contrib-chips { display: flex; flex-wrap: wrap; gap: 5px; min-height: 20px; }
+.gh-contrib-chip { font-size: 0.7rem; padding: 2px 8px; border-radius: 20px; background: var(--canvas); color: var(--muted); border: 1px solid var(--line); }
+.gh-contrib-task-block { margin: 2px 0; }
+.gh-contrib-task-label { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 5px; }
+.gh-contrib-task-label strong { color: var(--ink); }
+.gh-contrib-bar-wrap {
   height: 6px;
-  background: var(--border);
+  background: #e5e7eb;
   border-radius: 3px;
   overflow: hidden;
 }
-.gh-commit-bar-fill {
+.gh-contrib-bar-fill {
   height: 100%;
   border-radius: 3px;
   transition: width 0.3s ease;

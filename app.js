@@ -2743,6 +2743,7 @@ function escapeHtml(value) {
 
 let githubData = null;
 let _ghSort = "attention";
+let _ghContribSort = "attention";
 
 const STATUS_COLOR = {
   "done":            "#22c55e",
@@ -3114,30 +3115,69 @@ async function renderGitHub(fetchFresh = true) {
     : `<p style="color:var(--muted)">No project data yet. Click "Refresh now".</p>`;
 
   // ── Contributors grid ──────────────────────────────────────────────────
-  const maxCommits = Math.max(...contributors.map(c => c.commits || 0), 1);
-  document.getElementById("ghContributors").innerHTML = contributors.length ? `
+  const contribQuery = (document.getElementById("ghContribSearch")?.value || "").toLowerCase().trim();
+  document.getElementById("ghContribControlsRow").innerHTML = `
+    <div class="gh-controls-row">
+      <div class="gh-sort-group">
+        <span class="gh-sort-label">Sort by</span>
+        ${[["attention","Needs Attention"],["active","Most Active"],["tasks","Most Tasks"],["name","Name"]].map(([val, lbl]) =>
+          `<button class="gh-sort-btn${_ghContribSort === val ? " gh-sort-btn--active" : ""}" onclick="_ghContribSort='${val}';renderGitHub(false)">${lbl}</button>`
+        ).join("")}
+      </div>
+      <div class="gh-search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="ghContribSearch" type="search" placeholder="Search contributors..." value="${contribQuery}" oninput="renderGitHub(false)">
+      </div>
+    </div>`;
+
+  const searchedContribs = contribQuery
+    ? contributors.filter(c => {
+        const realName = ghLoginToName(c.login);
+        return (realName || "").toLowerCase().includes(contribQuery) || (c.login || "").toLowerCase().includes(contribQuery);
+      })
+    : contributors;
+
+  const sortedContribs = [...searchedContribs].sort((a, b) => {
+    const aStalled = (a.total || 0) >= 10 && (a.done || 0) === 0;
+    const bStalled = (b.total || 0) >= 10 && (b.done || 0) === 0;
+    if (_ghContribSort === "attention") {
+      if (aStalled !== bStalled) return aStalled ? -1 : 1;
+      return (b.commits + b.total) - (a.commits + a.total);
+    }
+    if (_ghContribSort === "active") return (b.commits || 0) - (a.commits || 0);
+    if (_ghContribSort === "tasks") return (b.total || 0) - (a.total || 0);
+    return (ghLoginToName(a.login) || a.login || "").localeCompare(ghLoginToName(b.login) || b.login || "");
+  });
+
+  document.getElementById("ghContributors").innerHTML = sortedContribs.length ? `
     <div class="gh-contrib-grid">
-      ${contributors.map(c => {
+      ${sortedContribs.map(c => {
         const realName  = ghLoginToName(c.login);
         const displayName = realName || c.login;
         const mergeRate = c.prs > 0 ? Math.round((c.prsMerged || 0) / c.prs * 100) : null;
         const initials  = displayName.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
         const color     = ghAvatarColor(c.login);
-        const barPct    = Math.round((c.commits || 0) / maxCommits * 100);
         const locTotal  = (c.additions || 0) + (c.deletions || 0);
+        const taskPct   = c.total > 0 ? Math.round((c.done || 0) / c.total * 100) : 0;
+        const stalled   = (c.total || 0) >= 10 && (c.done || 0) === 0;
+        const barColor  = taskPct >= 75 ? "#22c55e" : taskPct >= 40 ? "#f59e0b" : "#ef4444";
+        const stripe    = stalled ? "#f59e0b" : c.total > 0 ? barColor : "#e2e8f0";
         return `
-        <div class="gh-contrib-card" onclick="showGhContributor('${c.login}')" style="cursor:pointer">
+        <div class="gh-contrib-card${stalled ? " gh-contrib-card--warn" : ""}" onclick="showGhContributor('${c.login}')" style="cursor:pointer;--stripe:${stripe}">
           <div class="gh-contrib-card-header">
             <div class="gh-contrib-avatar2" style="background:${color}">${initials}</div>
             <div class="gh-contrib-card-identity">
               <div class="gh-contrib-card-name">${displayName}</div>
               ${realName ? `<div class="gh-contrib-card-login">${c.login}</div>` : ""}
+              ${stalled ? `<span class="gh-warn-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg>${c.total} tasks, 0 done</span>` : ""}
             </div>
           </div>
-          <div class="gh-contrib-card-projects">${(c.projects || []).join(", ") || "—"}</div>
-          <div class="gh-commit-bar-wrap" title="${c.commits} code saves">
-            <div class="gh-commit-bar-fill" style="width:${barPct}%;background:${color}"></div>
-          </div>
+          <div class="gh-contrib-chips">${(c.projects || []).length ? c.projects.map(p => `<span class="gh-contrib-chip">${p}</span>`).join("") : `<span class="gh-contrib-chip" style="opacity:.6">No board tasks</span>`}</div>
+          ${c.total > 0 ? `
+          <div class="gh-contrib-task-block">
+            <div class="gh-contrib-task-label"><span>Task completion</span><strong style="color:${barColor}">${taskPct}%</strong></div>
+            <div class="gh-contrib-bar-wrap"><div class="gh-contrib-bar-fill" style="width:${taskPct}%;background:${barColor}"></div></div>
+          </div>` : ""}
           <div class="gh-contrib-card-stats">
             ${c.commits > 0 ? `<span class="gh-cs"><b>${c.commits}</b> code saves</span>` : ""}
             ${c.total  > 0 ? `<span class="gh-cs"><b>${c.done}/${c.total}</b> tasks</span>` : ""}
@@ -3147,7 +3187,7 @@ async function renderGitHub(fetchFresh = true) {
         </div>`;
       }).join("")}
     </div>
-  ` : `<p style="color:var(--muted);padding:24px">No contributors found for this period.</p>`;
+  ` : `<p style="color:var(--muted);padding:24px">No contributors match the current search.</p>`;
 }
 
 // ======= TARA MARKDOWN RENDERER =======
