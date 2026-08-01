@@ -2272,25 +2272,75 @@ function showProjDetail(projId) {
   document.getElementById("projDetailDialog").showModal();
 }
 
-function renderIntegrations() {
+async function renderIntegrations() {
   const sourceFiles = dataset.meta.sourceFiles;
+  const STALE_MS = 30 * 60 * 60 * 1000; // 30h grace window past the daily refresh
+
+  let ghLastUpdated = githubData?.lastUpdated || null;
+  if (!ghLastUpdated) {
+    try {
+      const res = await apiFetch("/api/github-data");
+      const data = await res.json();
+      ghLastUpdated = data?.lastUpdated || null;
+    } catch { /* leave null — card shows "Not synced yet" */ }
+  }
+
+  const syncStatus = (ts) => {
+    if (!ts) return { ok: false, label: "Not synced yet" };
+    const age = Date.now() - new Date(ts).getTime();
+    return { ok: age < STALE_MS, label: formatRefreshTimestamp(ts, "Synced") };
+  };
+
+  const wStatus  = syncStatus(dataset.meta.generatedAt);
+  const tStatus  = syncStatus(dataset.meta.teamsRefreshedAt);
+  const gStatus  = syncStatus(dataset.meta.graphRefreshedAt);
+  const ghStatus = syncStatus(ghLastUpdated);
+
   const items = [
-    ["Worklogix", sourceFiles.worklogix, "Live API data for users, projects, tasks, and work activity."],
-    ["GreytHR", sourceFiles.greythr, "Live attendance API — present, absent, leave, and week off records."],
-    ["Biometrics", sourceFiles.biometrics, "Live presence report API — office hours and biometric days per employee."],
-    ["Teams", sourceFiles.teams, "Live Microsoft Graph API presence data."],
-    ["GitHub", sourceFiles.github, "Repository contribution data — commits, pull requests, and closed issues per employee."],
-    ["Microsoft Planner", "api", "Live Microsoft Graph plans, task assignments, progress, priorities, and due dates."],
-    ["Microsoft Calendar", "api", "Live employee calendar events and meeting-hour activity for the current month."],
-    ["Microsoft SharePoint", "api", "Live SharePoint sites, lists, files, and reporting assets."],
+    ["Worklogix", sourceFiles.worklogix, "Live API data for users, projects, tasks, and work activity.", wStatus],
+    ["GreytHR", sourceFiles.greythr, "Live attendance API — present, absent, leave, and week off records.", wStatus],
+    ["Biometrics", sourceFiles.biometrics, "Live presence report API — office hours and biometric days per employee.", wStatus],
+    ["Teams", sourceFiles.teams, "Live Microsoft Graph API presence data.", tStatus],
+    ["GitHub", sourceFiles.github, "Repository contribution data — commits, pull requests, and closed issues per employee.", ghStatus],
+    ["Microsoft Planner", "api", "Live Microsoft Graph plans, task assignments, progress, priorities, and due dates.", gStatus],
+    ["Microsoft Calendar", "api", "Live employee calendar events and meeting-hour activity for the current month.", gStatus],
+    ["Microsoft SharePoint", "api", "Live SharePoint sites, lists, files, and reporting assets.", gStatus],
   ];
-  document.getElementById("integrationGrid").innerHTML = items.map(([name, files, detail]) => `
+  document.getElementById("integrationGrid").innerHTML = items.map(([name, files, detail, status]) => `
     <article class="integration-card">
-      <p class="eyebrow">${files === "api" ? "Live API" : `${files} file${files === 1 ? "" : "s"}`}</p>
+      <div class="integration-card-top">
+        <p class="eyebrow">${files === "api" ? "Live API" : "File Sync"}</p>
+        <span class="integration-status${status.ok ? " integration-status--ok" : " integration-status--stale"}">
+          <span class="integration-dot${status.ok ? " integration-dot--ok" : " integration-dot--stale"}"></span>${status.ok ? "Active" : "Needs Attention"}
+        </span>
+      </div>
       <h2>${name}</h2>
       <p class="subtle">${detail}</p>
+      <div class="integration-synced">${CLOCK_SVG}${status.label}</div>
     </article>
   `).join("");
+
+  const liveCount = items.filter(([, , , status]) => status.ok).length;
+  const roadmapStats = document.getElementById("integrationRoadmapStats");
+  if (roadmapStats) {
+    roadmapStats.innerHTML = `
+      <div class="rm-stat-row">
+        <div class="rm-stat">
+          <div class="rm-stat-icon rm-stat-icon--green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M2 12l3 3L15 5"/></svg></div>
+          <div><div class="rm-stat-val">${liveCount} / ${items.length}</div><div class="rm-stat-lbl">Connectors Live</div></div>
+        </div>
+        <div class="rm-stat">
+          <div class="rm-stat-icon rm-stat-icon--blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.85-3.36L23 10M1 14l4.65 4.36A9 9 0 0020.5 15"/></svg></div>
+          <div><div class="rm-stat-val">Daily</div><div class="rm-stat-lbl">Auto-Refresh Schedule</div></div>
+        </div>
+        <div class="rm-stat">
+          <div class="rm-stat-icon rm-stat-icon--violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7c.5.4.8 1 .8 1.6v.7h6.4v-.7c0-.6.3-1.2.8-1.6A7 7 0 0012 2z"/></svg></div>
+          <div><div class="rm-stat-val">1</div><div class="rm-stat-lbl">Under Consideration</div></div>
+        </div>
+      </div>
+      <p class="rm-note">All connectors refresh automatically every day, in addition to the manual <b>Refresh now</b> button on each page. Under consideration: Slack integration for real-time presence.</p>
+    `;
+  }
 }
 
 function drawScatter() {
