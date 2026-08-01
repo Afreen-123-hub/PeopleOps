@@ -2762,6 +2762,17 @@ function ghStatusColor(s) {
   return STATUS_COLOR[(s || "").toLowerCase()] || "#94a3b8";
 }
 
+const GH_STATUS_DISPLAY = {
+  "dev": "In Development",
+  "qa": "In QA",
+  "review in qa": "In QA Review",
+  "todo": "To Do",
+};
+
+function ghDisplayStatus(s) {
+  return GH_STATUS_DISPLAY[(s || "").toLowerCase()] || s;
+}
+
 function ghAvatarColor(login) {
   const colors = ["#3b82f6","#8b5cf6","#ec4899","#f59e0b","#10b981","#ef4444","#06b6d4","#f97316"];
   let h = 0;
@@ -2809,7 +2820,7 @@ function showGhContributor(login) {
         <div class="ghcd-task-row${isUrgent ? " ghcd-task-row--urgent" : ""}">
           <span class="gh-task-dot" style="background:${ghStatusColor(t.status)}"></span>
           <span class="ghcd-task-title">${t.title}</span>
-          <span class="ghcd-task-status" style="color:${ghStatusColor(t.status)}">${t.status}</span>
+          <span class="ghcd-task-status" style="color:${ghStatusColor(t.status)}">${isUrgent ? "Live in Production" : ghDisplayStatus(t.status)}</span>
         </div>
       `;
       }).join("")}
@@ -3072,7 +3083,7 @@ async function renderGitHub(fetchFresh = true) {
             ${item.size     ? `<span class="gh-badge">${item.size}</span>` : ""}
             ${(item.assignees || []).map(a => `<span class="gh-badge gh-badge--user">${a}</span>`).join("")}
           </span>
-          <span class="gh-task-status${isUrgent ? " gh-task-status--urgent" : ""}" style="color:${ghStatusColor(item.status)}">${isUrgent ? warnSvg + " Live in Production" : item.status}</span>
+          <span class="gh-task-status${isUrgent ? " gh-task-status--urgent" : ""}" style="color:${ghStatusColor(item.status)}">${isUrgent ? warnSvg + " Live in Production" : ghDisplayStatus(item.status)}</span>
         </div>
       `;
     }).join("");
