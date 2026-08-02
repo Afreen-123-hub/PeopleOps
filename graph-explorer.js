@@ -452,6 +452,42 @@ function showEmployeeSearchResults(query = graphEmployeeState.query) {
   });
 }
 
+function graphDataCoverage(employee) {
+  const sources = [
+    { name: "Planner", has: (employee.planner?.assigned || 0) > 0 },
+    { name: "Calendar", has: (employee.calendar?.events || 0) > 0 },
+    { name: "Attendance", has: (employee.attendance?.present || 0) > 0 || (employee.attendance?.absent || 0) > 0 },
+    { name: "Teams", has: (employee.teams?.messagesCount || 0) > 0 || (employee.teams?.meetingCount || 0) > 0 },
+  ];
+  const matched = sources.filter(s => s.has).map(s => s.name);
+  const missing = sources.filter(s => !s.has).map(s => s.name);
+  return { matchedCount: matched.length, total: sources.length, matched, missing };
+}
+
+function graphCoverageBanner(employee) {
+  const { matchedCount, total, matched, missing } = graphDataCoverage(employee);
+  const checkSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>`;
+  const warnSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg>`;
+  if (matchedCount === total) {
+    return `<div class="graph-coverage graph-coverage--full">${checkSvg}<div><b>All ${total} data sources matched.</b> Full activity picture available for this employee.</div></div>`;
+  }
+  if (matchedCount === 0) {
+    return `<div class="graph-coverage graph-coverage--partial">${warnSvg}<div><b>No Microsoft 365 activity matched for this employee this period.</b> Either no activity occurred, or this employee isn't yet linked in these systems.</div></div>`;
+  }
+  return `<div class="graph-coverage graph-coverage--partial">${warnSvg}<div><b>Only ${escapeHtml(matched.join(", "))} activity matched (${matchedCount} of ${total} sources).</b> ${escapeHtml(missing.join(", "))} show no records this period — either no activity occurred, or this employee isn't yet linked in those systems.</div></div>`;
+}
+
+function employeeTeamsPanel(employee) {
+  const t = employee.teams || {};
+  const hasActivity = (t.messagesCount || 0) > 0 || (t.meetingCount || 0) > 0 || (t.callCount || 0) > 0;
+  return employeeProfilePanel("Teams activity", "teams", hasActivity ? `
+    <div class="graph-teams-stats">
+      <div><strong>${t.messagesCount || 0}</strong><span>Messages</span></div>
+      <div><strong>${t.meetingCount || 0}</strong><span>Meetings</span></div>
+      <div><strong>${t.callCount || 0}</strong><span>Calls</span></div>
+    </div>` : profileEmpty("No Teams activity this period"));
+}
+
 function showEmployeeWorkspace(employee) {
   graphEmployeeState.employeeId = employee.id;
   graphEmployeeState.tab = "overview";
@@ -484,14 +520,16 @@ function showEmployeeWorkspace(employee) {
           <button type="button" id="graphAttendanceLoad">Fetch selected month</button>
           <span id="graphAttendanceStatus" class="graph-attendance-status" aria-live="polite"></span>
         </div>
+        ${graphCoverageBanner(employee)}
         <div class="graph-profile-metrics">
           ${profileMetric("KPI", employee.kpi ?? "—", employee.band || "Performance")}
           ${profileMetric("Planner", employee.planner?.assigned || 0, `${employee.planner?.completed || 0} completed`)}
           ${profileMetric("Calendar", employee.calendar?.events || 0, `${employee.calendar?.meetingHours || 0} meeting hours`)}
           ${profileMetric(`Attendance · ${attendanceMonthLabel()}`, employee.attendance?.present || 0, `${employee.attendance?.absent || 0} absent days`)}
-          ${profileMetric("Teams", employee.teams?.status || "Unknown", employee.teams?.workLocation || "Location unknown")}
-          ${profileMetric("Confidence", `${employee.sourceConfidence || 0}%`, "Data source match")}
+          ${profileMetric("Teams", employee.teams?.status || "Unknown", `${employee.teams?.messagesCount || 0} messages`)}
+          ${profileMetric("Data Coverage", `${graphDataCoverage(employee).matchedCount} / ${graphDataCoverage(employee).total}`, "sources matched")}
         </div>
+        ${employeeTeamsPanel(employee)}
         <div class="graph-profile-callout">
           <strong>Choose a Microsoft 365 data area</strong>
           <p>Use the tabs above to view records connected only to this employee.</p>
@@ -693,11 +731,24 @@ function setGraphSection(section) {
   }
 }
 
+const GRAPH_KPI_ICONS = {
+  plans: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg>`,
+  tasks: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M2 12l3 3L15 5"/></svg>`,
+  completed: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>`,
+  calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>`,
+  sites: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>`,
+  employees: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><path d="M2 21v-1a5 5 0 015-5h1M14 21v-1a5 5 0 015-5h-1"/></svg>`,
+};
+
 function renderGraphExplorer() {
   const overview = graphData?.overview || {};
   const meta = graphData?.meta || {};
   document.getElementById("graphRefreshLabel").innerHTML = meta.generatedAt
     ? CLOCK_SVG + formatRefreshTimestamp(meta.generatedAt, "Updated") : "Not refreshed yet";
+
+  const totalEmployees = meta.totalEmployees || 0;
+  const eyebrowEl = document.getElementById("graphSummaryEyebrow");
+  if (eyebrowEl) eyebrowEl.textContent = `Organization Overview${totalEmployees ? ` · All ${totalEmployees} Employees` : ""}`;
 
   const cards = [
     ["plans", "Planner plans", overview.plans || 0, "Organized workspaces"],
@@ -710,7 +761,7 @@ function renderGraphExplorer() {
   document.getElementById("graphSummaryCards").innerHTML = cards.map(([section, name, value, note], index) => `
     <button class="graph-kpi-card ${graphExplorerState.section === section ? "active" : ""}"
       data-graph-kpi="${section}" style="--accent:${graphHue(index)}">
-      <span class="graph-kpi-icon">${index + 1}</span><strong>${escapeHtml(value)}</strong>
+      <span class="graph-kpi-icon">${GRAPH_KPI_ICONS[section]}</span><strong>${escapeHtml(value)}</strong>
       <span>${escapeHtml(name)}</span><small>${escapeHtml(note)}</small>
     </button>`).join("");
   document.querySelectorAll("[data-graph-kpi]").forEach(card => {

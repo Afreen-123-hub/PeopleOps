@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260801-intfix">
+    <link rel="stylesheet" href="styles.css?v=20260802-graphfix">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -470,7 +470,9 @@
             #graph .graph-employee-suggestions button { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:10px; width:100%; padding:10px; border:0; border-radius:9px; background:transparent; text-align:left; cursor:pointer; }
             #graph .graph-employee-suggestions button:hover { background:#f1f5f9; }
             #graph .graph-employee-suggestions small { display:block; color:var(--g-muted); }
-            #graph .graph-kpi-grid { display:grid; grid-template-columns:repeat(6,minmax(140px,1fr)); gap:12px; margin:18px 0; }
+            #graph .graph-org-eyebrow { margin:20px 0 8px; color:var(--teal); font-size:0.72rem; font-weight:800; letter-spacing:0.06em; text-transform:uppercase; }
+            #graph .graph-kpi-grid { display:grid; grid-template-columns:repeat(6,minmax(140px,1fr)); gap:12px; margin:0 0 18px; }
+            #graph .graph-kpi-icon svg { width:16px; height:16px; }
             #graph .graph-kpi-card { position:relative; display:grid; gap:4px; min-height:132px; padding:16px; overflow:hidden; border:1px solid var(--g-line); border-radius:14px; background:#fff; color:var(--g-ink); text-align:left; cursor:pointer; transition:.2s ease; }
             #graph .graph-kpi-card::before { content:""; position:absolute; inset:0 auto 0 0; width:4px; background:var(--accent); }
             #graph .graph-kpi-card:hover,#graph .graph-kpi-card.active { transform:translateY(-3px); border-color:var(--accent); box-shadow:0 12px 28px #17203314; }
@@ -560,6 +562,7 @@
             </div>
             <div id="graphEmployeeSuggestions" class="graph-employee-suggestions" hidden></div>
           </section>
+          <p id="graphSummaryEyebrow" class="graph-org-eyebrow"></p>
           <div id="graphSummaryCards" class="graph-kpi-grid"></div>
           <div class="graph-explorer">
             <section class="graph-content">
@@ -649,7 +652,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260801-intfix"></script>
-    <script src="graph-explorer.js?v=20260801-intfix"></script>
+    <script src="app.js?v=20260802-graphfix"></script>
+    <script src="graph-explorer.js?v=20260802-graphfix"></script>
   </body>
 </html>
