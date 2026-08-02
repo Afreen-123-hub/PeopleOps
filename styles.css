@@ -5701,6 +5701,7 @@ body.graph-drawer-open .tara-panel {
 .graph-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(100px, 1fr));
+  gap: 8px;
 }
 
 .graph-calendar-titlebar {
@@ -5780,19 +5781,196 @@ body.graph-drawer-open .tara-panel {
 }
 
 .graph-calendar-day {
-  min-height: 135px;
-  padding: 8px;
-  border: solid var(--line);
-  border-width: 1px 0 0 1px;
+  min-height: 128px;
+  padding: 10px;
+  border: 1px solid #dfe7f2;
+  border-radius: 12px;
   background: white;
-  transition: background .16s ease, box-shadow .16s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
 }
 
 .graph-calendar-day:hover {
   position: relative;
   z-index: 1;
-  background: #fbfdff;
-  box-shadow: inset 0 0 0 1px #b8cdf8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(23, 32, 51, .12);
+  border-color: #99d8cf;
+}
+
+.graph-calendar-day.today {
+  box-shadow: 0 0 0 2px var(--teal) inset;
+}
+
+.graph-calendar-day.busiest {
+  background: var(--teal) !important;
+  color: #fff;
+  border-color: var(--teal);
+}
+
+.graph-calendar-day.busiest .graph-cal-count { background: rgba(255, 255, 255, .25); color: #fff; }
+.graph-calendar-day.busiest .graph-cal-mix { background: rgba(255, 255, 255, .3); }
+.graph-calendar-day.busiest .graph-cal-ev,
+.graph-calendar-day.busiest .graph-cal-ev b { color: #fff; }
+.graph-calendar-day.busiest .graph-cal-ev i { background: #fff !important; }
+.graph-calendar-day.busiest .graph-cal-viewday { background: rgba(255, 255, 255, .25); color: #fff; }
+
+.graph-cal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.graph-day-num {
+  font-weight: 800;
+  font-size: .88rem;
+}
+
+.graph-cal-count {
+  font-size: .64rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: rgba(0, 169, 157, .16);
+  color: #0f766e;
+}
+
+.graph-cal-mix {
+  height: 4px;
+  border-radius: 99px;
+  overflow: hidden;
+  display: flex;
+  background: #e7ecf3;
+}
+
+.graph-cal-mix span {
+  display: block;
+  height: 100%;
+}
+
+.graph-cal-events {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.graph-cal-ev {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #172033;
+  font-size: .66rem;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.graph-cal-ev i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex: none;
+  background: #2563eb;
+}
+
+.graph-cal-ev.tentative i { background: #d97706; }
+
+.graph-cal-ev b {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.graph-cal-viewday {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: .62rem;
+  font-weight: 800;
+  color: #0f766e;
+  background: #e6f7f4;
+  border: 0;
+  padding: 4px 9px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.graph-cal-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.graph-cal-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #dfe7f2;
+  font-size: .72rem;
+  font-weight: 700;
+  box-shadow: 0 1px 2px rgba(23, 32, 51, .05);
+}
+
+.graph-cal-chip.busiest { color: #0f766e; border-color: #99d8cf; }
+.graph-cal-chip.quietest { color: var(--muted); }
+
+.graph-heatstrip-wrap { margin: 4px 0 16px; }
+
+.graph-heatstrip-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: .7rem;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 6px;
+}
+
+.graph-heatstrip {
+  display: grid;
+  grid-template-columns: repeat(var(--days, 31), 1fr);
+  gap: 3px;
+  align-items: end;
+  height: 42px;
+}
+
+.graph-heatbar {
+  border-radius: 3px 3px 2px 2px;
+  cursor: pointer;
+  transition: opacity .12s;
+}
+
+.graph-heatbar:hover { opacity: .7; }
+
+.graph-heatstrip-days {
+  display: grid;
+  grid-template-columns: repeat(var(--days, 31), 1fr);
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.graph-heatstrip-days span {
+  font-size: .56rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.graph-calendar-legend .legend-dead {
+  opacity: .4;
+  text-decoration: line-through;
 }
 
 .graph-day-number {
@@ -5825,7 +6003,8 @@ body.graph-drawer-open .tara-panel {
 }
 
 .graph-calendar-day.empty {
-  background: #f8fafc;
+  background: transparent;
+  border-color: transparent;
 }
 
 .graph-calendar-event {
