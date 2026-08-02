@@ -1120,27 +1120,46 @@ function openPlanDrawer(id) {
   document.querySelectorAll("[data-drawer-task]").forEach(button => button.onclick = () => openTaskDrawer(button.dataset.drawerTask));
 }
 
+const GRAPH_PRIORITY_COLOR = { "urgent": "#ef4444", "high": "#f59e0b", "medium": "#3b82f6", "low": "#94a3b8" };
+
 function openTaskDrawer(id) {
   const task = graphTasks().find(item => item.id === id);
   if (!task) return;
   const checklist = Array.isArray(task.checklist) ? task.checklist : Object.values(task.checklist || {});
   const comments = Array.isArray(task.comments) ? task.comments : Object.values(task.comments || {});
-  openGraphDrawer(task.title, "Planner task", `<div class="graph-detail-stack">
-    ${graphDetail("Task ID", task.id)}${graphDetail("Status", graphStatus(task))}
-    ${graphDetail("Assigned user", (task.assignees || []).join(", ") || "Unassigned")}${graphDetail("Assignee IDs", (task.assigneeIds || []).join(", ") || "—")}
-    ${graphDetail("Start date", graphDateTime(task.startDateTime))}
-    ${graphDetail("Due date", graphDateTime(task.dueDateTime))}${graphDetail("Priority", graphPriority(task.priority))}
-    ${graphDetail("Progress", `${task.percentComplete || 0}%`)}${graphDetail("Completion date", graphDateTime(task.completedDateTime))}
-    ${graphDetail("Plan", task.planTitle)}${graphDetail("Plan ID", task.planId)}
-    ${graphDetail("Group", task.groupName)}${graphDetail("Description", task.description || "Not returned by the current Graph response")}
-    ${graphDetail("Checklist items", checklist.length)}${graphDetail("Comments", comments.length || "Not available")}
-  </div>
-  <h3>Checklist</h3><div class="graph-mini-list">${checklist.map(item =>
-    `<div>${item.isChecked || item.completed ? "✓" : "○"} ${escapeHtml(item.title || item.name || "Checklist item")}</div>`
-  ).join("") || "<p>No checklist items available.</p>"}</div>
-  <h3>Comments</h3><div class="graph-mini-list">${comments.map(comment =>
-    `<div><strong>${escapeHtml(comment.author || comment.createdBy || "User")}</strong><p>${escapeHtml(comment.text || comment.content || comment.body || "")}</p></div>`
-  ).join("") || "<p>No comments available.</p>"}</div>`);
+  const status = graphStatus(task);
+  const statusColor = graphTaskStatusColor(status);
+  const priority = graphPriority(task.priority);
+  const priorityColor = GRAPH_PRIORITY_COLOR[priority.toLowerCase()] || "#94a3b8";
+  const isOverdue = status === "Overdue";
+  const warnSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg>`;
+
+  openGraphDrawer(task.title, "Planner task", `
+    <div class="graphd-badge-row">
+      <span class="graphd-status-badge" style="background:color-mix(in srgb, ${statusColor} 16%, white);color:${statusColor}">${isOverdue ? warnSvg : ""}${escapeHtml(status)}</span>
+      <span class="graphd-status-badge" style="background:color-mix(in srgb, ${priorityColor} 16%, white);color:${priorityColor}">${escapeHtml(priority)} priority</span>
+    </div>
+    ${isOverdue ? `<div class="graphd-overdue-banner">${warnSvg}<div>This task is past its due date (${escapeHtml(graphDateTime(task.dueDateTime))}) and not yet completed.</div></div>` : ""}
+    <div class="graph-detail-stack">
+      ${graphDetail("Assigned user", (task.assignees || []).join(", ") || "Unassigned")}
+      ${graphDetail("Plan", task.planTitle)}
+      ${graphDetail("Due date", graphDateTime(task.dueDateTime))}
+      ${graphDetail("Group", task.groupName)}
+      ${graphDetail("Start date", graphDateTime(task.startDateTime))}
+      ${graphDetail("Progress", `${task.percentComplete || 0}%`)}
+      ${graphDetail("Completion date", graphDateTime(task.completedDateTime))}
+    </div>
+    <div class="graph-detail-stack">${graphDetail("Description", task.description || "Not returned by the current Graph response")}</div>
+    <h3>Checklist</h3><div class="graph-mini-list">${checklist.map(item =>
+      `<div>${item.isChecked || item.completed ? "✓" : "○"} ${escapeHtml(item.title || item.name || "Checklist item")}</div>`
+    ).join("") || "<p>No checklist items available.</p>"}</div>
+    <h3>Comments</h3><div class="graph-mini-list">${comments.map(comment =>
+      `<div><strong>${escapeHtml(comment.author || comment.createdBy || "User")}</strong><p>${escapeHtml(comment.text || comment.content || comment.body || "")}</p></div>`
+    ).join("") || "<p>No comments available.</p>"}</div>
+    <details class="graphd-tech-details">
+      <summary>Technical details</summary>
+      <div class="graph-detail-stack">${graphDetail("Task ID", task.id)}${graphDetail("Plan ID", task.planId)}${graphDetail("Assignee IDs", (task.assigneeIds || []).join(", ") || "—")}</div>
+    </details>`);
 }
 
 function openEventDrawer(id, employeeId) {

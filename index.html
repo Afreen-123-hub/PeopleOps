@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260802-plandrawer">
+    <link rel="stylesheet" href="styles.css?v=20260802-taskdrawer">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -561,6 +561,11 @@
             .graphd-tech-details summary { cursor:pointer; font-weight:600; }
             .graphd-tech-details .graph-detail-stack { margin:10px 0 0; }
             .graphd-tech-details .graph-detail-row strong { font-size:0.78rem; color:#94a3b8; }
+            .graphd-badge-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+            .graphd-badge-row .graphd-status-badge { display:inline-flex; align-items:center; gap:5px; font-size:0.78rem; padding:5px 12px; }
+            .graphd-badge-row .graphd-status-badge svg { width:13px; height:13px; }
+            .graphd-overdue-banner { display:flex; align-items:flex-start; gap:10px; background:#fef2f2; border:1px solid #fecaca; color:#991b1b; border-radius:10px; padding:12px 14px; margin-top:12px; font-size:0.84rem; line-height:1.5; }
+            .graphd-overdue-banner svg { width:15px; height:15px; flex-shrink:0; margin-top:1px; }
           </style>
           <div class="graph-command">
             <div>
@@ -680,7 +685,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260802-plandrawer"></script>
-    <script src="graph-explorer.js?v=20260802-plandrawer"></script>
+    <script src="app.js?v=20260802-taskdrawer"></script>
+    <script src="graph-explorer.js?v=20260802-taskdrawer"></script>
   </body>
 </html>
