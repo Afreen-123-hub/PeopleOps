@@ -723,7 +723,7 @@ function renderGraphToolbar() {
     tasks: [["all", "All statuses"], ["Completed", "Completed"], ["In Progress", "In progress"], ["Not Started", "Not started"], ["Overdue", "Overdue"], ["Unassigned", "Unassigned"], ["Orphaned", "No owner + no deadline"], ["Priority", "High/Urgent priority"]],
     completed: [["all", "All completed"]],
     calendar: [["all", "All events"], ["busy", "Busy"], ["tentative", "Tentative"], ["free", "Free"], ["cancelled", "Cancelled"]],
-    sites: [["all", "All sites"], ["files", "Has files"], ["lists", "Has lists"]],
+    sites: [["all", "All sites"], ["files", "Has files"], ["lists", "Has lists"], ["Empty", "Empty sites"], ["Stale", "Inactive 180+ days"], ["Duplicate", "Possible duplicate"], ["Archival", "Archival candidate"]],
     employees: [["all", "All employees"], ["matched", "Matched"], ["unmatched", "Unmatched"]],
   }[graphExplorerState.section];
   const viewSwitch = graphExplorerState.section === "calendar" ? `
@@ -1080,21 +1080,132 @@ function bindGraphEvents() {
   });
 }
 
+function graphSiteDaysInactive(site) {
+  if (!site.lastActivity) return null;
+  return Math.floor((Date.now() - new Date(site.lastActivity).getTime()) / 86400000);
+}
+
+function graphSiteIsEmpty(site) {
+  return !(site.files || []).length && (site.lists || []).length <= 1;
+}
+
+function graphSiteIsStale(site) {
+  const days = graphSiteDaysInactive(site);
+  return days !== null && days > 180;
+}
+
+function graphSiteNameKey(name) {
+  return String(name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function graphSiteDuplicateMap(sites) {
+  const groups = {};
+  sites.forEach(site => {
+    const key = graphSiteNameKey(site.displayName);
+    (groups[key] = groups[key] || []).push(site);
+  });
+  const map = new Map();
+  Object.values(groups).filter(group => group.length > 1).forEach(group => {
+    group.forEach(site => map.set(site.id, group));
+  });
+  return map;
+}
+
+function graphSiteStatStrip(sites, dupMap) {
+  if (!sites.length) return "";
+  const empty = sites.filter(graphSiteIsEmpty);
+  const stale = sites.filter(graphSiteIsStale);
+  const archival = sites.filter(site => graphSiteIsEmpty(site) && graphSiteIsStale(site));
+  const dupGroups = new Set(Array.from(dupMap.values()).map(group => group.map(site => site.id).sort().join(",")));
+  const pct = Math.round(empty.length / sites.length * 100);
+  return `<div class="graph-task-stat-strip">
+    <button type="button" class="graph-stat-tile stat-unassigned" data-site-stat-filter="Empty">
+      <b>${empty.length}</b><span class="label">Empty sites</span><span class="sub">${pct}% have no files uploaded</span>
+    </button>
+    <button type="button" class="graph-stat-tile stat-priority" data-site-stat-filter="Stale">
+      <b>${stale.length}</b><span class="label">Inactive 180+ days</span><span class="sub">no recent activity</span>
+    </button>
+    <button type="button" class="graph-stat-tile stat-orphan" data-site-stat-filter="Duplicate">
+      <b>${dupMap.size}</b><span class="label">Possible duplicates</span><span class="sub">${dupGroups.size} name group${dupGroups.size !== 1 ? "s" : ""} split work</span>
+    </button>
+    <button type="button" class="graph-stat-tile stat-overdue" data-site-stat-filter="Archival">
+      <b>${archival.length}</b><span class="label">Archival candidates</span><span class="sub">empty and inactive</span>
+    </button>
+  </div>`;
+}
+
+function graphSiteDupBanner(dupMap) {
+  if (!dupMap.size) return "";
+  const seen = new Set();
+  const groups = [];
+  dupMap.forEach(group => {
+    const key = group.map(site => site.id).sort().join(",");
+    if (seen.has(key)) return;
+    seen.add(key);
+    groups.push(group);
+  });
+  const warnSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg>`;
+  return `<div class="graph-attn-banner">
+    <div class="graph-attn-icon">${warnSvg}</div>
+    <div><b>${groups.length} site name group${groups.length !== 1 ? "s" : ""} may be splitting the same work</b> — ${groups.map(group => {
+      const totalFiles = group.reduce((sum, site) => sum + (site.files || []).length, 0);
+      return `${escapeHtml(group.map(site => site.displayName).join(" / "))} (${group.length} sites, ${totalFiles} files total)`;
+    }).join("; ")}.</div>
+  </div>`;
+}
+
+function bindGraphSiteStatTiles() {
+  document.querySelectorAll("[data-site-stat-filter]").forEach(tile => {
+    tile.onclick = () => {
+      graphExplorerState.filter = tile.dataset.siteStatFilter;
+      graphExplorerState.page = 1;
+      renderGraphToolbar();
+      renderGraphSection();
+    };
+  });
+}
+
 function renderGraphSites() {
-  let rows = [...(graphData?.sharePoint?.sites || [])].filter(site => graphSearch(site.displayName, site.webUrl, site.owner));
-  rows = rows.filter(site => graphExplorerState.filter === "all" ||
-    (graphExplorerState.filter === "files" ? site.files?.length : site.lists?.length));
+  const matching = [...(graphData?.sharePoint?.sites || [])].filter(site => graphSearch(site.displayName, site.webUrl, site.owner));
+  const dupMap = graphSiteDuplicateMap(matching);
+  const rows = matching.filter(site => {
+    const filter = graphExplorerState.filter;
+    if (filter === "all") return true;
+    if (filter === "files") return site.files?.length;
+    if (filter === "lists") return site.lists?.length;
+    if (filter === "Empty") return graphSiteIsEmpty(site);
+    if (filter === "Stale") return graphSiteIsStale(site);
+    if (filter === "Archival") return graphSiteIsEmpty(site) && graphSiteIsStale(site);
+    if (filter === "Duplicate") return dupMap.has(site.id);
+    return true;
+  });
   rows.sort((a, b) => graphExplorerState.sort === "newest"
     ? new Date(b.lastActivity || 0) - new Date(a.lastActivity || 0) : a.displayName.localeCompare(b.displayName));
-  if (!rows.length) return graphEmpty("No SharePoint sites found", "Try changing the search or site filter.");
+  const statStrip = graphSiteStatStrip(matching, dupMap);
+  const dupBanner = graphSiteDupBanner(dupMap);
+  if (!rows.length) {
+    document.getElementById("graphPagination").innerHTML = "";
+    document.getElementById("graphWorkspace").innerHTML = `${statStrip}${dupBanner}<div class="graph-empty-state"><span aria-hidden="true">⌕</span><h3>No SharePoint sites found</h3><p>Try changing the search or site filter.</p></div>`;
+    bindGraphSiteStatTiles();
+    return;
+  }
   const page = graphPage(rows);
-  document.getElementById("graphWorkspace").innerHTML = `<div class="graph-site-grid">${page.map((site, index) => `
-    <article class="graph-site-card" style="--site:${graphHue(index + 2)}"><button data-site-id="${escapeHtml(site.id)}">
+  document.getElementById("graphWorkspace").innerHTML = `${statStrip}${dupBanner}<div class="graph-site-grid">${page.map((site, index) => {
+    const isEmpty = graphSiteIsEmpty(site);
+    const isStale = graphSiteIsStale(site);
+    const isDup = dupMap.has(site.id);
+    const flags = isEmpty || isStale || isDup
+      ? `<span class="graph-site-flags">${isEmpty ? '<span class="graph-warn-pill graph-warn-pill--muted">Empty</span>' : ""}${isStale ? '<span class="graph-warn-pill graph-warn-pill--muted">Inactive</span>' : ""}${isDup ? '<span class="graph-warn-pill">Possible duplicate</span>' : ""}</span>`
+      : "";
+    return `<article class="graph-site-card" style="--site:${graphHue(index + 2)}"><button data-site-id="${escapeHtml(site.id)}">
       <span class="graph-site-icon">S</span><h3>${escapeHtml(site.displayName)}</h3>
       <p>${site.lists?.length || 0} lists · ${site.files?.length || 0} files/folders</p>
       <small>${site.lastActivity ? `Active ${graphDate(site.lastActivity)}` : "Activity unavailable"}</small>
-    </button><a href="${escapeHtml(site.webUrl)}" target="_blank" rel="noreferrer">Open site ↗</a></article>`).join("")}</div>`;
+      ${flags}
+    </button><a href="${escapeHtml(site.webUrl)}" target="_blank" rel="noreferrer">Open site ↗</a></article>`;
+  }).join("")}</div>`;
   document.querySelectorAll("[data-site-id]").forEach(card => card.onclick = () => openSiteDrawer(card.dataset.siteId));
+  bindGraphSiteStatTiles();
 }
 
 function renderGraphEmployees() {
@@ -1310,10 +1421,24 @@ function openCalendarDayDrawer(dateKey) {
 }
 
 function openSiteDrawer(id) {
-  const site = (graphData?.sharePoint?.sites || []).find(item => item.id === id);
+  const allSites = graphData?.sharePoint?.sites || [];
+  const site = allSites.find(item => item.id === id);
   if (!site) return;
-  openGraphDrawer(site.displayName, "SharePoint site", `<div class="graph-detail-stack">
-    ${graphDetail("Last activity", graphDateTime(site.lastActivity))}${graphDetail("Lists", site.lists?.length || 0)}
+  const dupMap = graphSiteDuplicateMap(allSites);
+  const siblings = (dupMap.get(id) || []).filter(item => item.id !== id);
+  const isEmpty = graphSiteIsEmpty(site);
+  const isStale = graphSiteIsStale(site);
+  const daysInactive = graphSiteDaysInactive(site);
+  const warnSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg>`;
+  openGraphDrawer(site.displayName, "SharePoint site", `
+    ${isEmpty || isStale || siblings.length ? `<div class="graphd-badge-row">
+      ${isEmpty ? `<span class="graphd-status-badge" style="background:#fef3c7;color:#b45309">No files uploaded</span>` : ""}
+      ${isStale ? `<span class="graphd-status-badge" style="background:#eff6ff;color:#1d4ed8">Inactive ${daysInactive}d</span>` : ""}
+      ${siblings.length ? `<span class="graphd-status-badge" style="background:#fee2e2;color:#b91c1c">Possible duplicate</span>` : ""}
+    </div>` : ""}
+    ${siblings.length ? `<div class="graphd-overdue-banner" style="background:#fff7ed;border-color:#fed7aa;color:#9a3412">${warnSvg}<div>${siblings.length} other site${siblings.length !== 1 ? "s" : ""} share a near-identical name and may be splitting this work: ${siblings.map(item => `<b>${escapeHtml(item.displayName)}</b> (${(item.files || []).length} files)`).join(", ")}.</div></div>` : ""}
+    <div class="graph-detail-stack">
+    ${graphDetail("Last activity", site.lastActivity ? graphDateTime(site.lastActivity) : "No recorded activity")}${graphDetail("Lists", site.lists?.length || 0)}
     ${graphDetail("Files / folders", site.files?.length || 0)}
   </div><h3>Lists</h3><div class="graph-mini-list">${(site.lists || []).map(item =>
     `<a href="${escapeHtml(item.webUrl)}" target="_blank">${escapeHtml(item.displayName)}<span>${escapeHtml(item.template)}</span></a>`

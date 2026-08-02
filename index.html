@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260802-taskrisk">
+    <link rel="stylesheet" href="styles.css?v=20260802-sitesprawl">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -514,6 +514,9 @@
             #graph .graph-stat-tile.stat-priority b { color:#2563eb; }
             #graph .graph-task-priority { font-size:0.66rem; font-weight:800; padding:2px 8px; border-radius:20px; }
             #graph .graph-task-gap { color:#b45309; background:#fef3c7; padding:2px 8px; border-radius:20px; font-weight:700; font-size:0.72rem; }
+            #graph .graph-site-flags { display:flex; flex-wrap:wrap; gap:5px; margin-top:2px; }
+            #graph .graph-site-flags .graph-warn-pill { margin-top:0; }
+            #graph .graph-warn-pill--muted { background:#f1f5f9; color:#64748b; }
             #graph .graph-plan-card,#graph .graph-task-card,#graph .graph-site-card,#graph .graph-employee-card { min-height:170px; padding:17px; border:1px solid var(--g-line); border-radius:14px; background:#fff; color:var(--g-ink); text-align:left; cursor:pointer; transition:transform .18s,box-shadow .18s,border-color .18s; }
             #graph .graph-plan-card:hover,#graph .graph-task-card:hover,#graph .graph-site-card:hover,#graph .graph-employee-card:hover { transform:translateY(-3px); box-shadow:0 12px 24px #17203314; }
             #graph .graph-plan-card { border-top:5px solid var(--plan); background:linear-gradient(150deg,color-mix(in srgb,var(--plan) 8%,white),#fff 55%); }
@@ -697,7 +700,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260802-taskrisk"></script>
-    <script src="graph-explorer.js?v=20260802-taskrisk"></script>
+    <script src="app.js?v=20260802-sitesprawl"></script>
+    <script src="graph-explorer.js?v=20260802-sitesprawl"></script>
   </body>
 </html>
