@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260802-plansfix">
+    <link rel="stylesheet" href="styles.css?v=20260802-plandrawer">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -544,6 +544,23 @@
             @keyframes graphShimmer { to { background-position:-200% 0; } }
             .graph-drawer-overlay { position:fixed;z-index:1000;inset:0;background:#0f172a66;opacity:0;transition:opacity .18s; } .graph-drawer-overlay.open { opacity:1; } .graph-drawer { position:absolute;inset:0 0 0 auto;width:min(560px,94vw);padding:28px;overflow:auto;background:#fff;box-shadow:-20px 0 55px #0f172a33;transform:translateX(100%);transition:transform .22s; } .graph-drawer-overlay.open .graph-drawer { transform:none; } .graph-drawer-close { position:absolute;top:18px;right:18px;width:34px;height:34px;border:0;border-radius:50%;background:#eef2f7;font-size:22px;cursor:pointer; } .graph-detail-stack { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0; } .graph-detail-row { padding:12px;border:1px solid #e2e8f0;border-radius:9px;background:#f8fafc; } .graph-detail-row span { display:block;margin-bottom:5px;color:#64748b;font-size:11px;text-transform:uppercase; } .graph-detail-row strong { overflow-wrap:anywhere; } .graph-mini-list { display:grid;gap:6px; } .graph-mini-list button,.graph-mini-list a { display:flex;justify-content:space-between;gap:10px;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#172033;text-align:left;text-decoration:none;cursor:pointer; }
             @media(max-width:1200px){#graph .graph-kpi-grid{grid-template-columns:repeat(3,1fr)}} @media(max-width:800px){#graph .graph-explorer{grid-template-columns:1fr}#graph .graph-subnav{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--g-line)}#graph .graph-subnav-item{min-width:max-content}#graph .graph-command,#graph .graph-people-search{align-items:stretch;flex-direction:column}#graph .graph-kpi-grid{grid-template-columns:repeat(2,1fr)}#graph .graph-toolbar{flex-wrap:wrap}#graph .graph-calendar-day{min-height:90px}.graph-detail-stack{grid-template-columns:1fr}}
+            .graphd-stat-strip { display:flex; align-items:center; gap:16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; margin-top:18px; }
+            .graphd-ring { --pct:0; --c:#94a3b8; width:58px; height:58px; border-radius:50%; flex-shrink:0; background:conic-gradient(var(--c) calc(var(--pct)*1%), #e5e7eb 0); display:grid; place-items:center; }
+            .graphd-ring-inner { width:44px; height:44px; border-radius:50%; background:#fff; display:grid; place-items:center; font-size:0.82rem; font-weight:800; }
+            .graphd-stat-tiles { display:flex; gap:18px; flex:1; }
+            .graphd-stat-tiles strong { display:block; font-size:1.1rem; }
+            .graphd-stat-tiles span { font-size:0.72rem; color:#64748b; text-transform:uppercase; letter-spacing:0.03em; }
+            .graphd-status-badges { display:flex; flex-wrap:wrap; gap:6px; margin:-8px 0 18px; }
+            .graphd-status-badge { font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px; }
+            .graphd-task-row { display:flex; align-items:center; gap:9px; }
+            .graphd-task-row--overdue { background:#fef2f2!important; border-color:#fecaca!important; }
+            .graphd-task-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+            .graphd-task-title { flex:1; }
+            .graphd-task-status { font-size:0.78rem; font-weight:700; white-space:nowrap; }
+            .graphd-tech-details { margin-top:18px; font-size:0.78rem; color:#94a3b8; }
+            .graphd-tech-details summary { cursor:pointer; font-weight:600; }
+            .graphd-tech-details .graph-detail-stack { margin:10px 0 0; }
+            .graphd-tech-details .graph-detail-row strong { font-size:0.78rem; color:#94a3b8; }
           </style>
           <div class="graph-command">
             <div>
@@ -663,7 +680,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260802-plansfix"></script>
-    <script src="graph-explorer.js?v=20260802-plansfix"></script>
+    <script src="app.js?v=20260802-plandrawer"></script>
+    <script src="graph-explorer.js?v=20260802-plandrawer"></script>
   </body>
 </html>

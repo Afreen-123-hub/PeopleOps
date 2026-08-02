@@ -1065,21 +1065,58 @@ function closeGraphDrawer() {
   setTimeout(() => { overlay.hidden = true; }, 180);
 }
 
+const GRAPH_TASK_STATUS_COLOR = {
+  "completed": "#22c55e",
+  "in progress": "#3b82f6",
+  "not started": "#94a3b8",
+  "overdue": "#ef4444",
+};
+function graphTaskStatusColor(status) {
+  return GRAPH_TASK_STATUS_COLOR[(status || "").toLowerCase()] || "#94a3b8";
+}
+const GRAPH_STATUS_SORT_RANK = { "overdue": 0, "in progress": 1, "not started": 2, "completed": 3 };
+
 function openPlanDrawer(id) {
   const plan = (graphData?.planner?.plans || []).find(item => item.id === id);
   if (!plan) return;
   const tasks = plan.tasks || [], completed = tasks.filter(task => graphStatus(task) === "Completed").length;
   const open = tasks.length - completed;
+  const pct = tasks.length ? Math.round(completed / tasks.length * 100) : 0;
+  const ringColor = planTierColor(pct);
   const summary = plan.summary || {};
-  openGraphDrawer(plan.title, "Planner plan", `<div class="graph-detail-stack">
-    ${graphDetail("Plan ID", plan.id)}${graphDetail("Owner / Group", plan.owner || plan.groupName || "Not provided")}
-    ${graphDetail("Group ID", plan.groupId)}${graphDetail("Created date", plan.createdDateTime ? graphDate(plan.createdDateTime) : "Not provided by Graph")}
-    ${graphDetail("Tasks", tasks.length)}${graphDetail("Open tasks", open)}
-    ${graphDetail("Completed tasks", completed)}${graphDetail("Completion", `${tasks.length ? Math.round(completed / tasks.length * 100) : 0}%`)}
-    ${graphDetail("Reported statuses", Object.entries(summary).map(([name, count]) => `${name}: ${count}`).join(", ") || "Not provided")}
-  </div><h3>Tasks</h3><div class="graph-mini-list">${tasks.map(task =>
-    `<button data-drawer-task="${escapeHtml(task.id)}">${escapeHtml(task.title)}<span>${escapeHtml(graphStatus(task))}</span></button>`
-  ).join("")}</div>`);
+  const sortedTasks = [...tasks].sort((a, b) =>
+    (GRAPH_STATUS_SORT_RANK[graphStatus(a).toLowerCase()] ?? 9) - (GRAPH_STATUS_SORT_RANK[graphStatus(b).toLowerCase()] ?? 9));
+
+  openGraphDrawer(plan.title, "Planner plan", `
+    <div class="graphd-stat-strip">
+      <div class="graphd-ring" style="--pct:${pct};--c:${ringColor}"><div class="graphd-ring-inner" style="color:${ringColor}">${pct}%</div></div>
+      <div class="graphd-stat-tiles">
+        <div><strong>${tasks.length}</strong><span>Tasks</span></div>
+        <div><strong>${open}</strong><span>Open</span></div>
+        <div><strong>${completed}</strong><span>Completed</span></div>
+      </div>
+    </div>
+    <div class="graph-detail-stack">
+      ${graphDetail("Owner / Group", plan.owner || plan.groupName || "Not provided")}
+      ${graphDetail("Created date", plan.createdDateTime ? graphDate(plan.createdDateTime) : "Not provided by Graph")}
+    </div>
+    ${Object.keys(summary).length ? `<div class="graphd-status-badges">${Object.entries(summary).map(([name, count]) =>
+      `<span class="graphd-status-badge" style="background:color-mix(in srgb, ${graphTaskStatusColor(name)} 16%, white);color:${graphTaskStatusColor(name)}">${escapeHtml(name)}: ${escapeHtml(count)}</span>`
+    ).join("")}</div>` : ""}
+    <h3>Tasks</h3>
+    <div class="graph-mini-list">${sortedTasks.map(task => {
+      const status = graphStatus(task);
+      const isOverdue = status === "Overdue";
+      return `<button class="graphd-task-row${isOverdue ? " graphd-task-row--overdue" : ""}" data-drawer-task="${escapeHtml(task.id)}">
+        <span class="graphd-task-dot" style="background:${graphTaskStatusColor(status)}"></span>
+        <span class="graphd-task-title">${escapeHtml(task.title)}</span>
+        <span class="graphd-task-status" style="color:${graphTaskStatusColor(status)}">${escapeHtml(status)}</span>
+      </button>`;
+    }).join("")}</div>
+    <details class="graphd-tech-details">
+      <summary>Technical details</summary>
+      <div class="graph-detail-stack">${graphDetail("Plan ID", plan.id)}${graphDetail("Group ID", plan.groupId)}</div>
+    </details>`);
   document.querySelectorAll("[data-drawer-task]").forEach(button => button.onclick = () => openTaskDrawer(button.dataset.drawerTask));
 }
 
