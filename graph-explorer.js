@@ -519,14 +519,43 @@ function openEmployeePlanDrawer(employee, planId) {
   if (!plan) return;
   const tasks = plan.tasks || [];
   const completed = tasks.filter(task => graphStatus(task) === "Completed").length;
-  openGraphDrawer(plan.title, `${employee.name} · Planner plan`, `<div class="graph-detail-stack">
-    ${graphDetail("Plan ID", plan.id)}${graphDetail("Owner / Group", plan.owner || plan.groupName || "Not provided")}
-    ${graphDetail("Group ID", plan.groupId)}${graphDetail("Employee tasks", tasks.length)}
-    ${graphDetail("Completed", completed)}${graphDetail("Completion", `${tasks.length ? Math.round(completed / tasks.length * 100) : 0}%`)}
-  </div><h3>${escapeHtml(employee.name)}'s tasks in this plan</h3>
-  <div class="graph-mini-list">${tasks.map(task => `
-    <button data-employee-plan-task="${escapeHtml(task.id)}">${escapeHtml(task.title)}
-    <span>${escapeHtml(graphStatus(task))}</span></button>`).join("") || "<p>No assigned tasks.</p>"}</div>`);
+  const open = tasks.length - completed;
+  const pct = tasks.length ? Math.round((completed / tasks.length) * 100) : 0;
+  const ringColor = planTierColor(pct);
+  const summary = {};
+  tasks.forEach(task => { const status = graphStatus(task); summary[status] = (summary[status] || 0) + 1; });
+  const sortedTasks = [...tasks].sort((a, b) =>
+    (GRAPH_STATUS_SORT_RANK[graphStatus(a).toLowerCase()] ?? 9) - (GRAPH_STATUS_SORT_RANK[graphStatus(b).toLowerCase()] ?? 9));
+
+  openGraphDrawer(plan.title, `${employee.name} · Planner plan`, `
+    <div class="graphd-stat-strip">
+      <div class="graphd-ring" style="--pct:${pct};--c:${ringColor}"><div class="graphd-ring-inner" style="color:${ringColor}">${pct}%</div></div>
+      <div class="graphd-stat-tiles">
+        <div><strong>${tasks.length}</strong><span>Tasks</span></div>
+        <div><strong>${open}</strong><span>Open</span></div>
+        <div><strong>${completed}</strong><span>Completed</span></div>
+      </div>
+    </div>
+    <div class="graph-detail-stack">
+      ${graphDetail("Owner / Group", plan.owner || plan.groupName || "Not provided")}
+    </div>
+    ${Object.keys(summary).length ? `<div class="graphd-status-badges">${Object.entries(summary).map(([name, count]) =>
+      `<span class="graphd-status-badge" style="background:color-mix(in srgb, ${graphTaskStatusColor(name)} 16%, white);color:${graphTaskStatusColor(name)}">${escapeHtml(name)}: ${escapeHtml(count)}</span>`
+    ).join("")}</div>` : ""}
+    <h3>${escapeHtml(employee.name)}'s tasks in this plan</h3>
+    <div class="graph-mini-list">${sortedTasks.map(task => {
+      const status = graphStatus(task);
+      const isOverdue = status === "Overdue";
+      return `<button class="graphd-task-row${isOverdue ? " graphd-task-row--overdue" : ""}" data-employee-plan-task="${escapeHtml(task.id)}">
+        <span class="graphd-task-dot" style="background:${graphTaskStatusColor(status)}"></span>
+        <span class="graphd-task-title">${escapeHtml(task.title)}</span>
+        <span class="graphd-task-status" style="color:${graphTaskStatusColor(status)}">${escapeHtml(status)}</span>
+      </button>`;
+    }).join("") || "<p>No assigned tasks.</p>"}</div>
+    <details class="graphd-tech-details">
+      <summary>Technical details</summary>
+      <div class="graph-detail-stack">${graphDetail("Plan ID", plan.id)}${graphDetail("Group ID", plan.groupId)}</div>
+    </details>`);
   document.querySelectorAll("[data-employee-plan-task]").forEach(button => {
     button.onclick = () => openTaskDrawer(button.dataset.employeePlanTask);
   });
@@ -546,8 +575,10 @@ function employeeCalendarKey(value) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 }
 
-function renderEmployeeCalendar(employee, selectedDate = null) {
-  const events = employee.calendar?.items || [];
+function renderEmployeeCalendar(employee, selectedDate = null, showCancelled = false) {
+  const allEvents = employee.calendar?.items || [];
+  const cancelledCount = allEvents.filter(event => event.isCancelled).length;
+  const events = showCancelled ? allEvents.filter(event => event.isCancelled) : allEvents.filter(event => !event.isCancelled);
   const content = document.getElementById("graphEmployeeOptionContent");
   if (selectedDate) {
     const meetings = events.filter(event => employeeCalendarKey(event.start) === selectedDate)
@@ -565,50 +596,76 @@ function renderEmployeeCalendar(employee, selectedDate = null) {
           <time>${new Date(event.start).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</time>
           <span><strong>${escapeHtml(event.subject)}</strong><small>${escapeHtml(event.organizer || "Organizer unavailable")}</small></span>
           <i>${event.durationMinutes || 0} min</i>
-        </button>`).join("")}</div>` : employeeOptionEmpty("No calendar meetings found for this date.")}`;
-    document.getElementById("employeeCalendarBack").onclick = () => renderEmployeeCalendar(employee);
+        </button>`).join("")}</div>` : employeeOptionEmpty(showCancelled ? "No cancelled meetings found for this date." : "No calendar meetings found for this date.")}`;
+    document.getElementById("employeeCalendarBack").onclick = () => renderEmployeeCalendar(employee, null, showCancelled);
     document.querySelectorAll("[data-employee-event]").forEach(button => {
       button.onclick = () => openEventDrawer(button.dataset.employeeEvent, employee.id);
     });
     return;
   }
-  const base = new Date(graphData?.meta?.periodStart || events[0]?.start || new Date());
+  const base = new Date(graphData?.meta?.periodStart || allEvents[0]?.start || new Date());
   const year = base.getFullYear(), month = base.getMonth();
   const first = new Date(year, month, 1), last = new Date(year, month + 1, 0), cells = [];
   for (let index = 0; index < first.getDay(); index++) cells.push(null);
   for (let day = 1; day <= last.getDate(); day++) cells.push(new Date(year, month, day));
+  const dayCounts = [];
+  for (let day = 1; day <= last.getDate(); day++) {
+    dayCounts.push(events.filter(event => {
+      const d = new Date(event.start);
+      return d.getFullYear() === year && d.getMonth() === month && d.getDate() === day;
+    }).length);
+  }
+  const maxCount = Math.max(1, ...dayCounts);
   content.innerHTML = `
     <div class="graph-employee-calendar-heading">
       <div><p class="eyebrow">Employee calendar</p>
       <h3>${base.toLocaleString([], { month: "long", year: "numeric" })}</h3></div>
-      <span>Choose a date to see only that day's meetings</span>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span>Choose a date to see only that day's meetings</span>
+        ${cancelledCount ? `<button type="button" id="employeeCancelledToggle" class="graph-cancelled-toggle">
+          ${showCancelled ? "← Back to real meetings" : `${cancelledCount} cancelled hidden — show cancelled`}
+        </button>` : ""}
+      </div>
     </div>
     <div class="graph-calendar-head">${["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(day => `<span>${day}</span>`).join("")}</div>
-    <div class="graph-calendar-grid graph-employee-calendar">${cells.map(date => {
+    <div class="graph-calendar-grid graph-employee-calendar">${cells.map((date, index) => {
       if (!date) return '<div class="graph-calendar-day empty"></div>';
       const key = employeeCalendarKey(date);
-      const count = events.filter(event => employeeCalendarKey(event.start) === key).length;
-      return `<button type="button" class="graph-calendar-day ${count ? "has-events" : ""}" data-employee-date="${key}">
+      const count = dayCounts[date.getDate() - 1];
+      return `<button type="button" class="graph-calendar-day" style="--bar:${graphCalendarDayBar(count, maxCount)}" data-employee-date="${key}">
         <span class="graph-day-number">${date.getDate()}</span>
         ${count ? `<strong>${count}</strong><small>${count === 1 ? "meeting" : "meetings"}</small>` : "<small>No meetings</small>"}
       </button>`;
     }).join("")}</div>`;
   document.querySelectorAll("[data-employee-date]").forEach(button => {
-    button.onclick = () => renderEmployeeCalendar(employee, button.dataset.employeeDate);
+    button.onclick = () => renderEmployeeCalendar(employee, button.dataset.employeeDate, showCancelled);
   });
+  const cancelledToggle = document.getElementById("employeeCancelledToggle");
+  if (cancelledToggle) {
+    cancelledToggle.onclick = () => renderEmployeeCalendar(employee, null, !showCancelled);
+  }
 }
 
 function renderEmployeeSites(employee) {
   const sites = employeeRelevantSites(employee);
+  const dupMap = graphSiteDuplicateMap(graphData?.sharePoint?.sites || []);
   document.getElementById("graphEmployeeOptionContent").innerHTML = `
     <p class="graph-profile-note">Microsoft Graph does not expose direct per-user site membership with the current permissions. These resources are matched from the employee's department and tenant activity.</p>
-    ${sites.length ? `<div class="graph-site-grid">${sites.map((site, index) => `
-      <article class="graph-site-card" style="--site:${graphHue(index + 2)}">
+    ${sites.length ? `<div class="graph-site-grid">${sites.map((site, index) => {
+      const isEmpty = graphSiteIsEmpty(site);
+      const isStale = graphSiteIsStale(site);
+      const isDup = dupMap.has(site.id);
+      const flags = isEmpty || isStale || isDup
+        ? `<span class="graph-site-flags">${isEmpty ? '<span class="graph-warn-pill graph-warn-pill--muted">Empty</span>' : ""}${isStale ? '<span class="graph-warn-pill graph-warn-pill--muted">Inactive</span>' : ""}${isDup ? '<span class="graph-warn-pill">Possible duplicate</span>' : ""}</span>`
+        : "";
+      return `<article class="graph-site-card" style="--site:${graphHue(index + 2)}">
         <button data-employee-site="${escapeHtml(site.id)}"><span class="graph-site-icon">S</span>
         <h3>${escapeHtml(site.displayName)}</h3><p>${site.lists?.length || 0} lists · ${site.files?.length || 0} files/folders</p>
-        <small>${site.lastActivity ? `Active ${graphDate(site.lastActivity)}` : "Activity unavailable"}</small></button>
+        <small>${site.lastActivity ? `Active ${graphDate(site.lastActivity)}` : "Activity unavailable"}</small>
+        ${flags}</button>
         <a href="${escapeHtml(site.webUrl)}" target="_blank" rel="noopener noreferrer">Quick access ↗</a>
-      </article>`).join("")}</div>` : employeeOptionEmpty("No SharePoint sites found for this employee.")}`;
+      </article>`;
+    }).join("")}</div>` : employeeOptionEmpty("No SharePoint sites found for this employee.")}`;
   document.querySelectorAll("[data-employee-site]").forEach(button => {
     button.onclick = () => openSiteDrawer(button.dataset.employeeSite);
   });
