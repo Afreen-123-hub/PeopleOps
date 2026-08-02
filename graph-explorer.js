@@ -1018,11 +1018,10 @@ function renderGraphCalendar() {
   bindGraphEvents();
 }
 
-function graphCalendarDayHeat(count, max) {
-  if (!count) return "#f3f6fb";
-  const buckets = ["#cfe8e4", "#8fcec4", "#3fa99b", "#00a99d"];
-  const idx = Math.min(buckets.length - 1, Math.ceil((count / max) * (buckets.length - 1)));
-  return buckets[Math.max(0, idx)];
+function graphCalendarDayBar(count, max) {
+  if (!count) return "color-mix(in srgb, #00a99d 5%, #eef2f8)";
+  const pct = Math.max(8, Math.min(100, Math.round((count / max) * 100)));
+  return `color-mix(in srgb, #00a99d ${pct}%, #eef2f8)`;
 }
 
 function renderGraphMonth(events, cancelledCount = 0) {
@@ -1051,7 +1050,7 @@ function renderGraphMonth(events, cancelledCount = 0) {
   const heatStripHtml = `<div class="graph-heatstrip-wrap">
     <div class="graph-heatstrip-label"><span>Month shape · daily meeting volume</span><span>${graphDate(first)} – ${graphDate(last)}</span></div>
     <div class="graph-heatstrip" style="--days:${daysInMonth}">${dayCounts.map((count, i) =>
-      `<div class="graph-heatbar" style="height:${Math.max(4, Math.round((count / maxCount) * 40))}px;background:${graphCalendarDayHeat(count, maxCount)}" title="${escapeHtml(monthShort)} ${i + 1}: ${count} events"></div>`
+      `<div class="graph-heatbar" style="height:${Math.max(3, Math.round((count / maxCount) * 34))}px" title="${escapeHtml(monthShort)} ${i + 1}: ${count} events"></div>`
     ).join("")}</div>
     <div class="graph-heatstrip-days" style="--days:${daysInMonth}">${dayCounts.map((_, i) => `<span>${(i + 1) % 5 === 0 || i === 0 ? i + 1 : ""}</span>`).join("")}</div>
   </div>`;
@@ -1091,17 +1090,14 @@ function renderGraphMonth(events, cancelledCount = 0) {
       const isToday = date.toDateString() === new Date().toDateString();
       const isBusiest = !!(busiestDay && date.getDate() === busiestDay.day && count > 0);
       const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-      const busyCount = daily.filter(event => (event.showAs || "busy") === "busy").length;
-      const busyPct = count ? Math.round((busyCount / count) * 100) : 0;
       const classes = ["graph-calendar-day"];
       if (isToday) classes.push("today");
       if (isBusiest) classes.push("busiest");
-      return `<div class="${classes.join(" ")}" ${isBusiest ? "" : `style="background:${graphCalendarDayHeat(count, maxCount)}"`}>
+      return `<div class="${classes.join(" ")}" style="--bar:${isBusiest ? "#00a99d" : graphCalendarDayBar(count, maxCount)}">
         <div class="graph-cal-top">
           <span class="graph-day-num">${date.getDate()}</span>
           ${count ? `<span class="graph-cal-count">${count}</span>` : ""}
         </div>
-        ${count ? `<div class="graph-cal-mix"><span style="width:${busyPct}%;background:#2563eb"></span><span style="width:${100 - busyPct}%;background:#d97706"></span></div>` : ""}
         <div class="graph-cal-events">${daily.slice(0, 2).map(event =>
           `<button class="graph-cal-ev${event.showAs === "tentative" ? " tentative" : ""}" data-event-id="${escapeHtml(event.id)}" data-event-user="${escapeHtml(event.employee?.id)}"><i></i><b>${escapeHtml(event.subject)}</b></button>`
         ).join("")}</div>

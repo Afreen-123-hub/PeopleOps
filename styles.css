@@ -5802,27 +5802,33 @@ body.graph-drawer-open .tara-panel {
   border-color: #99d8cf;
 }
 
+.graph-calendar-day::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--bar, transparent);
+  border-radius: 12px 12px 0 0;
+}
+
 .graph-calendar-day.today {
   box-shadow: 0 0 0 2px var(--teal) inset;
 }
 
 .graph-calendar-day.busiest {
-  background: var(--teal) !important;
-  color: #fff;
   border-color: var(--teal);
+  box-shadow: 0 0 0 1px var(--teal);
 }
 
-.graph-calendar-day.busiest .graph-cal-count { background: rgba(255, 255, 255, .25); color: #fff; }
-.graph-calendar-day.busiest .graph-cal-mix { background: rgba(255, 255, 255, .3); }
-.graph-calendar-day.busiest .graph-cal-ev,
-.graph-calendar-day.busiest .graph-cal-ev b { color: #fff; }
-.graph-calendar-day.busiest .graph-cal-ev i { background: #fff !important; }
-.graph-calendar-day.busiest .graph-cal-viewday { background: rgba(255, 255, 255, .25); color: #fff; }
+.graph-calendar-day.busiest .graph-cal-count { color: var(--teal); font-weight: 800; }
 
 .graph-cal-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 2px;
 }
 
 .graph-day-num {
@@ -5831,25 +5837,10 @@ body.graph-drawer-open .tara-panel {
 }
 
 .graph-cal-count {
-  font-size: .64rem;
+  font-size: .63rem;
   font-weight: 800;
-  padding: 2px 8px;
-  border-radius: 20px;
-  background: rgba(0, 169, 157, .16);
-  color: #0f766e;
-}
-
-.graph-cal-mix {
-  height: 4px;
-  border-radius: 99px;
-  overflow: hidden;
-  display: flex;
-  background: #e7ecf3;
-}
-
-.graph-cal-mix span {
-  display: block;
-  height: 100%;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
 
 .graph-cal-events {
@@ -5948,7 +5939,8 @@ body.graph-drawer-open .tara-panel {
 }
 
 .graph-heatbar {
-  border-radius: 3px 3px 2px 2px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--teal) 22%, #eef2f8);
   cursor: pointer;
   transition: opacity .12s;
 }
