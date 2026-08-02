@@ -4365,6 +4365,25 @@ dialog::backdrop {
   text-align: right;
 }
 
+.donut-insufficient-note {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #52627a;
+  font-size: 0.82rem;
+  text-align: left;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+
+.donut-insufficient-note:hover { border-color: #c5d0de; background: #f1f5f9; }
+.donut-insufficient-note strong { color: #172033; }
+
 .donut-pct {
   font-size: 0.78rem;
   font-weight: 600;

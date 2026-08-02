@@ -34,6 +34,7 @@ const DEPT_MERGE_MAP = {
   "cyber security": "Cyber Security Team",
   "Cyber security": "Cyber Security Team",
   "Cyber Security": "Cyber Security Team",
+  "Project Management Team": "Project Management",
 };
 
 function mergedTeam(team) {
@@ -88,7 +89,6 @@ function drawDonutChart() {
   ctx.scale(dpr, dpr);
   const cx = SIZE / 2, cy = SIZE / 2;
   const outerR = 80, innerR = 50;
-  const total = filteredEmployees.length || 1;
 
   const segments = [
     { label: "Excellent",         color: "#0f6b3a", count: 0 },
@@ -96,12 +96,28 @@ function drawDonutChart() {
     { label: "Average",           color: "#3b82f6", count: 0 },
     { label: "Needs Improvement", color: "#f3a229", count: 0 },
     { label: "Critical",          color: "#db4d5c", count: 0 },
-    { label: "Insufficient Data", color: "#dfe6ee", count: 0 },
   ];
+  let insufficientCount = 0;
   filteredEmployees.forEach((e) => {
-    const seg = segments.find((s) => s.label === (e.band || "Insufficient Data"));
+    if (!e.band || e.band === "Insufficient Data") { insufficientCount++; return; }
+    const seg = segments.find((s) => s.label === e.band);
     if (seg) seg.count++;
   });
+  const scoredTotal = segments.reduce((sum, s) => sum + s.count, 0) || 1;
+  const total = scoredTotal;
+
+  const note = document.getElementById("donutInsufficientNote");
+  if (note) {
+    const pct = filteredEmployees.length ? Math.round((insufficientCount / filteredEmployees.length) * 100) : 0;
+    note.innerHTML = insufficientCount ? `<button type="button" class="donut-insufficient-note"><strong>${insufficientCount} employee${insufficientCount === 1 ? "" : "s"} (${pct}%)</strong> have insufficient data to assess and are excluded from the ring above so it reflects the real spread among the ${scoredTotal} employees who can be scored.</button>` : "";
+    const noteBtn = note.querySelector(".donut-insufficient-note");
+    if (noteBtn) {
+      noteBtn.addEventListener("click", () => {
+        const employees = filteredEmployees.filter((e) => !e.band || e.band === "Insufficient Data");
+        openBandDrawer("Insufficient Data", employees);
+      });
+    }
+  }
 
   let startAngle = -Math.PI / 2;
   segments.filter((s) => s.count > 0).forEach((s) => {
@@ -124,10 +140,10 @@ function drawDonutChart() {
   ctx.textBaseline = "middle";
   ctx.fillStyle = "#172033";
   ctx.font = "900 28px Segoe UI,sans-serif";
-  ctx.fillText(filteredEmployees.length, cx, cy - 8);
+  ctx.fillText(scoredTotal, cx, cy - 8);
   ctx.font = "700 11px Segoe UI,sans-serif";
   ctx.fillStyle = "#627084";
-  ctx.fillText("employees", cx, cy + 12);
+  ctx.fillText("scored", cx, cy + 12);
 
   const legend = document.getElementById("donutLegend");
   if (legend) {
@@ -1195,19 +1211,20 @@ function renderMetrics() {
     ? coverageEntries.reduce((min, entry) => (entry[1] < min[1] ? entry : min))
     : null;
   const bottleneckPct = bottleneck ? Math.round((bottleneck[1] / (dataset.overview.employees || 1)) * 100) : 0;
+  const officeHoursAvg = rows.length ? officeHours / rows.length : 0;
   const metrics = [
     ["Employees", rows.length, "Filtered population", "people", "blue"],
-    ["Active", rows.filter((e) => e.active).length, "Currently active", "pulse", "green"],
+    ["Active", rows.filter((e) => e.active).length, "Currently active", "pulse", "slate"],
     ["Inactive", rows.filter((e) => !e.active).length, "Inactive records", "pause", "slate"],
-    ["Avg KPI", scoredRows.length ? number.format(avgKpi) : "—", "75%+ confidence", "trend", "violet"],
+    ["Avg KPI", scoredRows.length ? number.format(avgKpi) : "—", "75%+ confidence", "trend", "teal"],
     workItems
-      ? ["Completed", `${Math.round((completed / workItems) * 100)}%`, `${completed}/${workItems} work items`, "check", "teal"]
-      : ["Completed", "No data", bottleneck ? `${coverageLabels[bottleneck[0]]} only ${bottleneckPct}% synced` : "No Worklogix activity synced", "check", "teal"],
-    ["Office Hours", number.format(officeHours), "Attendance signal", "clock", "amber"],
-    ["Online Now", teamsActive, "Teams presence", "online", "cyan"],
+      ? ["Completed", `${Math.round((completed / workItems) * 100)}%`, `${completed}/${workItems} work items`, "check", "amber"]
+      : ["Completed", "No data", bottleneck ? `${coverageLabels[bottleneck[0]]} only ${bottleneckPct}% synced` : "No Worklogix activity synced", "check", "amber"],
+    ["Office Hours", number.format(officeHours), `${number.format(officeHoursAvg)} avg per employee`, "clock", "slate"],
+    ["Online Now", teamsActive, "Teams presence", "online", "teal"],
     fullConfidence
-      ? ["Full Fusion", fullConfidence, "All sources matched", "fusion", "indigo"]
-      : ["Full Fusion", "Blocked", bottleneck ? `Held back by ${coverageLabels[bottleneck[0]]} (${bottleneckPct}%)` : "No sources fully matched", "fusion", "indigo"],
+      ? ["Full Fusion", fullConfidence, "All sources matched", "fusion", "amber"]
+      : ["Full Fusion", "Blocked", bottleneck ? `Held back by ${coverageLabels[bottleneck[0]]} (${bottleneckPct}%)` : "No sources fully matched", "fusion", "amber"],
   ];
   document.getElementById("metricGrid").innerHTML = metrics
     .map(([label, value, hint, icon, tone]) => `
