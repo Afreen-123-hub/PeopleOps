@@ -98,7 +98,7 @@ async function renderGraph() {
       (email && (e.email || "").toLowerCase() === email) ||
       (meNorm && e.name.trim().toLowerCase() === meNorm)
     );
-    if (match) showEmployeeWorkspaceLegacy(match);
+    if (match) showEmployeeWorkspace(match);
   } catch {
     document.getElementById("graphRefreshLabel").textContent = "Graph data is not available yet";
   }
@@ -209,87 +209,6 @@ function employeeRelevantSites(employee) {
     return terms.some(term => haystack.includes(term));
   });
   return (relevant.length ? relevant : sites).slice(0, 6);
-}
-
-function showEmployeeWorkspaceLegacy(employee) {
-  document.getElementById("graphEmployeeSuggestions").hidden = true;
-  document.getElementById("graphEmployeeSearch").value = employee.name;
-  document.getElementById("graphEmployeeSearchClear").hidden = false;
-  document.getElementById("graphBreadcrumbs").textContent = `Microsoft Graph / Employee 360° / ${employee.name}`;
-  document.querySelectorAll(".graph-subnav-item").forEach(button => button.classList.remove("active"));
-  renderEmployeeContextHeader(employee);
-  const tasks = employee.planner?.tasks || [];
-  const events = employee.calendar?.items || [];
-  const sites = employeeRelevantSites(employee);
-  document.getElementById("graphToolbar").innerHTML = `
-    <div class="graph-profile-toolbar">
-      <span>Unified Microsoft 365 employee record</span>
-      <button type="button" id="backToGraphExplorer">Back to explorer</button>
-    </div>`;
-  document.getElementById("graphPagination").innerHTML = "";
-  document.getElementById("graphWorkspace").innerHTML = `
-    <article class="graph-employee-profile">
-      <header class="graph-profile-hero">
-        <div class="graph-profile-avatar">${escapeHtml(employee.name?.[0] || "?")}</div>
-        <div>
-          <div class="graph-profile-name-row">
-            <h2>${escapeHtml(employee.name)}</h2>
-            <span class="graph-match ${employee.matched ? "yes" : "no"}">${employee.matched ? "Microsoft 365 matched" : "Unmatched"}</span>
-          </div>
-          <p>${escapeHtml(employee.designation || "Designation unavailable")} · ${escapeHtml(employee.team || "Department unavailable")}</p>
-          <span>${escapeHtml(employee.id)} · ${escapeHtml(employee.email || "No Microsoft 365 email")}</span>
-        </div>
-      </header>
-
-      <div class="graph-profile-metrics">
-        ${profileMetric("KPI", employee.kpi ?? "—", employee.band || "Performance")}
-        ${profileMetric("Planner", employee.planner?.assigned || 0, `${employee.planner?.completed || 0} completed`)}
-        ${profileMetric("Calendar", employee.calendar?.events || 0, `${employee.calendar?.meetingHours || 0} meeting hours`)}
-        ${profileMetric("Attendance", employee.attendance?.present || 0, `${employee.attendance?.absent || 0} absent days`)}
-        ${profileMetric("Teams", employee.teams?.status || "Unknown", employee.teams?.workLocation || "Location unknown")}
-        ${profileMetric("Confidence", `${employee.sourceConfidence || 0}%`, "Data source match")}
-      </div>
-
-      <div class="graph-profile-grid">
-        ${employeeProfilePanel("Planner assignments", "planner", `
-          <div class="graph-profile-list">${tasks.length ? tasks.slice(0, 12).map(task => `
-            <button data-profile-task="${escapeHtml(task.id)}">
-              <span><strong>${escapeHtml(task.title)}</strong><small>${escapeHtml(task.planTitle)} · ${escapeHtml(graphStatus(task))}</small></span>
-              <i>${task.dueDateTime ? graphDate(task.dueDateTime) : "No due date"}</i>
-            </button>`).join("") : profileEmpty("No Planner tasks assigned")}</div>
-          ${tasks.length > 12 ? `<p class="graph-profile-more">Showing 12 of ${tasks.length} assignments</p>` : ""}`)}
-
-        ${employeeProfilePanel("Calendar activity", "calendar", `
-          <div class="graph-profile-list">${events.length ? events.slice(0, 12).map(event => `
-            <button data-profile-event="${escapeHtml(event.id)}">
-              <span><strong>${escapeHtml(event.subject)}</strong><small>${graphDateTime(event.start)} · ${escapeHtml(event.organizer)}</small></span>
-              <i>${event.durationMinutes || 0} min</i>
-            </button>`).join("") : profileEmpty("No calendar events in this period")}</div>
-          ${events.length > 12 ? `<p class="graph-profile-more">Showing 12 of ${events.length} events</p>` : ""}`)}
-
-        ${employeeProfilePanel("SharePoint resources", "sharepoint", `
-          <p class="graph-profile-note">Department-relevant and tenant SharePoint resources. Per-user SharePoint activity is not exposed by the current API permissions.</p>
-          <div class="graph-profile-sites">${sites.map(site => `
-            <button data-profile-site="${escapeHtml(site.id)}">
-              <span class="graph-site-icon">S</span>
-              <span><strong>${escapeHtml(site.displayName)}</strong><small>${site.lists?.length || 0} lists · ${site.files?.length || 0} files/folders</small></span>
-            </button>`).join("")}</div>`)}
-
-        ${employeeProfilePanel("Attendance & presence", "attendance", `
-          <div class="graph-profile-facts">
-            ${profileFact("Present days", employee.attendance?.present || 0)}
-            ${profileFact("Absent days", employee.attendance?.absent || 0)}
-            ${profileFact("Leave days", employee.attendance?.leave || 0)}
-            ${profileFact("Office hours", employee.attendance?.officeHours || 0)}
-            ${profileFact("Teams status", employee.teams?.status || "Unknown")}
-            ${profileFact("Work location", employee.teams?.workLocation || "Unknown")}
-          </div>`)}
-      </div>
-    </article>`;
-  document.getElementById("backToGraphExplorer").onclick = clearEmployeeWorkspaceSearch;
-  document.querySelectorAll("[data-profile-task]").forEach(button => button.onclick = () => openTaskDrawer(button.dataset.profileTask));
-  document.querySelectorAll("[data-profile-event]").forEach(button => button.onclick = () => openEventDrawer(button.dataset.profileEvent, employee.id));
-  document.querySelectorAll("[data-profile-site]").forEach(button => button.onclick = () => openSiteDrawer(button.dataset.profileSite));
 }
 
 function graphEmployeeManager(employee) {
@@ -727,7 +646,7 @@ function setGraphSection(section) {
       (email && (e.email || "").toLowerCase() === email) ||
       (meNorm && e.name.trim().toLowerCase() === meNorm)
     );
-    if (match) showEmployeeWorkspaceLegacy(match);
+    if (match) showEmployeeWorkspace(match);
   }
 }
 
