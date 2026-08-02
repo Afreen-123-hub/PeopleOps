@@ -562,12 +562,68 @@ function openEmployeePlanDrawer(employee, planId) {
 }
 
 function renderEmployeeTasks(employee, completedOnly) {
-  let tasks = employee.planner?.tasks || [];
-  if (completedOnly) tasks = tasks.filter(task => graphStatus(task) === "Completed");
-  document.getElementById("graphEmployeeOptionContent").innerHTML = tasks.length
-    ? `<div class="graph-task-grid">${tasks.map(task => graphTaskCard(task, completedOnly)).join("")}</div>`
-    : employeeOptionEmpty(completedOnly ? "No completed tasks found for this employee." : "No Planner tasks found for this employee.");
-  bindGraphTaskCards();
+  const state = { search: "", filter: "all", sort: "name" };
+  const filters = completedOnly
+    ? [["all", "All completed"]]
+    : [["all", "All statuses"], ["Completed", "Completed"], ["In Progress", "In progress"], ["Not Started", "Not started"], ["Overdue", "Overdue"], ["Unassigned", "Unassigned"], ["Orphaned", "No owner + no deadline"], ["Priority", "High/Urgent priority"]];
+
+  const content = document.getElementById("graphEmployeeOptionContent");
+  content.innerHTML = `
+    <div class="graph-toolbar">
+      <input id="empTaskSearch" class="graph-toolbar-search" type="search" placeholder="Search tasks..." aria-label="Search this employee's tasks">
+      <select id="empTaskFilter">${filters.map(([value, name]) => `<option value="${value}">${escapeHtml(name)}</option>`).join("")}</select>
+      <select id="empTaskSort">
+        ${!completedOnly ? '<option value="attention">Needs Attention</option>' : ""}
+        <option value="name" selected>Name A-Z</option>
+        <option value="newest">Newest first</option>
+      </select>
+    </div>
+    <div id="empTaskResults"></div>`;
+
+  function renderResults() {
+    let matching = (employee.planner?.tasks || []).filter(task => !completedOnly || graphStatus(task) === "Completed");
+    if (state.search) {
+      const query = state.search.toLowerCase();
+      matching = matching.filter(task => [task.title, task.planTitle, task.groupName, ...(task.assignees || [])]
+        .some(value => String(value || "").toLowerCase().includes(query)));
+    }
+    const rows = matching.filter(task => {
+      const filter = state.filter;
+      if (filter === "all") return true;
+      if (filter === "Unassigned") return !(task.assignees || []).length;
+      if (filter === "Orphaned") return !(task.assignees || []).length && !task.dueDateTime;
+      if (filter === "Priority") return Number(task.priority) <= 4 && graphStatus(task) !== "Completed";
+      return graphStatus(task) === filter;
+    });
+    rows.sort((a, b) => {
+      if (state.sort === "attention") return graphDaysOverdue(b) - graphDaysOverdue(a);
+      if (state.sort === "newest") return new Date(b.completedDateTime || b.dueDateTime || 0) - new Date(a.completedDateTime || a.dueDateTime || 0);
+      return a.title.localeCompare(b.title);
+    });
+    const statStrip = completedOnly ? "" : graphTaskStatStrip(matching);
+    const results = document.getElementById("empTaskResults");
+    results.innerHTML = statStrip + (rows.length
+      ? `<div class="graph-task-grid">${rows.map(task => graphTaskCard(task, completedOnly)).join("")}</div>`
+      : `<div class="graph-empty-state"><span aria-hidden="true">⌕</span><h3>No tasks found</h3><p>Try changing the search or status filter.</p></div>`);
+    bindGraphTaskCards();
+    document.querySelectorAll("[data-stat-filter]").forEach(tile => {
+      tile.onclick = () => {
+        state.filter = tile.dataset.statFilter;
+        document.getElementById("empTaskFilter").value = state.filter;
+        renderResults();
+      };
+    });
+  }
+
+  let searchTimer;
+  document.getElementById("empTaskSearch").oninput = event => {
+    clearTimeout(searchTimer);
+    const value = event.target.value;
+    searchTimer = setTimeout(() => { state.search = value; renderResults(); }, 180);
+  };
+  document.getElementById("empTaskFilter").onchange = event => { state.filter = event.target.value; renderResults(); };
+  document.getElementById("empTaskSort").onchange = event => { state.sort = event.target.value; renderResults(); };
+  renderResults();
 }
 
 function employeeCalendarKey(value) {
