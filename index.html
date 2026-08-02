@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260802-graphfix2">
+    <link rel="stylesheet" href="styles.css?v=20260802-plansfix">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -491,6 +491,17 @@
             #graph .graph-view-switch button { padding:7px 12px; border:0; border-radius:7px; background:transparent; cursor:pointer; }
             #graph .graph-view-switch button.active { background:#fff; color:var(--g-blue); box-shadow:0 1px 5px #1720331c; }
             #graph .graph-plan-grid,#graph .graph-task-grid,#graph .graph-site-grid,#graph .graph-employee-card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px; }
+            #graph .graph-attn-banner { display:flex; align-items:center; gap:12px; background:linear-gradient(90deg,#fef2f2,#fff7ed); border:1px solid #fecaca; border-radius:10px; padding:12px 16px; margin-bottom:16px; font-size:0.86rem; color:#991b1b; }
+            #graph .graph-attn-icon { width:30px; height:30px; border-radius:50%; background:#fee2e2; color:#dc2626; display:grid; place-items:center; flex-shrink:0; }
+            #graph .graph-attn-icon svg { width:15px; height:15px; }
+            #graph .graph-plan-card--attn { background:linear-gradient(150deg,#fef2f2 8%,#fff 55%)!important; }
+            #graph .graph-warn-pill { display:inline-flex; align-items:center; gap:4px; font-size:0.66rem; font-weight:700; padding:2px 8px; border-radius:20px; background:#fee2e2; color:#b91c1c; margin-top:8px; }
+            #graph .graph-warn-pill svg { width:10px; height:10px; }
+            #graph .graph-dormant-group { margin-top:16px; background:#fff; border:1px solid var(--g-line); border-radius:12px; padding:16px 18px; }
+            #graph .graph-dormant-label { font-size:0.78rem; color:var(--g-muted); font-weight:600; margin-bottom:12px; display:flex; align-items:center; gap:7px; }
+            #graph .graph-dormant-label svg { width:14px; height:14px; color:#cbd5e1; }
+            #graph .graph-dormant-chips { display:flex; flex-wrap:wrap; gap:8px; }
+            #graph .graph-dormant-chip { display:inline-flex; align-items:center; padding:6px 12px; background:#f8fafc; border:1px solid var(--g-line); border-radius:20px; font-size:0.8rem; color:#78889e; }
             #graph .graph-plan-card,#graph .graph-task-card,#graph .graph-site-card,#graph .graph-employee-card { min-height:170px; padding:17px; border:1px solid var(--g-line); border-radius:14px; background:#fff; color:var(--g-ink); text-align:left; cursor:pointer; transition:transform .18s,box-shadow .18s,border-color .18s; }
             #graph .graph-plan-card:hover,#graph .graph-task-card:hover,#graph .graph-site-card:hover,#graph .graph-employee-card:hover { transform:translateY(-3px); box-shadow:0 12px 24px #17203314; }
             #graph .graph-plan-card { border-top:5px solid var(--plan); background:linear-gradient(150deg,color-mix(in srgb,var(--plan) 8%,white),#fff 55%); }
@@ -652,7 +663,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260802-graphfix2"></script>
-    <script src="graph-explorer.js?v=20260802-graphfix2"></script>
+    <script src="app.js?v=20260802-plansfix"></script>
+    <script src="graph-explorer.js?v=20260802-plansfix"></script>
   </body>
 </html>

@@ -746,6 +746,7 @@ function renderGraphToolbar() {
       `<option value="${value}" ${graphExplorerState.filter === value ? "selected" : ""}>${name}</option>`
     ).join("")}</select>
     <select id="graphSort">
+      ${graphExplorerState.section === "plans" ? `<option value="attention" ${graphExplorerState.sort === "attention" ? "selected" : ""}>Needs Attention</option>` : ""}
       <option value="name" ${graphExplorerState.sort === "name" ? "selected" : ""}>Name A-Z</option>
       <option value="newest" ${graphExplorerState.sort === "newest" ? "selected" : ""}>Newest first</option>
       <option value="count" ${graphExplorerState.sort === "count" ? "selected" : ""}>Highest activity</option>
@@ -821,28 +822,67 @@ function renderGraphSection() {
   }[graphExplorerState.section])();
 }
 
+function planPct(plan) {
+  const tasks = plan.tasks || [];
+  const completed = tasks.filter(task => graphStatus(task) === "Completed").length;
+  return tasks.length ? Math.round(completed / tasks.length * 100) : 0;
+}
+
+function planTierColor(pct) {
+  return pct >= 75 ? "#22c55e" : pct >= 40 ? "#f59e0b" : "#ef4444";
+}
+
 function renderGraphPlans() {
-  let rows = [...(graphData?.planner?.plans || [])].filter(plan => graphSearch(plan.title, plan.groupName, plan.id));
-  rows = rows.filter(plan => {
+  let matching = [...(graphData?.planner?.plans || [])].filter(plan => graphSearch(plan.title, plan.groupName, plan.id));
+  matching = matching.filter(plan => {
     const tasks = plan.tasks || [];
     if (graphExplorerState.filter === "active") return tasks.some(task => graphStatus(task) !== "Completed");
     if (graphExplorerState.filter === "complete") return tasks.length && tasks.every(task => graphStatus(task) === "Completed");
     return true;
   });
-  rows.sort((a, b) => graphExplorerState.sort === "count"
-    ? (b.tasks?.length || 0) - (a.tasks?.length || 0) : a.title.localeCompare(b.title));
-  if (!rows.length) return graphEmpty("No plans found", "Try changing the search or plan filter.");
-  const page = graphPage(rows);
-  const allPlans = graphData?.planner?.plans || [];
-  document.getElementById("graphWorkspace").innerHTML = `<div class="graph-plan-grid">${page.map(plan => {
+
+  const dormant = matching.filter(plan => (plan.tasks || []).length === 0);
+  let rows = matching.filter(plan => (plan.tasks || []).length > 0);
+  const stalled = rows.filter(plan => planPct(plan) === 0);
+
+  rows.sort((a, b) => {
+    if (graphExplorerState.sort === "attention") return planPct(a) - planPct(b) || (b.tasks?.length || 0) - (a.tasks?.length || 0);
+    if (graphExplorerState.sort === "count") return (b.tasks?.length || 0) - (a.tasks?.length || 0);
+    return a.title.localeCompare(b.title);
+  });
+
+  if (!rows.length && !dormant.length) return graphEmpty("No plans found", "Try changing the search or plan filter.");
+
+  const warnSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg>`;
+  const folderSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>`;
+
+  const attnBanner = stalled.length ? `
+    <div class="graph-attn-banner">
+      <div class="graph-attn-icon">${warnSvg}</div>
+      <div><b>${stalled.length} plan${stalled.length !== 1 ? "s" : ""} have real tasks assigned but 0% completion</b> — ${stalled.map(p => `${escapeHtml(p.title)} (${p.tasks.length} tasks)`).join(", ")}.</div>
+    </div>` : "";
+
+  const page = rows.length ? graphPage(rows) : (() => { document.getElementById("graphPagination").innerHTML = ""; return []; })();
+
+  const cardsHtml = page.map(plan => {
     const tasks = plan.tasks || [], completed = tasks.filter(task => graphStatus(task) === "Completed").length;
-    const pct = tasks.length ? Math.round(completed / tasks.length * 100) : 0;
-    const colorIndex = Math.max(0, allPlans.findIndex(item => item.id === plan.id));
-    return `<button class="graph-plan-card" data-plan-id="${escapeHtml(plan.id)}" style="--plan:${graphHue(colorIndex)}">
+    const pct = planPct(plan);
+    const tier = planTierColor(pct);
+    const isStalled = pct === 0;
+    return `<button class="graph-plan-card${isStalled ? " graph-plan-card--attn" : ""}" data-plan-id="${escapeHtml(plan.id)}" style="--plan:${tier}">
       <span class="graph-plan-mark"></span><small>${escapeHtml(plan.groupName)}</small><h3>${escapeHtml(plan.title)}</h3>
       <p>${tasks.length} tasks · ${completed} completed</p><div class="graph-progress"><span style="width:${pct}%"></span></div><strong>${pct}%</strong>
+      ${isStalled ? `<span class="graph-warn-pill">${warnSvg}${tasks.length} tasks stalled</span>` : ""}
     </button>`;
-  }).join("")}</div>`;
+  }).join("");
+
+  const dormantHtml = dormant.length ? `
+    <div class="graph-dormant-group">
+      <div class="graph-dormant-label">${folderSvg}${dormant.length} plan${dormant.length !== 1 ? "s" : ""} with no tasks logged</div>
+      <div class="graph-dormant-chips">${dormant.map(p => `<span class="graph-dormant-chip">${escapeHtml(p.title)}</span>`).join("")}</div>
+    </div>` : "";
+
+  document.getElementById("graphWorkspace").innerHTML = `${attnBanner}<div class="graph-plan-grid">${cardsHtml}</div>${dormantHtml}`;
   document.querySelectorAll("[data-plan-id]").forEach(card => card.onclick = () => openPlanDrawer(card.dataset.planId));
 }
 
