@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260802-calendarfix">
+    <link rel="stylesheet" href="styles.css?v=20260802-taskrisk">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -502,6 +502,18 @@
             #graph .graph-dormant-label svg { width:14px; height:14px; color:#cbd5e1; }
             #graph .graph-dormant-chips { display:flex; flex-wrap:wrap; gap:8px; }
             #graph .graph-dormant-chip { display:inline-flex; align-items:center; padding:6px 12px; background:#f8fafc; border:1px solid var(--g-line); border-radius:20px; font-size:0.8rem; color:#78889e; }
+            #graph .graph-task-stat-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+            #graph .graph-stat-tile { position:relative; display:grid; gap:2px; padding:14px 16px; border:1px solid var(--g-line); border-radius:12px; background:#fff; text-align:left; cursor:pointer; transition:transform .15s,box-shadow .15s,border-color .15s; }
+            #graph .graph-stat-tile:hover { transform:translateY(-2px); box-shadow:0 10px 22px #17203314; }
+            #graph .graph-stat-tile b { font-size:1.4rem; }
+            #graph .graph-stat-tile .label { font-size:0.76rem; font-weight:700; color:var(--g-ink); }
+            #graph .graph-stat-tile .sub { font-size:0.7rem; color:var(--g-muted); }
+            #graph .graph-stat-tile.stat-overdue { border-color:#fecaca; } #graph .graph-stat-tile.stat-overdue b { color:#dc2626; }
+            #graph .graph-stat-tile.stat-unassigned { border-color:#fde68a; } #graph .graph-stat-tile.stat-unassigned b { color:#d97706; }
+            #graph .graph-stat-tile.stat-orphan { border-color:#fecaca; } #graph .graph-stat-tile.stat-orphan b { color:#dc2626; }
+            #graph .graph-stat-tile.stat-priority b { color:#2563eb; }
+            #graph .graph-task-priority { font-size:0.66rem; font-weight:800; padding:2px 8px; border-radius:20px; }
+            #graph .graph-task-gap { color:#b45309; background:#fef3c7; padding:2px 8px; border-radius:20px; font-weight:700; font-size:0.72rem; }
             #graph .graph-plan-card,#graph .graph-task-card,#graph .graph-site-card,#graph .graph-employee-card { min-height:170px; padding:17px; border:1px solid var(--g-line); border-radius:14px; background:#fff; color:var(--g-ink); text-align:left; cursor:pointer; transition:transform .18s,box-shadow .18s,border-color .18s; }
             #graph .graph-plan-card:hover,#graph .graph-task-card:hover,#graph .graph-site-card:hover,#graph .graph-employee-card:hover { transform:translateY(-3px); box-shadow:0 12px 24px #17203314; }
             #graph .graph-plan-card { border-top:5px solid var(--plan); background:linear-gradient(150deg,color-mix(in srgb,var(--plan) 8%,white),#fff 55%); }
@@ -543,7 +555,7 @@
             #graph .graph-skeleton { border-radius:12px;background:linear-gradient(90deg,#eef2f7 25%,#f8fafc 50%,#eef2f7 75%);background-size:200% 100%;animation:graphShimmer 1.2s infinite; } #graph .graph-skeleton-card { height:132px; } #graph .graph-skeleton-row { height:90px;margin-bottom:10px; }
             @keyframes graphShimmer { to { background-position:-200% 0; } }
             .graph-drawer-overlay { position:fixed;z-index:1000;inset:0;background:#0f172a66;opacity:0;transition:opacity .18s; } .graph-drawer-overlay.open { opacity:1; } .graph-drawer { position:absolute;inset:0 0 0 auto;width:min(560px,94vw);padding:28px;overflow:auto;background:#fff;box-shadow:-20px 0 55px #0f172a33;transform:translateX(100%);transition:transform .22s; } .graph-drawer-overlay.open .graph-drawer { transform:none; } .graph-drawer-close { position:absolute;top:18px;right:18px;width:34px;height:34px;border:0;border-radius:50%;background:#eef2f7;font-size:22px;cursor:pointer; } .graph-detail-stack { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0; } .graph-detail-row { padding:12px;border:1px solid #e2e8f0;border-radius:9px;background:#f8fafc; } .graph-detail-row span { display:block;margin-bottom:5px;color:#64748b;font-size:11px;text-transform:uppercase; } .graph-detail-row strong { overflow-wrap:anywhere; } .graph-mini-list { display:grid;gap:6px; } .graph-mini-list button,.graph-mini-list a { display:flex;justify-content:space-between;gap:10px;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#172033;text-align:left;text-decoration:none;cursor:pointer; }
-            @media(max-width:1200px){#graph .graph-kpi-grid{grid-template-columns:repeat(3,1fr)}} @media(max-width:800px){#graph .graph-explorer{grid-template-columns:1fr}#graph .graph-subnav{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--g-line)}#graph .graph-subnav-item{min-width:max-content}#graph .graph-command,#graph .graph-people-search{align-items:stretch;flex-direction:column}#graph .graph-kpi-grid{grid-template-columns:repeat(2,1fr)}#graph .graph-toolbar{flex-wrap:wrap}#graph .graph-calendar-day{min-height:90px}.graph-detail-stack{grid-template-columns:1fr}}
+            @media(max-width:1200px){#graph .graph-kpi-grid{grid-template-columns:repeat(3,1fr)}} @media(max-width:800px){#graph .graph-explorer{grid-template-columns:1fr}#graph .graph-subnav{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--g-line)}#graph .graph-subnav-item{min-width:max-content}#graph .graph-command,#graph .graph-people-search{align-items:stretch;flex-direction:column}#graph .graph-kpi-grid{grid-template-columns:repeat(2,1fr)}#graph .graph-toolbar{flex-wrap:wrap}#graph .graph-calendar-day{min-height:90px}.graph-detail-stack{grid-template-columns:1fr}#graph .graph-task-stat-strip{grid-template-columns:repeat(2,1fr)}}
             .graphd-stat-strip { display:flex; align-items:center; gap:16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; margin-top:18px; }
             .graphd-ring { --pct:0; --c:#94a3b8; width:58px; height:58px; border-radius:50%; flex-shrink:0; background:conic-gradient(var(--c) calc(var(--pct)*1%), #e5e7eb 0); display:grid; place-items:center; }
             .graphd-ring-inner { width:44px; height:44px; border-radius:50%; background:#fff; display:grid; place-items:center; font-size:0.82rem; font-weight:800; }
@@ -685,7 +697,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260802-calendarfix"></script>
-    <script src="graph-explorer.js?v=20260802-calendarfix"></script>
+    <script src="app.js?v=20260802-taskrisk"></script>
+    <script src="graph-explorer.js?v=20260802-taskrisk"></script>
   </body>
 </html>

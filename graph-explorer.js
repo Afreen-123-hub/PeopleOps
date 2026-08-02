@@ -720,7 +720,7 @@ function renderGraphSectionHeader(cards) {
 function renderGraphToolbar() {
   const filters = {
     plans: [["all", "All plans"], ["active", "Has open tasks"], ["complete", "100% complete"]],
-    tasks: [["all", "All statuses"], ["Completed", "Completed"], ["In Progress", "In progress"], ["Not Started", "Not started"], ["Overdue", "Overdue"]],
+    tasks: [["all", "All statuses"], ["Completed", "Completed"], ["In Progress", "In progress"], ["Not Started", "Not started"], ["Overdue", "Overdue"], ["Unassigned", "Unassigned"], ["Orphaned", "No owner + no deadline"], ["Priority", "High/Urgent priority"]],
     completed: [["all", "All completed"]],
     calendar: [["all", "All events"], ["busy", "Busy"], ["tentative", "Tentative"], ["free", "Free"], ["cancelled", "Cancelled"]],
     sites: [["all", "All sites"], ["files", "Has files"], ["lists", "Has lists"]],
@@ -892,21 +892,77 @@ function graphDaysOverdue(task) {
   return diff > 0 ? diff : 0;
 }
 
+function graphTaskStats(tasks) {
+  const overdue = tasks.filter(task => graphStatus(task) === "Overdue");
+  const chronic = overdue.filter(task => graphDaysOverdue(task) > 90);
+  const unassigned = tasks.filter(task => !(task.assignees || []).length);
+  const orphaned = unassigned.filter(task => !task.dueDateTime);
+  const priorityTasks = tasks.filter(task => Number(task.priority) <= 4);
+  const openPriority = priorityTasks.filter(task => graphStatus(task) !== "Completed");
+  return { overdue: overdue.length, chronic: chronic.length, unassigned: unassigned.length,
+    orphaned: orphaned.length, openPriority: openPriority.length, totalPriority: priorityTasks.length };
+}
+
+function graphTaskStatStrip(tasks) {
+  if (!tasks.length) return "";
+  const s = graphTaskStats(tasks);
+  const pct = tasks.length ? Math.round(s.unassigned / tasks.length * 100) : 0;
+  return `<div class="graph-task-stat-strip">
+    <button type="button" class="graph-stat-tile stat-overdue" data-stat-filter="Overdue">
+      <b>${s.overdue}</b><span class="label">Overdue</span><span class="sub">${s.chronic} over 90 days chronic</span>
+    </button>
+    <button type="button" class="graph-stat-tile stat-unassigned" data-stat-filter="Unassigned">
+      <b>${s.unassigned}</b><span class="label">Unassigned</span><span class="sub">${pct}% of these tasks</span>
+    </button>
+    <button type="button" class="graph-stat-tile stat-orphan" data-stat-filter="Orphaned">
+      <b>${s.orphaned}</b><span class="label">No owner, no deadline</span><span class="sub">invisible to any report</span>
+    </button>
+    <button type="button" class="graph-stat-tile stat-priority" data-stat-filter="Priority">
+      <b>${s.openPriority}</b><span class="label">Open · High/Urgent</span><span class="sub">of ${s.totalPriority} total</span>
+    </button>
+  </div>`;
+}
+
+function bindGraphTaskStatTiles() {
+  document.querySelectorAll("[data-stat-filter]").forEach(tile => {
+    tile.onclick = () => {
+      graphExplorerState.filter = tile.dataset.statFilter;
+      graphExplorerState.page = 1;
+      renderGraphToolbar();
+      renderGraphSection();
+    };
+  });
+}
+
 function renderGraphTasks(completedOnly) {
-  let rows = graphTasks().filter(task => !completedOnly || graphStatus(task) === "Completed");
-  rows = rows.filter(task => graphSearch(task.title, task.planTitle, task.groupName, ...(task.assignees || [])));
-  rows = rows.filter(task => graphExplorerState.filter === "all" || graphStatus(task) === graphExplorerState.filter);
+  let matching = graphTasks().filter(task => !completedOnly || graphStatus(task) === "Completed");
+  matching = matching.filter(task => graphSearch(task.title, task.planTitle, task.groupName, ...(task.assignees || [])));
+  const rows = matching.filter(task => {
+    const filter = graphExplorerState.filter;
+    if (filter === "all") return true;
+    if (filter === "Unassigned") return !(task.assignees || []).length;
+    if (filter === "Orphaned") return !(task.assignees || []).length && !task.dueDateTime;
+    if (filter === "Priority") return Number(task.priority) <= 4 && graphStatus(task) !== "Completed";
+    return graphStatus(task) === filter;
+  });
   rows.sort((a, b) => {
     if (graphExplorerState.sort === "attention") return graphDaysOverdue(b) - graphDaysOverdue(a);
     if (graphExplorerState.sort === "newest") return new Date(b.completedDateTime || b.dueDateTime || 0) - new Date(a.completedDateTime || a.dueDateTime || 0);
     if (graphExplorerState.sort === "count") return (b.percentComplete || 0) - (a.percentComplete || 0);
     return a.title.localeCompare(b.title);
   });
-  if (!rows.length) return graphEmpty("No tasks found", "Try changing the search or status filter.");
+  const statStrip = completedOnly ? "" : graphTaskStatStrip(matching);
+  if (!rows.length) {
+    document.getElementById("graphPagination").innerHTML = "";
+    document.getElementById("graphWorkspace").innerHTML = `${statStrip}<div class="graph-empty-state"><span aria-hidden="true">⌕</span><h3>No tasks found</h3><p>Try changing the search or status filter.</p></div>`;
+    bindGraphTaskStatTiles();
+    return;
+  }
   const page = graphPage(rows);
   document.getElementById("graphWorkspace").innerHTML =
-    `<div class="graph-task-grid">${page.map(task => graphTaskCard(task, completedOnly)).join("")}</div>`;
+    `${statStrip}<div class="graph-task-grid">${page.map(task => graphTaskCard(task, completedOnly)).join("")}</div>`;
   bindGraphTaskCards();
+  bindGraphTaskStatTiles();
 }
 
 function graphTaskCard(task, completedOnly = false) {
@@ -914,10 +970,14 @@ function graphTaskCard(task, completedOnly = false) {
   const isOverdue = status === "Overdue";
   const overdueDays = isOverdue ? graphDaysOverdue(task) : 0;
   const statusLabel = isOverdue ? `Overdue · ${overdueDays}d` : status;
+  const priority = graphPriority(task.priority);
+  const showPriority = priority === "Urgent" || priority === "High";
+  const priorityColor = GRAPH_PRIORITY_COLOR[priority.toLowerCase()] || "#94a3b8";
+  const hasOwner = (task.assignees || []).length > 0;
   return `<button class="graph-task-card status-${status.toLowerCase().replace(/\s/g, "-")}" data-task-id="${escapeHtml(task.id)}">
-    <div class="graph-task-top"><span class="graph-status">${escapeHtml(statusLabel)}</span><span>${graphPriority(task.priority)}</span></div>
+    <div class="graph-task-top"><span class="graph-status">${escapeHtml(statusLabel)}</span>${showPriority ? `<span class="graph-task-priority" style="background:color-mix(in srgb, ${priorityColor} 16%, white);color:${priorityColor}">${escapeHtml(priority)}</span>` : ""}</div>
     <h3>${escapeHtml(task.title)}</h3><p>${escapeHtml(task.planTitle)}</p>
-    <div class="graph-task-meta"><span>${escapeHtml((task.assignees || []).join(", ") || "Unassigned")}</span>
+    <div class="graph-task-meta"><span class="${hasOwner ? "" : "graph-task-gap"}">${hasOwner ? escapeHtml(task.assignees.join(", ")) : "No owner"}</span>
     <span>${task.dueDateTime ? `Due ${graphDate(task.dueDateTime)}` : "No due date"}</span></div>
     ${completedOnly ? `<p class="graph-completed-date">✓ Completed ${graphDate(task.completedDateTime)}</p>` : ""}
     <div class="graph-progress"><span style="width:${task.percentComplete || 0}%"></span></div>
@@ -1149,42 +1209,46 @@ function openPlanDrawer(id) {
   document.querySelectorAll("[data-drawer-task]").forEach(button => button.onclick = () => openTaskDrawer(button.dataset.drawerTask));
 }
 
-const GRAPH_PRIORITY_COLOR = { "urgent": "#ef4444", "high": "#f59e0b", "medium": "#3b82f6", "low": "#94a3b8" };
+const GRAPH_PRIORITY_COLOR = { "urgent": "#ef4444", "high": "#f59e0b", "medium": "#94a3b8", "low": "#94a3b8" };
 
 function openTaskDrawer(id) {
   const task = graphTasks().find(item => item.id === id);
   if (!task) return;
   const checklist = Array.isArray(task.checklist) ? task.checklist : Object.values(task.checklist || {});
   const comments = Array.isArray(task.comments) ? task.comments : Object.values(task.comments || {});
+  const hasDescription = !!(task.description && task.description.trim());
   const status = graphStatus(task);
   const statusColor = graphTaskStatusColor(status);
   const priority = graphPriority(task.priority);
   const priorityColor = GRAPH_PRIORITY_COLOR[priority.toLowerCase()] || "#94a3b8";
+  const showPriority = priority === "Urgent" || priority === "High";
   const isOverdue = status === "Overdue";
+  const overdueDays = isOverdue ? graphDaysOverdue(task) : 0;
+  const hasOwner = (task.assignees || []).length > 0;
   const warnSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg>`;
 
   openGraphDrawer(task.title, "Planner task", `
     <div class="graphd-badge-row">
-      <span class="graphd-status-badge" style="background:color-mix(in srgb, ${statusColor} 16%, white);color:${statusColor}">${isOverdue ? warnSvg : ""}${escapeHtml(status)}</span>
-      <span class="graphd-status-badge" style="background:color-mix(in srgb, ${priorityColor} 16%, white);color:${priorityColor}">${escapeHtml(priority)} priority</span>
+      <span class="graphd-status-badge" style="background:color-mix(in srgb, ${statusColor} 16%, white);color:${statusColor}">${isOverdue ? warnSvg : ""}${escapeHtml(isOverdue ? `Overdue · ${overdueDays}d` : status)}</span>
+      ${showPriority ? `<span class="graphd-status-badge" style="background:color-mix(in srgb, ${priorityColor} 16%, white);color:${priorityColor}">${escapeHtml(priority)} priority</span>` : ""}
     </div>
-    ${isOverdue ? `<div class="graphd-overdue-banner">${warnSvg}<div>This task is past its due date (${escapeHtml(graphDateTime(task.dueDateTime))}) and not yet completed.</div></div>` : ""}
+    ${isOverdue ? `<div class="graphd-overdue-banner">${warnSvg}<div><b>${overdueDays} day${overdueDays !== 1 ? "s" : ""} overdue</b>${hasOwner ? "" : " and no one is assigned"} — due ${escapeHtml(graphDateTime(task.dueDateTime))}.</div></div>` : ""}
     <div class="graph-detail-stack">
-      ${graphDetail("Assigned user", (task.assignees || []).join(", ") || "Unassigned")}
+      ${hasOwner ? graphDetail("Assigned user", task.assignees.join(", ")) : `<div class="graph-detail-row"><span>Assigned user</span><strong style="color:#b45309">No owner assigned</strong></div>`}
       ${graphDetail("Plan", task.planTitle)}
-      ${graphDetail("Due date", graphDateTime(task.dueDateTime))}
       ${graphDetail("Group", task.groupName)}
-      ${graphDetail("Start date", graphDateTime(task.startDateTime))}
+      ${graphDetail("Due date", task.dueDateTime ? graphDateTime(task.dueDateTime) : "Not set")}
+      ${graphDetail("Start date", task.startDateTime ? graphDateTime(task.startDateTime) : "Not set")}
       ${graphDetail("Progress", `${task.percentComplete || 0}%`)}
-      ${graphDetail("Completion date", graphDateTime(task.completedDateTime))}
+      ${task.completedDateTime ? graphDetail("Completion date", graphDateTime(task.completedDateTime)) : ""}
     </div>
-    <div class="graph-detail-stack">${graphDetail("Description", task.description || "Not returned by the current Graph response")}</div>
-    <h3>Checklist</h3><div class="graph-mini-list">${checklist.map(item =>
+    ${hasDescription ? `<div class="graph-detail-stack">${graphDetail("Description", task.description)}</div>` : ""}
+    ${checklist.length ? `<h3>Checklist</h3><div class="graph-mini-list">${checklist.map(item =>
       `<div>${item.isChecked || item.completed ? "✓" : "○"} ${escapeHtml(item.title || item.name || "Checklist item")}</div>`
-    ).join("") || "<p>No checklist items available.</p>"}</div>
-    <h3>Comments</h3><div class="graph-mini-list">${comments.map(comment =>
+    ).join("")}</div>` : ""}
+    ${comments.length ? `<h3>Comments</h3><div class="graph-mini-list">${comments.map(comment =>
       `<div><strong>${escapeHtml(comment.author || comment.createdBy || "User")}</strong><p>${escapeHtml(comment.text || comment.content || comment.body || "")}</p></div>`
-    ).join("") || "<p>No comments available.</p>"}</div>
+    ).join("")}</div>` : ""}
     <details class="graphd-tech-details">
       <summary>Technical details</summary>
       <div class="graph-detail-stack">${graphDetail("Task ID", task.id)}${graphDetail("Plan ID", task.planId)}${graphDetail("Assignee IDs", (task.assigneeIds || []).join(", ") || "—")}</div>
