@@ -5751,6 +5751,25 @@ body.graph-drawer-open .tara-panel {
 .graph-calendar-legend .legend-tentative { background: #f59e0b; }
 .graph-calendar-legend .legend-free { background: #22a06b; }
 
+.graph-cancelled-toggle {
+  border: 1px solid #d8dfeb;
+  border-radius: 999px;
+  background: #fff;
+  color: #52627a;
+  font-size: .74rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color .15s, color .15s, background .15s;
+}
+
+.graph-cancelled-toggle:hover {
+  border-color: #2878e8;
+  color: #2878e8;
+  background: #f2f7ff;
+}
+
 .graph-calendar-head span {
   padding: 10px;
   color: #45566f;

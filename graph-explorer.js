@@ -722,7 +722,7 @@ function renderGraphToolbar() {
     plans: [["all", "All plans"], ["active", "Has open tasks"], ["complete", "100% complete"]],
     tasks: [["all", "All statuses"], ["Completed", "Completed"], ["In Progress", "In progress"], ["Not Started", "Not started"], ["Overdue", "Overdue"]],
     completed: [["all", "All completed"]],
-    calendar: [["all", "All events"], ["busy", "Busy"], ["tentative", "Tentative"], ["free", "Free"]],
+    calendar: [["all", "All events"], ["busy", "Busy"], ["tentative", "Tentative"], ["free", "Free"], ["cancelled", "Cancelled"]],
     sites: [["all", "All sites"], ["files", "Has files"], ["lists", "Has lists"]],
     employees: [["all", "All employees"], ["matched", "Matched"], ["unmatched", "Unmatched"]],
   }[graphExplorerState.section];
@@ -746,7 +746,7 @@ function renderGraphToolbar() {
       `<option value="${value}" ${graphExplorerState.filter === value ? "selected" : ""}>${name}</option>`
     ).join("")}</select>
     <select id="graphSort">
-      ${graphExplorerState.section === "plans" ? `<option value="attention" ${graphExplorerState.sort === "attention" ? "selected" : ""}>Needs Attention</option>` : ""}
+      ${graphExplorerState.section === "plans" || graphExplorerState.section === "tasks" ? `<option value="attention" ${graphExplorerState.sort === "attention" ? "selected" : ""}>Needs Attention</option>` : ""}
       <option value="name" ${graphExplorerState.sort === "name" ? "selected" : ""}>Name A-Z</option>
       <option value="newest" ${graphExplorerState.sort === "newest" ? "selected" : ""}>Newest first</option>
       <option value="count" ${graphExplorerState.sort === "count" ? "selected" : ""}>Highest activity</option>
@@ -886,11 +886,18 @@ function renderGraphPlans() {
   document.querySelectorAll("[data-plan-id]").forEach(card => card.onclick = () => openPlanDrawer(card.dataset.planId));
 }
 
+function graphDaysOverdue(task) {
+  if (!task.dueDateTime) return 0;
+  const diff = Math.floor((Date.now() - new Date(task.dueDateTime).getTime()) / 86400000);
+  return diff > 0 ? diff : 0;
+}
+
 function renderGraphTasks(completedOnly) {
   let rows = graphTasks().filter(task => !completedOnly || graphStatus(task) === "Completed");
   rows = rows.filter(task => graphSearch(task.title, task.planTitle, task.groupName, ...(task.assignees || [])));
   rows = rows.filter(task => graphExplorerState.filter === "all" || graphStatus(task) === graphExplorerState.filter);
   rows.sort((a, b) => {
+    if (graphExplorerState.sort === "attention") return graphDaysOverdue(b) - graphDaysOverdue(a);
     if (graphExplorerState.sort === "newest") return new Date(b.completedDateTime || b.dueDateTime || 0) - new Date(a.completedDateTime || a.dueDateTime || 0);
     if (graphExplorerState.sort === "count") return (b.percentComplete || 0) - (a.percentComplete || 0);
     return a.title.localeCompare(b.title);
@@ -904,8 +911,11 @@ function renderGraphTasks(completedOnly) {
 
 function graphTaskCard(task, completedOnly = false) {
   const status = graphStatus(task);
+  const isOverdue = status === "Overdue";
+  const overdueDays = isOverdue ? graphDaysOverdue(task) : 0;
+  const statusLabel = isOverdue ? `Overdue · ${overdueDays}d` : status;
   return `<button class="graph-task-card status-${status.toLowerCase().replace(/\s/g, "-")}" data-task-id="${escapeHtml(task.id)}">
-    <div class="graph-task-top"><span class="graph-status">${escapeHtml(status)}</span><span>${graphPriority(task.priority)}</span></div>
+    <div class="graph-task-top"><span class="graph-status">${escapeHtml(statusLabel)}</span><span>${graphPriority(task.priority)}</span></div>
     <h3>${escapeHtml(task.title)}</h3><p>${escapeHtml(task.planTitle)}</p>
     <div class="graph-task-meta"><span>${escapeHtml((task.assignees || []).join(", ") || "Unassigned")}</span>
     <span>${task.dueDateTime ? `Due ${graphDate(task.dueDateTime)}` : "No due date"}</span></div>
@@ -921,10 +931,15 @@ function bindGraphTaskCards() {
 }
 
 function renderGraphCalendar() {
-  let rows = graphEvents().filter(event => graphSearch(event.subject, event.organizer, event.employee?.name, event.location));
-  rows = rows.filter(event => graphExplorerState.filter === "all" || event.showAs === graphExplorerState.filter);
+  const matching = graphEvents().filter(event => graphSearch(event.subject, event.organizer, event.employee?.name, event.location));
+  const cancelledCount = matching.filter(event => event.isCancelled).length;
+  let rows = matching.filter(event => {
+    if (graphExplorerState.filter === "cancelled") return event.isCancelled;
+    if (event.isCancelled) return false;
+    return graphExplorerState.filter === "all" || event.showAs === graphExplorerState.filter;
+  });
   rows.sort((a, b) => new Date(a.start) - new Date(b.start));
-  if (graphExplorerState.calendarView === "month") return renderGraphMonth(rows);
+  if (graphExplorerState.calendarView === "month") return renderGraphMonth(rows, cancelledCount);
   const base = graphCalendarBase();
   if (graphExplorerState.calendarView === "week") base.setDate(base.getDate() - base.getDay());
   const span = graphExplorerState.calendarView === "week" ? 7 : 1;
@@ -943,13 +958,14 @@ function renderGraphCalendar() {
   bindGraphEvents();
 }
 
-function renderGraphMonth(events) {
+function renderGraphMonth(events, cancelledCount = 0) {
   const base = graphCalendarBase();
   const year = base.getFullYear(), month = base.getMonth();
   const first = new Date(year, month, 1), last = new Date(year, month + 1, 0), cells = [];
   const monthLabel = base.toLocaleString([], { month: "long", year: "numeric" });
   for (let i = 0; i < first.getDay(); i++) cells.push(null);
   for (let day = 1; day <= last.getDate(); day++) cells.push(new Date(year, month, day));
+  const isShowingCancelled = graphExplorerState.filter === "cancelled";
   document.getElementById("graphPagination").innerHTML = `<span>${events.length} events in ${monthLabel}</span>`;
   document.getElementById("graphWorkspace").innerHTML = `
     <div class="graph-calendar-titlebar">
@@ -958,10 +974,15 @@ function renderGraphMonth(events) {
         <h2>${monthLabel}</h2>
         <span>${graphDate(graphData?.meta?.periodStart)} – ${graphDate(graphData?.meta?.periodEnd)} · ${escapeHtml(graphData?.meta?.calendarTimeZone || "Local time")}</span>
       </div>
-      <div class="graph-calendar-legend" aria-label="Calendar event status legend">
-        <span><i class="legend-busy"></i> Busy</span>
-        <span><i class="legend-tentative"></i> Tentative</span>
-        <span><i class="legend-free"></i> Free</span>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <div class="graph-calendar-legend" aria-label="Calendar event status legend">
+          <span><i class="legend-busy"></i> Busy</span>
+          <span><i class="legend-tentative"></i> Tentative</span>
+          <span><i class="legend-free"></i> Free</span>
+        </div>
+        ${cancelledCount || isShowingCancelled ? `<button type="button" id="graphCancelledToggle" class="graph-cancelled-toggle">
+          ${isShowingCancelled ? "← Back to real events" : `${cancelledCount} cancelled hidden — show cancelled`}
+        </button>` : ""}
       </div>
     </div>
     <div class="graph-calendar-head">${["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(day => `<span>${day}</span>`).join("")}</div>
@@ -983,6 +1004,14 @@ function renderGraphMonth(events) {
   document.querySelectorAll("[data-calendar-day]").forEach(button => {
     button.onclick = () => openCalendarDayDrawer(button.dataset.calendarDay);
   });
+  const cancelledToggle = document.getElementById("graphCancelledToggle");
+  if (cancelledToggle) {
+    cancelledToggle.onclick = () => {
+      graphExplorerState.filter = isShowingCancelled ? "all" : "cancelled";
+      renderGraphToolbar();
+      renderGraphSection();
+    };
+  }
 }
 
 function bindGraphEvents() {
@@ -1220,13 +1249,17 @@ function openSiteDrawer(id) {
   const site = (graphData?.sharePoint?.sites || []).find(item => item.id === id);
   if (!site) return;
   openGraphDrawer(site.displayName, "SharePoint site", `<div class="graph-detail-stack">
-    ${graphDetail("Site ID", site.id)}${graphDetail("Owner", site.owner || "Not provided by Graph")}${graphDetail("Last activity", graphDateTime(site.lastActivity))}
-    ${graphDetail("URL", site.webUrl)}${graphDetail("Lists", site.lists?.length || 0)}${graphDetail("Files / folders", site.files?.length || 0)}
+    ${graphDetail("Last activity", graphDateTime(site.lastActivity))}${graphDetail("Lists", site.lists?.length || 0)}
+    ${graphDetail("Files / folders", site.files?.length || 0)}
   </div><h3>Lists</h3><div class="graph-mini-list">${(site.lists || []).map(item =>
     `<a href="${escapeHtml(item.webUrl)}" target="_blank">${escapeHtml(item.displayName)}<span>${escapeHtml(item.template)}</span></a>`
   ).join("") || "No lists"}</div><h3>Files and folders</h3><div class="graph-mini-list">${(site.files || []).map(item =>
     `<a href="${escapeHtml(item.webUrl)}" target="_blank">${escapeHtml(item.name)}<span>${escapeHtml(item.type)}</span></a>`
-  ).join("") || "No files"}</div><a class="button graph-open-link" href="${escapeHtml(site.webUrl)}" target="_blank" rel="noopener noreferrer">Open SharePoint site</a>`);
+  ).join("") || "No files"}</div><a class="button graph-open-link" href="${escapeHtml(site.webUrl)}" target="_blank" rel="noopener noreferrer">Open SharePoint site</a>
+  <details class="graphd-tech-details">
+    <summary>Technical details</summary>
+    <div class="graph-detail-stack">${graphDetail("Site ID", site.id)}${graphDetail("Owner", site.owner || "Not provided by Graph")}${graphDetail("URL", site.webUrl)}</div>
+  </details>`);
 }
 
 function openGraphEmployeeDrawer(id) {
