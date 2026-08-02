@@ -632,7 +632,7 @@ async function boot() {
   }
   dataset = await loadDataset();
   if (!dataset) return;
-  filteredEmployees = dataset.employees.filter(e => !isIntern(e)).sort((a, b) => {
+  filteredEmployees = dataset.employees.filter(e => state.showInterns || !isIntern(e)).sort((a, b) => {
     if (a.kpi == null && b.kpi == null) return 0;
     if (a.kpi == null) return 1;
     if (b.kpi == null) return -1;
@@ -1068,7 +1068,6 @@ async function refreshKpiPerformance() {
     const payload = await res.json().catch(() => ({}));
     if (res.ok && payload.data?.employees?.length) {
       dataset = payload.data;
-      filteredEmployees = dataset.employees.filter(e => !isIntern(e));
       applyFilters();
       updateGlobalMonthLabel();
       status.textContent = `KPI data updated ✓ (${payload.period || month})`;
@@ -1187,15 +1186,28 @@ function renderMetrics() {
   const officeHours = sum(rows.map((e) => e.attendance.officeHours));
   const teamsActive = rows.filter((e) => e.teams.isActive).length;
   const fullConfidence = rows.filter((e) => e.sourceConfidence === 100).length;
+  const coverageLabels = {
+    worklogix: "Worklogix records", worklogixActivity: "Worklogix activity",
+    teams: "Teams activity", greythr: "GreytHR muster", biometrics: "Biometric swipes", github: "GitHub",
+  };
+  const coverageEntries = Object.entries(dataset.overview?.sourceCoverage || {}).filter(([key]) => key in coverageLabels);
+  const bottleneck = coverageEntries.length
+    ? coverageEntries.reduce((min, entry) => (entry[1] < min[1] ? entry : min))
+    : null;
+  const bottleneckPct = bottleneck ? Math.round((bottleneck[1] / (dataset.overview.employees || 1)) * 100) : 0;
   const metrics = [
     ["Employees", rows.length, "Filtered population", "people", "blue"],
     ["Active", rows.filter((e) => e.active).length, "Currently active", "pulse", "green"],
     ["Inactive", rows.filter((e) => !e.active).length, "Inactive records", "pause", "slate"],
     ["Avg KPI", scoredRows.length ? number.format(avgKpi) : "—", "75%+ confidence", "trend", "violet"],
-    ["Completed", `${workItems ? Math.round((completed / workItems) * 100) : 0}%`, `${completed}/${workItems} work items`, "check", "teal"],
+    workItems
+      ? ["Completed", `${Math.round((completed / workItems) * 100)}%`, `${completed}/${workItems} work items`, "check", "teal"]
+      : ["Completed", "No data", bottleneck ? `${coverageLabels[bottleneck[0]]} only ${bottleneckPct}% synced` : "No Worklogix activity synced", "check", "teal"],
     ["Office Hours", number.format(officeHours), "Attendance signal", "clock", "amber"],
     ["Online Now", teamsActive, "Teams presence", "online", "cyan"],
-    ["Full Fusion", fullConfidence, "All sources matched", "fusion", "indigo"],
+    fullConfidence
+      ? ["Full Fusion", fullConfidence, "All sources matched", "fusion", "indigo"]
+      : ["Full Fusion", "Blocked", bottleneck ? `Held back by ${coverageLabels[bottleneck[0]]} (${bottleneckPct}%)` : "No sources fully matched", "fusion", "indigo"],
   ];
   document.getElementById("metricGrid").innerHTML = metrics
     .map(([label, value, hint, icon, tone]) => `
@@ -1204,7 +1216,7 @@ function renderMetrics() {
           <span class="metric-icon metric-icon-${icon}">${metricIcon(icon)}</span>
           <span class="metric-status-dot"></span>
         </div>
-        <strong>${value}</strong>
+        <strong${typeof value === "string" && /[a-zA-Z]{3,}/.test(value) ? ' class="metric-value-text"' : ""}>${value}</strong>
         <span class="metric-label">${label}</span>
         <small>${hint}</small>
       </button>`)
@@ -1372,14 +1384,13 @@ function renderSourceCoverage() {
   };
   document.getElementById("sourceCoverage").innerHTML = Object.entries(dataset.overview.sourceCoverage)
     .filter(([key]) => key in labels)
-    .map(([key, value]) => {
-      const pct = Math.round((value / total) * 100);
-      return `<div class="coverage-item">
-        <strong>${labels[key]}</strong>
+    .map(([key, value]) => [key, value, Math.round((value / total) * 100)])
+    .sort((a, b) => a[2] - b[2])
+    .map(([key, value, pct]) => `<div class="coverage-item${pct < 10 ? " coverage-item--gap" : ""}">
+        <strong>${labels[key]}${pct < 10 ? '<span class="coverage-gap-flag">Critical gap</span>' : ""}</strong>
         <div class="bar"><span style="width:${pct}%"></span></div>
         <span class="subtle">${value} of ${total} employees matched (${pct}%)</span>
-      </div>`;
-    })
+      </div>`)
     .join("");
 }
 
@@ -1388,9 +1399,29 @@ function renderQuadrantSummary() {
   if (!container) return;
   const total = filteredEmployees.length || 1;
   const counts = { "High Performer": 0, "Ghost Worker": 0, "Present but Idle": 0, "Disengaged": 0 };
-  filteredEmployees.forEach((e) => {
-    if (e.quadrant && counts[e.quadrant] !== undefined) counts[e.quadrant]++;
+  const scored = filteredEmployees.filter((e) => e.quadrant);
+  scored.forEach((e) => {
+    if (counts[e.quadrant] !== undefined) counts[e.quadrant]++;
   });
+  const banner = document.getElementById("quadrantAlertBanner");
+  if (banner) {
+    const idle = counts["Present but Idle"];
+    const idlePct = scored.length ? Math.round((idle / scored.length) * 100) : 0;
+    banner.innerHTML = idle && idlePct >= 50 ? `
+      <button type="button" class="overview-alert-banner" id="quadrantAlertCta">
+        <span class="overview-alert-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></span>
+        <span class="overview-alert-text">
+          <strong>${idlePct}% of scored employees are "Present but Idle"</strong>
+          <span>${idle} of ${scored.length} employees with enough tracked signal show high attendance but low work output — the dominant pattern in this view.</span>
+        </span>
+        <span class="overview-alert-cta">View ${idle} employees →</span>
+      </button>` : "";
+    const cta = document.getElementById("quadrantAlertCta");
+    if (cta) cta.addEventListener("click", () => {
+      const employees = filteredEmployees.filter((e) => e.quadrant === "Present but Idle").sort((a, b) => (b.kpi || 0) - (a.kpi || 0));
+      openBandDrawer("Present but Idle", employees);
+    });
+  }
   const cards = [
     { label: "High Performer",    count: counts["High Performer"],    tone: "hp",  desc: "High productivity + high attendance" },
     { label: "Ghost Worker",      count: counts["Ghost Worker"],      tone: "gw",  desc: "High output but low physical presence" },
