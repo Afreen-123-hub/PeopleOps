@@ -2038,10 +2038,10 @@ function renderAttendanceDetail(employeeId) {
   const avgOfficeHours = Number.isFinite(attendance.avgOfficeHours) ? attendance.avgOfficeHours : 0;
   const monthlyOfficeHours = Number.isFinite(attendance.officeHours) ? attendance.officeHours : 0;
   const health = presentRate >= 90 && absentRate <= 5
-    ? { label: "Excellent", tone: "good", note: "Attendance is consistent for the selected period." }
+    ? { label: "Excellent", tone: "good", color: "#2fb36d", note: "Attendance is consistent for the selected period." }
     : presentRate >= 75
-      ? { label: "Stable", tone: "watch", note: "Attendance is acceptable, with a few days to review." }
-      : { label: "Needs Review", tone: "risk", note: "Attendance requires manager attention for the selected period." };
+      ? { label: "Stable", tone: "watch", color: "#f3a229", note: "Attendance is acceptable, with a few days to review." }
+      : { label: "Needs Review", tone: "risk", color: "#db4d5c", note: "Attendance requires manager attention for the selected period." };
   const biometricStatus = employee.sources.biometrics
     ? `${attendance.biometricDays} biometric days captured`
     : "No biometric match found";
@@ -2051,15 +2051,51 @@ function renderAttendanceDetail(employeeId) {
     .map((part) => part[0])
     .join("")
     .toUpperCase();
-  const attendanceBars = [
-    ["Present days", attendance.present, "#2fb36d"],
-    ["Absent days", attendance.absent, "#db4d5c"],
-    ["Leave/status days", attendance.leave, "#f3a229"],
-    ["Week off days", attendance.off, "#627084"],
+  const hasData = trackedDays > 0;
+
+  const detailEl = document.getElementById("attendanceDetail");
+
+  if (!hasData) {
+    detailEl.innerHTML = `
+      <section class="attendance-hero attendance-hero-empty">
+        <div class="attendance-person">
+          <div class="attendance-avatar attendance-avatar-empty">${initials}</div>
+          <div>
+            <p class="eyebrow">${employee.id} | ${mergedTeam(employee.team || "Unassigned")}</p>
+            <h1>${employee.name}</h1>
+            <p class="subtle">${employee.designation || "Unassigned"} | No attendance data recorded this period</p>
+          </div>
+        </div>
+        <span class="attendance-empty-tag">No data</span>
+      </section>
+
+      <section class="attendance-empty-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9.5 15 2 2 3-4"/></svg>
+        <h3>No attendance data for ${employee.name} yet</h3>
+        <p>Neither GreytHR nor biometric records exist for this employee this period — common for new joiners who haven't been linked yet. This isn't a 0% attendance score, it's an absence of tracking data.</p>
+      </section>
+    `;
+    return;
+  }
+
+  const donutSegments = [
+    ["Present", attendance.present, "#2fb36d"],
+    ["Leave/status", attendance.leave, "#f3a229"],
+    ["Week off", attendance.off, "#627084"],
+    ["Absent", attendance.absent, "#db4d5c"],
     ["Holidays", attendance.holidays, "#7b55d9"],
-    ["Biometric days", attendance.biometricDays, "#3366ff"],
   ];
-  const maxAttendanceValue = Math.max(1, ...attendanceBars.map(([, value]) => value));
+  const donutTotal = donutSegments.reduce((sum, [, value]) => sum + value, 0) || 1;
+  let donutAcc = 0;
+  const donutGradient = donutSegments
+    .map(([, value, color]) => {
+      const start = (donutAcc / donutTotal) * 100;
+      donutAcc += value;
+      const end = (donutAcc / donutTotal) * 100;
+      return `${color} ${start}% ${end}%`;
+    })
+    .join(", ");
+
   const summaryCards = [
     ["Present", attendance.present, "days", "good"],
     ["Absent", attendance.absent, "days", attendance.absent ? "risk" : "neutral"],
@@ -2075,7 +2111,7 @@ function renderAttendanceDetail(employeeId) {
     ["Performance band", employee.band || "KPI blank", employee.band ? "info" : "neutral"],
   ];
 
-  document.getElementById("attendanceDetail").innerHTML = `
+  detailEl.innerHTML = `
     <section class="attendance-hero attendance-hero-${health.tone}">
       <div class="attendance-person">
         <div class="attendance-avatar">${initials}</div>
@@ -2087,8 +2123,12 @@ function renderAttendanceDetail(employeeId) {
       </div>
       <div class="attendance-scorecard">
         <span class="attendance-status attendance-status-${health.tone}">${health.label}</span>
-        <strong>${presentRate}%</strong>
-        <span>present rate</span>
+        <div class="emp-kpi-ring" style="--pct:${presentRate}; --c:${health.color}">
+          <div class="emp-kpi-ring-inner">
+            <div class="emp-kpi-val">${presentRate}%</div>
+            <div class="emp-kpi-lbl">Present</div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2116,16 +2156,15 @@ function renderAttendanceDetail(employeeId) {
           </div>
           <span class="pill">${workingDays} working days</span>
         </div>
-        <div class="attendance-bars">
-          ${attendanceBars.map(([label, value, color]) => `
-            <div class="attendance-bar-row">
-              <span class="attendance-bar-label">${label}</span>
-              <span class="attendance-bar-track">
-                <span class="attendance-bar-fill" style="width:${Math.max(3, (value / maxAttendanceValue) * 100)}%; background:${color}"></span>
-              </span>
-              <strong>${value}</strong>
-            </div>
-          `).join("")}
+        <div class="attendance-donut-wrap">
+          <div class="attendance-donut" style="background:conic-gradient(${donutGradient})">
+            <div class="attendance-donut-center"><strong>${donutTotal}</strong><span>tracked</span></div>
+          </div>
+          <div class="attendance-donut-legend">
+            ${donutSegments.map(([label, value, color]) => `
+              <div class="adl-row"><span class="adl-dot" style="background:${color}"></span>${label} <b>${value}</b></div>
+            `).join("")}
+          </div>
         </div>
       </article>
 
