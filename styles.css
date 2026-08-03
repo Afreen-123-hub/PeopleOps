@@ -6678,8 +6678,8 @@ body.graph-drawer-open .tara-panel {
 }
 
 .qcard-hp  { --band-color: #22a06b; }
-.qcard-gw  { --band-color: #e28a0d; }
-.qcard-pi  { --band-color: #2563eb; }
+.qcard-gw  { --band-color: #3b82f6; }
+.qcard-pi  { --band-color: #f3a229; }
 .qcard-dis { --band-color: #d92d20; }
 
 /* ── Quadrant chip in KPI table ──────────────────────────────────────────── */
@@ -6693,8 +6693,8 @@ body.graph-drawer-open .tara-panel {
 }
 
 .qc-high-performer    { background: #dcfce7; color: #166534; }
-.qc-ghost-worker      { background: #fef3c7; color: #92400e; }
-.qc-present-but-idle  { background: #dbeafe; color: #1e3a8a; }
+.qc-ghost-worker      { background: #dbeafe; color: #1e3a8a; }
+.qc-present-but-idle  { background: #fef3c7; color: #92400e; }
 .qc-disengaged        { background: #fee2e2; color: #991b1b; }
 .qc-none              { background: #f1f5f9; color: #64748b; }
 
