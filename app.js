@@ -161,73 +161,6 @@ function drawDonutChart() {
   }
 }
 
-function drawRadarChart(canvas, drivers) {
-  const dpr = window.devicePixelRatio || 1;
-  const SIZE = 260;
-  canvas.width = SIZE * dpr;
-  canvas.height = SIZE * dpr;
-  canvas.style.width = SIZE + "px";
-  canvas.style.height = SIZE + "px";
-  const ctx = canvas.getContext("2d");
-  ctx.scale(dpr, dpr);
-  const cx = SIZE / 2, cy = SIZE / 2, radius = 88;
-  const keys = Object.keys(drivers);
-  const n = keys.length;
-  const step = (Math.PI * 2) / n;
-
-  for (let lvl = 1; lvl <= 5; lvl++) {
-    ctx.beginPath();
-    for (let i = 0; i < n; i++) {
-      const a = i * step - Math.PI / 2, r = (lvl / 5) * radius;
-      i === 0 ? ctx.moveTo(cx + r * Math.cos(a), cy + r * Math.sin(a))
-              : ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a));
-    }
-    ctx.closePath();
-    ctx.strokeStyle = lvl === 5 ? "#c8d4e0" : "#e8edf4";
-    ctx.lineWidth = lvl === 5 ? 1.5 : 1;
-    ctx.stroke();
-  }
-
-  for (let i = 0; i < n; i++) {
-    const a = i * step - Math.PI / 2;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + radius * Math.cos(a), cy + radius * Math.sin(a));
-    ctx.strokeStyle = "#dfe6ee"; ctx.lineWidth = 1; ctx.stroke();
-  }
-
-  ctx.beginPath();
-  keys.forEach((key, i) => {
-    const a = i * step - Math.PI / 2;
-    const r = (Math.min(100, Math.max(0, drivers[key])) / 100) * radius;
-    i === 0 ? ctx.moveTo(cx + r * Math.cos(a), cy + r * Math.sin(a))
-            : ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a));
-  });
-  ctx.closePath();
-  ctx.fillStyle = "rgba(0,169,157,0.14)"; ctx.fill();
-  ctx.strokeStyle = "#00a99d"; ctx.lineWidth = 2; ctx.stroke();
-
-  keys.forEach((key, i) => {
-    const a = i * step - Math.PI / 2;
-    const r = (Math.min(100, Math.max(0, drivers[key])) / 100) * radius;
-    ctx.beginPath();
-    ctx.arc(cx + r * Math.cos(a), cy + r * Math.sin(a), 4, 0, Math.PI * 2);
-    ctx.fillStyle = "#00a99d"; ctx.fill();
-    ctx.strokeStyle = "white"; ctx.lineWidth = 1.5; ctx.stroke();
-  });
-
-  keys.forEach((key, i) => {
-    const a = i * step - Math.PI / 2;
-    const lx = cx + (radius + 26) * Math.cos(a);
-    const ly = cy + (radius + 26) * Math.sin(a);
-    ctx.textAlign = Math.abs(Math.cos(a)) < 0.15 ? "center" : Math.cos(a) > 0 ? "left" : "right";
-    ctx.fillStyle = "#172033"; ctx.font = "700 10px Segoe UI,sans-serif";
-    ctx.fillText(title(key), lx, ly - 3);
-    ctx.fillStyle = "#00a99d"; ctx.font = "700 11px Segoe UI,sans-serif";
-    ctx.fillText(number.format(drivers[key]), lx, ly + 10);
-  });
-}
-
 function renderTeamHeatmap() {
   const container = document.getElementById("teamHeatmap");
   if (!container) return;
@@ -750,6 +683,14 @@ function setupFilters() {
     state.search = event.target.value.toLowerCase();
     applyFilters();
   });
+  document.getElementById("kpiSearchInput")?.addEventListener("input", (event) => {
+    state.search = event.target.value.toLowerCase();
+    applyFilters();
+  });
+  document.getElementById("peopleSearchInput")?.addEventListener("input", (event) => {
+    state.search = event.target.value.toLowerCase();
+    applyFilters();
+  });
   document.getElementById("bandFilter").addEventListener("change", (event) => {
     state.band = event.target.value;
     applyFilters();
@@ -881,6 +822,10 @@ function applyFilters() {
       if (b.kpi == null) return -1;
       return b.kpi - a.kpi;
     });
+  ["searchInput", "kpiSearchInput", "peopleSearchInput"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.value !== state.search) el.value = state.search;
+  });
   renderAll();
 }
 
@@ -2521,6 +2466,58 @@ function showEmployee(e) {
   const ringColor = QUADRANT_COLORS[e.band] || "#94a3b8";
   const ringPct = e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? 0) : (e.kpi ?? 0);
 
+  // Attendance % — computed once, reused by the header insight and the Attendance section
+  const calendarDays = att.calendarDays || ((att.present ?? 0) + (att.absent ?? 0) + (att.off ?? 0) + (att.leave ?? 0) + (att.holidays ?? 0));
+  const scheduledDays = Math.max(1, calendarDays - (att.off ?? 0) - (att.holidays ?? 0));
+  const presentCapped = Math.min(att.present ?? 0, scheduledDays);
+  const attPct = calendarDays ? Math.round((presentCapped / scheduledDays) * 100) : null;
+
+  const hasWorklogixActivity = e.sources?.worklogixActivity === true;
+
+  // Team KPI / attendance comparison — same team, only shown when there's enough of a sample to be meaningful
+  const employeeAttPct = (emp) => {
+    const a = emp.attendance || {};
+    const cd = a.calendarDays || ((a.present ?? 0) + (a.absent ?? 0) + (a.off ?? 0) + (a.leave ?? 0) + (a.holidays ?? 0));
+    if (!cd) return null;
+    const sd = Math.max(1, cd - (a.off ?? 0) - (a.holidays ?? 0));
+    return Math.round((Math.min(a.present ?? 0, sd) / sd) * 100);
+  };
+  const teamMates = (dataset.employees || []).filter((m) => mergedTeam(m.team || "Unassigned") === mergedTeam(e.team || "Unassigned") && m.kpi != null);
+  const teamAvgKpi = teamMates.length >= 2 ? average(teamMates.map((m) => m.kpi)) : null;
+  const kpiDelta = teamAvgKpi != null && e.kpi != null ? Math.round((e.kpi - teamAvgKpi) * 10) / 10 : null;
+  const teamAttValues = teamMates.map(employeeAttPct).filter((v) => v != null);
+  const teamAvgAtt = teamAttValues.length >= 2 ? Math.round(average(teamAttValues)) : null;
+
+  const insightSentence = (() => {
+    if (!e.quadrant || e.band === "Insufficient Data") return "";
+    const sd = e.scoreDrivers || {};
+    const strengths = [];
+    if (attPct != null && attPct >= 80) strengths.push(`${attPct}% attendance`);
+    if (att.punctualityScore != null && att.punctualityScore >= 80) strengths.push(`${att.punctualityScore}% punctuality`);
+    const weaknesses = [];
+    if (!hasWorklogixActivity) weaknesses.push("no Worklogix task activity tracked");
+    if (sd.collaboration != null && sd.collaboration < 40) weaknesses.push(`low collaboration (${number.format(sd.collaboration)})`);
+    if (e.sources?.github === false) weaknesses.push("no GitHub activity");
+    const strengthText = strengths.length ? strengths.join(" and ") : null;
+    const weaknessText = weaknesses.length ? weaknesses.join(", ") : null;
+
+    if (e.quadrant === "Present but Idle") {
+      return strengthText && weaknessText
+        ? `Solid ${strengthText} ${strengths.length > 1 ? "aren't" : "isn't"} matched by delivery — ${weaknessText}. That combination is why this profile is flagged "Present but Idle" rather than a stronger band.`
+        : `Flagged "Present but Idle" — present and available, but delivery signals are weak this period.`;
+    }
+    if (e.quadrant === "Ghost Worker") {
+      return `Flagged "Ghost Worker" — delivery signals look fine, but physical presence is low. Worth confirming this reflects genuine remote work rather than a tracking gap.`;
+    }
+    if (e.quadrant === "Disengaged") {
+      return `Flagged "Disengaged"${weaknessText ? ` — ${weaknessText}` : ""}. Low signal across the board; this profile likely needs direct follow-up.`;
+    }
+    if (e.quadrant === "High Performer") {
+      return `Flagged "High Performer"${strengthText ? ` — ${strengthText}, backed by consistent delivery` : ""}. One of the stronger profiles on the team this period.`;
+    }
+    return "";
+  })();
+
   document.getElementById("employeeDetail").innerHTML = `
     <section class="detail">
 
@@ -2538,36 +2535,38 @@ function showEmployee(e) {
         </div>
         ${e.band === "Insufficient Data"
           ? `<div class="emp-detail-kpi no-info"><span class="emp-kpi-val" style="font-size:1.1rem">—</span><span class="emp-kpi-lbl">No attendance data</span></div>`
-          : `<div class="emp-kpi-ring" style="--pct:${Math.min(100, Math.max(0, ringPct))};--c:${ringColor}">
-               <div class="emp-kpi-ring-inner">
-                 <span class="emp-kpi-val">${e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? "—") : (e.kpi ?? "—")}</span>
-                 <span class="emp-kpi-lbl">${e.roleCategory === "executive" ? "Team KPI" : "KPI"}</span>
+          : `<div>
+               <div class="emp-kpi-ring" style="--pct:${Math.min(100, Math.max(0, ringPct))};--c:${ringColor}">
+                 <div class="emp-kpi-ring-inner">
+                   <span class="emp-kpi-val">${e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? "—") : (e.kpi ?? "—")}</span>
+                   <span class="emp-kpi-lbl">${e.roleCategory === "executive" ? "Team KPI" : "KPI"}</span>
+                 </div>
                </div>
+               ${kpiDelta != null ? `<div class="emp-kpi-vs ${kpiDelta < 0 ? "down" : kpiDelta > 0 ? "up" : ""}">${kpiDelta > 0 ? "+" : ""}${kpiDelta} vs team avg</div>` : ""}
              </div>`
         }
       </div>
+
+      ${insightSentence ? `<div class="insight-banner">
+        <span class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></span>
+        <div class="insight-text">${escapeHtml(insightSentence)}</div>
+      </div>` : ""}
 
       <p class="detail-period">Period: <strong>${dataset.meta?.period || "—"}</strong> &nbsp;·&nbsp; Teams status is live &nbsp;·&nbsp; Generated: ${dataset.meta?.generatedAt ? new Date(dataset.meta.generatedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "—"}</p>
       <div class="source-chips">${sources}</div>
 
       <!-- Work Activity -->
       <h3 class="detail-section-title">Work Activity</h3>
-      <div class="detail-grid4">
+      ${hasWorklogixActivity ? `<div class="detail-grid4">
         <div class="dg-stat"><span class="dg-val">${wl.completed}/${wl.workItems}</span><span class="dg-lbl">Tasks Completed</span></div>
         <div class="dg-stat"><span class="dg-val">${wl.approved ?? "—"}</span><span class="dg-lbl">Approved</span></div>
         <div class="dg-stat ${wl.blocked ? "dg-warn" : ""}"><span class="dg-val">${wl.blocked ?? 0}</span><span class="dg-lbl">Blocked</span></div>
         <div class="dg-stat"><span class="dg-val">${wl.inProgress ?? 0}</span><span class="dg-lbl">In Progress</span></div>
-      </div>
+      </div>` : `<div class="empty-note">No Worklogix task data synced for this employee this period</div>`}
 
       <!-- Attendance & Biometrics -->
-      <h3 class="detail-section-title">Attendance &amp; Biometrics</h3>
+      <h3 class="detail-section-title">Attendance &amp; Biometrics${teamAvgAtt != null ? `<span class="detail-section-context">Team avg: ${teamAvgAtt}%</span>` : ""}</h3>
       ${(() => {
-        // calendarDays from GreytHR is authoritative (session halves sum to calendar days).
-        // att.present may be biometricDays (raw swipe count) — cap it at working days.
-        const calendarDays = att.calendarDays || ((att.present ?? 0) + (att.absent ?? 0) + (att.off ?? 0) + (att.leave ?? 0) + (att.holidays ?? 0));
-        const scheduledDays = Math.max(1, calendarDays - (att.off ?? 0) - (att.holidays ?? 0));
-        const presentCapped  = Math.min(att.present ?? 0, scheduledDays);
-        const attPct = Math.round(presentCapped / scheduledDays * 100);
         const absentWarn = (att.absent ?? 0) > 3 ? "dg-warn" : "";
         return `
         <div class="att-summary-row">
@@ -2605,21 +2604,27 @@ function showEmployee(e) {
       <!-- GitHub -->
       <h3 class="detail-section-title">GitHub Contributions</h3>
       <div class="detail-grid4">
-        <div class="dg-stat dg-good"><span class="dg-val">${gc.commits}</span><span class="dg-lbl">Commits</span></div>
-        <div class="dg-stat dg-good"><span class="dg-val">${gc.prs}</span><span class="dg-lbl">Pull Requests</span></div>
+        <div class="dg-stat ${gc.commits > 0 ? "dg-good" : ""}"><span class="dg-val">${gc.commits}</span><span class="dg-lbl">Commits</span></div>
+        <div class="dg-stat ${gc.prs > 0 ? "dg-good" : ""}"><span class="dg-val">${gc.prs}</span><span class="dg-lbl">Pull Requests</span></div>
         <div class="dg-stat"><span class="dg-val">${gc.done}</span><span class="dg-lbl">Issues Closed</span></div>
         <div class="dg-stat"><span class="dg-val">${gc.contributionScore}</span><span class="dg-lbl">Contribution Score</span></div>
       </div>` : ""}
 
-      ${e.calendar ? `
+      ${e.calendar ? (() => {
+        const rate = e.calendar.attendanceRate ?? 0;
+        const rateTone = e.calendar.attended > 0 && rate >= 70 ? "dg-good" : rate < 40 ? "dg-warn" : "";
+        const missed = e.calendar.invited > 0 ? (e.calendar.invited - e.calendar.attended) : 0;
+        const missedTone = e.calendar.invited > 0 && missed / e.calendar.invited > 0.6 ? "dg-warn" : "";
+        return `
       <!-- Calendar -->
       <h3 class="detail-section-title">Calendar Activity</h3>
       <div class="detail-grid4">
         <div class="dg-stat"><span class="dg-val">${e.calendar.invited}</span><span class="dg-lbl">Meetings Invited</span></div>
-        <div class="dg-stat dg-good"><span class="dg-val">${e.calendar.attended}</span><span class="dg-lbl">Meetings Attended</span></div>
-        <div class="dg-stat dg-good"><span class="dg-val">${e.calendar.attendanceRate}%</span><span class="dg-lbl">Attendance Rate</span></div>
-        <div class="dg-stat"><span class="dg-val">${e.calendar.invited > 0 ? (e.calendar.invited - e.calendar.attended) : 0}</span><span class="dg-lbl">Missed</span></div>
-      </div>` : ""}
+        <div class="dg-stat ${rateTone}"><span class="dg-val">${e.calendar.attended}</span><span class="dg-lbl">Meetings Attended</span></div>
+        <div class="dg-stat ${rateTone}"><span class="dg-val">${rate}%</span><span class="dg-lbl">Attendance Rate</span></div>
+        <div class="dg-stat ${missedTone}"><span class="dg-val">${missed}</span><span class="dg-lbl">Missed</span></div>
+      </div>`;
+      })() : ""}
 
       ${e.sharepoint ? `
       <!-- SharePoint -->
@@ -2677,33 +2682,37 @@ function showEmployee(e) {
 
       <!-- Score Drivers -->
       <h3 class="detail-section-title">Score Drivers</h3>
-      <div class="radar-section">
-        <canvas id="radarChart"></canvas>
-        <div class="radar-legend">
-          ${(() => {
-            const roleDrivers = {
-              technical: ["productivity","delivery","efficiency","attendance","taskCompletion","punctuality","collaboration","codeContribution","github"],
-              management: ["projectDelivery","attendance","collaboration","taskApprovalSpeed","taskReviewEffectiveness","teamAvgKpi","plannerCompletion"],
-              executive:  ["teamAvgKpi","attendance","collaboration","pmProjectScore"],
-              support:    ["attendance","punctuality","collaboration","taskCompletion","managerRatings"],
-              intern:     ["attendance","punctuality","collaboration","mentorFeedback","taskCompletion"],
-              trainee:    ["taskCompletion","attendance","punctuality","collaboration","mentorFeedback"],
-            };
-            const allowed = roleDrivers[e.roleCategory] || roleDrivers.technical;
-            return allowed
-              .filter(k => e.scoreDrivers[k] != null)
-              .map(k => {
-                const value = e.scoreDrivers[k];
-                return `
-                <div class="radar-legend-row">
-                  <span class="radar-lbl">${title(k)}</span>
-                  <div class="radar-bar-wrap"><div class="radar-bar-fill" style="width:${Math.min(value,100)}%"></div></div>
-                  <span class="radar-val">${number.format(value)}</span>
-                </div>`;
-              }).join("");
-          })()}
+      ${(() => {
+        const roleDrivers = {
+          technical: ["productivity","delivery","efficiency","attendance","taskCompletion","punctuality","collaboration","codeContribution","github"],
+          management: ["projectDelivery","attendance","collaboration","taskApprovalSpeed","taskReviewEffectiveness","teamAvgKpi","plannerCompletion"],
+          executive:  ["teamAvgKpi","attendance","collaboration","pmProjectScore"],
+          support:    ["attendance","punctuality","collaboration","taskCompletion","managerRatings"],
+          intern:     ["attendance","punctuality","collaboration","mentorFeedback","taskCompletion"],
+          trainee:    ["taskCompletion","attendance","punctuality","collaboration","mentorFeedback"],
+        };
+        const allowed = roleDrivers[e.roleCategory] || roleDrivers.technical;
+        const drivers = allowed.filter(k => e.scoreDrivers[k] != null).map(k => [title(k), e.scoreDrivers[k]]);
+        if (!drivers.length) return `<div class="empty-note">No score-driver data available for this employee.</div>`;
+        const tierColor = (v) => v < 20 ? "#dc2626" : v < 60 ? "#d97706" : "#16a34a";
+        return `
+        <div class="driver-bar-chart">
+          <div class="driver-bar-chart-grid"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
+          <div class="driver-bar-cols">
+            ${drivers.map(([label, value]) => `
+              <div class="driver-bar-col">
+                <span class="driver-bar-value" style="color:${tierColor(value)}">${number.format(value)}</span>
+                <div class="driver-bar-track"><div class="driver-bar-fill" style="height:${Math.max(2, Math.min(value, 100))}%;background:${tierColor(value)}"></div></div>
+                <span class="driver-bar-label">${label}</span>
+              </div>`).join("")}
+          </div>
         </div>
-      </div>
+        <div class="bar-chart-legend">
+          <span><i style="background:#dc2626"></i>Weak (&lt;20)</span>
+          <span><i style="background:#d97706"></i>Low (20&ndash;59)</span>
+          <span><i style="background:#16a34a"></i>Strong (60+)</span>
+        </div>`;
+      })()}
 
       ${(() => {
         if (!e.gapReason) return "";
@@ -2723,24 +2732,6 @@ function showEmployee(e) {
   `;
   document.querySelectorAll("dialog[open]").forEach(d => d.close());
   document.getElementById("employeeDialog").showModal();
-  requestAnimationFrame(() => {
-    const rc = document.getElementById("radarChart");
-    if (rc) {
-      const roleDrivers = {
-        technical: ["productivity","delivery","efficiency","attendance","taskCompletion","punctuality","collaboration","codeContribution","github"],
-        management: ["projectDelivery","attendance","collaboration","taskApprovalSpeed","taskReviewEffectiveness","teamAvgKpi","plannerCompletion"],
-        executive:  ["teamAvgKpi","attendance","collaboration","pmProjectScore"],
-        support:    ["attendance","punctuality","collaboration","taskCompletion","managerRatings"],
-        intern:     ["attendance","punctuality","collaboration","mentorFeedback","taskCompletion"],
-        trainee:    ["taskCompletion","attendance","punctuality","collaboration","mentorFeedback"],
-      };
-      const allowed = roleDrivers[e.roleCategory] || roleDrivers.technical;
-      const radarDrivers = Object.fromEntries(
-        allowed.filter(k => e.scoreDrivers[k] != null).map(k => [k, e.scoreDrivers[k]])
-      );
-      drawRadarChart(rc, radarDrivers);
-    }
-  });
 }
 
 function exportCsv() {

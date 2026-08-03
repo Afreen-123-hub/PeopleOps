@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
     <link rel="icon" type="image/svg+xml" href="peopleops-icon.svg">
-    <link rel="stylesheet" href="styles.css?v=20260803-quadrantcolor">
+    <link rel="stylesheet" href="styles.css?v=20260803-profilefull">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -309,6 +309,9 @@
                 </div>
                 <span id="kpiEmployeeCount" class="pill"></span>
               </div>
+              <div class="page-search-row">
+                <input id="kpiSearchInput" type="search" placeholder="Search name, ID, team, designation" class="page-search-input">
+              </div>
               <div class="table-wrap">
                 <table class="kpi-table">
                   <thead>
@@ -403,6 +406,9 @@
                 <h2>Ranked KPI Register</h2>
               </div>
               <span class="pill">Click a row for details</span>
+            </div>
+            <div class="page-search-row">
+              <input id="peopleSearchInput" type="search" placeholder="Search name, ID, team, designation" class="page-search-input">
             </div>
             <div class="table-wrap">
               <table class="employees-table">
@@ -738,7 +744,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260803-quadrantcolor"></script>
+    <script src="app.js?v=20260803-profilefull"></script>
     <script src="graph-explorer.js?v=20260802-overviewpolish"></script>
   </body>
 </html>
