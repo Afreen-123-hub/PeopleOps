@@ -313,6 +313,206 @@ h2 {
 }
 .export-menu button:hover { background: var(--canvas); }
 
+/* ── Gradient header + filter panel ── */
+.gradient-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(120deg, #0b1f4d 0%, #12296b 45%, #0f7a72 100%);
+  padding: 26px 30px 22px;
+  margin-bottom: 18px;
+}
+
+.gradient-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(420px 220px at 88% -10%, rgba(0, 169, 157, 0.35), transparent 60%),
+    radial-gradient(380px 200px at -5% 110%, rgba(37, 99, 235, 0.35), transparent 60%);
+}
+
+.gradient-hero {
+  position: relative;
+  z-index: 1;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.gradient-hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.gradient-hero-mark {
+  flex-shrink: 0;
+}
+
+.gradient-hero h1 {
+  color: #fff;
+  text-shadow: none;
+  font-size: 1.5rem;
+}
+
+.gradient-hero h1::after {
+  display: none;
+}
+
+.gradient-hero .hero-copy {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  max-width: 440px;
+}
+
+.gradient-hero-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.gradient-hero-meta {
+  display: flex;
+  gap: 20px;
+}
+
+.gradient-hero-meta div {
+  text-align: right;
+}
+
+.gradient-hero-meta strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.gradient-hero-meta span {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.controls.gradient-controls {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pill-field-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: 0 12px;
+  flex: 1;
+  min-width: 150px;
+  color: #5c6a85;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.pill-field-label.search-field {
+  flex: 2;
+  min-width: 220px;
+}
+
+.pill-field-label svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.pill-field-label input,
+.pill-field-label select {
+  border: 0;
+  background: transparent;
+  font-size: 0.82rem;
+  color: var(--ink);
+  width: 100%;
+  height: 38px;
+  padding: 0;
+}
+
+.pill-switch-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: 0 12px;
+  height: 38px;
+  flex: 0 0 auto;
+  cursor: pointer;
+  color: var(--ink);
+  text-transform: none;
+  font-weight: 700;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.pill-switch-label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 28px;
+  height: 15px;
+  border-radius: 99px;
+  background: #cbd5e1;
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.pill-switch-label input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.15s;
+}
+
+.pill-switch-label input[type="checkbox"]:checked {
+  background: var(--teal);
+}
+
+.pill-switch-label input[type="checkbox"]:checked::after {
+  left: 15px;
+}
+
+@media (max-width: 760px) {
+  .gradient-hero {
+    flex-direction: column;
+  }
+  .gradient-hero-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
 .pill,
 .button {
   display: inline-flex;

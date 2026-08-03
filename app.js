@@ -545,11 +545,20 @@ function setupGlobalMonthPicker() {
 
 function updateGlobalMonthLabel() {
   const el = document.getElementById("globalMonthLabel");
-  if (!el || !dataset?.meta?.period) return;
+  const periodEl = document.getElementById("heroPeriodLabel");
+  if (!dataset?.meta?.period) return;
   const m = dataset.meta.period.match(/(\d{4}-\d{2})/);
   if (!m) return;
   const date = new Date(`${m[1]}-01T00:00:00`);
-  el.textContent = `Currently showing: ${date.toLocaleDateString([], { month: "long", year: "numeric" })}`;
+  const label = date.toLocaleDateString([], { month: "long", year: "numeric" });
+  if (el) el.textContent = `Currently showing: ${label}`;
+  if (periodEl) periodEl.textContent = date.toLocaleDateString([], { month: "short", year: "numeric" });
+
+  const generatedEl = document.getElementById("heroGeneratedLabel");
+  if (generatedEl && dataset.meta.generatedAt) {
+    const generated = new Date(dataset.meta.generatedAt);
+    generatedEl.textContent = generated.toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  }
 }
 
 async function fetchGlobalAttendanceMonth(month) {

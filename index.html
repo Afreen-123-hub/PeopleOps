@@ -4,21 +4,37 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260802-overviewpolish">
+    <link rel="icon" type="image/svg+xml" href="peopleops-icon.svg">
+    <link rel="stylesheet" href="styles.css?v=20260803-logo">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
       <aside class="rail" aria-label="Data source status">
         <div class="brand-mark">
-          <div class="brand-chip">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <circle cx="8" cy="6" r="3.4"/>
-              <path d="M2 20c0-3.6 2.9-6.2 6-6.2s6 2.6 6 6.2v.6H2v-.6z"/>
-              <circle cx="17.2" cy="8" r="2.6"/>
-              <path d="M22 20c0-2.9-2.1-5.1-4.8-5.1-1 0-1.9.3-2.6.8.9 1.2 1.4 2.7 1.4 4.3v.6H22v-.6z" opacity="0.65"/>
-            </svg>
-          </div>
-          <div class="brand-text">PeopleOPS<span>Intelligence</span></div>
+          <svg class="brand-logo" viewBox="0 0 300 64" fill="none" width="180" height="38" role="img" aria-label="PeopleOps Intelligence">
+            <defs>
+              <linearGradient id="poiGradRail" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#2F5CFF"/>
+                <stop offset="100%" stop-color="#00C2A8"/>
+              </linearGradient>
+              <linearGradient id="poiTextGradRail" x1="150" y1="20" x2="300" y2="44" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#6EA3FF"/>
+                <stop offset="100%" stop-color="#5CF0D8"/>
+              </linearGradient>
+            </defs>
+            <g>
+              <line x1="32" y1="32" x2="32" y2="9" stroke="url(#poiGradRail)" stroke-width="2.4" stroke-linecap="round"/>
+              <line x1="32" y1="32" x2="51.6" y2="44" stroke="url(#poiGradRail)" stroke-width="2.4" stroke-linecap="round"/>
+              <line x1="32" y1="32" x2="12.4" y2="44" stroke="url(#poiGradRail)" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="32" cy="9" r="5.5" fill="white" stroke="url(#poiGradRail)" stroke-width="2.6"/>
+              <circle cx="51.6" cy="44" r="5.5" fill="white" stroke="url(#poiGradRail)" stroke-width="2.6"/>
+              <circle cx="12.4" cy="44" r="5.5" fill="white" stroke="url(#poiGradRail)" stroke-width="2.6"/>
+              <circle cx="32" cy="32" r="12" fill="url(#poiGradRail)"/>
+              <circle cx="32" cy="32" r="4" fill="white"/>
+            </g>
+            <text x="72" y="30" font-family="Inter, 'Segoe UI', sans-serif" font-weight="700" font-size="22" fill="#ffffff" letter-spacing="-0.3">PeopleOps</text>
+            <text x="72" y="52" font-family="Inter, 'Segoe UI', sans-serif" font-weight="500" font-size="22" fill="url(#poiTextGradRail)" letter-spacing="-0.3">Intelligence</text>
+          </svg>
         </div>
         <div class="rail-nav-label">Main</div>
         <button class="rail-item active" data-view="overview" title="Overview">
@@ -75,53 +91,73 @@
 
       <section class="workspace">
         <section id="overview" class="view active-view">
-          <header class="hero">
-            <div>
-              <h1>PeopleOPS Intelligence</h1>
-              <p class="hero-copy">Unified employee performance intelligence across attendance, collaboration, delivery, and workforce signals.</p>
-            </div>
-            <div class="hero-actions">
-              <div class="export-dropdown" id="exportDropdown">
-                <button class="button export-btn" id="exportBtn">Export ▾</button>
-                <div class="export-menu" id="exportMenu">
-                  <button id="exportCsv">CSV (.csv)</button>
-                  <button id="exportXlsx">Excel (.xlsx)</button>
+          <div class="gradient-panel">
+            <header class="hero gradient-hero">
+              <div class="gradient-hero-brand">
+                <svg class="gradient-hero-mark" width="46" height="46" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                  <line x1="32" y1="32" x2="32" y2="9" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>
+                  <line x1="32" y1="32" x2="51.6" y2="44" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>
+                  <line x1="32" y1="32" x2="12.4" y2="44" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>
+                  <circle cx="32" cy="9" r="5.5" fill="#12296b" stroke="#fff" stroke-width="2.6"/>
+                  <circle cx="51.6" cy="44" r="5.5" fill="#12296b" stroke="#fff" stroke-width="2.6"/>
+                  <circle cx="12.4" cy="44" r="5.5" fill="#12296b" stroke="#fff" stroke-width="2.6"/>
+                  <circle cx="32" cy="32" r="12" fill="#fff"/>
+                  <circle cx="32" cy="32" r="4" fill="#0f7a72"/>
+                </svg>
+                <div>
+                  <h1>PeopleOps Intelligence</h1>
+                  <p class="hero-copy">Workforce intelligence across attendance, collaboration, delivery, and output</p>
                 </div>
               </div>
-            </div>
-          </header>
+              <div class="gradient-hero-right">
+                <div class="gradient-hero-meta">
+                  <div><strong id="heroGeneratedLabel">—</strong><span>Generated</span></div>
+                  <div><strong id="heroPeriodLabel">—</strong><span>Period</span></div>
+                </div>
+                <div class="hero-actions">
+                  <div class="export-dropdown" id="exportDropdown">
+                    <button class="button export-btn" id="exportBtn">Export ▾</button>
+                    <div class="export-menu" id="exportMenu">
+                      <button id="exportCsv">CSV (.csv)</button>
+                      <button id="exportXlsx">Excel (.xlsx)</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </header>
 
-          <section class="controls" aria-label="Dashboard controls">
-            <label>
-              Search
-              <input id="searchInput" type="search" placeholder="Name, ID, team, designation">
-            </label>
-            <label>
-              Band
-              <select id="bandFilter">
-                <option value="all">All bands</option>
-              </select>
-            </label>
-            <label>
-              Team
-              <select id="teamFilter">
-                <option value="all">All teams</option>
-              </select>
-            </label>
-            <label class="toggle-label">
-              <input type="checkbox" id="internToggle" checked>
-              Show Interns
-            </label>
-            <label>
-              Source confidence
-              <select id="confidenceFilter">
-                <option value="0">Any confidence</option>
-                <option value="50">50% and above</option>
-                <option value="75">75% and above</option>
-                <option value="100">Full confidence</option>
-              </select>
-            </label>
-          </section>
+            <section class="controls gradient-controls" aria-label="Dashboard controls">
+              <label class="pill-field-label search-field">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                <input id="searchInput" type="search" placeholder="Name, ID, team, designation">
+              </label>
+              <label class="pill-field-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <select id="bandFilter">
+                  <option value="all">All bands</option>
+                </select>
+              </label>
+              <label class="pill-field-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"/></svg>
+                <select id="teamFilter">
+                  <option value="all">All teams</option>
+                </select>
+              </label>
+              <label class="pill-switch-label">
+                <input type="checkbox" id="internToggle" checked>
+                <span>Show Interns</span>
+              </label>
+              <label class="pill-field-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4M2 12l3 3L15 5"/></svg>
+                <select id="confidenceFilter">
+                  <option value="0">Any confidence</option>
+                  <option value="50">50% and above</option>
+                  <option value="75">75% and above</option>
+                  <option value="100">Full confidence</option>
+                </select>
+              </label>
+            </section>
+          </div>
 
           <div class="overview-heading">
             <div>
@@ -702,7 +738,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260802-overviewpolish"></script>
+    <script src="app.js?v=20260803-logo"></script>
     <script src="graph-explorer.js?v=20260802-overviewpolish"></script>
   </body>
 </html>
