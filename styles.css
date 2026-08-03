@@ -778,11 +778,13 @@ select {
 }
 .awaiting-body {
   padding: 14px 16px;
-  display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   background: #fff;
   border-top: 1px dashed #cbd5e1;
+}
+.awaiting-body:not([hidden]) {
+  display: grid;
 }
 .await-chip {
   display: flex;
