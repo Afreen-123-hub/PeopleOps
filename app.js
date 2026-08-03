@@ -2515,6 +2515,12 @@ function showEmployee(e) {
     .map(([name, ok]) => `<span class="source-chip ${ok ? "ok" : "missing"}">${ok ? "✓" : "✗"} ${sourceLabels[name]}</span>`)
     .join("");
 
+  const quadrantColor = QUADRANT_COLORS[e.quadrant] || "#627084";
+  const confPct = e.sourceConfidence ?? 0;
+  const confTone = confPct < 50 ? { bg: "#fee2e2", fg: "#991b1b" } : confPct < 75 ? { bg: "#fef3c7", fg: "#92400e" } : { bg: "#f1f5f9", fg: "#64748b" };
+  const ringColor = QUADRANT_COLORS[e.band] || "#94a3b8";
+  const ringPct = e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? 0) : (e.kpi ?? 0);
+
   document.getElementById("employeeDetail").innerHTML = `
     <section class="detail">
 
@@ -2526,21 +2532,19 @@ function showEmployee(e) {
           <p>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}${e.managerName ? ` &middot; Reports to <strong>${e.managerName}</strong>` : ""}</p>
           <div class="emp-detail-badges">
             <span class="${bandCls}">${bandLabel}</span>
-            ${e.quadrant ? `<span class="quadrant-badge">${e.quadrant}</span>` : ""}
-            <span class="conf-badge">${e.sourceConfidence}% confidence</span>
+            ${e.quadrant ? `<span class="quadrant-badge" style="background:color-mix(in srgb, ${quadrantColor} 16%, white);color:${quadrantColor};border-color:color-mix(in srgb, ${quadrantColor} 40%, white)">${e.quadrant}</span>` : ""}
+            <span class="conf-badge" style="background:${confTone.bg};color:${confTone.fg}">${e.sourceConfidence}% confidence</span>
           </div>
         </div>
-        <div class="emp-detail-kpi ${e.band ? bandClass(e.band) : "no-info"}">
-          ${e.roleCategory === "executive"
-            ? `<span class="emp-kpi-val">${e.scoreDrivers?.teamAvgKpi != null ? e.scoreDrivers.teamAvgKpi : "—"}</span>
-               <span class="emp-kpi-lbl">Team KPI</span>`
-            : e.band === "Insufficient Data"
-            ? `<span class="emp-kpi-val" style="font-size:1.1rem">—</span>
-               <span class="emp-kpi-lbl">No attendance data</span>`
-            : `<span class="emp-kpi-val">${e.kpi != null ? e.kpi : "—"}</span>
-               <span class="emp-kpi-lbl">KPI</span>`
-          }
-        </div>
+        ${e.band === "Insufficient Data"
+          ? `<div class="emp-detail-kpi no-info"><span class="emp-kpi-val" style="font-size:1.1rem">—</span><span class="emp-kpi-lbl">No attendance data</span></div>`
+          : `<div class="emp-kpi-ring" style="--pct:${Math.min(100, Math.max(0, ringPct))};--c:${ringColor}">
+               <div class="emp-kpi-ring-inner">
+                 <span class="emp-kpi-val">${e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? "—") : (e.kpi ?? "—")}</span>
+                 <span class="emp-kpi-lbl">${e.roleCategory === "executive" ? "Team KPI" : "KPI"}</span>
+               </div>
+             </div>`
+        }
       </div>
 
       <p class="detail-period">Period: <strong>${dataset.meta?.period || "—"}</strong> &nbsp;·&nbsp; Teams status is live &nbsp;·&nbsp; Generated: ${dataset.meta?.generatedAt ? new Date(dataset.meta.generatedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "—"}</p>
@@ -2701,7 +2705,19 @@ function showEmployee(e) {
         </div>
       </div>
 
-      ${e.gapReason ? `<p class="gap-reason-note">⚠ ${e.gapReason}</p>` : ""}
+      ${(() => {
+        if (!e.gapReason) return "";
+        const cleaned = e.gapReason.replace(/worklogixActivity/gi, "Worklogix activity").replace(/\bgithub\b/gi, "GitHub");
+        const [headline, ...rest] = cleaned.split(";").map(s => s.trim());
+        const detail = rest.join("; ");
+        return `<div class="gap-reason-note">
+          <span class="gap-reason-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></span>
+          <div class="gap-reason-text">
+            <strong>${escapeHtml(headline)}</strong>
+            ${detail ? `<span>${escapeHtml(detail)}</span>` : ""}
+          </div>
+        </div>`;
+      })()}
 
     </section>
   `;

@@ -4079,16 +4079,37 @@ dialog::backdrop {
 .emp-kpi-val { display: block; font-size: 1.8rem; font-weight: 900; line-height: 1; color: #0f172a; }
 .emp-kpi-lbl { display: block; font-size: 0.7rem; color: #627084; margin-top: 3px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
 
+.emp-kpi-ring {
+  --pct: 0;
+  --c: #94a3b8;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: conic-gradient(var(--c) calc(var(--pct) * 1%), #e5e7eb 0);
+  display: grid;
+  place-items: center;
+}
+.emp-kpi-ring-inner {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+.emp-kpi-ring-inner .emp-kpi-val { font-size: 1.25rem; color: var(--c); }
+.emp-kpi-ring-inner .emp-kpi-lbl { font-size: 0.6rem; margin-top: 1px; }
+
 .quadrant-badge {
   font-size: 0.72rem; font-weight: 700;
   padding: 3px 9px; border-radius: 999px;
-  background: #f0fdf4; color: #166534;
-  border: 1px solid #bbf7d0;
+  border: 1px solid;
 }
 .conf-badge {
   font-size: 0.72rem; font-weight: 600;
   padding: 3px 9px; border-radius: 999px;
-  background: #f1f5f9; color: #64748b;
 }
 
 /* ── Section titles ── */
@@ -4238,10 +4259,28 @@ dialog::backdrop {
 
 /* ── Gap reason ── */
 .gap-reason-note {
-  font-size: 0.78rem; color: #92400e;
-  background: #fffbeb; border: 1px solid #fde68a;
-  border-radius: 6px; padding: 8px 12px; margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-top: 14px;
 }
+.gap-reason-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #fde68a;
+  color: #92400e;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.gap-reason-icon svg { width: 15px; height: 15px; }
+.gap-reason-text { display: flex; flex-direction: column; gap: 2px; }
+.gap-reason-text strong { font-size: 0.82rem; color: #7c2d12; }
+.gap-reason-text span { font-size: 0.76rem; color: #92400e; }
 
 /* ── Period label ── */
 .detail-period {
