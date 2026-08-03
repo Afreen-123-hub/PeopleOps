@@ -3679,6 +3679,10 @@ tbody tr.row-no-data:hover {
   border-radius: 50%;
   flex-shrink: 0;
 }
+.adl-dot-empty {
+  background: repeating-linear-gradient(45deg, #cbd5e1, #cbd5e1 2px, #fff 2px, #fff 4px);
+  border: 1px solid #94a3b8;
+}
 .adl-row b {
   margin-left: auto;
   font-weight: 700;

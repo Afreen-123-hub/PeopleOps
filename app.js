@@ -2078,6 +2078,9 @@ function renderAttendanceDetail(employeeId) {
     return;
   }
 
+  const donutKnownSum = attendance.present + attendance.leave + attendance.off + attendance.absent + attendance.holidays;
+  const donutCalendarTotal = attendance.calendarDays || donutKnownSum;
+  const donutUnaccounted = Math.max(0, donutCalendarTotal - donutKnownSum);
   const donutSegments = [
     ["Present", attendance.present, "#2fb36d"],
     ["Leave/status", attendance.leave, "#f3a229"],
@@ -2085,7 +2088,8 @@ function renderAttendanceDetail(employeeId) {
     ["Absent", attendance.absent, "#db4d5c"],
     ["Holidays", attendance.holidays, "#7b55d9"],
   ];
-  const donutTotal = donutSegments.reduce((sum, [, value]) => sum + value, 0) || 1;
+  if (donutUnaccounted > 0) donutSegments.push(["No data", donutUnaccounted, "#e2e8f0"]);
+  const donutTotal = Math.max(donutCalendarTotal, donutKnownSum) || 1;
   let donutAcc = 0;
   const donutGradient = donutSegments
     .map(([, value, color]) => {
@@ -2158,11 +2162,11 @@ function renderAttendanceDetail(employeeId) {
         </div>
         <div class="attendance-donut-wrap">
           <div class="attendance-donut" style="background:conic-gradient(${donutGradient})">
-            <div class="attendance-donut-center"><strong>${donutTotal}</strong><span>tracked</span></div>
+            <div class="attendance-donut-center"><strong>${donutTotal}</strong><span>calendar days</span></div>
           </div>
           <div class="attendance-donut-legend">
             ${donutSegments.map(([label, value, color]) => `
-              <div class="adl-row"><span class="adl-dot" style="background:${color}"></span>${label} <b>${value}</b></div>
+              <div class="adl-row"><span class="adl-dot${label === "No data" ? " adl-dot-empty" : ""}" style="${label === "No data" ? "" : `background:${color}`}"></span>${label} <b>${value}</b></div>
             `).join("")}
           </div>
         </div>
