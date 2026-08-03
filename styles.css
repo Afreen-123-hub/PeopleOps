@@ -632,6 +632,208 @@ select {
   box-shadow: 0 0 0 3px rgba(0, 169, 157, 0.12);
 }
 
+/* Employees page — stat strip */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 0 0 20px;
+}
+.stat-tile {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+}
+.stat-tile.is-active {
+  border-color: var(--teal);
+  background: rgba(0, 169, 157, 0.05);
+}
+.stat-num {
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.stat-num.c-blue { color: var(--blue); }
+.stat-num.c-amber { color: #b45309; }
+.stat-num.c-violet { color: var(--violet); }
+.stat-num.c-ink { color: var(--ink); }
+.stat-lbl {
+  font-size: 0.74rem;
+  color: var(--muted);
+  margin-top: 6px;
+  font-weight: 600;
+}
+.stat-sub {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* Employees page — table section label */
+.tsec-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 700;
+  margin: 4px 0 10px;
+}
+.tsec-label .n {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 0.7rem;
+}
+
+/* Employees page — avatar + KPI bar in table rows */
+.person-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.p-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.68rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+.pt-kpi-cell {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  justify-content: center;
+}
+.pt-kpi-bar {
+  width: 48px;
+  height: 4px;
+  border-radius: 2px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+.pt-kpi-fill {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+}
+
+/* Employees page — collapsed "awaiting data" section */
+.awaiting-data {
+  margin-top: 14px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.awaiting-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 16px;
+  cursor: pointer;
+  background: #f8fafc;
+  gap: 12px;
+}
+.awaiting-head:hover {
+  background: #f1f5f9;
+}
+.awaiting-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: var(--ink);
+  flex-wrap: wrap;
+}
+.awaiting-title .badge {
+  background: #e2e8f0;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 99px;
+}
+.awaiting-sub {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 400;
+  width: 100%;
+}
+.awaiting-toggle {
+  font-size: 0.76rem;
+  color: var(--blue);
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.awaiting-body {
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  background: #fff;
+  border-top: 1px dashed #cbd5e1;
+}
+.await-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: border-color 0.12s;
+}
+.await-chip:hover {
+  border-color: var(--teal);
+}
+.await-chip .ca {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #64748b;
+  display: grid;
+  place-items: center;
+  font-size: 0.62rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.await-chip .cn {
+  overflow: hidden;
+}
+.await-chip strong {
+  display: block;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.await-chip small {
+  color: var(--muted);
+  font-size: 0.68rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .stat-strip { grid-template-columns: repeat(2, 1fr); }
+  .awaiting-body { grid-template-columns: repeat(2, 1fr); }
+}
+
 input:focus,
 select:focus {
   outline: none;

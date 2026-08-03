@@ -746,6 +746,13 @@ function setupFilters() {
     renderTeamsTable();
   });
   document.getElementById("clearKpiTeam").addEventListener("click", clearKpiTeamFilter);
+  document.getElementById("awaitingDataToggle")?.addEventListener("click", () => {
+    const body = document.getElementById("awaitingDataBody");
+    const label = document.getElementById("awaitingDataToggleLabel");
+    const isHidden = body.hidden;
+    body.hidden = !isHidden;
+    label.textContent = isHidden ? "Hide ▴" : "Show ▾";
+  });
   document.getElementById("closeDialog").addEventListener("click", () => document.getElementById("employeeDialog").close());
   document.getElementById("employeeDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
   document.getElementById("projDetailDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
@@ -1530,7 +1537,7 @@ function renderLeadershipStrip() {
       <div class="leadership-cards">
         ${executives.map((e, i) => {
           const teamKpi   = e.scoreDrivers?.teamAvgKpi ?? null;
-          const reports   = e.scoreDrivers?.reporteeCount ?? 0;
+          const reports   = (e.directReports || []).length;
           const status    = e.teams?.presence || "";
           const statusCls = status === "Available" ? "avail" : status === "Away" ? "away" : "offline";
           const kpiBlock  = teamKpi != null
@@ -1560,6 +1567,23 @@ function renderLeadershipStrip() {
   });
 }
 
+const BAND_AVATAR_COLORS = {
+  "Excellent": "#0f6b3a",
+  "Good": "#10b981",
+  "Average": "#3b82f6",
+  "Needs Improvement": "#f59e0b",
+  "Critical": "#e11d48",
+  "Executive": "#7c3aed",
+};
+
+function avatarInitials(name) {
+  return (name || "").trim().split(/\s+/).map((w) => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
+}
+
+function avatarColor(e) {
+  return BAND_AVATAR_COLORS[e.band] || "#94a3b8";
+}
+
 function renderPeopleTable() {
   const meNorm = loggedInUserName.trim().toLowerCase();
   const sorted = filteredEmployees
@@ -1570,10 +1594,16 @@ function renderPeopleTable() {
       const bMe = meNorm && b.name.trim().toLowerCase() === meNorm ? 1 : 0;
       return aMe + bMe;
     });
-  document.getElementById("peopleTable").innerHTML = sorted
-    .map((e, index) => `<tr data-index="${index}"${e.kpi == null ? ' class="row-no-data"' : ""}>
-      <td><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}</small></div>${missingSourceTags(e)}</td>
-      <td class="numeric-cell"><span class="score">${e.kpi != null ? e.kpi : "—"}</span></td>
+  const scored = sorted.filter((e) => e.kpi != null);
+  const awaiting = sorted.filter((e) => e.kpi == null);
+
+  const scoredBadge = document.getElementById("scoredCountBadge");
+  if (scoredBadge) scoredBadge.textContent = scored.length;
+
+  document.getElementById("peopleTable").innerHTML = scored
+    .map((e, index) => `<tr data-index="${index}">
+      <td><div class="person-row"><div class="p-avatar" style="background:${avatarColor(e)}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}</small></div></div>${missingSourceTags(e)}</td>
+      <td class="numeric-cell"><div class="pt-kpi-cell"><span class="score">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${avatarColor(e)}"></span></span></div></td>
       <td>${e.band ? `<span class="band ${bandClass(e.band)}">${e.band}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
       <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
       <td class="numeric-cell">${e.attendance.present}</td>
@@ -1584,8 +1614,64 @@ function renderPeopleTable() {
     .join("");
 
   document.querySelectorAll("#peopleTable tr").forEach((row) => {
-    row.addEventListener("click", () => showEmployee(sorted[Number(row.dataset.index)]));
+    row.addEventListener("click", () => showEmployee(scored[Number(row.dataset.index)]));
   });
+
+  renderAwaitingData(awaiting);
+  renderPeopleStats();
+}
+
+function renderAwaitingData(list) {
+  const section = document.getElementById("awaitingDataSection");
+  if (!section) return;
+  const badge = document.getElementById("awaitingDataBadge");
+  const body = document.getElementById("awaitingDataBody");
+  if (!list.length) {
+    section.hidden = true;
+    return;
+  }
+  section.hidden = false;
+  badge.textContent = list.length;
+  body.innerHTML = list
+    .map((e, index) => `<div class="await-chip" data-await-index="${index}">
+      <span class="ca">${avatarInitials(e.name)}</span>
+      <span class="cn"><strong>${e.name}</strong><small>${e.designation || "Unassigned"}</small></span>
+    </div>`)
+    .join("");
+  body.querySelectorAll(".await-chip").forEach((chip) => {
+    chip.addEventListener("click", () => showEmployee(list[Number(chip.dataset.awaitIndex)]));
+  });
+}
+
+function renderPeopleStats() {
+  const el = document.getElementById("peopleStatStrip");
+  if (!el || !dataset) return;
+  const nonExec = filteredEmployees.filter((e) => e.band !== "Executive");
+  const scoredCount = nonExec.filter((e) => e.kpi != null).length;
+  const awaitingCount = nonExec.filter((e) => e.kpi == null).length;
+  const execCount = filteredEmployees.filter((e) => e.band === "Executive").length;
+  const total = filteredEmployees.length;
+  el.innerHTML = `
+    <div class="stat-tile is-active">
+      <div class="stat-num c-blue">${scoredCount}</div>
+      <div class="stat-lbl">Scored &amp; ranked</div>
+      <div class="stat-sub">Shown below by default</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num c-amber">${awaitingCount}</div>
+      <div class="stat-lbl">Awaiting data</div>
+      <div class="stat-sub">No Worklogix/attendance link yet</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num c-violet">${execCount}</div>
+      <div class="stat-lbl">Executives</div>
+      <div class="stat-sub">Scored by team performance</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num c-ink">${total}</div>
+      <div class="stat-lbl">Total headcount</div>
+      <div class="stat-sub">Matching current filters</div>
+    </div>`;
 }
 
 function teamsStatusBadge(teams, clickable = false, empIndex = -1) {

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
     <link rel="icon" type="image/svg+xml" href="peopleops-icon.svg">
-    <link rel="stylesheet" href="styles.css?v=20260803-filterbar">
+    <link rel="stylesheet" href="styles.css?v=20260803-peoplepage">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -423,6 +423,7 @@
 
         <section id="people" class="view">
           <div id="leadershipStrip"></div>
+          <div id="peopleStatStrip" class="stat-strip"></div>
           <article class="panel table-panel">
             <div class="panel-head">
               <div>
@@ -458,6 +459,7 @@
                 </select>
               </label>
             </div>
+            <div class="tsec-label">Scored &amp; ranked <span class="n" id="scoredCountBadge"></span></div>
             <div class="table-wrap">
               <table class="employees-table">
                 <colgroup>
@@ -484,6 +486,16 @@
                 </thead>
                 <tbody id="peopleTable"></tbody>
               </table>
+            </div>
+            <div class="awaiting-data" id="awaitingDataSection" hidden>
+              <div class="awaiting-head" id="awaitingDataToggle">
+                <div class="awaiting-title">
+                  Awaiting data <span class="badge" id="awaitingDataBadge"></span>
+                  <div class="awaiting-sub">No Worklogix tasks or attendance link yet — mostly new interns, filtered out of the ranked list above</div>
+                </div>
+                <span class="awaiting-toggle" id="awaitingDataToggleLabel">Show ▾</span>
+              </div>
+              <div class="awaiting-body" id="awaitingDataBody" hidden></div>
             </div>
           </article>
         </section>
@@ -792,7 +804,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260803-filterbar"></script>
+    <script src="app.js?v=20260803-peoplepage"></script>
     <script src="graph-explorer.js?v=20260802-overviewpolish"></script>
   </body>
 </html>
