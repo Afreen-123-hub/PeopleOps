@@ -612,11 +612,13 @@ select {
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
-.page-search-row {
+.panel-filter-bar {
   margin: 14px 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 .page-search-field {
-  max-width: 360px;
   background: #fff;
   border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);

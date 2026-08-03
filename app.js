@@ -691,17 +691,23 @@ function setupFilters() {
     state.search = event.target.value.toLowerCase();
     applyFilters();
   });
-  document.getElementById("bandFilter").addEventListener("change", (event) => {
-    state.band = event.target.value;
-    applyFilters();
+  ["bandFilter", "kpiBandFilter", "peopleBandFilter"].forEach((id) => {
+    document.getElementById(id)?.addEventListener("change", (event) => {
+      state.band = event.target.value;
+      applyFilters();
+    });
   });
-  document.getElementById("teamFilter").addEventListener("change", (event) => {
-    state.team = event.target.value;
-    applyFilters();
+  ["teamFilter", "kpiTeamFilter", "peopleTeamFilter"].forEach((id) => {
+    document.getElementById(id)?.addEventListener("change", (event) => {
+      state.team = event.target.value;
+      applyFilters();
+    });
   });
-  document.getElementById("confidenceFilter").addEventListener("change", (event) => {
-    state.confidence = Number(event.target.value);
-    applyFilters();
+  ["confidenceFilter", "kpiConfidenceFilter", "peopleConfidenceFilter"].forEach((id) => {
+    document.getElementById(id)?.addEventListener("change", (event) => {
+      state.confidence = Number(event.target.value);
+      applyFilters();
+    });
   });
   document.getElementById("internToggle").addEventListener("change", (event) => {
     state.showInterns = event.target.checked;
@@ -764,18 +770,28 @@ function setupFilters() {
 }
 
 function populateFilterOptions() {
-  const bandFilter = document.getElementById("bandFilter");
-  const teamFilter = document.getElementById("teamFilter");
+  const bandFilterIds = ["bandFilter", "kpiBandFilter", "peopleBandFilter"];
+  const teamFilterIds = ["teamFilter", "kpiTeamFilter", "peopleTeamFilter"];
   const previousBand = state.band;
   const previousTeam = state.team;
   const bands = [...new Set(dataset.employees.map((e) => e.band).filter(Boolean))];
   const teams = [...new Set(dataset.employees.map((e) => mergedTeam(e.team || "Unassigned")))].sort();
-  bandFilter.innerHTML = `<option value="all">All performance bands</option>${bands.map((b) => `<option>${b}</option>`).join("")}`;
-  teamFilter.innerHTML = `<option value="all">All teams</option>${teams.map((t) => `<option>${t}</option>`).join("")}`;
+  const bandOptionsHtml = `<option value="all">All performance bands</option>${bands.map((b) => `<option>${b}</option>`).join("")}`;
+  const teamOptionsHtml = `<option value="all">All teams</option>${teams.map((t) => `<option>${t}</option>`).join("")}`;
   state.band = bands.includes(previousBand) ? previousBand : "all";
   state.team = teams.includes(previousTeam) ? previousTeam : "all";
-  bandFilter.value = state.band;
-  teamFilter.value = state.team;
+  bandFilterIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = bandOptionsHtml;
+    el.value = state.band;
+  });
+  teamFilterIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = teamOptionsHtml;
+    el.value = state.team;
+  });
 }
 
 function populateAttendanceOptions() {
@@ -825,6 +841,18 @@ function applyFilters() {
   ["searchInput", "kpiSearchInput", "peopleSearchInput"].forEach((id) => {
     const el = document.getElementById(id);
     if (el && el.value !== state.search) el.value = state.search;
+  });
+  ["bandFilter", "kpiBandFilter", "peopleBandFilter"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.value !== state.band) el.value = state.band;
+  });
+  ["teamFilter", "kpiTeamFilter", "peopleTeamFilter"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.value !== state.team) el.value = state.team;
+  });
+  ["confidenceFilter", "kpiConfidenceFilter", "peopleConfidenceFilter"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && Number(el.value) !== state.confidence) el.value = String(state.confidence);
   });
   renderAll();
 }

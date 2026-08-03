@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
     <link rel="icon" type="image/svg+xml" href="peopleops-icon.svg">
-    <link rel="stylesheet" href="styles.css?v=20260803-searchpill">
+    <link rel="stylesheet" href="styles.css?v=20260803-filterbar">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -309,10 +309,31 @@
                 </div>
                 <span id="kpiEmployeeCount" class="pill"></span>
               </div>
-              <div class="page-search-row">
+              <div class="panel-filter-bar">
                 <label class="pill-field-label search-field page-search-field">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
                   <input id="kpiSearchInput" type="search" placeholder="Search name, ID, team, designation">
+                </label>
+                <label class="pill-field-label page-search-field">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                  <select id="kpiBandFilter">
+                    <option value="all">All performance bands</option>
+                  </select>
+                </label>
+                <label class="pill-field-label page-search-field">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"/></svg>
+                  <select id="kpiTeamFilter">
+                    <option value="all">All teams</option>
+                  </select>
+                </label>
+                <label class="pill-field-label page-search-field">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4M2 12l3 3L15 5"/></svg>
+                  <select id="kpiConfidenceFilter">
+                    <option value="0">Any confidence</option>
+                    <option value="50">50% and above</option>
+                    <option value="75">75% and above</option>
+                    <option value="100">Full confidence</option>
+                  </select>
                 </label>
               </div>
               <div class="table-wrap">
@@ -410,10 +431,31 @@
               </div>
               <span class="pill">Click a row for details</span>
             </div>
-            <div class="page-search-row">
+            <div class="panel-filter-bar">
               <label class="pill-field-label search-field page-search-field">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
                 <input id="peopleSearchInput" type="search" placeholder="Search name, ID, team, designation">
+              </label>
+              <label class="pill-field-label page-search-field">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <select id="peopleBandFilter">
+                  <option value="all">All performance bands</option>
+                </select>
+              </label>
+              <label class="pill-field-label page-search-field">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"/></svg>
+                <select id="peopleTeamFilter">
+                  <option value="all">All teams</option>
+                </select>
+              </label>
+              <label class="pill-field-label page-search-field">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4M2 12l3 3L15 5"/></svg>
+                <select id="peopleConfidenceFilter">
+                  <option value="0">Any confidence</option>
+                  <option value="50">50% and above</option>
+                  <option value="75">75% and above</option>
+                  <option value="100">Full confidence</option>
+                </select>
               </label>
             </div>
             <div class="table-wrap">
@@ -750,7 +792,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260803-searchpill"></script>
+    <script src="app.js?v=20260803-filterbar"></script>
     <script src="graph-explorer.js?v=20260802-overviewpolish"></script>
   </body>
 </html>
