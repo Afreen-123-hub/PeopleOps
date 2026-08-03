@@ -4541,8 +4541,8 @@ dialog::backdrop {
   transition: box-shadow 0.2s, border-color 0.2s;
 }
 .leadership-card:hover {
-  box-shadow: 0 4px 12px rgba(99,102,241,0.12);
-  border-color: #c7d2fe;
+  box-shadow: var(--shadow-sm);
+  border-color: var(--teal);
 }
 .lc-top { display: flex; align-items: center; gap: 12px; }
 .lc-avatar {

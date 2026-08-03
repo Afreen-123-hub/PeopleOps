@@ -1522,6 +1522,8 @@ function lowConfidenceWarning(e) {
   return "";
 }
 
+const LEADERSHIP_AVATAR_COLORS = ["#6366f1", "#0891b2", "#d97706", "#be185d", "#0d9488", "#7c3aed", "#2563eb"];
+
 function renderLeadershipStrip() {
   const strip = document.getElementById("leadershipStrip");
   if (!strip || !dataset) return;
@@ -1546,7 +1548,7 @@ function renderLeadershipStrip() {
           return `
           <div class="leadership-card" data-exec-index="${i}" style="cursor:pointer" title="Click for details">
             <div class="lc-top">
-              <div class="lc-avatar">${e.name.trim().split(" ").map(w => w[0]).slice(0,2).join("")}</div>
+              <div class="lc-avatar" style="background:${LEADERSHIP_AVATAR_COLORS[i % LEADERSHIP_AVATAR_COLORS.length]}">${e.name.trim().split(" ").map(w => w[0]).slice(0,2).join("")}</div>
               <div class="lc-info">
                 <strong class="lc-name">${e.name}</strong>
                 <span class="lc-title">${e.designation || ""}</span>
