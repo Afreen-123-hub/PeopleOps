@@ -615,8 +615,19 @@ select {
 .page-search-row {
   margin: 14px 0;
 }
-.page-search-input {
+.page-search-field {
   max-width: 360px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  color: var(--muted);
+}
+.page-search-field svg {
+  color: var(--teal);
+}
+.page-search-field:focus-within {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(0, 169, 157, 0.12);
 }
 
 input:focus,

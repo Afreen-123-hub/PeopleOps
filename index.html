@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
     <link rel="icon" type="image/svg+xml" href="peopleops-icon.svg">
-    <link rel="stylesheet" href="styles.css?v=20260803-profilefull">
+    <link rel="stylesheet" href="styles.css?v=20260803-searchpill">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -310,7 +310,10 @@
                 <span id="kpiEmployeeCount" class="pill"></span>
               </div>
               <div class="page-search-row">
-                <input id="kpiSearchInput" type="search" placeholder="Search name, ID, team, designation" class="page-search-input">
+                <label class="pill-field-label search-field page-search-field">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                  <input id="kpiSearchInput" type="search" placeholder="Search name, ID, team, designation">
+                </label>
               </div>
               <div class="table-wrap">
                 <table class="kpi-table">
@@ -408,7 +411,10 @@
               <span class="pill">Click a row for details</span>
             </div>
             <div class="page-search-row">
-              <input id="peopleSearchInput" type="search" placeholder="Search name, ID, team, designation" class="page-search-input">
+              <label class="pill-field-label search-field page-search-field">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                <input id="peopleSearchInput" type="search" placeholder="Search name, ID, team, designation">
+              </label>
             </div>
             <div class="table-wrap">
               <table class="employees-table">
@@ -744,7 +750,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260803-profilefull"></script>
+    <script src="app.js?v=20260803-searchpill"></script>
     <script src="graph-explorer.js?v=20260802-overviewpolish"></script>
   </body>
 </html>
