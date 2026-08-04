@@ -6,15 +6,11 @@
     </linearGradient>
   </defs>
 
-  <!-- connecting lines: three signals converging into the core -->
-  <line x1="32" y1="32" x2="32" y2="9"  stroke="url(#poiGrad)" stroke-width="2.4" stroke-linecap="round"/>
-  <line x1="32" y1="32" x2="51.6" y2="44" stroke="url(#poiGrad)" stroke-width="2.4" stroke-linecap="round"/>
-  <line x1="32" y1="32" x2="12.4" y2="44" stroke="url(#poiGrad)" stroke-width="2.4" stroke-linecap="round"/>
-
-  <!-- outer signal nodes -->
-  <circle cx="32" cy="9" r="5.5" fill="white" stroke="url(#poiGrad)" stroke-width="2.6"/>
-  <circle cx="51.6" cy="44" r="5.5" fill="white" stroke="url(#poiGrad)" stroke-width="2.6"/>
-  <circle cx="12.4" cy="44" r="5.5" fill="white" stroke="url(#poiGrad)" stroke-width="2.6"/>
+  <!-- four data streams (Worklogix, Teams, GreytHR, GitHub) converging into one signal -->
+  <path d="M10 13 Q26 13 32 32" stroke="url(#poiGrad)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+  <path d="M54 13 Q38 13 32 32" stroke="url(#poiGrad)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+  <path d="M10 51 Q26 51 32 32" stroke="url(#poiGrad)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+  <path d="M54 51 Q38 51 32 32" stroke="url(#poiGrad)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
 
   <!-- core: the fused score -->
   <circle cx="32" cy="32" r="12" fill="url(#poiGrad)"/>
