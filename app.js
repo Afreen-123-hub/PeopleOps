@@ -605,11 +605,12 @@ async function boot() {
   updateTeamsRefreshLabel();
   if (!DEMO_MODE) {
     setInterval(autoRefreshTeams, TEAMS_REFRESH_INTERVAL);
-    setInterval(() => { if (typeof refreshGraph === "function") refreshGraph(); }, TEAMS_REFRESH_INTERVAL);
+    setInterval(() => { if (typeof refreshGraph === "function" && document.getElementById("graph")?.classList.contains("active-view")) refreshGraph(); }, TEAMS_REFRESH_INTERVAL);
   }
 }
 
 async function autoRefreshTeams() {
+  if (!document.getElementById("teams")?.classList.contains("active-view")) return;
   const res = await apiFetch("/api/refresh-teams", { method: "POST" });
   if (!res || !res.ok) return;
   const result = await res.json();
