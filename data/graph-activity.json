@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-08-04T06:15:07+00:00",
+    "generatedAt": "2026-08-04T10:58:29+00:00",
     "periodStart": "2026-08-01",
     "periodEnd": "2026-09-01",
     "calendarTimeZone": "Asia/Kolkata (+05:30)",
@@ -36,11 +36,11 @@
   "overview": {
     "groups": 76,
     "plans": 26,
-    "plannerTasks": 437,
-    "completedPlannerTasks": 246,
+    "plannerTasks": 445,
+    "completedPlannerTasks": 247,
     "onTimePlannerTasks": 10,
     "overduePlannerTasks": 179,
-    "calendarEvents": 2067,
+    "calendarEvents": 2071,
     "sharePointSites": 46,
     "sharePointLists": 58,
     "sharePointFiles": 67,
@@ -16185,18 +16185,52 @@
       "userId": "ba754916-455f-49a6-a841-39f0d611b299",
       "email": "karan.kumar@codework.ai",
       "planner": {
-        "assigned": 4,
-        "completed": 0,
+        "assigned": 7,
+        "completed": 1,
         "inProgress": 0,
-        "notStarted": 4,
+        "notStarted": 6,
         "onTime": 0,
         "overdueCompleted": 0,
         "overdueOpen": 0,
         "onTimeRate": null,
         "tasks": [
           {
-            "id": "plQQidtgsEyAnmLVfxJyw-EAEu_o",
-            "title": "Article schema for CPLC blogs",
+            "id": "AHrQb1RaEESAnw5akzfibOEACagT",
+            "title": "It service, product salable in Facebook",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "ba754916-455f-49a6-a841-39f0d611b299",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "ffcfc2b6-de61-4988-9b20-87bb06b29d1a",
+              "699be9bf-9e1c-4fa9-97fb-af406c6cea8e",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Karan Kumar M",
+              "Surya DV",
+              "Abinesh D",
+              "Harishivani S",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
+            "id": "Ti1ZRdRZPUqzubUmHFmR4eEACQxg",
+            "title": "Codework Instagram-Benchmark",
             "status": "Not started",
             "percentComplete": 0,
             "priority": 5,
@@ -16212,6 +16246,36 @@
             ],
             "assignees": [
               "Karan Kumar M"
+            ]
+          },
+          {
+            "id": "8v-bGrGreEidim1uNsVND-EAFzdv",
+            "title": "Edubot marketing and salable plan",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "ba754916-455f-49a6-a841-39f0d611b299",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Karan Kumar M",
+              "Surya DV",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
             ]
           },
           {
@@ -16273,13 +16337,52 @@
             "assignees": [
               "Karan Kumar M"
             ]
+          },
+          {
+            "id": "plQQidtgsEyAnmLVfxJyw-EAEu_o",
+            "title": "Article schema for CPLC blogs",
+            "status": "Completed",
+            "percentComplete": 100,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "2026-08-04T06:29:37.1204568Z",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "ba754916-455f-49a6-a841-39f0d611b299"
+            ],
+            "assignees": [
+              "Karan Kumar M"
+            ]
           }
         ]
       },
       "calendar": {
-        "events": 21,
-        "meetingHours": 10.5,
+        "events": 22,
+        "meetingHours": 11.0,
         "items": [
+          {
+            "id": "AAMkAGI3N2RlNjY3LWUwMmYtNGMxNC1iZmQ5LTE0OGVkOTIxNzg2NwBGAAAAAADg-JsBU6H_S46Scp1L6hYYBwDkQjN2TN3ITbZRpoAIb_lYAAAAAAENAADkQjN2TN3ITbZRpoAIb_lYAABbibuEAAA=",
+            "subject": "India Floats Disucussion",
+            "start": "2026-08-04T16:00:00.0000000+05:30",
+            "end": "2026-08-04T16:30:00.0000000+05:30",
+            "isAllDay": false,
+            "showAs": "busy",
+            "webLink": "https://outlook.office365.com/owa/?itemid=AAMkAGI3N2RlNjY3LWUwMmYtNGMxNC1iZmQ5LTE0OGVkOTIxNzg2NwBGAAAAAADg%2FJsBU6H%2BS46Scp1L6hYYBwDkQjN2TN3ITbZRpoAIb%2BlYAAAAAAENAADkQjN2TN3ITbZRpoAIb%2BlYAABbibuEAAA%3D&exvsurl=1&path=/calendar/item",
+            "organizer": "Karan Kumar M",
+            "attendees": [
+              "Neaven Christopher Arulraj"
+            ],
+            "location": "Microsoft Teams Meeting",
+            "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OThiMTM4Y2EtNDUzMS00NTZkLTkzMjQtM2MzMzIxNDJhYmFm%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22ba754916-455f-49a6-a841-39f0d611b299%22%7d",
+            "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/491813759854663?p=NXdzoCGDQ8nUizIcru\r\nMeeting ID: 491 813 759 854 663\r\nPasscode: xW2oi2Ba\r\n________________",
+            "categories": [],
+            "isCancelled": false,
+            "durationMinutes": 30
+          },
           {
             "id": "AAMkAGI3N2RlNjY3LWUwMmYtNGMxNC1iZmQ5LTE0OGVkOTIxNzg2NwFRAAgI3vDyKV6AAEYAAAAA4PybAVOh-kuOknKdS_oWGAcA5EIzdkzdyE22UaaACG-pWAAAAAABDQAA5EIzdkzdyE22UaaACG-pWAAAQVLkjAAAEA==",
             "subject": "Stand-Up",
@@ -42312,7 +42415,7 @@
       },
       "calendar": {
         "events": 27,
-        "meetingHours": 20.0,
+        "meetingHours": 17.5,
         "items": [
           {
             "id": "AAMkADNjM2Y2NWY4LTc1MGEtNGMzNi05OTBiLTY3YTFmNWM2Mzg3MwBGAAAAAAA2uo2X9UlGRK-vS3PsD5A3BwCSCtPAYbQVS5t_suEx2ClJAAAAAAENAACSCtPAYbQVS5t_suEx2ClJAADqNYY3AAA=",
@@ -42354,7 +42457,7 @@
             "id": "AAMkADNjM2Y2NWY4LTc1MGEtNGMzNi05OTBiLTY3YTFmNWM2Mzg3MwBGAAAAAAA2uo2X9UlGRK-vS3PsD5A3BwCSCtPAYbQVS5t_suEx2ClJAAAAAAENAACSCtPAYbQVS5t_suEx2ClJAAD-nV_KAAA=",
             "subject": "Interns Onboarding",
             "start": "2026-08-04T09:30:00.0000000+05:30",
-            "end": "2026-08-04T13:00:00.0000000+05:30",
+            "end": "2026-08-04T10:30:00.0000000+05:30",
             "isAllDay": false,
             "showAs": "busy",
             "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADNjM2Y2NWY4LTc1MGEtNGMzNi05OTBiLTY3YTFmNWM2Mzg3MwBGAAAAAAA2uo2X9UlGRK%2FvS3PsD5A3BwCSCtPAYbQVS5t%2BsuEx2ClJAAAAAAENAACSCtPAYbQVS5t%2BsuEx2ClJAAD%2FnV%2BKAAA%3D&exvsurl=1&path=/calendar/item",
@@ -42362,12 +42465,12 @@
             "attendees": [
               "Codework - Meeting Room (SSPDL)"
             ],
-            "location": "Codework - Meeting Room (SSPDL)",
+            "location": "",
             "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjlmZmMyM2EtMzBhYi00OGQwLTllMWQtOGRmODc0YjgwOGQz%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22eaec440e-07e9-48d1-a91a-007770e1887c%22%7d",
             "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/467276458673665?p=YgA3jmLCeIf4OHeYJd\r\nMeeting ID: 467 276 458 673 665\r\nPasscode: yU9e3Bf6\r\n________________",
             "categories": [],
             "isCancelled": false,
-            "durationMinutes": 210
+            "durationMinutes": 60
           },
           {
             "id": "AAMkADNjM2Y2NWY4LTc1MGEtNGMzNi05OTBiLTY3YTFmNWM2Mzg3MwFRAAgI3vAo-vTAAEYAAAAANrqNl-VJRkSv70tz7A_QNwcAkgrTwGG0FUubfrLhMdgpSQAAAAABDQAAkgrTwGG0FUubfrLhMdgpSQAAcFsveAAAEA==",
@@ -43052,15 +43155,35 @@
       "userId": "e9be3460-fd52-4c78-9a02-3f767054db8b",
       "email": "xavier.nelson@codework.ai",
       "planner": {
-        "assigned": 11,
+        "assigned": 12,
         "completed": 8,
         "inProgress": 0,
-        "notStarted": 3,
+        "notStarted": 4,
         "onTime": 1,
         "overdueCompleted": 3,
         "overdueOpen": 1,
         "onTimeRate": 20.0,
         "tasks": [
+          {
+            "id": "dBcJQ2q12kin8dP7AGfSIeEADf4x",
+            "title": "Website Enhancement",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "e9be3460-fd52-4c78-9a02-3f767054db8b"
+            ],
+            "assignees": [
+              "Xavier Arul Nelson"
+            ]
+          },
           {
             "id": "C91sjYYq3kKjs0Ao_Kgpz-EAHyi2",
             "title": "Get approval from product development team and set demo call",
@@ -45416,9 +45539,49 @@
         ]
       },
       "calendar": {
-        "events": 36,
-        "meetingHours": 24.0,
+        "events": 38,
+        "meetingHours": 25.0,
         "items": [
+          {
+            "id": "AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgBGAAAAAAAfhnJU6xITSokMJW-3dCizBwCvpqa7OkDBSZ2pfSlSpHmcAAAAAAENAACvpqa7OkDBSZ2pfSlSpHmcAAGm1TKiAAA=",
+            "subject": "India Floats Disucussion",
+            "start": "2026-08-04T16:00:00.0000000+05:30",
+            "end": "2026-08-04T16:30:00.0000000+05:30",
+            "isAllDay": false,
+            "showAs": "tentative",
+            "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgBGAAAAAAAfhnJU6xITSokMJW%2F3dCizBwCvpqa7OkDBSZ2pfSlSpHmcAAAAAAENAACvpqa7OkDBSZ2pfSlSpHmcAAGm1TKiAAA%3D&exvsurl=1&path=/calendar/item",
+            "organizer": "Karan Kumar M",
+            "attendees": [
+              "Karan Kumar M",
+              "Neaven Christopher Arulraj"
+            ],
+            "location": "Microsoft Teams Meeting",
+            "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OThiMTM4Y2EtNDUzMS00NTZkLTkzMjQtM2MzMzIxNDJhYmFm%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22ba754916-455f-49a6-a841-39f0d611b299%22%7d",
+            "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/491813759854663?p=NXdzoCGDQ8nUizIcru\r\nMeeting ID: 491 813 759 854 663\r\nPasscode: xW2oi2Ba\r\n________________",
+            "categories": [],
+            "isCancelled": false,
+            "durationMinutes": 30
+          },
+          {
+            "id": "AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgBGAAAAAAAfhnJU6xITSokMJW-3dCizBwCvpqa7OkDBSZ2pfSlSpHmcAAAAAAENAACvpqa7OkDBSZ2pfSlSpHmcAAGm1TKhAAA=",
+            "subject": "New Office Inaugural Event Discussion",
+            "start": "2026-08-04T17:00:00.0000000+05:30",
+            "end": "2026-08-04T17:30:00.0000000+05:30",
+            "isAllDay": false,
+            "showAs": "busy",
+            "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgBGAAAAAAAfhnJU6xITSokMJW%2F3dCizBwCvpqa7OkDBSZ2pfSlSpHmcAAAAAAENAACvpqa7OkDBSZ2pfSlSpHmcAAGm1TKhAAA%3D&exvsurl=1&path=/calendar/item",
+            "organizer": "Neaven Christopher Arulraj",
+            "attendees": [
+              "Lexila T A",
+              "Christy Arulraj"
+            ],
+            "location": "Microsoft Teams Meeting",
+            "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OWIzNGNiZDUtYWRhYi00YzE0LThlYmItODgwY2E1MWZlNWI3%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22a30e8552-67a1-468a-a1ae-e5c9688eb7e7%22%7d",
+            "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/421619950231393?p=HX55BdxBedzmYcwUKV\r\nMeeting ID: 421 619 950 231 393\r\nPasscode: hG7KE6nN\r\n____________",
+            "categories": [],
+            "isCancelled": false,
+            "durationMinutes": 30
+          },
           {
             "id": "AAMkADQ1YzdmNTcyLTdhNTQtNGIwYy05YTkyLWM1NDg3M2JkMmViMgFRAAgI3vDyKV6AAEYAAAAAH4ZyVOsSE0qJDCVv93QoswcAr6amuzpAwUmdqX0pUqR5nAAAAAABDQAAr6amuzpAwUmdqX0pUqR5nAABcRwc5QAAEA==",
             "subject": "CPLC Business Development Meeting",
@@ -50585,15 +50748,136 @@
       "userId": "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
       "email": "surya.dv@codework.ai",
       "planner": {
-        "assigned": 0,
+        "assigned": 4,
         "completed": 0,
         "inProgress": 0,
-        "notStarted": 0,
+        "notStarted": 4,
         "onTime": 0,
         "overdueCompleted": 0,
         "overdueOpen": 0,
         "onTimeRate": null,
-        "tasks": []
+        "tasks": [
+          {
+            "id": "AHrQb1RaEESAnw5akzfibOEACagT",
+            "title": "It service, product salable in Facebook",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "ba754916-455f-49a6-a841-39f0d611b299",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "ffcfc2b6-de61-4988-9b20-87bb06b29d1a",
+              "699be9bf-9e1c-4fa9-97fb-af406c6cea8e",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Karan Kumar M",
+              "Surya DV",
+              "Abinesh D",
+              "Harishivani S",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
+            "id": "oNhwbq6p6kWd9TlMQMfituEAGIbS",
+            "title": "Benchmark website- codework",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Surya DV",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
+            "id": "8v-bGrGreEidim1uNsVND-EAFzdv",
+            "title": "Edubot marketing and salable plan",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "ba754916-455f-49a6-a841-39f0d611b299",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Karan Kumar M",
+              "Surya DV",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
+            "id": "HIJFuQHiJECDxbCXK1aIg-EACtNn",
+            "title": "Nelson's product marketing and salable plan",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Surya DV",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          }
+        ]
       },
       "calendar": {
         "events": 21,
@@ -51612,15 +51896,135 @@
       "userId": "215bc787-9089-482a-8695-1621e97557a8",
       "email": "rishi.kumar@codework.ai",
       "planner": {
-        "assigned": 1,
+        "assigned": 5,
         "completed": 1,
         "inProgress": 0,
-        "notStarted": 0,
+        "notStarted": 4,
         "onTime": 1,
         "overdueCompleted": 0,
         "overdueOpen": 0,
         "onTimeRate": 100.0,
         "tasks": [
+          {
+            "id": "AHrQb1RaEESAnw5akzfibOEACagT",
+            "title": "It service, product salable in Facebook",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "ba754916-455f-49a6-a841-39f0d611b299",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "ffcfc2b6-de61-4988-9b20-87bb06b29d1a",
+              "699be9bf-9e1c-4fa9-97fb-af406c6cea8e",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Karan Kumar M",
+              "Surya DV",
+              "Abinesh D",
+              "Harishivani S",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
+            "id": "oNhwbq6p6kWd9TlMQMfituEAGIbS",
+            "title": "Benchmark website- codework",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Surya DV",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
+            "id": "8v-bGrGreEidim1uNsVND-EAFzdv",
+            "title": "Edubot marketing and salable plan",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "ba754916-455f-49a6-a841-39f0d611b299",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Karan Kumar M",
+              "Surya DV",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
+            "id": "HIJFuQHiJECDxbCXK1aIg-EACtNn",
+            "title": "Nelson's product marketing and salable plan",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Surya DV",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
           {
             "id": "IIotKyEtQk69htZbvmR-pOEAEjN3",
             "title": "News letter content",
@@ -55672,15 +56076,71 @@
       "userId": "699be9bf-9e1c-4fa9-97fb-af406c6cea8e",
       "email": "harishivani.s@codework.ai",
       "planner": {
-        "assigned": 1,
+        "assigned": 3,
         "completed": 1,
         "inProgress": 0,
-        "notStarted": 0,
+        "notStarted": 2,
         "onTime": 0,
         "overdueCompleted": 1,
         "overdueOpen": 0,
         "onTimeRate": 0.0,
         "tasks": [
+          {
+            "id": "AHrQb1RaEESAnw5akzfibOEACagT",
+            "title": "It service, product salable in Facebook",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "ba754916-455f-49a6-a841-39f0d611b299",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "ffcfc2b6-de61-4988-9b20-87bb06b29d1a",
+              "699be9bf-9e1c-4fa9-97fb-af406c6cea8e",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Karan Kumar M",
+              "Surya DV",
+              "Abinesh D",
+              "Harishivani S",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
+            "id": "I_n_RClUV0OJQALrZgPgY-EAFSq9",
+            "title": "Zoho crm access",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "ffcfc2b6-de61-4988-9b20-87bb06b29d1a",
+              "699be9bf-9e1c-4fa9-97fb-af406c6cea8e"
+            ],
+            "assignees": [
+              "Abinesh D",
+              "Harishivani S"
+            ]
+          },
           {
             "id": "mI9zjRsReEuYFJdU8oxf8eEACT03",
             "title": "2027 Chennai Graduate Contact Sheet",
@@ -59064,7 +59524,7 @@
       },
       "calendar": {
         "events": 188,
-        "meetingHours": 71.9,
+        "meetingHours": 72.2,
         "items": [
           {
             "id": "AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMABGAAAAAABnKltsE71WTLa5on0lf95vBwBN9Q5BMdc3TLac26rjp3NMAAAAAAENAABN9Q5BMdc3TLac26rjp3NMAAGn18sPAAA=",
@@ -59084,6 +59544,27 @@
             "location": "Microsoft Teams Meeting",
             "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjY2YWFlMWUtMDJhMi00YzNiLTkzMTMtYzdiNGI2ZDYzZDBk%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22e2939322-13e9-4123-9692-644b3bc1166d%22%7d",
             "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/477018873454033?p=0YA0z8jc90LbqfaaQt\r\nMeeting ID: 477 018 873 454 033\r\nPasscode: xD3dv2C4\r\n________________",
+            "categories": [],
+            "isCancelled": false,
+            "durationMinutes": 30
+          },
+          {
+            "id": "AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMABGAAAAAABnKltsE71WTLa5on0lf95vBwBN9Q5BMdc3TLac26rjp3NMAAAAAAENAABN9Q5BMdc3TLac26rjp3NMAAGqq7TRAAA=",
+            "subject": "New Office Inaugural Event Discussion",
+            "start": "2026-08-04T17:00:00.0000000+05:30",
+            "end": "2026-08-04T17:30:00.0000000+05:30",
+            "isAllDay": false,
+            "showAs": "tentative",
+            "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMABGAAAAAABnKltsE71WTLa5on0lf95vBwBN9Q5BMdc3TLac26rjp3NMAAAAAAENAABN9Q5BMdc3TLac26rjp3NMAAGqq7TRAAA%3D&exvsurl=1&path=/calendar/item",
+            "organizer": "Neaven Christopher Arulraj",
+            "attendees": [
+              "Neaven Christopher Arulraj",
+              "Lexila T A",
+              "Christy Arulraj"
+            ],
+            "location": "Microsoft Teams Meeting",
+            "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OWIzNGNiZDUtYWRhYi00YzE0LThlYmItODgwY2E1MWZlNWI3%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22a30e8552-67a1-468a-a1ae-e5c9688eb7e7%22%7d",
+            "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/421619950231393?p=HX55BdxBedzmYcwUKV\r\nMeeting ID: 421 619 950 231 393\r\nPasscode: hG7KE6nN\r\n____________",
             "categories": [],
             "isCancelled": false,
             "durationMinutes": 30
@@ -62612,33 +63093,6 @@
             "durationMinutes": 10
           },
           {
-            "id": "AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMAFRAAgI3vG7U8hAAEYAAAAAZypbbBO9Vky2uaJ9JX-ebwcATfUOQTHXN0y2nNuq46dzTAAAAAABDQAATfUOQTHXN0y2nNuq46dzTAABj-1o8gAAEA==",
-            "subject": "Canceled: Prezerv (Daily Stand-up)",
-            "start": "2026-08-04T11:20:00.0000000+05:30",
-            "end": "2026-08-04T11:30:00.0000000+05:30",
-            "isAllDay": false,
-            "showAs": "free",
-            "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMAFRAAgI3vG7U8hAAEYAAAAAZypbbBO9Vky2uaJ9JX%2FebwcATfUOQTHXN0y2nNuq46dzTAAAAAABDQAATfUOQTHXN0y2nNuq46dzTAABj%2F1o8gAAEA%3D%3D&exvsurl=1&path=/calendar/item",
-            "organizer": "Iftikhaar Ali  S D",
-            "attendees": [
-              "Iftikhaar Ali  S D",
-              "Christy Arulraj",
-              "Saran Menon",
-              "Divya Sree D V",
-              "Prasanth Pradeep Kumar",
-              "Meganathan V",
-              "Divya  G",
-              "Dharik Ajees",
-              "Thariq Abbas"
-            ],
-            "location": "Microsoft Teams Meeting",
-            "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_M2I2M2FjZjEtMzhkMi00YjFlLTk4MmUtZmMwOWMzZmJhMTc1%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%2285d8a2e2-67a6-4347-8a6a-510d58efb711%22%7d",
-            "description": "",
-            "categories": [],
-            "isCancelled": true,
-            "durationMinutes": 10
-          },
-          {
             "id": "AAMkADg1MzMxNDRhLTNjY2QtNDA3Zi1iMmNjLWJjYjdlNDFjYzVhMAFRAAgI3vKEfjIAAEYAAAAAZypbbBO9Vky2uaJ9JX-ebwcATfUOQTHXN0y2nNuq46dzTAAAAAABDQAATfUOQTHXN0y2nNuq46dzTAABj-1o8gAAEA==",
             "subject": "Prezerv (Daily Stand-up)",
             "start": "2026-08-05T11:20:00.0000000+05:30",
@@ -64681,8 +65135,8 @@
         ]
       },
       "calendar": {
-        "events": 90,
-        "meetingHours": 64.2,
+        "events": 91,
+        "meetingHours": 64.8,
         "items": [
           {
             "id": "AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n_ZtTG0TYR-wQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABtCXqWAAA=",
@@ -64953,6 +65407,27 @@
             "durationMinutes": 30
           },
           {
+            "id": "AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n_ZtTG0TYR-wQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABv37LNAAA=",
+            "subject": "New Office Inaugural Event Discussion",
+            "start": "2026-08-04T17:00:00.0000000+05:30",
+            "end": "2026-08-04T17:30:00.0000000+05:30",
+            "isAllDay": false,
+            "showAs": "tentative",
+            "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n%2BZtTG0TYR%2FwQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABv37LNAAA%3D&exvsurl=1&path=/calendar/item",
+            "organizer": "Neaven Christopher Arulraj",
+            "attendees": [
+              "Neaven Christopher Arulraj",
+              "Lexila T A",
+              "Christy Arulraj"
+            ],
+            "location": "Microsoft Teams Meeting",
+            "meetingLink": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OWIzNGNiZDUtYWRhYi00YzE0LThlYmItODgwY2E1MWZlNWI3%40thread.v2/0?context=%7b%22Tid%22%3a%222708970a-4d07-4d6e-8cf2-e27187971898%22%2c%22Oid%22%3a%22a30e8552-67a1-468a-a1ae-e5c9688eb7e7%22%7d",
+            "description": "________________________________________________________________________________\r\nMicrosoft Teams meeting\r\nJoin: https://teams.microsoft.com/meet/421619950231393?p=HX55BdxBedzmYcwUKV\r\nMeeting ID: 421 619 950 231 393\r\nPasscode: hG7KE6nN\r\n____________",
+            "categories": [],
+            "isCancelled": false,
+            "durationMinutes": 30
+          },
+          {
             "id": "AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n_ZtTG0TYR-wQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABr0Vy6AAA=",
             "subject": "Technical Discussion - BDM - Gaurav P Jadhav",
             "start": "2026-08-05T11:00:00.0000000+05:30",
@@ -64982,7 +65457,7 @@
             "start": "2026-08-05T11:30:00.0000000+05:30",
             "end": "2026-08-05T12:00:00.0000000+05:30",
             "isAllDay": false,
-            "showAs": "tentative",
+            "showAs": "busy",
             "webLink": "https://outlook.office365.com/owa/?itemid=AAMkADExNzQ1MDJmLTcwNWYtNGVjNC1hODc4LWVjMjVhYWM1NTAyOQBGAAAAAAAA9n%2BZtTG0TYR%2FwQ5t4MeMBwCm3WZ3XW07T6Ff6qTxtzorAAAAAAENAACm3WZ3XW07T6Ff6qTxtzorAABv37LLAAA%3D&exvsurl=1&path=/calendar/item",
             "organizer": "Divya Sundar",
             "attendees": [
@@ -75372,6 +75847,204 @@
         "groupName": "Marketing",
         "tasks": [
           {
+            "id": "AHrQb1RaEESAnw5akzfibOEACagT",
+            "title": "It service, product salable in Facebook",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "ba754916-455f-49a6-a841-39f0d611b299",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "ffcfc2b6-de61-4988-9b20-87bb06b29d1a",
+              "699be9bf-9e1c-4fa9-97fb-af406c6cea8e",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Karan Kumar M",
+              "Surya DV",
+              "Abinesh D",
+              "Harishivani S",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
+            "id": "Ti1ZRdRZPUqzubUmHFmR4eEACQxg",
+            "title": "Codework Instagram-Benchmark",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "ba754916-455f-49a6-a841-39f0d611b299"
+            ],
+            "assignees": [
+              "Karan Kumar M"
+            ]
+          },
+          {
+            "id": "I_n_RClUV0OJQALrZgPgY-EAFSq9",
+            "title": "Zoho crm access",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "ffcfc2b6-de61-4988-9b20-87bb06b29d1a",
+              "699be9bf-9e1c-4fa9-97fb-af406c6cea8e"
+            ],
+            "assignees": [
+              "Abinesh D",
+              "Harishivani S"
+            ]
+          },
+          {
+            "id": "rsVHPI005Uau3GasHSRcNeEAH13s",
+            "title": "marketing lead generation",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [],
+            "assignees": []
+          },
+          {
+            "id": "oNhwbq6p6kWd9TlMQMfituEAGIbS",
+            "title": "Benchmark website- codework",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Surya DV",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
+            "id": "dBcJQ2q12kin8dP7AGfSIeEADf4x",
+            "title": "Website Enhancement",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "e9be3460-fd52-4c78-9a02-3f767054db8b"
+            ],
+            "assignees": [
+              "Xavier Arul Nelson"
+            ]
+          },
+          {
+            "id": "8v-bGrGreEidim1uNsVND-EAFzdv",
+            "title": "Edubot marketing and salable plan",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "ba754916-455f-49a6-a841-39f0d611b299",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Karan Kumar M",
+              "Surya DV",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
+            "id": "HIJFuQHiJECDxbCXK1aIg-EACtNn",
+            "title": "Nelson's product marketing and salable plan",
+            "status": "Not started",
+            "percentComplete": 0,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "215bc787-9089-482a-8695-1621e97557a8",
+              "07a3c7f9-3c43-4752-9f06-b74e6ffedadf",
+              "a0f6e958-85db-479f-857e-50d04f54ba89",
+              "8de3d05f-783a-473a-8722-f1c326a73509",
+              "8d62dcb3-eba6-41a2-a799-6a7d38e57d15"
+            ],
+            "assignees": [
+              "Rishi Kumar S",
+              "Surya DV",
+              "Hemanth",
+              "Vaseem",
+              "Gayathri A"
+            ]
+          },
+          {
             "id": "2CMCl209GEizj7KheDj17OEAGEQI",
             "title": "SEo Audit",
             "status": "Not started",
@@ -75391,26 +76064,6 @@
             "assignees": [
               "Hemanth",
               "Vaseem"
-            ]
-          },
-          {
-            "id": "plQQidtgsEyAnmLVfxJyw-EAEu_o",
-            "title": "Article schema for CPLC blogs",
-            "status": "Not started",
-            "percentComplete": 0,
-            "priority": 5,
-            "startDateTime": "",
-            "dueDateTime": "",
-            "completedDateTime": "",
-            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
-            "planTitle": "Marketing",
-            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
-            "groupName": "Marketing",
-            "assigneeIds": [
-              "ba754916-455f-49a6-a841-39f0d611b299"
-            ],
-            "assignees": [
-              "Karan Kumar M"
             ]
           },
           {
@@ -75883,6 +76536,26 @@
             ],
             "assignees": [
               "Swathi Gopal"
+            ]
+          },
+          {
+            "id": "plQQidtgsEyAnmLVfxJyw-EAEu_o",
+            "title": "Article schema for CPLC blogs",
+            "status": "Completed",
+            "percentComplete": 100,
+            "priority": 5,
+            "startDateTime": "",
+            "dueDateTime": "",
+            "completedDateTime": "2026-08-04T06:29:37.1204568Z",
+            "planId": "zwqDsCfzH0OYJnovjFVqUOEAE6SN",
+            "planTitle": "Marketing",
+            "groupId": "3e5cba14-f2c3-4809-a40e-50277971736f",
+            "groupName": "Marketing",
+            "assigneeIds": [
+              "ba754916-455f-49a6-a841-39f0d611b299"
+            ],
+            "assignees": [
+              "Karan Kumar M"
             ]
           },
           {
@@ -76831,9 +77504,9 @@
           }
         ],
         "summary": {
-          "Not started": 23,
+          "Not started": 30,
           "In progress": 2,
-          "Completed": 46
+          "Completed": 47
         }
       },
       {
@@ -81828,6 +82501,43 @@
         ]
       },
       {
+        "id": "codeworkai.sharepoint.com,75d7a626-4b20-44ec-9e48-2a7e3366d284,4dc4d4ed-2ddf-468e-b928-9c52682b9fda",
+        "displayName": "AI Team",
+        "webUrl": "https://codeworkai.sharepoint.com/sites/AITeam",
+        "owner": "",
+        "lastActivity": "2026-07-19T18:12:56Z",
+        "lists": [
+          {
+            "id": "b3d10038-cd92-4c3b-90f1-280d8e5814a4",
+            "displayName": "AI Projects Repository",
+            "webUrl": "https://codeworkai.sharepoint.com/sites/AITeam/AI%20Projects%20Repository",
+            "template": "documentLibrary"
+          },
+          {
+            "id": "e934df25-131d-4f8e-9332-a96ae1644932",
+            "displayName": "Web Template Extensions",
+            "webUrl": "https://codeworkai.sharepoint.com/sites/AITeam/_catalogs/wte",
+            "template": "webTemplateExtensionsList"
+          },
+          {
+            "id": "b20a56ba-4951-4745-ae92-b86170d1efb8",
+            "displayName": "Documents",
+            "webUrl": "https://codeworkai.sharepoint.com/sites/AITeam/Shared%20Documents",
+            "template": "documentLibrary"
+          }
+        ],
+        "files": [
+          {
+            "id": "01KVSPIKXZX6EJ45YHIZEJJX3CHEMCCGYJ",
+            "name": "AI Team",
+            "webUrl": "https://codeworkai.sharepoint.com/sites/AITeam/Shared%20Documents/AI%20Team",
+            "size": 316244,
+            "lastModifiedDateTime": "2026-07-23T09:16:02Z",
+            "type": "folder"
+          }
+        ]
+      },
+      {
         "id": "codeworkai.sharepoint.com,962cf160-5718-4d15-aecb-1881b4619bdc,38c3827b-b75a-44f1-bbd5-bd3d12285fd9",
         "displayName": "CPLC GROWTH",
         "webUrl": "https://codeworkai.sharepoint.com/sites/CPLCGROWTH828",
@@ -81865,43 +82575,6 @@
             "size": 9621,
             "lastModifiedDateTime": "2026-05-21T06:36:20Z",
             "type": "file"
-          }
-        ]
-      },
-      {
-        "id": "codeworkai.sharepoint.com,75d7a626-4b20-44ec-9e48-2a7e3366d284,4dc4d4ed-2ddf-468e-b928-9c52682b9fda",
-        "displayName": "AI Team",
-        "webUrl": "https://codeworkai.sharepoint.com/sites/AITeam",
-        "owner": "",
-        "lastActivity": "2026-07-19T18:12:56Z",
-        "lists": [
-          {
-            "id": "b3d10038-cd92-4c3b-90f1-280d8e5814a4",
-            "displayName": "AI Projects Repository",
-            "webUrl": "https://codeworkai.sharepoint.com/sites/AITeam/AI%20Projects%20Repository",
-            "template": "documentLibrary"
-          },
-          {
-            "id": "e934df25-131d-4f8e-9332-a96ae1644932",
-            "displayName": "Web Template Extensions",
-            "webUrl": "https://codeworkai.sharepoint.com/sites/AITeam/_catalogs/wte",
-            "template": "webTemplateExtensionsList"
-          },
-          {
-            "id": "b20a56ba-4951-4745-ae92-b86170d1efb8",
-            "displayName": "Documents",
-            "webUrl": "https://codeworkai.sharepoint.com/sites/AITeam/Shared%20Documents",
-            "template": "documentLibrary"
-          }
-        ],
-        "files": [
-          {
-            "id": "01KVSPIKXZX6EJ45YHIZEJJX3CHEMCCGYJ",
-            "name": "AI Team",
-            "webUrl": "https://codeworkai.sharepoint.com/sites/AITeam/Shared%20Documents/AI%20Team",
-            "size": 316244,
-            "lastModifiedDateTime": "2026-07-23T09:16:02Z",
-            "type": "folder"
           }
         ]
       },
@@ -82087,56 +82760,6 @@
         "files": []
       },
       {
-        "id": "codeworkai.sharepoint.com,b0f41b2a-136d-4d17-b2ef-eb2487882dd7,4dc4d4ed-2ddf-468e-b928-9c52682b9fda",
-        "displayName": "Marketing & BDM Team",
-        "webUrl": "https://codeworkai.sharepoint.com/sites/MarketingBDMTeam",
-        "owner": "",
-        "lastActivity": "2026-07-19T18:12:56Z",
-        "lists": [
-          {
-            "id": "b20a56ba-4951-4745-ae92-b86170d1efb8",
-            "displayName": "Documents",
-            "webUrl": "https://codeworkai.sharepoint.com/sites/MarketingBDMTeam/Shared%20Documents",
-            "template": "documentLibrary"
-          }
-        ],
-        "files": [
-          {
-            "id": "01OWZYWLF3VFJO2R4PXVA3YKPXILSKXPS7",
-            "name": "Marketing - BDM Team",
-            "webUrl": "https://codeworkai.sharepoint.com/sites/MarketingBDMTeam/Shared%20Documents/Marketing%20-%20BDM%20Team",
-            "size": 0,
-            "lastModifiedDateTime": "2026-07-23T06:58:00Z",
-            "type": "folder"
-          }
-        ]
-      },
-      {
-        "id": "codeworkai.sharepoint.com,bc7a5a40-6416-4b5d-9a64-2e378c96597b,96d5fa83-b547-4e41-a820-ba901be945aa",
-        "displayName": "RnD",
-        "webUrl": "https://codeworkai.sharepoint.com/sites/RnD",
-        "owner": "",
-        "lastActivity": "2024-10-26T19:33:08Z",
-        "lists": [
-          {
-            "id": "ffedecd1-276d-4f75-8b7c-bb9e83ce8ef1",
-            "displayName": "Documents",
-            "webUrl": "https://codeworkai.sharepoint.com/sites/RnD/Shared%20Documents",
-            "template": "documentLibrary"
-          }
-        ],
-        "files": [
-          {
-            "id": "012TYT4DLXMIIBZWD2LZHI3LTKZDBQ5DZN",
-            "name": "Blog",
-            "webUrl": "https://codeworkai.sharepoint.com/sites/RnD/Shared%20Documents/Blog",
-            "size": 196155,
-            "lastModifiedDateTime": "2024-11-13T06:50:40Z",
-            "type": "folder"
-          }
-        ]
-      },
-      {
         "id": "codeworkai.sharepoint.com,1a486a27-a06e-41bd-aad7-719e53b04b8c,96d5fa83-b547-4e41-a820-ba901be945aa",
         "displayName": "Codework",
         "webUrl": "https://codeworkai.sharepoint.com/sites/Codework47",
@@ -82162,6 +82785,31 @@
         ]
       },
       {
+        "id": "codeworkai.sharepoint.com,b0f41b2a-136d-4d17-b2ef-eb2487882dd7,4dc4d4ed-2ddf-468e-b928-9c52682b9fda",
+        "displayName": "Marketing & BDM Team",
+        "webUrl": "https://codeworkai.sharepoint.com/sites/MarketingBDMTeam",
+        "owner": "",
+        "lastActivity": "2026-07-19T18:12:56Z",
+        "lists": [
+          {
+            "id": "b20a56ba-4951-4745-ae92-b86170d1efb8",
+            "displayName": "Documents",
+            "webUrl": "https://codeworkai.sharepoint.com/sites/MarketingBDMTeam/Shared%20Documents",
+            "template": "documentLibrary"
+          }
+        ],
+        "files": [
+          {
+            "id": "01OWZYWLF3VFJO2R4PXVA3YKPXILSKXPS7",
+            "name": "Marketing - BDM Team",
+            "webUrl": "https://codeworkai.sharepoint.com/sites/MarketingBDMTeam/Shared%20Documents/Marketing%20-%20BDM%20Team",
+            "size": 0,
+            "lastModifiedDateTime": "2026-07-23T06:58:00Z",
+            "type": "folder"
+          }
+        ]
+      },
+      {
         "id": "codeworkai.sharepoint.com,e95ac169-8bcf-4353-b60f-033bed41e173,fc51b781-fa5a-4028-8f4c-26233bf0f536",
         "displayName": "Deprecated - All Company",
         "webUrl": "https://codeworkai.sharepoint.com/sites/AllCompany.148692377600.rpjgmdub",
@@ -82176,6 +82824,31 @@
           }
         ],
         "files": []
+      },
+      {
+        "id": "codeworkai.sharepoint.com,bc7a5a40-6416-4b5d-9a64-2e378c96597b,96d5fa83-b547-4e41-a820-ba901be945aa",
+        "displayName": "RnD",
+        "webUrl": "https://codeworkai.sharepoint.com/sites/RnD",
+        "owner": "",
+        "lastActivity": "2024-10-26T19:33:08Z",
+        "lists": [
+          {
+            "id": "ffedecd1-276d-4f75-8b7c-bb9e83ce8ef1",
+            "displayName": "Documents",
+            "webUrl": "https://codeworkai.sharepoint.com/sites/RnD/Shared%20Documents",
+            "template": "documentLibrary"
+          }
+        ],
+        "files": [
+          {
+            "id": "012TYT4DLXMIIBZWD2LZHI3LTKZDBQ5DZN",
+            "name": "Blog",
+            "webUrl": "https://codeworkai.sharepoint.com/sites/RnD/Shared%20Documents/Blog",
+            "size": 196155,
+            "lastModifiedDateTime": "2024-11-13T06:50:40Z",
+            "type": "folder"
+          }
+        ]
       },
       {
         "id": "codeworkai.sharepoint.com,807906ef-f3af-4079-82c2-0ecb076a26fb,7f14055f-a685-4781-a6b9-fc409670fddf",

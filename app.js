@@ -650,7 +650,7 @@ function updateTeamsRefreshLabel(ts) {
 
 async function loadDataset({ fresh = false } = {}) {
   const suffix = `?t=${Date.now()}`;
-  const fileResponse = await fetch(`data/peopleops-data.json${suffix}`, { cache: "no-store" }).catch(() => null);
+  const fileResponse = await apiFetch(`/api/data${suffix}`).catch(() => null);
   return fileResponse?.ok ? fileResponse.json() : null;
 }
 

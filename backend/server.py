@@ -33,6 +33,7 @@ ENV_FILE = PROJECT_ROOT.parent / ".env"
 
 SESSION_TTL = 8 * 3600  # 8 hours
 AUTO_REFRESH_INTERVAL = 24 * 3600  # refresh all data once every 24 hours
+MAX_BODY = 10_240  # 10 KB cap on all POST bodies
 _sessions: dict[str, dict] = {}  # token -> {expiry, name, type}
 _last_full_refresh: float = 0.0   # epoch seconds of last successful full refresh
 _refresh_lock = threading.Lock()
@@ -118,6 +119,10 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.handle_api_get(path)
             return
 
+        if path.startswith("/data/"):
+            if not self._require_auth():
+                return
+
         super().do_GET()
 
     def do_POST(self):
@@ -191,7 +196,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         self.end_headers()
 
     def handle_login(self):
-        length = int(self.headers.get("Content-Length", 0))
+        length = min(int(self.headers.get("Content-Length", 0)), MAX_BODY)
         try:
             body = json.loads(self.rfile.read(length))
         except (json.JSONDecodeError, ValueError):
@@ -305,21 +310,18 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             check=False,
         )
         if result.returncode == 0:
-            self.send_json({
-                "status": "regenerated",
-                "message": result.stdout.strip(),
-            })
+            self.send_json({"status": "regenerated"})
         else:
-            self.send_json({
-                "status": "failed",
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+            detail = next(
+                (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
+                "Data regeneration failed. Check server logs.",
+            )
+            self.send_json({"status": "failed", "message": detail}, HTTPStatus.INTERNAL_SERVER_ERROR)
 
     def refresh_attendance_month(self):
         import re
 
-        length = int(self.headers.get("Content-Length", 0))
+        length = min(int(self.headers.get("Content-Length", 0)), MAX_BODY)
         try:
             body = json.loads(self.rfile.read(length))
         except (json.JSONDecodeError, ValueError):
@@ -344,12 +346,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
                 "Attendance data could not be refreshed for that month.",
             )
-            self.send_json({
-                "status": "failed",
-                "message": detail,
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+            self.send_json({"status": "failed", "message": detail}, HTTPStatus.INTERNAL_SERVER_ERROR)
             return
 
         data = self.load_data() or {}
@@ -384,7 +381,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
     def refresh_all_for_month(self):
         import re
 
-        length = int(self.headers.get("Content-Length", 0))
+        length = min(int(self.headers.get("Content-Length", 0)), MAX_BODY)
         try:
             body = json.loads(self.rfile.read(length))
         except (json.JSONDecodeError, ValueError):
@@ -424,12 +421,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
                 "Data could not be refreshed for that month. Check API connectivity and try again.",
             )
-            self.send_json({
-                "status": "failed",
-                "message": detail,
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+            self.send_json({"status": "failed", "message": detail}, HTTPStatus.INTERNAL_SERVER_ERROR)
             return
 
         try:
@@ -443,11 +435,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "",
             )
             message = diag or f"No employee data was generated for {month}. Check Worklogix API connectivity."
-            self.send_json({
-                "status": "failed",
-                "message": message,
-                "stdout": result.stdout[-3000:] if result.stdout else "",
-            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+            self.send_json({"status": "failed", "message": message}, HTTPStatus.INTERNAL_SERVER_ERROR)
             return
         # Save a permanent month snapshot so Tara can answer month-specific questions
         try:
@@ -496,14 +484,14 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "teams": teams_data,
             })
         else:
-            self.send_json({
-                "status": "failed",
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+            detail = next(
+                (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
+                "Teams data refresh failed. Check server logs.",
+            )
+            self.send_json({"status": "failed", "message": detail}, HTTPStatus.INTERNAL_SERVER_ERROR)
 
     def refresh_github(self):
-        length = int(self.headers.get("Content-Length", 0))
+        length = min(int(self.headers.get("Content-Length", 0)), MAX_BODY)
         month = ""
         if length:
             try:
@@ -530,14 +518,14 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "github": github_data,
             })
         else:
-            self.send_json({
-                "status": "failed",
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+            detail = next(
+                (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
+                "GitHub data refresh failed. Check server logs.",
+            )
+            self.send_json({"status": "failed", "message": detail}, HTTPStatus.INTERNAL_SERVER_ERROR)
 
     def refresh_graph(self):
-        length = int(self.headers.get("Content-Length", 0))
+        length = min(int(self.headers.get("Content-Length", 0)), MAX_BODY)
         month = ""
         if length:
             try:
@@ -564,11 +552,11 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "graph": graph_data,
             })
         else:
-            self.send_json({
-                "status": "failed",
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+            detail = next(
+                (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
+                "Graph activity refresh failed. Check server logs.",
+            )
+            self.send_json({"status": "failed", "message": detail}, HTTPStatus.INTERNAL_SERVER_ERROR)
 
     def load_github_data(self):
         if not GITHUB_DATA_FILE.exists():
@@ -607,16 +595,13 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             check=False,
         )
         if result.returncode == 0:
-            self.send_json({
-                "status": "fetched",
-                "message": result.stdout.strip(),
-            })
+            self.send_json({"status": "fetched"})
         else:
-            self.send_json({
-                "status": "failed",
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-            }, HTTPStatus.INTERNAL_SERVER_ERROR)
+            detail = next(
+                (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
+                "API data fetch failed. Check server logs.",
+            )
+            self.send_json({"status": "failed", "message": detail}, HTTPStatus.INTERNAL_SERVER_ERROR)
 
     def refresh_full(self):
         """Trigger full pipeline in background — returns immediately with 202.
