@@ -3435,6 +3435,36 @@ tbody tr.row-no-data:hover {
   outline-offset: 1px;
 }
 
+/* ── Attendance team rollup ── */
+.att-rollup-wrap { overflow-x: auto; }
+.att-rollup-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.att-rollup-table th {
+  padding: 8px 12px; text-align: left;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--muted); border-bottom: 2px solid var(--line);
+}
+.att-rollup-table th.att-num { text-align: right; }
+.att-rollup-table td { padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.att-rollup-table td.att-num { text-align: right; font-variant-numeric: tabular-nums; }
+.att-rollup-table tbody tr:last-child td { border-bottom: none; }
+.att-rollup-row { cursor: pointer; transition: background 0.12s; }
+.att-rollup-row:hover td { background: var(--canvas); }
+.att-rollup-team { font-weight: 600; }
+.att-rollup-size { font-size: 0.7rem; color: var(--muted); margin-top: 1px; }
+.att-rollup-muted { color: var(--muted); }
+.att-rollup-pill {
+  display: inline-block; padding: 2px 9px; border-radius: 99px;
+  font-size: 0.72rem; font-weight: 700;
+}
+.att-rollup-good { background: #dcfce7; color: #16a34a; }
+.att-rollup-warn { background: #fef3c7; color: #d97706; }
+.att-rollup-bad  { background: #fee2e2; color: #dc2626; }
+.att-rollup-muted-pill { background: var(--canvas); color: var(--muted); }
+.att-rollup-pct-good { color: #16a34a; font-weight: 700; }
+.att-rollup-pct-warn  { color: #d97706; font-weight: 700; }
+.att-rollup-pct-bad   { color: #dc2626; font-weight: 700; }
+.att-rollup-pct-muted { color: var(--muted); }
+
 .attendance-detail {
   display: grid;
   gap: 16px;

@@ -921,6 +921,7 @@ function renderAll() {
   renderLeadershipStrip();
   renderPeopleTable();
   renderTeamsTable();
+  renderAttendanceTeamRollup();
   renderAttendanceDetail(document.getElementById("attendanceEmployee").value || dataset.employees[0]?.id);
   renderProjects();
   renderAlerts();
@@ -2050,6 +2051,101 @@ function closeBandDrawer() {
     drawer.hidden = true;
     document.getElementById("bandDrawerOverlay").hidden = true;
   }, { once: true });
+}
+
+function renderAttendanceTeamRollup() {
+  const container = document.getElementById("attendanceTeamRollup");
+  if (!container) return;
+
+  const teamMap = {};
+  filteredEmployees.forEach(e => {
+    const team = mergedTeam(e.team || "Unassigned");
+    if (!teamMap[team]) teamMap[team] = [];
+    teamMap[team].push(e);
+  });
+
+  function empAttPct(e) {
+    const att = e.attendance || {};
+    const cal = att.calendarDays || ((att.present ?? 0) + (att.absent ?? 0) + (att.off ?? 0) + (att.leave ?? 0) + (att.holidays ?? 0));
+    if (!cal) return null;
+    const sched = Math.max(1, cal - (att.off ?? 0) - (att.holidays ?? 0));
+    return Math.min(100, Math.round(((att.present ?? 0) / sched) * 100));
+  }
+
+  function avgOf(members, fn) {
+    const vals = members.map(fn).filter(v => v != null && isFinite(v));
+    return vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : null;
+  }
+
+  function tone(pct) {
+    if (pct == null) return "muted";
+    return pct >= 80 ? "good" : pct >= 60 ? "warn" : "bad";
+  }
+
+  const rows = Object.keys(teamMap).sort().map(team => {
+    const members = teamMap[team];
+    return {
+      team,
+      members,
+      avgAtt: avgOf(members, empAttPct),
+      avgPunct: avgOf(members, e => e.attendance?.punctualityScore),
+      avgHrs: members.reduce((s, e) => s + (e.attendance?.officeHours ?? 0), 0) / members.length,
+    };
+  }).sort((a, b) => (b.avgAtt ?? -1) - (a.avgAtt ?? -1));
+
+  container.innerHTML = `
+    <article class="panel" style="margin-bottom:16px;">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Team overview</p>
+          <h2>Team Attendance Summary</h2>
+        </div>
+      </div>
+      <div class="att-rollup-wrap">
+        <table class="att-rollup-table">
+          <thead>
+            <tr>
+              <th>Team</th>
+              <th class="att-num">Avg Attendance</th>
+              <th class="att-num">Punctuality</th>
+              <th class="att-num">Avg Office Hrs</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(({ team, members, avgAtt, avgPunct, avgHrs }) => `
+              <tr class="att-rollup-row" data-team="${escapeHtml(team)}" role="button" tabindex="0">
+                <td>
+                  <div class="att-rollup-team">${escapeHtml(team)}</div>
+                  <div class="att-rollup-size">${members.length} member${members.length === 1 ? "" : "s"}</div>
+                </td>
+                <td class="att-num">
+                  ${avgAtt != null ? `<span class="att-rollup-pill att-rollup-${tone(avgAtt)}">${avgAtt}%</span>` : `<span class="att-rollup-muted">—</span>`}
+                </td>
+                <td class="att-num att-rollup-pct-${tone(avgPunct)}">
+                  ${avgPunct != null ? avgPunct + "%" : `<span class="att-rollup-muted">—</span>`}
+                </td>
+                <td class="att-num">${avgHrs > 0 ? avgHrs.toFixed(1) + " h" : `<span class="att-rollup-muted">—</span>`}</td>
+              </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    </article>`;
+
+  container.querySelectorAll(".att-rollup-row").forEach(row => {
+    const handler = () => {
+      const team = row.dataset.team;
+      const first = filteredEmployees.find(e => mergedTeam(e.team || "Unassigned") === team);
+      if (!first) return;
+      const sel = document.getElementById("attendanceEmployee");
+      sel.value = first.id;
+      renderAttendanceDetail(first.id);
+      document.getElementById("attendanceSearch").value = "";
+      Array.from(sel.options).forEach(o => { o.hidden = false; });
+      document.querySelector("#attendance .panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    row.addEventListener("click", handler);
+    row.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); } });
+  });
 }
 
 function renderAttendanceDetail(employeeId) {
