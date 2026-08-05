@@ -946,7 +946,7 @@ function laggingAreas(employee) {
     ["GitHub", d.github, "No GitHub contributions found — verify commits or PRs in the org."],
   ];
   const weak = drivers
-    .filter(([, value]) => Number(value) < 60)
+    .filter(([, value]) => value != null && Number(value) < 60)
     .sort((a, b) => a[1] - b[1]);
   return weak.length ? weak : [["On track", 100, "Keep monitoring all KPI drivers together."]];
 }

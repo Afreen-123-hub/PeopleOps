@@ -1445,7 +1445,7 @@ def main():
     
             # GitHub contribution
             gc = get_github_for(emp)
-            github_score = minmax(gc["contributionScore"], all_github_scores) if gc else 0
+            github_score = minmax(gc["contributionScore"], all_github_scores) if gc else None
     
             sources = {
                 "worklogix": emp_id in allowed_employee_ids,
@@ -1649,7 +1649,7 @@ def main():
                 "taskCompletion": task_completion_pct,
                 "punctuality": round(punctuality_pct, 1) if (punctuality_pct is not None and role_cat not in ("management", "executive")) else None,
                 "collaboration": round(teams_collab_pct, 1),
-                "github": round(github_score, 1),
+                "github": round(github_score, 1) if github_score is not None else None,
                 "projectDelivery": project_delivery_score,
                 "taskApprovalSpeed": task_approval_speed_score,
                 "taskReviewEffectiveness": task_review_effectiveness if role_cat == "management" else None,
@@ -1968,11 +1968,10 @@ def main():
                     "taskCompletion": 30, "managerRatings": 10,
                 },
                 "management": {
-                    "teamAverageKpi": 35, "projectDelivery": 25, "taskApprovalSpeed": 10,
-                    "attendance": 10, "punctuality": 5, "collaboration": 10, "plannerCompletion": 5,
+                    "projectDelivery": 50, "attendance": 30, "collaboration": 20,
                 },
                 "intern": {
-                    "taskCompletion": 30, "punctuality": 20, "collaboration": 20, "mentorFeedback": 30,
+                    "attendance": 30, "punctuality": 20, "collaboration": 20, "mentorFeedback": 30,
                 },
                 "trainee": {
                     "taskCompletion": 30, "attendance": 15, "punctuality": 15,
