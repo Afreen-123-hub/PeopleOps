@@ -1030,7 +1030,7 @@ function renderKpiPerformance() {
 
   document.getElementById("kpiEmployeeTable").innerHTML = rows
     .slice()
-    .sort((a, b) => a.kpi - b.kpi || a.name.localeCompare(b.name))
+    .sort((a, b) => b.kpi - a.kpi || a.name.localeCompare(b.name))
     .map((employee) => `
         <tr data-id="${employee.id}">
           <td><div class="person"><strong>${employee.name}</strong><small>${employee.id} | ${employee.designation || "Unassigned"}</small></div></td>
@@ -2730,7 +2730,7 @@ function showEmployee(e) {
         return `
         <div class="att-summary-row">
           <div class="att-summary-main">
-            <span class="att-pct ${attPct >= 90 ? "att-pct--good" : attPct >= 70 ? "att-pct--warn" : "att-pct--bad"}">${attPct}%</span>
+            <span class="att-pct ${attPct == null ? "" : attPct >= 90 ? "att-pct--good" : attPct >= 70 ? "att-pct--warn" : "att-pct--bad"}">${attPct != null ? attPct + "%" : "—"}</span>
             <span class="att-pct-lbl">Attendance &nbsp;<small>${presentCapped} of ${scheduledDays} working days</small></span>
           </div>
           <div class="att-chips">
