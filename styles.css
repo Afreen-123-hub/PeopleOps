@@ -1536,6 +1536,31 @@ select:focus {
 }
 
 #overview .coverage-item,
+.weight-role-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.weight-role-tab {
+  padding: 4px 11px;
+  border-radius: 99px;
+  border: 1px solid var(--line, #e2e8f0);
+  background: transparent;
+  color: var(--muted, #5a6b82);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.weight-role-tab.active,
+.weight-role-tab:hover {
+  background: var(--teal, #00a99d);
+  color: #fff;
+  border-color: var(--teal, #00a99d);
+}
+
 #overview .weight-item {
   padding: 10px 0;
   border-bottom: 1px solid #edf1f5;

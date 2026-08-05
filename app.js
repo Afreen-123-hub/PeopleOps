@@ -262,7 +262,7 @@ function renderTeamHeatmap() {
       <div class="tpc-header">
         <div>
           <div class="tpc-team-name">${escapeHtml(team)}</div>
-          <div class="tpc-headcount">${members.length} ${members.length === 1 ? "person" : "people"} · ${members.length} scored</div>
+          <div class="tpc-headcount">${members.length} ${members.length === 1 ? "person" : "people"} · ${members.filter(e => e.kpi != null && e.band !== "Insufficient Data").length} scored</div>
         </div>
         <div class="tpc-kpi-badge">
           <span class="tpc-kpi-val">${teamKpi != null ? number.format(teamKpi) : "—"}</span>
@@ -894,8 +894,8 @@ function renderAlerts() {
   container.innerHTML = alerts.map(({ employee: e, level, reason }) => `
     <div class="alert-row alert-${level}" data-id="${e.id}">
       <div class="alert-info">
-        <span class="alert-name">${e.name}</span>
-        <span class="alert-team">${mergedTeam(e.team || "Unassigned")}</span>
+        <span class="alert-name">${escapeHtml(e.name)}</span>
+        <span class="alert-team">${escapeHtml(mergedTeam(e.team || "Unassigned"))}</span>
       </div>
       <span class="alert-reason">${reason}</span>
       <span class="alert-kpi">${number.format(e.kpi)}</span>
@@ -1276,7 +1276,7 @@ function renderTeamsInsights() {
       <div class="tl-row">
         <span class="tl-rank">${medal}</span>
         <div class="tl-info">
-          <span class="tl-name">${e.name}</span>
+          <span class="tl-name">${escapeHtml(e.name)}</span>
           <div class="tl-bar-wrap"><div class="tl-bar-fill" style="width:${pct}%"></div></div>
         </div>
         <div class="tl-stats">
@@ -1288,18 +1288,24 @@ function renderTeamsInsights() {
 
   const ghostRows = ghosts.map(e => `
     <div class="ghost-row">
-      <span class="ghost-name">${e.name}</span>
+      <span class="ghost-name">${escapeHtml(e.name)}</span>
       <span class="ghost-meta">${e.worklogix?.workItems || 0} tasks in Worklogix · 0 Teams activity</span>
       <span class="ghost-badge">Ghost</span>
     </div>`).join("");
 
   document.getElementById("teamsInsightRow").innerHTML = `
-    <div class="teams-insight-panel teams-insight-single">
+    <div class="teams-insight-panel${ghosts.length ? "" : " teams-insight-single"}">
       <div class="ti-section">
         <p class="eyebrow">Teams Activity · Last 30 days</p>
         <h2 class="ti-title">Top 10 Most Active on Teams</h2>
         <div class="tl-list">${ranked.length ? leaderboardRows : '<p class="proj-empty">No Teams activity data yet.</p>'}</div>
       </div>
+      ${ghosts.length ? `
+      <div class="ti-section">
+        <p class="eyebrow">Ghost Workers · Has Worklogix tasks, zero Teams activity</p>
+        <h2 class="ti-title">${ghosts.length} Employee${ghosts.length === 1 ? "" : "s"} Off-Grid</h2>
+        <div class="tl-list">${ghostRows}</div>
+      </div>` : ""}
     </div>`;
 }
 
@@ -1498,20 +1504,44 @@ function renderBandEmployees(band) {
 }
 
 function renderWeights() {
-  const labels = {
-    productivity: "Productivity score",
-    taskCompletion: "Task completion",
-    attendance: "Attendance reliability",
-    punctuality: "Punctuality",
-    collaboration: "Collaboration activity",
-    githubContribution: "GitHub contribution",
+  const fw = dataset.meta.kpiFramework;
+  const container = document.getElementById("weightBars");
+  if (!fw || !container) return;
+
+  const roles = Object.keys(fw).filter(k => k !== "note" && typeof fw[k] === "object");
+  const ROLE_LABELS = { technical: "Technical", management: "Management", support: "Support", intern: "Intern", trainee: "Trainee" };
+  const WEIGHT_LABELS = {
+    productivity: "Productivity", codeContribution: "Code Contribution",
+    attendance: "Attendance", punctuality: "Punctuality", collaboration: "Collaboration",
+    taskCompletion: "Task Completion", managerRatings: "Manager Ratings",
+    teamAverageKpi: "Team Avg KPI", projectDelivery: "Project Delivery",
+    taskApprovalSpeed: "Approval Speed", plannerCompletion: "Planner Completion",
+    mentorFeedback: "Mentor Feedback",
   };
-  document.getElementById("weightBars").innerHTML = Object.entries(dataset.meta.weights)
-    .map(([key, value]) => `<div class="weight-item">
-      <strong>${labels[key] || key} ${value}%</strong>
-      <div class="bar"><span style="width:${Math.min(value * 2, 100)}%"></span></div>
-    </div>`)
-    .join("");
+
+  let activeRole = roles[0];
+
+  function renderBars(role) {
+    return Object.entries(fw[role])
+      .sort((a, b) => b[1] - a[1])
+      .map(([key, value]) => `<div class="weight-item">
+        <strong>${WEIGHT_LABELS[key] || key} ${value}%</strong>
+        <div class="bar"><span style="width:${Math.min(value * 2, 100)}%"></span></div>
+      </div>`)
+      .join("");
+  }
+
+  function render() {
+    container.innerHTML = `
+      <div class="weight-role-tabs">
+        ${roles.map(r => `<button type="button" class="weight-role-tab${r === activeRole ? " active" : ""}" data-role="${r}">${ROLE_LABELS[r] || r}</button>`).join("")}
+      </div>
+      ${renderBars(activeRole)}`;
+    container.querySelectorAll(".weight-role-tab").forEach(btn => {
+      btn.addEventListener("click", () => { activeRole = btn.dataset.role; render(); });
+    });
+  }
+  render();
 }
 
 function lowConfidenceWarning(e) {
