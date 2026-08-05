@@ -1051,7 +1051,10 @@ function renderKpiPerformance() {
 
 function clearKpiTeamFilter() {
   state.team = "all";
-  document.getElementById("teamFilter").value = "all";
+  ["teamFilter", "kpiTeamFilter", "peopleTeamFilter"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "all";
+  });
   applyFilters();
 }
 
