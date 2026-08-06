@@ -286,15 +286,15 @@ def is_real_employee(user):
         return False
     if team in {"test", "test account", "test(for test)"}:
         return False
-    if designation in {"test", "test account"} or "client" in designation:
+    if designation in {"test", "test account", "testing", "unassigned"} or "client" in designation:
         return False
     if name in {"test project manager", "test employee", "test client", "leadership test"}:
         return False
     # Generic placeholder names that are not real employees
     if name in {"employee", "team lead"}:
         return False
-    # Names beginning with "test " are test accounts (e.g. "Test Hr", "Test Intern")
-    if name.startswith("test "):
+    # Names beginning with "test " or containing "(testing)" are test accounts
+    if name.startswith("test ") or "(testing)" in name:
         return False
     # Ex-employees marked inline (e.g. "Nithisha Ex-PM")
     if " ex-" in name or name.endswith(" ex"):
