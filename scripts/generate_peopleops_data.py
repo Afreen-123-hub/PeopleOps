@@ -98,7 +98,10 @@ def normalize_name(value):
 
 
 # Manual team corrections — applied after data is loaded from all sources
-TEAM_OVERRIDES = {}
+TEAM_OVERRIDES = {
+    "CWINE020": "Marketing Team",   # Felista Johnbritto — wrongly set to Management Team in Worklogix/Teams
+    "CWINI154": "Marketing Team",   # Karan Kumar M — wrongly set to Software Development in Worklogix/Teams
+}
 
 
 def get_role_category(designation: str) -> str:
