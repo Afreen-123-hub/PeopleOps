@@ -986,8 +986,10 @@ function renderKpiPerformance() {
   const teamRows = teamKpiSummary(rows);
   const maxKpi = Math.max(100, ...teamRows.map((team) => team.avgKpi));
   const avgKpi = rows.length ? average(rows.map((employee) => employee.kpi)) : 0;
-  const avgProductivity = rows.length ? average(rows.map((employee) => employee.scoreDrivers?.productivity || 0)) : 0;
-  const avgTaskCompletion = rows.length ? average(rows.map((employee) => employee.scoreDrivers?.taskCompletion || 0)) : 0;
+  const prodVals = rows.map((e) => e.scoreDrivers?.productivity).filter((v) => v != null);
+  const avgProductivity = prodVals.length ? average(prodVals) : 0;
+  const taskVals = rows.map((e) => e.scoreDrivers?.taskCompletion).filter((v) => v != null);
+  const avgTaskCompletion = taskVals.length ? average(taskVals) : 0;
   const laggingEmployees = rows.filter((employee) => laggingAreas(employee)[0][0] !== "On track");
   document.getElementById("clearKpiTeam").hidden = state.team === "all";
   renderTeamHeatmap();
@@ -1814,7 +1816,7 @@ function renderTeamsTable() {
     ? visibleRows.map((e, i) => {
         const variant = teamsBadgeVariant(e.teams);
         const meta = TEAMS_BADGE_META[variant];
-        const initials = e.name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+        const initials = avatarInitials(e.name);
         return `<tr style="--row-c:${meta.color}">
           <td>
             <div class="who">
@@ -2740,7 +2742,7 @@ function showEmployee(e) {
 
   const bandCls = e.band ? `band ${bandClass(e.band)}` : "band no-info";
   const bandLabel = e.band || "No Data";
-  const initials = e.name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+  const initials = avatarInitials(e.name);
 
   const sourceLabels = { worklogix: "Worklogix", greythr: "GreytHR", biometrics: "Biometrics", teams: "Teams", calendar: "Calendar", sharepoint: "SharePoint" };
   const sources = Object.entries(e.sources || {})
