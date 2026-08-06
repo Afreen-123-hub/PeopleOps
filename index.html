@@ -5,33 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
     <link rel="icon" type="image/svg+xml" href="peopleops-icon.svg">
-    <link rel="stylesheet" href="styles.css?v=20260804-logo">
+    <link rel="stylesheet" href="styles.css?v=20260806-logo">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
       <aside class="rail" aria-label="Data source status">
         <div class="brand-mark">
-          <svg class="brand-logo" viewBox="0 0 300 64" fill="none" width="180" height="38" role="img" aria-label="PeopleOps Intelligence">
+          <svg class="brand-logo" viewBox="0 0 260 72" fill="none" width="180" height="40" role="img" aria-label="PeopleOps Intelligence">
             <defs>
-              <linearGradient id="poiGradRail" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#2F5CFF"/>
-                <stop offset="100%" stop-color="#00C2A8"/>
-              </linearGradient>
-              <linearGradient id="poiTextGradRail" x1="150" y1="20" x2="300" y2="44" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#6EA3FF"/>
-                <stop offset="100%" stop-color="#5CF0D8"/>
+              <linearGradient id="poGrad" x1="4" y1="4" x2="56" y2="72" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#42DDD1"/>
+                <stop offset="100%" stop-color="#007870"/>
               </linearGradient>
             </defs>
-            <g>
-              <path d="M10 13 Q26 13 32 32" stroke="url(#poiGradRail)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-              <path d="M54 13 Q38 13 32 32" stroke="url(#poiGradRail)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-              <path d="M10 51 Q26 51 32 32" stroke="url(#poiGradRail)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-              <path d="M54 51 Q38 51 32 32" stroke="url(#poiGradRail)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-              <circle cx="32" cy="32" r="12" fill="url(#poiGradRail)"/>
-              <circle cx="32" cy="32" r="4" fill="white"/>
-            </g>
-            <text x="72" y="30" font-family="Inter, 'Segoe UI', sans-serif" font-weight="700" font-size="22" fill="#ffffff" letter-spacing="-0.3">PeopleOps</text>
-            <text x="72" y="52" font-family="Inter, 'Segoe UI', sans-serif" font-weight="500" font-size="22" fill="url(#poiTextGradRail)" letter-spacing="-0.3">Intelligence</text>
+            <!-- P letterform: stem (left) + bowl (upper right) with rounded bottom tip -->
+            <path d="M 36 4 Q 62 4 62 23 Q 62 42 36 42 L 20 42 L 20 60 Q 20 72 12 72 Q 4 72 4 62 L 4 4 Z" fill="url(#poGrad)"/>
+            <!-- Person: head -->
+            <circle cx="36" cy="20" r="6.5" fill="white"/>
+            <!-- Person: shoulders / collar area -->
+            <path d="M 22 42 C 22 32 30 29 36 29 C 42 29 50 32 50 42 Z" fill="white"/>
+            <!-- Person: tie -->
+            <path d="M 36 30 L 34.5 35 L 36 41 L 37.5 35 Z" fill="url(#poGrad)"/>
+            <!-- "PeopleOps" -->
+            <text x="76" y="34" font-family="'Segoe UI', system-ui, sans-serif" font-weight="700" font-size="22" fill="white" letter-spacing="-0.3">PeopleOps</text>
+            <!-- "Intelligence" -->
+            <text x="76" y="55" font-family="'Segoe UI', system-ui, sans-serif" font-weight="500" font-size="13" fill="#42DDD1" letter-spacing="0.5">Intelligence</text>
           </svg>
         </div>
         <div class="rail-nav-label">Main</div>
@@ -818,7 +816,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260804-logo"></script>
+    <script src="app.js?v=20260806-logo"></script>
     <script src="graph-explorer.js?v=20260802-overviewpolish"></script>
   </body>
 </html>

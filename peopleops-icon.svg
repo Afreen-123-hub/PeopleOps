@@ -1,18 +1,16 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="poiGrad" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#2F5CFF"/>
-      <stop offset="100%" stop-color="#00C2A8"/>
+    <linearGradient id="fvG" x1="2" y1="2" x2="38" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#42DDD1"/>
+      <stop offset="100%" stop-color="#007870"/>
     </linearGradient>
   </defs>
-
-  <!-- four data streams (Worklogix, Teams, GreytHR, GitHub) converging into one signal -->
-  <path d="M10 13 Q26 13 32 32" stroke="url(#poiGrad)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-  <path d="M54 13 Q38 13 32 32" stroke="url(#poiGrad)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-  <path d="M10 51 Q26 51 32 32" stroke="url(#poiGrad)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-  <path d="M54 51 Q38 51 32 32" stroke="url(#poiGrad)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-
-  <!-- core: the fused score -->
-  <circle cx="32" cy="32" r="12" fill="url(#poiGrad)"/>
-  <circle cx="32" cy="32" r="4" fill="white"/>
+  <!-- P letterform -->
+  <path d="M 28 4 Q 50 4 50 22 Q 50 40 28 40 L 16 40 L 16 56 Q 16 63 10 63 Q 4 63 4 57 L 4 4 Z" fill="url(#fvG)"/>
+  <!-- Person: head -->
+  <circle cx="29" cy="20" r="7" fill="white"/>
+  <!-- Person: shoulders -->
+  <path d="M 16 40 C 16 30 22 27 29 27 C 36 27 44 30 44 40 Z" fill="white"/>
+  <!-- Person: tie -->
+  <path d="M 29 28 L 27.5 33 L 29 39 L 30.5 33 Z" fill="url(#fvG)"/>
 </svg>
