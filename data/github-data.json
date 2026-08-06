@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-05T06:07:13.523262Z",
+  "lastUpdated": "2026-08-05T08:32:11.234205Z",
   "period": {
     "since": "2026-08-01",
     "until": "2026-08-31"
@@ -23,6 +23,36 @@
       "number": 41,
       "title": "Edubot_CPLC",
       "items": [
+        {
+          "title": "[version-2 CPLC] Validation error displayed for non-existent \"Emergency Contact Number\" field",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/194",
+          "createdAt": "2026-08-05T06:57:20Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[version-2 CPLC] In Super Admin no validation popup is displayed when mandatory fields are left empty during institute registration",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/193",
+          "createdAt": "2026-08-05T05:48:28Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "[version-2 CPLC] Incorrect “Emergency Contact Number is required” validation appears while updating the Admin’s name.",
           "status": "In Progress",
@@ -55,7 +85,7 @@
         },
         {
           "title": "[Version-2 CPLC] Bug: Implement Common UI & UX Improvements",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -115,7 +145,7 @@
         },
         {
           "title": "[Version-2 CPLC] Incorrect and unclear toast message is displayed while applying for Casual Leave in the Student Portal.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1489,36 +1519,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/29",
           "createdAt": "2026-07-14T05:50:02Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Uploaded Resource File Name Not Displayed in Lesson Plan",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/36",
-          "createdAt": "2026-07-14T07:22:43Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Check-in Auto Sign-out Not Working and Time Format Missing AM/PM in History",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/28",
-          "createdAt": "2026-07-14T05:23:39Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3206,6 +3206,22 @@
       "title": "Acadamiq AI",
       "items": [
         {
+          "title": "Student Leave Application",
+          "status": "TODO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan",
+            "saimanL"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/551",
+          "createdAt": "2026-07-24T09:43:30Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Update Incident Status in Incident Report Writing",
           "status": "In progress",
           "priority": "",
@@ -3231,22 +3247,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/174",
           "createdAt": "2026-07-03T07:27:58Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Student Leave Application",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan",
-            "saimanL"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/551",
-          "createdAt": "2026-07-24T09:43:30Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3482,7 +3482,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "saimanL"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/525",
@@ -3718,7 +3718,7 @@
         },
         {
           "title": "Student PDF Export Displays UUID Instead of Student ID and Parent Contact Column Is Blank",
-          "status": "TODO",
+          "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4707,8 +4707,8 @@
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 86,
-        "todo": 3,
+        "inProgress": 87,
+        "todo": 2,
         "backlog": 11,
         "production": 0
       }
@@ -6451,22 +6451,10 @@
           "title": "[Version-2 CPLC] Refresh Button Icon Not Visible Until Hover",
           "status": "Completed in QA",
           "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Uploaded Resource File Name Not Displayed in Lesson Plan",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Check-in Auto Sign-out Not Working and Time Format Missing AM/PM in History",
-          "status": "Completed in QA",
-          "priority": ""
         }
       ],
-      "total": 55,
-      "done": 46,
+      "total": 53,
+      "done": 44,
       "inProgress": 9,
       "commits": 0,
       "prs": 0,
@@ -6491,7 +6479,7 @@
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Bug: Implement Common UI & UX Improvements",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -6503,7 +6491,7 @@
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Incorrect and unclear toast message is displayed while applying for Casual Leave in the Student Portal.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -6742,8 +6730,8 @@
         }
       ],
       "total": 43,
-      "done": 32,
-      "inProgress": 11,
+      "done": 34,
+      "inProgress": 9,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -7185,10 +7173,119 @@
       "total": 15,
       "done": 0,
       "inProgress": 5,
-      "commits": 0,
-      "prs": 1,
-      "prsMerged": 1,
+      "commits": 3,
+      "prs": 3,
+      "prsMerged": 3,
       "prReviews": 10,
+      "additions": 3,
+      "deletions": 3
+    },
+    {
+      "login": "Antony-Bilgates",
+      "projects": [
+        "Edubot_CPLC",
+        "SabAi Bible App",
+        "EduBot_University"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] Validation error displayed for non-existent \"Emergency Contact Number\" field",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] In Super Admin no validation popup is displayed when mandatory fields are left empty during institute registration",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] Incorrect “Emergency Contact Number is required” validation appears while updating the Admin’s name.",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Admin-created schedules do not display the creator name for students",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "iOS Sign-In Option Is Missing on Login Page",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Success and Error Toast Messages Displayed Simultaneously During Student Registration",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Duplicate Staff ID Allows Staff Creation",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Career Path Card UI Breaks with Long Name and Domain Values",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Admin Username Is Not Displayed",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Check-In Fails When Attendance Location Is Not Configured",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "AI Self-Evaluation Section Is Displayed in Student Task Details",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Page Does Not Auto-Scroll After Proceeding to the Next Step in New Curriculum Session",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "\"Show All\" Option Hides Data Instead of Displaying All Records",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 15,
+      "done": 1,
+      "inProgress": 7,
+      "commits": 0,
+      "prs": 2,
+      "prsMerged": 2,
+      "prReviews": 0,
       "additions": 0,
       "deletions": 0
     },
@@ -7296,103 +7393,6 @@
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Antony-Bilgates",
-      "projects": [
-        "Edubot_CPLC",
-        "SabAi Bible App",
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC] Incorrect “Emergency Contact Number is required” validation appears while updating the Admin’s name.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Admin-created schedules do not display the creator name for students",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS Sign-In Option Is Missing on Login Page",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Success and Error Toast Messages Displayed Simultaneously During Student Registration",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Duplicate Staff ID Allows Staff Creation",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Career Path Card UI Breaks with Long Name and Domain Values",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Admin Username Is Not Displayed",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Check-In Fails When Attendance Location Is Not Configured",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "AI Self-Evaluation Section Is Displayed in Student Task Details",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Page Does Not Auto-Scroll After Proceeding to the Next Step in New Curriculum Session",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "\"Show All\" Option Hides Data Instead of Displaying All Records",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 13,
-      "done": 1,
-      "inProgress": 5,
-      "commits": 0,
-      "prs": 2,
-      "prsMerged": 2,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -7638,66 +7638,6 @@
       "deletions": 0
     },
     {
-      "login": "Dharsan1102codework",
-      "projects": [
-        "Oman Tourism",
-        "Acadamiq AI"
-      ],
-      "tasks": [
-        {
-          "project": "Oman Tourism",
-          "title": "(Smart Itinerary Planner) Generate a personalized AI itinerary",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(User Registration & Profile Management) Explore the app as a guest",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(User Registration & Profile Management) Sign up with multiple methods",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Smart Itinerary Planner) Share and access the itinerary offline",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Class dropdown under Classes Filter Issues in Event Calendar",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Student PDF Export Displays UUID Instead of Student ID and Parent Contact Column Is Blank",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Worksheet file appears in the teacher account without being uploaded.",
-          "status": "In progress",
-          "priority": ""
-        }
-      ],
-      "total": 7,
-      "done": 0,
-      "inProgress": 5,
-      "commits": 0,
-      "prs": 1,
-      "prsMerged": 1,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "sriramgowthamE",
       "projects": [
         "SabAi Bible App",
@@ -7744,6 +7684,60 @@
       "total": 6,
       "done": 0,
       "inProgress": 5,
+      "commits": 0,
+      "prs": 1,
+      "prsMerged": 1,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "Dharsan1102codework",
+      "projects": [
+        "Oman Tourism",
+        "Acadamiq AI"
+      ],
+      "tasks": [
+        {
+          "project": "Oman Tourism",
+          "title": "(Smart Itinerary Planner) Generate a personalized AI itinerary",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(User Registration & Profile Management) Explore the app as a guest",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(User Registration & Profile Management) Sign up with multiple methods",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Smart Itinerary Planner) Share and access the itinerary offline",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Student PDF Export Displays UUID Instead of Student ID and Parent Contact Column Is Blank",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Worksheet file appears in the teacher account without being uploaded.",
+          "status": "In progress",
+          "priority": ""
+        }
+      ],
+      "total": 6,
+      "done": 0,
+      "inProgress": 6,
       "commits": 0,
       "prs": 1,
       "prsMerged": 1,
@@ -7845,9 +7839,15 @@
           "title": "Student Leave Application",
           "status": "TODO",
           "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Class dropdown under Classes Filter Issues in Event Calendar",
+          "status": "TODO",
+          "priority": ""
         }
       ],
-      "total": 1,
+      "total": 2,
       "done": 0,
       "inProgress": 0,
       "commits": 0,
