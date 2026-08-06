@@ -38,7 +38,7 @@ _sessions: dict[str, dict] = {}  # token -> {expiry, name, type}
 _last_full_refresh: float = 0.0   # epoch seconds of last successful full refresh
 _refresh_lock = threading.Lock()
 
-PUBLIC_PATHS = {"/landing.html", "/login.html", "/api/login", "/styles.css", "/favicon.ico", "/auth/login", "/auth/callback"}
+PUBLIC_PATHS = {"/login.html", "/splash.html", "/api/login", "/styles.css", "/favicon.ico", "/auth/login", "/auth/callback"}
 _instance_lock = None
 
 
@@ -107,9 +107,9 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             super().do_GET()
             return
 
-        # Root → landing page (marketing splash before sign-in)
+        # Root → login page
         if path == "/":
-            self.path = "/landing.html"
+            self.path = "/login.html"
             super().do_GET()
             return
 
