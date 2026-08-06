@@ -1,16 +1,9 @@
-<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="fvG" x1="2" y1="2" x2="38" y2="64" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#42DDD1"/>
-      <stop offset="100%" stop-color="#007870"/>
-    </linearGradient>
-  </defs>
-  <!-- P letterform -->
-  <path d="M 28 4 Q 50 4 50 22 Q 50 40 28 40 L 16 40 L 16 56 Q 16 63 10 63 Q 4 63 4 57 L 4 4 Z" fill="url(#fvG)"/>
-  <!-- Person: head -->
-  <circle cx="29" cy="20" r="7" fill="white"/>
-  <!-- Person: shoulders -->
-  <path d="M 16 40 C 16 30 22 27 29 27 C 36 27 44 30 44 40 Z" fill="white"/>
-  <!-- Person: tie -->
-  <path d="M 29 28 L 27.5 33 L 29 39 L 30.5 33 Z" fill="url(#fvG)"/>
+<svg width="64" height="64" viewBox="0 0 410 595" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M151.929 402.912V518.622C151.929 538.769 143.926 558.09 129.68 572.336C115.435 586.582 96.1129 594.585 75.9664 594.585H75.9625C34.0097 594.585 0 560.575 0 518.622V204.921C0 91.8218 91.8228 0 204.921 0C318.021 0 409.843 91.8218 409.843 204.921C409.843 290.886 356.793 364.56 281.674 394.961V324.969C281.674 295.748 262.355 271.041 235.793 262.921C235.97 263.968 236.061 265.043 236.061 266.14C236.061 274.598 230.596 281.791 223.007 284.376L236.061 345.054L216.802 362.584L197.542 345.054L210.597 284.376C203.007 281.791 197.542 274.598 197.542 266.14C197.542 265.043 197.634 263.968 197.81 262.921C171.248 271.041 151.93 295.748 151.93 324.969L151.929 402.912ZM216.802 127.071C180.998 127.071 151.93 156.139 151.93 191.942C151.93 227.746 180.998 256.815 216.802 256.815C252.605 256.815 281.674 227.746 281.674 191.942C281.674 156.139 252.605 127.071 216.802 127.071Z" fill="url(#iconGrad)"/>
+<defs>
+<linearGradient id="iconGrad" x1="204.922" y1="0" x2="204.922" y2="486.034" gradientUnits="userSpaceOnUse">
+<stop stop-color="#0F766E"/>
+<stop offset="1" stop-color="#14B8A6"/>
+</linearGradient>
+</defs>
 </svg>
