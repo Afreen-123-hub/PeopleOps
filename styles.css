@@ -5,8 +5,8 @@
   --line: #e2e8f0;
   --panel: #ffffff;
   --canvas: #f4f7fb;
-  --teal: #00a8a0;
-  --blue: #2563eb;
+  --teal: #14B8A6;
+  --blue: #0F766E;
   --violet: #7c3aed;
   --amber: #f59e0b;
   --red: #e11d48;
@@ -106,9 +106,9 @@ select {
 }
 
 .rail-item.active {
-  background: rgba(37,99,235,0.85);
+  background: rgba(15,118,110,0.85);
   color: white;
-  box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+  box-shadow: 0 4px 14px rgba(15,118,110,0.40);
 }
 
 .rail-user-pill {
@@ -127,7 +127,7 @@ select {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #14b8a6, #3b82f6);
+  background: linear-gradient(135deg, #0F766E, #14B8A6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -258,8 +258,8 @@ h1 {
   width: min(260px, 46%);
   height: 5px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #2563eb, #00a99d);
-  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.25);
+  background: linear-gradient(90deg, #0F766E, #14B8A6);
+  box-shadow: 0 8px 22px rgba(15, 118, 110, 0.25);
 }
 
 h2 {
@@ -1733,7 +1733,7 @@ select:focus {
   color: white;
   border-color: transparent;
   border-radius: 999px;
-  background: linear-gradient(135deg, #0b1f4d, #2563eb);
+  background: linear-gradient(135deg, #0b1f4d, #0F766E);
   text-align: center;
 }
 
@@ -3346,7 +3346,7 @@ tbody tr.row-no-data:hover {
 .tsd-teams-active-hrs {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #2563eb;
+  color: #0F766E;
   line-height: 1;
   flex-shrink: 0;
 }
@@ -6695,7 +6695,7 @@ body.graph-drawer-open .tara-panel {
   height: 6px;
   border-radius: 50%;
   flex: none;
-  background: #2563eb;
+  background: #0F766E;
 }
 
 .graph-cal-ev.tentative i { background: #d97706; }
