@@ -101,6 +101,8 @@ def normalize_name(value):
 TEAM_OVERRIDES = {
     "CWINE020": "Marketing Team",   # Felista Johnbritto — wrongly set to Management Team in Worklogix/Teams
     "CWINI154": "Marketing Team",   # Karan Kumar M — wrongly set to Software Development in Worklogix/Teams
+    "CWINE014": "CPLC",             # Neaven Christopher — Center Head CPLC, wrongly under HR Team
+    "CWINE141": "CPLC",             # Karthikeyan Balakrishnan — CPLC Business Management, wrongly under Business Development
 }
 
 
