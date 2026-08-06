@@ -2,7 +2,7 @@
   "meta": {
     "name": "PeopleOPS Intelligence",
     "period": "2026-07-01 to 2026-07-31",
-    "generatedAt": "2026-08-06T14:12:48",
+    "generatedAt": "2026-08-06T14:46:47",
     "dataMode": "Worklogix API + GreytHR API + Biometrics API + Teams API + GitHub",
     "sourceFiles": {
       "worklogix": "api",
@@ -73,9 +73,9 @@
     "completedWorkItems": 930,
     "blockedWorkItems": 14,
     "officeHours": 7053.6,
-    "teamsActiveCount": 65,
-    "teamsAwayCount": 22,
-    "teamsOfflineCount": 12,
+    "teamsActiveCount": 83,
+    "teamsAwayCount": 6,
+    "teamsOfflineCount": 11,
     "teamsOutOfOfficeCount": 0,
     "sourceCoverage": {
       "worklogix": 118,
@@ -164,10 +164,10 @@
         "teamsOfflineHours": 243.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -2311,7 +2311,7 @@
       "name": "Divya R",
       "email": "divya.ravi@codework.ai",
       "designation": "Jr. Project Manager",
-      "team": "Management Team",
+      "team": "Project Management",
       "active": true,
       "teamsId": "f399de9a-c91f-4bb0-b12b-6cfa7add107a",
       "sourceKeys": {
@@ -2379,10 +2379,10 @@
         "teamsOfflineHours": 126.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "office",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -6732,10 +6732,10 @@
         "teamsOfflineHours": 85.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -8531,10 +8531,10 @@
         "teamsOfflineHours": 17.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -20831,10 +20831,10 @@
         "teamsOfflineHours": 56.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -22423,10 +22423,10 @@
         "teamsOfflineHours": 234.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -23594,10 +23594,10 @@
         "teamsOfflineHours": 17.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -27832,10 +27832,10 @@
         "teamsOfflineHours": 93.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "office",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -28266,7 +28266,7 @@
       "name": "Iftikhaar Ali S D",
       "email": "iftikhaar.ali@codework.ai",
       "designation": "Jr. Project Manager",
-      "team": "Management Team",
+      "team": "Project Management",
       "active": true,
       "teamsId": "85d8a2e2-67a6-4347-8a6a-510d58efb711",
       "sourceKeys": {
@@ -30895,10 +30895,10 @@
         "teamsOfflineHours": 108.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -31158,11 +31158,11 @@
         "teamsOfflineHours": 43.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Offline",
         "workLocation": "office",
         "isActive": 0,
-        "isAway": 1,
-        "isOffline": 0,
+        "isAway": 0,
+        "isOffline": 1,
         "isOutOfOffice": 0,
         "reports": 1,
         "activityMatched": true,
@@ -34409,7 +34409,7 @@
         "teamsOfflineHours": 51.0
       },
       "teams": {
-        "status": "Busy",
+        "status": "Available",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
@@ -35432,9 +35432,9 @@
         "teamsOfflineHours": 265.0
       },
       "teams": {
-        "status": "AvailableIdle",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
@@ -36068,10 +36068,10 @@
         "teamsOfflineHours": 18.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -38291,10 +38291,10 @@
         "teamsOfflineHours": 18.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -42439,10 +42439,10 @@
         "teamsOfflineHours": 15.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -46694,11 +46694,11 @@
         "teamsOfflineHours": 275.0
       },
       "teams": {
-        "status": "Offline",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
-        "isOffline": 1,
+        "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
         "activityMatched": true,
@@ -47895,7 +47895,7 @@
         "teamsOfflineHours": 45.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Busy",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
@@ -50056,10 +50056,10 @@
         "teamsOfflineHours": 45.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -53149,10 +53149,10 @@
         "teamsOfflineHours": 33.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -55153,7 +55153,7 @@
       "name": "Harish D",
       "email": "735859hari@gmail.com",
       "designation": "PM Intern",
-      "team": "Project Management Team",
+      "team": "Project Management",
       "active": true,
       "teamsId": "",
       "sourceKeys": {
@@ -57975,10 +57975,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -58598,11 +58598,11 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Offline",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
-        "isOffline": 1,
+        "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
         "activityMatched": false,
@@ -58842,7 +58842,7 @@
       "name": "Sham Sundar.R",
       "email": "rrshamsundar@gmail.com",
       "designation": "PM Intern",
-      "team": "Management Team",
+      "team": "Project Management",
       "active": true,
       "teamsId": "",
       "sourceKeys": {
@@ -59678,9 +59678,9 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Available",
+        "status": "AvailableIdle",
         "workLocation": "",
-        "isActive": 1,
+        "isActive": 0,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
@@ -60971,10 +60971,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -61868,7 +61868,7 @@
       "name": "Bala Prasanna R",
       "email": "prasannabala501@gmail.com",
       "designation": "PM intern",
-      "team": "Business Development",
+      "team": "Project Management",
       "active": true,
       "teamsId": "",
       "sourceKeys": {
@@ -63672,7 +63672,7 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Available",
+        "status": "Busy",
         "workLocation": "office",
         "isActive": 1,
         "isAway": 0,
@@ -67399,10 +67399,10 @@
         "teamsOfflineHours": 20.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Busy",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -74077,10 +74077,10 @@
         "teamsOfflineHours": 0.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -80899,10 +80899,10 @@
         "teamsOfflineHours": 0.0
       },
       "teams": {
-        "status": "AvailableIdle",
+        "status": "Away",
         "workLocation": "",
         "isActive": 0,
-        "isAway": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,

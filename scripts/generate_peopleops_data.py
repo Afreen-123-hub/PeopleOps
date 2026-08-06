@@ -103,6 +103,10 @@ TEAM_OVERRIDES = {
     "CWINI154": "Marketing Team",   # Karan Kumar M — wrongly set to Software Development in Worklogix/Teams
     "CWINE014": "CPLC",             # Neaven Christopher — Center Head CPLC, wrongly under HR Team
     "CWINE141": "CPLC",             # Karthikeyan Balakrishnan — CPLC Business Management, wrongly under Business Development
+    "CWINE121": "Project Management",  # Divya R — Jr. PM wrongly under Management Team
+    "CWINE140": "Project Management",  # Iftikhaar Ali S D — Jr. PM wrongly under Management Team
+    "CWINI167": "Project Management",  # Sham Sundar.R — PM Intern wrongly under Management Team
+    "CWINI168": "Project Management",  # Bala Prasanna R — PM Intern wrongly under Business Development
 }
 
 # Manual designation corrections — Worklogix stores incorrect/placeholder titles for some people
@@ -229,6 +233,10 @@ def standardize_team(value):
         "testing": "Quality & Testing",
         # DevOps
         "devopsteam": "DevOps Team",
+        # Project Management variants
+        "projectmanagement": "Project Management",
+        "projectmanagementteam": "Project Management",
+        "pm": "Project Management",
     }
     return mapping.get(key, team)
 
