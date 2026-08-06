@@ -12,213 +12,103 @@
       font-family: 'Segoe UI', Inter, system-ui, -apple-system, sans-serif;
       min-height: 100vh;
       display: flex;
-    }
-
-    /* ── Left brand panel ──────────────────────────────── */
-    .brand-panel {
-      width: 42%;
-      min-height: 100vh;
-      background: linear-gradient(160deg, #091b40 0%, #0e3260 42%, #0b5c55 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      padding: clamp(40px, 6vw, 72px) clamp(32px, 5vw, 60px);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* decorative circles */
-    .brand-panel::before,
-    .brand-panel::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    .brand-panel::before {
-      width: 380px; height: 380px;
-      background: radial-gradient(circle, rgba(20,184,166,0.12) 0%, transparent 70%);
-      top: -80px; right: -100px;
-    }
-    .brand-panel::after {
-      width: 260px; height: 260px;
-      background: radial-gradient(circle, rgba(15,118,110,0.18) 0%, transparent 70%);
-      bottom: -60px; left: -60px;
-    }
-
-    .bp-inner {
-      position: relative;
-      z-index: 1;
-      max-width: 340px;
-    }
-
-    /* P icon + wordmark in left panel */
-    .bp-logo {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 40px;
-    }
-    .bp-logo-icon {
-      flex-shrink: 0;
-    }
-    .bp-wordmark {
-      line-height: 1.1;
-    }
-    .bp-wordmark strong {
-      display: block;
-      font-size: 1.7rem;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: -0.02em;
-    }
-    .bp-wordmark span {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #7dd3c8;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
-
-    .bp-tagline {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.6;
-      margin-bottom: 36px;
-      font-weight: 400;
-    }
-    .bp-tagline strong { color: #fff; font-weight: 600; }
-
-    .bp-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .bp-features li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.75);
-      font-weight: 500;
-    }
-    .bp-features li::before {
-      content: '';
-      display: block;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(20,184,166,0.25);
-      border: 1.5px solid rgba(20,184,166,0.6);
-      flex-shrink: 0;
-      background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='%2314B8A6' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-
-    .bp-footer {
-      position: absolute;
-      bottom: 24px;
-      left: clamp(32px, 5vw, 60px);
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.28);
-      z-index: 1;
-    }
-
-    /* ── Right form panel ──────────────────────────────── */
-    .form-panel {
-      flex: 1;
-      min-height: 100vh;
-      background: #f7f9fc;
-      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px 24px;
+      background: #f0f4f9;
+      padding: 24px;
     }
 
-    .form-card {
+    /* Subtle teal gradient strip at top */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #0F766E 0%, #14B8A6 100%);
+    }
+
+    /* ── Card ──────────────────────────────────────── */
+    .card {
       background: #ffffff;
       border-radius: 18px;
-      box-shadow: 0 2px 8px rgba(15,28,46,0.06), 0 12px 40px rgba(15,28,46,0.1);
-      padding: 44px 40px 36px;
+      box-shadow:
+        0 1px 3px rgba(15,28,46,0.06),
+        0 8px 24px rgba(15,28,46,0.09),
+        0 24px 56px rgba(15,28,46,0.08);
+      padding: 48px 44px 40px;
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
     }
 
-    /* Logo inside card */
-    .form-logo {
-      display: block;
-      width: 130px;
-      height: auto;
+    /* ── Logo ──────────────────────────────────────── */
+    .card-logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    /* ── Heading ───────────────────────────────────── */
+    .card-heading {
+      text-align: center;
       margin-bottom: 28px;
     }
-
-    .form-heading {
-      font-size: 1.55rem;
+    .card-heading h1 {
+      font-size: 1.45rem;
       font-weight: 800;
       color: #0f1c2e;
       letter-spacing: -0.02em;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
-    .form-sub {
-      font-size: 0.85rem;
+    .card-heading p {
+      font-size: 0.84rem;
       color: #64748b;
-      margin-bottom: 28px;
       line-height: 1.5;
     }
 
-    /* Microsoft button */
+    /* ── Microsoft button ──────────────────────────── */
     .ms-btn {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 11px 16px;
-      background: #ffffff;
+      padding: 12px 16px;
+      background: #fff;
       color: #1a1a1a;
       border: 1.5px solid #d1d9e6;
       border-radius: 10px;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
       font-family: inherit;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
     }
     .ms-btn:hover {
       border-color: #0078d4;
+      background: #fafcff;
       box-shadow: 0 0 0 3px rgba(0,120,212,0.1);
     }
 
-    /* Divider */
+    /* ── Divider ───────────────────────────────────── */
     .divider {
       display: flex;
       align-items: center;
       gap: 12px;
       margin: 20px 0;
       color: #94a3b8;
-      font-size: 0.78rem;
+      font-size: 0.77rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
     .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #e8edf4;
-    }
+    .divider::after { content: ''; flex: 1; height: 1px; background: #e8edf4; }
 
-    /* Form fields */
+    /* ── Fields ────────────────────────────────────── */
     .field { margin-bottom: 14px; }
     .field label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 700;
       color: #475569;
       margin-bottom: 6px;
@@ -234,8 +124,8 @@
       background: #f8fafc;
       color: #0f1c2e;
       outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
       font-family: inherit;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
     }
     .field input:focus {
       border-color: #0F766E;
@@ -243,142 +133,102 @@
       box-shadow: 0 0 0 3px rgba(15,118,110,0.12);
     }
 
-    /* Sign in button — brand teal */
-    .login-btn {
+    /* ── Submit button ─────────────────────────────── */
+    .submit-btn {
       width: 100%;
       padding: 12px;
       background: #0F766E;
-      color: white;
+      color: #fff;
       border: none;
       border-radius: 9px;
       font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
       margin-top: 10px;
-      transition: background 0.15s, box-shadow 0.15s;
       font-family: inherit;
       letter-spacing: 0.01em;
+      transition: background 0.15s, box-shadow 0.15s;
     }
-    .login-btn:hover { background: #0d6560; box-shadow: 0 4px 14px rgba(15,118,110,0.3); }
-    .login-btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+    .submit-btn:hover { background: #0d6560; box-shadow: 0 4px 14px rgba(15,118,110,0.32); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 
-    /* Messages */
-    .error-msg {
+    /* ── Messages ──────────────────────────────────── */
+    .msg {
       display: none;
-      background: #fff0f1;
-      color: #c0192b;
-      border: 1px solid #fcd0d4;
       border-radius: 8px;
       padding: 10px 14px;
       font-size: 0.84rem;
       margin-top: 12px;
       font-weight: 600;
     }
-    .success-msg {
-      display: none;
-      background: #f0fff4;
-      color: #1a7f4b;
-      border: 1px solid #b2f2cb;
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 0.84rem;
-      margin-top: 12px;
-      font-weight: 600;
-    }
+    .msg-error   { background: #fff0f1; color: #c0192b; border: 1px solid #fcd0d4; }
+    .msg-success { background: #f0fff4; color: #1a7f4b; border: 1px solid #b2f2cb; }
 
-    /* ── Mobile: collapse to single column ─────────────── */
-    @media (max-width: 700px) {
-      body { flex-direction: column; }
-      .brand-panel { display: none; }
-      .form-panel {
-        background: linear-gradient(160deg, #091b40 0%, #0e3260 42%, #0b5c55 100%);
-        padding: 32px 20px;
-      }
-      .form-card {
-        border-radius: 14px;
-      }
+    /* ── Footer ────────────────────────────────────── */
+    .card-footer {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid #f0f4f8;
+      text-align: center;
+      font-size: 0.72rem;
+      color: #94a3b8;
     }
   </style>
 </head>
 <body>
+  <div class="card">
 
-  <!-- ── Left brand panel ── -->
-  <div class="brand-panel">
-    <div class="bp-inner">
+    <!-- Official horizontal logo, 140px wide -->
+    <div class="card-logo">
+      <svg width="140" height="61" viewBox="0 0 1356 595" fill="none">
+        <defs>
+          <linearGradient id="lg" x1="204.922" y1="0" x2="204.922" y2="486.034" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#0F766E"/><stop offset="1" stop-color="#14B8A6"/>
+          </linearGradient>
+        </defs>
+        <path d="M246.708 479.489C247.292 495.53 259.104 507.051 280.104 507.051C298.771 507.051 311.167 499.03 316.271 492.76L331.875 515.801C323.563 526.01 308.979 534.468 277.771 534.468C238.25 534.468 211.271 510.26 211.271 469.718C211.271 434.718 234.604 407.739 274.854 407.739C312.625 407.739 336.542 429.905 336.542 470.01C336.542 471.614 336.542 478.03 336.104 479.489H246.708ZM301.25 456.447C300.813 447.26 293.667 433.843 275.292 433.843C256.771 433.843 248.458 446.385 247.583 456.447H301.25ZM420.173 534.468C381.819 534.468 354.257 507.78 354.257 471.468C354.257 435.155 381.819 407.739 420.173 407.739C458.527 407.739 485.36 435.155 485.36 471.468C485.36 507.78 458.527 534.468 420.173 534.468ZM420.173 503.843C438.548 503.843 450.507 490.28 450.507 471.322C450.507 452.51 438.548 438.364 420.173 438.364C401.652 438.364 389.548 452.51 389.548 471.322C389.548 490.28 401.652 503.843 420.173 503.843ZM546.828 591.635H510.369V411.239H547.264V430.635C550.619 422.176 567.536 407.739 591.745 407.739C625.87 407.739 648.182 434.864 648.182 471.176C648.182 507.489 624.557 534.468 590.432 534.468C564.182 534.468 549.015 516.822 546.828 509.968V591.635ZM612.014 471.176C612.014 451.051 597.578 437.051 580.224 437.051C561.703 437.051 547.264 451.343 547.264 471.176C547.264 491.155 561.703 505.155 580.224 505.155C597.578 505.155 612.014 491.447 612.014 471.176ZM709.055 530.968H672.159V330.301H709.055V530.968ZM769.089 479.489C769.672 495.53 781.484 507.051 802.484 507.051C821.151 507.051 833.547 499.03 838.651 492.76L854.255 515.801C845.943 526.01 831.359 534.468 800.151 534.468C760.63 534.468 733.651 510.26 733.651 469.718C733.651 434.718 756.984 407.739 797.234 407.739C835.005 407.739 858.922 429.905 858.922 470.01C858.922 471.614 858.922 478.03 858.484 479.489H769.089ZM823.63 456.447C823.193 447.26 816.047 433.843 797.672 433.843C779.151 433.843 770.839 446.385 769.964 456.447H823.63ZM876.49 434.572C876.49 378.426 918.782 334.968 974.199 334.968C1030.2 334.968 1071.62 378.426 1071.62 434.572C1071.62 490.864 1031.22 534.468 974.199 534.468C916.449 534.468 876.49 490.864 876.49 434.572ZM914.261 434.572C914.261 471.468 938.907 500.343 974.199 500.343C1009.49 500.343 1034.14 471.468 1034.14 434.572C1034.14 397.822 1009.49 368.947 974.199 368.947C938.907 368.947 914.261 397.822 914.261 434.572ZM1134.43 591.635H1097.97V411.239H1134.87V430.635C1138.23 422.176 1155.14 407.739 1179.35 407.739C1213.48 407.739 1235.79 434.864 1235.79 471.176C1235.79 507.489 1212.16 534.468 1178.04 534.468C1151.79 534.468 1136.62 516.822 1134.43 509.968V591.635ZM1199.62 471.176C1199.62 451.051 1185.18 437.051 1167.83 437.051C1149.31 437.051 1134.87 451.343 1134.87 471.176C1134.87 491.155 1149.31 505.155 1167.83 505.155C1185.18 505.155 1199.62 491.447 1199.62 471.176ZM1309.79 407.739C1331.08 407.739 1349.16 415.03 1353.54 418.385L1340.85 440.551C1337.06 437.489 1326.12 431.947 1313.72 431.947C1302.64 431.947 1293.89 435.739 1293.89 443.322C1293.89 450.905 1302.64 454.989 1317.22 458.197C1335.75 462.28 1355.87 470.155 1355.87 494.218C1355.87 525.572 1325.54 534.468 1299.72 534.468C1274.35 534.468 1258.02 525.572 1252.91 521.197L1265.45 496.551C1270.56 501.072 1283.1 507.926 1296.66 507.926C1310.52 507.926 1319.41 502.676 1319.41 494.364C1319.41 485.322 1309.79 481.968 1296.37 478.905C1279.75 475.114 1258.75 466.218 1258.75 442.301C1258.75 419.843 1282.95 407.739 1309.79 407.739Z" fill="#0F766E"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M151.929 402.912V518.622C151.929 538.769 143.926 558.09 129.68 572.336C115.435 586.582 96.1129 594.585 75.9664 594.585H75.9625C34.0097 594.585 0 560.575 0 518.622V204.921C0 91.8218 91.8228 0 204.921 0C318.021 0 409.843 91.8218 409.843 204.921C409.843 290.886 356.793 364.56 281.674 394.961V324.969C281.674 295.748 262.355 271.041 235.793 262.921C235.97 263.968 236.061 265.043 236.061 266.14C236.061 274.598 230.596 281.791 223.007 284.376L236.061 345.054L216.802 362.584L197.542 345.054L210.597 284.376C203.007 281.791 197.542 274.598 197.542 266.14C197.542 265.043 197.634 263.968 197.81 262.921C171.248 271.041 151.93 295.748 151.93 324.969L151.929 402.912ZM216.802 127.071C180.998 127.071 151.93 156.139 151.93 191.942C151.93 227.746 180.998 256.815 216.802 256.815C252.605 256.815 281.674 227.746 281.674 191.942C281.674 156.139 252.605 127.071 216.802 127.071Z" fill="url(#lg)"/>
+      </svg>
+    </div>
 
-      <!-- P icon + wordmark -->
-      <div class="bp-logo">
-        <svg class="bp-logo-icon" width="54" height="78" viewBox="0 0 410 595" fill="none">
-          <defs>
-            <linearGradient id="bpGrad" x1="204.922" y1="0" x2="204.922" y2="486.034" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#0F766E"/>
-              <stop offset="1" stop-color="#14B8A6"/>
-            </linearGradient>
-          </defs>
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M151.929 402.912V518.622C151.929 538.769 143.926 558.09 129.68 572.336C115.435 586.582 96.1129 594.585 75.9664 594.585H75.9625C34.0097 594.585 0 560.575 0 518.622V204.921C0 91.8218 91.8228 0 204.921 0C318.021 0 409.843 91.8218 409.843 204.921C409.843 290.886 356.793 364.56 281.674 394.961V324.969C281.674 295.748 262.355 271.041 235.793 262.921C235.97 263.968 236.061 265.043 236.061 266.14C236.061 274.598 230.596 281.791 223.007 284.376L236.061 345.054L216.802 362.584L197.542 345.054L210.597 284.376C203.007 281.791 197.542 274.598 197.542 266.14C197.542 265.043 197.634 263.968 197.81 262.921C171.248 271.041 151.93 295.748 151.93 324.969L151.929 402.912ZM216.802 127.071C180.998 127.071 151.93 156.139 151.93 191.942C151.93 227.746 180.998 256.815 216.802 256.815C252.605 256.815 281.674 227.746 281.674 191.942C281.674 156.139 252.605 127.071 216.802 127.071Z" fill="url(#bpGrad)"/>
-        </svg>
-        <div class="bp-wordmark">
-          <strong>PeopleOps</strong>
-          <span>Intelligence</span>
-        </div>
+    <div class="card-heading">
+      <h1>Sign in</h1>
+      <p>Enter your credentials to access the dashboard</p>
+    </div>
+
+    <!-- Microsoft SSO -->
+    <a href="/auth/login" class="ms-btn" id="msBtn">
+      <svg width="20" height="20" viewBox="0 0 21 21">
+        <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
+        <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
+        <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
+        <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
+      </svg>
+      Sign in with Microsoft
+    </a>
+
+    <div class="divider">or</div>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username" required placeholder="Your username" />
       </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required placeholder="Your password" />
+      </div>
+      <button type="submit" class="submit-btn" id="loginBtn">Sign in</button>
+    </form>
 
-      <p class="bp-tagline">
-        One decision-ready view of <strong>attendance, delivery,</strong> and <strong>collaboration</strong> — across every team.
-      </p>
+    <div class="msg msg-error"   id="errorMsg"></div>
+    <div class="msg msg-success" id="successMsg"></div>
 
-      <ul class="bp-features">
-        <li>Real-time attendance &amp; biometric tracking</li>
-        <li>KPI scoring across all roles and teams</li>
-        <li>Worklogix, Teams, GitHub &amp; Graph fusion</li>
-        <li>Workforce analytics for leadership</li>
-      </ul>
-    </div>
-    <div class="bp-footer">© 2026 CodeWork · PeopleOps Intelligence</div>
-  </div>
-
-  <!-- ── Right form panel ── -->
-  <div class="form-panel">
-    <div class="form-card">
-
-      <!-- Small logo in card -->
-      <img src="peopleops-logo.svg" class="form-logo" alt="PeopleOps Intelligence">
-
-      <h1 class="form-heading">Welcome back</h1>
-      <p class="form-sub">Sign in to your PeopleOps Intelligence account.</p>
-
-      <!-- Microsoft SSO -->
-      <a href="/auth/login" class="ms-btn" id="msBtn">
-        <svg width="20" height="20" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
-          <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
-          <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
-          <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
-        </svg>
-        Sign in with Microsoft
-      </a>
-
-      <div class="divider">or</div>
-
-      <!-- Password fallback -->
-      <form id="loginForm">
-        <div class="field">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" autocomplete="username" required placeholder="Enter your username" />
-        </div>
-        <div class="field">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" autocomplete="current-password" required placeholder="Enter your password" />
-        </div>
-        <button type="submit" class="login-btn" id="loginBtn">Sign in</button>
-      </form>
-
-      <div class="error-msg" id="errorMsg"></div>
-      <div class="success-msg" id="successMsg"></div>
-    </div>
+    <div class="card-footer">© 2026 CodeWork · PeopleOps Intelligence</div>
   </div>
 
   <script>
+    // Already logged in → skip straight to dashboard
     (async function checkExistingSession() {
       const token = localStorage.getItem("po_token");
       if (!token) return;
@@ -389,13 +239,12 @@
         } else {
           localStorage.removeItem("po_token");
         }
-      } catch {
-        // Server unreachable — stay on login page
-      }
+      } catch { /* server unreachable, stay on login */ }
     })();
 
+    // SSO callback: ?sso_token=...&sso_name=...
     (function handleSsoCallback() {
-      const params = new URLSearchParams(window.location.search);
+      const params   = new URLSearchParams(window.location.search);
       const ssoToken = params.get("sso_token");
       const ssoName  = params.get("sso_name");
       const error    = params.get("error");
@@ -403,34 +252,36 @@
       if (ssoToken) {
         localStorage.setItem("po_token", ssoToken);
         const name = ssoName ? decodeURIComponent(ssoName) : "there";
-        const successEl = document.getElementById("successMsg");
-        successEl.textContent = "Welcome, " + name + "! Redirecting...";
-        successEl.style.display = "block";
-        setTimeout(() => { window.location.href = "index.html"; }, 800);
+        const el = document.getElementById("successMsg");
+        el.textContent = "Welcome, " + name + "! Loading dashboard...";
+        el.style.display = "block";
+        // Go to splash which then loads the dashboard
+        setTimeout(() => { window.location.href = "splash.html"; }, 600);
         return;
       }
 
       if (error) {
-        const errEl = document.getElementById("errorMsg");
-        errEl.textContent = decodeURIComponent(error);
-        errEl.style.display = "block";
+        const el = document.getElementById("errorMsg");
+        el.textContent = decodeURIComponent(error);
+        el.style.display = "block";
         history.replaceState(null, "", window.location.pathname);
       }
     })();
 
+    // Password form
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const btn = document.getElementById("loginBtn");
-      const err = document.getElementById("errorMsg");
+      const btn      = document.getElementById("loginBtn");
+      const err      = document.getElementById("errorMsg");
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value;
 
-      btn.disabled = true;
+      btn.disabled    = true;
       btn.textContent = "Signing in...";
       err.style.display = "none";
 
       try {
-        const res = await fetch("/api/login", {
+        const res  = await fetch("/api/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password }),
@@ -438,18 +289,19 @@
         const data = await res.json();
         if (res.ok && data.token) {
           localStorage.setItem("po_token", data.token);
-          window.location.href = "index.html";
+          // Login → splash → dashboard
+          window.location.href = "splash.html";
         } else {
-          err.textContent = data.error || "Invalid username or password.";
+          err.textContent   = data.error || "Invalid username or password.";
           err.style.display = "block";
-          btn.disabled = false;
-          btn.textContent = "Sign in";
+          btn.disabled      = false;
+          btn.textContent   = "Sign in";
         }
       } catch {
-        err.textContent = "Could not reach the server. Make sure the backend is running.";
+        err.textContent   = "Could not reach the server. Make sure the backend is running.";
         err.style.display = "block";
-        btn.disabled = false;
-        btn.textContent = "Sign in";
+        btn.disabled      = false;
+        btn.textContent   = "Sign in";
       }
     });
   </script>
