@@ -2,7 +2,7 @@
   "meta": {
     "name": "PeopleOPS Intelligence",
     "period": "2026-07-01 to 2026-07-31",
-    "generatedAt": "2026-08-06T13:14:31",
+    "generatedAt": "2026-08-06T14:12:48",
     "dataMode": "Worklogix API + GreytHR API + Biometrics API + Teams API + GitHub",
     "sourceFiles": {
       "worklogix": "api",
@@ -69,20 +69,20 @@
     "ghostWorkerCount": 0,
     "presentIdleCount": 36,
     "disengagedCount": 0,
-    "totalWorkItems": 1113,
+    "totalWorkItems": 1114,
     "completedWorkItems": 930,
     "blockedWorkItems": 14,
     "officeHours": 7053.6,
-    "teamsActiveCount": 39,
-    "teamsAwayCount": 40,
-    "teamsOfflineCount": 15,
+    "teamsActiveCount": 65,
+    "teamsAwayCount": 22,
+    "teamsOfflineCount": 12,
     "teamsOutOfOfficeCount": 0,
     "sourceCoverage": {
       "worklogix": 118,
       "worklogixActivity": 22,
       "greythr": 49,
       "biometrics": 50,
-      "teams": 100,
+      "teams": 101,
       "calendar": 60,
       "sharepoint": 49,
       "github": 22
@@ -2214,10 +2214,10 @@
         "teamsOfflineHours": 99.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -6732,10 +6732,10 @@
         "teamsOfflineHours": 85.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -8531,10 +8531,10 @@
         "teamsOfflineHours": 17.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -9805,7 +9805,7 @@
         "teams": "CWINE011",
         "biometric": "CWINE011"
       },
-      "kpi": 91.7,
+      "kpi": 91.1,
       "band": "Excellent",
       "quadrant": "High Performer",
       "roleCategory": "technical",
@@ -9828,18 +9828,18 @@
       },
       "worklogixScore": {},
       "worklogix": {
-        "workItems": 97,
+        "workItems": 98,
         "completed": 93,
-        "todo": 4,
+        "todo": 5,
         "inProgress": 0,
         "approved": 74,
-        "pending": 15,
+        "pending": 16,
         "blocked": 0,
-        "workHours": 632.0,
+        "workHours": 637.0,
         "meetingHours": 0.0,
-        "priorityPoints": 483,
+        "priorityPoints": 488,
         "weightedPointsCompleted": 463,
-        "totalWeightedPoints": 483,
+        "totalWeightedPoints": 488,
         "efficiencyScore": 3.59,
         "efficiencyHours": 129.0
       },
@@ -9895,12 +9895,12 @@
       },
       "github": null,
       "scoreDrivers": {
-        "productivity": 93.5,
-        "delivery": 93.5,
-        "efficiency": 95.9,
+        "productivity": 92.6,
+        "delivery": 92.6,
+        "efficiency": 94.9,
         "codeContribution": null,
         "attendance": 91.3,
-        "taskCompletion": 95.9,
+        "taskCompletion": 94.9,
         "punctuality": 100.0,
         "collaboration": 69.5,
         "github": null,
@@ -16273,10 +16273,10 @@
         "teamsOfflineHours": 77.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -18196,10 +18196,10 @@
         "teamsOfflineHours": 239.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -19634,10 +19634,10 @@
         "teamsOfflineHours": 28.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "office",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -23594,10 +23594,10 @@
         "teamsOfflineHours": 17.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -25083,7 +25083,7 @@
         "teamsOfflineHours": 181.0
       },
       "teams": {
-        "status": "Busy",
+        "status": "Available",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
@@ -27188,10 +27188,10 @@
         "teamsOfflineHours": 181.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -27488,10 +27488,10 @@
         "teamsOfflineHours": 9.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "remote",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -31158,11 +31158,11 @@
         "teamsOfflineHours": 43.0
       },
       "teams": {
-        "status": "Offline",
+        "status": "Away",
         "workLocation": "office",
         "isActive": 0,
-        "isAway": 0,
-        "isOffline": 1,
+        "isAway": 1,
+        "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
         "activityMatched": true,
@@ -31306,7 +31306,7 @@
           "id": "CWINE011",
           "name": "Saran Menon P",
           "band": "Excellent",
-          "kpi": 91.7,
+          "kpi": 91.1,
           "designation": "Software Developer"
         },
         {
@@ -34409,10 +34409,10 @@
         "teamsOfflineHours": 51.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Busy",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -35432,10 +35432,10 @@
         "teamsOfflineHours": 265.0
       },
       "teams": {
-        "status": "Away",
+        "status": "AvailableIdle",
         "workLocation": "",
         "isActive": 0,
-        "isAway": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -36068,10 +36068,10 @@
         "teamsOfflineHours": 18.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -37274,7 +37274,7 @@
         "teamsOfflineHours": 18.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Busy",
         "workLocation": "",
         "isActive": 1,
         "isAway": 0,
@@ -40447,10 +40447,10 @@
         "teamsOfflineHours": 15.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -42439,10 +42439,10 @@
         "teamsOfflineHours": 15.0
       },
       "teams": {
-        "status": "AvailableIdle",
+        "status": "Away",
         "workLocation": "",
         "isActive": 0,
-        "isAway": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -46004,10 +46004,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -46391,10 +46391,10 @@
         "teamsOfflineHours": 227.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -46694,11 +46694,11 @@
         "teamsOfflineHours": 275.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Offline",
         "workLocation": "",
         "isActive": 0,
-        "isAway": 1,
-        "isOffline": 0,
+        "isAway": 0,
+        "isOffline": 1,
         "isOutOfOffice": 0,
         "reports": 1,
         "activityMatched": true,
@@ -47895,10 +47895,10 @@
         "teamsOfflineHours": 45.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -49417,10 +49417,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -50056,10 +50056,10 @@
         "teamsOfflineHours": 45.0
       },
       "teams": {
-        "status": "DoNotDisturb",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -51122,10 +51122,10 @@
         "teamsOfflineHours": 231.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -54722,10 +54722,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -54909,9 +54909,9 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "AvailableIdle",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
@@ -55063,11 +55063,11 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Offline",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
-        "isOffline": 1,
+        "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
         "activityMatched": false,
@@ -55217,9 +55217,9 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "AvailableIdle",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
@@ -55371,10 +55371,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -56661,9 +56661,9 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "AvailableIdle",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
@@ -58129,10 +58129,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -58290,11 +58290,11 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Offline",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
-        "isOffline": 1,
+        "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
         "activityMatched": false,
@@ -58444,10 +58444,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -58598,11 +58598,11 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Offline",
         "workLocation": "",
         "isActive": 0,
-        "isAway": 1,
-        "isOffline": 0,
+        "isAway": 0,
+        "isOffline": 1,
         "isOutOfOffice": 0,
         "reports": 1,
         "activityMatched": false,
@@ -59060,10 +59060,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -60767,13 +60767,13 @@
       "quadrant": "",
       "roleCategory": "intern",
       "weightsApplied": {},
-      "sourceConfidence": 25,
+      "sourceConfidence": 50,
       "sources": {
         "worklogix": true,
         "worklogixActivity": false,
         "greythr": false,
         "biometrics": false,
-        "teams": false,
+        "teams": true,
         "calendar": false,
         "sharepoint": false,
         "github": false
@@ -60817,13 +60817,13 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
-        "reports": 0,
+        "reports": 1,
         "activityMatched": false,
         "meetingHours": 0,
         "videoCallHours": 0,
@@ -60859,7 +60859,6 @@
         "worklogixActivity",
         "GreytHR",
         "Biometrics",
-        "Teams",
         "calendar",
         "sharepoint",
         "github"
@@ -60868,7 +60867,7 @@
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI not calculated \u2014 source confidence below 50% (fewer than 2 data sources matched); Missing data from worklogixActivity, GreytHR, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "Missing data from worklogixActivity, GreytHR, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": "no-attendance",
       "managerId": null,
       "managerName": null,
@@ -61317,11 +61316,11 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Offline",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
-        "isOffline": 1,
+        "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
         "activityMatched": false,
@@ -61625,10 +61624,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -61779,10 +61778,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -62087,10 +62086,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -66157,9 +66156,9 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "AvailableIdle",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
@@ -66314,11 +66313,11 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Offline",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
-        "isOffline": 1,
+        "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
         "activityMatched": false,
@@ -66475,10 +66474,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -66783,9 +66782,9 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "AvailableIdle",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
+        "isActive": 1,
         "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
@@ -67246,10 +67245,10 @@
         "teamsOfflineHours": 0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -74078,10 +74077,10 @@
         "teamsOfflineHours": 0.0
       },
       "teams": {
-        "status": "Available",
+        "status": "Away",
         "workLocation": "",
-        "isActive": 1,
-        "isAway": 0,
+        "isActive": 0,
+        "isAway": 1,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -80835,7 +80834,7 @@
       "id": "TCINMD02",
       "name": "Vijay Anand",
       "email": "vijay@codework.ai",
-      "designation": "Advisor",
+      "designation": "Chief Executive Officer",
       "team": "Management Team",
       "active": true,
       "teamsId": "c9ef6626-d6bc-4422-8f36-6438247add13",
@@ -80900,10 +80899,10 @@
         "teamsOfflineHours": 0.0
       },
       "teams": {
-        "status": "Away",
+        "status": "AvailableIdle",
         "workLocation": "",
         "isActive": 0,
-        "isAway": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -82089,10 +82088,10 @@
         "teamsOfflineHours": 49.0
       },
       "teams": {
-        "status": "Away",
+        "status": "Available",
         "workLocation": "",
-        "isActive": 0,
-        "isAway": 1,
+        "isActive": 1,
+        "isAway": 0,
         "isOffline": 0,
         "isOutOfOffice": 0,
         "reports": 1,
@@ -83633,8 +83632,8 @@
       "status": "",
       "members": 82,
       "estimatedHours": 82.0,
-      "hoursWorked": 1446.0,
-      "tasksTotal": 185,
+      "hoursWorked": 1451.0,
+      "tasksTotal": 186,
       "tasksCompleted": 163,
       "tasksApproved": 34,
       "manager": "",
@@ -83703,18 +83702,18 @@
           "hoursWorked": 17.0
         },
         {
+          "id": "CWINE011",
+          "name": "Saran Menon P",
+          "tasksTotal": 2,
+          "tasksCompleted": 1,
+          "hoursWorked": 8.0
+        },
+        {
           "id": "CWINE088",
           "name": "NITISH SHYAM K S",
           "tasksTotal": 1,
           "tasksCompleted": 0,
           "hoursWorked": 8.0
-        },
-        {
-          "id": "CWINE011",
-          "name": "Saran Menon P",
-          "tasksTotal": 1,
-          "tasksCompleted": 1,
-          "hoursWorked": 3.0
         },
         {
           "id": "CWINI241",
@@ -83935,7 +83934,7 @@
         },
         {
           "id": "CWINI182",
-          "name": "Barathraj B",
+          "name": "Barathraj  B",
           "tasksTotal": 0,
           "tasksCompleted": 0,
           "hoursWorked": 0.0

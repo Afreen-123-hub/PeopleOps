@@ -105,6 +105,11 @@ TEAM_OVERRIDES = {
     "CWINE141": "CPLC",             # Karthikeyan Balakrishnan — CPLC Business Management, wrongly under Business Development
 }
 
+# Manual designation corrections — Worklogix stores incorrect/placeholder titles for some people
+DESIGNATION_OVERRIDES = {
+    "TCINMD02": "Chief Executive Officer",  # Vijay Anand — stored as "Advisor" in Worklogix
+}
+
 
 def get_role_category(designation: str) -> str:
     """Return 'executive', 'technical', 'management', 'support', 'intern', or 'trainee'.
@@ -2020,7 +2025,9 @@ def main():
             "teamsOutOfOfficeCount": sum(e["teams"]["isOutOfOffice"] for e in employee_rows),
             "sourceCoverage": dict(source_counts),
         },
-        "employees": [{**e, "team": standardize_team(TEAM_OVERRIDES.get(e["id"], e.get("team", "")))} for e in employee_rows],
+        "employees": [{**e,
+                       "team": standardize_team(TEAM_OVERRIDES.get(e["id"], e.get("team", ""))),
+                       "designation": DESIGNATION_OVERRIDES.get(e["id"], e.get("designation", ""))} for e in employee_rows],
         "projects": sorted(project_cards, key=lambda p: (p["members"], p["estimatedHours"]), reverse=True),
         "bands": dict(Counter(e["band"] or "Insufficient Data" for e in employee_rows)),
         "quadrants": dict(Counter(e["quadrant"] for e in employee_rows if e["quadrant"])),
