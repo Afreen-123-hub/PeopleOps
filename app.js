@@ -1638,7 +1638,7 @@ function renderPeopleTable() {
 
   document.getElementById("peopleTable").innerHTML = scored
     .map((e, index) => `<tr data-index="${index}">
-      <td><div class="person-row"><div class="p-avatar" style="background:${avatarColor(e)}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}</small></div></div>${missingSourceTags(e)}</td>
+      <td><div class="person-row"><div class="p-avatar" style="background:${avatarColor(e)}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}</small></div></div></td>
       <td class="numeric-cell"><div class="pt-kpi-cell"><span class="score">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${avatarColor(e)}"></span></span></div></td>
       <td>${e.band ? `<span class="band ${bandClass(e.band)}">${e.band}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
       <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
