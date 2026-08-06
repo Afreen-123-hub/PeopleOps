@@ -293,8 +293,12 @@ def is_real_employee(user):
     # Generic placeholder names that are not real employees
     if name in {"employee", "team lead"}:
         return False
-    # Names beginning with "test " or containing "(testing)" are test accounts
-    if name.startswith("test ") or "(testing)" in name:
+    # Names beginning with "test " or containing "(test" are test accounts
+    # Catches: "Test Hr", "AARON (Test Intern)", "Sam PM(Testing )", etc.
+    if name.startswith("test ") or "(test" in name:
+        return False
+    # Accounts with no team AND no designation are incomplete placeholders
+    if not team and not designation:
         return False
     # Ex-employees marked inline (e.g. "Nithisha Ex-PM")
     if " ex-" in name or name.endswith(" ex"):
