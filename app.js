@@ -2996,11 +2996,12 @@ function showEmployee(e) {
           <tbody>
             ${e.directReports.map(r => {
               const bc = r.band ? `band ${bandClass(r.band)}` : "band no-info";
+              const drBandLabel = !r.band || r.band === "Insufficient Data" ? "No Data" : r.band === "Needs Improvement" ? "Needs Improv." : r.band;
               return `<tr class="dr-row">
                 <td class="dr-name">${r.name}</td>
                 <td class="dr-role">${r.designation || "—"}</td>
                 <td class="dr-kpi">${r.kpi != null ? r.kpi : "—"}</td>
-                <td><span class="${bc}">${r.band || "No data"}</span></td>
+                <td><span class="${bc}">${drBandLabel}</span></td>
               </tr>`;
             }).join("")}
           </tbody>
