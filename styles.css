@@ -7482,6 +7482,8 @@ body.graph-drawer-open .tara-panel {
   color: var(--muted);
   text-align: left;
 }
+.dr-table th:nth-child(2), .dr-table td:nth-child(2) { width: 86px; text-align: right; }
+.dr-table th:nth-child(3), .dr-table td:nth-child(3) { width: 110px; text-align: right; }
 
 .dr-row td {
   padding: 10px 14px;
