@@ -3001,7 +3001,7 @@ function showEmployee(e) {
       <h3 class="detail-section-title">Direct Reports <span style="font-weight:400;color:var(--muted)">(${e.directReports.length})</span></h3>
       <div class="dr-table-wrap">
         <table class="dr-table">
-          <thead><tr><th>Name</th><th>KPI</th><th>Band</th></tr></thead>
+          <thead><tr><th>Name</th><th style="text-align:right;width:80px">KPI</th></tr></thead>
           <tbody>
             ${e.directReports.map(r => {
               const bc = r.band ? `band ${bandClass(r.band)}` : "band no-info";
@@ -3011,14 +3011,14 @@ function showEmployee(e) {
                 <td class="dr-name">
                   <div style="font-weight:600;color:var(--ink)">${r.name}</div>
                   ${r.designation ? `<div style="font-size:0.75rem;color:var(--muted);margin-top:1px">${r.designation}</div>` : ""}
+                  ${r.band ? `<span class="${bc}" style="margin-top:4px;display:inline-flex;font-size:0.65rem;padding:2px 7px">${r.band}</span>` : ""}
                 </td>
-                <td>
+                <td style="text-align:right;vertical-align:middle">
                   <div class="dr-kpi-cell">
                     <span class="dr-kpi-num">${kv != null ? kv : "—"}</span>
                     ${kv != null ? `<div class="dr-kpi-bar"><div class="dr-kpi-bar-fill ${barCls}" style="width:${kv}%"></div></div>` : ""}
                   </div>
                 </td>
-                <td><span class="${bc}">${r.band || "No data"}</span></td>
               </tr>`;
             }).join("")}
           </tbody>
