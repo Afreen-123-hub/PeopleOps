@@ -318,7 +318,7 @@ h2 {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-lg);
-  background: linear-gradient(120deg, #0b1f4d 0%, #12296b 45%, #0f7a72 100%);
+  background: linear-gradient(120deg, #0b1f4d 0%, #0F766E 45%, #14B8A6 100%);
   padding: 26px 30px 22px;
   margin-bottom: 18px;
 }
@@ -330,7 +330,7 @@ h2 {
   pointer-events: none;
   background:
     radial-gradient(420px 220px at 88% -10%, rgba(0, 169, 157, 0.35), transparent 60%),
-    radial-gradient(380px 200px at -5% 110%, rgba(37, 99, 235, 0.35), transparent 60%);
+    radial-gradient(380px 200px at -5% 110%, rgba(15, 118, 110, 0.25), transparent 60%);
 }
 
 .gradient-hero {
