@@ -4634,9 +4634,9 @@ dialog::backdrop {
 .ehss-lbl { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #94a3b8; margin-top: 2px; }
 
 /* ── Direct reports KPI mini bar ── */
-.dr-kpi-cell { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.dr-kpi-cell { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; width: 100%; }
 .dr-kpi-num  { font-weight: 700; font-size: 0.9rem; color: var(--ink); line-height: 1; }
-.dr-kpi-bar  { width: 52px; height: 3px; border-radius: 99px; background: #e9edf2; overflow: hidden; }
+.dr-kpi-bar  { width: 100%; height: 4px; border-radius: 99px; background: #e9edf2; overflow: hidden; }
 .dr-kpi-bar-fill      { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #0F766E, #14B8A6); }
 .dr-kpi-bar-fill.warn { background: linear-gradient(90deg, #d97706, #f59e0b); }
 .dr-kpi-bar-fill.crit { background: linear-gradient(90deg, #dc2626, #ef4444); }
@@ -7486,8 +7486,8 @@ body.graph-drawer-open .tara-panel {
   border-top: 1px solid var(--line);
 }
 .dr-list-row:first-of-type { border-top: none; }
-.dr-list-left  { flex: 1; min-width: 0; }
-.dr-list-right { flex-shrink: 0; width: 72px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.dr-list-left  { flex: 0 0 auto; width: 52%; min-width: 0; }
+.dr-list-right { flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
 .dr-list-name  { font-weight: 600; font-size: 0.87rem; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dr-list-role  { font-size: 0.74rem; color: var(--muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
