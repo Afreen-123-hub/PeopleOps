@@ -789,8 +789,27 @@
       </div>
     </div>
 
+    <!-- Team members attendance modal -->
+    <div class="team-modal-overlay" id="teamMembersModal" aria-modal="true" role="dialog">
+      <div class="team-modal" id="teamMembersModalInner">
+        <div class="team-modal-header">
+          <div class="team-modal-title-group">
+            <span class="team-modal-eyebrow">Team Members</span>
+            <div class="team-modal-name" id="teamModalName"></div>
+            <div class="team-modal-meta" id="teamModalMeta"></div>
+          </div>
+          <button class="team-modal-close" id="teamModalClose" aria-label="Close">✕</button>
+        </div>
+        <div class="team-modal-stats" id="teamModalStats"></div>
+        <div class="team-modal-col-head">
+          <span>Member</span><span>Attendance</span><span>Punctuality</span><span>Office Hrs</span>
+        </div>
+        <div class="team-modal-body" id="teamModalBody"></div>
+      </div>
+    </div>
+
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260806-logo"></script>
+    <script src="app.js?v=20260807-teampopup"></script>
     <script src="graph-explorer.js?v=20260802-overviewpolish"></script>
   </body>
 </html>

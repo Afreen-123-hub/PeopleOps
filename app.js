@@ -2098,6 +2098,8 @@ function renderAttendanceTeamRollup() {
     };
   }).sort((a, b) => (b.avgAtt ?? -1) - (a.avgAtt ?? -1));
 
+  const toneClass = t => t === "good" ? "good" : t === "warn" ? "warn" : t === "bad" ? "bad" : "muted";
+
   container.innerHTML = `
     <article class="panel" style="margin-bottom:16px;">
       <div class="panel-head">
@@ -2117,37 +2119,96 @@ function renderAttendanceTeamRollup() {
             </tr>
           </thead>
           <tbody>
-            ${rows.map(({ team, members, avgAtt, avgPunct, avgHrs }) => `
-              <tr class="att-rollup-row" data-team="${escapeHtml(team)}" role="button" tabindex="0">
+            ${rows.map(({ team, members, avgAtt, avgPunct, avgHrs }) => {
+              const tc = tone(avgAtt);
+              return `
+              <tr class="att-rollup-row" data-team="${escapeHtml(team)}" role="button" tabindex="0" title="Click to view members">
                 <td>
                   <div class="att-rollup-team">${escapeHtml(team)}</div>
                   <div class="att-rollup-size">${members.length} member${members.length === 1 ? "" : "s"}</div>
                 </td>
                 <td class="att-num">
-                  ${avgAtt != null ? `<span class="att-rollup-pill att-rollup-${tone(avgAtt)}">${avgAtt}%</span>` : `<span class="att-rollup-muted">—</span>`}
+                  <div class="att-rollup-bar-cell">
+                    ${avgAtt != null ? `<span class="att-rollup-pill att-rollup-${tc}">${avgAtt}%</span>` : `<span class="att-rollup-muted">—</span>`}
+                    ${avgAtt != null ? `<div class="att-rollup-mini-bar"><div class="att-rollup-mini-fill ${tc === "good" ? "" : tc}" style="width:${avgAtt}%"></div></div>` : ""}
+                  </div>
                 </td>
                 <td class="att-num att-rollup-pct-${tone(avgPunct)}">
                   ${avgPunct != null ? avgPunct + "%" : `<span class="att-rollup-muted">—</span>`}
                 </td>
                 <td class="att-num">${avgHrs > 0 ? avgHrs.toFixed(1) + " h" : `<span class="att-rollup-muted">—</span>`}</td>
-              </tr>`).join("")}
+              </tr>`;
+            }).join("")}
           </tbody>
         </table>
       </div>
     </article>`;
 
+  // Wire up modal
+  const overlay = document.getElementById("teamMembersModal");
+  const closeBtn = document.getElementById("teamModalClose");
+
+  function openTeamModal(teamName) {
+    const members = filteredEmployees.filter(e => mergedTeam(e.team || "Unassigned") === teamName);
+    if (!members.length) return;
+
+    const attPcts = members.map(e => empAttPct(e)).filter(v => v != null);
+    const punctVals = members.map(e => e.attendance?.punctualityScore).filter(v => v != null && isFinite(v));
+    const teamAvgAtt = attPcts.length ? Math.round(attPcts.reduce((a,b)=>a+b,0)/attPcts.length) : null;
+    const teamAvgPunct = punctVals.length ? Math.round(punctVals.reduce((a,b)=>a+b,0)/punctVals.length) : null;
+    const teamAvgHrs = members.length ? (members.reduce((s,e)=>s+(e.attendance?.officeHours??0),0)/members.length) : 0;
+    const atRisk = members.filter(e => { const p = empAttPct(e); return p != null && p < 60; }).length;
+
+    document.getElementById("teamModalName").textContent = teamName;
+    document.getElementById("teamModalMeta").textContent = `${members.length} member${members.length===1?"":"s"} · ${state.month || "Current period"}`;
+
+    document.getElementById("teamModalStats").innerHTML = `
+      <div class="team-modal-stat"><div class="team-modal-stat-val good">${teamAvgAtt != null ? teamAvgAtt+"%" : "—"}</div><div class="team-modal-stat-lbl">Avg Attendance</div></div>
+      <div class="team-modal-stat"><div class="team-modal-stat-val ${teamAvgPunct != null && teamAvgPunct>=80?"good":teamAvgPunct!=null&&teamAvgPunct<60?"bad":""}">${teamAvgPunct != null ? teamAvgPunct+"%" : "—"}</div><div class="team-modal-stat-lbl">Punctuality</div></div>
+      <div class="team-modal-stat"><div class="team-modal-stat-val">${teamAvgHrs > 0 ? teamAvgHrs.toFixed(1)+" h" : "—"}</div><div class="team-modal-stat-lbl">Avg Office Hrs</div></div>
+      <div class="team-modal-stat"><div class="team-modal-stat-val ${atRisk>0?"bad":""}">${atRisk}</div><div class="team-modal-stat-lbl">At Risk</div></div>`;
+
+    const sorted = [...members].sort((a,b)=>(empAttPct(b)??-1)-(empAttPct(a)??-1));
+    document.getElementById("teamModalBody").innerHTML = sorted.map(e => {
+      const initials = e.name.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+      const att = empAttPct(e);
+      const tc = tone(att);
+      const punct = e.attendance?.punctualityScore;
+      const pc = tone(punct);
+      const hrs = e.attendance?.officeHours;
+      return `
+        <div class="team-modal-member">
+          <div class="team-modal-member-info">
+            <div class="team-modal-avatar">${initials}</div>
+            <div>
+              <div class="team-modal-member-name">${escapeHtml(e.name)}</div>
+              <div class="team-modal-member-role">${escapeHtml(e.designation || e.id)}</div>
+            </div>
+          </div>
+          <div class="team-modal-att">
+            <span class="team-modal-pill ${att!=null?toneClass(tc):"muted"}">${att!=null?att+"%":"—"}</span>
+            <div class="team-modal-mbar"><div class="team-modal-mbar-fill ${tc==="good"?"":tc}" style="width:${att??0}%"></div></div>
+          </div>
+          <div class="team-modal-punct ${punct!=null?toneClass(pc):"muted"}">${punct!=null?punct+"%":"—"}</div>
+          <div class="team-modal-hrs">${hrs>0?hrs.toFixed(1)+" h":"—"}</div>
+        </div>`;
+    }).join("");
+
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeTeamModal() {
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  closeBtn.onclick = closeTeamModal;
+  overlay.addEventListener("click", e => { if (e.target === overlay) closeTeamModal(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && overlay.classList.contains("open")) closeTeamModal(); });
+
   container.querySelectorAll(".att-rollup-row").forEach(row => {
-    const handler = () => {
-      const team = row.dataset.team;
-      const first = filteredEmployees.find(e => mergedTeam(e.team || "Unassigned") === team);
-      if (!first) return;
-      const sel = document.getElementById("attendanceEmployee");
-      sel.value = first.id;
-      renderAttendanceDetail(first.id);
-      document.getElementById("attendanceSearch").value = "";
-      Array.from(sel.options).forEach(o => { o.hidden = false; });
-      document.querySelector("#attendance .panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    };
+    const handler = () => openTeamModal(row.dataset.team);
     row.addEventListener("click", handler);
     row.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); } });
   });
