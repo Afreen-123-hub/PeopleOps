@@ -2999,30 +2999,24 @@ function showEmployee(e) {
       ${e.directReports?.length ? `
       <!-- Direct Reports -->
       <h3 class="detail-section-title">Direct Reports <span style="font-weight:400;color:var(--muted)">(${e.directReports.length})</span></h3>
-      <div class="dr-table-wrap">
-        <table class="dr-table">
-          <thead><tr><th>Name</th><th style="text-align:right;width:80px">KPI</th></tr></thead>
-          <tbody>
-            ${e.directReports.map(r => {
-              const bc = r.band ? `band ${bandClass(r.band)}` : "band no-info";
-              const kv = r.kpi != null ? r.kpi : null;
-              const barCls = kv == null ? "" : kv >= 70 ? "" : kv >= 50 ? "warn" : "crit";
-              return `<tr class="dr-row">
-                <td class="dr-name">
-                  <div style="font-weight:600;color:var(--ink)">${r.name}</div>
-                  ${r.designation ? `<div style="font-size:0.75rem;color:var(--muted);margin-top:1px">${r.designation}</div>` : ""}
-                  ${r.band ? `<span class="${bc}" style="margin-top:4px;display:inline-flex;font-size:0.65rem;padding:2px 7px">${r.band}</span>` : ""}
-                </td>
-                <td style="text-align:right;vertical-align:middle">
-                  <div class="dr-kpi-cell">
-                    <span class="dr-kpi-num">${kv != null ? kv : "—"}</span>
-                    ${kv != null ? `<div class="dr-kpi-bar"><div class="dr-kpi-bar-fill ${barCls}" style="width:${kv}%"></div></div>` : ""}
-                  </div>
-                </td>
-              </tr>`;
-            }).join("")}
-          </tbody>
-        </table>
+      <div class="dr-list">
+        <div class="dr-list-head"><span>Name</span><span>KPI</span></div>
+        ${e.directReports.map(r => {
+          const bc = r.band ? `band ${bandClass(r.band)}` : "band no-info";
+          const kv = r.kpi != null ? r.kpi : null;
+          const barCls = kv == null ? "" : kv >= 70 ? "" : kv >= 50 ? "warn" : "crit";
+          return `<div class="dr-list-row">
+            <div class="dr-list-left">
+              <div class="dr-list-name">${r.name}</div>
+              ${r.designation ? `<div class="dr-list-role">${r.designation}</div>` : ""}
+              ${r.band ? `<span class="${bc}" style="font-size:0.65rem;padding:2px 8px;margin-top:4px">${r.band}</span>` : ""}
+            </div>
+            <div class="dr-list-right">
+              <span class="dr-kpi-num">${kv != null ? kv : "—"}</span>
+              ${kv != null ? `<div class="dr-kpi-bar"><div class="dr-kpi-bar-fill ${barCls}" style="width:${kv}%"></div></div>` : ""}
+            </div>
+          </div>`;
+        }).join("")}
       </div>` : ""}
 
       ${e.roleCategory === "executive" ? (() => {

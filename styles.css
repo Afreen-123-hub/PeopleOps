@@ -7458,40 +7458,38 @@ body.graph-drawer-open .tara-panel {
   .graph-live-badge { display: none; }
 }
 
-/* ======= DIRECT REPORTS TABLE (employee detail panel) ======= */
-.dr-table-wrap {
+/* ======= DIRECT REPORTS LIST (employee detail panel) ======= */
+.dr-list {
   border: 1px solid var(--line);
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 20px;
 }
-
-.dr-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.85rem;
-}
-
-.dr-table thead th {
-  padding: 9px 14px;
+.dr-list-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 14px;
   background: #f5f7fa;
-  font-size: 0.72rem;
+  border-bottom: 1.5px solid var(--line);
+  font-size: 0.68rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   color: var(--muted);
-  text-align: left;
 }
-
-.dr-row td {
-  padding: 10px 14px;
+.dr-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 14px;
   border-top: 1px solid var(--line);
-  vertical-align: middle;
 }
-
-.dr-name { font-weight: 600; color: var(--ink); }
-.dr-role { color: var(--muted); font-size: 0.8rem; }
-.dr-kpi  { font-weight: 700; font-size: 0.92rem; color: var(--ink); text-align: right; width: 52px; }
+.dr-list-row:first-of-type { border-top: none; }
+.dr-list-left  { flex: 1; min-width: 0; }
+.dr-list-right { flex-shrink: 0; width: 72px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.dr-list-name  { font-weight: 600; font-size: 0.87rem; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dr-list-role  { font-size: 0.74rem; color: var(--muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ======= TEAMS INSIGHTS ROW ======= */
 .teams-insight-row {
