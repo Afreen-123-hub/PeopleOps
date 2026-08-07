@@ -872,9 +872,9 @@ select:focus {
   border: 1px solid #d7e2ef;
   border-radius: 16px;
   background:
-    radial-gradient(circle at 80% 25%, rgba(0, 169, 157, .18), transparent 28%),
-    linear-gradient(125deg, #0d2554, #175cd3 58%, #008f8a);
-  box-shadow: 0 16px 38px rgba(23, 54, 112, .22);
+    radial-gradient(circle at 80% 25%, rgba(20, 184, 166, .22), transparent 30%),
+    linear-gradient(125deg, #0b1f4d, #0F766E 58%, #14B8A6);
+  box-shadow: 0 16px 38px rgba(15, 118, 110, .28);
   width: 100%;
   color: inherit;
   font: inherit;
@@ -884,7 +884,7 @@ select:focus {
 
 .workforce-total-banner:hover {
   transform: translateY(-2px);
-  box-shadow: 0 21px 44px rgba(23, 54, 112, .28);
+  box-shadow: 0 21px 44px rgba(15, 118, 110, .36);
 }
 
 .workforce-banner-watermark {
