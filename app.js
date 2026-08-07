@@ -2869,6 +2869,12 @@ function showEmployee(e) {
     return "";
   })();
 
+  const drList = e.directReports || [];
+  const drOnTrack  = drList.filter(r => r.kpi != null && r.kpi >= 70).length;
+  const drCritical = drList.filter(r => r.kpi != null && r.kpi < 50).length;
+  const drKpiVals  = drList.map(r => r.kpi).filter(v => v != null);
+  const drTeamKpi  = drKpiVals.length ? (drKpiVals.reduce((s, v) => s + v, 0) / drKpiVals.length).toFixed(1) : null;
+
   document.getElementById("employeeDetail").innerHTML = `
     <section class="detail">
 
@@ -2885,18 +2891,21 @@ function showEmployee(e) {
           </div>
         </div>
         ${e.band === "Insufficient Data"
-          ? `<div class="emp-detail-kpi no-info"><span class="emp-kpi-val" style="font-size:1.1rem">—</span><span class="emp-kpi-lbl">No attendance data</span></div>`
-          : `<div>
-               <div class="emp-kpi-ring" style="--pct:${Math.min(100, Math.max(0, ringPct))};--c:${ringColor}">
-                 <div class="emp-kpi-ring-inner">
-                   <span class="emp-kpi-val">${e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? "—") : (e.kpi ?? "—")}</span>
-                   <span class="emp-kpi-lbl">${e.roleCategory === "executive" ? "Team KPI" : "KPI"}</span>
-                 </div>
-               </div>
-               ${kpiDelta != null ? `<div class="emp-kpi-vs ${kpiDelta < 0 ? "down" : kpiDelta > 0 ? "up" : ""}">${kpiDelta > 0 ? "+" : ""}${kpiDelta} vs team avg</div>` : ""}
+          ? `<div class="emp-kpi-pill no-data"><span class="emp-kpi-val">—</span><span class="emp-kpi-lbl">No data</span></div>`
+          : `<div class="emp-kpi-pill">
+               <span class="emp-kpi-val">${e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? "—") : (e.kpi ?? "—")}</span>
+               <span class="emp-kpi-lbl">${e.roleCategory === "executive" ? "Team KPI" : "KPI"}</span>
+               ${kpiDelta != null ? `<span class="emp-kpi-delta ${kpiDelta < 0 ? "down" : "up"}">${kpiDelta > 0 ? "+" : ""}${kpiDelta}</span>` : ""}
              </div>`
         }
       </div>
+      ${drList.length ? `
+      <div class="emp-header-stats-strip">
+        <div class="ehss-stat"><span class="ehss-val">${drList.length}</span><span class="ehss-lbl">Direct Reports</span></div>
+        ${drTeamKpi != null ? `<div class="ehss-stat"><span class="ehss-val teal">${drTeamKpi}</span><span class="ehss-lbl">Team KPI</span></div>` : ""}
+        <div class="ehss-stat"><span class="ehss-val teal">${drOnTrack}</span><span class="ehss-lbl">On Track</span></div>
+        <div class="ehss-stat"><span class="ehss-val red">${drCritical}</span><span class="ehss-lbl">Critical</span></div>
+      </div>` : ""}
 
       ${insightSentence ? `<div class="insight-banner">
         <span class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></span>
@@ -2992,14 +3001,23 @@ function showEmployee(e) {
       <h3 class="detail-section-title">Direct Reports <span style="font-weight:400;color:var(--muted)">(${e.directReports.length})</span></h3>
       <div class="dr-table-wrap">
         <table class="dr-table">
-          <thead><tr><th>Name</th><th>Role</th><th>KPI</th><th>Band</th></tr></thead>
+          <thead><tr><th>Name</th><th>KPI</th><th>Band</th></tr></thead>
           <tbody>
             ${e.directReports.map(r => {
               const bc = r.band ? `band ${bandClass(r.band)}` : "band no-info";
+              const kv = r.kpi != null ? r.kpi : null;
+              const barCls = kv == null ? "" : kv >= 70 ? "" : kv >= 50 ? "warn" : "crit";
               return `<tr class="dr-row">
-                <td class="dr-name">${r.name}</td>
-                <td class="dr-role">${r.designation || "—"}</td>
-                <td class="dr-kpi">${r.kpi != null ? r.kpi : "—"}</td>
+                <td class="dr-name">
+                  <div style="font-weight:600;color:var(--ink)">${r.name}</div>
+                  ${r.designation ? `<div style="font-size:0.75rem;color:var(--muted);margin-top:1px">${r.designation}</div>` : ""}
+                </td>
+                <td>
+                  <div class="dr-kpi-cell">
+                    <span class="dr-kpi-num">${kv != null ? kv : "—"}</span>
+                    ${kv != null ? `<div class="dr-kpi-bar"><div class="dr-kpi-bar-fill ${barCls}" style="width:${kv}%"></div></div>` : ""}
+                  </div>
+                </td>
                 <td><span class="${bc}">${r.band || "No data"}</span></td>
               </tr>`;
             }).join("")}

@@ -4537,9 +4537,9 @@ dialog::backdrop {
 }
 .emp-detail-avatar {
   width: 52px; height: 52px;
-  border-radius: 50%;
-  background: #e0e7ff;
-  color: #4338ca;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0F766E, #14B8A6);
+  color: #fff;
   font-size: 1.1rem;
   font-weight: 800;
   display: flex; align-items: center; justify-content: center;
@@ -4586,6 +4586,60 @@ dialog::backdrop {
 }
 .emp-kpi-ring-inner .emp-kpi-val { font-size: 1.25rem; color: var(--c); }
 .emp-kpi-ring-inner .emp-kpi-lbl { font-size: 0.6rem; margin-top: 1px; }
+
+/* ── KPI pill (clean, replaces ring) ── */
+.emp-kpi-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border: 2px solid #14B8A6;
+  border-radius: 14px;
+  background: rgba(20,184,166,0.08);
+  flex-shrink: 0;
+  min-width: 64px;
+  text-align: center;
+}
+.emp-kpi-pill .emp-kpi-val { font-size: 1.5rem; font-weight: 900; color: #0F766E; line-height: 1; }
+.emp-kpi-pill .emp-kpi-lbl { font-size: 0.62rem; font-weight: 700; color: #0F766E; text-transform: uppercase; letter-spacing: .06em; margin-top: 3px; }
+.emp-kpi-pill .emp-kpi-delta { font-size: 0.65rem; font-weight: 700; margin-top: 4px; padding: 1px 6px; border-radius: 99px; }
+.emp-kpi-pill .emp-kpi-delta.up   { background: #dcfce7; color: #15803d; }
+.emp-kpi-pill .emp-kpi-delta.down { background: #fee2e2; color: #b91c1c; }
+.emp-kpi-pill.no-data { border-color: #e2e8f0; background: #f8fafc; }
+.emp-kpi-pill.no-data .emp-kpi-val { color: #94a3b8; font-size: 1.2rem; }
+.emp-kpi-pill.no-data .emp-kpi-lbl { color: #94a3b8; }
+
+/* ── Direct reports summary strip (inside header) ── */
+.emp-header-stats-strip {
+  display: flex;
+  gap: 0;
+  margin: 12px -28px -16px;
+  padding: 10px 28px;
+  background: #f8fafc;
+  border-top: 1px solid var(--line);
+}
+.ehss-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 20px;
+  margin-right: 20px;
+  border-right: 1px solid var(--line);
+}
+.ehss-stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+.ehss-val { font-size: 1.05rem; font-weight: 900; color: #0f1c2e; line-height: 1; font-variant-numeric: tabular-nums; }
+.ehss-val.teal { color: #0F766E; }
+.ehss-val.red  { color: #dc2626; }
+.ehss-lbl { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #94a3b8; margin-top: 2px; }
+
+/* ── Direct reports KPI mini bar ── */
+.dr-kpi-cell { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.dr-kpi-num  { font-weight: 700; font-size: 0.9rem; color: var(--ink); line-height: 1; }
+.dr-kpi-bar  { width: 52px; height: 3px; border-radius: 99px; background: #e9edf2; overflow: hidden; }
+.dr-kpi-bar-fill      { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #0F766E, #14B8A6); }
+.dr-kpi-bar-fill.warn { background: linear-gradient(90deg, #d97706, #f59e0b); }
+.dr-kpi-bar-fill.crit { background: linear-gradient(90deg, #dc2626, #ef4444); }
 
 .quadrant-badge {
   font-size: 0.72rem; font-weight: 700;
