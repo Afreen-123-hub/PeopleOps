@@ -7463,6 +7463,7 @@ body.graph-drawer-open .tara-panel {
   border: 1px solid var(--line);
   border-radius: 10px;
   overflow: hidden;
+  overflow-x: auto;
   margin-bottom: 20px;
 }
 
@@ -7472,6 +7473,9 @@ body.graph-drawer-open .tara-panel {
   font-size: 0.85rem;
 }
 
+.dr-table {
+  table-layout: fixed;
+}
 .dr-table thead th {
   padding: 9px 14px;
   background: #f5f7fa;
@@ -7482,8 +7486,9 @@ body.graph-drawer-open .tara-panel {
   color: var(--muted);
   text-align: left;
 }
-.dr-table th:nth-child(2), .dr-table td:nth-child(2) { width: 86px; text-align: right; }
-.dr-table th:nth-child(3), .dr-table td:nth-child(3) { width: 110px; text-align: right; }
+.dr-table th:nth-child(1), .dr-table td:nth-child(1) { width: auto; }
+.dr-table th:nth-child(2), .dr-table td:nth-child(2) { width: 74px; text-align: right; }
+.dr-table th:nth-child(3), .dr-table td:nth-child(3) { width: 96px; text-align: right; }
 
 .dr-row td {
   padding: 10px 14px;
