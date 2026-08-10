@@ -8785,3 +8785,99 @@ select:focus {
 .bd-kpi strong { display: block; font-size: 1.05rem; font-weight: 800; }
 .bd-kpi small { color: #627084; font-size: .7rem; }
 .bd-empty { color: #627084; font-size: .9rem; padding: 24px 0; text-align: center; }
+
+/* ── Teal avatar (employee table) ── */
+.p-avatar-teal {
+  background: linear-gradient(135deg, #0F766E, #14B8A6) !important;
+  border-radius: 10px !important;
+  color: #fff !important;
+}
+
+/* ── Team chip under name ── */
+.p-team-chip {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 2px;
+  padding: 1px 7px;
+  border-radius: 99px;
+  background: rgba(15,118,110,0.08);
+  color: #0F766E;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Colored KPI score ── */
+.score.kpi-good { color: #15803d; }
+.score.kpi-avg  { color: #d97706; }
+.score.kpi-low  { color: #dc2626; }
+
+/* ── Alert dot ── */
+.alert-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.alert-dot-red   { background: #ef4444; }
+.alert-dot-amber { background: #f59e0b; }
+
+/* ── Alert KPI badge ── */
+.alert-kpi-badge {
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.alert-kpi-red   { background: #fee2e2; color: #b91c1c; }
+.alert-kpi-amber { background: #fef3c7; color: #a16207; }
+
+/* ── Empty state (people table) ── */
+.table-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  gap: 10px;
+}
+.table-empty-icon svg {
+  width: 42px;
+  height: 42px;
+  opacity: 0.6;
+}
+.table-empty-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #374151;
+}
+.table-empty-sub {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+/* ── Skeleton shimmer ── */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+.skel-row td {
+  padding: 14px 10px;
+}
+.skel-cell {
+  height: 14px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #e8edf4 25%, #f4f7fb 50%, #e8edf4 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+.skel-cell.wide  { width: 140px; }
+.skel-cell.mid   { width: 60px; }
+.skel-cell.short { width: 40px; }

@@ -893,12 +893,13 @@ function renderAlerts() {
   }
   container.innerHTML = alerts.map(({ employee: e, level, reason }) => `
     <div class="alert-row alert-${level}" data-id="${e.id}">
+      <div class="alert-dot alert-dot-${level}"></div>
       <div class="alert-info">
         <span class="alert-name">${escapeHtml(e.name)}</span>
         <span class="alert-team">${escapeHtml(mergedTeam(e.team || "Unassigned"))}</span>
       </div>
       <span class="alert-reason">${reason}</span>
-      <span class="alert-kpi">${number.format(e.kpi)}</span>
+      <span class="alert-kpi-badge alert-kpi-${level}">${e.kpi != null ? number.format(e.kpi) : "—"}</span>
     </div>
   `).join("");
   container.querySelectorAll(".alert-row").forEach((row) => {
@@ -1638,18 +1639,27 @@ function renderPeopleTable() {
   const scoredBadge = document.getElementById("scoredCountBadge");
   if (scoredBadge) scoredBadge.textContent = scored.length;
 
-  document.getElementById("peopleTable").innerHTML = scored
-    .map((e, index) => `<tr data-index="${index}">
-      <td><div class="person-row"><div class="p-avatar" style="background:${avatarColor(e)}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}</small></div></div></td>
-      <td class="numeric-cell"><div class="pt-kpi-cell"><span class="score">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${avatarColor(e)}"></span></span></div></td>
-      <td>${e.band ? `<span class="band ${bandClass(e.band)}">${e.band}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
-      <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
-      <td class="numeric-cell">${e.attendance.present}</td>
-      <td class="numeric-cell">${e.attendance.leave ?? 0}</td>
-      <td class="numeric-cell">${e.attendance.absent}</td>
-      <td>${teamsStatusBadge(e.teams)}</td>
-    </tr>`)
-    .join("");
+  document.getElementById("peopleTable").innerHTML = scored.length
+    ? scored.map((e, index) => {
+        const kpiCls = e.kpi >= 85 ? "kpi-good" : e.kpi >= 70 ? "kpi-avg" : "kpi-low";
+        const kpiBarColor = e.kpi >= 85 ? "#16a34a" : e.kpi >= 70 ? "#d97706" : "#dc2626";
+        const bandDisplay = e.band === "Insufficient Data" ? "No Data" : e.band === "Needs Improvement" ? "Needs Improv." : (e.band || "");
+        return `<tr data-index="${index}">
+          <td><div class="person-row"><div class="p-avatar p-avatar-teal">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"}</small><span class="p-team-chip">${mergedTeam(e.team || "Unassigned")}</span></div></div></td>
+          <td class="numeric-cell"><div class="pt-kpi-cell"><span class="score ${kpiCls}">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${kpiBarColor}"></span></span></div></td>
+          <td>${e.band ? `<span class="band ${bandClass(e.band)}">${bandDisplay}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
+          <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
+          <td class="numeric-cell">${e.attendance.present}</td>
+          <td class="numeric-cell">${e.attendance.leave ?? 0}</td>
+          <td class="numeric-cell">${e.attendance.absent}</td>
+          <td>${teamsStatusBadge(e.teams)}</td>
+        </tr>`;
+      }).join("")
+    : `<tr><td colspan="8"><div class="table-empty-state">
+        <div class="table-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+        <div class="table-empty-title">No employees found</div>
+        <div class="table-empty-sub">Try adjusting your filters or search term</div>
+      </div></td></tr>`;
 
   document.querySelectorAll("#peopleTable tr").forEach((row) => {
     row.addEventListener("click", () => showEmployee(scored[Number(row.dataset.index)]));
