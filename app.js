@@ -1141,7 +1141,9 @@ function showTeamMembersModal(teamName, employees) {
 
   const modal = document.createElement("div");
   modal.id = "kpiTeamMembersModal";
-  modal.className = "team-modal-overlay";
+  // This overlay is hidden by default in the stylesheet. Dynamic team modals
+  // must start open, unlike the attendance modal that is opened separately.
+  modal.className = "team-modal-overlay open";
   modal.innerHTML = `
     <div class="team-modal-box">
       <div class="team-modal-head">
