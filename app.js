@@ -258,7 +258,7 @@ function renderTeamHeatmap() {
         </div>`;
     }).join("");
 
-    return `<div class="tpc-card tpc-health-${hClass}">
+    return `<div class="tpc-card tpc-health-${hClass}" data-team="${encodeURIComponent(team)}" role="button" tabindex="0" title="Click to view team members">
       <div class="tpc-header">
         <div>
           <div class="tpc-team-name">${escapeHtml(team)}</div>
@@ -282,7 +282,8 @@ function renderTeamHeatmap() {
   container.innerHTML = `<div class="tpc-grid">${cards}</div>`;
 
   container.querySelectorAll(".tpc-driver-row[data-team]").forEach((row) => {
-    const open = () => {
+    const open = (event) => {
+      event?.stopPropagation();
       const team      = decodeURIComponent(row.dataset.team);
       const driverKey = row.dataset.driver;
       const driver    = drivers.find((d) => d.key === driverKey);
@@ -290,6 +291,22 @@ function renderTeamHeatmap() {
     };
     row.addEventListener("click", open);
     row.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") open(); });
+  });
+
+  container.querySelectorAll(".tpc-card[data-team]").forEach((card) => {
+    const openMembers = () => {
+      const team = decodeURIComponent(card.dataset.team);
+      showTeamMembersModal(team, teamMap[team] || []);
+    };
+    card.addEventListener("click", (event) => {
+      if (!event.target.closest(".tpc-driver-row")) openMembers();
+    });
+    card.addEventListener("keydown", (event) => {
+      if ((event.key === "Enter" || event.key === " ") && !event.target.closest(".tpc-driver-row")) {
+        event.preventDefault();
+        openMembers();
+      }
+    });
   });
 }
 
@@ -1112,7 +1129,7 @@ function findDepartmentBar(event) {
 }
 
 function showTeamMembersModal(teamName, employees) {
-  const existing = document.getElementById("teamMembersModal");
+  const existing = document.getElementById("kpiTeamMembersModal");
   if (existing) existing.remove();
 
   const sorted = [...employees].sort((a, b) => {
@@ -1123,7 +1140,7 @@ function showTeamMembersModal(teamName, employees) {
   });
 
   const modal = document.createElement("div");
-  modal.id = "teamMembersModal";
+  modal.id = "kpiTeamMembersModal";
   modal.className = "team-modal-overlay";
   modal.innerHTML = `
     <div class="team-modal-box">
