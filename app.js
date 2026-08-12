@@ -2102,7 +2102,9 @@ function renderAttendanceTeamRollup() {
     const att = e.attendance || {};
     const cal = att.calendarDays || ((att.present ?? 0) + (att.absent ?? 0) + (att.off ?? 0) + (att.leave ?? 0) + (att.holidays ?? 0));
     if (!cal) return null;
-    const sched = Math.max(1, cal - (att.off ?? 0) - (att.holidays ?? 0));
+    const elapsedSum = (att.present ?? 0) + (att.absent ?? 0) + (att.leave ?? 0) + (att.off ?? 0) + (att.holidays ?? 0);
+    const elapsed = att.calendarDays ? Math.min(cal, elapsedSum) : cal;
+    const sched = Math.max(1, elapsed - (att.off ?? 0) - (att.holidays ?? 0));
     return Math.min(100, Math.round(((att.present ?? 0) / sched) * 100));
   }
 
@@ -2247,9 +2249,11 @@ function renderAttendanceDetail(employeeId) {
   const employee = dataset.employees.find((item) => item.id === employeeId) || dataset.employees[0];
   if (!employee) return;
   const attendance = employee.attendance;
-  const workingDays = attendance.calendarDays
-    ? attendance.calendarDays - attendance.off - attendance.holidays
-    : attendance.present + attendance.absent + attendance.leave;
+  const _elapsedSum = (attendance.present ?? 0) + (attendance.absent ?? 0) + (attendance.leave ?? 0) + (attendance.off ?? 0) + (attendance.holidays ?? 0);
+  const _effectiveCal = attendance.calendarDays ? Math.min(attendance.calendarDays, _elapsedSum) : _elapsedSum;
+  const workingDays = _effectiveCal
+    ? _effectiveCal - (attendance.off ?? 0) - (attendance.holidays ?? 0)
+    : (attendance.present ?? 0) + (attendance.absent ?? 0) + (attendance.leave ?? 0);
   const trackedDays = workingDays + attendance.off + attendance.holidays;
   const presentRate = workingDays ? Math.min(100, Math.round((attendance.present / workingDays) * 100)) : 0;
   const absentRate = workingDays ? Math.round((attendance.absent / workingDays) * 100) : 0;
@@ -2846,11 +2850,13 @@ function showEmployee(e) {
   const ringColor = QUADRANT_COLORS[e.band] || "#94a3b8";
   const ringPct = e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? 0) : (e.kpi ?? 0);
 
-  // Attendance % — computed once, reused by the header insight and the Attendance section
+  // Attendance % — cap to elapsed days only (GreytHR returns full-month calendarDays even mid-month)
   const calendarDays = att.calendarDays || ((att.present ?? 0) + (att.absent ?? 0) + (att.off ?? 0) + (att.leave ?? 0) + (att.holidays ?? 0));
-  const scheduledDays = Math.max(1, calendarDays - (att.off ?? 0) - (att.holidays ?? 0));
+  const elapsedCalSum = (att.present ?? 0) + (att.absent ?? 0) + (att.leave ?? 0) + (att.off ?? 0) + (att.holidays ?? 0);
+  const effectiveCalDays = att.calendarDays ? Math.min(calendarDays, elapsedCalSum) : calendarDays;
+  const scheduledDays = Math.max(1, effectiveCalDays - (att.off ?? 0) - (att.holidays ?? 0));
   const presentCapped = Math.min(att.present ?? 0, scheduledDays);
-  const attPct = calendarDays ? Math.round((presentCapped / scheduledDays) * 100) : null;
+  const attPct = effectiveCalDays ? Math.round((presentCapped / scheduledDays) * 100) : null;
 
   const hasWorklogixActivity = e.sources?.worklogixActivity === true;
 
@@ -2859,7 +2865,8 @@ function showEmployee(e) {
     const a = emp.attendance || {};
     const cd = a.calendarDays || ((a.present ?? 0) + (a.absent ?? 0) + (a.off ?? 0) + (a.leave ?? 0) + (a.holidays ?? 0));
     if (!cd) return null;
-    const sd = Math.max(1, cd - (a.off ?? 0) - (a.holidays ?? 0));
+    const el = a.calendarDays ? Math.min(cd, (a.present ?? 0) + (a.absent ?? 0) + (a.leave ?? 0) + (a.off ?? 0) + (a.holidays ?? 0)) : cd;
+    const sd = Math.max(1, el - (a.off ?? 0) - (a.holidays ?? 0));
     return Math.round((Math.min(a.present ?? 0, sd) / sd) * 100);
   };
   const teamMates = (dataset.employees || []).filter((m) => mergedTeam(m.team || "Unassigned") === mergedTeam(e.team || "Unassigned") && m.kpi != null);
