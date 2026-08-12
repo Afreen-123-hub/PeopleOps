@@ -1770,13 +1770,35 @@ function formatCheckoutHour(h) {
   return formatCheckinHour(adjusted);
 }
 
-// Returns punctualityScore if available, otherwise estimates from avgCheckinHour
-// (1 point deducted per minute late past 9:00 AM)
+// Applies a 10-minute grace period to punctuality.
+// Backend uses strict 9:00 AM cutoff — arriving at 9:01 AM counts as late.
+// We use avgCheckinHour to estimate how many "late" days were actually within grace.
 function calcPunctuality(att) {
-  if (att.punctualityScore != null) return att.punctualityScore;
-  if (att.avgCheckinHour == null) return null;
-  const lateMinutes = Math.max(0, (att.avgCheckinHour - 9.0) * 60);
-  return Math.max(0, Math.round(100 - lateMinutes));
+  const present = Math.max(1, att.present || 1);
+  const checkin = att.avgCheckinHour;
+  const score = att.punctualityScore;
+  const GRACE_MINS = 10;
+
+  if (score == null && checkin == null) return null;
+
+  if (score != null && checkin != null) {
+    const strictOnTime = Math.round(score * present / 100);
+    const lateDays = present - strictOnTime;
+    const avgLateMins = Math.max(0, (checkin - 9.0) * 60);
+    // Fraction of late days likely within the grace window (linear 0→1 as avg late → 0 mins)
+    const graceFraction = avgLateMins < GRACE_MINS ? (GRACE_MINS - avgLateMins) / GRACE_MINS : 0;
+    const additionalOnTime = Math.round(lateDays * graceFraction);
+    const graceOnTime = Math.min(present, strictOnTime + additionalOnTime);
+    return Math.round((graceOnTime / present) * 100);
+  }
+
+  // No backend score — estimate directly from avgCheckinHour with grace applied
+  if (checkin != null) {
+    const lateMinutes = Math.max(0, (checkin - 9.0) * 60 - GRACE_MINS);
+    return Math.max(0, Math.round(100 - lateMinutes));
+  }
+
+  return score;
 }
 
 function teamsStatusKey(teams) {
