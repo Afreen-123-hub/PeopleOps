@@ -1900,7 +1900,7 @@ function openTeamsPanel(e) {
     <div class="tsd-section">
       ${!att.officeLocation ? (() => {
         const avgActive = att.avgOfficeHours ?? 0;
-        const meetingHrsTotal = tm.meetingHours ?? 0;
+        const meetingHrsTotal = cal.meetingHours ?? tm.meetingHours ?? 0;
         const avgMeeting = att.present > 0 ? Math.round((meetingHrsTotal / att.present) * 10) / 10 : 0;
         const avgTotal = Math.round((avgActive + avgMeeting) * 10) / 10;
         return `
