@@ -1762,6 +1762,14 @@ function formatCheckinHour(h) {
   return `${h12}:${String(mins).padStart(2, "0")} ${period}`;
 }
 
+// Backend sometimes stores checkout in 12-hr format (6.0 = 6 PM, not 6 AM)
+// Safe to add 12 for any checkout < 12 since nobody leaves before noon
+function formatCheckoutHour(h) {
+  if (h == null) return "—";
+  const adjusted = (h > 0 && h < 12) ? h + 12 : h;
+  return formatCheckinHour(adjusted);
+}
+
 function teamsStatusKey(teams) {
   if (!teams.status) return "nodata";
   if (teams.isActive) return "active";
@@ -1920,7 +1928,7 @@ function openTeamsPanel(e) {
         <p class="tsd-section-title">Office Presence <small style="opacity:.5">${att.officeLocation}</small></p>
         <div class="tsd-grid">
           <div class="tsd-stat"><span class="tsd-val">${formatCheckinHour(att.avgCheckinHour)}</span><span class="tsd-lbl">Avg Check-in</span></div>
-          <div class="tsd-stat"><span class="tsd-val">${formatCheckinHour(att.avgCheckoutHour)}</span><span class="tsd-lbl">Avg Check-out</span></div>
+          <div class="tsd-stat"><span class="tsd-val">${formatCheckoutHour(att.avgCheckoutHour)}</span><span class="tsd-lbl">Avg Check-out</span></div>
           <div class="tsd-stat"><span class="tsd-val">${att.avgOfficeHours != null ? att.avgOfficeHours + " hrs" : "—"}</span><span class="tsd-lbl">Avg Daily Hours</span></div>
           <div class="tsd-stat"><span class="tsd-val">${att.punctualityScore != null ? att.punctualityScore + "%" : "—"}</span><span class="tsd-lbl">Punctuality</span></div>
           <div class="tsd-stat"><span class="tsd-val">${att.validOfficeDays != null ? att.validOfficeDays + " days" : "—"}</span><span class="tsd-lbl">Days Tracked</span></div>
@@ -1942,8 +1950,8 @@ function openTeamsPanel(e) {
       <p class="tsd-section-title">Meeting Load <small style="opacity:.5">(Calendar · this period)</small></p>
       <div class="tsd-grid">
         <div class="tsd-stat"><span class="tsd-val">${calNew.invited != null ? calNew.invited : cal.events ?? "—"}</span><span class="tsd-lbl">Meetings Invited</span></div>
-        <div class="tsd-stat"><span class="tsd-val">${calNew.attended != null ? calNew.attended : "—"}</span><span class="tsd-lbl">Meetings Attended</span></div>
-        <div class="tsd-stat"><span class="tsd-val">${calNew.attendanceRate != null ? calNew.attendanceRate + "%" : "—"}</span><span class="tsd-lbl">Attendance Rate</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${calNew.attended != null ? calNew.attended : "—"}</span><span class="tsd-lbl">Invites Accepted</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${calNew.attendanceRate != null ? calNew.attendanceRate + "%" : "—"}</span><span class="tsd-lbl">Response Rate</span></div>
         <div class="tsd-stat"><span class="tsd-val">${cal.meetingHours != null ? cal.meetingHours + " hrs" : tm.meetingHours || "—"}</span><span class="tsd-lbl">Meeting Hours</span></div>
       </div>
     </div>
@@ -2990,7 +2998,7 @@ function showEmployee(e) {
         ${!att.officeLocation ? `<div class="dg-wfh-note">Work From Home — biometric check-in/out not captured. Hours shown are from GreytHR attendance records.</div>` : ""}
         <div class="detail-grid4">
           <div class="dg-stat"><span class="dg-val ${!att.officeLocation ? "dg-na" : ""}">${att.officeLocation ? formatCheckinHour(att.avgCheckinHour) : "WFH"}</span><span class="dg-lbl">Avg Check-in</span></div>
-          <div class="dg-stat"><span class="dg-val ${!att.officeLocation ? "dg-na" : ""}">${att.officeLocation ? formatCheckinHour(att.avgCheckoutHour) : "WFH"}</span><span class="dg-lbl">Avg Check-out</span></div>
+          <div class="dg-stat"><span class="dg-val ${!att.officeLocation ? "dg-na" : ""}">${att.officeLocation ? formatCheckoutHour(att.avgCheckoutHour) : "WFH"}</span><span class="dg-lbl">Avg Check-out</span></div>
           <div class="dg-stat"><span class="dg-val">${att.avgOfficeHours ?? "—"} hrs</span><span class="dg-lbl">Avg Daily Hours</span></div>
           <div class="dg-stat"><span class="dg-val">${att.officeHours ?? "—"} hrs</span><span class="dg-lbl">Total Hours</span></div>
           <div class="dg-stat ${att.officeLocation && att.punctualityScore < 50 ? "dg-warn" : att.officeLocation && att.punctualityScore >= 80 ? "dg-good" : ""}"><span class="dg-val ${!att.officeLocation ? "dg-na" : ""}">${att.officeLocation ? (att.punctualityScore != null ? att.punctualityScore + "%" : "—") : "WFH"}</span><span class="dg-lbl">Punctuality</span></div>
@@ -3019,17 +3027,15 @@ function showEmployee(e) {
 
       ${e.calendar ? (() => {
         const rate = e.calendar.attendanceRate ?? 0;
-        const rateTone = e.calendar.attended > 0 && rate >= 70 ? "dg-good" : rate < 40 ? "dg-warn" : "";
-        const missed = e.calendar.invited > 0 ? (e.calendar.invited - e.calendar.attended) : 0;
-        const missedTone = e.calendar.invited > 0 && missed / e.calendar.invited > 0.6 ? "dg-warn" : "";
+        const notAccepted = e.calendar.invited > 0 ? (e.calendar.invited - e.calendar.attended) : 0;
         return `
       <!-- Calendar -->
-      <h3 class="detail-section-title">Calendar Activity</h3>
+      <h3 class="detail-section-title">Calendar Activity <small style="font-weight:400;font-size:0.75rem;color:var(--muted)">(invite responses, not physical attendance)</small></h3>
       <div class="detail-grid4">
         <div class="dg-stat"><span class="dg-val">${e.calendar.invited}</span><span class="dg-lbl">Meetings Invited</span></div>
-        <div class="dg-stat ${rateTone}"><span class="dg-val">${e.calendar.attended}</span><span class="dg-lbl">Meetings Attended</span></div>
-        <div class="dg-stat ${rateTone}"><span class="dg-val">${rate}%</span><span class="dg-lbl">Attendance Rate</span></div>
-        <div class="dg-stat ${missedTone}"><span class="dg-val">${missed}</span><span class="dg-lbl">Missed</span></div>
+        <div class="dg-stat"><span class="dg-val">${e.calendar.attended}</span><span class="dg-lbl">Invites Accepted</span></div>
+        <div class="dg-stat"><span class="dg-val">${rate}%</span><span class="dg-lbl">Response Rate</span></div>
+        <div class="dg-stat"><span class="dg-val">${notAccepted}</span><span class="dg-lbl">Not Responded</span></div>
       </div>`;
       })() : ""}
 
