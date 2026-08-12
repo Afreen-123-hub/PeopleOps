@@ -1741,8 +1741,8 @@ def main():
                             else bio["officeHours"] / max(1, min(bio["validOfficeDays"], c) if c else bio["validOfficeDays"]), 1
                         ),
                     })(round(gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["WFH"] + gh["Blank"]) if gh else 0),
-                    "avgCheckinHour": gh.get("avgCheckinHour_gh") if gh else bio.get("avgCheckinHour"),
-                    "avgCheckoutHour": gh.get("avgCheckoutHour_gh") if gh else bio.get("avgCheckoutHour"),
+                    "avgCheckinHour": bio.get("avgCheckinHour"),
+                    "avgCheckoutHour": bio.get("avgCheckoutHour"),
                     "officeLocation": bio.get("officeLocation", ""),
                     "punctualityScore": bio.get(_punct_key) if role_cat not in ("management", "executive") else None,
                     "teamsAvailableHours": round(bio.get("teamsAvailableHours", bio["officeHours"]), 1),
