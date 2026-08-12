@@ -1885,6 +1885,7 @@ function renderTeamsTable() {
 function openTeamsPanel(e) {
   const att  = e.attendance || {};
   const tm   = e.teams || {};
+  const isWFH = !att.officeLocation && tm.workLocation !== "office";
   const cal  = e.graphActivity?.calendar || {};
   const plan = e.graphActivity?.planner || {};
   const sp   = e.graphActivity?.sharePoint || {};
@@ -1906,7 +1907,7 @@ function openTeamsPanel(e) {
     </div>
 
     <div class="tsd-section">
-      ${!att.officeLocation ? (() => {
+      ${isWFH ? (() => {
         const avgActive = att.avgOfficeHours ?? 0;
         const meetingHrsTotal = cal.meetingHours ?? tm.meetingHours ?? 0;
         const avgMeeting = att.present > 0 ? Math.round((meetingHrsTotal / att.present) * 10) / 10 : 0;
@@ -1925,7 +1926,7 @@ function openTeamsPanel(e) {
           <div class="tsd-stat"><span class="tsd-val">${att.present} / ${att.present + att.absent + att.leave}</span><span class="tsd-lbl">Present / Working Days</span></div>
         </div>`;
       })() : `
-        <p class="tsd-section-title">Office Presence <small style="opacity:.5">${att.officeLocation}</small></p>
+        <p class="tsd-section-title">Office Presence <small style="opacity:.5">${att.officeLocation || tm.workLocation}</small></p>
         <div class="tsd-grid">
           <div class="tsd-stat"><span class="tsd-val">${formatCheckinHour(att.avgCheckinHour)}</span><span class="tsd-lbl">Avg Check-in</span></div>
           <div class="tsd-stat"><span class="tsd-val">${formatCheckoutHour(att.avgCheckoutHour)}</span><span class="tsd-lbl">Avg Check-out</span></div>
@@ -2857,6 +2858,7 @@ function showEmployee(e) {
   const att  = e.attendance  || {};
   const wl   = e.worklogix   || {};
   const tm   = e.teams       || {};
+  const isWFH = !att.officeLocation && tm.workLocation !== "office";
   const cal  = e.graphActivity?.calendar || {};
   const plan = e.graphActivity?.planner  || {};
   const gc   = e.github;
@@ -2995,14 +2997,14 @@ function showEmployee(e) {
             ${att.holidays ? `<span class="att-chip att-chip--off">Holiday ${att.holidays}d</span>` : ""}
           </div>
         </div>
-        ${!att.officeLocation ? `<div class="dg-wfh-note">Work From Home — biometric check-in/out not captured. Hours shown are from GreytHR attendance records.</div>` : ""}
+        ${isWFH ? `<div class="dg-wfh-note">Work From Home — biometric check-in/out not captured. Hours shown are from GreytHR attendance records.</div>` : ""}
         <div class="detail-grid4">
-          <div class="dg-stat"><span class="dg-val ${!att.officeLocation ? "dg-na" : ""}">${att.officeLocation ? formatCheckinHour(att.avgCheckinHour) : "WFH"}</span><span class="dg-lbl">Avg Check-in</span></div>
-          <div class="dg-stat"><span class="dg-val ${!att.officeLocation ? "dg-na" : ""}">${att.officeLocation ? formatCheckoutHour(att.avgCheckoutHour) : "WFH"}</span><span class="dg-lbl">Avg Check-out</span></div>
+          <div class="dg-stat"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? formatCheckinHour(att.avgCheckinHour) : "WFH"}</span><span class="dg-lbl">Avg Check-in</span></div>
+          <div class="dg-stat"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? formatCheckoutHour(att.avgCheckoutHour) : "WFH"}</span><span class="dg-lbl">Avg Check-out</span></div>
           <div class="dg-stat"><span class="dg-val">${att.avgOfficeHours ?? "—"} hrs</span><span class="dg-lbl">Avg Daily Hours</span></div>
           <div class="dg-stat"><span class="dg-val">${att.officeHours ?? "—"} hrs</span><span class="dg-lbl">Total Hours</span></div>
-          <div class="dg-stat ${att.officeLocation && att.punctualityScore < 50 ? "dg-warn" : att.officeLocation && att.punctualityScore >= 80 ? "dg-good" : ""}"><span class="dg-val ${!att.officeLocation ? "dg-na" : ""}">${att.officeLocation ? (att.punctualityScore != null ? att.punctualityScore + "%" : "—") : "WFH"}</span><span class="dg-lbl">Punctuality</span></div>
-          <div class="dg-stat"><span class="dg-val">${att.officeLocation || "Work From Home"}</span><span class="dg-lbl">Work Location</span></div>
+          <div class="dg-stat ${!isWFH && att.punctualityScore < 50 ? "dg-warn" : !isWFH && att.punctualityScore >= 80 ? "dg-good" : ""}"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? (att.punctualityScore != null ? att.punctualityScore + "%" : "—") : "WFH"}</span><span class="dg-lbl">Punctuality</span></div>
+          <div class="dg-stat"><span class="dg-val">${att.officeLocation || (isWFH ? "Work From Home" : tm.workLocation)}</span><span class="dg-lbl">Work Location</span></div>
         </div>`;
       })()}
 
