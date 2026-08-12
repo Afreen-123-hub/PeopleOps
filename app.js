@@ -1898,19 +1898,34 @@ function openTeamsPanel(e) {
     </div>
 
     <div class="tsd-section">
-      ${!att.officeLocation ? `
+      ${!att.officeLocation ? (() => {
+        const avgActive = att.avgOfficeHours ?? 0;
+        const meetingHrsTotal = tm.meetingHours ?? 0;
+        const avgMeeting = att.present > 0 ? Math.round((meetingHrsTotal / att.present) * 10) / 10 : 0;
+        const avgTotal = Math.round((avgActive + avgMeeting) * 10) / 10;
+        return `
         <div class="tsd-wfh-banner">
           <span class="tsd-wfh-dot"></span>Work From Home — biometric check-in / check-out not applicable
-        </div>` : ""}
-      <p class="tsd-section-title">${att.officeLocation ? `Office Presence <small style="opacity:.5">${att.officeLocation}</small>` : `Work Presence <small style="opacity:.5">WFH</small>`}</p>
-      <div class="tsd-grid">
-        <div class="tsd-stat tsd-stat-na"><span class="tsd-val tsd-na-val">${att.officeLocation ? formatCheckinHour(att.avgCheckinHour) : "WFH"}</span><span class="tsd-lbl">Avg Check-in</span></div>
-        <div class="tsd-stat tsd-stat-na"><span class="tsd-val tsd-na-val">${att.officeLocation ? formatCheckinHour(att.avgCheckoutHour) : "WFH"}</span><span class="tsd-lbl">Avg Check-out</span></div>
-        <div class="tsd-stat"><span class="tsd-val">${att.avgOfficeHours != null ? att.avgOfficeHours + " hrs" : "—"}</span><span class="tsd-lbl">Avg Daily Hours${!att.officeLocation ? ' <span class="tsd-src-tag">GreytHR</span>' : ""}</span></div>
-        <div class="tsd-stat tsd-stat-na"><span class="tsd-val tsd-na-val">${att.officeLocation && att.punctualityScore != null ? att.punctualityScore + "%" : att.officeLocation ? "—" : "WFH"}</span><span class="tsd-lbl">Punctuality</span></div>
-        <div class="tsd-stat"><span class="tsd-val">${att.validOfficeDays != null ? att.validOfficeDays + " days" : "—"}</span><span class="tsd-lbl">Days Tracked</span></div>
-        <div class="tsd-stat"><span class="tsd-val">${att.present} / ${att.present + att.absent + att.leave}</span><span class="tsd-lbl">Present / Working Days</span></div>
-      </div>
+        </div>
+        <p class="tsd-section-title">Work Presence <small style="opacity:.5">WFH · Teams data</small></p>
+        <div class="tsd-grid">
+          <div class="tsd-stat"><span class="tsd-val tsd-val-teal">${avgActive} hrs</span><span class="tsd-lbl">Avg Active / Day <span class="tsd-src-tag">Teams</span></span></div>
+          <div class="tsd-stat"><span class="tsd-val tsd-val-amber">${avgMeeting} hrs</span><span class="tsd-lbl">Avg In Meetings / Day</span></div>
+          <div class="tsd-stat"><span class="tsd-val tsd-val-total">${avgTotal} hrs</span><span class="tsd-lbl">Avg Total Engaged / Day</span></div>
+          <div class="tsd-stat"><span class="tsd-val">${att.validOfficeDays ?? att.present} days</span><span class="tsd-lbl">Days Tracked</span></div>
+          <div class="tsd-stat"><span class="tsd-val">${att.present} / ${att.present + att.absent + att.leave}</span><span class="tsd-lbl">Present / Working Days</span></div>
+          <div class="tsd-stat tsd-stat-na"><span class="tsd-val tsd-na-val">WFH</span><span class="tsd-lbl">Punctuality</span></div>
+        </div>`;
+      })() : `
+        <p class="tsd-section-title">Office Presence <small style="opacity:.5">${att.officeLocation}</small></p>
+        <div class="tsd-grid">
+          <div class="tsd-stat"><span class="tsd-val">${formatCheckinHour(att.avgCheckinHour)}</span><span class="tsd-lbl">Avg Check-in</span></div>
+          <div class="tsd-stat"><span class="tsd-val">${formatCheckinHour(att.avgCheckoutHour)}</span><span class="tsd-lbl">Avg Check-out</span></div>
+          <div class="tsd-stat"><span class="tsd-val">${att.avgOfficeHours != null ? att.avgOfficeHours + " hrs" : "—"}</span><span class="tsd-lbl">Avg Daily Hours</span></div>
+          <div class="tsd-stat"><span class="tsd-val">${att.punctualityScore != null ? att.punctualityScore + "%" : "—"}</span><span class="tsd-lbl">Punctuality</span></div>
+          <div class="tsd-stat"><span class="tsd-val">${att.validOfficeDays != null ? att.validOfficeDays + " days" : "—"}</span><span class="tsd-lbl">Days Tracked</span></div>
+          <div class="tsd-stat"><span class="tsd-val">${att.present} / ${att.present + att.absent + att.leave}</span><span class="tsd-lbl">Present / Working Days</span></div>
+        </div>`}
     </div>
 
     ${(att.teamsAvailableHours || att.teamsAwayHours || att.teamsOfflineHours) ? `
