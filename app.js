@@ -1770,6 +1770,15 @@ function formatCheckoutHour(h) {
   return formatCheckinHour(adjusted);
 }
 
+// Returns punctualityScore if available, otherwise estimates from avgCheckinHour
+// (1 point deducted per minute late past 9:00 AM)
+function calcPunctuality(att) {
+  if (att.punctualityScore != null) return att.punctualityScore;
+  if (att.avgCheckinHour == null) return null;
+  const lateMinutes = Math.max(0, (att.avgCheckinHour - 9.0) * 60);
+  return Math.max(0, Math.round(100 - lateMinutes));
+}
+
 function teamsStatusKey(teams) {
   if (!teams.status) return "nodata";
   if (teams.isActive) return "active";
@@ -1931,7 +1940,7 @@ function openTeamsPanel(e) {
           <div class="tsd-stat"><span class="tsd-val">${formatCheckinHour(att.avgCheckinHour)}</span><span class="tsd-lbl">Avg Check-in</span></div>
           <div class="tsd-stat"><span class="tsd-val">${formatCheckoutHour(att.avgCheckoutHour)}</span><span class="tsd-lbl">Avg Check-out</span></div>
           <div class="tsd-stat"><span class="tsd-val">${att.avgOfficeHours != null ? att.avgOfficeHours + " hrs" : "—"}</span><span class="tsd-lbl">Avg Daily Hours</span></div>
-          <div class="tsd-stat"><span class="tsd-val">${att.punctualityScore != null ? att.punctualityScore + "%" : "—"}</span><span class="tsd-lbl">Punctuality</span></div>
+          <div class="tsd-stat"><span class="tsd-val">${calcPunctuality(att) != null ? calcPunctuality(att) + "%" : "—"}</span><span class="tsd-lbl">Punctuality</span></div>
           <div class="tsd-stat"><span class="tsd-val">${att.validOfficeDays != null ? att.validOfficeDays + " days" : "—"}</span><span class="tsd-lbl">Days Tracked</span></div>
           <div class="tsd-stat"><span class="tsd-val">${att.present} / ${att.present + att.absent + att.leave}</span><span class="tsd-lbl">Present / Working Days</span></div>
         </div>`}
@@ -3003,7 +3012,7 @@ function showEmployee(e) {
           <div class="dg-stat"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? formatCheckoutHour(att.avgCheckoutHour) : "WFH"}</span><span class="dg-lbl">Avg Check-out</span></div>
           <div class="dg-stat"><span class="dg-val">${att.avgOfficeHours ?? "—"} hrs</span><span class="dg-lbl">Avg Daily Hours</span></div>
           <div class="dg-stat"><span class="dg-val">${att.officeHours ?? "—"} hrs</span><span class="dg-lbl">Total Hours</span></div>
-          <div class="dg-stat ${!isWFH && att.punctualityScore < 50 ? "dg-warn" : !isWFH && att.punctualityScore >= 80 ? "dg-good" : ""}"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? (att.punctualityScore != null ? att.punctualityScore + "%" : "—") : "WFH"}</span><span class="dg-lbl">Punctuality</span></div>
+          <div class="dg-stat ${!isWFH && calcPunctuality(att) < 50 ? "dg-warn" : !isWFH && calcPunctuality(att) >= 80 ? "dg-good" : ""}"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? (calcPunctuality(att) != null ? calcPunctuality(att) + "%" : "—") : "WFH"}</span><span class="dg-lbl">Punctuality</span></div>
           <div class="dg-stat"><span class="dg-val">${att.officeLocation || (isWFH ? "Work From Home" : tm.workLocation)}</span><span class="dg-lbl">Work Location</span></div>
         </div>`;
       })()}
