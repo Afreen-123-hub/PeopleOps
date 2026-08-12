@@ -1898,12 +1898,16 @@ function openTeamsPanel(e) {
     </div>
 
     <div class="tsd-section">
-      <p class="tsd-section-title">Office Presence${att.officeLocation ? ` <small style="opacity:.5">${att.officeLocation}</small>` : ""}</p>
+      ${!att.officeLocation ? `
+        <div class="tsd-wfh-banner">
+          <span class="tsd-wfh-dot"></span>Work From Home — biometric check-in / check-out not applicable
+        </div>` : ""}
+      <p class="tsd-section-title">${att.officeLocation ? `Office Presence <small style="opacity:.5">${att.officeLocation}</small>` : `Work Presence <small style="opacity:.5">WFH</small>`}</p>
       <div class="tsd-grid">
-        <div class="tsd-stat"><span class="tsd-val">${formatCheckinHour(att.avgCheckinHour)}</span><span class="tsd-lbl">Avg Check-in</span></div>
-        <div class="tsd-stat"><span class="tsd-val">${formatCheckinHour(att.avgCheckoutHour)}</span><span class="tsd-lbl">Avg Check-out</span></div>
-        <div class="tsd-stat"><span class="tsd-val">${att.avgOfficeHours != null ? att.avgOfficeHours + " hrs" : "—"}</span><span class="tsd-lbl">Avg Daily Hours</span></div>
-        <div class="tsd-stat"><span class="tsd-val">${att.punctualityScore != null ? att.punctualityScore + "%" : "—"}</span><span class="tsd-lbl">Punctuality</span></div>
+        <div class="tsd-stat tsd-stat-na"><span class="tsd-val tsd-na-val">${att.officeLocation ? formatCheckinHour(att.avgCheckinHour) : "WFH"}</span><span class="tsd-lbl">Avg Check-in</span></div>
+        <div class="tsd-stat tsd-stat-na"><span class="tsd-val tsd-na-val">${att.officeLocation ? formatCheckinHour(att.avgCheckoutHour) : "WFH"}</span><span class="tsd-lbl">Avg Check-out</span></div>
+        <div class="tsd-stat"><span class="tsd-val">${att.avgOfficeHours != null ? att.avgOfficeHours + " hrs" : "—"}</span><span class="tsd-lbl">Avg Daily Hours${!att.officeLocation ? ' <span class="tsd-src-tag">GreytHR</span>' : ""}</span></div>
+        <div class="tsd-stat tsd-stat-na"><span class="tsd-val tsd-na-val">${att.officeLocation && att.punctualityScore != null ? att.punctualityScore + "%" : att.officeLocation ? "—" : "WFH"}</span><span class="tsd-lbl">Punctuality</span></div>
         <div class="tsd-stat"><span class="tsd-val">${att.validOfficeDays != null ? att.validOfficeDays + " days" : "—"}</span><span class="tsd-lbl">Days Tracked</span></div>
         <div class="tsd-stat"><span class="tsd-val">${att.present} / ${att.present + att.absent + att.leave}</span><span class="tsd-lbl">Present / Working Days</span></div>
       </div>
@@ -2968,13 +2972,14 @@ function showEmployee(e) {
             ${att.holidays ? `<span class="att-chip att-chip--off">Holiday ${att.holidays}d</span>` : ""}
           </div>
         </div>
+        ${!att.officeLocation ? `<div class="dg-wfh-note">Work From Home — biometric check-in/out not captured. Hours shown are from GreytHR attendance records.</div>` : ""}
         <div class="detail-grid4">
-          <div class="dg-stat"><span class="dg-val">${formatCheckinHour(att.avgCheckinHour)}</span><span class="dg-lbl">Avg Check-in</span></div>
-          <div class="dg-stat"><span class="dg-val">${formatCheckinHour(att.avgCheckoutHour)}</span><span class="dg-lbl">Avg Check-out</span></div>
+          <div class="dg-stat"><span class="dg-val ${!att.officeLocation ? "dg-na" : ""}">${att.officeLocation ? formatCheckinHour(att.avgCheckinHour) : "WFH"}</span><span class="dg-lbl">Avg Check-in</span></div>
+          <div class="dg-stat"><span class="dg-val ${!att.officeLocation ? "dg-na" : ""}">${att.officeLocation ? formatCheckinHour(att.avgCheckoutHour) : "WFH"}</span><span class="dg-lbl">Avg Check-out</span></div>
           <div class="dg-stat"><span class="dg-val">${att.avgOfficeHours ?? "—"} hrs</span><span class="dg-lbl">Avg Daily Hours</span></div>
-          <div class="dg-stat"><span class="dg-val">${att.officeHours ?? "—"} hrs</span><span class="dg-lbl">Total Office Hours</span></div>
-          <div class="dg-stat ${att.punctualityScore < 50 ? "dg-warn" : att.punctualityScore >= 80 ? "dg-good" : ""}"><span class="dg-val">${att.punctualityScore != null ? att.punctualityScore + "%" : "—"}</span><span class="dg-lbl">Punctuality</span></div>
-          <div class="dg-stat"><span class="dg-val">${att.officeLocation || "—"}</span><span class="dg-lbl">Office Location</span></div>
+          <div class="dg-stat"><span class="dg-val">${att.officeHours ?? "—"} hrs</span><span class="dg-lbl">Total Hours</span></div>
+          <div class="dg-stat ${att.officeLocation && att.punctualityScore < 50 ? "dg-warn" : att.officeLocation && att.punctualityScore >= 80 ? "dg-good" : ""}"><span class="dg-val ${!att.officeLocation ? "dg-na" : ""}">${att.officeLocation ? (att.punctualityScore != null ? att.punctualityScore + "%" : "—") : "WFH"}</span><span class="dg-lbl">Punctuality</span></div>
+          <div class="dg-stat"><span class="dg-val">${att.officeLocation || "Work From Home"}</span><span class="dg-lbl">Work Location</span></div>
         </div>`;
       })()}
 

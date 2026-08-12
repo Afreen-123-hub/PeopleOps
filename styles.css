@@ -8881,3 +8881,54 @@ select:focus {
 .skel-cell.wide  { width: 140px; }
 .skel-cell.mid   { width: 60px; }
 .skel-cell.short { width: 40px; }
+
+/* ── WFH indicators (employee profile) ── */
+.tsd-wfh-banner {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #f0fdf9;
+  border: 1px solid #99f6e4;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0F766E;
+  margin-bottom: 10px;
+}
+.tsd-wfh-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #14B8A6;
+  flex-shrink: 0;
+}
+.tsd-na-val {
+  color: #94a3b8 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+}
+.tsd-src-tag {
+  display: inline-block;
+  font-size: 0.58rem;
+  font-weight: 700;
+  background: rgba(15,118,110,0.08);
+  color: #0F766E;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 3px;
+  vertical-align: middle;
+}
+.dg-wfh-note {
+  font-size: 0.75rem;
+  color: #0F766E;
+  background: #f0fdf9;
+  border: 1px solid #99f6e4;
+  border-radius: 7px;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+}
+.dg-na {
+  color: #94a3b8 !important;
+  font-size: 0.82rem !important;
+}
