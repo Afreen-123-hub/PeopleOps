@@ -236,7 +236,7 @@ function renderEmployeeContextHeader(employee, titleText = "Employee 360°") {
       <h2>${escapeHtml(titleText)}</h2>
       <p>All records shown below are scoped to ${escapeHtml(employee.name)}.</p>
     </div>
-    <span class="graph-live-badge"><i></i> Employee filtered</span>`;
+    <span class="graph-live-badge"><i></i>Employee filtered</span>`;
 }
 
 function employeeProfileHeader(employee) {
