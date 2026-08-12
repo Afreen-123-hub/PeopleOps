@@ -1905,16 +1905,16 @@ function openTeamsPanel(e) {
         const avgTotal = Math.round((avgActive + avgMeeting) * 10) / 10;
         return `
         <div class="tsd-wfh-banner">
-          <span class="tsd-wfh-dot"></span>Work From Home — biometric check-in / check-out not applicable
+          <span class="tsd-wfh-dot"></span>Work From Home
         </div>
         <p class="tsd-section-title">Work Presence <small style="opacity:.5">WFH · Teams data</small></p>
         <div class="tsd-grid">
-          <div class="tsd-stat"><span class="tsd-val tsd-val-teal">${avgActive} hrs</span><span class="tsd-lbl">Avg Active / Day <span class="tsd-src-tag">Teams</span></span></div>
-          <div class="tsd-stat"><span class="tsd-val tsd-val-amber">${avgMeeting} hrs</span><span class="tsd-lbl">Avg In Meetings / Day</span></div>
-          <div class="tsd-stat"><span class="tsd-val tsd-val-total">${avgTotal} hrs</span><span class="tsd-lbl">Avg Total Engaged / Day</span></div>
-          <div class="tsd-stat"><span class="tsd-val">${att.validOfficeDays ?? att.present} days</span><span class="tsd-lbl">Days Tracked</span></div>
+          <div class="tsd-stat">
+            <span class="tsd-val tsd-val-total">${avgTotal} hrs</span>
+            <span class="tsd-lbl">Avg Hours / Day</span>
+            <span class="tsd-lbl-sub">${avgActive} active · ${avgMeeting} in meetings</span>
+          </div>
           <div class="tsd-stat"><span class="tsd-val">${att.present} / ${att.present + att.absent + att.leave}</span><span class="tsd-lbl">Present / Working Days</span></div>
-          <div class="tsd-stat tsd-stat-na"><span class="tsd-val tsd-na-val">WFH</span><span class="tsd-lbl">Punctuality</span></div>
         </div>`;
       })() : `
         <p class="tsd-section-title">Office Presence <small style="opacity:.5">${att.officeLocation}</small></p>
