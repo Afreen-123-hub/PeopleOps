@@ -1739,6 +1739,7 @@ def main():
                 # generically as a list of 0-100 percentage bars (a dict value would break that).
                 "weightsApplied": weights_used,
                 "sourceConfidence": source_confidence,
+                "isMtm": emp_id in mtm_ids,
                 "sources": sources,
                 "worklogixScore": emp.get("worklogixScore", {}),
                 "worklogix": {

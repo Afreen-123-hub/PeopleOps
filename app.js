@@ -1658,13 +1658,17 @@ function renderPeopleTable() {
   const scoredBadge = document.getElementById("scoredCountBadge");
   if (scoredBadge) scoredBadge.textContent = scored.length;
 
-  document.getElementById("peopleTable").innerHTML = scored.length
-    ? scored.map((e, index) => {
-        const kpiCls = e.kpi >= 85 ? "kpi-good" : e.kpi >= 70 ? "kpi-avg" : "kpi-low";
-        const kpiBarColor = e.kpi >= 85 ? "#16a34a" : e.kpi >= 70 ? "#d97706" : "#dc2626";
-        const bandDisplay = e.band === "Insufficient Data" ? "No Data" : e.band === "Needs Improvement" ? "Needs Improv." : (e.band || "");
-        return `<tr data-index="${index}">
-          <td><div class="person-row"><div class="p-avatar p-avatar-teal">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong><small>${e.designation || "Unassigned"}</small><span class="p-team-chip">${mergedTeam(e.team || "Unassigned")}</span></div></div></td>
+  const indexMap = new Map(scored.map((e, i) => [e.id, i]));
+  const makeEmpRow = (e) => {
+    const index = indexMap.get(e.id);
+    const kpiCls = e.kpi >= 85 ? "kpi-good" : e.kpi >= 70 ? "kpi-avg" : "kpi-low";
+    const kpiBarColor = e.kpi >= 85 ? "#16a34a" : e.kpi >= 70 ? "#d97706" : "#dc2626";
+    const bandDisplay = e.band === "Insufficient Data" ? "No Data" : e.band === "Needs Improvement" ? "Needs Improv." : (e.band || "");
+    const avatarCls = e.isMtm ? "p-avatar p-avatar-indigo" : "p-avatar p-avatar-teal";
+    const mtmBadge = e.isMtm ? '<span class="mtm-row-badge">MTM</span>' : '';
+    const teamChipCls = e.isMtm ? "p-team-chip p-team-chip-indigo" : "p-team-chip";
+    return `<tr data-index="${index}" class="${e.isMtm ? 'is-mtm-row' : ''}">
+          <td><div class="person-row"><div class="${avatarCls}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong>${mtmBadge}<small>${e.designation || "Unassigned"}</small><span class="${teamChipCls}">${mergedTeam(e.team || "Unassigned")}</span></div></div></td>
           <td class="numeric-cell"><div class="pt-kpi-cell"><span class="score ${kpiCls}">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${kpiBarColor}"></span></span></div></td>
           <td>${e.band ? `<span class="band ${bandClass(e.band)}">${bandDisplay}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
           <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
@@ -1673,7 +1677,25 @@ function renderPeopleTable() {
           <td class="numeric-cell">${e.attendance.absent}</td>
           <td>${teamsStatusBadge(e.teams)}</td>
         </tr>`;
-      }).join("")
+  };
+  const makeDivider = (label, count, cls) =>
+    `<tr class="mtm-section-divider"><td colspan="8"><div class="mtm-divider-inner">
+      <span class="mtm-divider-label ${cls}">${label}</span>
+      <span class="mtm-divider-line"></span>
+      <span class="mtm-divider-count">${count}</span>
+    </div></td></tr>`;
+
+  const officeScored = scored.filter(e => !e.isMtm);
+  const mtmScored   = scored.filter(e =>  e.isMtm);
+  const hasBothGroups = officeScored.length > 0 && mtmScored.length > 0;
+
+  document.getElementById("peopleTable").innerHTML = scored.length
+    ? [
+        ...(hasBothGroups ? [makeDivider("Office", officeScored.length, "divider-office")] : []),
+        ...officeScored.map(makeEmpRow),
+        ...(mtmScored.length ? [makeDivider("MTM · External", mtmScored.length, "divider-mtm")] : []),
+        ...mtmScored.map(makeEmpRow),
+      ].join("")
     : `<tr><td colspan="8"><div class="table-empty-state">
         <div class="table-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
         <div class="table-empty-title">No employees found</div>

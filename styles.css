@@ -8793,6 +8793,75 @@ select:focus {
   color: #fff !important;
 }
 
+/* ── Indigo avatar (MTM employees) ── */
+.p-avatar-indigo {
+  background: linear-gradient(135deg, #4338CA, #6366f1) !important;
+  border-radius: 10px !important;
+  color: #fff !important;
+}
+
+/* ── MTM section divider row ── */
+tr.mtm-section-divider td {
+  padding: 0;
+  border-bottom: none;
+}
+.mtm-divider-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px;
+  background: var(--surface-2, #f8fafc);
+  border-top: 1px solid var(--border-color, #e2e8f0);
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+}
+.mtm-divider-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.mtm-divider-label.divider-office { color: #0F766E; }
+.mtm-divider-label.divider-mtm   { color: #4338CA; }
+.mtm-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-color, #e2e8f0);
+}
+.mtm-divider-count {
+  font-size: 10px;
+  color: #94a3b8;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── MTM row left border ── */
+tr.is-mtm-row td:first-child {
+  border-left: 3px solid #6366f1;
+  padding-left: 11px;
+}
+
+/* ── MTM inline badge (inside name cell) ── */
+.mtm-row-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: #eef2ff;
+  color: #4338CA;
+  border: 1px solid #c7d2fe;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+/* ── Indigo team chip for MTM rows ── */
+.p-team-chip.p-team-chip-indigo {
+  background: rgba(67, 56, 202, 0.08);
+  color: #4338CA;
+}
+
 /* ── Team chip under name ── */
 .p-team-chip {
   display: inline-flex;
