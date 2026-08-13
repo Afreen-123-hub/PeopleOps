@@ -1804,8 +1804,8 @@ function calcPunctuality(att) {
 function teamsStatusKey(teams) {
   if (!teams.status) return "nodata";
   if (teams.isActive) return "active";
-  if (teams.isAway) return "away";
   if (teams.isOutOfOffice) return "ooo";
+  if (teams.isAway) return "away";
   return "offline";
 }
 
@@ -1831,7 +1831,7 @@ const TEAMS_BADGE_META = {
 
 function renderTeamsTable() {
   const statusPriority = (e) =>
-    e.teams.isActive ? 0 : e.teams.isAway ? 1 : e.teams.isOutOfOffice ? 2 : e.teams.isOffline ? 3 : 4;
+    e.teams.isActive ? 0 : e.teams.isOutOfOffice ? 1 : e.teams.isAway ? 2 : e.teams.isOffline ? 3 : 4;
   const rows = filteredEmployees
     .slice()
     .sort((a, b) => statusPriority(a) - statusPriority(b) || a.name.localeCompare(b.name));

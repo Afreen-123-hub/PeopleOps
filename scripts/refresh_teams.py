@@ -20,7 +20,7 @@ ACTIVE_STATUSES = {
     "Available", "Busy", "InACall", "InAConferenceCall",
     "InAMeeting", "Presenting", "DoNotDisturb",
 }
-AWAY_STATUSES = {"Away", "BeRightBack", "OutOfOffice", "OffWork"}
+AWAY_STATUSES = {"Away", "BeRightBack", "OffWork"}
 OFFLINE_STATUSES = {"Offline", "Inactive", "PresenceUnknown"}
 
 
