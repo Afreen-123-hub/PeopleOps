@@ -126,8 +126,8 @@ def refresh():
             continue
         availability = clean(row.get("Availability"))
         activity = clean(row.get("Activity"))
-        # Teams API keeps availability="Away" even when OOO; activity="OutOfOffice" is the true signal
-        is_ooo = activity == "OutOfOffice"
+        # Use the dedicated outOfOfficeSettings.isOutOfOffice boolean — most reliable OOO signal
+        is_ooo = bool(row.get("Is Out Of Office")) or activity == "OutOfOffice"
         status = "OutOfOffice" if is_ooo else (availability or activity)
         employees[idx].setdefault("teams", {}).update({
             "status": status,
