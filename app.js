@@ -1916,7 +1916,7 @@ function renderTeamsTable() {
 function openTeamsPanel(e) {
   const att  = e.attendance || {};
   const tm   = e.teams || {};
-  const isWFH = !att.officeLocation && tm.workLocation !== "office";
+  const isWFH = !att.officeLocation && !!tm.workLocation && tm.workLocation !== "office";
   const cal  = e.graphActivity?.calendar || {};
   const plan = e.graphActivity?.planner || {};
   const sp   = e.graphActivity?.sharePoint || {};
@@ -2889,7 +2889,7 @@ function showEmployee(e) {
   const att  = e.attendance  || {};
   const wl   = e.worklogix   || {};
   const tm   = e.teams       || {};
-  const isWFH = !att.officeLocation && tm.workLocation !== "office";
+  const isWFH = !att.officeLocation && !!tm.workLocation && tm.workLocation !== "office";
   const cal  = e.graphActivity?.calendar || {};
   const plan = e.graphActivity?.planner  || {};
   const gc   = e.github;
