@@ -126,14 +126,16 @@ def refresh():
             continue
         availability = clean(row.get("Availability"))
         activity = clean(row.get("Activity"))
-        status = availability or activity
+        # Teams API keeps availability="Away" even when OOO; activity="OutOfOffice" is the true signal
+        is_ooo = activity == "OutOfOffice"
+        status = "OutOfOffice" if is_ooo else (availability or activity)
         employees[idx].setdefault("teams", {}).update({
             "status": status,
             "workLocation": clean(row.get("Work Location")),
             "isActive": 1 if status in ACTIVE_STATUSES else 0,
             "isAway": 1 if status in AWAY_STATUSES else 0,
             "isOffline": 1 if status in OFFLINE_STATUSES else 0,
-            "isOutOfOffice": 1 if status == "OutOfOffice" else 0,
+            "isOutOfOffice": 1 if is_ooo else 0,
             "reports": 1,
         })
         employees[idx].setdefault("sources", {})["teams"] = True
