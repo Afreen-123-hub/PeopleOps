@@ -3015,9 +3015,10 @@ function showEmployee(e) {
       <h3 class="detail-section-title">Attendance &amp; Biometrics${teamAvgAtt != null ? `<span class="detail-section-context">Team avg: ${teamAvgAtt}%</span>` : ""}</h3>
       ${(() => {
         const absentWarn = (att.absent ?? 0) > 3 ? "dg-warn" : "";
-        // For WFH employees with no presence data, fall back to meeting hours
+        // Fall back to meeting hours when office hours are missing
         const _meetingTotal = cal.meetingHours ?? tm.meetingHours ?? 0;
-        const _noPresence = isWFH && !att.officeHours && _meetingTotal > 0;
+        const _noBiometric = (att.biometricDays === 0) && (att.present > 0);
+        const _noPresence = !att.officeHours && _meetingTotal > 0 && (isWFH || _noBiometric);
         const _displayAvgHrs = _noPresence
           ? Math.round((_meetingTotal / Math.max(1, att.present)) * 10) / 10
           : att.avgOfficeHours;
@@ -3028,7 +3029,9 @@ function showEmployee(e) {
           ? (_noPresence
               ? "Work From Home — Teams presence not captured. Hours shown are from meeting activity."
               : "Work From Home — biometric check-in/out not captured. Hours shown are from GreytHR attendance records.")
-          : "";
+          : (_noPresence
+              ? "Biometric data not captured for this employee. Hours shown are from meeting activity."
+              : "");
         return `
         <div class="att-summary-row">
           <div class="att-summary-main">
