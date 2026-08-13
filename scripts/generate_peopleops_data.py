@@ -23,7 +23,10 @@ GITHUB_DATA_FILE = PROJECT / "data" / "github-data.json"
 SAMPLE_PERIOD_LABEL = "Sample evaluation data"
 sys.path.insert(0, str(PROJECT))
 
-from services.greythr_api_client import GreytHRApiError, GreytHRAuthError, GreytHRConfigError, get_greythr_attendance
+from services.greythr_api_client import (
+    GreytHRApiError, GreytHRAuthError, GreytHRConfigError,
+    get_greythr_attendance, get_reportees_by_employee_no, get_token as greythr_get_token,
+)
 from services.teams_api_client import TeamsApiError, get_presences_by_user_id, get_teams_activity_report, get_teams_users, get_teams_users_with_manager
 from services.teams_auth import TeamsAuthError
 from services.teams_transformer import teams_presence_dataframe_from_payload
@@ -1003,6 +1006,44 @@ def read_greythr_api(start: str, end: str) -> tuple[defaultdict, dict, dict]:
     return result, master, dept_details
 
 
+def fetch_greythr_mtm_employees(existing_ids: set) -> dict:
+    """Return {emp_no: user_dict} for employees reporting to Senthil Kumar (CWINE053)
+    who are in GreytHR but not in Worklogix. These are MTM members from another office."""
+    try:
+        token, domain = greythr_get_token()
+        reportees = get_reportees_by_employee_no(token, domain, "CWINE053")
+        mtm = {}
+        for emp in reportees:
+            emp_no = str(emp.get("employeeNo") or "").strip()
+            if not emp_no or emp_no in existing_ids:
+                continue
+            dept = str(emp.get("department") or "").strip()
+            desig = str(emp.get("designation") or "").strip()
+            desig_lower = desig.lower()
+            if dept:
+                team = standardize_team(dept)
+            elif any(k in desig_lower for k in ("qa", "quality", "test")):
+                team = "Quality & Testing"
+            else:
+                team = "Software Development"
+            mtm[emp_no] = {
+                "id": emp_no,
+                "name": str(emp.get("name") or "").strip(),
+                "email": str(emp.get("email") or "").strip(),
+                "designation": desig or "Unassigned",
+                "team": team,
+                "is_active": "true",
+                "ms_teams_id": "",
+                "employee_no": emp_no,
+                "_is_mtm": True,
+            }
+        print(f"MTM: {len(mtm)} employees added from GreytHR reporting to Senthil Kumar")
+        return mtm
+    except (GreytHRConfigError, GreytHRAuthError, GreytHRApiError) as exc:
+        print(f"WARNING: MTM employee fetch skipped: {exc}", file=sys.stderr)
+        return {}
+
+
 def main():
     # Parse CLI args first so requested_month can be passed to read_worklogix_api().
     requested_month = ""
@@ -1042,6 +1083,9 @@ def main():
               f"Sample is_active values: {list(set(str(u.get('is_active', '')) for u in list(all_users.values())[:5]))}",
               file=sys.stderr)
         sys.exit(1)
+    mtm_users = fetch_greythr_mtm_employees(set(users))
+    users.update(mtm_users)
+    mtm_ids = set(mtm_users)
     allowed_employee_ids = set(users)
     all_daily_rows = worklogix["daily"]
     month_counts = Counter(clean(r.get("month")) for r in all_daily_rows if clean(r.get("month")))
@@ -1470,7 +1514,7 @@ def main():
             github_score = minmax(gc["contributionScore"], all_github_scores) if gc else None
     
             sources = {
-                "worklogix": emp_id in allowed_employee_ids,
+                "worklogix": emp_id in allowed_employee_ids and emp_id not in mtm_ids,
                 "worklogixActivity": has_real_worklogix,
                 "greythr": bool(gh),
                 "biometrics": bool(attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}")),
@@ -1489,7 +1533,7 @@ def main():
                 emp["designation"] = "People Manager"
             if emp_id in {"CWINE154"}:
                 role_cat = "executive"
-            in_worklogix = emp_id in allowed_employee_ids
+            in_worklogix = emp_id in allowed_employee_ids and emp_id not in mtm_ids
             # Confidence uses only the 4 core sources — worklogixActivity and github
             # are informational tags and must NOT dilute the confidence score.
             core_sources = {k: sources[k] for k in ("worklogix", "greythr", "biometrics", "teams")}

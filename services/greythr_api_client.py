@@ -193,6 +193,30 @@ def get_department_details(token: str, domain: str) -> dict[str, dict]:
 
 
 # ==========================
+# REPORTING HIERARCHY
+# ==========================
+
+def get_reportees_by_employee_no(token: str, domain: str, manager_emp_no: str) -> list[dict]:
+    """Return employees directly reporting to the given manager employee number.
+    Each item includes: id, pid, employeeNo, name, email, designation, department, location.
+    """
+    core_base = f"https://{domain}"
+    data = _api_get(
+        f"{core_base}/core-hr/v1/employees/reporting-hierarchy",
+        token, domain,
+        params={"display": "all", "page": 0, "size": 30000},
+    )
+    all_emps = data.get("data", [])
+    manager = next(
+        (e for e in all_emps if str(e.get("employeeNo", "")).strip() == manager_emp_no),
+        None,
+    )
+    if not manager:
+        return []
+    return [e for e in all_emps if e.get("pid") == manager["id"] and not e.get("resigned")]
+
+
+# ==========================
 # ATTENDANCE
 # ==========================
 
