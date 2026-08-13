@@ -1837,8 +1837,13 @@ function renderTeamsTable() {
     .sort((a, b) => statusPriority(a) - statusPriority(b) || a.name.localeCompare(b.name));
 
   // Status summary
-  const counts = { active: 0, away: 0, ooo: 0, offline: 0, nodata: 0 };
-  rows.forEach(e => { counts[teamsStatusKey(e.teams)]++; });
+  const IN_CALL_STATUSES = new Set(["InACall", "InAConferenceCall", "InAMeeting", "Presenting"]);
+  const isInCall = (tm) => IN_CALL_STATUSES.has(tm.status);
+  const counts = { active: 0, away: 0, ooo: 0, offline: 0, nodata: 0, incall: 0 };
+  rows.forEach(e => {
+    counts[teamsStatusKey(e.teams)]++;
+    if (isInCall(e.teams)) counts.incall++;
+  });
 
   document.getElementById("presenceSummary").textContent =
     `${counts.active} of ${rows.length} online now`;
@@ -1855,6 +1860,7 @@ function renderTeamsTable() {
   const legendBtns = [
     { key: "all",     label: "All",           count: rows.length,    color: "var(--blue)" },
     { key: "active",  label: "Active",        count: counts.active,  color: "#22a06b" },
+    { key: "incall",  label: "In Call",       count: counts.incall,  color: "#dc2626" },
     { key: "away",    label: "Away",          count: counts.away,    color: "#e28a0d" },
     { key: "ooo",     label: "Out of Office", count: counts.ooo,     color: "#7c3aed" },
     { key: "offline", label: "Offline",       count: counts.offline, color: "#64748b" },
@@ -1873,7 +1879,7 @@ function renderTeamsTable() {
   });
 
   const visibleRows = rows
-    .filter(e => teamsStatusFilter === "all" || teamsStatusKey(e.teams) === teamsStatusFilter)
+    .filter(e => teamsStatusFilter === "all" || (teamsStatusFilter === "incall" ? isInCall(e.teams) : teamsStatusKey(e.teams) === teamsStatusFilter))
     .filter(e => {
       if (!teamsSearchQuery) return true;
       const haystack = `${e.name} ${e.id} ${mergedTeam(e.team || "")} ${e.designation || ""}`.toLowerCase();
