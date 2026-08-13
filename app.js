@@ -3015,6 +3015,20 @@ function showEmployee(e) {
       <h3 class="detail-section-title">Attendance &amp; Biometrics${teamAvgAtt != null ? `<span class="detail-section-context">Team avg: ${teamAvgAtt}%</span>` : ""}</h3>
       ${(() => {
         const absentWarn = (att.absent ?? 0) > 3 ? "dg-warn" : "";
+        // For WFH employees with no presence data, fall back to meeting hours
+        const _meetingTotal = cal.meetingHours ?? tm.meetingHours ?? 0;
+        const _noPresence = isWFH && !att.officeHours && _meetingTotal > 0;
+        const _displayAvgHrs = _noPresence
+          ? Math.round((_meetingTotal / Math.max(1, att.present)) * 10) / 10
+          : att.avgOfficeHours;
+        const _displayTotalHrs = _noPresence ? _meetingTotal : att.officeHours;
+        const _hoursLabel = _noPresence ? "Meeting Hrs / Day" : "Avg Daily Hours";
+        const _totalLabel = _noPresence ? "Total Meeting Hrs" : "Total Hours";
+        const _wfhNote = isWFH
+          ? (_noPresence
+              ? "Work From Home — Teams presence not captured. Hours shown are from meeting activity."
+              : "Work From Home — biometric check-in/out not captured. Hours shown are from GreytHR attendance records.")
+          : "";
         return `
         <div class="att-summary-row">
           <div class="att-summary-main">
@@ -3028,12 +3042,12 @@ function showEmployee(e) {
             ${att.holidays ? `<span class="att-chip att-chip--off">Holiday ${att.holidays}d</span>` : ""}
           </div>
         </div>
-        ${isWFH ? `<div class="dg-wfh-note">Work From Home — biometric check-in/out not captured. Hours shown are from GreytHR attendance records.</div>` : ""}
+        ${isWFH ? `<div class="dg-wfh-note">${_wfhNote}</div>` : ""}
         <div class="detail-grid4">
           <div class="dg-stat"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? formatCheckinHour(att.avgCheckinHour) : "WFH"}</span><span class="dg-lbl">Avg Check-in</span></div>
           <div class="dg-stat"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? formatCheckoutHour(att.avgCheckoutHour) : "WFH"}</span><span class="dg-lbl">Avg Check-out</span></div>
-          <div class="dg-stat"><span class="dg-val">${att.avgOfficeHours ?? "—"} hrs</span><span class="dg-lbl">Avg Daily Hours</span></div>
-          <div class="dg-stat"><span class="dg-val">${att.officeHours ?? "—"} hrs</span><span class="dg-lbl">Total Hours</span></div>
+          <div class="dg-stat"><span class="dg-val">${_displayAvgHrs ?? "—"} hrs</span><span class="dg-lbl">${_hoursLabel}</span></div>
+          <div class="dg-stat"><span class="dg-val">${_displayTotalHrs ?? "—"} hrs</span><span class="dg-lbl">${_totalLabel}</span></div>
           <div class="dg-stat ${!isWFH && calcPunctuality(att) < 50 ? "dg-warn" : !isWFH && calcPunctuality(att) >= 80 ? "dg-good" : ""}"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? (calcPunctuality(att) != null ? calcPunctuality(att) + "%" : "—") : "WFH"}</span><span class="dg-lbl">Punctuality</span></div>
           <div class="dg-stat"><span class="dg-val">${att.officeLocation || (isWFH ? "Work From Home" : tm.workLocation)}</span><span class="dg-lbl">Work Location</span></div>
         </div>`;
