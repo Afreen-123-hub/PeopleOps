@@ -1771,6 +1771,27 @@ function formatCheckoutHour(h) {
 }
 
 // Applies a 10-minute grace period to punctuality.
+// Count Mon–Fri days from period start up to generatedAt date.
+// Used as denominator for employees with no GreytHR calendarDays.
+function countWorkingDaysElapsed(dataset) {
+  const meta = dataset?.meta || {};
+  const periodStr = meta.period || "";
+  const generatedAt = meta.generatedAt || "";
+  const startMatch = periodStr.match(/(\d{4}-\d{2}-\d{2})/);
+  if (!startMatch || !generatedAt) return null;
+  const start = new Date(startMatch[1]);
+  const end = new Date(generatedAt);
+  if (isNaN(start) || isNaN(end) || end < start) return null;
+  let count = 0;
+  const cur = new Date(start);
+  while (cur <= end) {
+    const d = cur.getDay();
+    if (d !== 0 && d !== 6) count++;
+    cur.setDate(cur.getDate() + 1);
+  }
+  return count;
+}
+
 // Backend uses strict 9:00 AM cutoff — arriving at 9:01 AM counts as late.
 // We use avgCheckinHour to estimate how many "late" days were actually within grace.
 function calcPunctuality(att) {
@@ -2920,7 +2941,11 @@ function showEmployee(e) {
   const calendarDays = att.calendarDays || ((att.present ?? 0) + (att.absent ?? 0) + (att.off ?? 0) + (att.leave ?? 0) + (att.holidays ?? 0));
   const elapsedCalSum = (att.present ?? 0) + (att.absent ?? 0) + (att.leave ?? 0) + (att.off ?? 0) + (att.holidays ?? 0);
   const effectiveCalDays = att.calendarDays ? Math.min(calendarDays, elapsedCalSum) : calendarDays;
-  const scheduledDays = Math.max(1, effectiveCalDays - (att.off ?? 0) - (att.holidays ?? 0));
+  const rawScheduled = Math.max(1, effectiveCalDays - (att.off ?? 0) - (att.holidays ?? 0));
+  // For employees with no GreytHR (calendarDays=0), absent days aren't recorded so use
+  // actual working days elapsed from period start to data generation date as denominator.
+  const expectedWD = !att.calendarDays ? countWorkingDaysElapsed(dataset) : null;
+  const scheduledDays = expectedWD ? Math.max(rawScheduled, expectedWD) : rawScheduled;
   const presentCapped = Math.min(att.present ?? 0, scheduledDays);
   const attPct = effectiveCalDays ? Math.round((presentCapped / scheduledDays) * 100) : null;
 
