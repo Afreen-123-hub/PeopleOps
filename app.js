@@ -2942,11 +2942,11 @@ function showEmployee(e) {
   const elapsedCalSum = (att.present ?? 0) + (att.absent ?? 0) + (att.leave ?? 0) + (att.off ?? 0) + (att.holidays ?? 0);
   const effectiveCalDays = att.calendarDays ? Math.min(calendarDays, elapsedCalSum) : calendarDays;
   const rawScheduled = Math.max(1, effectiveCalDays - (att.off ?? 0) - (att.holidays ?? 0));
-  // Use working days elapsed (period start → generatedAt) as a floor for the denominator.
-  // This keeps the denominator current as the month progresses — GreytHR data lags by a day
-  // or more, so rawScheduled alone understates how many days have passed.
+  // Denominator = working days elapsed from period start to generatedAt, same for everyone.
+  // GreytHR per-employee rawScheduled varies (lag, holidays) making the count inconsistent.
+  // Use rawScheduled only when elapsed count can't be computed (e.g. missing meta).
   const expectedWD = countWorkingDaysElapsed(dataset);
-  const scheduledDays = expectedWD ? Math.max(rawScheduled, expectedWD) : rawScheduled;
+  const scheduledDays = expectedWD || rawScheduled;
   const presentCapped = Math.min(att.present ?? 0, scheduledDays);
   const attPct = effectiveCalDays ? Math.round((presentCapped / scheduledDays) * 100) : null;
 
