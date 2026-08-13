@@ -1942,6 +1942,12 @@ def main():
             mgr_emp_id = resolve_emp_id(u["manager"])
             if reportee_emp_id and mgr_emp_id:
                 emp_id_to_manager_id[reportee_emp_id] = mgr_emp_id
+        # MTM employees aren't in the Teams org chart — inject their manager relationship
+        # from GreytHR (all report to Senthil Kumar, CWINE053).
+        for mid in mtm_ids:
+            if mid not in emp_id_to_manager_id:
+                emp_id_to_manager_id[mid] = "CWINE053"
+                mgr_to_reportees["CWINE053"].append(mid)
 
         # Build quick lookup: emp_id → row (for name/band/kpi in directReports)
         id_to_row = {row["id"]: row for row in employee_rows}
