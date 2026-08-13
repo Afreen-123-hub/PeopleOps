@@ -1779,7 +1779,7 @@ function countWorkingDaysElapsed(dataset) {
   const generatedAt = meta.generatedAt || "";
   const startMatch = periodStr.match(/(\d{4}-\d{2}-\d{2})/);
   if (!startMatch || !generatedAt) return null;
-  const start = new Date(startMatch[1]);
+  const start = new Date(startMatch[1] + "T00:00:00");
   const end = new Date(generatedAt);
   if (isNaN(start) || isNaN(end) || end < start) return null;
   let count = 0;
