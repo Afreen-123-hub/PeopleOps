@@ -879,6 +879,16 @@ function applyFilters() {
     if (el && Number(el.value) !== state.confidence) el.value = String(state.confidence);
   });
   renderAll();
+  // When a search is active on the overview, show matching employees in the drilldown panel
+  // so the user gets visible feedback instead of only aggregate charts updating.
+  const overviewActive = document.getElementById("overview")?.classList.contains("active-view");
+  const panel = document.getElementById("bandEmployeesPanel");
+  if (overviewActive && state.search) {
+    renderOverviewMetricEmployees("people", `Search: "${state.search}" — ${filteredEmployees.length} match${filteredEmployees.length === 1 ? "" : "es"}`, { scroll: false });
+  } else if (overviewActive && !state.search && panel && !panel.hidden) {
+    // If search was cleared and panel was showing search results, close it
+    panel.hidden = true;
+  }
 }
 
 function computeAlerts(employees) {
@@ -1335,7 +1345,7 @@ function renderTeamsInsights() {
     </div>`;
 }
 
-function renderOverviewMetricEmployees(metric, label) {
+function renderOverviewMetricEmployees(metric, label, { scroll = true } = {}) {
   const source = metric === "employees" ? dataset.employees : filteredEmployees;
   const filters = {
     employees: () => true,
@@ -1384,7 +1394,7 @@ function renderOverviewMetricEmployees(metric, label) {
       `).join("") || '<p class="overview-empty-result">No employees match this category.</p>'}
     </div>
   `;
-  panel.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (scroll) panel.scrollIntoView({ behavior: "smooth", block: "center" });
   document.getElementById("closeOverviewDrilldown").addEventListener("click", () => {
     panel.hidden = true;
   });
@@ -1702,7 +1712,7 @@ function renderPeopleTable() {
         <div class="table-empty-sub">Try adjusting your filters or search term</div>
       </div></td></tr>`;
 
-  document.querySelectorAll("#peopleTable tr").forEach((row) => {
+  document.querySelectorAll("#peopleTable tr[data-index]").forEach((row) => {
     row.addEventListener("click", () => showEmployee(scored[Number(row.dataset.index)]));
   });
 
