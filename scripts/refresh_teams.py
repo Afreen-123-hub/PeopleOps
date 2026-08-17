@@ -22,6 +22,9 @@ ACTIVE_STATUSES = {
 }
 AWAY_STATUSES = {"Away", "BeRightBack", "OffWork"}
 OFFLINE_STATUSES = {"Offline", "Inactive", "PresenceUnknown"}
+# Graph sets availability="Busy" AND activity="InACall" for a user on a call — activity
+# is the more specific signal, so it must win over availability for these values.
+CALL_OR_MEETING_ACTIVITIES = {"InACall", "InAConferenceCall", "InAMeeting", "Presenting"}
 
 
 def clean(v):
@@ -128,7 +131,12 @@ def refresh():
         activity = clean(row.get("Activity"))
         # Use the dedicated outOfOfficeSettings.isOutOfOffice boolean — most reliable OOO signal
         is_ooo = bool(row.get("Is Out Of Office")) or activity == "OutOfOffice"
-        status = "OutOfOffice" if is_ooo else (availability or activity)
+        if is_ooo:
+            status = "OutOfOffice"
+        elif activity in CALL_OR_MEETING_ACTIVITIES:
+            status = activity
+        else:
+            status = availability or activity
         employees[idx].setdefault("teams", {}).update({
             "status": status,
             "workLocation": clean(row.get("Work Location")),
