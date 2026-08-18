@@ -290,15 +290,25 @@ def build_gap_analysis(sources, source_confidence, score_drivers, kpi):
     }
 
 
+BLOCKED_IDS = {
+    "11", "71", "CW002", "adam_1", "suus",
+    "TestingTeamLead001", "EMP938977", "EMP938938",
+}
+
 def is_real_employee(user):
     emp_id = clean(user.get("user_id") or user.get("id"))
     name = clean(user.get("name")).lower()
     role = clean(user.get("role"))
     team = clean(user.get("team")).lower()
     designation = clean(user.get("designation")).lower()
+    if emp_id in BLOCKED_IDS:
+        return False
     if role == "7" or emp_id.startswith("CLT"):
         return False
-    if "(test)" in emp_id.lower():
+    # Purely numeric IDs are test/client accounts, not real employees
+    if emp_id.isdigit():
+        return False
+    if "(test)" in emp_id.lower() or "test" in emp_id.lower():
         return False
     if team in {"test", "test account", "test(for test)"}:
         return False
@@ -309,9 +319,9 @@ def is_real_employee(user):
     # Generic placeholder names that are not real employees
     if name in {"employee", "team lead"}:
         return False
-    # Names beginning with "test " or containing "(test" are test accounts
-    # Catches: "Test Hr", "AARON (Test Intern)", "Sam PM(Testing )", etc.
-    if name.startswith("test ") or "(test" in name:
+    # Names beginning with "test ", containing "(test", or containing " test" as a word
+    # Catches: "Test Hr", "AARON Test Leadership", "Nithisha Test-PM", "Sam PM(Testing )", etc.
+    if name.startswith("test ") or "(test" in name or " test" in name:
         return False
     # Accounts with no team AND no designation are incomplete placeholders
     if not team and not designation:
