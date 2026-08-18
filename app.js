@@ -617,6 +617,14 @@ async function boot() {
   }
   dataset = await loadDataset();
   if (!dataset) return;
+  const TEST_IDS = new Set(["11","71","CW002","adam_1","suus","TestingTeamLead001","EMP938977","EMP938938"]);
+  dataset.employees = dataset.employees.filter(e => {
+    if (TEST_IDS.has(e.id)) return false;
+    if ((e.id || "").match(/^\d+$/)) return false;
+    const n = (e.name || "").toLowerCase();
+    if (n.includes(" test") || n.startsWith("test ")) return false;
+    return true;
+  });
   filteredEmployees = dataset.employees.filter(e => state.showInterns || !isIntern(e)).sort((a, b) => {
     if (a.kpi == null && b.kpi == null) return 0;
     if (a.kpi == null) return 1;
