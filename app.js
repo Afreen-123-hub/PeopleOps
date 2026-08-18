@@ -1875,17 +1875,19 @@ function formatCheckoutHour(h) {
 }
 
 // Applies a 10-minute grace period to punctuality.
-// Count Mon–Fri days from period start up to generatedAt date.
-// Used as denominator for employees with no GreytHR calendarDays.
+// Count Mon–Fri days from period start up to the earlier of generatedAt or period end.
+// Capping at period end prevents cross-month bleed when old data stays deployed past its month.
 function countWorkingDaysElapsed(dataset) {
   const meta = dataset?.meta || {};
   const periodStr = meta.period || "";
   const generatedAt = meta.generatedAt || "";
-  const startMatch = periodStr.match(/(\d{4}-\d{2}-\d{2})/);
-  if (!startMatch || !generatedAt) return null;
-  const start = new Date(startMatch[1] + "T00:00:00");
-  const end = new Date(generatedAt);
-  if (isNaN(start) || isNaN(end) || end < start) return null;
+  const dates = periodStr.match(/\d{4}-\d{2}-\d{2}/g);
+  if (!dates || !generatedAt) return null;
+  const start = new Date(dates[0] + "T00:00:00");
+  const generated = new Date(generatedAt);
+  const periodEnd = dates[1] ? new Date(dates[1] + "T23:59:59") : null;
+  if (isNaN(start) || isNaN(generated) || generated < start) return null;
+  const end = periodEnd && periodEnd < generated ? periodEnd : generated;
   let count = 0;
   const cur = new Date(start);
   while (cur <= end) {
