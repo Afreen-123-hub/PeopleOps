@@ -4742,10 +4742,46 @@ dialog::backdrop {
 .att-pct-lbl { font-size: 0.82rem; color: #475569; line-height: 1.4; }
 .att-pct-lbl small { display: block; color: #94a3b8; font-size: 0.72rem; }
 .att-chips { display: flex; gap: 6px; flex-wrap: wrap; }
-.att-chip { padding: 3px 9px; border-radius: 999px; font-size: 0.7rem; font-weight: 600; }
+.att-chip { padding: 3px 9px; border-radius: 999px; font-size: 0.7rem; font-weight: 600; border: none; }
 .att-chip--off    { background: #e2e8f0; color: #64748b; }
 .att-chip--leave  { background: #ede9fe; color: #6d28d9; }
 .att-chip--absent { background: #fee2e2; color: #b91c1c; }
+.att-chip-btn { cursor: pointer; transition: opacity .15s, transform .1s; }
+.att-chip-btn:hover { opacity: .82; transform: translateY(-1px); }
+.att-chip-btn:active { transform: scale(.96); }
+
+.att-dates-popup {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: var(--surface, #fff);
+  border: 1px solid var(--line, #e2e8f0);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+}
+.att-dates-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--muted, #94a3b8);
+  margin-bottom: 8px;
+}
+.att-dates-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.att-date-pill {
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: var(--surface-2, #f8fafc);
+  border: 1px solid var(--line, #e2e8f0);
+  color: var(--ink, #0f172a);
+}
+.att-dates-empty {
+  font-size: 0.75rem;
+  color: var(--muted, #94a3b8);
+  font-style: italic;
+}
 
 /* ── Source chips ── */
 .source-chip {

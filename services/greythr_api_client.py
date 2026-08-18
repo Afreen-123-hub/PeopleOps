@@ -322,6 +322,7 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
     records = get_attendance_muster(token, domain, start, end, active_ids)
 
     raw_by_employee_id: dict[str, Counter] = defaultdict(Counter)
+    day_map: dict[str, dict[str, str]] = defaultdict(dict)  # emp_id -> {date: bucket}
     for emp in records:
         emp_id = str(emp.get("employeeId", "")).strip()
         if not emp_id:
@@ -335,6 +336,23 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
             for session_label in sessions:
                 bucket = _attendance_bucket(session_label)
                 raw_by_employee_id[emp_id][bucket] += 0.5
+
+            # Store day-level status for chip date popups.
+            # Use session1 as the primary day bucket; fall back to session2.
+            date_str = summary.get("attendanceDate", "")
+            if date_str:
+                b1 = _attendance_bucket(summary.get("session1Label", ""))
+                b2 = _attendance_bucket(summary.get("session2Label", ""))
+                # Priority: A > Leave > H > OFF > WFH > P > Blank
+                for b in (b1, b2):
+                    if b == "A":
+                        day_map[emp_id][date_str] = "A"; break
+                else:
+                    for b in (b1, b2):
+                        if b == "Leave":
+                            day_map[emp_id][date_str] = "Leave"; break
+                    else:
+                        day_map[emp_id][date_str] = b1 if b1 != "Blank" else b2
 
             # Extract firstInTime / lastOutTime for present weekdays only.
             # firstInTime is stored in IST (local time). We compute on-time counts
@@ -377,6 +395,7 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
             counter.pop(k, None)
 
     result: dict[str, Counter] = {}
+    result_days: dict[str, dict[str, str]] = {}
     for emp_id, counter in raw_by_employee_id.items():
         info = master.get(emp_id, {})
         aliases = {
@@ -384,10 +403,12 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
             info.get("employee_no", ""),
             f"name:{_normalise_match_key(info.get('name', ''))}",
         }
+        days = day_map.get(emp_id, {})
         for alias in aliases:
             alias = str(alias or "").strip()
             if alias and alias != "name:":
                 result[alias] = Counter(counter)
+                result_days[alias] = days
 
-    # Return attendance counters, master data, and department/designation details
-    return result, master, dept_details
+    # Return attendance counters, master data, department/designation details, per-day map
+    return result, master, dept_details, result_days

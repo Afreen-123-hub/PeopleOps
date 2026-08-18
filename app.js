@@ -3102,12 +3102,13 @@ function showEmployee(e) {
             <span class="att-pct ${attPct == null ? "" : attPct >= 90 ? "att-pct--good" : attPct >= 70 ? "att-pct--warn" : "att-pct--bad"}">${attPct != null ? attPct + "%" : "—"}</span>
             <span class="att-pct-lbl">Attendance &nbsp;<small>${presentCapped} of ${scheduledDays} working days</small></span>
           </div>
-          <div class="att-chips">
-            <span class="att-chip att-chip--off">WO ${att.off ?? 0}d</span>
-            <span class="att-chip att-chip--leave">Leave ${att.leave ?? 0}d</span>
-            <span class="att-chip ${(att.absent ?? 0) > 0 ? "att-chip--absent" : "att-chip--off"}">Absent ${att.absent ?? 0}d</span>
-            ${att.holidays ? `<span class="att-chip att-chip--off">Holiday ${att.holidays}d</span>` : ""}
+          <div class="att-chips" id="att-chips-${e.id}">
+            <button type="button" class="att-chip att-chip--off att-chip-btn" data-emp="${e.id}" data-bucket="OFF">WO ${att.off ?? 0}d</button>
+            <button type="button" class="att-chip att-chip--leave att-chip-btn" data-emp="${e.id}" data-bucket="Leave">Leave ${att.leave ?? 0}d</button>
+            <button type="button" class="att-chip ${(att.absent ?? 0) > 0 ? "att-chip--absent" : "att-chip--off"} att-chip-btn" data-emp="${e.id}" data-bucket="A">Absent ${att.absent ?? 0}d</button>
+            ${att.holidays ? `<button type="button" class="att-chip att-chip--off att-chip-btn" data-emp="${e.id}" data-bucket="H">Holiday ${att.holidays}d</button>` : ""}
           </div>
+          <div class="att-dates-popup" id="att-dates-${e.id}" hidden></div>
         </div>
         ${isWFH ? `<div class="dg-wfh-note">${_wfhNote}</div>` : ""}
         <div class="detail-grid4">
@@ -3260,6 +3261,42 @@ function showEmployee(e) {
   `;
   document.querySelectorAll("dialog[open]").forEach(d => d.close());
   document.getElementById("employeeDialog").showModal();
+
+  // Attendance chip buttons → show dates for that status
+  document.querySelectorAll(".att-chip-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const empId  = btn.dataset.emp;
+      const bucket = btn.dataset.bucket;
+      const popup  = document.getElementById(`att-dates-${empId}`);
+      if (!popup) return;
+      if (!popup.hidden && popup.dataset.activeBucket === bucket) {
+        popup.hidden = true;
+        return;
+      }
+      const emp = dataset.employees.find(x => x.id === empId);
+      const days = emp?.attendanceDays || {};
+      const bucketLabel = { A: "Absent", Leave: "Leave", OFF: "Week Off", H: "Holiday" };
+      const matched = Object.entries(days)
+        .filter(([, b]) => b === bucket)
+        .map(([d]) => d)
+        .sort();
+      popup.dataset.activeBucket = bucket;
+      popup.hidden = false;
+      if (!matched.length) {
+        popup.innerHTML = `<span class="att-dates-empty">No specific dates recorded for ${bucketLabel[bucket] || bucket}.</span>`;
+        return;
+      }
+      popup.innerHTML = `
+        <span class="att-dates-label">${bucketLabel[bucket] || bucket} dates</span>
+        <div class="att-dates-list">
+          ${matched.map(d => {
+            const dt = new Date(d + "T00:00:00");
+            const fmt = dt.toLocaleDateString("en-GB", { day: "2-digit", month: "short", weekday: "short" });
+            return `<span class="att-date-pill">${fmt}</span>`;
+          }).join("")}
+        </div>`;
+    });
+  });
 }
 
 function exportCsv() {

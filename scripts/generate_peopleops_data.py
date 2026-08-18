@@ -985,25 +985,27 @@ def resolve_greythr_date_range(target_period: str):
     return previous_full_month_range()
 
 
-def read_greythr_api(start: str, end: str) -> tuple[defaultdict, dict, dict]:
-    """Returns (attendance_counters, master_data, dept_details).
+def read_greythr_api(start: str, end: str) -> tuple[defaultdict, dict, dict, dict]:
+    """Returns (attendance_counters, master_data, dept_details, day_map).
     master_data: {employeeId: {employee_no, name, date_of_joining, employment_type, probation_end}}
     dept_details: {employeeId: {designation, department}} from GreytHR reporting hierarchy
+    day_map: {employeeAlias: {date: bucket}} per-day status for chip date popups
     """
     result = defaultdict(lambda: Counter())
     master = {}
     dept_details: dict = {}
+    day_map: dict = {}
     if not start or not end:
         print("WARNING: GreytHR skipped — could not determine date range", file=sys.stderr)
-        return result, master, dept_details
+        return result, master, dept_details, day_map
     try:
-        raw, master, dept_details = get_greythr_attendance(start, end)
+        raw, master, dept_details, day_map = get_greythr_attendance(start, end)
         for emp_no, counter in raw.items():
             result[emp_no] = counter
         print(f"GreytHR attendance loaded: {len(raw)} employees ({start} to {end}), {len(dept_details)} with designations")
     except (GreytHRConfigError, GreytHRAuthError, GreytHRApiError) as exc:
         print(f"WARNING: GreytHR attendance skipped: {exc}", file=sys.stderr)
-    return result, master, dept_details
+    return result, master, dept_details, day_map
 
 
 def fetch_greythr_mtm_employees(existing_ids: set) -> dict:
@@ -1183,7 +1185,7 @@ def main():
         project_hours[clean(row.get("project_id"))] += stats["workHours"]
 
     greythr_start, greythr_end = resolve_greythr_date_range(target_period)
-    greythr, greythr_master, greythr_dept = read_greythr_api(greythr_start, greythr_end)
+    greythr, greythr_master, greythr_dept, greythr_day_map = read_greythr_api(greythr_start, greythr_end)
     # Build name-keyed lookup for joining date matching (CWINE employees only)
     greythr_master_by_name = {
         normalize_name(info.get("name", "")): info
@@ -1460,6 +1462,7 @@ def main():
             stats = work_item_stats[emp_id]
             gh = greythr_for_employee(emp_id, emp)
             _wl_uid = clean(emp.get("user_id", ""))
+            gh_days = greythr_day_map.get(emp_id) or greythr_day_map.get(_wl_uid) or greythr_day_map.get(f"name:{normalize_name(emp.get('name',''))}") or {}
             bio = attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}") or Counter()
             cal = calendar_data.get(emp_id)
             sp = get_sharepoint_for(emp)
@@ -1740,6 +1743,7 @@ def main():
                 "weightsApplied": weights_used,
                 "sourceConfidence": source_confidence,
                 "isMtm": emp_id in mtm_ids,
+                "attendanceDays": gh_days,
                 "sources": sources,
                 "worklogixScore": emp.get("worklogixScore", {}),
                 "worklogix": {
