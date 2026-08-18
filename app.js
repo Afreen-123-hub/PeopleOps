@@ -17,6 +17,16 @@ const state = {
 const DEMO_MODE = false;
 const DEMO_REFRESH_MESSAGE = "Demo mode: backend refresh is disabled";
 
+const BAND_COLORS = {
+  "Excellent":         "#0f6b3a",
+  "Good":              "#22a06b",
+  "Average":           "#3b82f6",
+  "Needs Improvement": "#e28a0d",
+  "Critical":          "#d92d20",
+  "Insufficient Data": "#94a3b8",
+  "Executive":         "#444ce7",
+};
+
 const DEPT_MERGE_MAP = {
   "AI": "AI Team",
   "AI Development": "AI Team",
@@ -708,10 +718,20 @@ function setupFilters() {
     state.search = event.target.value.toLowerCase();
     applyFilters();
   });
-  ["bandFilter", "kpiBandFilter", "peopleBandFilter"].forEach((id) => {
-    document.getElementById(id)?.addEventListener("change", (event) => {
-      state.band = event.target.value;
-      applyFilters();
+  document.querySelectorAll(".band-select-trigger").forEach((trigger) => {
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const wrap = trigger.closest(".band-select-wrap");
+      const panel = wrap.querySelector(".band-select-panel");
+      const isOpen = !panel.hidden;
+      document.querySelectorAll(".band-select-panel:not([hidden])").forEach((p) => {
+        if (p !== panel) {
+          p.hidden = true;
+          p.closest(".band-select-wrap")?.querySelector(".band-select-trigger")?.setAttribute("aria-expanded", "false");
+        }
+      });
+      panel.hidden = isOpen;
+      trigger.setAttribute("aria-expanded", String(!isOpen));
     });
   });
   ["teamFilter", "kpiTeamFilter", "peopleTeamFilter"].forEach((id) => {
@@ -734,10 +754,28 @@ function setupFilters() {
     e.stopPropagation();
     document.getElementById("exportMenu").classList.toggle("open");
   });
-  document.addEventListener("click", () => {
+  document.addEventListener("click", (e) => {
     document.getElementById("exportMenu").classList.remove("open");
     const um = document.getElementById("railUserMenu");
     if (um) um.classList.remove("open");
+    const opt = e.target.closest(".band-select-opt");
+    if (opt) {
+      const wrap = opt.closest(".band-select-wrap");
+      if (wrap) {
+        state.band = opt.dataset.value;
+        updateBandDropdowns(state.band);
+        wrap.querySelector(".band-select-panel").hidden = true;
+        wrap.querySelector(".band-select-trigger")?.setAttribute("aria-expanded", "false");
+        applyFilters();
+      }
+      return;
+    }
+    if (!e.target.closest(".band-select-wrap")) {
+      document.querySelectorAll(".band-select-panel:not([hidden])").forEach((p) => {
+        p.hidden = true;
+        p.closest(".band-select-wrap")?.querySelector(".band-select-trigger")?.setAttribute("aria-expanded", "false");
+      });
+    }
   });
   const dotsBtn = document.getElementById("railUserDotsBtn");
   if (dotsBtn) dotsBtn.addEventListener("click", (e) => {
@@ -793,6 +831,30 @@ function setupFilters() {
   window.addEventListener("resize", () => { drawScatter(); drawDonutChart(); });
 }
 
+function updateBandTrigger(wrapOrId, value) {
+  const wrap = typeof wrapOrId === "string" ? document.getElementById(wrapOrId) : wrapOrId;
+  if (!wrap) return;
+  const label = wrap.querySelector(".band-select-label");
+  const dot   = wrap.querySelector(".band-trigger-dot");
+  if (!value || value === "all") {
+    if (label) label.textContent = "All performance bands";
+    if (dot) { dot.style.background = "transparent"; dot.style.borderColor = "#94a3b8"; }
+  } else {
+    if (label) label.textContent = value;
+    const color = BAND_COLORS[value] || "#94a3b8";
+    if (dot) { dot.style.background = color; dot.style.borderColor = color; }
+  }
+  wrap.querySelectorAll(".band-select-opt").forEach((opt) => {
+    const sel = opt.dataset.value === (value || "all");
+    opt.setAttribute("aria-selected", String(sel));
+    opt.classList.toggle("is-selected", sel);
+  });
+}
+
+function updateBandDropdowns(value) {
+  ["bandFilter", "kpiBandFilter", "peopleBandFilter"].forEach((id) => updateBandTrigger(id, value));
+}
+
 function populateFilterOptions() {
   const bandFilterIds = ["bandFilter", "kpiBandFilter", "peopleBandFilter"];
   const teamFilterIds = ["teamFilter", "kpiTeamFilter", "peopleTeamFilter"];
@@ -800,15 +862,28 @@ function populateFilterOptions() {
   const previousTeam = state.team;
   const bands = [...new Set(dataset.employees.map((e) => e.band).filter(Boolean))];
   const teams = [...new Set(dataset.employees.map((e) => mergedTeam(e.team || "Unassigned")))].sort();
-  const bandOptionsHtml = `<option value="all">All performance bands</option>${bands.map((b) => `<option>${b}</option>`).join("")}`;
   const teamOptionsHtml = `<option value="all">All teams</option>${teams.map((t) => `<option>${t}</option>`).join("")}`;
   state.band = bands.includes(previousBand) ? previousBand : "all";
   state.team = teams.includes(previousTeam) ? previousTeam : "all";
   bandFilterIds.forEach((id) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.innerHTML = bandOptionsHtml;
-    el.value = state.band;
+    const wrap = document.getElementById(id);
+    if (!wrap) return;
+    const panel = wrap.querySelector(".band-select-panel");
+    if (!panel) return;
+    const allItem = `<li class="band-select-opt${state.band === "all" ? " is-selected" : ""}" data-value="all" role="option" aria-selected="${state.band === "all"}">
+      <span class="band-dot" style="background:transparent;border:1.5px solid #94a3b8"></span>
+      All performance bands
+    </li>`;
+    const items = bands.map((b) => {
+      const color = BAND_COLORS[b] || "#94a3b8";
+      const sel = state.band === b;
+      return `<li class="band-select-opt${sel ? " is-selected" : ""}" data-value="${b}" role="option" aria-selected="${sel}">
+        <span class="band-dot" style="background:${color}"></span>
+        ${b}
+      </li>`;
+    }).join("");
+    panel.innerHTML = allItem + items;
+    updateBandTrigger(wrap, state.band);
   });
   teamFilterIds.forEach((id) => {
     const el = document.getElementById(id);
@@ -866,10 +941,7 @@ function applyFilters() {
     const el = document.getElementById(id);
     if (el && el.value !== state.search) el.value = state.search;
   });
-  ["bandFilter", "kpiBandFilter", "peopleBandFilter"].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el && el.value !== state.band) el.value = state.band;
-  });
+  updateBandDropdowns(state.band);
   ["teamFilter", "kpiTeamFilter", "peopleTeamFilter"].forEach((id) => {
     const el = document.getElementById(id);
     if (el && el.value !== state.team) el.value = state.team;

@@ -9043,3 +9043,104 @@ tr.is-mtm-row td:first-child {
 .tsd-val-amber { color: #d97706 !important; }
 .tsd-val-total { color: #0f1c2e !important; font-weight: 900 !important; }
 .tsd-lbl-sub   { display: block; font-size: 0.68rem; color: #94a3b8; margin-top: 2px; }
+
+/* ── Custom band filter dropdown ── */
+.band-select-wrap {
+  position: relative;
+  cursor: default;
+  user-select: none;
+}
+
+.band-select-trigger {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--ink);
+  font-size: 0.82rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  height: 38px;
+  min-height: 38px;
+}
+
+.band-trigger-dot {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid #94a3b8;
+  background: transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.band-select-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.band-select-chevron {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  color: #94a3b8;
+  transition: transform 0.15s ease;
+}
+
+.band-select-trigger[aria-expanded="true"] .band-select-chevron {
+  transform: rotate(180deg);
+}
+
+.band-select-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: -12px;
+  z-index: 300;
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(15,28,46,0.13), 0 2px 6px rgba(15,28,46,0.07);
+  min-width: 210px;
+  overflow: hidden;
+}
+
+.band-select-opt {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.83rem;
+  cursor: pointer;
+  color: var(--ink);
+  transition: background 0.1s;
+  list-style: none;
+}
+
+.band-select-opt:hover {
+  background: #f4f7fb;
+}
+
+.band-select-opt.is-selected {
+  background: rgba(0,169,157,0.08);
+  color: #0F766E;
+  font-weight: 700;
+}
+
+.band-dot {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  transition: background 0.15s;
+}

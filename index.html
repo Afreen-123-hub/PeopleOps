@@ -99,12 +99,15 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
                 <input id="searchInput" type="search" placeholder="Name, ID, team, designation">
               </label>
-              <label class="pill-field-label">
+              <div class="pill-field-label band-select-wrap" id="bandFilter">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                <select id="bandFilter">
-                  <option value="all">All bands</option>
-                </select>
-              </label>
+                <button type="button" class="band-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="band-trigger-dot"></span>
+                  <span class="band-select-label">All performance bands</span>
+                  <svg class="band-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <ul class="band-select-panel" role="listbox" hidden></ul>
+              </div>
               <label class="pill-field-label">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"/></svg>
                 <select id="teamFilter">
@@ -289,12 +292,15 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
                   <input id="kpiSearchInput" type="search" placeholder="Search name, ID, team, designation">
                 </label>
-                <label class="pill-field-label page-search-field">
+                <div class="pill-field-label page-search-field band-select-wrap" id="kpiBandFilter">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                  <select id="kpiBandFilter">
-                    <option value="all">All performance bands</option>
-                  </select>
-                </label>
+                  <button type="button" class="band-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="band-trigger-dot"></span>
+                    <span class="band-select-label">All performance bands</span>
+                    <svg class="band-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                  </button>
+                  <ul class="band-select-panel" role="listbox" hidden></ul>
+                </div>
                 <label class="pill-field-label page-search-field">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"/></svg>
                   <select id="kpiTeamFilter">
@@ -419,12 +425,15 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
                 <input id="peopleSearchInput" type="search" placeholder="Search name, ID, team, designation">
               </label>
-              <label class="pill-field-label page-search-field">
+              <div class="pill-field-label page-search-field band-select-wrap" id="peopleBandFilter">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                <select id="peopleBandFilter">
-                  <option value="all">All performance bands</option>
-                </select>
-              </label>
+                <button type="button" class="band-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="band-trigger-dot"></span>
+                  <span class="band-select-label">All performance bands</span>
+                  <svg class="band-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <ul class="band-select-panel" role="listbox" hidden></ul>
+              </div>
               <label class="pill-field-label page-search-field">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"/></svg>
                 <select id="peopleTeamFilter">
