@@ -3359,7 +3359,7 @@ function showEmployee(e) {
       const days = emp?.attendanceDays || {};
       const bucketLabel = { A: "Absent", Leave: "Leave", OFF: "Week Off", H: "Holiday" };
       const matched = Object.entries(days)
-        .filter(([, b]) => b === bucket)
+        .filter(([, b]) => b === bucket || b.split("/").includes(bucket))
         .map(([d]) => d)
         .sort();
       popup.dataset.activeBucket = bucket;

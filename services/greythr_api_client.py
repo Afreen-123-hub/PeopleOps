@@ -343,16 +343,15 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
             if date_str:
                 b1 = _attendance_bucket(summary.get("session1Label", ""))
                 b2 = _attendance_bucket(summary.get("session2Label", ""))
-                # Priority: A > Leave > H > OFF > WFH > P > Blank
-                for b in (b1, b2):
-                    if b == "A":
-                        day_map[emp_id][date_str] = "A"; break
+                real = [b for b in (b1, b2) if b and b != "Blank"]
+                if len(real) == 2 and real[0] != real[1]:
+                    # Half-day mixed record (e.g. A + Leave) — store both so
+                    # each chip can show the date even when buckets differ.
+                    priority = ["A", "Leave", "H", "OFF", "WFH", "P"]
+                    real.sort(key=lambda x: priority.index(x) if x in priority else 99)
+                    day_map[emp_id][date_str] = f"{real[0]}/{real[1]}"
                 else:
-                    for b in (b1, b2):
-                        if b == "Leave":
-                            day_map[emp_id][date_str] = "Leave"; break
-                    else:
-                        day_map[emp_id][date_str] = b1 if b1 != "Blank" else b2
+                    day_map[emp_id][date_str] = real[0] if real else (b1 if b1 != "Blank" else b2)
 
             # Extract firstInTime / lastOutTime for present weekdays only.
             # firstInTime is stored in IST (local time). We compute on-time counts
