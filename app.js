@@ -2073,7 +2073,7 @@ function openTeamsPanel(e) {
         <strong class="tsd-name">${e.name}</strong>
         <small class="tsd-meta">${e.designation || "Unassigned"} · ${mergedTeam(e.team || "Unassigned")}</small>
         <span class="presence-badge ${cls}" style="margin-top:6px;display:inline-flex">${statusLabel}</span>
-        ${tm.workLocation ? `<span class="tsd-location">📍 ${tm.workLocation}</span>` : ""}
+        ${att.officeLocation || tm.workLocation ? `<span class="tsd-location">📍 ${att.officeLocation || (tm.workLocation === "office" ? "Office" : tm.workLocation)}</span>` : ""}
         ${tm.reports ? `<span class="tsd-location">👥 ${tm.reports} direct report${tm.reports > 1 ? "s" : ""}</span>` : ""}
       </div>
     </div>
@@ -2098,7 +2098,7 @@ function openTeamsPanel(e) {
           <div class="tsd-stat"><span class="tsd-val">${att.present} / ${att.present + att.absent + att.leave}</span><span class="tsd-lbl">Present / Working Days</span></div>
         </div>`;
       })() : `
-        <p class="tsd-section-title">Office Presence <small style="opacity:.5">${att.officeLocation || tm.workLocation}</small></p>
+        <p class="tsd-section-title">Office Presence <small style="opacity:.5">${att.officeLocation || (tm.workLocation === "office" ? "Office" : tm.workLocation || "")}</small></p>
         <div class="tsd-grid">
           <div class="tsd-stat"><span class="tsd-val">${formatCheckinHour(att.avgCheckinHour)}</span><span class="tsd-lbl">Avg Check-in</span></div>
           <div class="tsd-stat"><span class="tsd-val">${formatCheckoutHour(att.avgCheckoutHour)}</span><span class="tsd-lbl">Avg Check-out</span></div>
@@ -3199,7 +3199,7 @@ function showEmployee(e) {
           <div class="dg-stat"><span class="dg-val">${_displayAvgHrs ?? "—"} hrs</span><span class="dg-lbl">${_hoursLabel}</span></div>
           <div class="dg-stat"><span class="dg-val">${_displayTotalHrs ?? "—"} hrs</span><span class="dg-lbl">${_totalLabel}</span></div>
           <div class="dg-stat ${!isWFH && calcPunctuality(att) < 50 ? "dg-warn" : !isWFH && calcPunctuality(att) >= 80 ? "dg-good" : ""}"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? (calcPunctuality(att) != null ? calcPunctuality(att) + "%" : "—") : "WFH"}</span><span class="dg-lbl">Punctuality</span></div>
-          <div class="dg-stat"><span class="dg-val">${att.officeLocation || (isWFH ? "Work From Home" : tm.workLocation)}</span><span class="dg-lbl">Work Location</span></div>
+          <div class="dg-stat"><span class="dg-val">${att.officeLocation || (isWFH ? "Work From Home" : (tm.workLocation === "office" ? "Office" : "—"))}</span><span class="dg-lbl">Work Location</span></div>
         </div>`;
       })()}
 
