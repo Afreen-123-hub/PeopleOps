@@ -1473,6 +1473,24 @@ def main():
             gh = greythr_for_employee(emp_id, emp)
             _wl_uid = clean(emp.get("user_id", ""))
             gh_days = greythr_day_map.get(emp_id) or greythr_day_map.get(_wl_uid) or greythr_day_map.get(f"name:{normalize_name(emp.get('name',''))}") or {}
+            # Fill in days GreytHR didn't return: weekends → OFF, weekdays → Blank.
+            # Fixes WO=0 when GreytHR omits weekend records for some employees.
+            if greythr_start and greythr_end:
+                gh = Counter(gh)  # copy — don't mutate the shared counter
+                try:
+                    _p_start = datetime.fromisoformat(greythr_start).date()
+                    _p_end   = datetime.fromisoformat(greythr_end).date()
+                    _cur = _p_start
+                    while _cur <= _p_end:
+                        _ds = _cur.strftime("%Y-%m-%d")
+                        if _ds not in gh_days:
+                            if _cur.weekday() >= 5:  # Sat=5, Sun=6
+                                gh["OFF"] += 1
+                            else:
+                                gh["Blank"] += 1
+                        _cur += timedelta(days=1)
+                except Exception:
+                    pass
             bio = attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}") or Counter()
             cal = calendar_data.get(emp_id)
             sp = get_sharepoint_for(emp)
