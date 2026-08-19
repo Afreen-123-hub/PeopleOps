@@ -3360,8 +3360,8 @@ function showEmployee(e) {
       const bucketLabel = { A: "Absent", Leave: "Leave", OFF: "Week Off", H: "Holiday" };
       const matched = Object.entries(days)
         .filter(([, b]) => b === bucket || b.split("/").includes(bucket))
-        .map(([d]) => d)
-        .sort();
+        .map(([d, b]) => ({ d, halfDay: b.includes("/") }))
+        .sort((a, b) => a.d.localeCompare(b.d));
       popup.dataset.activeBucket = bucket;
       popup.hidden = false;
       if (!matched.length) {
@@ -3371,10 +3371,10 @@ function showEmployee(e) {
       popup.innerHTML = `
         <span class="att-dates-label">${bucketLabel[bucket] || bucket} dates</span>
         <div class="att-dates-list">
-          ${matched.map(d => {
+          ${matched.map(({ d, halfDay }) => {
             const dt = new Date(d + "T00:00:00");
             const fmt = dt.toLocaleDateString("en-GB", { day: "2-digit", month: "short", weekday: "short" });
-            return `<span class="att-date-pill">${fmt}</span>`;
+            return `<span class="att-date-pill">${fmt}${halfDay ? ' <small style="opacity:.65;font-size:.75em">half-day</small>' : ""}</span>`;
           }).join("")}
         </div>`;
     });
