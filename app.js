@@ -3105,9 +3105,6 @@ function showEmployee(e) {
     if (e.quadrant === "Disengaged") {
       return `Flagged "Disengaged"${weaknessText ? ` — ${weaknessText}` : ""}. Low signal across the board; this profile likely needs direct follow-up.`;
     }
-    if (e.quadrant === "High Performer") {
-      return `Flagged "High Performer"${strengthText ? ` — ${strengthText}, backed by consistent delivery` : ""}. One of the stronger profiles on the team this period.`;
-    }
     return "";
   })();
 
