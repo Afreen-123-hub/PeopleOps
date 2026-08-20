@@ -8,6 +8,7 @@ import subprocess
 import sys
 import threading
 import time
+import uuid
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -23,6 +24,7 @@ DATA_FILE = PROJECT_ROOT / "data" / "peopleops-data.json"
 DATA_FILE_MONTH = PROJECT_ROOT / "data" / "peopleops-data-month.json"  # temp file for month refresh — never overwrites main
 GITHUB_DATA_FILE = PROJECT_ROOT / "data" / "github-data.json"
 GRAPH_DATA_FILE = PROJECT_ROOT / "data" / "graph-activity.json"
+MTM_TASKS_FILE = PROJECT_ROOT / "data" / "mtm-tasks.json"
 GENERATOR = PROJECT_ROOT / "scripts" / "generate_peopleops_data.py"
 ATTENDANCE_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_attendance_month.py"
 TEAMS_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_teams.py"
@@ -30,6 +32,51 @@ GITHUB_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_github.py"
 GRAPH_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_graph_activity.py"
 API_FETCHER = PROJECT_ROOT / "scripts" / "fetch_real_api_data.py"
 ENV_FILE = PROJECT_ROOT.parent / ".env"
+
+def _merge_mtm_sprint_data(data: dict) -> dict:
+    """Attach verified MTM sprint entries (from the MTM task API) onto each MTM employee's record."""
+    try:
+        tasks = json.loads(MTM_TASKS_FILE.read_text(encoding="utf-8")) if MTM_TASKS_FILE.exists() else []
+    except (json.JSONDecodeError, OSError):
+        tasks = []
+
+    by_employee: dict[str, list] = {}
+    for t in tasks:
+        by_employee.setdefault(t.get("user_id", ""), []).append(t)
+
+    for employee in data.get("employees", []):
+        if not employee.get("isMtm"):
+            continue
+        entries = sorted(by_employee.get(employee.get("id", ""), []), key=lambda t: t.get("sprint", ""))
+        verified = [t for t in entries if t.get("verification") == "verified"]
+        total_assigned = sum(t.get("tasks_assigned", 0) for t in verified)
+        total_completed = sum(t.get("tasks_completed", 0) for t in verified)
+        employee["mtmSprints"] = verified
+        employee["mtmSprintSummary"] = {
+            "sprintsVerified": len(verified),
+            "sprintsPending": len(entries) - len(verified),
+            "totalAssigned": total_assigned,
+            "totalCompleted": total_completed,
+            "completionRate": round(total_completed / total_assigned * 100) if total_assigned else None,
+            "avgUtilisation": round(sum(t.get("utilisation", 0) for t in verified) / len(verified), 2) if verified else None,
+        }
+    return data
+
+
+def _load_mtm_tasks() -> list[dict]:
+    if not MTM_TASKS_FILE.exists():
+        return []
+    return json.loads(MTM_TASKS_FILE.read_text(encoding="utf-8"))
+
+
+def _save_mtm_tasks(tasks: list[dict]) -> None:
+    MTM_TASKS_FILE.write_text(json.dumps(tasks, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def _known_mtm_ids() -> set[str]:
+    data = json.loads(DATA_FILE.read_text(encoding="utf-8-sig"))
+    return {str(e["id"]) for e in data.get("employees", []) if e.get("isMtm")}
+
 
 SESSION_TTL = 8 * 3600  # 8 hours
 AUTO_REFRESH_INTERVAL = 24 * 3600  # refresh all data once every 24 hours
@@ -40,6 +87,193 @@ _refresh_lock = threading.Lock()
 
 PUBLIC_PATHS = {"/login.html", "/splash.html", "/api/login", "/styles.css", "/favicon.ico", "/auth/login", "/auth/callback"}
 _instance_lock = None
+
+VERIFY_PAGE_HTML = """<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MTM Task Verification</title>
+<style>
+  :root {
+    --ink:#0f1c2e; --muted:#5a6b82; --line:#e2e8f0; --panel:#fff; --canvas:#f4f7fb;
+    --indigo:#4338CA; --indigo-soft:#eef0fd; --teal:#14B8A6;
+    --green:#10b981; --green-soft:#ecfdf5; --amber:#f59e0b; --amber-soft:#fffbeb; --red:#e11d48;
+    --shadow-sm:0 1px 3px rgba(15,28,46,.06),0 4px 12px rgba(15,28,46,.07);
+    --radius:12px; --radius-lg:16px;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--canvas); color:var(--ink); font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif; font-size:15px; }
+  .page { max-width:980px; margin:0 auto; padding:32px 24px 80px; }
+  h1 { font-size:22px; font-weight:800; margin:0 0 4px; }
+  .subtle { color:var(--muted); font-size:13.5px; margin:0 0 22px; }
+  .lock { background:var(--panel); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:24px; max-width:380px; margin:60px auto; text-align:center; }
+  .lock input { width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; font-size:14px; margin:8px 0; }
+  .lock button, .toolbar button { background:var(--indigo); color:#fff; border:none; border-radius:8px; padding:9px 16px; font-weight:700; font-size:13.5px; cursor:pointer; }
+  .lock button:hover, .toolbar button:hover { opacity:.9; }
+  .err { color:var(--red); font-size:12.5px; min-height:16px; }
+  .toolbar { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .toolbar label { font-size:13px; color:var(--muted); display:flex; align-items:center; gap:6px; }
+  table { width:100%; border-collapse:collapse; background:var(--panel); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-sm); }
+  th { text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); padding:12px 14px; border-bottom:1px solid var(--line); }
+  td { padding:12px 14px; border-bottom:1px solid var(--line); font-size:13.5px; vertical-align:middle; }
+  tr:last-child td { border-bottom:none; }
+  .pill { display:inline-flex; padding:3px 9px; border-radius:999px; font-size:11px; font-weight:800; }
+  .pill-pending { background:var(--amber-soft); color:var(--amber); }
+  .pill-verified { background:var(--green-soft); color:var(--green); }
+  .num-in { width:64px; padding:5px 6px; border:1px solid var(--line); border-radius:6px; font-size:13px; }
+  .actions { display:flex; gap:6px; }
+  .btn { border:none; border-radius:6px; padding:6px 10px; font-size:12px; font-weight:700; cursor:pointer; }
+  .btn-verify { background:var(--green-soft); color:var(--green); }
+  .btn-edit { background:var(--indigo-soft); color:var(--indigo); }
+  .btn-save { background:var(--indigo); color:#fff; }
+  .btn-delete { background:var(--amber-soft); color:var(--red); }
+  .empty { text-align:center; padding:40px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<div id="lockScreen" class="lock">
+  <h1>MTM Verification</h1>
+  <p class="subtle">Log in with your PeopleOps account to review pending entries.</p>
+  <input id="userInput" type="text" placeholder="Username" onkeydown="if(event.key==='Enter')unlock()">
+  <input id="keyInput" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')unlock()">
+  <button onclick="unlock()">Log in</button>
+  <p class="err" id="lockErr"></p>
+</div>
+
+<div class="page" id="mainScreen" style="display:none">
+  <h1>MTM Task Verification</h1>
+  <p class="subtle">Check each entry against Senthil's sprint report, then verify, correct, or remove it.</p>
+  <div class="toolbar">
+    <button onclick="load()">Refresh</button>
+    <label><input type="checkbox" id="showAll" onchange="render()"> Show verified too</label>
+  </div>
+  <table>
+    <thead><tr><th>Employee</th><th>Sprint</th><th>Assigned</th><th>Completed</th><th>Utilisation</th><th>Status</th><th>Verification</th><th>Actions</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+</div>
+
+<script>
+let token = localStorage.getItem("mtmVerifyToken") || "";
+let employees = {};
+let tasks = [];
+let editingId = null;
+
+function headers() { return {"Authorization": "Bearer " + token, "Content-Type": "application/json"}; }
+
+async function unlock() {
+  const username = document.getElementById("userInput").value;
+  const password = document.getElementById("keyInput").value;
+  const loginRes = await fetch("/api/login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({username, password}),
+  });
+  if (!loginRes.ok) {
+    document.getElementById("lockErr").textContent = "Wrong username or password.";
+    return;
+  }
+  const loginData = await loginRes.json();
+  token = loginData.token;
+  localStorage.setItem("mtmVerifyToken", token);
+  document.getElementById("lockScreen").style.display = "none";
+  document.getElementById("mainScreen").style.display = "block";
+  const res = await fetch("/api/mtm-employees", {headers: headers()});
+  const emps = await res.json();
+  employees = Object.fromEntries(emps.map(e => [e.id, e.name]));
+  load();
+}
+
+async function load() {
+  const res = await fetch("/api/mtm-tasks", {headers: headers()});
+  tasks = await res.json();
+  render();
+}
+
+function render() {
+  const showAll = document.getElementById("showAll").checked;
+  const rows = document.getElementById("rows");
+  const visible = tasks.filter(t => showAll || t.verification === "pending");
+  if (!visible.length) {
+    rows.innerHTML = `<tr><td colspan="8" class="empty">No ${showAll ? "" : "pending "}entries.</td></tr>`;
+    return;
+  }
+  rows.innerHTML = visible.map(t => {
+    const name = employees[t.user_id] || t.user_id;
+    const isEditing = editingId === t.id;
+    const verPill = t.verification === "verified"
+      ? '<span class="pill pill-verified">Verified</span>'
+      : '<span class="pill pill-pending">Pending</span>';
+    if (isEditing) {
+      return `<tr>
+        <td>${name}<br><small style="color:var(--muted)">${t.user_id}</small></td>
+        <td>${t.sprint}</td>
+        <td><input class="num-in" id="e_assigned" type="number" value="${t.tasks_assigned}"></td>
+        <td><input class="num-in" id="e_completed" type="number" value="${t.tasks_completed}"></td>
+        <td><input class="num-in" id="e_util" type="number" step="0.01" value="${t.utilisation}"></td>
+        <td>${t.status}</td>
+        <td>${verPill}</td>
+        <td class="actions">
+          <button class="btn btn-save" onclick="saveEdit('${t.id}')">Save</button>
+          <button class="btn btn-edit" onclick="editingId=null;render()">Cancel</button>
+        </td>
+      </tr>`;
+    }
+    return `<tr>
+      <td>${name}<br><small style="color:var(--muted)">${t.user_id}</small></td>
+      <td>${t.sprint}</td>
+      <td>${t.tasks_assigned}</td>
+      <td>${t.tasks_completed}</td>
+      <td>${t.utilisation}</td>
+      <td>${t.status}</td>
+      <td>${verPill}</td>
+      <td class="actions">
+        ${t.verification !== "verified" ? `<button class="btn btn-verify" onclick="verify('${t.id}')">Verify</button>` : ""}
+        <button class="btn btn-edit" onclick="editingId='${t.id}';render()">Edit</button>
+        <button class="btn btn-delete" onclick="del('${t.id}')">Delete</button>
+      </td>
+    </tr>`;
+  }).join("");
+}
+
+async function verify(id) {
+  await fetch("/api/mtm-tasks/" + id, {method:"PUT", headers: headers(), body: JSON.stringify({verification:"verified"})});
+  load();
+}
+
+async function saveEdit(id) {
+  const body = {
+    tasks_assigned: parseInt(document.getElementById("e_assigned").value, 10),
+    tasks_completed: parseInt(document.getElementById("e_completed").value, 10),
+    utilisation: parseFloat(document.getElementById("e_util").value),
+  };
+  await fetch("/api/mtm-tasks/" + id, {method:"PUT", headers: headers(), body: JSON.stringify(body)});
+  editingId = null;
+  load();
+}
+
+async function del(id) {
+  if (!confirm("Delete this entry? This can't be undone.")) return;
+  await fetch("/api/mtm-tasks/" + id, {method:"DELETE", headers: headers()});
+  load();
+}
+
+if (token) {
+  fetch("/api/mtm-employees", {headers: headers()}).then(res => {
+    if (!res.ok) { localStorage.removeItem("mtmVerifyToken"); return; }
+    document.getElementById("lockScreen").style.display = "none";
+    document.getElementById("mainScreen").style.display = "block";
+    res.json().then(emps => {
+      employees = Object.fromEntries(emps.map(e => [e.id, e.name]));
+      load();
+    });
+  });
+}
+</script>
+</body>
+</html>
+"""
 
 
 def _load_env():
@@ -89,6 +323,20 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             return False
         return True
 
+    def _current_session(self) -> dict:
+        auth = self.headers.get("Authorization", "")
+        token = auth[7:] if auth.startswith("Bearer ") else ""
+        return _sessions.get(token, {})
+
+    def _require_admin_session(self) -> bool:
+        """MTM verification is restricted to password-login accounts — SSO (leadership) accounts don't get it."""
+        if not self._require_auth():
+            return False
+        if self._current_session().get("type") != "password":
+            self.send_json({"error": "MTM verification is restricted to admin accounts."}, HTTPStatus.FORBIDDEN)
+            return False
+        return True
+
     def do_GET(self):
         path = urlparse(self.path).path
 
@@ -105,6 +353,10 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
 
         if path in PUBLIC_PATHS:
             super().do_GET()
+            return
+
+        if path == "/verify":
+            self.send_html(VERIFY_PAGE_HTML)
             return
 
         # Root → login page
@@ -166,7 +418,111 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         if path == "/api/chat":
             self.handle_chat()
             return
+        if path == "/api/mtm-tasks/batch":
+            if not self._require_admin_session():
+                return
+            self.handle_mtm_batch()
+            return
         self.send_json({"error": "Route not found"}, HTTPStatus.NOT_FOUND)
+
+    def do_PUT(self):
+        path = urlparse(self.path).path
+        if path.startswith("/api/mtm-tasks/"):
+            if not self._require_admin_session():
+                return
+            self.handle_mtm_update(unquote(path.removeprefix("/api/mtm-tasks/")))
+            return
+        if not self._require_auth():
+            return
+        self.send_json({"error": "Route not found"}, HTTPStatus.NOT_FOUND)
+
+    def do_DELETE(self):
+        path = urlparse(self.path).path
+        if path.startswith("/api/mtm-tasks/"):
+            if not self._require_admin_session():
+                return
+            self.handle_mtm_delete(unquote(path.removeprefix("/api/mtm-tasks/")))
+            return
+        if not self._require_auth():
+            return
+        self.send_json({"error": "Route not found"}, HTTPStatus.NOT_FOUND)
+
+    def handle_mtm_batch(self):
+        length = min(int(self.headers.get("Content-Length", 0)), MAX_BODY)
+        try:
+            body = json.loads(self.rfile.read(length))
+        except (json.JSONDecodeError, ValueError):
+            self.send_json({"error": "Invalid request body."}, HTTPStatus.BAD_REQUEST)
+            return
+        rows = body.get("rows", [])
+        required = {"user_id", "sprint", "tasks_assigned", "tasks_completed", "utilisation"}
+        if not isinstance(rows, list) or not all(isinstance(r, dict) and required.issubset(r) for r in rows):
+            self.send_json({"error": f"'rows' must be a list of objects with {sorted(required)}."}, HTTPStatus.BAD_REQUEST)
+            return
+
+        known_ids = _known_mtm_ids()
+        row_ids = {str(r["user_id"]) for r in rows}
+        matched_rows = [r for r in rows if str(r["user_id"]) in known_ids]
+        extra_ids = row_ids - known_ids
+        missing_ids = known_ids - row_ids
+
+        tasks = _load_mtm_tasks()
+        stored = []
+        for row in matched_rows:
+            status = "Completed" if row["tasks_completed"] == row["tasks_assigned"] else "Partial"
+            clean = {
+                "user_id": str(row["user_id"]),
+                "sprint": str(row["sprint"]),
+                "tasks_assigned": int(row["tasks_assigned"]),
+                "tasks_completed": int(row["tasks_completed"]),
+                "utilisation": float(row["utilisation"]),
+            }
+            existing = next(
+                (t for t in tasks if t["user_id"] == clean["user_id"] and t["sprint"] == clean["sprint"]),
+                None,
+            )
+            if existing:
+                existing.update({"verification": "pending", "status": status, **clean})
+                stored.append(existing)
+            else:
+                entry = {"id": str(uuid.uuid4()), "verification": "pending", "status": status, **clean}
+                tasks.append(entry)
+                stored.append(entry)
+        _save_mtm_tasks(tasks)
+
+        self.send_json({
+            "stored": stored,
+            "rejected_ids_not_in_system": sorted(extra_ids),
+            "employees_missing_from_ppt": sorted(missing_ids),
+        })
+
+    def handle_mtm_update(self, entry_id):
+        length = min(int(self.headers.get("Content-Length", 0)), MAX_BODY)
+        try:
+            body = json.loads(self.rfile.read(length)) if length else {}
+        except (json.JSONDecodeError, ValueError):
+            self.send_json({"error": "Invalid request body."}, HTTPStatus.BAD_REQUEST)
+            return
+        allowed = {"tasks_assigned", "tasks_completed", "utilisation", "verification"}
+        changes = {k: v for k, v in body.items() if k in allowed and v is not None}
+        tasks = _load_mtm_tasks()
+        for t in tasks:
+            if t["id"] == entry_id:
+                t.update(changes)
+                _save_mtm_tasks(tasks)
+                self.send_json(t)
+                return
+        self.send_json({"error": "Task entry not found"}, HTTPStatus.NOT_FOUND)
+
+    def handle_mtm_delete(self, entry_id):
+        tasks = _load_mtm_tasks()
+        remaining = [t for t in tasks if t["id"] != entry_id]
+        if len(remaining) == len(tasks):
+            self.send_json({"error": "Task entry not found"}, HTTPStatus.NOT_FOUND)
+            return
+        _save_mtm_tasks(remaining)
+        self.send_response(HTTPStatus.NO_CONTENT)
+        self.end_headers()
 
     def _handle_sso_callback(self):
         from urllib.parse import parse_qs, urlparse, quote
@@ -229,6 +585,10 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         current_token = auth[7:] if auth.startswith("Bearer ") else ""
         current_session = _sessions.get(current_token, {})
 
+        if path.startswith("/api/mtm-") and current_session.get("type") != "password":
+            self.send_json({"error": "MTM verification is restricted to admin accounts."}, HTTPStatus.FORBIDDEN)
+            return
+
         routes = {
             "/api/health": lambda: {
                 "status": "ok",
@@ -266,6 +626,12 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             "/api/projects": lambda: data.get("projects", []),
             "/api/github-data": lambda: self.load_github_data(),
             "/api/graph-data": lambda: self.load_graph_data(),
+            "/api/mtm-employees": lambda: [
+                {"id": str(e["id"]), "name": e.get("name", "")}
+                for e in data.get("employees", [])
+                if e.get("isMtm")
+            ],
+            "/api/mtm-tasks": lambda: _load_mtm_tasks(),
         }
 
         if path in routes:
@@ -279,6 +645,15 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 self.send_json(employee)
             else:
                 self.send_json({"error": "Employee not found"}, HTTPStatus.NOT_FOUND)
+            return
+
+        if path.startswith("/api/mtm-tasks/"):
+            entry_id = unquote(path.removeprefix("/api/mtm-tasks/"))
+            for t in _load_mtm_tasks():
+                if t["id"] == entry_id:
+                    self.send_json(t)
+                    return
+            self.send_json({"error": "Task entry not found"}, HTTPStatus.NOT_FOUND)
             return
 
         if path.startswith("/api/attendance/"):
@@ -647,7 +1022,8 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
 
     def load_data(self):
         try:
-            return json.loads(DATA_FILE.read_text(encoding="utf-8-sig"))
+            data = json.loads(DATA_FILE.read_text(encoding="utf-8-sig"))
+            return _merge_mtm_sprint_data(data)
         except FileNotFoundError:
             self.send_json({
                 "error": "Data file not found",
@@ -676,6 +1052,14 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         body = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def send_html(self, html, status=HTTPStatus.OK):
+        body = html.encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)

@@ -613,6 +613,13 @@ async function boot() {
       if (nameEl)   { nameEl.textContent = me.name; nameEl.title = me.name; }
       if (typeEl)   typeEl.textContent   = me.type === "sso" ? "Microsoft account" : "Admin";
       if (wrapEl)   wrapEl.style.display = "flex";
+      // MTM verification is an admin-only tool — leadership signing in via SSO shouldn't see it
+      const mtmLink = document.getElementById("mtmVerifyLink");
+      const mtmLabel = document.getElementById("mtmAdminLabel");
+      if (me.type === "sso") {
+        if (mtmLink) mtmLink.style.display = "none";
+        if (mtmLabel) mtmLabel.style.display = "none";
+      }
     }
   }
   dataset = await loadDataset();
@@ -690,7 +697,7 @@ async function loadDataset({ fresh = false } = {}) {
 }
 
 function setupNavigation() {
-  document.querySelectorAll(".rail-item").forEach((button) => {
+  document.querySelectorAll(".rail-item[data-view]").forEach((button) => {
     button.addEventListener("click", () => {
       document.querySelectorAll(".rail-item").forEach((item) => item.classList.remove("active"));
       document.querySelectorAll(".view").forEach((view) => view.classList.remove("active-view"));
@@ -2540,6 +2547,36 @@ function renderAttendanceDetail(employeeId) {
     ["Performance band", employee.band || "KPI blank", employee.band ? "info" : "neutral"],
   ];
 
+  const mtmSummary = employee.mtmSprintSummary;
+  const mtmSection = employee.isMtm ? `
+    <section class="attendance-layout">
+      <article class="attendance-chart attendance-facts" style="grid-column: 1 / -1;">
+        <div class="attendance-chart-head">
+          <div>
+            <p class="eyebrow">Sprint Performance</p>
+            <h2>MTM Task Data</h2>
+          </div>
+          <span class="pill">${mtmSummary?.sprintsVerified || 0} verified · ${mtmSummary?.sprintsPending || 0} pending</span>
+        </div>
+        ${mtmSummary && mtmSummary.completionRate != null ? `
+          <div class="attendance-hours">
+            <div><strong>${mtmSummary.completionRate}%</strong><span class="subtle">Completion rate</span></div>
+            <div><strong>${mtmSummary.totalCompleted} / ${mtmSummary.totalAssigned}</strong><span class="subtle">Tasks completed / assigned</span></div>
+            <div><strong>${mtmSummary.avgUtilisation}</strong><span class="subtle">Average utilisation</span></div>
+          </div>
+          <div class="attendance-source-list">
+            ${employee.mtmSprints.map(s => `
+              <div>
+                <span>Sprint ${s.sprint}</span>
+                <strong class="attendance-source-good">${s.tasks_completed}/${s.tasks_assigned} tasks · ${s.utilisation} utilisation</strong>
+              </div>
+            `).join("")}
+          </div>
+        ` : `<p class="subtle" style="margin-top:12px">No verified sprint data yet for this employee — entries are pending review in the MTM verification screen.</p>`}
+      </article>
+    </section>
+  ` : "";
+
   detailEl.innerHTML = `
     <section class="attendance-hero attendance-hero-${health.tone}">
       <div class="attendance-person">
@@ -2620,6 +2657,7 @@ function renderAttendanceDetail(employeeId) {
         </div>
       </article>
     </section>
+    ${mtmSection}
   `;
 }
 
