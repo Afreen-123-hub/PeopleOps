@@ -81,6 +81,7 @@ def _known_mtm_ids() -> set[str]:
 SESSION_TTL = 8 * 3600  # 8 hours
 AUTO_REFRESH_INTERVAL = 24 * 3600  # refresh all data once every 24 hours
 MAX_BODY = 10_240  # 10 KB cap on all POST bodies
+MTM_MAX_BODY = 2_000_000  # 2 MB cap for MTM sprint batch uploads — can carry many employees x many sprints
 _sessions: dict[str, dict] = {}  # token -> {expiry, name, type}
 _last_full_refresh: float = 0.0   # epoch seconds of last successful full refresh
 _refresh_lock = threading.Lock()
@@ -146,6 +147,7 @@ VERIFY_PAGE_HTML = """<!doctype html>
   <p class="subtle">Check each entry against Senthil's sprint report, then verify, correct, or remove it.</p>
   <div class="toolbar">
     <button onclick="load()">Refresh</button>
+    <button id="verifyAllBtn" onclick="verifyAll()" style="background:var(--green)">Verify All Pending</button>
     <label><input type="checkbox" id="showAll" onchange="render()"> Show verified too</label>
   </div>
   <table>
@@ -239,6 +241,21 @@ function render() {
 
 async function verify(id) {
   await fetch("/api/mtm-tasks/" + id, {method:"PUT", headers: headers(), body: JSON.stringify({verification:"verified"})});
+  load();
+}
+
+async function verifyAll() {
+  const pending = tasks.filter(t => t.verification !== "verified");
+  if (!pending.length) { alert("No pending entries to verify."); return; }
+  if (!confirm(`Verify all ${pending.length} pending entries? Only do this after checking them against Senthil's report.`)) return;
+  const btn = document.getElementById("verifyAllBtn");
+  btn.disabled = true;
+  btn.textContent = "Verifying...";
+  for (const t of pending) {
+    await fetch("/api/mtm-tasks/" + t.id, {method:"PUT", headers: headers(), body: JSON.stringify({verification:"verified"})});
+  }
+  btn.disabled = false;
+  btn.textContent = "Verify All Pending";
   load();
 }
 
@@ -448,7 +465,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         self.send_json({"error": "Route not found"}, HTTPStatus.NOT_FOUND)
 
     def handle_mtm_batch(self):
-        length = min(int(self.headers.get("Content-Length", 0)), MAX_BODY)
+        length = min(int(self.headers.get("Content-Length", 0)), MTM_MAX_BODY)
         try:
             body = json.loads(self.rfile.read(length))
         except (json.JSONDecodeError, ValueError):
