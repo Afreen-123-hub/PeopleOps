@@ -92,7 +92,7 @@ def _to_presence_label(month: str) -> str:
 
 def _fetch_greythr(start: str, end: str) -> dict:
     try:
-        result = get_greythr_attendance(start, end)
+        result, _, _, _ = get_greythr_attendance(start, end)
         print(f"GreytHR attendance loaded: {len(result)} entries ({start} to {end})")
         return result
     except (GreytHRConfigError, GreytHRAuthError, GreytHRApiError) as exc:
