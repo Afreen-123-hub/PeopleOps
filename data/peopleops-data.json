@@ -161,7 +161,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -252,14 +252,13 @@
         "reporteeCount": 1
       },
       "missingSources": [
-        "worklogixActivity",
-        "github"
+        "worklogixActivity"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Planner Completion 33.3"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Planner Completion 33.3",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Planner Completion 33.3",
       "insufficientReason": null,
       "managerId": "CWINE001",
       "managerName": "Christina Arulraj",
@@ -10521,7 +10520,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -10610,13 +10609,12 @@
         "pmProjectScore": null
       },
       "missingSources": [
-        "worklogixActivity",
-        "github"
+        "worklogixActivity"
       ],
       "laggingDrivers": [
         "efficiency 0.0"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0",
       "insufficientReason": null,
       "dateOfJoining": "2026-05-14",
       "employmentType": "",
@@ -12736,7 +12734,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -12824,13 +12822,11 @@
         "mentorFeedback": null,
         "pmProjectScore": null
       },
-      "missingSources": [
-        "github"
-      ],
+      "missingSources": [],
       "laggingDrivers": [
         "Collaboration 43.7"
       ],
-      "gapReason": "Missing data from github; Lagging drivers: Collaboration 43.7",
+      "gapReason": "Lagging drivers: Collaboration 43.7",
       "insufficientReason": null,
       "dateOfJoining": "2026-05-01",
       "employmentType": "",
@@ -16661,7 +16657,7 @@
         "GitHub Contribution 13.9",
         "Collaboration 56.1"
       ],
-      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, GitHub Contribution 13.9, Collaboration 56.1",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 56.1",
       "insufficientReason": null,
       "dateOfJoining": "2026-04-01",
       "employmentType": "",
@@ -19208,7 +19204,7 @@
         "Planner Completion 0.0",
         "GitHub Contribution 0.9"
       ],
-      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Planner Completion 0.0, GitHub Contribution 0.9",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Planner Completion 0.0",
       "insufficientReason": null,
       "dateOfJoining": "2026-03-02",
       "employmentType": "",
@@ -21985,7 +21981,7 @@
         "efficiency 0.0",
         "GitHub Contribution 15.7"
       ],
-      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, GitHub Contribution 15.7",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -22850,7 +22846,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -22939,14 +22935,13 @@
         "pmProjectScore": null
       },
       "missingSources": [
-        "worklogixActivity",
-        "github"
+        "worklogixActivity"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 36.9"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Collaboration 36.9",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 36.9",
       "insufficientReason": null,
       "dateOfJoining": "2026-05-01",
       "employmentType": "",
@@ -23237,7 +23232,7 @@
         "GitHub Contribution 13.9",
         "Collaboration 46.7"
       ],
-      "gapReason": "Lagging drivers: GitHub Contribution 13.9, Collaboration 46.7",
+      "gapReason": "Collaboration 46.7",
       "insufficientReason": null,
       "managerId": "CWINE155",
       "managerName": "Thariq Abbas",
@@ -27996,7 +27991,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -28085,14 +28080,13 @@
         "pmProjectScore": null
       },
       "missingSources": [
-        "worklogixActivity",
-        "github"
+        "worklogixActivity"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 59.6"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Collaboration 59.6",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 59.6",
       "insufficientReason": null,
       "dateOfJoining": "2024-04-17",
       "employmentType": "",
@@ -31698,7 +31692,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -31787,14 +31781,13 @@
         "pmProjectScore": null
       },
       "missingSources": [
-        "worklogixActivity",
-        "github"
+        "worklogixActivity"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 52.0"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Collaboration 52.0",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 52.0",
       "insufficientReason": null,
       "dateOfJoining": "2026-07-01",
       "employmentType": "",
@@ -34585,7 +34578,7 @@
         "efficiency 0.0",
         "GitHub Contribution 3.5"
       ],
-      "gapReason": "Missing data from worklogixActivity, calendar, sharepoint; Lagging drivers: efficiency 0.0, GitHub Contribution 3.5",
+      "gapReason": "Missing data from worklogixActivity, calendar, sharepoint; Lagging drivers: efficiency 0.0",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -34831,7 +34824,7 @@
         "efficiency 0.0",
         "GitHub Contribution 0.0"
       ],
-      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, GitHub Contribution 0.0",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0",
       "insufficientReason": null,
       "dateOfJoining": "2026-04-01",
       "employmentType": "",
@@ -40590,7 +40583,7 @@
         "GitHub Contribution 14.8",
         "Collaboration 39.7"
       ],
-      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, GitHub Contribution 14.8, Collaboration 39.7",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 39.7",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -41735,7 +41728,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -41824,14 +41817,13 @@
         "pmProjectScore": null
       },
       "missingSources": [
-        "worklogixActivity",
-        "github"
+        "worklogixActivity"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 28.1"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Collaboration 28.1",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 28.1",
       "insufficientReason": null,
       "dateOfJoining": "2026-02-27",
       "employmentType": "",
@@ -47089,7 +47081,7 @@
         "Collaboration 9.4",
         "GitHub Contribution 18.3"
       ],
-      "gapReason": "Missing data from worklogixActivity, Biometrics; Lagging drivers: efficiency 0.0, Collaboration 9.4, GitHub Contribution 18.3",
+      "gapReason": "Missing data from worklogixActivity, Biometrics; Lagging drivers: efficiency 0.0, Collaboration 9.4",
       "insufficientReason": null,
       "dateOfJoining": "2026-05-01",
       "employmentType": "",
@@ -50068,7 +50060,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -50157,14 +50149,13 @@
         "pmProjectScore": null
       },
       "missingSources": [
-        "worklogixActivity",
-        "github"
+        "worklogixActivity"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 34.9"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Collaboration 34.9",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 34.9",
       "insufficientReason": null,
       "dateOfJoining": "2025-07-14",
       "employmentType": "",
@@ -55269,7 +55260,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -55358,14 +55349,13 @@
         "pmProjectScore": null
       },
       "missingSources": [
-        "worklogixActivity",
-        "github"
+        "worklogixActivity"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 23.4"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Collaboration 23.4",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 23.4",
       "insufficientReason": null,
       "dateOfJoining": "2025-01-06",
       "employmentType": "",
@@ -57638,7 +57628,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -57727,15 +57717,14 @@
         "pmProjectScore": null
       },
       "missingSources": [
-        "worklogixActivity",
-        "github"
+        "worklogixActivity"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Punctuality 0.0",
         "Collaboration 55.7"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Punctuality 0.0, Collaboration 55.7",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Punctuality 0.0, Collaboration 55.7",
       "insufficientReason": null,
       "managerId": "CWINE123",
       "managerName": "Trinita Rex",
@@ -59462,7 +59451,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -59551,15 +59540,14 @@
         "pmProjectScore": 100.0
       },
       "missingSources": [
-        "worklogixActivity",
-        "github"
+        "worklogixActivity"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Attendance 0.0",
         "Collaboration 34.4"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Attendance 0.0, Collaboration 34.4",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Attendance 0.0, Collaboration 34.4",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -61428,7 +61416,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -61511,14 +61499,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE001",
       "managerName": "Christina Arulraj",
@@ -61628,7 +61615,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -61711,14 +61698,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -61828,7 +61814,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -61914,14 +61900,13 @@
       "missingSources": [
         "worklogixActivity",
         "Biometrics",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -62131,7 +62116,7 @@
         "GitHub Contribution 19.1",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, GitHub Contribution 19.1, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE123",
       "managerName": "Trinita Rex",
@@ -62405,7 +62390,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -62488,14 +62473,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -62605,7 +62589,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -62688,14 +62672,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -62805,7 +62788,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -62889,14 +62872,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -63006,7 +62988,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -63090,14 +63072,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE074",
       "managerName": "Divya Sree D V",
@@ -63207,7 +63188,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -63293,14 +63274,13 @@
       "missingSources": [
         "worklogixActivity",
         "Biometrics",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE123",
       "managerName": "Trinita Rex",
@@ -64259,7 +64239,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -64342,14 +64322,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -64459,7 +64438,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -64542,14 +64521,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -64659,7 +64637,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -64742,14 +64720,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -64859,7 +64836,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -64945,14 +64922,13 @@
       "missingSources": [
         "worklogixActivity",
         "Biometrics",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE020",
       "managerName": "Felista Johnbritto",
@@ -65914,7 +65890,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -65998,14 +65974,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE084",
       "managerName": "Prasanth Pradeep Kumar",
@@ -66213,7 +66188,7 @@
         "GitHub Contribution 15.7",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, GitHub Contribution 15.7, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE074",
       "managerName": "Divya Sree D V",
@@ -66323,7 +66298,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -66406,14 +66381,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE074",
       "managerName": "Divya Sree D V",
@@ -66523,7 +66497,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -66606,14 +66580,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE074",
       "managerName": "Divya Sree D V",
@@ -66723,7 +66696,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -66806,14 +66779,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE019",
       "managerName": "Ganesan Ashokkumar",
@@ -66923,7 +66895,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -67006,14 +66978,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE019",
       "managerName": "Ganesan Ashokkumar",
@@ -67123,7 +67094,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -67209,14 +67180,13 @@
       "missingSources": [
         "worklogixActivity",
         "Biometrics",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE121",
       "managerName": "Divya R",
@@ -67326,7 +67296,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -67410,14 +67380,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -67527,7 +67496,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -67610,14 +67579,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -67727,7 +67695,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -67811,14 +67779,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -67928,7 +67895,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -68014,14 +67981,13 @@
       "missingSources": [
         "worklogixActivity",
         "Biometrics",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE153",
       "managerName": "Asir Alex Reagan J",
@@ -68994,7 +68960,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -69077,14 +69043,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -69194,7 +69159,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -69278,14 +69243,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -69395,7 +69359,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -69478,14 +69442,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -69595,7 +69558,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -69681,14 +69644,13 @@
       "missingSources": [
         "worklogixActivity",
         "Biometrics",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE084",
       "managerName": "Prasanth Pradeep Kumar",
@@ -70306,7 +70268,7 @@
         "GitHub Contribution 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, GitHub Contribution 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -70472,7 +70434,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -70555,14 +70517,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE155",
       "managerName": "Thariq Abbas",
@@ -70672,7 +70633,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -70755,14 +70716,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE053",
       "managerName": "Senthil Kumar",
@@ -70872,7 +70832,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -70958,14 +70918,13 @@
       "missingSources": [
         "worklogixActivity",
         "Biometrics",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE117",
       "managerName": "Dhinaanithi V K",
@@ -71093,7 +71052,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -71176,14 +71135,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE001",
       "managerName": "Christina Arulraj",
@@ -71293,7 +71251,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -71377,14 +71335,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -71494,7 +71451,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -71578,14 +71535,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -71695,7 +71651,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -71781,14 +71737,13 @@
       "missingSources": [
         "worklogixActivity",
         "Biometrics",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE084",
       "managerName": "Prasanth Pradeep Kumar",
@@ -73136,7 +73091,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -73222,14 +73177,13 @@
       "missingSources": [
         "worklogixActivity",
         "Biometrics",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE123",
       "managerName": "Trinita Rex",
@@ -75185,7 +75139,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -75268,14 +75222,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE123",
       "managerName": "Trinita Rex",
@@ -75385,7 +75338,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -75469,14 +75422,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -75586,7 +75538,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -75670,14 +75622,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -75787,7 +75738,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -75871,14 +75822,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -75988,7 +75938,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -76074,14 +76024,13 @@
       "missingSources": [
         "worklogixActivity",
         "Biometrics",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -76288,7 +76237,7 @@
         "GitHub Contribution 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, GitHub Contribution 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -76398,7 +76347,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -76481,14 +76430,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE084",
       "managerName": "Prasanth Pradeep Kumar",
@@ -76598,7 +76546,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -76681,14 +76629,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -76798,7 +76745,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -76881,14 +76828,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -76998,7 +76944,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -77082,14 +77028,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -77199,7 +77144,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -77282,14 +77227,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE084",
       "managerName": "Prasanth Pradeep Kumar",
@@ -77399,7 +77343,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -77482,14 +77426,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE025",
       "managerName": "Sainath M",
@@ -77599,7 +77542,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -77682,14 +77625,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE117",
       "managerName": "Dhinaanithi V K",
@@ -77799,7 +77741,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -77883,14 +77825,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -78000,7 +77941,7 @@
         "teams": true,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -78083,14 +78024,13 @@
         "worklogixActivity",
         "Biometrics",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": "CWINE117",
       "managerName": "Dhinaanithi V K",
@@ -78200,7 +78140,7 @@
         "teams": false,
         "calendar": false,
         "sharepoint": false,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -78284,14 +78224,13 @@
         "Biometrics",
         "Teams",
         "calendar",
-        "sharepoint",
-        "github"
+        "sharepoint"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint, github; Lagging drivers: efficiency 0.0, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -78499,7 +78438,7 @@
         "GitHub Contribution 15.7",
         "Collaboration 50"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, GitHub Contribution 15.7, Collaboration 50",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity, Biometrics, Teams, calendar, sharepoint; Lagging drivers: efficiency 0.0, Collaboration 50",
       "insufficientReason": null,
       "managerId": null,
       "managerName": null,
@@ -79786,7 +79725,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -79874,16 +79813,14 @@
         "mentorFeedback": null,
         "pmProjectScore": null
       },
-      "missingSources": [
-        "github"
-      ],
+      "missingSources": [],
       "laggingDrivers": [
         "Punctuality 0.0",
         "efficiency 30.0",
         "Task Completion 33.3",
         "Collaboration 36.8"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from github; Lagging drivers: Punctuality 0.0, efficiency 30.0, Task Completion 33.3",
+      "gapReason": "KPI is below high-performance level; Lagging drivers: Punctuality 0.0, efficiency 30.0, Task Completion 33.3",
       "insufficientReason": null,
       "dateOfJoining": "2025-03-14",
       "employmentType": "",
@@ -85603,7 +85540,7 @@
         "GitHub Contribution 18.3",
         "Collaboration 44.1"
       ],
-      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Attendance 0.0, GitHub Contribution 18.3",
+      "gapReason": "KPI is below high-performance level; Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Attendance 0.0",
       "insufficientReason": null,
       "managerId": "CWINE019",
       "managerName": "Ganesan Ashokkumar",
@@ -86381,7 +86318,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -86478,7 +86415,7 @@
         "efficiency 0.0",
         "Collaboration 38.8"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Collaboration 38.8",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 38.8",
       "insufficientReason": null,
       "dateOfJoining": "2021-03-09",
       "employmentType": "",
@@ -92149,7 +92086,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -92246,7 +92183,7 @@
         "efficiency 0.0",
         "Collaboration 44.8"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Collaboration 44.8",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 44.8",
       "insufficientReason": null,
       "dateOfJoining": "2026-04-20",
       "employmentType": "",
@@ -96021,7 +95958,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -96119,7 +96056,7 @@
         "Collaboration 36.4",
         "Attendance 38.5"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Collaboration 36.4, Attendance 38.5",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 36.4, Attendance 38.5",
       "insufficientReason": null,
       "managerId": "TCINMD02",
       "managerName": "Vijay Anand",
@@ -99240,7 +99177,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -99331,14 +99268,13 @@
         "reporteeCount": 3
       },
       "missingSources": [
-        "worklogixActivity",
-        "github"
+        "worklogixActivity"
       ],
       "laggingDrivers": [
         "efficiency 0.0",
         "Collaboration 33.3"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Collaboration 33.3",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 33.3",
       "insufficientReason": null,
       "dateOfJoining": "2021-04-26",
       "employmentType": "",
@@ -100686,7 +100622,7 @@
         "teams": true,
         "calendar": true,
         "sharepoint": true,
-        "github": false
+        "github": true
       },
       "worklogixScore": {},
       "worklogix": {
@@ -100783,7 +100719,7 @@
         "efficiency 0.0",
         "Collaboration 40.3"
       ],
-      "gapReason": "Missing data from worklogixActivity, github; Lagging drivers: efficiency 0.0, Collaboration 40.3",
+      "gapReason": "Missing data from worklogixActivity; Lagging drivers: efficiency 0.0, Collaboration 40.3",
       "insufficientReason": null,
       "managerId": "CWINE123",
       "managerName": "Trinita Rex",
