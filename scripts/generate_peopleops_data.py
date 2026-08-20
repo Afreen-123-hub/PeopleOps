@@ -1552,7 +1552,7 @@ def main():
                 "teams": bool(tm),
                 "calendar": cal is not None,
                 "sharepoint": sp is not None,
-                "github": gc is not None,
+                "github": (gc is not None) if role_cat == "technical" else True,
             }
             role_cat = get_role_category(emp.get("designation", ""))
             # Leadership structure overrides: Senthil Kumar and Lexila T A are confirmed
