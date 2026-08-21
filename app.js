@@ -1821,8 +1821,8 @@ function renderPeopleTable() {
     const teamChipCls = e.isMtm ? "p-team-chip p-team-chip-indigo" : "p-team-chip";
     return `<tr data-index="${index}" class="${e.isMtm ? 'is-mtm-row' : ''}">
           <td><div class="person-row"><div class="${avatarCls}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong>${typeBadge}<small>${e.designation || "Unassigned"}</small><span class="${teamChipCls}">${mergedTeam(e.team || "Unassigned")}</span></div></div></td>
-          <td class="numeric-cell"><div class="pt-kpi-cell"><span class="score ${kpiCls}">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${kpiBarColor}"></span></span></div></td>
-          <td>${e.band ? `<span class="band ${bandClass(e.band)}">${bandDisplay}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
+          <td class="numeric-cell">${e.roleCategory === "intern" ? `<span style="color:#94a3b8;font-size:0.85rem">N/A</span>` : `<div class="pt-kpi-cell"><span class="score ${kpiCls}">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${kpiBarColor}"></span></span></div>`}</td>
+          <td>${e.roleCategory === "intern" ? `<span style="color:#94a3b8;font-size:0.85rem">—</span>` : e.band ? `<span class="band ${bandClass(e.band)}">${bandDisplay}</span>` : '<span class="band no-info">Pending Link</span>'} ${e.roleCategory !== "intern" ? lowConfidenceWarning(e) : ""}</td>
           <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
           <td class="numeric-cell">${e.attendance.present}</td>
           <td class="numeric-cell">${e.attendance.leave ?? 0}</td>
