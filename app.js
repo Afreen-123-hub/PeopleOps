@@ -3086,6 +3086,7 @@ function showEmployee(e) {
 
     const detailEl = document.getElementById("employeeDetail");
     if (detailEl) {
+      const deliveryColor = s.completionRate >= 90 ? "#16a34a" : s.completionRate >= 70 ? "#d97706" : "#dc2626";
       detailEl.innerHTML = `
       <section class="detail">
         <div class="emp-detail-header">
@@ -3094,11 +3095,30 @@ function showEmployee(e) {
             <h1>${e.name}<span class="mtm-row-badge" style="margin-left:8px">MTM</span></h1>
             <p>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}${e.managerName ? ` &middot; Reports to <strong>${e.managerName}</strong>` : ""}</p>
           </div>
+          ${hasVerified ? `
+          <div class="emp-kpi-ring" style="--pct:${Math.min(100, Math.max(0, s.completionRate))};--c:${deliveryColor};margin-left:auto;flex:none">
+            <div class="emp-kpi-ring-inner">
+              <span class="emp-kpi-val">${s.completionRate}</span>
+              <span class="emp-kpi-lbl">Delivery</span>
+            </div>
+          </div>` : ""}
         </div>
 
         <div class="empty-note" style="background:#eef0fd;color:#4338CA;border-color:#4338CA">
-          MTM employee — evaluated on verified sprint delivery, not Worklogix task activity or office biometrics. No KPI score is computed here on purpose.
+          ${hasVerified
+            ? "Delivery Score, not the standard KPI — built from verified sprint completion, since Worklogix data doesn't exist for MTM employees."
+            : "MTM employee — evaluated on verified sprint delivery, not Worklogix task activity or office biometrics. No score is computed here yet."}
         </div>
+
+        ${att && (att.present || att.absent || att.leave || att.off || att.holidays) ? `
+        <h3 class="detail-section-title">Attendance (GreytHR)</h3>
+        <div class="detail-grid4">
+          <div class="dg-stat"><span class="dg-val">${att.present ?? 0}</span><span class="dg-lbl">Present</span></div>
+          <div class="dg-stat ${(att.absent ?? 0) > 0 ? "dg-warn" : ""}"><span class="dg-val">${att.absent ?? 0}</span><span class="dg-lbl">Absent</span></div>
+          <div class="dg-stat"><span class="dg-val">${att.leave ?? 0}</span><span class="dg-lbl">Leave</span></div>
+          <div class="dg-stat"><span class="dg-val">${att.off ?? 0}</span><span class="dg-lbl">Week Off</span></div>
+          <div class="dg-stat"><span class="dg-val">${att.holidays ?? 0}</span><span class="dg-lbl">Holidays</span></div>
+        </div>` : ""}
 
         <h3 class="detail-section-title">Sprint Performance <span style="font-weight:400;color:var(--muted)">(${s.sprintsVerified || 0} verified &middot; ${s.sprintsPending || 0} pending)</span></h3>
         ${hasVerified ? `
@@ -3129,6 +3149,15 @@ function showEmployee(e) {
         <h3 class="detail-section-title">Data Sources</h3>
         <div class="source-chips">${mtmSources}</div>
         ` : ""}
+
+        ${hasVerified ? `
+        <div class="gap-reason-note" style="background:#eef0fd;border-color:#4338CA">
+          <span class="gap-reason-icon" style="color:#4338CA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></span>
+          <div class="gap-reason-text">
+            <strong>${att.present ?? 0} present day${(att.present ?? 0) === 1 ? "" : "s"}, ${att.absent ?? 0} absence${(att.absent ?? 0) === 1 ? "" : "s"}, and ${s.completionRate}% task delivery across ${s.sprintsVerified} verified sprint${s.sprintsVerified === 1 ? "" : "s"}.</strong>
+            <span>Real, verified evidence of this employee's contribution — not a blank or misleading score.</span>
+          </div>
+        </div>` : ""}
       </section>`;
       document.querySelectorAll("dialog[open]").forEach(d => d.close());
       document.getElementById("employeeDialog").showModal();
