@@ -12,6 +12,7 @@ const state = {
   team: "all",
   confidence: 0,
   showInterns: true,
+  type: "all",
 };
 
 const DEMO_MODE = false;
@@ -733,19 +734,50 @@ function setupFilters() {
     state.search = event.target.value.toLowerCase();
     applyFilters();
   });
+  // Panels are moved to <body> while open (see below) so position:fixed measures against the
+  // real viewport, not a filtered/clipped ancestor (.gradient-panel's overflow:hidden and
+  // .controls.gradient-controls's backdrop-filter both create their own containing block).
+  // Once moved, the panel is no longer inside its wrap, so every lookup below goes through
+  // this map instead of .closest()/querySelector(), which would otherwise stop finding it.
+  const bandPanelByWrap = new Map();
+  const bandWrapByPanel = new Map();
+  document.querySelectorAll(".band-select-wrap").forEach((wrap) => {
+    const panel = wrap.querySelector(".band-select-panel");
+    if (panel) {
+      bandPanelByWrap.set(wrap, panel);
+      bandWrapByPanel.set(panel, wrap);
+    }
+  });
+
+  function closeBandPanel(panel) {
+    const home = bandWrapByPanel.get(panel);
+    if (!home || panel.hidden) return;
+    home.appendChild(panel);
+    panel.style.position = "";
+    panel.style.top = "";
+    panel.style.left = "";
+    panel.hidden = true;
+    home.querySelector(".band-select-trigger")?.setAttribute("aria-expanded", "false");
+  }
+
   document.querySelectorAll(".band-select-trigger").forEach((trigger) => {
     trigger.addEventListener("click", (e) => {
       e.stopPropagation();
       const wrap = trigger.closest(".band-select-wrap");
-      const panel = wrap.querySelector(".band-select-panel");
+      const panel = bandPanelByWrap.get(wrap);
+      if (!panel) return;
       const isOpen = !panel.hidden;
-      document.querySelectorAll(".band-select-panel:not([hidden])").forEach((p) => {
-        if (p !== panel) {
-          p.hidden = true;
-          p.closest(".band-select-wrap")?.querySelector(".band-select-trigger")?.setAttribute("aria-expanded", "false");
-        }
-      });
-      panel.hidden = isOpen;
+      bandPanelByWrap.forEach((p) => { if (p !== panel) closeBandPanel(p); });
+      if (isOpen) {
+        closeBandPanel(panel);
+      } else {
+        const rect = trigger.getBoundingClientRect();
+        document.body.appendChild(panel);
+        panel.style.position = "fixed";
+        panel.style.top = `${rect.bottom + 6}px`;
+        panel.style.left = `${rect.left}px`;
+        panel.hidden = false;
+      }
       trigger.setAttribute("aria-expanded", String(!isOpen));
     });
   });
@@ -761,6 +793,10 @@ function setupFilters() {
       applyFilters();
     });
   });
+  document.getElementById("peopleTypeFilter")?.addEventListener("change", (event) => {
+    state.type = event.target.value;
+    applyFilters();
+  });
   document.getElementById("internToggle").addEventListener("change", (event) => {
     state.showInterns = event.target.checked;
     applyFilters();
@@ -775,21 +811,18 @@ function setupFilters() {
     if (um) um.classList.remove("open");
     const opt = e.target.closest(".band-select-opt");
     if (opt) {
-      const wrap = opt.closest(".band-select-wrap");
+      const panel = opt.closest(".band-select-panel");
+      const wrap = panel && bandWrapByPanel.get(panel);
       if (wrap) {
         state.band = opt.dataset.value;
         updateBandDropdowns(state.band);
-        wrap.querySelector(".band-select-panel").hidden = true;
-        wrap.querySelector(".band-select-trigger")?.setAttribute("aria-expanded", "false");
+        closeBandPanel(panel);
         applyFilters();
       }
       return;
     }
-    if (!e.target.closest(".band-select-wrap")) {
-      document.querySelectorAll(".band-select-panel:not([hidden])").forEach((p) => {
-        p.hidden = true;
-        p.closest(".band-select-wrap")?.querySelector(".band-select-trigger")?.setAttribute("aria-expanded", "false");
-      });
+    if (!e.target.closest(".band-select-wrap") && !e.target.closest(".band-select-panel")) {
+      bandPanelByWrap.forEach((p) => closeBandPanel(p));
     }
   });
   const dotsBtn = document.getElementById("railUserDotsBtn");
@@ -934,10 +967,24 @@ function isIntern(employee) {
   return employee.roleCategory === "intern" || employee.roleCategory === "trainee";
 }
 
+// Distinct from isIntern() above (which lumps intern+trainee together for the showInterns
+// toggle) — this keeps all four groups separate for the Type filter, since MTM is an
+// operationally different distinction than role seniority.
+function employeeType(employee) {
+  if (employee.isMtm) return "mtm";
+  if (employee.roleCategory === "intern") return "intern";
+  if (employee.roleCategory === "trainee") return "trainee";
+  return "employee";
+}
+const EMPLOYEE_TYPE_LABELS = { employee: "Employee", intern: "Intern", trainee: "Trainee", mtm: "MTM" };
+
 function applyFilters() {
   filteredEmployees = dataset.employees
     .filter((employee) => {
-      if (!state.showInterns && isIntern(employee)) return false;
+      // The showInterns toggle only hides interns/trainees when no specific Type is chosen —
+      // picking a Type explicitly (e.g. "Interns") always overrides that default hiding.
+      if (state.type === "all" && !state.showInterns && isIntern(employee)) return false;
+      if (state.type !== "all" && employeeType(employee) !== state.type) return false;
       const text = [employee.name, employee.id, employee.team, employee.designation].join(" ").toLowerCase();
       return (
         text.includes(state.search) &&
@@ -964,6 +1011,10 @@ function applyFilters() {
   ["confidenceFilter", "kpiConfidenceFilter", "peopleConfidenceFilter"].forEach((id) => {
     const el = document.getElementById(id);
     if (el && Number(el.value) !== state.confidence) el.value = String(state.confidence);
+  });
+  ["peopleTypeFilter"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.value !== state.type) el.value = state.type;
   });
   renderAll();
   // When a search is active on the overview, show matching employees in the drilldown panel
@@ -1762,10 +1813,14 @@ function renderPeopleTable() {
     const kpiBarColor = e.kpi >= 85 ? "#16a34a" : e.kpi >= 70 ? "#d97706" : "#dc2626";
     const bandDisplay = e.band === "Insufficient Data" ? "No Data" : e.band === "Needs Improvement" ? "Needs Improv." : (e.band || "");
     const avatarCls = e.isMtm ? "p-avatar p-avatar-indigo" : "p-avatar p-avatar-teal";
-    const mtmBadge = e.isMtm ? '<span class="mtm-row-badge">MTM</span>' : '';
+    const eType = employeeType(e);
+    const typeBadge = eType === "mtm" ? '<span class="mtm-row-badge">MTM</span>'
+      : eType === "intern" ? '<span class="intern-row-badge">Intern</span>'
+      : eType === "trainee" ? '<span class="trainee-row-badge">Trainee</span>'
+      : '';
     const teamChipCls = e.isMtm ? "p-team-chip p-team-chip-indigo" : "p-team-chip";
     return `<tr data-index="${index}" class="${e.isMtm ? 'is-mtm-row' : ''}">
-          <td><div class="person-row"><div class="${avatarCls}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong>${mtmBadge}<small>${e.designation || "Unassigned"}</small><span class="${teamChipCls}">${mergedTeam(e.team || "Unassigned")}</span></div></div></td>
+          <td><div class="person-row"><div class="${avatarCls}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong>${typeBadge}<small>${e.designation || "Unassigned"}</small><span class="${teamChipCls}">${mergedTeam(e.team || "Unassigned")}</span></div></div></td>
           <td class="numeric-cell"><div class="pt-kpi-cell"><span class="score ${kpiCls}">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${kpiBarColor}"></span></span></div></td>
           <td>${e.band ? `<span class="band ${bandClass(e.band)}">${bandDisplay}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
           <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
