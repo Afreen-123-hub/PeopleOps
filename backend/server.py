@@ -832,7 +832,29 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             print(f"[refresh-month] {line}", flush=True)
         for line in result.stderr.splitlines():
             print(f"[refresh-month:err] {line}", flush=True)
+        def _load_cached_month(month: str) -> dict:
+            cached = PROJECT_ROOT / "data" / "months" / f"{month}.json"
+            if cached.exists():
+                try:
+                    d = json.loads(cached.read_text(encoding="utf-8-sig"))
+                    if d.get("employees"):
+                        return d
+                except Exception:
+                    pass
+            return {}
+
         if result.returncode != 0:
+            cached_data = _load_cached_month(month)
+            if cached_data:
+                print(f"[refresh-month] API failed — serving cached snapshot for {month}", flush=True)
+                self.send_json({
+                    "status": "cached",
+                    "month": month,
+                    "period": cached_data.get("meta", {}).get("period", ""),
+                    "employees": len(cached_data.get("employees", [])),
+                    "data": cached_data,
+                })
+                return
             detail = next(
                 (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
                 "Data could not be refreshed for that month. Check API connectivity and try again.",
@@ -845,12 +867,18 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         except Exception:
             data = {}
         if not data.get("employees"):
-            # Extract the most descriptive error line from generator output
-            diag = next(
-                (line[len("ERROR:"):].strip() for line in result.stderr.splitlines() if line.startswith("ERROR:")),
-                "",
-            )
-            message = diag or f"No employee data was generated for {month}. Check Worklogix API connectivity."
+            cached_data = _load_cached_month(month)
+            if cached_data:
+                print(f"[refresh-month] empty output — serving cached snapshot for {month}", flush=True)
+                self.send_json({
+                    "status": "cached",
+                    "month": month,
+                    "period": cached_data.get("meta", {}).get("period", ""),
+                    "employees": len(cached_data.get("employees", [])),
+                    "data": cached_data,
+                })
+                return
+            message = f"No employee data was generated for {month}. Check Worklogix API connectivity."
             self.send_json({"status": "failed", "message": message}, HTTPStatus.INTERNAL_SERVER_ERROR)
             return
         # Save a permanent month snapshot so Tara can answer month-specific questions
