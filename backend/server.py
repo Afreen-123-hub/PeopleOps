@@ -34,7 +34,9 @@ API_FETCHER = PROJECT_ROOT / "scripts" / "fetch_real_api_data.py"
 ENV_FILE = PROJECT_ROOT.parent / ".env"
 
 def _merge_mtm_sprint_data(data: dict) -> dict:
-    """Attach verified MTM sprint entries (from the MTM task API) onto each MTM employee's record."""
+    """Attach verified MTM sprint entries (from the MTM task API) onto each MTM employee's record,
+    plus team-wide rollup stats (rank, share of team output, vs-team-average deltas) so an
+    individual's contribution to their manager's team performance is visible, not just their own numbers."""
     try:
         tasks = json.loads(MTM_TASKS_FILE.read_text(encoding="utf-8")) if MTM_TASKS_FILE.exists() else []
     except (json.JSONDecodeError, OSError):
@@ -44,9 +46,10 @@ def _merge_mtm_sprint_data(data: dict) -> dict:
     for t in tasks:
         by_employee.setdefault(t.get("user_id", ""), []).append(t)
 
-    for employee in data.get("employees", []):
-        if not employee.get("isMtm"):
-            continue
+    mtm_employees = [e for e in data.get("employees", []) if e.get("isMtm")]
+
+    # First pass: each employee's own verified summary.
+    for employee in mtm_employees:
         entries = sorted(by_employee.get(employee.get("id", ""), []), key=lambda t: t.get("sprint", ""))
         verified = [t for t in entries if t.get("verification") == "verified"]
         total_assigned = sum(t.get("tasks_assigned", 0) for t in verified)
@@ -57,9 +60,30 @@ def _merge_mtm_sprint_data(data: dict) -> dict:
             "sprintsPending": len(entries) - len(verified),
             "totalAssigned": total_assigned,
             "totalCompleted": total_completed,
-            "completionRate": round(total_completed / total_assigned * 100) if total_assigned else None,
+            "completionRate": round(total_completed / total_assigned * 100, 1) if total_assigned else None,
             "avgUtilisation": round(sum(t.get("utilisation", 0) for t in verified) / len(verified), 2) if verified else None,
         }
+
+    # Second pass: team-wide rollup, only across employees who actually have verified data.
+    contributors = [e for e in mtm_employees if e["mtmSprintSummary"]["totalAssigned"] > 0]
+    if contributors:
+        team_assigned = sum(e["mtmSprintSummary"]["totalAssigned"] for e in contributors)
+        team_completed = sum(e["mtmSprintSummary"]["totalCompleted"] for e in contributors)
+        team_completion_rate = round(team_completed / team_assigned * 100, 1) if team_assigned else None
+        team_avg_utilisation = round(
+            sum(e["mtmSprintSummary"]["avgUtilisation"] for e in contributors) / len(contributors), 2
+        )
+        ranked = sorted(contributors, key=lambda e: -e["mtmSprintSummary"]["totalCompleted"])
+        for rank, employee in enumerate(ranked, start=1):
+            s = employee["mtmSprintSummary"]
+            s["teamRank"] = rank
+            s["teamSize"] = len(contributors)
+            s["teamShare"] = round(s["totalCompleted"] / team_completed * 100, 1) if team_completed else None
+            s["teamCompletionRate"] = team_completion_rate
+            s["teamAvgUtilisation"] = team_avg_utilisation
+            s["completionVsTeam"] = round(s["completionRate"] - team_completion_rate, 1) if s["completionRate"] is not None and team_completion_rate is not None else None
+            s["utilisationVsTeam"] = round(s["avgUtilisation"] - team_avg_utilisation, 2) if s["avgUtilisation"] is not None else None
+
     return data
 
 

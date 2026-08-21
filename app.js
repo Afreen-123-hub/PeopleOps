@@ -2547,36 +2547,6 @@ function renderAttendanceDetail(employeeId) {
     ["Performance band", employee.band || "KPI blank", employee.band ? "info" : "neutral"],
   ];
 
-  const mtmSummary = employee.mtmSprintSummary;
-  const mtmSection = employee.isMtm ? `
-    <section class="attendance-layout">
-      <article class="attendance-chart attendance-facts" style="grid-column: 1 / -1;">
-        <div class="attendance-chart-head">
-          <div>
-            <p class="eyebrow">Sprint Performance</p>
-            <h2>MTM Task Data</h2>
-          </div>
-          <span class="pill">${mtmSummary?.sprintsVerified || 0} verified · ${mtmSummary?.sprintsPending || 0} pending</span>
-        </div>
-        ${mtmSummary && mtmSummary.completionRate != null ? `
-          <div class="attendance-hours">
-            <div><strong>${mtmSummary.completionRate}%</strong><span class="subtle">Completion rate</span></div>
-            <div><strong>${mtmSummary.totalCompleted} / ${mtmSummary.totalAssigned}</strong><span class="subtle">Tasks completed / assigned</span></div>
-            <div><strong>${mtmSummary.avgUtilisation}</strong><span class="subtle">Average utilisation</span></div>
-          </div>
-          <div class="attendance-source-list">
-            ${employee.mtmSprints.map(s => `
-              <div>
-                <span>Sprint ${s.sprint}</span>
-                <strong class="attendance-source-good">${s.tasks_completed}/${s.tasks_assigned} tasks · ${s.utilisation} utilisation</strong>
-              </div>
-            `).join("")}
-          </div>
-        ` : `<p class="subtle" style="margin-top:12px">No verified sprint data yet for this employee — entries are pending review in the MTM verification screen.</p>`}
-      </article>
-    </section>
-  ` : "";
-
   detailEl.innerHTML = `
     <section class="attendance-hero attendance-hero-${health.tone}">
       <div class="attendance-person">
@@ -2657,7 +2627,6 @@ function renderAttendanceDetail(employeeId) {
         </div>
       </article>
     </section>
-    ${mtmSection}
   `;
 }
 
@@ -3102,6 +3071,71 @@ function showEmployee(e) {
   const presentCapped = Math.min(att.present ?? 0, scheduledDays);
   const attPct = effectiveCalDays ? Math.round((presentCapped / scheduledDays) * 100) : null;
 
+  // MTM employees don't have Worklogix/Biometrics data by design — the standard KPI/band/quadrant
+  // template is computed entirely from that data, so showing it here would be a false read, not a
+  // gap. Render a separate, honest template instead: real available sources + verified sprint
+  // delivery + how that delivery contributes to the manager's team, which is what's actually true.
+  if (e.isMtm) {
+    const s = e.mtmSprintSummary || {};
+    const hasVerified = s.completionRate != null;
+    const mtmSourceLabels = { greythr: "GreytHR", teams: "Teams", calendar: "Calendar", sharepoint: "SharePoint" };
+    const mtmSources = Object.entries(e.sources || {})
+      .filter(([name, ok]) => name in mtmSourceLabels && ok)
+      .map(([name]) => `<span class="source-chip ok">✓ ${mtmSourceLabels[name]}${name === "greythr" && attPct != null ? ` ${attPct}%` : ""}</span>`)
+      .join("");
+
+    const detailEl = document.getElementById("employeeDetail");
+    if (detailEl) {
+      detailEl.innerHTML = `
+      <section class="detail">
+        <div class="emp-detail-header">
+          <div class="emp-detail-avatar">${initials}</div>
+          <div class="emp-detail-identity">
+            <h1>${e.name}<span class="mtm-row-badge" style="margin-left:8px">MTM</span></h1>
+            <p>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}${e.managerName ? ` &middot; Reports to <strong>${e.managerName}</strong>` : ""}</p>
+          </div>
+        </div>
+
+        <div class="empty-note" style="background:#eef0fd;color:#4338CA;border-color:#4338CA">
+          MTM employee — evaluated on verified sprint delivery, not Worklogix task activity or office biometrics. No KPI score is computed here on purpose.
+        </div>
+
+        <h3 class="detail-section-title">Sprint Performance <span style="font-weight:400;color:var(--muted)">(${s.sprintsVerified || 0} verified &middot; ${s.sprintsPending || 0} pending)</span></h3>
+        ${hasVerified ? `
+        <div class="detail-grid4">
+          <div class="dg-stat"><span class="dg-val">${s.completionRate}%</span><span class="dg-lbl">Completion Rate</span></div>
+          <div class="dg-stat"><span class="dg-val">${s.totalCompleted} / ${s.totalAssigned}</span><span class="dg-lbl">Tasks Completed / Assigned</span></div>
+          <div class="dg-stat"><span class="dg-val">${s.avgUtilisation}</span><span class="dg-lbl">Avg Utilisation</span></div>
+        </div>
+        <div class="attendance-source-list">
+          ${(e.mtmSprints || []).map(sp => `
+            <div>
+              <span>Sprint ${sp.sprint}</span>
+              <strong class="attendance-source-good">${sp.tasks_completed}/${sp.tasks_assigned} tasks &middot; ${sp.utilisation} utilisation</strong>
+            </div>
+          `).join("")}
+        </div>
+        ${s.teamRank ? `
+        <h3 class="detail-section-title">Contribution to ${e.managerName || "Manager"}'s Team</h3>
+        <div class="detail-grid4">
+          <div class="dg-stat"><span class="dg-val">#${s.teamRank} of ${s.teamSize}</span><span class="dg-lbl">Rank by Tasks Completed</span></div>
+          <div class="dg-stat"><span class="dg-val">${s.teamShare}%</span><span class="dg-lbl">Share of Team Output</span></div>
+          <div class="dg-stat ${s.completionVsTeam >= 0 ? "dg-good" : "dg-warn"}"><span class="dg-val">${s.completionVsTeam >= 0 ? "+" : ""}${s.completionVsTeam} pts</span><span class="dg-lbl">Completion vs Team Avg (${s.teamCompletionRate}%)</span></div>
+          <div class="dg-stat ${s.utilisationVsTeam >= 0 ? "dg-good" : "dg-warn"}"><span class="dg-val">${s.utilisationVsTeam >= 0 ? "+" : ""}${s.utilisationVsTeam}</span><span class="dg-lbl">Utilisation vs Team Avg (${s.teamAvgUtilisation})</span></div>
+        </div>` : ""}
+        ` : `<div class="empty-note">No verified sprint data yet — entries are pending review in the MTM verification screen.</div>`}
+
+        ${mtmSources ? `
+        <h3 class="detail-section-title">Data Sources</h3>
+        <div class="source-chips">${mtmSources}</div>
+        ` : ""}
+      </section>`;
+      document.querySelectorAll("dialog[open]").forEach(d => d.close());
+      document.getElementById("employeeDialog").showModal();
+    }
+    return;
+  }
+
   const hasWorklogixActivity = e.sources?.worklogixActivity === true;
 
   // Team KPI / attendance comparison — same team, only shown when there's enough of a sample to be meaningful
@@ -3373,6 +3407,28 @@ function showEmployee(e) {
           </div>
         </div>`;
       })()}
+
+      ${e.isMtm ? (() => {
+        const s = e.mtmSprintSummary;
+        return `
+      <!-- MTM Sprint Performance -->
+      <h3 class="detail-section-title">Sprint Performance <span style="font-weight:400;color:var(--muted)">(${s?.sprintsVerified || 0} verified &middot; ${s?.sprintsPending || 0} pending)</span></h3>
+      ${s && s.completionRate != null ? `
+      <div class="detail-grid4">
+        <div class="dg-stat"><span class="dg-val">${s.completionRate}%</span><span class="dg-lbl">Completion Rate</span></div>
+        <div class="dg-stat"><span class="dg-val">${s.totalCompleted} / ${s.totalAssigned}</span><span class="dg-lbl">Tasks Completed / Assigned</span></div>
+        <div class="dg-stat"><span class="dg-val">${s.avgUtilisation}</span><span class="dg-lbl">Avg Utilisation</span></div>
+      </div>
+      <div class="attendance-source-list">
+        ${e.mtmSprints.map(sp => `
+          <div>
+            <span>Sprint ${sp.sprint}</span>
+            <strong class="attendance-source-good">${sp.tasks_completed}/${sp.tasks_assigned} tasks &middot; ${sp.utilisation} utilisation</strong>
+          </div>
+        `).join("")}
+      </div>` : `<div class="empty-note">No verified sprint data yet — entries are pending review in the MTM verification screen.</div>`}
+      `;
+      })() : ""}
 
     </section>
   `;
