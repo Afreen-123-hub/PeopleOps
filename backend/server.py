@@ -1236,24 +1236,42 @@ def _run_full_refresh_pipeline():
         _refresh_lock.release()
 
 
+def _seconds_since_data_refreshed() -> float:
+    """How long since data/peopleops-data.json was actually last written — read from the
+    file's own mtime, not from how long this server process has been running. A restart
+    (deploy, or Render's own idle-restart on the free tier) must not reset this clock,
+    otherwise frequent restarts can starve auto-refresh from ever completing a full cycle."""
+    try:
+        return time.time() - DATA_FILE.stat().st_mtime
+    except OSError:
+        return AUTO_REFRESH_INTERVAL  # file missing entirely — treat a refresh as already due
+
+
 def _auto_refresh_loop():
-    """Background thread: refresh all data every AUTO_REFRESH_INTERVAL seconds.
-    Skips the startup run so committed data is served immediately on deploy."""
-    time.sleep(AUTO_REFRESH_INTERVAL)
+    """Background thread: refresh all data once every AUTO_REFRESH_INTERVAL seconds,
+    timed from the data file's real last-modified time rather than server uptime."""
     while True:
-        _run_full_refresh_pipeline()
-        time.sleep(AUTO_REFRESH_INTERVAL)
+        remaining = AUTO_REFRESH_INTERVAL - _seconds_since_data_refreshed()
+        time.sleep(max(remaining, 60))  # floor of 60s avoids a tight loop right at the boundary
+        if _seconds_since_data_refreshed() >= AUTO_REFRESH_INTERVAL:
+            _run_full_refresh_pipeline()
 
 
 def run(port=8000, host="0.0.0.0"):
+    global _last_full_refresh
     _acquire_instance_lock(port)
-    # Start background auto-refresh (runs once on startup then every 24 h)
+    try:
+        _last_full_refresh = DATA_FILE.stat().st_mtime
+    except OSError:
+        pass
+    # Start background auto-refresh (waits only for whatever time is actually left
+    # before AUTO_REFRESH_INTERVAL, based on the data file's real age — see above)
     t = threading.Thread(target=_auto_refresh_loop, daemon=True, name="auto-refresh")
     t.start()
     server = ThreadingHTTPServer((host, port), PeopleOpsHandler)
     print(f"PeopleOPS Intelligence backend running on {host}:{port}", flush=True)
     print(f"API health endpoint available at /api/health on port {port}", flush=True)
-    print(f"Auto-refresh scheduled every {AUTO_REFRESH_INTERVAL // 3600}h (startup run skipped; first run in {AUTO_REFRESH_INTERVAL // 3600}h)", flush=True)
+    print(f"Auto-refresh interval {AUTO_REFRESH_INTERVAL // 3600}h, timed from data file age (survives restarts)", flush=True)
     server.serve_forever()
 
 

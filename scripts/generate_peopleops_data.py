@@ -1543,7 +1543,8 @@ def main():
             # GitHub contribution
             gc = get_github_for(emp)
             github_score = minmax(gc["contributionScore"], all_github_scores) if gc else None
-    
+
+            role_cat = get_role_category(emp.get("designation", ""))
             sources = {
                 "worklogix": emp_id in allowed_employee_ids and emp_id not in mtm_ids,
                 "worklogixActivity": has_real_worklogix,
@@ -1554,7 +1555,6 @@ def main():
                 "sharepoint": sp is not None,
                 "github": (gc is not None) if role_cat == "technical" else True,
             }
-            role_cat = get_role_category(emp.get("designation", ""))
             # Leadership structure overrides: Senthil Kumar and Lexila T A are confirmed
             # C-suite/leadership — exempt from KPI. Names/designations corrected here
             # because Teams Graph API does not return their profiles reliably.

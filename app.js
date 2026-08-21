@@ -805,6 +805,43 @@ function setupFilters() {
     e.stopPropagation();
     document.getElementById("exportMenu").classList.toggle("open");
   });
+  document.getElementById("refreshDataBtn")?.addEventListener("click", async () => {
+    const btn = document.getElementById("refreshDataBtn");
+    if (btn.disabled) return; // already running
+    const beforeRes = await apiFetch("/api/health");
+    const before = beforeRes?.ok ? (await beforeRes.json()).lastFullRefresh || 0 : 0;
+    btn.disabled = true;
+    const originalLabel = btn.textContent;
+    btn.textContent = "Refreshing…";
+    const startRes = await apiFetch("/api/refresh-full", { method: "POST" });
+    if (!startRes || !startRes.ok) {
+      btn.disabled = false;
+      btn.textContent = originalLabel;
+      alert("Couldn't start the refresh — check the server logs.");
+      return;
+    }
+    // refresh-full runs in the background and returns immediately; poll /api/health
+    // until it reports a newer lastFullRefresh, then reload to pick up the new data.
+    // Capped at 5 minutes — if a step in the pipeline fails, lastFullRefresh never
+    // advances, and without this cap the button would otherwise wait forever with no
+    // feedback that anything went wrong.
+    const deadline = Date.now() + 5 * 60 * 1000;
+    const poll = setInterval(async () => {
+      if (Date.now() > deadline) {
+        clearInterval(poll);
+        btn.disabled = false;
+        btn.textContent = originalLabel;
+        alert("Refresh is taking longer than expected or may have failed partway through. Check the server logs.");
+        return;
+      }
+      const healthRes = await apiFetch("/api/health");
+      const health = healthRes?.ok ? await healthRes.json() : null;
+      if (health?.lastFullRefresh && health.lastFullRefresh > before) {
+        clearInterval(poll);
+        window.location.reload();
+      }
+    }, 5000);
+  });
   document.addEventListener("click", (e) => {
     document.getElementById("exportMenu").classList.remove("open");
     const um = document.getElementById("railUserMenu");
