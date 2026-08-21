@@ -1524,8 +1524,8 @@ function renderOverviewMetricEmployees(metric, label, { scroll = true } = {}) {
             <small>${escapeHtml(employee.id)} · ${escapeHtml(mergedTeam(employee.team || "Unassigned"))}</small>
           </span>
           <span class="overview-employee-stats">
-            <b>${formatKpi(employee.kpi)}</b>
-            <small>KPI</small>
+            <b>${employee.roleCategory === "intern" ? "—" : formatKpi(employee.kpi)}</b>
+            <small>${employee.roleCategory === "intern" ? "N/A" : "KPI"}</small>
           </span>
           <span class="employee-status ${employee.active ? "active" : "inactive"}">${employee.active ? "Active" : "Inactive"}</span>
         </button>
@@ -3239,7 +3239,7 @@ function showEmployee(e) {
     const sd = Math.max(1, el - (a.off ?? 0) - (a.holidays ?? 0));
     return Math.round((Math.min(a.present ?? 0, sd) / sd) * 100);
   };
-  const teamMates = (dataset.employees || []).filter((m) => mergedTeam(m.team || "Unassigned") === mergedTeam(e.team || "Unassigned") && m.kpi != null);
+  const teamMates = (dataset.employees || []).filter((m) => mergedTeam(m.team || "Unassigned") === mergedTeam(e.team || "Unassigned") && m.kpi != null && m.roleCategory !== "intern");
   const teamAvgKpi = teamMates.length >= 2 ? average(teamMates.map((m) => m.kpi)) : null;
   const kpiDelta = teamAvgKpi != null && e.kpi != null ? Math.round((e.kpi - teamAvgKpi) * 10) / 10 : null;
   const teamAttValues = teamMates.map(employeeAttPct).filter((v) => v != null);
@@ -3282,26 +3282,28 @@ function showEmployee(e) {
           <h1>${e.name}</h1>
           <p>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}${e.managerName ? ` &middot; Reports to <strong>${e.managerName}</strong>` : ""}</p>
           <div class="emp-detail-badges">
-            <span class="${bandCls}">${bandLabel}</span>
-            ${e.quadrant ? `<span class="quadrant-badge" style="background:color-mix(in srgb, ${quadrantColor} 16%, white);color:${quadrantColor};border-color:color-mix(in srgb, ${quadrantColor} 40%, white)">${e.quadrant}</span>` : ""}
+            ${e.roleCategory !== "intern" ? `<span class="${bandCls}">${bandLabel}</span>` : ""}
+            ${e.roleCategory !== "intern" && e.quadrant ? `<span class="quadrant-badge" style="background:color-mix(in srgb, ${quadrantColor} 16%, white);color:${quadrantColor};border-color:color-mix(in srgb, ${quadrantColor} 40%, white)">${e.quadrant}</span>` : ""}
             <span class="conf-badge" style="background:${confTone.bg};color:${confTone.fg}">${e.sourceConfidence}% confidence</span>
           </div>
         </div>
-        ${e.band === "Insufficient Data"
-          ? `<div class="emp-detail-kpi no-info"><span class="emp-kpi-val" style="font-size:1.1rem">—</span><span class="emp-kpi-lbl">No attendance data</span></div>`
-          : `<div>
-               <div class="emp-kpi-ring" style="--pct:${Math.min(100, Math.max(0, ringPct))};--c:${ringColor}">
-                 <div class="emp-kpi-ring-inner">
-                   <span class="emp-kpi-val">${e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? "—") : (e.kpi ?? "—")}</span>
-                   <span class="emp-kpi-lbl">${e.roleCategory === "executive" ? "Team KPI" : "KPI"}</span>
+        ${e.roleCategory === "intern"
+          ? `<div class="emp-detail-kpi no-info"><span class="emp-kpi-val" style="font-size:0.95rem;color:#94a3b8">N/A</span><span class="emp-kpi-lbl">KPI not applicable</span></div>`
+          : e.band === "Insufficient Data"
+            ? `<div class="emp-detail-kpi no-info"><span class="emp-kpi-val" style="font-size:1.1rem">—</span><span class="emp-kpi-lbl">No attendance data</span></div>`
+            : `<div>
+                 <div class="emp-kpi-ring" style="--pct:${Math.min(100, Math.max(0, ringPct))};--c:${ringColor}">
+                   <div class="emp-kpi-ring-inner">
+                     <span class="emp-kpi-val">${e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? "—") : (e.kpi ?? "—")}</span>
+                     <span class="emp-kpi-lbl">${e.roleCategory === "executive" ? "Team KPI" : "KPI"}</span>
+                   </div>
                  </div>
-               </div>
-               ${kpiDelta != null ? `<div class="emp-kpi-vs ${kpiDelta < 0 ? "down" : kpiDelta > 0 ? "up" : ""}">${kpiDelta > 0 ? "+" : ""}${kpiDelta} vs team avg</div>` : ""}
-             </div>`
+                 ${kpiDelta != null ? `<div class="emp-kpi-vs ${kpiDelta < 0 ? "down" : kpiDelta > 0 ? "up" : ""}">${kpiDelta > 0 ? "+" : ""}${kpiDelta} vs team avg</div>` : ""}
+               </div>`
         }
       </div>
 
-      ${insightSentence ? `<div class="insight-banner">
+      ${insightSentence && e.roleCategory !== "intern" ? `<div class="insight-banner">
         <span class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></span>
         <div class="insight-text">${escapeHtml(insightSentence)}</div>
       </div>` : ""}
