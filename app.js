@@ -733,19 +733,50 @@ function setupFilters() {
     state.search = event.target.value.toLowerCase();
     applyFilters();
   });
+  // Panels are moved to <body> while open (see below) so position:fixed measures against the
+  // real viewport, not a filtered/clipped ancestor (.gradient-panel's overflow:hidden and
+  // .controls.gradient-controls's backdrop-filter both create their own containing block).
+  // Once moved, the panel is no longer inside its wrap, so every lookup below goes through
+  // this map instead of .closest()/querySelector(), which would otherwise stop finding it.
+  const bandPanelByWrap = new Map();
+  const bandWrapByPanel = new Map();
+  document.querySelectorAll(".band-select-wrap").forEach((wrap) => {
+    const panel = wrap.querySelector(".band-select-panel");
+    if (panel) {
+      bandPanelByWrap.set(wrap, panel);
+      bandWrapByPanel.set(panel, wrap);
+    }
+  });
+
+  function closeBandPanel(panel) {
+    const home = bandWrapByPanel.get(panel);
+    if (!home || panel.hidden) return;
+    home.appendChild(panel);
+    panel.style.position = "";
+    panel.style.top = "";
+    panel.style.left = "";
+    panel.hidden = true;
+    home.querySelector(".band-select-trigger")?.setAttribute("aria-expanded", "false");
+  }
+
   document.querySelectorAll(".band-select-trigger").forEach((trigger) => {
     trigger.addEventListener("click", (e) => {
       e.stopPropagation();
       const wrap = trigger.closest(".band-select-wrap");
-      const panel = wrap.querySelector(".band-select-panel");
+      const panel = bandPanelByWrap.get(wrap);
+      if (!panel) return;
       const isOpen = !panel.hidden;
-      document.querySelectorAll(".band-select-panel:not([hidden])").forEach((p) => {
-        if (p !== panel) {
-          p.hidden = true;
-          p.closest(".band-select-wrap")?.querySelector(".band-select-trigger")?.setAttribute("aria-expanded", "false");
-        }
-      });
-      panel.hidden = isOpen;
+      bandPanelByWrap.forEach((p) => { if (p !== panel) closeBandPanel(p); });
+      if (isOpen) {
+        closeBandPanel(panel);
+      } else {
+        const rect = trigger.getBoundingClientRect();
+        document.body.appendChild(panel);
+        panel.style.position = "fixed";
+        panel.style.top = `${rect.bottom + 6}px`;
+        panel.style.left = `${rect.left}px`;
+        panel.hidden = false;
+      }
       trigger.setAttribute("aria-expanded", String(!isOpen));
     });
   });
@@ -775,21 +806,18 @@ function setupFilters() {
     if (um) um.classList.remove("open");
     const opt = e.target.closest(".band-select-opt");
     if (opt) {
-      const wrap = opt.closest(".band-select-wrap");
+      const panel = opt.closest(".band-select-panel");
+      const wrap = panel && bandWrapByPanel.get(panel);
       if (wrap) {
         state.band = opt.dataset.value;
         updateBandDropdowns(state.band);
-        wrap.querySelector(".band-select-panel").hidden = true;
-        wrap.querySelector(".band-select-trigger")?.setAttribute("aria-expanded", "false");
+        closeBandPanel(panel);
         applyFilters();
       }
       return;
     }
-    if (!e.target.closest(".band-select-wrap")) {
-      document.querySelectorAll(".band-select-panel:not([hidden])").forEach((p) => {
-        p.hidden = true;
-        p.closest(".band-select-wrap")?.querySelector(".band-select-trigger")?.setAttribute("aria-expanded", "false");
-      });
+    if (!e.target.closest(".band-select-wrap") && !e.target.closest(".band-select-panel")) {
+      bandPanelByWrap.forEach((p) => closeBandPanel(p));
     }
   });
   const dotsBtn = document.getElementById("railUserDotsBtn");
