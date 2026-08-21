@@ -12,6 +12,7 @@ const state = {
   team: "all",
   confidence: 0,
   showInterns: true,
+  type: "all",
 };
 
 const DEMO_MODE = false;
@@ -792,6 +793,10 @@ function setupFilters() {
       applyFilters();
     });
   });
+  document.getElementById("peopleTypeFilter")?.addEventListener("change", (event) => {
+    state.type = event.target.value;
+    applyFilters();
+  });
   document.getElementById("internToggle").addEventListener("change", (event) => {
     state.showInterns = event.target.checked;
     applyFilters();
@@ -962,10 +967,24 @@ function isIntern(employee) {
   return employee.roleCategory === "intern" || employee.roleCategory === "trainee";
 }
 
+// Distinct from isIntern() above (which lumps intern+trainee together for the showInterns
+// toggle) — this keeps all four groups separate for the Type filter, since MTM is an
+// operationally different distinction than role seniority.
+function employeeType(employee) {
+  if (employee.isMtm) return "mtm";
+  if (employee.roleCategory === "intern") return "intern";
+  if (employee.roleCategory === "trainee") return "trainee";
+  return "employee";
+}
+const EMPLOYEE_TYPE_LABELS = { employee: "Employee", intern: "Intern", trainee: "Trainee", mtm: "MTM" };
+
 function applyFilters() {
   filteredEmployees = dataset.employees
     .filter((employee) => {
-      if (!state.showInterns && isIntern(employee)) return false;
+      // The showInterns toggle only hides interns/trainees when no specific Type is chosen —
+      // picking a Type explicitly (e.g. "Interns") always overrides that default hiding.
+      if (state.type === "all" && !state.showInterns && isIntern(employee)) return false;
+      if (state.type !== "all" && employeeType(employee) !== state.type) return false;
       const text = [employee.name, employee.id, employee.team, employee.designation].join(" ").toLowerCase();
       return (
         text.includes(state.search) &&
@@ -992,6 +1011,10 @@ function applyFilters() {
   ["confidenceFilter", "kpiConfidenceFilter", "peopleConfidenceFilter"].forEach((id) => {
     const el = document.getElementById(id);
     if (el && Number(el.value) !== state.confidence) el.value = String(state.confidence);
+  });
+  ["peopleTypeFilter"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.value !== state.type) el.value = state.type;
   });
   renderAll();
   // When a search is active on the overview, show matching employees in the drilldown panel
@@ -1790,10 +1813,14 @@ function renderPeopleTable() {
     const kpiBarColor = e.kpi >= 85 ? "#16a34a" : e.kpi >= 70 ? "#d97706" : "#dc2626";
     const bandDisplay = e.band === "Insufficient Data" ? "No Data" : e.band === "Needs Improvement" ? "Needs Improv." : (e.band || "");
     const avatarCls = e.isMtm ? "p-avatar p-avatar-indigo" : "p-avatar p-avatar-teal";
-    const mtmBadge = e.isMtm ? '<span class="mtm-row-badge">MTM</span>' : '';
+    const eType = employeeType(e);
+    const typeBadge = eType === "mtm" ? '<span class="mtm-row-badge">MTM</span>'
+      : eType === "intern" ? '<span class="intern-row-badge">Intern</span>'
+      : eType === "trainee" ? '<span class="trainee-row-badge">Trainee</span>'
+      : '';
     const teamChipCls = e.isMtm ? "p-team-chip p-team-chip-indigo" : "p-team-chip";
     return `<tr data-index="${index}" class="${e.isMtm ? 'is-mtm-row' : ''}">
-          <td><div class="person-row"><div class="${avatarCls}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong>${mtmBadge}<small>${e.designation || "Unassigned"}</small><span class="${teamChipCls}">${mergedTeam(e.team || "Unassigned")}</span></div></div></td>
+          <td><div class="person-row"><div class="${avatarCls}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong>${typeBadge}<small>${e.designation || "Unassigned"}</small><span class="${teamChipCls}">${mergedTeam(e.team || "Unassigned")}</span></div></div></td>
           <td class="numeric-cell"><div class="pt-kpi-cell"><span class="score ${kpiCls}">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${kpiBarColor}"></span></span></div></td>
           <td>${e.band ? `<span class="band ${bandClass(e.band)}">${bandDisplay}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
           <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
