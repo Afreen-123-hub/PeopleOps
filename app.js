@@ -3102,8 +3102,9 @@ function showEmployee(e) {
   const initials = avatarInitials(e.name);
 
   const sourceLabels = { worklogix: "Worklogix", greythr: "GreytHR", biometrics: "Biometrics", teams: "Teams", calendar: "Calendar", sharepoint: "SharePoint" };
+  const internOnlySources = new Set(["worklogix", "teams"]);
   const sources = Object.entries(e.sources || {})
-    .filter(([name]) => name in sourceLabels)
+    .filter(([name]) => name in sourceLabels && (e.roleCategory !== "intern" || internOnlySources.has(name)))
     .map(([name, ok]) => `<span class="source-chip ${ok ? "ok" : "missing"}">${ok ? "✓" : "✗"} ${sourceLabels[name]}</span>`)
     .join("");
 
