@@ -84,7 +84,51 @@ def _merge_mtm_sprint_data(data: dict) -> dict:
             s["completionVsTeam"] = round(s["completionRate"] - team_completion_rate, 1) if s["completionRate"] is not None and team_completion_rate is not None else None
             s["utilisationVsTeam"] = round(s["avgUtilisation"] - team_avg_utilisation, 2) if s["avgUtilisation"] is not None else None
 
+    # Third pass: correct each MTM employee's underlying kpi/band using their real completion
+    # rate — the old value was a Worklogix-based fallback, meaningless since they have no
+    # Worklogix data. Then recompute their manager's teamAvgKpi/reporteeCount so the correction
+    # actually reaches leadership rollups instead of only showing on the individual's own profile.
+    by_id = {e.get("id"): e for e in data.get("employees", [])}
+    managers_to_refresh: set[str] = set()
+    for employee in mtm_employees:
+        s = employee["mtmSprintSummary"]
+        if s["completionRate"] is None:
+            continue
+        employee["kpi"] = s["completionRate"]
+        employee["band"] = _band_for_kpi(s["completionRate"])
+        mgr_id = employee.get("managerId")
+        if mgr_id and mgr_id in by_id:
+            managers_to_refresh.add(mgr_id)
+
+    for mgr_id in managers_to_refresh:
+        manager = by_id[mgr_id]
+        reports = manager.get("directReports") or []
+        # directReports entries are separate baked-in snapshot copies, not references to the
+        # employee objects above — patch each one so the manager's own "Direct Reports" table
+        # shows the corrected kpi/band too, not just the aggregate teamAvgKpi.
+        for r in reports:
+            rid = r.get("id")
+            if rid in by_id:
+                r["kpi"] = by_id[rid].get("kpi")
+                r["band"] = by_id[rid].get("band")
+        scored = [r["kpi"] for r in reports if r.get("kpi") is not None]
+        if scored and manager.get("scoreDrivers") is not None:
+            manager["scoreDrivers"]["teamAvgKpi"] = round(sum(scored) / len(scored), 1)
+            manager["scoreDrivers"]["reporteeCount"] = len(scored)
+
     return data
+
+
+def _band_for_kpi(kpi: float) -> str:
+    if kpi >= 90:
+        return "Excellent"
+    if kpi >= 80:
+        return "Good"
+    if kpi >= 70:
+        return "Average"
+    if kpi >= 60:
+        return "Needs Improvement"
+    return "Critical"
 
 
 def _load_mtm_tasks() -> list[dict]:
