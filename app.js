@@ -1561,8 +1561,8 @@ function renderOverviewMetricEmployees(metric, label, { scroll = true } = {}) {
             <small>${escapeHtml(employee.id)} · ${escapeHtml(mergedTeam(employee.team || "Unassigned"))}</small>
           </span>
           <span class="overview-employee-stats">
-            <b>${formatKpi(employee.kpi)}</b>
-            <small>KPI</small>
+            <b>${employee.roleCategory === "intern" ? "—" : formatKpi(employee.kpi)}</b>
+            <small>${employee.roleCategory === "intern" ? "N/A" : "KPI"}</small>
           </span>
           <span class="employee-status ${employee.active ? "active" : "inactive"}">${employee.active ? "Active" : "Inactive"}</span>
         </button>
@@ -1858,8 +1858,8 @@ function renderPeopleTable() {
     const teamChipCls = e.isMtm ? "p-team-chip p-team-chip-indigo" : "p-team-chip";
     return `<tr data-index="${index}" class="${e.isMtm ? 'is-mtm-row' : ''}">
           <td><div class="person-row"><div class="${avatarCls}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong>${typeBadge}<small>${e.designation || "Unassigned"}</small><span class="${teamChipCls}">${mergedTeam(e.team || "Unassigned")}</span></div></div></td>
-          <td class="numeric-cell"><div class="pt-kpi-cell"><span class="score ${kpiCls}">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${kpiBarColor}"></span></span></div></td>
-          <td>${e.band ? `<span class="band ${bandClass(e.band)}">${bandDisplay}</span>` : '<span class="band no-info">Pending Link</span>'} ${lowConfidenceWarning(e)}</td>
+          <td class="numeric-cell">${e.roleCategory === "intern" ? `<span style="color:#94a3b8;font-size:0.85rem">N/A</span>` : `<div class="pt-kpi-cell"><span class="score ${kpiCls}">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${kpiBarColor}"></span></span></div>`}</td>
+          <td>${e.roleCategory === "intern" ? `<span style="color:#94a3b8;font-size:0.85rem">—</span>` : e.band ? `<span class="band ${bandClass(e.band)}">${bandDisplay}</span>` : '<span class="band no-info">Pending Link</span>'} ${e.roleCategory !== "intern" ? lowConfidenceWarning(e) : ""}</td>
           <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
           <td class="numeric-cell">${e.attendance.present}</td>
           <td class="numeric-cell">${e.attendance.leave ?? 0}</td>
@@ -3139,11 +3139,18 @@ function showEmployee(e) {
   const initials = avatarInitials(e.name);
 
   const sourceLabels = { worklogix: "Worklogix", greythr: "GreytHR", biometrics: "Biometrics", teams: "Teams", calendar: "Calendar", sharepoint: "SharePoint" };
-  const internOnlySources = new Set(["worklogix", "teams"]);
-  const sources = Object.entries(e.sources || {})
-    .filter(([name]) => name in sourceLabels && (e.roleCategory !== "intern" || internOnlySources.has(name)))
-    .map(([name, ok]) => `<span class="source-chip ${ok ? "ok" : "missing"}">${ok ? "✓" : "✗"} ${sourceLabels[name]}</span>`)
-    .join("");
+  const applicableSourcesByRole = {
+    intern:    new Set(["worklogix", "teams"]),
+    trainee:   new Set(["worklogix", "greythr", "biometrics", "teams", "calendar", "sharepoint"]),
+  };
+  const applicable = applicableSourcesByRole[e.roleCategory] || new Set(Object.keys(sourceLabels));
+  const applicableChips = Object.entries(e.sources || {})
+    .filter(([name]) => name in sourceLabels && applicable.has(name))
+    .map(([name, ok]) => `<span class="source-chip ${ok ? "ok" : "missing"}">${ok ? "✓" : "✗"} ${sourceLabels[name]}</span>`);
+  const nonApplicableChips = Object.keys(sourceLabels)
+    .filter(name => !applicable.has(name))
+    .map(name => `<span class="source-chip missing">✗ ${sourceLabels[name]}</span>`);
+  const sources = [...applicableChips, ...nonApplicableChips].join("");
 
   const quadrantColor = QUADRANT_COLORS[e.quadrant] || "#627084";
   const confPct = e.sourceConfidence ?? 0;
@@ -3269,7 +3276,7 @@ function showEmployee(e) {
     const sd = Math.max(1, el - (a.off ?? 0) - (a.holidays ?? 0));
     return Math.round((Math.min(a.present ?? 0, sd) / sd) * 100);
   };
-  const teamMates = (dataset.employees || []).filter((m) => mergedTeam(m.team || "Unassigned") === mergedTeam(e.team || "Unassigned") && m.kpi != null);
+  const teamMates = (dataset.employees || []).filter((m) => mergedTeam(m.team || "Unassigned") === mergedTeam(e.team || "Unassigned") && m.kpi != null && m.roleCategory !== "intern");
   const teamAvgKpi = teamMates.length >= 2 ? average(teamMates.map((m) => m.kpi)) : null;
   const kpiDelta = teamAvgKpi != null && e.kpi != null ? Math.round((e.kpi - teamAvgKpi) * 10) / 10 : null;
   const teamAttValues = teamMates.map(employeeAttPct).filter((v) => v != null);
@@ -3312,26 +3319,28 @@ function showEmployee(e) {
           <h1>${e.name}</h1>
           <p>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}${e.managerName ? ` &middot; Reports to <strong>${e.managerName}</strong>` : ""}</p>
           <div class="emp-detail-badges">
-            <span class="${bandCls}">${bandLabel}</span>
-            ${e.quadrant ? `<span class="quadrant-badge" style="background:color-mix(in srgb, ${quadrantColor} 16%, white);color:${quadrantColor};border-color:color-mix(in srgb, ${quadrantColor} 40%, white)">${e.quadrant}</span>` : ""}
+            ${e.roleCategory !== "intern" ? `<span class="${bandCls}">${bandLabel}</span>` : ""}
+            ${e.roleCategory !== "intern" && e.quadrant ? `<span class="quadrant-badge" style="background:color-mix(in srgb, ${quadrantColor} 16%, white);color:${quadrantColor};border-color:color-mix(in srgb, ${quadrantColor} 40%, white)">${e.quadrant}</span>` : ""}
             <span class="conf-badge" style="background:${confTone.bg};color:${confTone.fg}">${e.sourceConfidence}% confidence</span>
           </div>
         </div>
-        ${e.band === "Insufficient Data"
-          ? `<div class="emp-detail-kpi no-info"><span class="emp-kpi-val" style="font-size:1.1rem">—</span><span class="emp-kpi-lbl">No attendance data</span></div>`
-          : `<div>
-               <div class="emp-kpi-ring" style="--pct:${Math.min(100, Math.max(0, ringPct))};--c:${ringColor}">
-                 <div class="emp-kpi-ring-inner">
-                   <span class="emp-kpi-val">${e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? "—") : (e.kpi ?? "—")}</span>
-                   <span class="emp-kpi-lbl">${e.roleCategory === "executive" ? "Team KPI" : "KPI"}</span>
+        ${e.roleCategory === "intern"
+          ? `<div class="emp-detail-kpi no-info"><span class="emp-kpi-val" style="font-size:0.95rem;color:#94a3b8">N/A</span><span class="emp-kpi-lbl">KPI not applicable</span></div>`
+          : e.band === "Insufficient Data"
+            ? `<div class="emp-detail-kpi no-info"><span class="emp-kpi-val" style="font-size:1.1rem">—</span><span class="emp-kpi-lbl">No attendance data</span></div>`
+            : `<div>
+                 <div class="emp-kpi-ring" style="--pct:${Math.min(100, Math.max(0, ringPct))};--c:${ringColor}">
+                   <div class="emp-kpi-ring-inner">
+                     <span class="emp-kpi-val">${e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? "—") : (e.kpi ?? "—")}</span>
+                     <span class="emp-kpi-lbl">${e.roleCategory === "executive" ? "Team KPI" : "KPI"}</span>
+                   </div>
                  </div>
-               </div>
-               ${kpiDelta != null ? `<div class="emp-kpi-vs ${kpiDelta < 0 ? "down" : kpiDelta > 0 ? "up" : ""}">${kpiDelta > 0 ? "+" : ""}${kpiDelta} vs team avg</div>` : ""}
-             </div>`
+                 ${kpiDelta != null ? `<div class="emp-kpi-vs ${kpiDelta < 0 ? "down" : kpiDelta > 0 ? "up" : ""}">${kpiDelta > 0 ? "+" : ""}${kpiDelta} vs team avg</div>` : ""}
+               </div>`
         }
       </div>
 
-      ${insightSentence ? `<div class="insight-banner">
+      ${insightSentence && e.roleCategory !== "intern" ? `<div class="insight-banner">
         <span class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></span>
         <div class="insight-text">${escapeHtml(insightSentence)}</div>
       </div>` : ""}
