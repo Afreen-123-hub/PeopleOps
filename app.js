@@ -3104,7 +3104,7 @@ function showEmployee(e) {
   const sourceLabels = { worklogix: "Worklogix", greythr: "GreytHR", biometrics: "Biometrics", teams: "Teams", calendar: "Calendar", sharepoint: "SharePoint" };
   const applicableSourcesByRole = {
     intern:    new Set(["worklogix", "teams"]),
-    trainee:   new Set(["worklogix", "greythr", "biometrics", "teams"]),
+    trainee:   new Set(["worklogix", "greythr", "biometrics", "teams", "calendar", "sharepoint"]),
   };
   const applicable = applicableSourcesByRole[e.roleCategory] || new Set(Object.keys(sourceLabels));
   const applicableChips = Object.entries(e.sources || {})
