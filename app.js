@@ -3102,11 +3102,18 @@ function showEmployee(e) {
   const initials = avatarInitials(e.name);
 
   const sourceLabels = { worklogix: "Worklogix", greythr: "GreytHR", biometrics: "Biometrics", teams: "Teams", calendar: "Calendar", sharepoint: "SharePoint" };
-  const internOnlySources = new Set(["worklogix", "teams"]);
-  const sources = Object.entries(e.sources || {})
-    .filter(([name]) => name in sourceLabels && (e.roleCategory !== "intern" || internOnlySources.has(name)))
-    .map(([name, ok]) => `<span class="source-chip ${ok ? "ok" : "missing"}">${ok ? "✓" : "✗"} ${sourceLabels[name]}</span>`)
-    .join("");
+  const applicableSourcesByRole = {
+    intern:    new Set(["worklogix", "teams"]),
+    trainee:   new Set(["worklogix", "greythr", "biometrics", "teams"]),
+  };
+  const applicable = applicableSourcesByRole[e.roleCategory] || new Set(Object.keys(sourceLabels));
+  const applicableChips = Object.entries(e.sources || {})
+    .filter(([name]) => name in sourceLabels && applicable.has(name))
+    .map(([name, ok]) => `<span class="source-chip ${ok ? "ok" : "missing"}">${ok ? "✓" : "✗"} ${sourceLabels[name]}</span>`);
+  const nonApplicableChips = Object.keys(sourceLabels)
+    .filter(name => !applicable.has(name))
+    .map(name => `<span class="source-chip missing">✗ ${sourceLabels[name]}</span>`);
+  const sources = [...applicableChips, ...nonApplicableChips].join("");
 
   const quadrantColor = QUADRANT_COLORS[e.quadrant] || "#627084";
   const confPct = e.sourceConfidence ?? 0;
