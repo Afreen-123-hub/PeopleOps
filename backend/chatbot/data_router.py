@@ -617,8 +617,15 @@ def get_availability_data(question: str = "") -> dict:
         if result:
             return result
 
-    # Group / list query — filter by status keyword
-    if any(w in q for w in ("online", "active", "available")):
+    # Group / list query — filter by status keyword. IN_CALL_STATUSES matches the
+    # same set the dashboard's own "In Call" filter uses (app.js), so the chatbot's
+    # answer lines up with what the Teams status page shows.
+    IN_CALL_STATUSES = ("InACall", "InAConferenceCall", "InAMeeting", "Presenting")
+    if any(w in q for w in ("in a call", "on a call", "in call")):
+        status_filter = lambda t: t.get("status") in IN_CALL_STATUSES
+    elif any(w in q for w in ("out of office", "ooo")):
+        status_filter = lambda t: t.get("status") == "OutOfOffice" or bool(t.get("isOutOfOffice"))
+    elif any(w in q for w in ("online", "active", "available")):
         status_filter = lambda t: bool(t.get("isActive"))
     elif any(w in q for w in ("away", "brb", "be right back")):
         status_filter = lambda t: t.get("status") in ("Away", "BeRightBack") or bool(t.get("isAway"))

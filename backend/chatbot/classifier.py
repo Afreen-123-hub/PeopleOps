@@ -69,6 +69,8 @@ CATEGORY_KEYWORDS = {
         "status", "what is his status", "what is her status",
         "hours today", "hours in teams", "how many hours", "hours is she",
         "hours is he", "spent in teams", "time in teams",
+        "in a call", "on a call", "in call", "who is in a call",
+        "out of office", "ooo", "who is out of office", "who's out",
     ],
     "task": [
         "task", "worklogix", "completed", "pending", "blocked",
