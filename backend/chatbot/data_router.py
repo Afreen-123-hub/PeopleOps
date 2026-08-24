@@ -340,7 +340,13 @@ def get_attendance_data(question: str = "", history: list | None = None) -> dict
             if filtered:
                 shown = len(filtered)
                 return {
-                    "_note": f"List ONLY these {shown} employees — they were mentioned in the previous answer.",
+                    "_note": (
+                        f"List ONLY these {shown} employees — they were mentioned in the previous answer. "
+                        "Show every one of them with their real attendance numbers, regardless of whether "
+                        "their totalAbsence is above or below 3 days — the '>3 days' filter and the "
+                        "'attendance is healthy' fallback only apply to a general attendance question, "
+                        "not this follow-up. Do not drop anyone or say attendance is healthy here."
+                    ),
                     "employees": filtered,
                     "footer": "",
                 }
@@ -643,7 +649,12 @@ def get_task_data(question: str = "", history: list | None = None) -> dict:
             if filtered:
                 shown = len(filtered)
                 return {
-                    "_note": f"List ONLY these {shown} employees — they were mentioned in the previous answer.",
+                    "_note": (
+                        f"List ONLY these {shown} employees — they were mentioned in the previous answer. "
+                        "Show every one of them with their real task numbers, regardless of pending count "
+                        "or completion state — any 'only show if pending' filter applies to a general task "
+                        "question, not this follow-up. Do not drop anyone here."
+                    ),
                     "employees": filtered,
                     "footer": "",
                 }
