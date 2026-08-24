@@ -368,9 +368,27 @@ def get_attendance_data(question: str = "", history: list | None = None) -> dict
                     "footer": "",
                 }
 
+    # A specific person named directly (not via a follow-up pronoun) — e.g. "what is
+    # prasanth's attendance record". The generic view below only shows people with
+    # >3 days absent, so anyone asked about by name who isn't a concern (most people)
+    # would otherwise come back "no record found" despite having real attendance data.
+    named_employee = _query_employee(question)
+    is_specific_person = bool(named_employee)
+    if is_specific_person:
+        matched = _filter_by_names(employees, [named_employee["name"]])
+        if matched:
+            return {
+                "_note": (
+                    f"Show {named_employee['name']}'s real attendance numbers — present, absent, leave, "
+                    "punctuality. The '>3 days' filter and 'attendance is healthy' fallback don't apply "
+                    "to a single named person; show their real numbers whatever they are."
+                ),
+                "employees": matched,
+                "footer": "",
+            }
+
     # Executives follow different presence patterns (travel, remote office) —
     # exclude them from absence ranking unless the question names them specifically
-    is_specific_person = bool(_query_employee(question))
     if not is_specific_person:
         employees = [e for e in employees if e.get("band") != "Executive"]
 
@@ -908,9 +926,14 @@ def get_team_summary_data(question: str = "") -> dict:
 
     summaries.sort(key=lambda x: x["avgKpi"] if x["avgKpi"] is not None else 0, reverse=True)
 
-    # If specific teams are mentioned in the question, filter to those
+    # If specific teams are mentioned in the question, filter to those. Word-set match,
+    # not exact substring — "team AI" and "AI Team" mean the same thing, but people say
+    # both, and a straight `"ai team" in q` check only catches one word order.
     q = question.lower()
-    specific = [s for s in summaries if s["team"].lower() in q]
+    def _team_mentioned(team_name: str) -> bool:
+        words = [w for w in re.findall(r"[a-z0-9]+", team_name.lower()) if len(w) > 1]
+        return bool(words) and all(re.search(r"\b" + re.escape(w) + r"\b", q) for w in words)
+    specific = [s for s in summaries if _team_mentioned(s["team"])]
     if specific:
         summaries = specific
 
