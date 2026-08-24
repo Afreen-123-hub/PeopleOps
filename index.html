@@ -147,6 +147,16 @@
               <span>Daily refresh · Teams live</span>
             </div>
           </div>
+
+          <div id="overviewLiveWidget" class="panel live-widget" hidden>
+            <div class="live-widget-head">
+              <span class="live-widget-dot"></span>
+              <span class="live-widget-title" id="overviewLiveWidgetTitle"></span>
+              <a class="live-widget-viewall" id="overviewLiveWidgetViewAll">View all in Graph →</a>
+            </div>
+            <div class="live-pill-row" id="overviewLivePillRow"></div>
+          </div>
+
           <!-- Global attendance month picker -->
           <div class="panel" style="margin-bottom:16px;">
             <div class="panel-head">
@@ -873,7 +883,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260807-teampopup"></script>
-    <script src="graph-explorer.js?v=20260802-overviewpolish"></script>
+    <script src="app.js?v=20260824-livewidget"></script>
+    <script src="graph-explorer.js?v=20260824-livewidget"></script>
   </body>
 </html>

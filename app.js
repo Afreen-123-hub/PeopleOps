@@ -646,6 +646,19 @@ async function boot() {
   setupGlobalMonthPicker();
   updateAvailableMonthsBadge();
   updateTeamsRefreshLabel();
+  document.getElementById("overviewLiveWidgetViewAll")?.addEventListener("click", jumpToLiveMeetings);
+  // Quiet fetch so the Overview "live meetings" widget has data without waiting on the
+  // Graph tab's own (heavier) fetch, which only runs once that tab is opened.
+  apiFetch("/api/graph-data").then(res => res?.ok ? res.json() : null).then(data => {
+    if (!data) return;
+    graphData = data;
+    if (typeof renderOverviewLiveWidget === "function") renderOverviewLiveWidget();
+  }).catch(() => {});
+  setInterval(() => {
+    if (document.getElementById("overview")?.classList.contains("active-view") && typeof renderOverviewLiveWidget === "function") {
+      renderOverviewLiveWidget();
+    }
+  }, 30000);
   if (!DEMO_MODE) {
     setInterval(autoRefreshTeams, TEAMS_REFRESH_INTERVAL);
     setInterval(() => { if (typeof refreshGraph === "function") refreshGraph(); }, TEAMS_REFRESH_INTERVAL);
@@ -3719,6 +3732,47 @@ function escapeHtml(value) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+function jumpToLiveMeetings() {
+  if (typeof graphExplorerState !== "undefined") graphExplorerState.section = "live";
+  document.querySelector('.rail-item[data-view="graph"]')?.click();
+}
+
+// Condensed version of the Graph tab's Live Meetings card for the Overview page — same
+// underlying data (graphLiveMeetings/graphMeetingAttendeeRows from graph-explorer.js), just
+// summarized to a pill per meeting instead of the full attendee breakdown. Hides itself
+// entirely when nothing's live, rather than showing a permanent empty state on the landing page.
+function renderOverviewLiveWidget() {
+  const widget = document.getElementById("overviewLiveWidget");
+  if (!widget || typeof graphLiveMeetings !== "function") return;
+  const liveMeetings = graphLiveMeetings();
+  if (!liveMeetings.length) {
+    widget.hidden = true;
+    return;
+  }
+  widget.hidden = false;
+  document.getElementById("overviewLiveWidgetTitle").innerHTML =
+    `${liveMeetings.length} meeting${liveMeetings.length === 1 ? "" : "s"} live right now<span> · who's in them, who's flagged</span>`;
+  document.getElementById("overviewLivePillRow").innerHTML = liveMeetings.map(meeting => {
+    const rows = graphMeetingAttendeeRows(meeting, liveMeetings);
+    const notAttending = rows.filter(row => row.status === "free").length;
+    const doubleBooked = rows.filter(row => row.doubleBooked).length;
+    return `<div class="live-pill" role="button" tabindex="0">
+      <div class="live-pill-top">
+        <span class="live-pill-subject">${escapeHtml(meeting.subject)}</span>
+        <span class="live-pill-timeleft">${graphLiveTimeLeft(meeting.endMs)}</span>
+      </div>
+      <div class="live-pill-meta">Organizer: ${escapeHtml((meeting.organizer || "").trim())} · ${rows.length} invited</div>
+      ${(notAttending || doubleBooked) ? `<div class="live-pill-flags">
+        ${notAttending ? `<span class="live-pill-flag not-attending">🚩 ${notAttending} not attending</span>` : ""}
+        ${doubleBooked ? `<span class="live-pill-flag double-booked">⚠️ ${doubleBooked} double-booked</span>` : ""}
+      </div>` : ""}
+    </div>`;
+  }).join("");
+  document.getElementById("overviewLivePillRow").querySelectorAll(".live-pill").forEach(pill => {
+    pill.addEventListener("click", jumpToLiveMeetings);
+  });
 }
 
 
