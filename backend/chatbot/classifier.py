@@ -9,18 +9,19 @@ CATEGORY_KEYWORDS = {
         "deep dive", "overview of", "profile of",
     ],
     "risk_insight": [
-        "at risk", "needs attention", "need attention", "who needs",
+        "at risk", "at-risk", "needs attention", "need attention", "who needs",
         "who should i", "talk to", "who to talk", "struggling",
         "concern", "worried about", "not performing", "red flag",
         "who is behind", "flag", "problem", "team health", "health check",
         "overall health", "attention needed", "management attention",
-        "underperform", "poor performance", "inactive",
+        "underperform", "underperforming", "poor performance", "inactive",
+        "disengaged",
     ],
     "team_summary": [
         "team summary", "team comparison", "compare team", "compare the",
-        "team breakdown", "team overview", "by team", "each team",
-        "across team", "team performance", "vs team", "team vs",
-        "which team", "best team", "worst team", "completion rate for",
+        "compare all team", "team compare", "team breakdown", "team overview",
+        "by team", "each team", "across team", "team performance", "vs team",
+        "team vs", "which team", "best team", "worst team", "completion rate for",
         "how is the team", "how is team", "team doing", "team's kpi",
         "teams kpi", "team headcount",
     ],
@@ -48,17 +49,18 @@ CATEGORY_KEYWORDS = {
     ],
     "performance": [
         "kpi", "performer", "performance", "score", "band", "high performance",
-        "low performance", "need improvement", "lagging", "top performer",
-        "bottom performer", "rank", "ranking", "best", "worst", "rating",
-        "productive", "productivity", "contributing", "contribution",
+        "low performance", "need improvement", "needing improvement", "lagging",
+        "top performer", "bottom performer", "rank", "ranking", "best", "worst",
+        "rating", "productive", "productivity", "contributing", "contribution",
         "working well", "doing well", "how is", "is active", "performing",
         "output", "deliver", "achievement",
     ],
     "attendance": [
-        "absent", "attendance", "present", "leave", "holiday", "week off",
-        "missing", "greythr", "late", "half day", "lop", "frequently absent",
-        "regularly absent", "miss office", "not coming", "coming to office",
-        "office presence", "check in", "biometric",
+        "absent", "absence", "attendance", "present", "leave", "holiday",
+        "week off", "missing", "greythr", "late", "half day", "lop",
+        "frequently absent", "regularly absent", "miss office", "not coming",
+        "coming to office", "office presence", "check in", "biometric",
+        "punctuality", "punctual",
     ],
     "availability": [
         "online", "offline", "available", "busy", "away",
@@ -88,6 +90,26 @@ CATEGORY_KEYWORDS = {
         "code", "merge", "branch",
     ],
 }
+
+# A handful of github's keywords ("sprint", "milestone", "issue", "backlog", "code",
+# "contributor"...) are shared with task/performance and only mean "github" when the
+# question is unambiguously about GitHub. This narrower set is what's safe to
+# short-circuit on immediately in PRIORITY_ORDER below — the full list above still
+# applies during scoring for questions that don't say "github"/"git" outright.
+_GITHUB_STRONG_KEYWORDS = [
+    "github", "git", "pull request", "commit", "repo", "repository",
+    "kanban", "merge", "branch", "project board",
+]
+
+# Categories checked in this order before falling back to keyword scoring — earlier
+# entries win on any match. Order matters: categories with unambiguous, specific
+# keywords (a literal product/tool name) go first; risk_insight goes last because its
+# vocabulary ("inactive", "problem", "flag", "concern") is the most generic and was
+# previously hijacking sharepoint/other questions just for sharing a common word.
+_PRIORITY_ORDER = (
+    "github", "sharepoint", "calendar", "planner",
+    "employee360", "team_summary", "risk_insight",
+)
 
 
 _GREETING_TOKENS = {
@@ -126,16 +148,22 @@ def classify(question: str) -> str:
     if any(_contains_keyword(q, kw) for kw in _GENERAL_OVERRIDE_KEYWORDS):
         return "general"
 
-    # High-priority explicit categories — checked before scoring
-    for category in ("employee360", "risk_insight", "team_summary", "planner", "calendar", "sharepoint"):
-        if any(_contains_keyword(q, keyword) for keyword in CATEGORY_KEYWORDS[category]):
+    # High-priority explicit categories — checked before scoring, most specific first
+    for category in _PRIORITY_ORDER:
+        keywords = _GITHUB_STRONG_KEYWORDS if category == "github" else CATEGORY_KEYWORDS[category]
+        if any(_contains_keyword(q, keyword) for keyword in keywords):
             return category
 
-    # Score remaining categories
+    # Score remaining categories. Weight by keyword length, not just match count — a
+    # generic single word ("score", "best") shouldn't outscore a specific one
+    # ("punctuality", "efficiency") just because both matched once. Without this,
+    # ties always favored whichever category happened to be defined earlier in the
+    # dict (e.g. "show punctuality scores" landed on "performance" via "score" instead
+    # of "attendance" via "punctuality", purely from dict ordering).
     scores = {cat: 0 for cat in CATEGORY_KEYWORDS}
     for cat, keywords in CATEGORY_KEYWORDS.items():
         for kw in keywords:
             if _contains_keyword(q, kw):
-                scores[cat] += 1
+                scores[cat] += len(kw)
     best = max(scores, key=lambda c: scores[c])
     return best if scores[best] > 0 else "general"
