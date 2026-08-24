@@ -23,6 +23,177 @@ function graphEvents() {
   );
 }
 
+// Graph gives each attendee their own copy of a meeting (own id, own mailbox), so there's no
+// shared meeting id to group on. Organizer+start+end+subject is the practical key to recognize
+// "this is the same meeting" across everyone's separately-synced calendars.
+function graphNameKey(name) {
+  return String(name || "").trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+// Outlook can store one attendee's personal copy of a meeting with a prefixed subject
+// ("Following: Team Sync") instead of the real title — strip that so it still groups with
+// everyone else's copy of the same meeting instead of showing up as its own 1-person meeting.
+const GRAPH_SUBJECT_PREFIX_RE = /^(Following|Canceled|Cancelled|Declined|Tentative|Accepted|Updated|FW|Fwd):\s*/i;
+function graphCleanSubject(subject) {
+  return String(subject || "").replace(GRAPH_SUBJECT_PREFIX_RE, "").trim();
+}
+
+function graphMeetingGroups() {
+  const groups = new Map();
+  graphEvents().forEach(event => {
+    if (event.isCancelled || event.isAllDay) return;
+    const cleanSubject = graphCleanSubject(event.subject);
+    const isPrefixed = cleanSubject !== event.subject;
+    const key = `${event.organizer}|${event.start}|${event.end}|${cleanSubject}`;
+    if (!groups.has(key)) {
+      groups.set(key, {
+        subject: event.subject, subjectIsClean: !isPrefixed, start: event.start, end: event.end,
+        organizer: event.organizer, location: event.location,
+        meetingLink: event.meetingLink, webLink: event.webLink,
+        attendees: event.attendees || [], entries: [],
+      });
+    }
+    const group = groups.get(key);
+    group.entries.push(event);
+    if ((event.attendees || []).length > group.attendees.length) group.attendees = event.attendees;
+    if (!group.subjectIsClean && !isPrefixed) {
+      group.subject = event.subject;
+      group.subjectIsClean = true;
+    }
+  });
+  return [...groups.values()];
+}
+
+function graphLiveMeetings() {
+  const now = Date.now();
+  return graphMeetingGroups()
+    .map(group => ({ ...group, startMs: new Date(group.start).getTime(), endMs: new Date(group.end).getTime() }))
+    .filter(group => group.startMs <= now && now <= group.endMs)
+    .sort((a, b) => a.endMs - b.endMs);
+}
+
+// Each attendee's own status comes from cross-referencing their own calendar copy of this same
+// meeting (matched by name). Anyone invited but not tracked in the system shows as "unknown"
+// rather than a guessed status.
+function graphMeetingAttendeeRows(meeting, allLiveMeetings) {
+  const statusByKey = new Map();
+  meeting.entries.forEach(entry => {
+    const key = graphNameKey(entry.employee?.name);
+    if (key) statusByKey.set(key, { status: entry.showAs || "unknown", employee: entry.employee });
+  });
+  const doubleBookedKeys = new Set();
+  allLiveMeetings.forEach(other => {
+    if (other === meeting) return;
+    other.entries.forEach(entry => {
+      const key = graphNameKey(entry.employee?.name);
+      if (statusByKey.has(key) && (entry.showAs === "busy" || entry.showAs === "tentative")) {
+        doubleBookedKeys.add(key);
+      }
+    });
+  });
+  return (meeting.attendees.length ? meeting.attendees : [...statusByKey.values()].map(v => v.employee?.name)).map(name => {
+    const key = graphNameKey(name);
+    const own = statusByKey.get(key);
+    return {
+      name,
+      status: own ? own.status : "unknown",
+      employee: own?.employee || null,
+      doubleBooked: doubleBookedKeys.has(key),
+    };
+  });
+}
+
+function graphLiveTimeLeft(endMs) {
+  const mins = Math.max(0, Math.round((endMs - Date.now()) / 60000));
+  if (mins < 1) return "ending now";
+  if (mins < 60) return `${mins} min left`;
+  return `${Math.floor(mins / 60)}h ${mins % 60}m left`;
+}
+
+function graphInitials(name) {
+  const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+  return ((parts[0]?.[0] || "") + (parts[1]?.[0] || parts[0]?.[1] || "")).toUpperCase();
+}
+
+function graphLiveNameToken(row) {
+  return row.employee
+    ? `<button type="button" class="graph-live-flag-name" data-graph-employee="${escapeHtml(row.employee.id)}">${escapeHtml(row.name)}</button>`
+    : `<span class="graph-live-flag-name-plain">${escapeHtml(row.name)}</span>`;
+}
+
+function renderGraphLiveCard(meeting, allLiveMeetings) {
+  const rows = graphMeetingAttendeeRows(meeting, allLiveMeetings);
+  const notAttending = rows.filter(row => row.status === "free");
+  const doubleBooked = rows.filter(row => row.doubleBooked);
+  const counts = { busy: 0, tentative: 0, free: 0, unknown: 0 };
+  rows.forEach(row => { counts[row.status] = (counts[row.status] || 0) + 1; });
+  const startLabel = new Date(meeting.start).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  const endLabel = new Date(meeting.end).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  return `<div class="graph-live-card">
+    <div class="graph-live-top">
+      <div>
+        <p class="graph-live-subject">${escapeHtml(meeting.subject)}</p>
+        <div class="graph-live-meta">
+          <span>Organizer: ${escapeHtml(meeting.organizer)}</span>
+          <span>${startLabel} – ${endLabel}</span>
+          ${meeting.meetingLink ? `<a href="${escapeHtml(meeting.meetingLink)}" target="_blank" rel="noopener noreferrer">Join in Teams →</a>` : ""}
+        </div>
+      </div>
+      <span class="graph-live-timeleft">${graphLiveTimeLeft(meeting.endMs)}</span>
+    </div>
+    ${notAttending.length ? `<div class="graph-live-flag not-attending">
+      <span aria-hidden="true">🚩</span><b>Not attending:</b>
+      <span class="graph-live-flag-names">${notAttending.map(graphLiveNameToken).join("")}</span>
+      <span class="graph-live-flag-note">marked free despite the invite</span>
+    </div>` : ""}
+    ${doubleBooked.length ? `<div class="graph-live-flag double-booked">
+      <span aria-hidden="true">⚠️</span><b>Double-booked:</b>
+      <span class="graph-live-flag-names">${doubleBooked.map(graphLiveNameToken).join("")}</span>
+      <span class="graph-live-flag-note">also invited to another meeting happening now</span>
+    </div>` : ""}
+    <div class="graph-live-summary">
+      <span><b>${counts.busy}</b> busy</span>
+      <span><b>${counts.tentative}</b> tentative</span>
+      <span><b>${counts.free}</b> marked free</span>
+      <span><b>${counts.unknown}</b> not tracked</span>
+    </div>
+    <div class="graph-live-attendees">
+      ${rows.map(row => `<button type="button" class="graph-live-chip status-${row.status}"
+          ${row.employee ? `data-graph-employee="${escapeHtml(row.employee.id)}"` : "disabled"}>
+          <span class="graph-live-avatar">${escapeHtml(graphInitials(row.name))}</span>${escapeHtml(row.name)}
+          ${row.doubleBooked ? `<i class="graph-live-conflict" aria-hidden="true">⚠️</i>` : ""}
+          <i class="graph-live-dot-status" aria-hidden="true"></i>
+        </button>`).join("")}
+    </div>
+  </div>`;
+}
+
+function renderGraphLive() {
+  const allLive = graphLiveMeetings();
+  const matching = allLive.filter(meeting => graphSearch(meeting.subject, meeting.organizer));
+  const rows = matching.filter(meeting => {
+    if (graphExplorerState.filter !== "flagged") return true;
+    const attendeeRows = graphMeetingAttendeeRows(meeting, allLive);
+    return attendeeRows.some(row => row.status === "free" || row.doubleBooked);
+  });
+  document.getElementById("graphPagination").innerHTML =
+    `<span>${rows.length} meeting${rows.length === 1 ? "" : "s"} in progress</span>`;
+  if (!rows.length) {
+    document.getElementById("graphWorkspace").innerHTML = `
+      <div class="graph-empty-state">
+        <span aria-hidden="true">◷</span>
+        <h3>Nothing live right now</h3>
+        <p>No meetings are currently in progress across the calendars this system tracks.</p>
+      </div>`;
+    return;
+  }
+  document.getElementById("graphWorkspace").innerHTML =
+    `<div class="graph-live-list">${rows.map(meeting => renderGraphLiveCard(meeting, allLive)).join("")}</div>`;
+  document.querySelectorAll("[data-graph-employee]").forEach(el => {
+    el.onclick = () => openGraphEmployeeDrawer(el.dataset.graphEmployee);
+  });
+}
+
 
 function graphHue(index) {
   return `hsl(${(index * 137.508 + 205) % 360} 68% 46%)`;
@@ -743,6 +914,8 @@ function profileEmpty(message) {
   return `<div class="graph-profile-empty">${escapeHtml(message)}</div>`;
 }
 
+let graphLiveTicker = null;
+
 function setGraphSection(section) {
   graphExplorerState.section = section;
   graphExplorerState.page = 1;
@@ -751,6 +924,10 @@ function setGraphSection(section) {
   if (section === "calendar" && !graphExplorerState.calendarDate) {
     graphExplorerState.calendarDate = graphData?.meta?.periodStart || new Date().toISOString();
   }
+  clearInterval(graphLiveTicker);
+  graphLiveTicker = section === "live" ? setInterval(() => {
+    if (graphExplorerState.section === "live") renderGraphSection();
+  }, 30000) : null;
   renderGraphExplorer();
   if (section === "employees") {
     const email = (typeof loggedInUserEmail !== "undefined" ? loggedInUserEmail : "").toLowerCase();
@@ -764,6 +941,7 @@ function setGraphSection(section) {
 }
 
 const GRAPH_KPI_ICONS = {
+  live: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>`,
   plans: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg>`,
   tasks: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M2 12l3 3L15 5"/></svg>`,
   completed: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>`,
@@ -783,6 +961,7 @@ function renderGraphExplorer() {
   if (eyebrowEl) eyebrowEl.textContent = `Organization Overview${totalEmployees ? ` · All ${totalEmployees} Employees` : ""}`;
 
   const cards = [
+    ["live", "Live meetings", graphLiveMeetings().length, "Happening right now"],
     ["plans", "Planner plans", overview.plans || 0, "Organized workspaces"],
     ["tasks", "Planner tasks", overview.plannerTasks || 0, "Across every plan"],
     ["completed", "Completed tasks", overview.completedPlannerTasks || 0, "Delivered work"],
@@ -811,6 +990,7 @@ function renderGraphExplorer() {
 
 function renderGraphSectionHeader(cards) {
   const details = {
+    live: ["●", "Live Meetings", "Meetings in progress right now, who's invited, and each person's status pulled from their own calendar."],
     plans: ["P", "Planner Plans", "Explore every plan workspace, ownership group, task volume, and delivery progress."],
     tasks: ["T", "Planner Tasks", "Review assignments across all plans with status, priority, assignee, and due-date controls."],
     completed: ["✓", "Completed Tasks", "Inspect delivered work, completion dates, ownership, and full task metadata."],
@@ -832,6 +1012,7 @@ function renderGraphSectionHeader(cards) {
 
 function renderGraphToolbar() {
   const filters = {
+    live: [["all", "All live meetings"], ["flagged", "Has flags"]],
     plans: [["all", "All plans"], ["active", "Has open tasks"], ["complete", "100% complete"]],
     tasks: [["all", "All statuses"], ["Completed", "Completed"], ["In Progress", "In progress"], ["Not Started", "Not started"], ["Overdue", "Overdue"], ["Unassigned", "Unassigned"], ["Orphaned", "No owner + no deadline"], ["Priority", "High/Urgent priority"]],
     completed: [["all", "All completed"]],
@@ -926,6 +1107,7 @@ function graphPage(rows) {
 
 function renderGraphSection() {
   ({
+    live: renderGraphLive,
     plans: renderGraphPlans,
     tasks: () => renderGraphTasks(false),
     completed: () => renderGraphTasks(true),
