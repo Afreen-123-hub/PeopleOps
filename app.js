@@ -3802,33 +3802,44 @@ function renderTodayBriefing() {
     }
   }
 
-  // Out today row — from each employee's real attendanceDays[today] status
+  // Out today row — GreytHR's attendanceDays[today] is recorded once overnight and is
+  // structurally always blank for the current day by the time this data loads, so "today"
+  // needs a signal that's actually live: Microsoft Teams' isOutOfOffice status (same source
+  // as the Live Presence page). GreytHR absence/leave is still shown when it happens to have
+  // same-day data, kept as its own category since it means something different (HR-recorded
+  // vs. an auto-reply/calendar-derived status).
   const outRow = document.getElementById("briefOutRow");
   if (outRow) {
     const todayKey = todayDateKey();
+    const ooo = [];
     const absent = [];
     const leave = [];
     (dataset?.employees || []).forEach(e => {
+      if (e.teams?.isOutOfOffice) ooo.push(e.name);
       const status = (e.attendanceDays || {})[todayKey];
       if (status === "A") absent.push(e.name);
       else if (status === "Leave") leave.push(e.name);
     });
-    if (absent.length || leave.length) {
-      const chips = [
-        ...absent.slice(0, 6).map(n => `<span class="name-chip chip-absent">${escapeHtml(n)}</span>`),
-        ...(absent.length > 6 ? [`<span class="name-chip chip-absent">+${absent.length - 6} more absent</span>`] : []),
-        ...leave.slice(0, 6).map(n => `<span class="name-chip chip-leave">${escapeHtml(n)}</span>`),
-        ...(leave.length > 6 ? [`<span class="name-chip chip-leave">+${leave.length - 6} more on leave</span>`] : []),
-      ].join("");
+    const groups = [
+      ["chip-ooo", ooo, "out of office"],
+      ["chip-absent", absent, "absent"],
+      ["chip-leave", leave, "on leave"],
+    ];
+    if (ooo.length || absent.length || leave.length) {
+      const chips = groups.flatMap(([cls, list]) => [
+        ...list.slice(0, 6).map(n => `<span class="name-chip ${cls}">${escapeHtml(n)}</span>`),
+        ...(list.length > 6 ? [`<span class="name-chip ${cls}">+${list.length - 6} more</span>`] : []),
+      ]).join("");
+      const summary = groups.filter(([, list]) => list.length).map(([, list, label]) => `${list.length} ${label}`).join(" · ");
       outRow.innerHTML = `
         <div class="brow-icon icon-out">–</div>
         <div class="brow-body">
           <div class="brow-label">Out today</div>
-          <div class="brow-main">${absent.length} absent · ${leave.length} on leave</div>
+          <div class="brow-main">${summary}</div>
           <div class="name-chip-row">${chips}</div>
         </div>`;
     } else {
-      outRow.innerHTML = _briefEmptyRow("icon-out", "–", "Out today", "Nobody out today");
+      outRow.innerHTML = _briefEmptyRow("icon-out", "–", "Out today", "Nobody flagged out today");
     }
   }
 
