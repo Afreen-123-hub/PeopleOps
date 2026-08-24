@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-20T04:08:56.172676Z",
+  "lastUpdated": "2026-08-24T04:15:10.836612Z",
   "period": {
     "since": "2026-08-01",
     "until": "2026-08-31"
@@ -24,12 +24,192 @@
       "title": "Edubot_CPLC",
       "items": [
         {
-          "title": "[version-2 CPLC] Attendance History Not Sorted by Most Recent Login/Check-in",
+          "title": "[Version-2 CPLC] Past Time Slots Allowed When Creating Schedule Events",
           "status": "In Progress",
           "priority": "",
           "size": "",
           "assignees": [
             "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/313",
+          "createdAt": "2026-08-21T11:04:35Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Module 2 Restriction Not Reflected in Student Lesson Plan View",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/305",
+          "createdAt": "2026-08-21T05:00:13Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Mentor does not receive a notification when a student submits a task",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/307",
+          "createdAt": "2026-08-21T05:20:43Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Super Admin – Institution Profile Shows Success Message When Required Fields Are Cleared",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/308",
+          "createdAt": "2026-08-21T05:28:04Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[version-2 CPLC] Question Order Changes When Task Is Displayed to Student",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/303",
+          "createdAt": "2026-08-20T12:08:02Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[version-2 CPLC] Location Permission Is Requested Repeatedly for Mentor but Only Once for Student",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/298",
+          "createdAt": "2026-08-20T08:57:49Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Student – Student Material Search Placeholder Text Is Incorrect",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/306",
+          "createdAt": "2026-08-21T05:09:28Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[version-2 CPLC] No Validation Error When Creating Duplicate Course/Batch Names",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/301",
+          "createdAt": "2026-08-20T11:09:02Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] No Validation Error When Same Phone Number Used Across All Fields",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/296",
+          "createdAt": "2026-08-20T05:50:06Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Duplicate Password Visibility Icons Displayed in Login Page",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/300",
+          "createdAt": "2026-08-20T10:02:53Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Task Filter Count Not Updating Correctly When Filtering by Status",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/297",
+          "createdAt": "2026-08-20T07:08:03Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[version-2 CPLC] Duplicate Attendance Records Shown for Same Student on Same Date",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/295",
+          "createdAt": "2026-08-20T04:46:38Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[version-2 CPLC] Attendance History Not Sorted by Most Recent Login/Check-in",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/293",
@@ -40,11 +220,11 @@
         },
         {
           "title": "[Version-2 CPLC] Attendance Info Module Displays Duplicate Student Records and Lacks Consistent Student/Mentor Attendance Listing",
-          "status": "In Progress",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/278",
@@ -55,11 +235,11 @@
         },
         {
           "title": "[version-2 CPLC] OTP Timer Continues During New Password Creation",
-          "status": "In Progress",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/294",
@@ -1342,192 +1522,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "[ Version-2 CPLC ] Changing \"Rows per Page\" Does Not Reset Pagination",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/124",
-          "createdAt": "2026-07-24T06:18:33Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version -2 CPLC] “View All” in the Admin Dashboard Leave Approval section navigates only to Student Leave Requests.",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/132",
-          "createdAt": "2026-07-27T05:20:11Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Leave Balance Is Not Displayed During Leave Application",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/126",
-          "createdAt": "2026-07-24T07:07:49Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Bug: Implement Student Portal Improvements",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/47",
-          "createdAt": "2026-07-14T18:50:26Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] User Story: Admin, Mentor & Student Portals – Schedule Management",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/83",
-          "createdAt": "2026-07-19T08:25:45Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Forgot Password accepts invalid OTP and redirects to Reset Password page",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/130",
-          "createdAt": "2026-07-27T04:21:14Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Admin-created schedules do not display the creator name for students",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/129",
-          "createdAt": "2026-07-27T04:16:24Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Leave Balance Is Not Displayed in the Leave Application Form",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/127",
-          "createdAt": "2026-07-24T08:44:59Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Weightage Field Is Auto-Populated with Default Value in Create Task",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/125",
-          "createdAt": "2026-07-24T06:39:26Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[ Version-2 CPLC ] Schedule Details Panel Opens by Default Instead of on Event Hover/Click.",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/122",
-          "createdAt": "2026-07-24T05:04:28Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] User Story: Student Portal – Learning Path Management",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/87",
-          "createdAt": "2026-07-19T09:23:37Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] User Story : Student Portal – Dashboard Enhancement",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/86",
-          "createdAt": "2026-07-19T09:21:08Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 96,
-        "inProgress": 3,
+        "done": 87,
+        "inProgress": 12,
         "todo": 0,
         "backlog": 0,
         "production": 0
@@ -1537,6 +1537,21 @@
       "number": 37,
       "title": "SabAi Bible App",
       "items": [
+        {
+          "title": "Previous User's Chat History Is Displayed for a New User",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/72",
+          "createdAt": "2026-08-21T11:36:18Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Sharing Visualize Report in Community Fails with \"Failed to Create Post\" Toast",
           "status": "DEV",
@@ -2270,13 +2285,43 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Community Post Update Fails and Attached File Remains After Cancelling Edit",
+          "status": "TODO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "sriramgowthamE"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/71",
+          "createdAt": "2026-08-21T05:34:28Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Irrelevant Image Query Generates Unrelated Bible Verses Instead of an Out-of-Scope Message",
+          "status": "TODO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/73",
+          "createdAt": "2026-08-21T15:13:31Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 49,
+        "total": 52,
         "done": 0,
-        "inProgress": 40,
-        "todo": 1,
+        "inProgress": 41,
+        "todo": 3,
         "backlog": 8,
         "production": 0
       }
@@ -2300,11 +2345,12 @@
       "items": [
         {
           "title": "(Smart Itinerary Planner) Generate a personalized AI itinerary",
-          "status": "In progress",
+          "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Dharsan1102codework",
+            "sriramgowthamE"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/6",
@@ -2345,11 +2391,11 @@
         },
         {
           "title": "(Smart Itinerary Planner) Edit and reorganize the itinerary",
-          "status": "In progress",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "sriramgowthamE"
+            "Lakshana-Lakshmanan"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/8",
@@ -2360,7 +2406,7 @@
         },
         {
           "title": "(Smart Itinerary Planner) Weather- and event-aware planning",
-          "status": "In progress",
+          "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2420,7 +2466,7 @@
         },
         {
           "title": "(User Registration & Profile Management) Create a traveler profile with preferences",
-          "status": "In progress",
+          "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2539,11 +2585,11 @@
         },
         {
           "title": "(Smart Itinerary Planner) Share and access the itinerary offline",
-          "status": "In progress",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Lakshana-Lakshmanan"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/15",
@@ -2580,12 +2626,10 @@
         },
         {
           "title": "(Emergency & Safety) One-tap emergency and SOS",
-          "status": "TODO",
+          "status": "DEV",
           "priority": "",
           "size": "",
-          "assignees": [
-            "sriramgowthamE"
-          ],
+          "assignees": [],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/25",
           "createdAt": "2026-07-06T12:01:52Z",
@@ -2831,14 +2875,301 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "(Office Mode) Access essentials offline",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework",
+            "sriramgowthamE"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/45",
+          "createdAt": "2026-08-20T10:09:19Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Offline Mode) Manage downloaded content",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework",
+            "sriramgowthamE"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/46",
+          "createdAt": "2026-08-20T10:13:13Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework",
+            "sriramgowthamE"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/47",
+          "createdAt": "2026-08-20T10:14:25Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Reviews & Community Engagement) Trustworthy, sorted reviews",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework",
+            "sriramgowthamE"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/48",
+          "createdAt": "2026-08-20T10:16:28Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Expense Tracker & Budget Manager) Track expenses",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/49",
+          "createdAt": "2026-08-20T10:19:37Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Expense Tracker & Budget Manager) Currency conversion and budget alerts",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/50",
+          "createdAt": "2026-08-20T10:21:38Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Local Marketplace) Browse local Omani products",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/51",
+          "createdAt": "2026-08-20T10:24:53Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Local Marketplace) Support local SMEs and artisans",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/52",
+          "createdAt": "2026-08-20T10:26:47Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Gamification Challenges & Leaderboard) Complete tourist challenges",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/53",
+          "createdAt": "2026-08-20T10:28:01Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Gamification Challenges & Leaderboard) Monthly leaderboard",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/54",
+          "createdAt": "2026-08-20T10:29:38Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Wellness & Healthy Dining) Wellness recommendations",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/55",
+          "createdAt": "2026-08-20T10:30:31Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Travel Insurance) Browse and manage travel insurance",
+          "status": "TODO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/56",
+          "createdAt": "2026-08-20T10:31:26Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Smart Wearable Integration) Connect a smart wearable",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/57",
+          "createdAt": "2026-08-20T10:33:04Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Admin & Analytics Dashboard (Backend)) Manage users and content",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/58",
+          "createdAt": "2026-08-20T10:34:57Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Admin & Analytics Dashboard (Backend)) Moderate reviews",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/59",
+          "createdAt": "2026-08-20T10:35:41Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Admin & Analytics Dashboard (Backend)) Tourism analytics and reporting",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/60",
+          "createdAt": "2026-08-20T10:36:50Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Non-Functional & Cross-Cutting Requirements) Performance and responsiveness",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/61",
+          "createdAt": "2026-08-20T10:37:54Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Non-Functional & Cross-Cutting Requirements) Data security and privacy",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/62",
+          "createdAt": "2026-08-20T10:38:46Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Non-Functional & Cross-Cutting Requirements) Usability and accessibility",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/63",
+          "createdAt": "2026-08-20T10:39:33Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(Non-Functional & Cross-Cutting Requirements) Transparent and ethical AI",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/64",
+          "createdAt": "2026-08-20T10:40:57Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "(AI-Generated Audio Tours) Listen to AI-generated audio tours",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/65",
+          "createdAt": "2026-08-20T10:43:51Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 38,
+        "total": 59,
         "done": 2,
-        "inProgress": 11,
-        "todo": 1,
-        "backlog": 24,
+        "inProgress": 10,
+        "todo": 3,
+        "backlog": 44,
         "production": 0
       }
     },
@@ -2846,6 +3177,21 @@
       "number": 32,
       "title": "EduBot_University",
       "items": [
+        {
+          "title": "Assigned Task Is Not Displayed for Student",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "vahithcw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/128",
+          "createdAt": "2026-07-09T11:31:51Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "OTP Expired Message Displayed Before Timer Ends",
           "status": "In progress",
@@ -3102,21 +3448,6 @@
           "endDate": ""
         },
         {
-          "title": "Assigned Task Is Not Displayed for Student",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "vahithcw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/128",
-          "createdAt": "2026-07-09T11:31:51Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Check-In Fails When Attendance Location Is Not Configured",
           "status": "Todo",
           "priority": "",
@@ -3297,12 +3628,132 @@
       "title": "Acadamiq AI",
       "items": [
         {
-          "title": "Chat search does not display names.",
+          "title": "Timetable UI Is Inconsistent Across Admin, Teacher, Student, and Parent Roles",
           "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
             "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/628",
+          "createdAt": "2026-08-03T09:28:13Z",
+          "closedAt": null,
+          "startDate": "2026-08-05",
+          "endDate": ""
+        },
+        {
+          "title": "Parent and Student Do Not Receive Notifications After AI Overnight Analysis Approval",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/725",
+          "createdAt": "2026-08-11T06:10:27Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Editing Room Details Creates a New Room and No Success Toast Is Displayed",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/775",
+          "createdAt": "2026-08-17T07:42:45Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Outcome Severity Displays All Options Instead of Category-Based Default Severity",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/741",
+          "createdAt": "2026-08-12T08:57:33Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Black Line Appears When Clearing Applicant Name Search in Leave Request",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/753",
+          "createdAt": "2026-08-12T12:06:36Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Curriculum Management page flickers and reloads data when navigating back.",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "suruthisagar97"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/742",
+          "createdAt": "2026-08-12T09:08:15Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Syllabus Coverage Analysis Notification Opens With \"No Analysis\" Message",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/723",
+          "createdAt": "2026-08-11T05:35:53Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Event Preview Displays Participant Count Instead of \"All\" Participant Types",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/731",
+          "createdAt": "2026-08-11T12:14:09Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Chat search does not display names.",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "suruthisagar97"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/750",
@@ -3312,12 +3763,58 @@
           "endDate": ""
         },
         {
-          "title": "Last Exercise Is Partially Hidden in Student Assignment & Worksheets Page",
-          "status": "DEV",
+          "title": "TB - 01 Fill in timetable info before creating it",
+          "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "saimanL",
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/792",
+          "createdAt": "2026-08-20T04:20:48Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Teacher Cannot Edit Generated Assignments/Worksheets",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/751",
+          "createdAt": "2026-08-12T11:57:38Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Timetable Is Not Associated with an Academic Year",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/480",
+          "createdAt": "2026-07-21T06:51:16Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Last Exercise Is Partially Hidden in Student Assignment & Worksheets Page",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/618",
@@ -3328,11 +3825,11 @@
         },
         {
           "title": "Message Sent by School Admin Is Not Received by Parent",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/740",
@@ -3343,11 +3840,11 @@
         },
         {
           "title": "Subject Tab Is Incorrectly Displayed for Subject Teachers in Gradebook",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/717",
@@ -3358,11 +3855,11 @@
         },
         {
           "title": "Page Navigation Should Be Used Instead of Scrollbar in Academic Session",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/697",
@@ -3373,11 +3870,11 @@
         },
         {
           "title": "Application Allows Creating Multiple Periods with the Same Time Range",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/465",
@@ -3388,11 +3885,11 @@
         },
         {
           "title": "Incorrect \"New\" Label and Date Required Validation Displayed for Saved Announcement Draft",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/743",
@@ -3403,11 +3900,11 @@
         },
         {
           "title": "Gradebook Class View Page Flickers When Opening Student Details",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/667",
@@ -3418,11 +3915,11 @@
         },
         {
           "title": "Operational Days Configuration Is Not Enforced in Attendance and Event Calendar",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/624",
@@ -3433,11 +3930,11 @@
         },
         {
           "title": "Network Error Occurs When Updating a Period",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/770",
@@ -3448,11 +3945,11 @@
         },
         {
           "title": "Assignment & Worksheet Generation Fails When Using Grade and Class Values Instead of School Setup Format",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/605",
@@ -3463,11 +3960,11 @@
         },
         {
           "title": "Incident Names Overlap While Scrolling in Incident Management Page",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/412",
@@ -3478,11 +3975,11 @@
         },
         {
           "title": "CT-06 – AI Insights & Student Performance",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "inbarasuv"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/639",
@@ -3508,11 +4005,11 @@
         },
         {
           "title": "CT-07 – Report Card Management",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "inbarasuv"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/641",
@@ -3523,11 +4020,11 @@
         },
         {
           "title": "CT-08 – Communication Management",
-          "status": "In progress",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "inbarasuv"
+            "Dharsan1102codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/642",
@@ -4003,6 +4500,21 @@
           "endDate": ""
         },
         {
+          "title": "Display Class Occupancy Details for Blank Teacher Timetable Periods",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/766",
+          "createdAt": "2026-08-13T11:51:06Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Repeat Event Checkbox Has No Functionality",
           "status": "QA",
           "priority": "",
@@ -4013,36 +4525,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/670",
           "createdAt": "2026-08-04T11:20:00Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Parent and Student Do Not Receive Notifications After AI Overnight Analysis Approval",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "nithisha-01"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/725",
-          "createdAt": "2026-08-11T06:10:27Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Syllabus Coverage Analysis Notification Opens With \"No Analysis\" Message",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "nithisha-01"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/723",
-          "createdAt": "2026-08-11T05:35:53Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -4646,164 +5128,14 @@
           "closedAt": null,
           "startDate": "2026-07-22",
           "endDate": ""
-        },
-        {
-          "title": "Attendance List Is Not Cleared After Clearing the Date Filter",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/500",
-          "createdAt": "2026-07-22T04:10:10Z",
-          "closedAt": null,
-          "startDate": "2026-07-22",
-          "endDate": ""
-        },
-        {
-          "title": "Event Calendar Displays Time in System Format Instead of 12-Hour Format",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/497",
-          "createdAt": "2026-07-21T12:11:44Z",
-          "closedAt": null,
-          "startDate": "2026-07-22",
-          "endDate": ""
-        },
-        {
-          "title": "Parent contact number is empty after student creation.",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "suruthisagar97"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/335",
-          "createdAt": "2026-07-13T06:05:38Z",
-          "closedAt": null,
-          "startDate": "2026-07-13",
-          "endDate": ""
-        },
-        {
-          "title": "Duplicate Phone Number Are Allowed During User Creation",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/217",
-          "createdAt": "2026-07-07T04:48:41Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Action Menu Is Hidden Behind the Taskbar in Manage Users",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/569",
-          "createdAt": "2026-07-27T11:11:08Z",
-          "closedAt": null,
-          "startDate": "2026-07-30",
-          "endDate": ""
-        },
-        {
-          "title": "Success message displayed when saving attendance without data.",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "suruthisagar97"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/559",
-          "createdAt": "2026-07-27T06:16:10Z",
-          "closedAt": null,
-          "startDate": "2026-07-27",
-          "endDate": ""
-        },
-        {
-          "title": "Downloaded User PDF Does Not Maintain Alphabetical Order",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/555",
-          "createdAt": "2026-07-27T04:52:16Z",
-          "closedAt": null,
-          "startDate": "2026-07-27",
-          "endDate": ""
-        },
-        {
-          "title": "Mandatory Field Indicators and Inline Validation Are Missing on Student and Parent Edit Profile",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/553",
-          "createdAt": "2026-07-24T11:24:10Z",
-          "closedAt": null,
-          "startDate": "2026-07-27",
-          "endDate": ""
-        },
-        {
-          "title": "Mandatory Field Validation Displays Failure Toast Instead of Inline Message on Teacher Edit Profile",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/552",
-          "createdAt": "2026-07-24T11:10:37Z",
-          "closedAt": null,
-          "startDate": "2026-07-27",
-          "endDate": ""
-        },
-        {
-          "title": "Notification action buttons are missing.",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "suruthisagar97"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/545",
-          "createdAt": "2026-07-24T06:54:25Z",
-          "closedAt": null,
-          "startDate": "2026-07-27",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 98,
-        "todo": 1,
-        "backlog": 1,
+        "inProgress": 96,
+        "todo": 2,
+        "backlog": 2,
         "production": 0
       }
     },
@@ -4812,12 +5144,57 @@
       "title": "Worklogix",
       "items": [
         {
-          "title": "HR – Visitor Name Sorting Issue",
-          "status": "In Progress",
+          "title": "Notification count remains visible even after the notification has been opened and viewed.",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/94",
+          "createdAt": "2026-08-10T09:43:06Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Visitor Log Management",
+          "status": "QA Review",
+          "priority": "P0",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/88",
+          "createdAt": "2026-06-26T11:38:07Z",
+          "closedAt": "2026-06-29T05:42:24Z",
+          "startDate": "2026-06-10",
+          "endDate": "2026-06-16"
+        },
+        {
+          "title": "Intern Attendance Sign-In Button",
+          "status": "QA Review",
+          "priority": "P0",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/49",
+          "createdAt": "2026-06-26T11:46:56Z",
+          "closedAt": null,
+          "startDate": "2026-08-12",
+          "endDate": "2026-08-12"
+        },
+        {
+          "title": "HR – Visitor Name Sorting Issue",
+          "status": "QA Review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/126",
@@ -4828,11 +5205,11 @@
         },
         {
           "title": "Leadership – Project table sorting arrows are non-functional",
-          "status": "In Progress",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/125",
@@ -4870,21 +5247,6 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Intern Attendance Sign-In Button",
-          "status": "Todo",
-          "priority": "P0",
-          "size": "",
-          "assignees": [
-            "nithisha-01"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/49",
-          "createdAt": "2026-06-26T11:46:56Z",
-          "closedAt": null,
-          "startDate": "2026-08-12",
-          "endDate": "2026-08-12"
         },
         {
           "title": "Block / unblock developer time for resource allocation",
@@ -4930,21 +5292,6 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Visitor Log Management",
-          "status": "QA Review",
-          "priority": "P0",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/88",
-          "createdAt": "2026-06-26T11:38:07Z",
-          "closedAt": "2026-06-29T05:42:24Z",
-          "startDate": "2026-06-10",
-          "endDate": "2026-06-16"
         },
         {
           "title": "Selected Intern Name Overflows the Card",
@@ -5052,23 +5399,8 @@
           "endDate": ""
         },
         {
-          "title": "Team Members Not Displayed for Team Lead",
-          "status": "QA Review",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/58",
-          "createdAt": "2026-07-07T10:55:13Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Development Lead – Team Management Details Not Displayed",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5092,21 +5424,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/59",
           "createdAt": "2026-07-07T11:03:02Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Add Date Field to Add Visitor Form in Test HR",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "nithisha-01"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/93",
-          "createdAt": "2026-07-07T11:06:25Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -5282,7 +5599,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Lakshana-Lakshmanan"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/72",
@@ -5293,11 +5610,11 @@
         },
         {
           "title": "Application error is displayed when the Team Lead opens Employee Performance Analytics.",
-          "status": "In Progress",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/73",
@@ -5308,7 +5625,7 @@
         },
         {
           "title": "Performance Breakdown dropdown is misaligned and extends outside its container in the Project Manager Portal.",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5323,7 +5640,7 @@
         },
         {
           "title": "An employee name is selected by default in the Performance Breakdown filter without user action.",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5338,11 +5655,11 @@
         },
         {
           "title": "Internal UUID values are displayed instead of valid Employee IDs in the Performance Breakdown dropdown.",
-          "status": "Todo",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/76",
@@ -5353,11 +5670,11 @@
         },
         {
           "title": "Internal UUID values are displayed instead of valid Employee IDs in the Employee Comparison and Average Rating Comparison charts.",
-          "status": "Todo",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/77",
@@ -5383,11 +5700,11 @@
         },
         {
           "title": "Reset action shows a success message, but employees remain in the Master Default Template after reopening KPI Settings.",
-          "status": "Todo",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/79",
@@ -5458,11 +5775,11 @@
         },
         {
           "title": "Intern Daily Score Breakdown is empty, and a temporary box appears and disappears when selecting an intern in the HR Portal.",
-          "status": "In Progress",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/85",
@@ -5473,7 +5790,7 @@
         },
         {
           "title": "Intern Daily Score Breakdown graph expands automatically while the page is loading without any user interaction.",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5578,21 +5895,6 @@
         },
         {
           "title": "Team Lead is unable to create and assign tasks to Employees or Interns under their team.",
-          "status": "In Progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Kxrthikeyan-76"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/93",
-          "createdAt": "2026-08-10T09:33:35Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Notification count remains visible even after the notification has been opened and viewed.",
           "status": "QA Review",
           "priority": "",
           "size": "",
@@ -5600,8 +5902,8 @@
             "Anisha-cw"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/94",
-          "createdAt": "2026-08-10T09:43:06Z",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/93",
+          "createdAt": "2026-08-10T09:33:35Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -5683,7 +5985,7 @@
         },
         {
           "title": "Intern filter does not work correctly for Team and Designation filters in Employee List",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5713,7 +6015,7 @@
         },
         {
           "title": "Logout action is performed immediately without asking for user confirmation.",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5743,7 +6045,7 @@
         },
         {
           "title": "Role column is missing from Employee List table despite being available in filters and Add Employee",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5863,11 +6165,11 @@
         },
         {
           "title": "In Employee Role CodeWork logo redirects to Dashboard when clicked from other pages",
-          "status": "In Progress",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Kxrthikeyan-76"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/117",
@@ -5893,7 +6195,7 @@
         },
         {
           "title": "Protected API Request Returns 401 Unauthorized on Login Page",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5908,15 +6210,60 @@
         },
         {
           "title": "An unwanted “(” character is displayed next to the user’s initial “A” in the profile icon. The profile icon should display only “A”.",
-          "status": "In Progress",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/120",
           "createdAt": "2026-08-18T09:05:02Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Team Members Not Displayed for Team Lead",
+          "status": "QA Review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/58",
+          "createdAt": "2026-07-07T10:55:13Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "HR – Login Redirects to Employee List Instead of Daily Updates",
+          "status": "QA Review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/134",
+          "createdAt": "2026-08-19T11:48:40Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Project Search – Complete Project ID Does Not Return Matching Project",
+          "status": "QA Review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/140",
+          "createdAt": "2026-08-20T11:06:50Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -5938,11 +6285,11 @@
         },
         {
           "title": "HR – Daily Updates approval status filter and row status icons do not match the actual status",
-          "status": "Todo",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/122",
@@ -6013,11 +6360,11 @@
         },
         {
           "title": "Project Manager – Weekly Project Notes Save/Cancel and Update/Delete Issue",
-          "status": "In Progress",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/129",
@@ -6043,11 +6390,11 @@
         },
         {
           "title": "Display Employees Assigned Under Each Mentor in Mentor Portal",
-          "status": "Todo",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/133",
@@ -6057,16 +6404,16 @@
           "endDate": ""
         },
         {
-          "title": "HR – Login Redirects to Employee List Instead of Daily Updates",
-          "status": "Todo",
+          "title": "Add Date Field to Add Visitor Form in Test HR",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/134",
-          "createdAt": "2026-08-19T11:48:40Z",
+          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/93",
+          "createdAt": "2026-07-07T11:06:25Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -6077,7 +6424,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Lakshana-Lakshmanan"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/135",
@@ -6087,12 +6434,12 @@
           "endDate": ""
         },
         {
-          "title": "Project Manager – “Simple Testing” Team Member Management and Count Not Working Correctly",
-          "status": "Todo",
+          "title": "Project Manager – Team Member Management and Count Not Working Correctly",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/136",
@@ -6103,11 +6450,11 @@
         },
         {
           "title": "Employee – Unnecessary Employee Selection Dropdown in Team Sheet Calendar",
-          "status": "Todo",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/137",
@@ -6118,11 +6465,11 @@
         },
         {
           "title": "Project Manager – Employee Scope Dropdown Overlaps Refresh Button in Utilization Report",
-          "status": "Todo",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/138",
@@ -6130,14 +6477,104 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Team Lead – Assigned Intern/Trainee Employees Not Displayed in “Choose Employee” Dropdown",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/139",
+          "createdAt": "2026-08-20T11:02:36Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Incorrect “Create Task” button label is displayed in the Add Daily Update form across multiple roles.",
+          "status": "QA Review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/141",
+          "createdAt": "2026-08-21T09:33:05Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Employee/HR/Intern/Team Lead – Required Field Indicators Missing in Add Daily Update Form",
+          "status": "QA Review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/142",
+          "createdAt": "2026-08-21T09:57:23Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Dependency Status and Updated Date & Time columns are misaligned in the HR Daily Updates module",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/143",
+          "createdAt": "2026-08-21T11:34:37Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Employee name is partially hidden in the “Choose Employee” dropdown in the HR Employee Performance module",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/144",
+          "createdAt": "2026-08-21T11:45:19Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "HR – Employee Performance Does Not Auto-Select the First Employee for “All Assigned”",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/145",
+          "createdAt": "2026-08-21T12:07:32Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 88,
+        "total": 95,
         "done": 0,
-        "inProgress": 8,
-        "todo": 14,
-        "backlog": 5,
+        "inProgress": 0,
+        "todo": 8,
+        "backlog": 4,
         "production": 0
       }
     },
@@ -6968,7 +7405,115 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "Editing Room Details Creates a New Room and No Success Toast Is Displayed",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Outcome Severity Displays All Options Instead of Category-Based Default Severity",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Black Line Appears When Clearing Applicant Name Search in Leave Request",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Syllabus Coverage Analysis Notification Opens With \"No Analysis\" Message",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Event Preview Displays Participant Count Instead of \"All\" Participant Types",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Last Exercise Is Partially Hidden in Student Assignment & Worksheets Page",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Message Sent by School Admin Is Not Received by Parent",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Subject Tab Is Incorrectly Displayed for Subject Teachers in Gradebook",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Page Navigation Should Be Used Instead of Scrollbar in Academic Session",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Application Allows Creating Multiple Periods with the Same Time Range",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Incorrect \"New\" Label and Date Required Validation Displayed for Saved Announcement Draft",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Gradebook Class View Page Flickers When Opening Student Details",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Operational Days Configuration Is Not Enforced in Attendance and Event Calendar",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Network Error Occurs When Updating a Period",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Assignment & Worksheet Generation Fails When Using Grade and Class Values Instead of School Setup Format",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Incident Names Overlap While Scrolling in Incident Management Page",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "CT-06 – AI Insights & Student Performance",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "Manual Worksheet Prompt Returns 500 Error and Default Prompt Is Not Displayed",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "CT-07 – Report Card Management",
           "status": "QA",
           "priority": ""
         },
@@ -7337,53 +7882,599 @@
           "title": "Class Subjects Are Not Filtered Based on the Selected Subject While Creating a Teacher",
           "status": "QA",
           "priority": ""
-        },
+        }
+      ],
+      "total": 120,
+      "done": 0,
+      "inProgress": 118,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "Anisha-cw",
+      "projects": [
+        "Edubot_CPLC",
+        "Worklogix"
+      ],
+      "tasks": [
         {
-          "project": "Acadamiq AI",
-          "title": "Attendance List Is Not Cleared After Clearing the Date Filter",
-          "status": "QA",
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Bug: Implement Common UI & UX Improvements",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
-          "project": "Acadamiq AI",
-          "title": "Event Calendar Displays Time in System Format Instead of 12-Hour Format",
-          "status": "QA",
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
-          "project": "Acadamiq AI",
-          "title": "Duplicate Phone Number Are Allowed During User Creation",
-          "status": "QA",
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Incorrect and unclear toast message is displayed while applying for Casual Leave in the Student Portal.",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
-          "project": "Acadamiq AI",
-          "title": "Action Menu Is Hidden Behind the Taskbar in Manage Users",
-          "status": "QA",
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] Status filter dropdown text is partially hidden in the Student Management page of the Admin Portal.",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
-          "project": "Acadamiq AI",
-          "title": "Downloaded User PDF Does Not Maintain Alphabetical Order",
-          "status": "QA",
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] Inactive institute count is not updated immediately on the Super Admin Dashboard.",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
-          "project": "Acadamiq AI",
-          "title": "Mandatory Field Indicators and Inline Validation Are Missing on Student and Parent Edit Profile",
-          "status": "QA",
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC]Online status indicator uses inconsistent colors in the Community Chat and sidebar profile sections of the Mentor and Student Portals.",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
-          "project": "Acadamiq AI",
-          "title": "Mandatory Field Validation Displays Failure Toast Instead of Inline Message on Teacher Edit Profile",
-          "status": "QA",
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC]Different total leave counts are displayed for students in the Student Portal Apply Leave module.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC]Super Admin can update institute details after removing the Admin Name, and the removed name continues to be displayed.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] “All Batch” and “All Type” filters do not reset the Study Material list in the Mentor Portal.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC]The animation of the quote panel changes when we refresh",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] If we continuously click on the delete button of the notification error message pops up",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC] “Earned Leave” option is not displayed in the Leave Type dropdown in the Student Portal.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[ Version-2 CPLC ] Present and absent dates are displayed in an incorrect or shuffled order in the Student Attendance module of the Mentor Portal.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Notification count remains visible even after the notification has been opened and viewed.",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Visitor Log Management",
+          "status": "QA Review",
+          "priority": "P0"
+        },
+        {
+          "project": "Worklogix",
+          "title": "Intern Attendance Sign-In Button",
+          "status": "QA Review",
+          "priority": "P0"
+        },
+        {
+          "project": "Worklogix",
+          "title": "HR – Visitor Name Sorting Issue",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Leadership – Project table sorting arrows are non-functional",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "In Leadership role Ticket ID and Hours Worked filters do not work correctly in Project Tasks table",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "In Employe Role Ticket ID and Hours Worked filters do not work correctly in Project Tasks table.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Block / unblock developer time for resource allocation",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "KPI Creation and Evaluation Management",
+          "status": "QA Review",
+          "priority": "P0"
+        },
+        {
+          "project": "Worklogix",
+          "title": "Multiple Role Login Allowed in the Same Browser Session",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Selected Intern Name Overflows the Card",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Application Error Occurs When Selecting a Project ID in Test Leadership",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Application Displays Blank Page After API Failure",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Weekly Report Data Not Displayed After Selecting an Intern",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Application Error Occurs When Accessing Projects and Daily Updates in Test Employee Module",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Unable to Login with Client Credentials",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Development Lead – Team Management Details Not Displayed",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Unable to Add Members to an Existing Team",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Failed to Create a Task\" Error Displayed When Assigning a Task in Manager's Tasks",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Updated Date & Time Column Overflows Outside the Table",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Employee Name Is Truncated in Employee Filter Under Task Report",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Unable to Create Task",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Completion Date Does Not Allow Future Date Selection",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Team Member Count Includes Team Lead",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Inconsistent Label Alignment Across the UI",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Employee dashboard fails to load due to 403 API response[Employee ID ]",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Task Date field accepts alphabetic characters in the Daily Updates module across all user roles.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Employee name updates are not reflected immediately across user roles and appear only after logout and login.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Application error is displayed when the Team Lead opens Employee Performance Analytics.",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Performance Breakdown dropdown is misaligned and extends outside its container in the Project Manager Portal.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "An employee name is selected by default in the Performance Breakdown filter without user action.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Internal UUID values are displayed instead of valid Employee IDs in the Performance Breakdown dropdown.",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Internal UUID values are displayed instead of valid Employee IDs in the Employee Comparison and Average Rating Comparison charts.",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Reset action shows a success message, but employees remain in the Master Default Template after reopening KPI Settings.",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Filters in the Evaluations Created tab cannot be cleared and do not display the correct default options.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Changing the Task Report date filter from Weekly to Monthly does not clear the previously applied weekly filter.",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Project Manager cannot add or remove employees under a Team Lead in the Team Management module.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "“Add Daily Update” button is incorrectly displayed for the HR role in the Daily Updates module.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Intern Daily Score Breakdown is empty, and a temporary box appears and disappears when selecting an intern in the HR Portal.",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Intern Daily Score Breakdown graph expands automatically while the page is loading without any user interaction.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "“Mentor Ratings” is incorrectly shown as the default filter in the HR Daily Updates module.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Updated task description is not reflected immediately after saving in the Leadership Portal.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Employees and interns assigned under a Team Lead are not displayed in the Team Lead Portal.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Incorrect Total Members count is displayed for a project in the Leadership Portal.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Task status remains “Pending” after the Project Manager approves the task in the Manager Task module.",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Team Lead is unable to create and assign tasks to Employees or Interns under their team.",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Client Portal fails to load due to a client-side application exception.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Bug Summary  Application error occurs when opening a project directly from the “Available Projects” section in the Team Lead Dashboard.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Clicking the Codework logo in the Team Lead Portal incorrectly navigates to the Employee List page, even though the Employee List module is not available in the sidebar.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Back to Project button redirects to Project section instead of returning to the originating Dashboard page",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Intern filter does not work correctly for Team and Designation filters in Employee List",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Logout action is performed immediately without asking for user confirmation.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Verify Filter button toggle functionality in HR role.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Role column is missing from Employee List table despite being available in filters and Add Employee",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Visit Date field is missing from Add Visitor form and Visitor Logs table despite having a Date filter",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Company Name is not mandatory in Add Visitor form even though Appointment With/For is mandatory",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "“Log Daily Hours” Quick Action redirects to the wrong page for Team Lead",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "“Back to Project” button does not return to the originating section for Intern role",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Start Date and End Date filter does not filter records correctly in Daily Updates for intern.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Cannot create Daily Update even after filling all required fields",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "In Employee Role CodeWork logo redirects to Dashboard when clicked from other pages",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "In Leadership Role Intern employees are not displayed when filtering by Designation or Team in Employee List",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Protected API Request Returns 401 Unauthorized on Login Page",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "An unwanted “(” character is displayed next to the user’s initial “A” in the profile icon. The profile icon should display only “A”.",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Team Members Not Displayed for Team Lead",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "HR – Login Redirects to Employee List Instead of Daily Updates",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Project Search – Complete Project ID Does Not Return Matching Project",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "The employee email address is displayed in multiple lines, affecting the proper alignment and layout of the Employee section. The email address should be displayed properly without unnecessary line breaks.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "HR – Daily Updates approval status filter and row status icons do not match the actual status",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "HR – Non-functional up/down arrows are displayed in Employee and Status columns",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "HR – Employee Performance and Employee List pages redirect to Dashboard instead of opening the selected pages",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "The Managers Task, Employee Performance, Employee List, Task Report, and Project Quotes menu options redirect to the Dashboard instead of opening their respective pages.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Project Manager – Managers Task, Employee Performance, Employee List, Task Report, and Project Quotes redirect to Dashboard",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Project Manager – Weekly Project Notes Save/Cancel and Update/Delete Issue",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Employee – Project Links Redirect to Dashboard Instead of Selected Project Page",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Display Employees Assigned Under Each Mentor in Mentor Portal",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Add Date Field to Add Visitor Form in Test HR",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Project Manager – Team Member Management and Count Not Working Correctly",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Employee – Unnecessary Employee Selection Dropdown in Team Sheet Calendar",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Project Manager – Employee Scope Dropdown Overlaps Refresh Button in Utilization Report",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Incorrect “Create Task” button label is displayed in the Add Daily Update form across multiple roles.",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Employee/HR/Intern/Team Lead – Required Field Indicators Missing in Add Daily Update Form",
+          "status": "QA Review",
           "priority": ""
         }
       ],
-      "total": 109,
-      "done": 0,
-      "inProgress": 107,
+      "total": 95,
+      "done": 13,
+      "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -7402,74 +8493,14 @@
       "tasks": [
         {
           "project": "Acadamiq AI",
-          "title": "Chat search does not display names.",
+          "title": "Timetable UI Is Inconsistent Across Admin, Teacher, Student, and Parent Roles",
           "status": "In progress",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Last Exercise Is Partially Hidden in Student Assignment & Worksheets Page",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Message Sent by School Admin Is Not Received by Parent",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Subject Tab Is Incorrectly Displayed for Subject Teachers in Gradebook",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Page Navigation Should Be Used Instead of Scrollbar in Academic Session",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Application Allows Creating Multiple Periods with the Same Time Range",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Incorrect \"New\" Label and Date Required Validation Displayed for Saved Announcement Draft",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Gradebook Class View Page Flickers When Opening Student Details",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Operational Days Configuration Is Not Enforced in Attendance and Event Calendar",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Network Error Occurs When Updating a Period",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Assignment & Worksheet Generation Fails When Using Grade and Class Values Instead of School Setup Format",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Incident Names Overlap While Scrolling in Incident Management Page",
-          "status": "DEV",
+          "title": "Parent and Student Do Not Receive Notifications After AI Overnight Analysis Approval",
+          "status": "In progress",
           "priority": ""
         },
         {
@@ -7480,56 +8511,8 @@
         },
         {
           "project": "Acadamiq AI",
-          "title": "Parent and Student Do Not Receive Notifications After AI Overnight Analysis Approval",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Syllabus Coverage Analysis Notification Opens With \"No Analysis\" Message",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "HR – Visitor Name Sorting Issue",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Leadership – Project table sorting arrows are non-functional",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Intern Attendance Sign-In Button",
-          "status": "Todo",
-          "priority": "P0"
-        },
-        {
-          "project": "Worklogix",
-          "title": "Add Date Field to Add Visitor Form in Test HR",
+          "title": "Display Class Occupancy Details for Blank Teacher Timetable Periods",
           "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Task assigned by the Project Manager is not displayed in the Team Lead Portal.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Internal UUID values are displayed instead of valid Employee IDs in the Performance Breakdown dropdown.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Internal UUID values are displayed instead of valid Employee IDs in the Employee Comparison and Average Rating Comparison charts.",
-          "status": "Todo",
           "priority": ""
         },
         {
@@ -7540,55 +8523,19 @@
         },
         {
           "project": "Worklogix",
-          "title": "An unwanted “(” character is displayed next to the user’s initial “A” in the profile icon. The profile icon should display only “A”.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "HR – Daily Updates approval status filter and row status icons do not match the actual status",
+          "title": "Dependency Status and Updated Date & Time columns are misaligned in the HR Daily Updates module",
           "status": "Todo",
           "priority": ""
         },
         {
           "project": "Worklogix",
-          "title": "Project Manager – Weekly Project Notes Save/Cancel and Update/Delete Issue",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Display Employees Assigned Under Each Mentor in Mentor Portal",
+          "title": "Employee name is partially hidden in the “Choose Employee” dropdown in the HR Employee Performance module",
           "status": "Todo",
           "priority": ""
         },
         {
           "project": "Worklogix",
-          "title": "HR – Login Redirects to Employee List Instead of Daily Updates",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Project Manager – Ticket ID Filter Is Case-Sensitive in Daily Updates",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Project Manager – “Simple Testing” Team Member Management and Count Not Working Correctly",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Employee – Unnecessary Employee Selection Dropdown in Team Sheet Calendar",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Project Manager – Employee Scope Dropdown Overlaps Refresh Button in Utilization Report",
+          "title": "HR – Employee Performance Does Not Auto-Select the First Employee for “All Assigned”",
           "status": "Todo",
           "priority": ""
         },
@@ -7617,23 +8564,82 @@
           "priority": ""
         }
       ],
-      "total": 36,
+      "total": 12,
       "done": 0,
-      "inProgress": 18,
-      "commits": 47,
-      "prs": 35,
-      "prsMerged": 35,
-      "prReviews": 48,
-      "additions": 2128,
-      "deletions": 998
+      "inProgress": 2,
+      "commits": 76,
+      "prs": 41,
+      "prsMerged": 41,
+      "prReviews": 53,
+      "additions": 3230,
+      "deletions": 1542
     },
     {
       "login": "ranjini-03",
       "projects": [
-        "Edubot_CPLC",
-        "Worklogix"
+        "Edubot_CPLC"
       ],
       "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Module 2 Restriction Not Reflected in Student Lesson Plan View",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] Location Permission Is Requested Repeatedly for Mentor but Only Once for Student",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] No Validation Error When Creating Duplicate Course/Batch Names",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] No Validation Error When Same Phone Number Used Across All Fields",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Duplicate Password Visibility Icons Displayed in Login Page",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Task Filter Count Not Updating Correctly When Filtering by Status",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] Duplicate Attendance Records Shown for Same Student on Same Date",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] Attendance History Not Sorted by Most Recent Login/Check-in",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Attendance Info Module Displays Duplicate Student Records and Lacks Consistent Student/Mentor Attendance Listing",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] OTP Timer Continues During New Password Creation",
+          "status": "Completed in QA",
+          "priority": ""
+        },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] File/Image Upload Fails in Student Direct Messages",
@@ -8053,539 +9059,11 @@
           "title": "[Version-2 CPLC] User Story: Super Admin – Institute Management",
           "status": "Completed in QA",
           "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Changing \"Rows per Page\" Does Not Reset Pagination",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Leave Balance Is Not Displayed During Leave Application",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Forgot Password accepts invalid OTP and redirects to Reset Password page",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Admin-created schedules do not display the creator name for students",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Leave Balance Is Not Displayed in the Leave Application Form",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Weightage Field Is Auto-Populated with Default Value in Create Task",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Schedule Details Panel Opens by Default Instead of on Event Hover/Click.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Team Members Not Displayed for Team Lead",
-          "status": "QA Review",
-          "priority": ""
         }
       ],
-      "total": 78,
-      "done": 77,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Anisha-cw",
-      "projects": [
-        "Edubot_CPLC",
-        "Worklogix"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Bug: Implement Common UI & UX Improvements",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ]“My Attendance” on the Mentor Dashboard navigates to the incorrect “My Students Attendance” module.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Incorrect and unclear toast message is displayed while applying for Casual Leave in the Student Portal.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC] Status filter dropdown text is partially hidden in the Student Management page of the Admin Portal.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC] Inactive institute count is not updated immediately on the Super Admin Dashboard.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC]Online status indicator uses inconsistent colors in the Community Chat and sidebar profile sections of the Mentor and Student Portals.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC]Different total leave counts are displayed for students in the Student Portal Apply Leave module.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC]Super Admin can update institute details after removing the Admin Name, and the removed name continues to be displayed.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC] “All Batch” and “All Type” filters do not reset the Study Material list in the Mentor Portal.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC]The animation of the quote panel changes when we refresh",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC] If we continuously click on the delete button of the notification error message pops up",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC] “Earned Leave” option is not displayed in the Leave Type dropdown in the Student Portal.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[ Version-2 CPLC ] Present and absent dates are displayed in an incorrect or shuffled order in the Student Attendance module of the Mentor Portal.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version -2 CPLC] “View All” in the Admin Dashboard Leave Approval section navigates only to Student Leave Requests.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Bug: Implement Student Portal Improvements",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story: Admin, Mentor & Student Portals – Schedule Management",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story: Student Portal – Learning Path Management",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] User Story : Student Portal – Dashboard Enhancement",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "In Leadership role Ticket ID and Hours Worked filters do not work correctly in Project Tasks table",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "In Employe Role Ticket ID and Hours Worked filters do not work correctly in Project Tasks table.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Block / unblock developer time for resource allocation",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "KPI Creation and Evaluation Management",
-          "status": "QA Review",
-          "priority": "P0"
-        },
-        {
-          "project": "Worklogix",
-          "title": "Multiple Role Login Allowed in the Same Browser Session",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Visitor Log Management",
-          "status": "QA Review",
-          "priority": "P0"
-        },
-        {
-          "project": "Worklogix",
-          "title": "Selected Intern Name Overflows the Card",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Application Error Occurs When Selecting a Project ID in Test Leadership",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Application Displays Blank Page After API Failure",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Weekly Report Data Not Displayed After Selecting an Intern",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Application Error Occurs When Accessing Projects and Daily Updates in Test Employee Module",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Unable to Login with Client Credentials",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Development Lead – Team Management Details Not Displayed",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Unable to Add Members to an Existing Team",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Failed to Create a Task\" Error Displayed When Assigning a Task in Manager's Tasks",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Updated Date & Time Column Overflows Outside the Table",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Employee Name Is Truncated in Employee Filter Under Task Report",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Unable to Create Task",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Completion Date Does Not Allow Future Date Selection",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Team Member Count Includes Team Lead",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Inconsistent Label Alignment Across the UI",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Employee dashboard fails to load due to 403 API response[Employee ID ]",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Task Date field accepts alphabetic characters in the Daily Updates module across all user roles.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Employee name updates are not reflected immediately across user roles and appear only after logout and login.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Performance Breakdown dropdown is misaligned and extends outside its container in the Project Manager Portal.",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "An employee name is selected by default in the Performance Breakdown filter without user action.",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Filters in the Evaluations Created tab cannot be cleared and do not display the correct default options.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Changing the Task Report date filter from Weekly to Monthly does not clear the previously applied weekly filter.",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Project Manager cannot add or remove employees under a Team Lead in the Team Management module.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "“Add Daily Update” button is incorrectly displayed for the HR role in the Daily Updates module.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Intern Daily Score Breakdown graph expands automatically while the page is loading without any user interaction.",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "“Mentor Ratings” is incorrectly shown as the default filter in the HR Daily Updates module.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Updated task description is not reflected immediately after saving in the Leadership Portal.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Employees and interns assigned under a Team Lead are not displayed in the Team Lead Portal.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Incorrect Total Members count is displayed for a project in the Leadership Portal.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Task status remains “Pending” after the Project Manager approves the task in the Manager Task module.",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Notification count remains visible even after the notification has been opened and viewed.",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Client Portal fails to load due to a client-side application exception.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Bug Summary  Application error occurs when opening a project directly from the “Available Projects” section in the Team Lead Dashboard.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Clicking the Codework logo in the Team Lead Portal incorrectly navigates to the Employee List page, even though the Employee List module is not available in the sidebar.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Back to Project button redirects to Project section instead of returning to the originating Dashboard page",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Intern filter does not work correctly for Team and Designation filters in Employee List",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Logout action is performed immediately without asking for user confirmation.",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Verify Filter button toggle functionality in HR role.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Role column is missing from Employee List table despite being available in filters and Add Employee",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Visit Date field is missing from Add Visitor form and Visitor Logs table despite having a Date filter",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Company Name is not mandatory in Add Visitor form even though Appointment With/For is mandatory",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "“Log Daily Hours” Quick Action redirects to the wrong page for Team Lead",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "“Back to Project” button does not return to the originating section for Intern role",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Start Date and End Date filter does not filter records correctly in Daily Updates for intern.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Cannot create Daily Update even after filling all required fields",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "In Leadership Role Intern employees are not displayed when filtering by Designation or Team in Employee List",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Protected API Request Returns 401 Unauthorized on Login Page",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "The employee email address is displayed in multiple lines, affecting the proper alignment and layout of the Employee section. The email address should be displayed properly without unnecessary line breaks.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "HR – Non-functional up/down arrows are displayed in Employee and Status columns",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "HR – Employee Performance and Employee List pages redirect to Dashboard instead of opening the selected pages",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "The Managers Task, Employee Performance, Employee List, Task Report, and Project Quotes menu options redirect to the Dashboard instead of opening their respective pages.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Project Manager – Managers Task, Employee Performance, Employee List, Task Report, and Project Quotes redirect to Dashboard",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Employee – Project Links Redirect to Dashboard Instead of Selected Project Page",
-          "status": "QA Completed",
-          "priority": ""
-        }
-      ],
-      "total": 77,
-      "done": 18,
-      "inProgress": 0,
+      "total": 80,
+      "done": 73,
+      "inProgress": 7,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -8622,6 +9100,12 @@
           "priority": ""
         },
         {
+          "project": "SabAi Bible App",
+          "title": "Irrelevant Image Query Generates Unrelated Bible Verses Instead of an Out-of-Scope Message",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
           "project": "Oman Tourism",
           "title": "[Backend] Sign In APIs — Phone + OTP & Google Sign In",
           "status": "DEV",
@@ -8635,8 +9119,20 @@
         },
         {
           "project": "Oman Tourism",
+          "title": "(Smart Itinerary Planner) Edit and reorganize the itinerary",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
           "title": "(User Registration & Profile Management) Secure login and session management",
           "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Smart Itinerary Planner) Share and access the itinerary offline",
+          "status": "TODO",
           "priority": ""
         },
         {
@@ -8673,6 +9169,12 @@
           "project": "Oman Tourism",
           "title": "[Backend] Itinerary Persistence APIs — Save, Get, Export & Offline Download",
           "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Travel Insurance) Browse and manage travel insurance",
+          "status": "TODO",
           "priority": ""
         },
         {
@@ -8713,6 +9215,12 @@
         },
         {
           "project": "Worklogix",
+          "title": "Task assigned by the Project Manager is not displayed in the Team Lead Portal.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
           "title": "Leadership profile name and notification icon are displayed incorrectly, and HTML tags are visible in the task description.",
           "status": "Todo",
           "priority": ""
@@ -8730,21 +9238,33 @@
           "priority": ""
         },
         {
+          "project": "Worklogix",
+          "title": "Project Manager – Ticket ID Filter Is Case-Sensitive in Daily Updates",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Team Lead – Assigned Intern/Trainee Employees Not Displayed in “Choose Employee” Dropdown",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
           "project": "HireLens",
           "title": "API allows creation of interview with same interviewer and candidate email — validation missing.",
           "status": "Todo",
           "priority": ""
         }
       ],
-      "total": 22,
+      "total": 29,
       "done": 0,
       "inProgress": 6,
       "commits": 12,
       "prs": 5,
       "prsMerged": 5,
       "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
+      "additions": 1182,
+      "deletions": 115
     },
     {
       "login": "manju-209",
@@ -8872,20 +9392,32 @@
       "tasks": [
         {
           "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC] Attendance History Not Sorted by Most Recent Login/Check-in",
+          "title": "[Version-2 CPLC] Past Time Slots Allowed When Creating Schedule Events",
           "status": "In Progress",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Attendance Info Module Displays Duplicate Student Records and Lacks Consistent Student/Mentor Attendance Listing",
+          "title": "[Version-2 CPLC] Mentor does not receive a notification when a student submits a task",
           "status": "In Progress",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC] OTP Timer Continues During New Password Creation",
+          "title": "[Version-2 CPLC] Super Admin – Institution Profile Shows Success Message When Required Fields Are Cleared",
           "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Student – Student Material Search Placeholder Text Is Incorrect",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Previous User's Chat History Is Displayed for a New User",
+          "status": "In progress",
           "priority": ""
         },
         {
@@ -8955,12 +9487,12 @@
           "priority": ""
         }
       ],
-      "total": 14,
+      "total": 16,
       "done": 0,
-      "inProgress": 7,
+      "inProgress": 9,
       "commits": 0,
-      "prs": 11,
-      "prsMerged": 11,
+      "prs": 13,
+      "prsMerged": 13,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -8972,6 +9504,12 @@
         "EduBot_University"
       ],
       "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "[version-2 CPLC] Question Order Changes When Task Is Displayed to Student",
+          "status": "In Progress",
+          "priority": ""
+        },
         {
           "project": "Edubot_CPLC",
           "title": "[Version-2 CPLC] Inconsistent spacing in module option cards",
@@ -9051,68 +9589,93 @@
           "priority": ""
         }
       ],
-      "total": 13,
+      "total": 14,
       "done": 1,
-      "inProgress": 8,
-      "commits": 0,
-      "prs": 10,
-      "prsMerged": 10,
+      "inProgress": 9,
+      "commits": 1,
+      "prs": 14,
+      "prsMerged": 14,
       "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
+      "additions": 25,
+      "deletions": 10
     },
     {
-      "login": "Kxrthikeyan-76",
+      "login": "sriramgowthamE",
       "projects": [
-        "Worklogix"
+        "SabAi Bible App",
+        "Oman Tourism"
       ],
       "tasks": [
         {
-          "project": "Worklogix",
-          "title": "Application error is displayed when the Team Lead opens Employee Performance Analytics.",
-          "status": "In Progress",
+          "project": "SabAi Bible App",
+          "title": "Sharing Visualize Report in Community Fails with \"Failed to Create Post\" Toast",
+          "status": "DEV",
           "priority": ""
         },
         {
-          "project": "Worklogix",
-          "title": "Employees added under Custom Employee Override cannot be removed individually, and “Reset Defaults” resets all KPI data.",
+          "project": "SabAi Bible App",
+          "title": "Community Post Update Fails and Attached File Remains After Cancelling Edit",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Smart Itinerary Planner) Generate a personalized AI itinerary",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Smart Itinerary Planner) Weather- and event-aware planning",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(User Registration & Profile Management) Create a traveler profile with preferences",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(AI Chatbot & Voice Assistant) Ask the AI travel assistant (chat)",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Office Mode) Access essentials offline",
           "status": "Backlog",
           "priority": ""
         },
         {
-          "project": "Worklogix",
-          "title": "Reset action shows a success message, but employees remain in the Master Default Template after reopening KPI Settings.",
-          "status": "Todo",
+          "project": "Oman Tourism",
+          "title": "(Offline Mode) Manage downloaded content",
+          "status": "Backlog",
           "priority": ""
         },
         {
-          "project": "Worklogix",
-          "title": "Intern Daily Score Breakdown is empty, and a temporary box appears and disappears when selecting an intern in the HR Portal.",
-          "status": "In Progress",
+          "project": "Oman Tourism",
+          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
+          "status": "Backlog",
           "priority": ""
         },
         {
-          "project": "Worklogix",
-          "title": "Team Lead is unable to create and assign tasks to Employees or Interns under their team.",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "In Employee Role CodeWork logo redirects to Dashboard when clicked from other pages",
-          "status": "In Progress",
+          "project": "Oman Tourism",
+          "title": "(Reviews & Community Engagement) Trustworthy, sorted reviews",
+          "status": "Backlog",
           "priority": ""
         }
       ],
-      "total": 6,
+      "total": 10,
       "done": 0,
-      "inProgress": 4,
-      "commits": 7,
-      "prs": 6,
-      "prsMerged": 6,
+      "inProgress": 5,
+      "commits": 2,
+      "prs": 10,
+      "prsMerged": 10,
       "prReviews": 0,
-      "additions": 2160,
-      "deletions": 436
+      "additions": 81,
+      "deletions": 15
     },
     {
       "login": "Thariq-Abbas",
@@ -9180,12 +9743,83 @@
       "total": 9,
       "done": 8,
       "inProgress": 0,
-      "commits": 2,
+      "commits": 3,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
-      "additions": 18,
+      "additions": 84,
       "deletions": 34
+    },
+    {
+      "login": "vahithcw",
+      "projects": [
+        "EduBot_University"
+      ],
+      "tasks": [
+        {
+          "project": "EduBot_University",
+          "title": "Assigned Task Is Not Displayed for Student",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Incorrect OTP Verification Validation on Update Password Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "LMS Courses API Returns 403 - \"Module not enabled\"",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "LMS Courses Are Displayed by Default for a Newly Created CPLC",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "CPLC Logo Overlaps with Application Name in Sidebar",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Student Details Are Not Updated After Clicking Update",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Student Leave Apply Module Is Missing",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Calendar Does Not Open When Clicking the Due Date Field",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Attached File Name Is Not Displayed",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 9,
+      "done": 0,
+      "inProgress": 5,
+      "commits": 0,
+      "prs": 2,
+      "prsMerged": 2,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
     },
     {
       "login": "suruthisagar97",
@@ -9193,6 +9827,18 @@
         "Acadamiq AI"
       ],
       "tasks": [
+        {
+          "project": "Acadamiq AI",
+          "title": "Curriculum Management page flickers and reloads data when navigating back.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Chat search does not display names.",
+          "status": "QA",
+          "priority": ""
+        },
         {
           "project": "Acadamiq AI",
           "title": "Download and Upload fields are not working on the Companion page.",
@@ -9234,29 +9880,11 @@
           "title": "Error message displayed when clicking the Event Calendar.",
           "status": "QA",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Parent contact number is empty after student creation.",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Success message displayed when saving attendance without data.",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Notification action buttons are missing.",
-          "status": "QA",
-          "priority": ""
         }
       ],
-      "total": 10,
+      "total": 9,
       "done": 0,
-      "inProgress": 10,
+      "inProgress": 9,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -9265,140 +9893,16 @@
       "deletions": 0
     },
     {
-      "login": "vahithcw",
-      "projects": [
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "EduBot_University",
-          "title": "Incorrect OTP Verification Validation on Update Password Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "LMS Courses API Returns 403 - \"Module not enabled\"",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "LMS Courses Are Displayed by Default for a Newly Created CPLC",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "CPLC Logo Overlaps with Application Name in Sidebar",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Student Details Are Not Updated After Clicking Update",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Assigned Task Is Not Displayed for Student",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Student Leave Apply Module Is Missing",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Calendar Does Not Open When Clicking the Due Date Field",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Attached File Name Is Not Displayed",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 9,
-      "done": 0,
-      "inProgress": 5,
-      "commits": 0,
-      "prs": 2,
-      "prsMerged": 2,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "sriramgowthamE",
-      "projects": [
-        "SabAi Bible App",
-        "Oman Tourism"
-      ],
-      "tasks": [
-        {
-          "project": "SabAi Bible App",
-          "title": "Sharing Visualize Report in Community Fails with \"Failed to Create Post\" Toast",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Smart Itinerary Planner) Edit and reorganize the itinerary",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Smart Itinerary Planner) Weather- and event-aware planning",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(User Registration & Profile Management) Create a traveler profile with preferences",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Emergency & Safety) One-tap emergency and SOS",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(AI Chatbot & Voice Assistant) Ask the AI travel assistant (chat)",
-          "status": "DEV",
-          "priority": ""
-        }
-      ],
-      "total": 6,
-      "done": 0,
-      "inProgress": 5,
-      "commits": 2,
-      "prs": 10,
-      "prsMerged": 10,
-      "prReviews": 0,
-      "additions": 81,
-      "deletions": 15
-    },
-    {
       "login": "Dharsan1102codework",
       "projects": [
-        "Oman Tourism"
+        "Oman Tourism",
+        "Acadamiq AI"
       ],
       "tasks": [
         {
           "project": "Oman Tourism",
           "title": "(Smart Itinerary Planner) Generate a personalized AI itinerary",
-          "status": "In progress",
+          "status": "DEV",
           "priority": ""
         },
         {
@@ -9415,19 +9919,94 @@
         },
         {
           "project": "Oman Tourism",
-          "title": "(Smart Itinerary Planner) Share and access the itinerary offline",
-          "status": "In progress",
+          "title": "(Office Mode) Access essentials offline",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Offline Mode) Manage downloaded content",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Reviews & Community Engagement) Trustworthy, sorted reviews",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "CT-08 – Communication Management",
+          "status": "TODO",
           "priority": ""
         }
       ],
-      "total": 4,
+      "total": 8,
       "done": 0,
-      "inProgress": 4,
+      "inProgress": 3,
       "commits": 0,
-      "prs": 8,
-      "prsMerged": 8,
+      "prs": 10,
+      "prsMerged": 9,
       "prReviews": 0,
       "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "Kxrthikeyan-76",
+      "projects": [
+        "Worklogix"
+      ],
+      "tasks": [
+        {
+          "project": "Worklogix",
+          "title": "Employees added under Custom Employee Override cannot be removed individually, and “Reset Defaults” resets all KPI data.",
+          "status": "Backlog",
+          "priority": ""
+        }
+      ],
+      "total": 1,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 7,
+      "prs": 6,
+      "prsMerged": 6,
+      "prReviews": 0,
+      "additions": 2160,
+      "deletions": 436
+    },
+    {
+      "login": "dharikfroz",
+      "projects": [],
+      "tasks": [],
+      "total": 0,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 7,
+      "prs": 4,
+      "prsMerged": 4,
+      "prReviews": 0,
+      "additions": 1152,
+      "deletions": 182
+    },
+    {
+      "login": "SaranCW011",
+      "projects": [],
+      "tasks": [],
+      "total": 0,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 5,
+      "prs": 1,
+      "prsMerged": 1,
+      "prReviews": 3,
+      "additions": 4527,
       "deletions": 0
     },
     {
@@ -9480,19 +10059,19 @@
       "tasks": [
         {
           "project": "Acadamiq AI",
-          "title": "CT-06 – AI Insights & Student Performance",
+          "title": "TB - 01 Fill in timetable info before creating it",
           "status": "In progress",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "CT-07 – Report Card Management",
+          "title": "Teacher Cannot Edit Generated Assignments/Worksheets",
           "status": "In progress",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "CT-08 – Communication Management",
+          "title": "Timetable Is Not Associated with an Academic Year",
           "status": "In progress",
           "priority": ""
         }
@@ -9503,6 +10082,29 @@
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "Vinoth-codework",
+      "projects": [
+        "Devops"
+      ],
+      "tasks": [
+        {
+          "project": "Devops",
+          "title": "Access Request",
+          "status": "Completed",
+          "priority": ""
+        }
+      ],
+      "total": 1,
+      "done": 1,
+      "inProgress": 0,
+      "commits": 1,
+      "prs": 1,
+      "prsMerged": 1,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -9522,6 +10124,29 @@
       "deletions": 2
     },
     {
+      "login": "saimanL",
+      "projects": [
+        "Acadamiq AI"
+      ],
+      "tasks": [
+        {
+          "project": "Acadamiq AI",
+          "title": "TB - 01 Fill in timetable info before creating it",
+          "status": "In progress",
+          "priority": ""
+        }
+      ],
+      "total": 1,
+      "done": 0,
+      "inProgress": 1,
+      "commits": 0,
+      "prs": 13,
+      "prsMerged": 12,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
       "login": "Iftikhaar-ali",
       "projects": [
         "Devops"
@@ -9532,29 +10157,6 @@
           "title": "Access Request",
           "status": "Completed",
           "priority": "High"
-        }
-      ],
-      "total": 1,
-      "done": 1,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Vinoth-codework",
-      "projects": [
-        "Devops"
-      ],
-      "tasks": [
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": ""
         }
       ],
       "total": 1,
