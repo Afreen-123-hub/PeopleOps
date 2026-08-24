@@ -1283,6 +1283,122 @@ select:focus {
   color: #92400e;
 }
 
+/* ── Today Briefing (Overview page) ── */
+.today-brief {
+  margin-bottom: 16px;
+}
+
+.brief-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.brief-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 4px rgba(20, 184, 166, .15);
+}
+
+.brief-title {
+  font-weight: 800;
+  font-size: 1.02rem;
+}
+
+.brief-date {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.brief-rows {
+  display: grid;
+  gap: 14px;
+}
+
+.brow {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.brow:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.brow-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.icon-live { background: #fee2e2; color: #dc2626; }
+.icon-out { background: #fef3c7; color: #b45309; }
+.icon-overdue { background: #fee2e2; color: #b91c1c; }
+
+.brow-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.brow-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.brow-main {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.brow-sub {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.name-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.name-chip {
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.chip-absent { background: #fef2f2; color: #b91c1c; }
+.chip-leave { background: #ede9fe; color: #6d28d9; }
+
+.timeleft {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #dc2626;
+  background: #fee2e2;
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .overview-section-label {
   margin: 24px 2px 12px;
 }

@@ -647,16 +647,16 @@ async function boot() {
   updateAvailableMonthsBadge();
   updateTeamsRefreshLabel();
   document.getElementById("overviewLiveWidgetViewAll")?.addEventListener("click", jumpToLiveMeetings);
-  // Quiet fetch so the Overview "live meetings" widget has data without waiting on the
+  // Quiet fetch so the Overview Today Briefing widget has data without waiting on the
   // Graph tab's own (heavier) fetch, which only runs once that tab is opened.
   apiFetch("/api/graph-data").then(res => res?.ok ? res.json() : null).then(data => {
     if (!data) return;
     graphData = data;
-    if (typeof renderOverviewLiveWidget === "function") renderOverviewLiveWidget();
+    if (typeof renderTodayBriefing === "function") renderTodayBriefing();
   }).catch(() => {});
   setInterval(() => {
-    if (document.getElementById("overview")?.classList.contains("active-view") && typeof renderOverviewLiveWidget === "function") {
-      renderOverviewLiveWidget();
+    if (document.getElementById("overview")?.classList.contains("active-view") && typeof renderTodayBriefing === "function") {
+      renderTodayBriefing();
     }
   }, 30000);
   if (!DEMO_MODE) {
@@ -3753,40 +3753,115 @@ function jumpToLiveMeetings() {
   document.querySelector('.rail-item[data-view="graph"]')?.click();
 }
 
-// Condensed version of the Graph tab's Live Meetings card for the Overview page — same
-// underlying data (graphLiveMeetings/graphMeetingAttendeeRows from graph-explorer.js), just
-// summarized to a pill per meeting instead of the full attendee breakdown. Hides itself
-// entirely when nothing's live, rather than showing a permanent empty state on the landing page.
-function renderOverviewLiveWidget() {
-  const widget = document.getElementById("overviewLiveWidget");
-  if (!widget || typeof graphLiveMeetings !== "function") return;
-  const liveMeetings = graphLiveMeetings();
-  if (!liveMeetings.length) {
-    widget.hidden = true;
-    return;
-  }
-  widget.hidden = false;
-  document.getElementById("overviewLiveWidgetTitle").innerHTML =
-    `${liveMeetings.length} meeting${liveMeetings.length === 1 ? "" : "s"} live right now<span> · who's in them, who's flagged</span>`;
-  document.getElementById("overviewLivePillRow").innerHTML = liveMeetings.map(meeting => {
-    const rows = graphMeetingAttendeeRows(meeting, liveMeetings);
-    const notAttending = rows.filter(row => row.status === "free").length;
-    const doubleBooked = rows.filter(row => row.doubleBooked).length;
-    return `<div class="live-pill" role="button" tabindex="0">
-      <div class="live-pill-top">
-        <span class="live-pill-subject">${escapeHtml(meeting.subject)}</span>
-        <span class="live-pill-timeleft">${graphLiveTimeLeft(meeting.endMs)}</span>
-      </div>
-      <div class="live-pill-meta">Organizer: ${escapeHtml((meeting.organizer || "").trim())} · ${rows.length} invited</div>
-      ${(notAttending || doubleBooked) ? `<div class="live-pill-flags">
-        ${notAttending ? `<span class="live-pill-flag not-attending">🚩 ${notAttending} not attending</span>` : ""}
-        ${doubleBooked ? `<span class="live-pill-flag double-booked">⚠️ ${doubleBooked} double-booked</span>` : ""}
-      </div>` : ""}
+function todayDateKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function _briefEmptyRow(iconClass, icon, label, message) {
+  return `<div class="brow-icon ${iconClass}" style="background:#f1f5f9;color:#94a3b8;">${icon}</div>
+    <div class="brow-body">
+      <div class="brow-label">${label}</div>
+      <div class="brow-main" style="color:var(--muted);font-weight:500;">${message}</div>
     </div>`;
-  }).join("");
-  document.getElementById("overviewLivePillRow").querySelectorAll(".live-pill").forEach(pill => {
-    pill.addEventListener("click", jumpToLiveMeetings);
-  });
+}
+
+// One glanceable "what do I need to know right now" card for the Overview page — live
+// meetings, who's out today, and anything that just went overdue today. Unlike the old
+// live-only widget this always stays visible (each row has its own empty state), since
+// "who's out today" is meant to be a daily-check habit, not something that pops in and out.
+function renderTodayBriefing() {
+  const widget = document.getElementById("overviewLiveWidget");
+  if (!widget) return;
+  widget.hidden = false;
+
+  const dateEl = document.getElementById("briefDate");
+  if (dateEl) dateEl.textContent = new Date().toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long" });
+
+  // Live meetings row
+  const liveRow = document.getElementById("briefLiveRow");
+  if (liveRow) {
+    const liveMeetings = typeof graphLiveMeetings === "function" ? graphLiveMeetings() : [];
+    if (liveMeetings.length) {
+      const rows = graphMeetingAttendeeRows(liveMeetings[0], liveMeetings);
+      const notAttending = rows.filter(row => row.status === "free").length;
+      liveRow.innerHTML = `
+        <div class="brow-icon icon-live">●</div>
+        <div class="brow-body">
+          <div class="brow-label">Live right now</div>
+          <div class="brow-main">${escapeHtml(liveMeetings[0].subject)}${liveMeetings.length > 1 ? ` <span style="color:var(--muted);font-weight:500;">+${liveMeetings.length - 1} more</span>` : ""}</div>
+          <div class="brow-sub">Organizer: ${escapeHtml((liveMeetings[0].organizer || "").trim())} · ${rows.length} invited${notAttending ? ` · 🚩 ${notAttending} not attending` : ""}</div>
+        </div>
+        <span class="timeleft">${graphLiveTimeLeft(liveMeetings[0].endMs)}</span>`;
+      liveRow.style.cursor = "pointer";
+      liveRow.onclick = jumpToLiveMeetings;
+    } else {
+      liveRow.innerHTML = _briefEmptyRow("icon-live", "●", "Live right now", "No meetings in progress");
+      liveRow.style.cursor = "";
+      liveRow.onclick = null;
+    }
+  }
+
+  // Out today row — from each employee's real attendanceDays[today] status
+  const outRow = document.getElementById("briefOutRow");
+  if (outRow) {
+    const todayKey = todayDateKey();
+    const absent = [];
+    const leave = [];
+    (dataset?.employees || []).forEach(e => {
+      const status = (e.attendanceDays || {})[todayKey];
+      if (status === "A") absent.push(e.name);
+      else if (status === "Leave") leave.push(e.name);
+    });
+    if (absent.length || leave.length) {
+      const chips = [
+        ...absent.slice(0, 6).map(n => `<span class="name-chip chip-absent">${escapeHtml(n)}</span>`),
+        ...(absent.length > 6 ? [`<span class="name-chip chip-absent">+${absent.length - 6} more absent</span>`] : []),
+        ...leave.slice(0, 6).map(n => `<span class="name-chip chip-leave">${escapeHtml(n)}</span>`),
+        ...(leave.length > 6 ? [`<span class="name-chip chip-leave">+${leave.length - 6} more on leave</span>`] : []),
+      ].join("");
+      outRow.innerHTML = `
+        <div class="brow-icon icon-out">–</div>
+        <div class="brow-body">
+          <div class="brow-label">Out today</div>
+          <div class="brow-main">${absent.length} absent · ${leave.length} on leave</div>
+          <div class="name-chip-row">${chips}</div>
+        </div>`;
+    } else {
+      outRow.innerHTML = _briefEmptyRow("icon-out", "–", "Out today", "Nobody out today");
+    }
+  }
+
+  // Newly overdue today row — Planner tasks whose due date is today and not completed
+  const overdueRow = document.getElementById("briefOverdueRow");
+  if (overdueRow) {
+    const todayKey = todayDateKey();
+    const overdueToday = [];
+    (graphData?.planner?.plans || []).forEach(plan => {
+      (plan.tasks || []).forEach(task => {
+        const due = String(task.dueDateTime || "");
+        if (due.startsWith(todayKey) && task.status !== "Completed") {
+          overdueToday.push({
+            title: task.title,
+            assignee: (task.assignees || [])[0],
+            plan: task.planTitle || plan.title,
+          });
+        }
+      });
+    });
+    if (overdueToday.length) {
+      const first = overdueToday[0];
+      overdueRow.innerHTML = `
+        <div class="brow-icon icon-overdue">!</div>
+        <div class="brow-body">
+          <div class="brow-label">Newly overdue today</div>
+          <div class="brow-main">"${escapeHtml(first.title)}"${first.assignee ? ` — ${escapeHtml(first.assignee)}` : ""}${overdueToday.length > 1 ? ` <span style="color:var(--muted);font-weight:500;">+${overdueToday.length - 1} more</span>` : ""}</div>
+          <div class="brow-sub">${escapeHtml(first.plan || "")} plan</div>
+        </div>`;
+    } else {
+      overdueRow.innerHTML = _briefEmptyRow("icon-overdue", "!", "Newly overdue today", "Nothing new overdue");
+    }
+  }
 }
 
 

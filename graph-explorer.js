@@ -262,7 +262,7 @@ async function renderGraph() {
     graphData = await response.json();
     setupGraphExplorer();
     renderGraphExplorer();
-    if (typeof renderOverviewLiveWidget === "function") renderOverviewLiveWidget();
+    if (typeof renderTodayBriefing === "function") renderTodayBriefing();
     // Auto-open logged-in user's profile in Matched Employees
     const email = (typeof loggedInUserEmail !== "undefined" ? loggedInUserEmail : "").toLowerCase();
     const meNorm = (typeof loggedInUserName !== "undefined" ? loggedInUserName : "").trim().toLowerCase();
@@ -295,7 +295,7 @@ async function refreshGraph() {
     if (result.status !== "refreshed") throw new Error(result.stderr || "Refresh failed");
     graphData = result.graph;
     renderGraphExplorer();
-    if (typeof renderOverviewLiveWidget === "function") renderOverviewLiveWidget();
+    if (typeof renderTodayBriefing === "function") renderTodayBriefing();
     label.innerHTML = result.generatedAt ? CLOCK_SVG + formatRefreshTimestamp(result.generatedAt, "Updated") : "Updated";
   } catch (error) {
     label.textContent = `Refresh failed: ${error.message}`;

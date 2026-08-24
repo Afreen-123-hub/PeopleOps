@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
     <link rel="icon" type="image/svg+xml" href="peopleops-icon.svg">
-    <link rel="stylesheet" href="styles.css?v=20260824-internactivity">
+    <link rel="stylesheet" href="styles.css?v=20260824-todaybrief">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -148,13 +148,18 @@
             </div>
           </div>
 
-          <div id="overviewLiveWidget" class="panel live-widget" hidden>
-            <div class="live-widget-head">
-              <span class="live-widget-dot"></span>
-              <span class="live-widget-title" id="overviewLiveWidgetTitle"></span>
-              <a class="live-widget-viewall" id="overviewLiveWidgetViewAll">View all in Graph →</a>
+          <div id="overviewLiveWidget" class="panel today-brief" hidden>
+            <div class="brief-head">
+              <span class="brief-dot"></span>
+              <span class="brief-title">Today Briefing</span>
+              <span class="brief-date" id="briefDate"></span>
+              <a class="live-widget-viewall" id="overviewLiveWidgetViewAll">View live meetings in Graph →</a>
             </div>
-            <div class="live-pill-row" id="overviewLivePillRow"></div>
+            <div class="brief-rows">
+              <div class="brow" id="briefLiveRow"></div>
+              <div class="brow" id="briefOutRow"></div>
+              <div class="brow" id="briefOverdueRow"></div>
+            </div>
           </div>
 
           <!-- Global attendance month picker -->
@@ -883,7 +888,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260824-internactivity"></script>
-    <script src="graph-explorer.js?v=20260824-livewidget"></script>
+    <script src="app.js?v=20260824-todaybrief"></script>
+    <script src="graph-explorer.js?v=20260824-todaybrief"></script>
   </body>
 </html>
