@@ -7,7 +7,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "llama-3.1-8b-instant"
+GROQ_MODEL = "openai/gpt-oss-20b"
 
 ENV_FILES = (
     Path(__file__).resolve().parents[3] / ".env",
@@ -171,6 +171,10 @@ Manager's Question: {question}"""
         "messages": messages,
         "temperature": 0.25,
         "max_tokens": 800,
+        # gpt-oss models spend part of max_tokens on hidden reasoning before the final
+        # answer — on longer prompts this occasionally used up the whole budget and left
+        # content empty. Tara doesn't need deep reasoning, just data lookup/summarizing.
+        "reasoning_effort": "low",
     }).encode("utf-8")
 
     req = Request(
