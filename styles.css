@@ -4889,6 +4889,20 @@ dialog::backdrop {
 .att-chip-btn:hover { opacity: .82; transform: translateY(-1px); }
 .att-chip-btn:active { transform: scale(.96); }
 
+/* ── Intern "not tracked" + Worklogix Activity (replaces attendance for interns) ── */
+.na-block { display: flex; align-items: center; gap: 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
+.na-icon { width: 30px; height: 30px; border-radius: 50%; background: #e2e8f0; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.na-text b { display: block; font-size: 0.85rem; color: #0f172a; }
+.na-text span { font-size: 0.76rem; color: #627084; }
+.wla-summary-row { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; }
+.wla-pct { font-size: 1.6rem; font-weight: 800; line-height: 1; color: #7c3aed; }
+.wla-pct-lbl { font-size: 0.82rem; color: #475569; line-height: 1.4; }
+.wla-pct-lbl small { display: block; color: #94a3b8; font-size: 0.72rem; }
+.wla-days { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.wla-day { font-size: 0.72rem; font-weight: 700; padding: 4px 9px; border-radius: 8px; background: #ede9fe; color: #6d28d9; }
+.wla-note { font-size: 0.76rem; color: #627084; background: #f8fafc; border-radius: 8px; padding: 10px 12px; line-height: 1.5; }
+.wla-note b { color: #0f172a; }
+
 .att-dates-popup {
   margin-top: 8px;
   padding: 10px 12px;

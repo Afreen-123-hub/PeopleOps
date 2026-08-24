@@ -385,6 +385,19 @@ def read_worklogix_api(month: str = ""):
         except Exception:
             pass
 
+    # Worklogix's daily-update API returns emp_id inconsistently — sometimes the employee's
+    # readable code, sometimes an internal UUID. Rows keyed by UUID don't match anyone's real
+    # employee id downstream and were being silently dropped from task/hours/KPI data. Resolve
+    # them via employee_info (id -> user_id), which has both for every employee.
+    if not daily_df.empty:
+        info_rows = extract_rows(employees_payload)
+        uuid_to_code = {clean(r.get("id")): clean(r.get("user_id")) for r in info_rows if r.get("id") and r.get("user_id")}
+        if uuid_to_code:
+            before_unmatched = sum(1 for v in daily_df["employee_id"] if clean(v) in uuid_to_code)
+            daily_df["employee_id"] = daily_df["employee_id"].apply(lambda v: uuid_to_code.get(clean(v), v))
+            if before_unmatched:
+                print(f"Worklogix daily rows: resolved {before_unmatched} UUID-keyed employee_id values via employee_info", flush=True)
+
     months_found = sorted(set(str(r.get("month", "")).strip() for r in dataframe_records(daily_df) if str(r.get("month", "")).strip()))
     print(f"Worklogix daily rows: {len(dataframe_records(daily_df))}, months in data: {months_found}, api_month={api_month!r}", flush=True)
 
@@ -1160,6 +1173,10 @@ def main():
         }
 
     work_item_stats = defaultdict(lambda: Counter())
+    # Dates each employee logged real work in Worklogix (from daily_logs, keyed by date).
+    # Used for the intern "Worklogix Activity" signal — a real, verifiable "did something
+    # get logged" fact, kept separate from the hour totals which are self-reported.
+    worklogix_logged_dates = defaultdict(set)
     project_hours = defaultdict(float)
     # PDF formula: High=5, Medium=3, Low=2
     priority_weights = {"Low": 2, "Medium": 3, "High": 5, "Critical": 5}
@@ -1193,6 +1210,12 @@ def main():
         if mr is True or str(mr).strip().lower() in ("true", "1", "yes"):
             stats["mentorRated"] += 1
         project_hours[clean(row.get("project_id"))] += stats["workHours"]
+        daily_logs = parse_jsonish(row.get("daily_logs"), {})
+        if isinstance(daily_logs, dict):
+            for log_date, entry in daily_logs.items():
+                hours = num(entry.get("hours")) if isinstance(entry, dict) else num(entry)
+                if hours > 0 and re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(log_date).strip()):
+                    worklogix_logged_dates[emp_id].add(str(log_date).strip())
 
     greythr_start, greythr_end = resolve_greythr_date_range(target_period)
     greythr, greythr_master, greythr_dept, greythr_day_map = read_greythr_api(greythr_start, greythr_end)
@@ -1790,6 +1813,17 @@ def main():
                     "efficiencyScore": round(raw_efficiency, 2),
                     "efficiencyHours": round(efficiency_hours, 1),
                 },
+                # Interns have no GreytHR/biometric attendance access, so the profile shows this
+                # instead of a misleading 0%. Self-reported (they typed the hours), so it's kept
+                # as "days logged" rather than relabeled as attendance.
+                "worklogixActivity": (
+                    {
+                        "daysLogged": len(worklogix_logged_dates[emp_id]),
+                        "dates": sorted(worklogix_logged_dates[emp_id]),
+                        "totalHours": round(stats["workHours"], 1),
+                    }
+                    if role_cat == "intern" and worklogix_logged_dates[emp_id] else None
+                ),
                 "attendance": {
                     # GreytHR half-session totals always equal the calendar days in the period.
                     # Use this as a hard cap so biometric rows leaked from adjacent months

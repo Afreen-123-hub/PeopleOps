@@ -3371,8 +3371,22 @@ function showEmployee(e) {
       </div>` : `<div class="empty-note">No Worklogix task data synced for this employee this period</div>`}
 
       <!-- Attendance & Biometrics -->
-      <h3 class="detail-section-title">Attendance &amp; Biometrics${teamAvgAtt != null ? `<span class="detail-section-context">Team avg: ${teamAvgAtt}%</span>` : ""}</h3>
-      ${(() => {
+      <h3 class="detail-section-title">Attendance &amp; Biometrics${e.roleCategory !== "intern" && teamAvgAtt != null ? `<span class="detail-section-context">Team avg: ${teamAvgAtt}%</span>` : ""}</h3>
+      ${e.roleCategory === "intern" ? `
+      <div class="na-block">
+        <span class="na-icon">–</span>
+        <span class="na-text"><b>Attendance tracking not available for this role</b><span>No GreytHR or biometric system access for interns — see Worklogix Activity below instead.</span></span>
+      </div>
+      <h3 class="detail-section-title">Worklogix Activity <span class="detail-section-context">Intern-only signal, not verified attendance</span></h3>
+      ${e.worklogixActivity ? `
+      <div class="wla-summary-row">
+        <span class="wla-pct">${e.worklogixActivity.daysLogged}</span>
+        <span class="wla-pct-lbl">days with logged work this month<br><small>${e.worklogixActivity.totalHours} hrs total across ${e.worklogixActivity.dates.length} real Worklogix entries</small></span>
+      </div>
+      <div class="wla-days">${e.worklogixActivity.dates.map(d => `<span class="wla-day">${new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}</span>`).join("")}</div>
+      <div class="wla-note"><b>Self-reported, not verified:</b> these are days this intern submitted a daily task update in Worklogix — a real signal that work happened, but hours are typed in, not clock-verified. Shown separately from Attendance rather than blended into it, since it isn't the same kind of data.</div>
+      ` : `<div class="empty-note">No Worklogix daily updates logged for this employee this period</div>`}
+      ` : (() => {
         const absentWarn = (att.absent ?? 0) > 3 ? "dg-warn" : "";
         // Fall back to meeting hours when office hours are missing
         const _meetingTotal = cal.meetingHours ?? tm.meetingHours ?? 0;

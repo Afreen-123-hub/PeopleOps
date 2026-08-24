@@ -15,6 +15,7 @@ DAILY_COLUMNS = [
     "due_date", "start_date", "completion_date", "working_hours", "dependency_status",
     "priority", "work_type", "status", "created_at", "updated_at", "approval_status",
     "reason", "meeting_hours", "allow_fields", "created_by", "updated_by", "mentor_rating",
+    "daily_logs",
 ]
 MONTHLY_COLUMNS = [
     "employee_id", "name", "month", "created_at", "updated_at", "completion_score",
@@ -127,6 +128,10 @@ def transform_daily_updates(payload):
         "created_by": ("created_by", "employee_id", "user_id"),
         "updated_by": ("updated_by", "employee_id", "user_id"),
         "mentor_rating": ("mentor_rating", "manager_rating", "rating"),
+        # daily_logs is a dict keyed by date ("2026-08-21": {"hours": 8, "description": ...}) —
+        # the per-day breakdown behind the flat working_hours total. Kept as raw JSON text here;
+        # callers that need the day-level detail (e.g. intern Worklogix Activity) parse it back.
+        "daily_logs": ("daily_logs",),
     }
     return [normalize_row(row, DAILY_COLUMNS, mapping) for row in extract_rows(payload)]
 
