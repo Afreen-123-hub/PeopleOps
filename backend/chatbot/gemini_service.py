@@ -128,27 +128,73 @@ GitHub adds 10% only when GitHub data exists.
 15. If the data contains "_periodMismatch", output that message EXACTLY as written and stop — do not show any employee list or data from a different month. The user asked for a specific month and must be told clearly what is and is not available."""
 
 
+def _fit_data_to_budget(data: dict, limit: int) -> str:
+    """Serialize data to JSON, trimming the largest list fields if it's over budget.
+
+    The previous approach sliced the serialized JSON string at a fixed character
+    count, which usually cut off mid-object — the model was being fed broken JSON
+    for any category whose data didn't happen to fit (general queries routinely
+    ran ~19KB against a 4KB budget). Trimming whole list items instead always
+    keeps the JSON valid, at the cost of showing fewer records instead of a
+    corrupted payload.
+    """
+    serialized = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    if len(serialized) <= limit:
+        return serialized
+
+    trimmed = json.loads(serialized)  # work on a copy
+    list_keys = [k for k, v in trimmed.items() if isinstance(v, list) and v]
+    trimmed_any = False
+    # Repeatedly shrink whichever list field is currently largest until it fits.
+    while list_keys:
+        serialized = json.dumps(trimmed, ensure_ascii=False, separators=(",", ":"))
+        if len(serialized) <= limit:
+            break
+        list_keys.sort(key=lambda k: len(trimmed[k]), reverse=True)
+        biggest = list_keys[0]
+        if len(trimmed[biggest]) <= 1:
+            list_keys.remove(biggest)
+            continue
+        # Drop the last quarter of the list at a time — fast convergence without
+        # overshooting to near-empty for payloads that are only slightly over.
+        cut = max(1, len(trimmed[biggest]) // 4)
+        trimmed[biggest] = trimmed[biggest][:-cut]
+        trimmed_any = True
+    else:
+        serialized = json.dumps(trimmed, ensure_ascii=False, separators=(",", ":"))
+
+    if trimmed_any:
+        trimmed["_truncationNote"] = "Some records were omitted to fit the response budget — mention that more exist if relevant."
+        serialized = json.dumps(trimmed, ensure_ascii=False, separators=(",", ":"))
+    return serialized[:limit] if len(serialized) > limit else serialized
+
+
 def ask_gemini(question: str, data: dict, category: str, history: list | None = None) -> str:
     api_key = get_api_key()
-    data_summary = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    # These were originally sized for a much smaller model context window and were
+    # routinely blowing past their own limit (general queries alone serialize to
+    # ~19KB against a 4KB budget) — the old string-slice truncation was silently
+    # feeding the model broken JSON on a large share of real questions. The model
+    # in use has a 131K-token context window, so there's room to be generous here;
+    # _fit_data_to_budget() below is the real safety net now, and always produces
+    # valid JSON even when a category's data is unexpectedly large.
     context_limits = {
-        "employee360": 5000,
-        "risk_insight": 5000,
-        "team_summary": 4500,
-        "general": 4000,
-        "performance": 4500,
-        "planner": 4000,
-        "attendance": 4000,
-        "task": 4000,
-        "availability": 3500,
-        "calendar": 3500,
-        "sharepoint": 3000,
-        "github": 3500,
-        "efficiency": 3000,
+        "employee360": 12000,
+        "risk_insight": 12000,
+        "team_summary": 8000,
+        "general": 16000,
+        "performance": 10000,
+        "planner": 8000,
+        "attendance": 8000,
+        "task": 8000,
+        "availability": 6000,
+        "calendar": 8000,
+        "sharepoint": 6000,
+        "github": 8000,
+        "efficiency": 8000,
     }
-    context_limit = context_limits.get(category, 5500)
-    if len(data_summary) > context_limit:
-        data_summary = data_summary[:context_limit] + "...[truncated]"
+    context_limit = context_limits.get(category, 12000)
+    data_summary = _fit_data_to_budget(data, context_limit)
 
     user_message = f"""Category: {category}
 Relevant Data:
