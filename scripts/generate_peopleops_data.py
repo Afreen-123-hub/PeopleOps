@@ -1597,10 +1597,14 @@ def main():
                 relevant = {k: v for k, v in core_sources.items() if k != "worklogix"}
             source_confidence = round(sum(relevant.values()) / len(relevant) * 100)
             # gh is truthy even when all entries are "Blank" (no real record).
-            # Require at least one meaningful status (P/A/OFF/H/Leave) to count as real data.
+            # OFF/Holiday are calendar structure (which days are weekends), not a tracked
+            # attendance signal — GreytHR reports those even for people it never actually
+            # tracks (e.g. interns), which was letting them pass this check with zero real
+            # data and fall through to a misleading computed KPI/Critical band instead of
+            # "Insufficient Data". Only P/A/Leave/WFH mean someone's presence was recorded.
             # validOfficeDays comes from Teams online presence — not physical attendance.
             # Only biometricDays (actual swipe) counts as confirmed physical presence.
-            gh_has_real_data = bool(gh) and (gh["P"] + gh["A"] + gh["OFF"] + gh["H"] + gh["Leave"] + gh["WFH"]) > 0
+            gh_has_real_data = bool(gh) and (gh["P"] + gh["A"] + gh["Leave"] + gh["WFH"]) > 0
             has_attendance_data = gh_has_real_data or bio["biometricDays"] > 0
             # Punctuality cutoff depends on role:
             #   intern/trainee → 9:00 AM + 15 min grace (9:15)
