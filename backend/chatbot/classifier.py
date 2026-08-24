@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 CATEGORY_KEYWORDS = {
     "employee360": [
         "employee 360", "360", "all data", "all details", "complete details",
@@ -18,7 +20,9 @@ CATEGORY_KEYWORDS = {
         "team summary", "team comparison", "compare team", "compare the",
         "team breakdown", "team overview", "by team", "each team",
         "across team", "team performance", "vs team", "team vs",
-        "which team", "best team", "worst team",
+        "which team", "best team", "worst team", "completion rate for",
+        "how is the team", "how is team", "team doing", "team's kpi",
+        "teams kpi", "team headcount",
     ],
     "planner": [
         "planner", "planner plan", "planner task", "plan task", "assigned plan",
@@ -61,6 +65,8 @@ CATEGORY_KEYWORDS = {
         "active now", "presence", "teams status", "working from",
         "currently online", "who is online", "who is offline",
         "status", "what is his status", "what is her status",
+        "hours today", "hours in teams", "how many hours", "hours is she",
+        "hours is he", "spent in teams", "time in teams",
     ],
     "task": [
         "task", "worklogix", "completed", "pending", "blocked",
@@ -95,6 +101,21 @@ _GENERAL_OVERRIDE_KEYWORDS = (
 )
 
 
+def _contains_keyword(text: str, keyword: str) -> bool:
+    """Whole-word/phrase match (with an optional trailing "s" for plurals),
+    not a raw substring check.
+
+    Plain `kw in text` let short keywords match inside unrelated words —
+    "pr" (meant for pull requests) matched inside "project", "lop" (leave
+    without pay) matched inside "develop"/"development", "git" matched inside
+    "digital" (a real team name here). A left word-boundary fixes that while
+    the optional "s?" still lets "performer" match "performers", "task"
+    match "tasks", etc. — real questions ask about them in the plural far
+    more often than the exact singular listed in CATEGORY_KEYWORDS.
+    """
+    return re.search(r"\b" + re.escape(keyword) + r"s?\b", text) is not None
+
+
 def classify(question: str) -> str:
     q = question.lower().strip()
     greeting_text = q.strip(" \t\r\n!?.,")
@@ -102,19 +123,19 @@ def classify(question: str) -> str:
     if greeting_text in _GREETING_TOKENS or greeting_text in {"heyy", "hiii", "helloo", "yo"}:
         return "general"
 
-    if any(kw in q for kw in _GENERAL_OVERRIDE_KEYWORDS):
+    if any(_contains_keyword(q, kw) for kw in _GENERAL_OVERRIDE_KEYWORDS):
         return "general"
 
     # High-priority explicit categories — checked before scoring
     for category in ("employee360", "risk_insight", "team_summary", "planner", "calendar", "sharepoint"):
-        if any(keyword in q for keyword in CATEGORY_KEYWORDS[category]):
+        if any(_contains_keyword(q, keyword) for keyword in CATEGORY_KEYWORDS[category]):
             return category
 
     # Score remaining categories
     scores = {cat: 0 for cat in CATEGORY_KEYWORDS}
     for cat, keywords in CATEGORY_KEYWORDS.items():
         for kw in keywords:
-            if kw in q:
+            if _contains_keyword(q, kw):
                 scores[cat] += 1
     best = max(scores, key=lambda c: scores[c])
     return best if scores[best] > 0 else "general"
