@@ -194,21 +194,38 @@ def _safe_calendar_event(event: dict) -> dict:
 
 
 def _extract_names_from_history(history: list) -> list[str]:
-    """Pull employee names from the most recent assistant reply in history."""
+    """Pull employee names the previous turn was about, for follow-ups like
+    "show their attendance" or "what about their tasks"."""
     last_reply = ""
+    last_user_question = ""
     for msg in reversed(history or []):
-        if msg.get("role") == "assistant":
+        role = msg.get("role")
+        if role == "assistant" and not last_reply:
             last_reply = msg.get("content", "")
+        elif role == "user" and last_reply and not last_user_question:
+            last_user_question = msg.get("content", "")
+        if last_reply and last_user_question:
             break
     if not last_reply:
         return []
-    # Match "1. Name S — ..." or "1. Name S\n   Team:"
+    # Match "1. Name S — ..." or "1. Name S\n   Team:" — the numbered-list reply format
+    # used by performance/attendance/task/risk answers.
     names = re.findall(
         r'^\d+\.\s+([A-Za-z][^\n—–|/]{2,45}?)(?:\s*—|\s*\n\s+Team:)',
         last_reply,
         re.MULTILINE,
     )
-    return [n.strip() for n in names if n.strip()]
+    names = [n.strip() for n in names if n.strip()]
+    if names:
+        return names
+    # Employee360 replies are prose ("✓ Working Well ..."), not a numbered list, so there's
+    # nothing to regex out of the reply itself — recover the subject from the question that
+    # produced it instead (e.g. "is meganathan performing well" -> "Meganathan").
+    if last_user_question:
+        employee = _query_employee(last_user_question)
+        if employee and employee.get("name"):
+            return [employee["name"]]
+    return []
 
 
 def _filter_by_names(employees: list[dict], names: list[str]) -> list[dict]:
