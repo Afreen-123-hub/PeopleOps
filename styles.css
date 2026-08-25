@@ -8170,7 +8170,13 @@ body.graph-drawer-open .tara-panel {
   bottom: 92px;
   right: 28px;
   width: 400px;
+  /* Anchored 92px from the bottom with a fixed 580px height meant the top of the
+     panel — the header and first messages — rendered above the actual browser
+     viewport on shorter windows, clipped by the browser's own chrome. Shrinking
+     with the viewport instead keeps the whole panel on-screen no matter the
+     window height. */
   height: 580px;
+  max-height: calc(100vh - 116px);
   background: #ffffff;
   border-radius: 20px;
   box-shadow:
