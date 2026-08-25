@@ -546,6 +546,23 @@ def _fetch_teams_today(name: str) -> dict:
     return result
 
 
+_STATUS_LABELS = {
+    "OutOfOffice": "Out of Office",
+    "BeRightBack": "Be Right Back",
+    "InACall": "In a Call",
+    "InAConferenceCall": "In a Conference Call",
+    "InAMeeting": "In a Meeting",
+    "AvailableIdle": "Available (Idle)",
+    "PresenceUnknown": "Unknown",
+}
+
+
+def _readable_status(raw: str) -> str:
+    """Teams' raw presence values are camelCase API enums (OutOfOffice, InACall) — show
+    the same human labels the dashboard's own Live Presence page uses instead of the enum."""
+    return _STATUS_LABELS.get(raw, raw)
+
+
 def get_availability_data(question: str = "") -> dict:
     import re
     data = _load()
@@ -573,7 +590,7 @@ def get_availability_data(question: str = "") -> dict:
         source = " (live)" if live else " (last known)"
         return {
             "_note": f"Real-time presence for '{match['name']}'{note_suffix}. Status is{source}.",
-            "employees": [{"name": match["name"], "team": match["team"], "status": status}],
+            "employees": [{"name": match["name"], "team": match["team"], "status": _readable_status(status)}],
             "footer": "",
         }
 
@@ -637,7 +654,7 @@ def get_availability_data(question: str = "") -> dict:
         status_filter = lambda t: bool(t.get("status"))
 
     filtered = [
-        {"name": r["name"], "team": r["team"], "status": r["status"]}
+        {"name": r["name"], "team": r["team"], "status": _readable_status(r["status"])}
         for r in all_records
         if status_filter(r["_teams"])
     ]
@@ -1315,7 +1332,11 @@ def route(category: str, question: str = "", history: list | None = None, active
     _tl.month_data = None  # reset any previous month override
 
     try:
-        if category != "calendar":
+        if category not in ("calendar", "availability"):
+            # Teams presence/OOO/in-a-call status is a live signal, not something a monthly
+            # attendance snapshot meaningfully captures — a question like "who is out of
+            # office on 25 aug" was matching "aug" and loading that month's frozen snapshot
+            # instead of live status, same class of bug calendar was already excluded for.
             # Detect requested month — from question text first, then dashboard's active month
             req = _extract_requested_ym(question)
             if not req and active_month:
