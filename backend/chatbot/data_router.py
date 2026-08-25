@@ -333,6 +333,44 @@ def get_attendance_data(question: str = "", history: list | None = None) -> dict
     data = _load()
     q = question.lower()
 
+    # "who is on leave/absent today" — GreytHR records the day's real attendance
+    # overnight, so "today" specifically is almost always still blank at query time
+    # (same gap found building the Today Briefing widget). Check the real per-day
+    # record rather than silently falling back to the monthly totals, which have no
+    # "today" concept at all and previously left the model to guess "no record found".
+    if any(w in q for w in ("today", "yesterday", "tomorrow")) and not any(w in q for w in _PRONOUN_TRIGGERS):
+        from datetime import datetime, timedelta
+        offset = -1 if "yesterday" in q else (1 if "tomorrow" in q else 0)
+        target = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
+        day_label = "yesterday" if offset == -1 else ("tomorrow" if offset == 1 else "today")
+        on_leave, absent_today = [], []
+        any_synced = False
+        for e in data.get("employees", []):
+            status = (e.get("attendanceDays") or {}).get(target)
+            if status and status != "Blank":
+                any_synced = True
+            if status == "Leave":
+                on_leave.append({"name": e.get("name"), "team": e.get("team")})
+            elif status == "A":
+                absent_today.append({"name": e.get("name"), "team": e.get("team")})
+        if any_synced:
+            return {
+                "_note": f"Real per-day attendance for {day_label} ({target}). List these exactly.",
+                "onLeave": on_leave,
+                "absent": absent_today,
+                "footer": "",
+            }
+        return {
+            "_note": (
+                f"Say clearly that {day_label}'s attendance hasn't been recorded/synced yet "
+                "(GreytHR updates overnight, so the current day is never available live) — do not "
+                "say 'no record found' as if no one is on leave. If useful, mention this month's "
+                "overall leave pattern is available instead if they want that."
+            ),
+            "employees": [],
+            "footer": "",
+        }
+
     employees = [
         {
             "name": e.get("name"),
