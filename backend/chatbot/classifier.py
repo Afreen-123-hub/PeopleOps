@@ -125,19 +125,37 @@ _GENERAL_OVERRIDE_KEYWORDS = (
 )
 
 
-def _contains_keyword(text: str, keyword: str) -> bool:
-    """Whole-word/phrase match (with an optional trailing "s" for plurals),
-    not a raw substring check.
-
-    Plain `kw in text` let short keywords match inside unrelated words —
-    "pr" (meant for pull requests) matched inside "project", "lop" (leave
-    without pay) matched inside "develop"/"development", "git" matched inside
-    "digital" (a real team name here). A left word-boundary fixes that while
-    the optional "s?" still lets "performer" match "performers", "task"
-    match "tasks", etc. — real questions ask about them in the plural far
-    more often than the exact singular listed in CATEGORY_KEYWORDS.
+def _keyword_pattern(keyword: str) -> str:
+    """Build a regex alternation covering common English inflections (plural,
+    -ing, -ed) of a single-word keyword, so a new phrasing doesn't need its own
+    manual entry — "underperform" already covers "underperforming" this way,
+    instead of the gap staying open until someone happens to hit it and report
+    it. Multi-word phrases and non-alphabetic keywords just get an optional
+    trailing "s" — verb inflection only makes sense for single words.
     """
-    return re.search(r"\b" + re.escape(keyword) + r"s?\b", text) is not None
+    escaped = re.escape(keyword)
+    if " " in keyword or not keyword.replace("'", "").isalpha():
+        return escaped + r"s?"
+    if keyword.endswith("e"):
+        # Silent-e words drop the "e" before -ing (code -> coding) and just add
+        # "d" for past tense (code -> coded) rather than the full "-ed".
+        stem = re.escape(keyword[:-1])
+        return f"(?:{escaped}[sd]?|{stem}ing)"
+    return f"{escaped}(?:s|es|ing|ed)?"
+
+
+def _contains_keyword(text: str, keyword: str) -> bool:
+    """Whole-word/phrase match against common English inflections, not a raw
+    substring check.
+
+    Plain `kw in text` let short keywords match inside unrelated words — "pr"
+    (pull requests) matched inside "project", "git" matched inside "digital".
+    The left word-boundary fixes that. The inflection handling on the right
+    means a keyword needs adding only once in its base form, not once per
+    tense/plural — that's how gaps like "disengaged" (missing outright) or
+    "underperforming" (only "underperform" was listed) kept slipping through.
+    """
+    return re.search(r"\b(?:" + _keyword_pattern(keyword) + r")\b", text) is not None
 
 
 def classify(question: str) -> str:
