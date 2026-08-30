@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-29T10:20:38.994321Z",
+  "lastUpdated": "2026-08-30T09:25:46.233333Z",
   "period": {
     "since": "2026-08-01",
     "until": "2026-08-31"
@@ -5214,7 +5214,7 @@
         },
         {
           "title": "“Go Back” Button Is Not Fixed When Scrolling Project Details",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5394,7 +5394,7 @@
         },
         {
           "title": "Employees added under Custom Employee Override cannot be removed individually, and “Reset Defaults” resets all KPI data.",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5454,7 +5454,7 @@
         },
         {
           "title": "Leadership profile name and notification icon are displayed incorrectly, and HTML tags are visible in the task description.",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5499,11 +5499,11 @@
         },
         {
           "title": "Intern Attendance Sign-In Button",
-          "status": "QA Review",
+          "status": "Todo",
           "priority": "P0",
           "size": "",
           "assignees": [
-            "Anisha-cw"
+            "Iftikhaar-ali"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/49",
@@ -5529,7 +5529,7 @@
         },
         {
           "title": "Leadership – Project table sorting arrows are non-functional",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5589,7 +5589,7 @@
         },
         {
           "title": "KPI Creation and Evaluation Management",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "P0",
           "size": "",
           "assignees": [
@@ -5949,7 +5949,7 @@
         },
         {
           "title": "Internal UUID values are displayed instead of valid Employee IDs in the Performance Breakdown dropdown.",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -6009,11 +6009,11 @@
         },
         {
           "title": "Changing the Task Report date filter from Weekly to Monthly does not clear the previously applied weekly filter.",
-          "status": "QA Review",
+          "status": "Todo",
           "priority": "",
           "size": "",
           "assignees": [
-            "Anisha-cw"
+            "nithisha-01"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/81",
@@ -6702,7 +6702,7 @@
         "total": 100,
         "done": 0,
         "inProgress": 1,
-        "todo": 0,
+        "todo": 2,
         "backlog": 3,
         "production": 0
       }
@@ -8130,6 +8130,7 @@
       "login": "nithisha-01",
       "projects": [
         "Acadamiq AI",
+        "Worklogix",
         "Hirelysze",
         "HireLens"
       ],
@@ -8171,6 +8172,12 @@
           "priority": ""
         },
         {
+          "project": "Worklogix",
+          "title": "Changing the Task Report date filter from Weekly to Monthly does not clear the previously applied weekly filter.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
           "project": "Hirelysze",
           "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
           "status": "Todo",
@@ -8195,7 +8202,7 @@
           "priority": ""
         }
       ],
-      "total": 10,
+      "total": 11,
       "done": 0,
       "inProgress": 3,
       "commits": 117,
@@ -8335,7 +8342,7 @@
         {
           "project": "Worklogix",
           "title": "Employees added under Custom Employee Override cannot be removed individually, and “Reset Defaults” resets all KPI data.",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -8359,7 +8366,7 @@
         {
           "project": "Worklogix",
           "title": "Leadership profile name and notification icon are displayed incorrectly, and HTML tags are visible in the task description.",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -8376,12 +8383,6 @@
         },
         {
           "project": "Worklogix",
-          "title": "Intern Attendance Sign-In Button",
-          "status": "QA Review",
-          "priority": "P0"
-        },
-        {
-          "project": "Worklogix",
           "title": "HR – Visitor Name Sorting Issue",
           "status": "QA Completed",
           "priority": ""
@@ -8389,7 +8390,7 @@
         {
           "project": "Worklogix",
           "title": "Leadership – Project table sorting arrows are non-functional",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -8413,7 +8414,7 @@
         {
           "project": "Worklogix",
           "title": "KPI Creation and Evaluation Management",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "P0"
         },
         {
@@ -8551,7 +8552,7 @@
         {
           "project": "Worklogix",
           "title": "Internal UUID values are displayed instead of valid Employee IDs in the Performance Breakdown dropdown.",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -8570,12 +8571,6 @@
           "project": "Worklogix",
           "title": "Filters in the Evaluations Created tab cannot be cleared and do not display the correct default options.",
           "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Changing the Task Report date filter from Weekly to Monthly does not clear the previously applied weekly filter.",
-          "status": "QA Review",
           "priority": ""
         },
         {
@@ -8837,7 +8832,7 @@
           "priority": ""
         }
       ],
-      "total": 104,
+      "total": 102,
       "done": 11,
       "inProgress": 0,
       "commits": 0,
@@ -9379,7 +9374,7 @@
         {
           "project": "Worklogix",
           "title": "“Go Back” Button Is Not Fixed When Scrolling Project Details",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -10381,6 +10376,36 @@
       "deletions": 7
     },
     {
+      "login": "Iftikhaar-ali",
+      "projects": [
+        "Worklogix",
+        "Devops"
+      ],
+      "tasks": [
+        {
+          "project": "Worklogix",
+          "title": "Intern Attendance Sign-In Button",
+          "status": "Todo",
+          "priority": "P0"
+        },
+        {
+          "project": "Devops",
+          "title": "Access Request",
+          "status": "Completed",
+          "priority": "High"
+        }
+      ],
+      "total": 2,
+      "done": 1,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
       "login": "Vinoth-codework",
       "projects": [
         "Devops"
@@ -10399,29 +10424,6 @@
       "commits": 1,
       "prs": 1,
       "prsMerged": 1,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Iftikhaar-ali",
-      "projects": [
-        "Devops"
-      ],
-      "tasks": [
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": "High"
-        }
-      ],
-      "total": 1,
-      "done": 1,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
