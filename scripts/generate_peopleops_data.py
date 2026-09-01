@@ -1031,9 +1031,16 @@ def read_greythr_api(start: str, end: str) -> tuple[defaultdict, dict, dict, dic
     return result, master, dept_details, day_map
 
 
-def fetch_greythr_mtm_employees(existing_ids: set) -> dict:
+def fetch_greythr_mtm_employees(existing_ids: set, fallback_path: Path | None = None) -> dict:
     """Return {emp_no: user_dict} for employees reporting to Senthil Kumar (CWINE053)
-    who are in GreytHR but not in Worklogix. These are MTM members from another office."""
+    who are in GreytHR but not in Worklogix. These are MTM members from another office.
+
+    If this GreytHR call fails, fall back to the MTM employee list from the previous
+    successful generation (fallback_path) instead of returning empty. A transient
+    failure here used to silently wipe every MTM employee's isMtm flag for that run —
+    and with it their real verified-sprint data, reverting them to a generic fallback
+    profile — until the next refresh happened to succeed. Reusing the last known list
+    means a hiccup here just leaves things unchanged instead of erasing them."""
     try:
         token, domain = greythr_get_token()
         reportees = get_reportees_by_employee_no(token, domain, "CWINE053")
@@ -1065,7 +1072,35 @@ def fetch_greythr_mtm_employees(existing_ids: set) -> dict:
         print(f"MTM: {len(mtm)} employees added from GreytHR reporting to Senthil Kumar")
         return mtm
     except (GreytHRConfigError, GreytHRAuthError, GreytHRApiError) as exc:
-        print(f"WARNING: MTM employee fetch skipped: {exc}", file=sys.stderr)
+        print(f"WARNING: MTM employee fetch failed: {exc}", file=sys.stderr)
+        if fallback_path and fallback_path.exists():
+            try:
+                previous = json.loads(fallback_path.read_text(encoding="utf-8-sig"))
+                fallback_mtm = {
+                    e["id"]: {
+                        "id": e["id"],
+                        "name": e.get("name", ""),
+                        "email": e.get("email", ""),
+                        "designation": e.get("designation") or "Unassigned",
+                        "team": e.get("team") or "Software Development",
+                        "is_active": "true",
+                        "ms_teams_id": "",
+                        "employee_no": e["id"],
+                        "_is_mtm": True,
+                    }
+                    for e in previous.get("employees", [])
+                    if e.get("isMtm") and e.get("id") and e.get("id") not in existing_ids
+                }
+                if fallback_mtm:
+                    print(
+                        f"MTM: reusing {len(fallback_mtm)} MTM employees from the previous "
+                        "successful run instead of wiping them",
+                        file=sys.stderr,
+                    )
+                    return fallback_mtm
+            except (json.JSONDecodeError, OSError, KeyError):
+                pass
+        print("WARNING: no previous MTM list available to fall back to — MTM employees will be missing this run", file=sys.stderr)
         return {}
 
 
@@ -1108,7 +1143,7 @@ def main():
               f"Sample is_active values: {list(set(str(u.get('is_active', '')) for u in list(all_users.values())[:5]))}",
               file=sys.stderr)
         sys.exit(1)
-    mtm_users = fetch_greythr_mtm_employees(set(users))
+    mtm_users = fetch_greythr_mtm_employees(set(users), fallback_path=out_path)
     users.update(mtm_users)
     mtm_ids = set(mtm_users)
     allowed_employee_ids = set(users)
