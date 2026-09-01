@@ -896,7 +896,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                     "month": month,
                     "period": cached_data.get("meta", {}).get("period", ""),
                     "employees": len(cached_data.get("employees", [])),
-                    "data": cached_data,
+                    "data": _merge_mtm_sprint_data(cached_data),
                 })
                 return
             detail = next(
@@ -919,7 +919,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                     "month": month,
                     "period": cached_data.get("meta", {}).get("period", ""),
                     "employees": len(cached_data.get("employees", [])),
-                    "data": cached_data,
+                    "data": _merge_mtm_sprint_data(cached_data),
                 })
                 return
             message = f"No employee data was generated for {month}. Check Worklogix API connectivity."
@@ -941,7 +941,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             "month": month,
             "period": data.get("meta", {}).get("period", ""),
             "employees": len(data.get("employees", [])),
-            "data": data,
+            "data": _merge_mtm_sprint_data(data),
         })
 
     def refresh_teams(self):
