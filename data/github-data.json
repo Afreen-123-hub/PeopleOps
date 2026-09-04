@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-03T08:13:46.029115Z",
+  "lastUpdated": "2026-09-04T08:09:33.886106Z",
   "period": {
     "since": "2026-09-01",
     "until": "2026-09-30"
@@ -10,6 +10,51 @@
       "number": 46,
       "title": "Edubot_V3",
       "items": [
+        {
+          "title": "Deactivated Institution Login Displays Both Inline and Toast Error Messages",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/48",
+          "createdAt": "2026-09-03T10:58:03Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Password Required Validation Missing",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/50",
+          "createdAt": "2026-09-03T11:18:31Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Institution Allows Estimated Users Exceeding Subscription Member Limit",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/47",
+          "createdAt": "2026-09-03T10:37:05Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Azure DevOps Server Access – Frontend Integration",
           "status": "Done",
@@ -323,12 +368,147 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Billing Cycle Yearly Selection Does Not Update the Price Field Label from Monthly Price to Yearly Price",
+          "status": "In Review QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "sriramgowthamE"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/46",
+          "createdAt": "2026-09-03T10:32:46Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Deleted Institution User Login Displays Incorrect \"Invalid Email or Password\" Error Message",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/49",
+          "createdAt": "2026-09-03T11:07:00Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Admin Role] Unable to Set Earned Leave Count to 0 in Institution Leave Policy for All Students",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/52",
+          "createdAt": "2026-09-03T12:01:45Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Leave Balances Displays Default Values Instead of Zero for All Leave Types",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/54",
+          "createdAt": "2026-09-03T12:37:59Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "AI Lesson Planner Displays 400 Error When Using HTML Output Format or Step 3 Details",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/57",
+          "createdAt": "2026-09-04T06:34:04Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Publish Button Is Hidden When Viewing a Newly Added Lesson Plan Module",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/59",
+          "createdAt": "2026-09-04T06:58:32Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Administrators Count Allows More Than One User in Subscription Plan",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/60",
+          "createdAt": "2026-09-04T07:02:23Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Generic Failure Toast Is Displayed When Adding More Than 10 Checkpoints",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/61",
+          "createdAt": "2026-09-04T07:19:42Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "My Task Redirects to Personal Task Page from Home Page",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/62",
+          "createdAt": "2026-09-04T07:33:19Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 21,
+        "total": 33,
         "done": 9,
-        "inProgress": 11,
+        "inProgress": 17,
         "todo": 0,
         "backlog": 1,
         "production": 0
@@ -4045,6 +4225,21 @@
       "title": "Acadamiq AI",
       "items": [
         {
+          "title": "TB - 01 Fill in timetable info before creating it",
+          "status": "TODO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/792",
+          "createdAt": "2026-08-20T04:20:48Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Supporting Document Returns 404 Error",
           "status": "DEV",
           "priority": "",
@@ -4191,6 +4386,36 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/578",
           "createdAt": "2026-07-28T07:30:28Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Student Section Filter Is Not Working",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/843",
+          "createdAt": "2026-09-02T09:58:28Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Add Grade & Class Filters for Teacher Filter",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/842",
+          "createdAt": "2026-09-02T09:54:47Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -4431,21 +4656,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/750",
           "createdAt": "2026-08-12T11:57:36Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "TB - 01 Fill in timetable info before creating it",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Dharsan1102codework"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/792",
-          "createdAt": "2026-08-20T04:20:48Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -5515,36 +5725,6 @@
           "closedAt": null,
           "startDate": "2026-07-20",
           "endDate": ""
-        },
-        {
-          "title": "It should be displayed for Parent and Student roles.",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "suruthisagar97"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/442",
-          "createdAt": "2026-07-17T05:13:19Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Teacher Profile Page Displays Student Details Instead of Teacher Details",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/441",
-          "createdAt": "2026-07-17T05:04:54Z",
-          "closedAt": null,
-          "startDate": "2026-07-17",
-          "endDate": ""
         }
       ],
       "stats": {
@@ -5576,6 +5756,21 @@
           "endDate": ""
         },
         {
+          "title": "Project Manager – Newly Created Project Does Not Show Edit or Add Employee Options",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/236",
+          "createdAt": "2026-09-03T06:39:16Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Leadership - Submitted Employee Performance Rating Is Not Displayed After Successful Submission",
           "status": "In Progress",
           "priority": "",
@@ -5586,6 +5781,21 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/231",
           "createdAt": "2026-09-02T09:51:47Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Team Lead – Task Completion Notification Not Received When Intern Completes Assigned Task",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/225",
+          "createdAt": "2026-09-01T23:53:35Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -5967,7 +6177,7 @@
         },
         {
           "title": "Intern Attendance Sign-In Button",
-          "status": "Todo",
+          "status": "In Progress",
           "priority": "P0",
           "size": "",
           "assignees": [
@@ -7029,43 +7239,13 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "The Managers Task, Employee Performance, Employee List, Task Report, and Project Quotes menu options redirect to the Dashboard instead of opening their respective pages.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/127",
-          "createdAt": "2026-08-18T09:49:03Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Project Manager – Managers Task, Employee Performance, Employee List, Task Report, and Project Quotes redirect to Dashboard",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/128",
-          "createdAt": "2026-08-18T10:14:06Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 2,
-        "todo": 1,
+        "inProgress": 5,
+        "todo": 0,
         "backlog": 2,
         "production": 0
       }
@@ -8497,17 +8677,11 @@
           "title": "Failure Toast Design Mismatch and Persists After Reopening Teacher Edit Page",
           "status": "QA",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Teacher Profile Page Displays Student Details Instead of Teacher Details",
-          "status": "QA",
-          "priority": ""
         }
       ],
-      "total": 128,
+      "total": 127,
       "done": 0,
-      "inProgress": 125,
+      "inProgress": 124,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -9091,21 +9265,9 @@
           "title": "HR – Employee Performance and Employee List pages redirect to Dashboard instead of opening the selected pages",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "The Managers Task, Employee Performance, Employee List, Task Report, and Project Quotes menu options redirect to the Dashboard instead of opening their respective pages.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Project Manager – Managers Task, Employee Performance, Employee List, Task Report, and Project Quotes redirect to Dashboard",
-          "status": "QA Completed",
-          "priority": ""
         }
       ],
-      "total": 97,
+      "total": 95,
       "done": 8,
       "inProgress": 0,
       "commits": 0,
@@ -9783,9 +9945,9 @@
       "done": 0,
       "inProgress": 3,
       "commits": 22,
-      "prs": 11,
-      "prsMerged": 11,
-      "prReviews": 5,
+      "prs": 12,
+      "prsMerged": 12,
+      "prReviews": 12,
       "additions": 0,
       "deletions": 0
     },
@@ -9970,6 +10132,12 @@
         },
         {
           "project": "Worklogix",
+          "title": "Team Lead – Task Completion Notification Not Received When Intern Completes Assigned Task",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
           "title": "Add Visitor Date Support in Add Visitor API",
           "status": "Backlog",
           "priority": ""
@@ -9987,13 +10155,327 @@
           "priority": ""
         }
       ],
-      "total": 31,
+      "total": 32,
       "done": 0,
-      "inProgress": 10,
+      "inProgress": 11,
+      "commits": 2,
+      "prs": 11,
+      "prsMerged": 11,
+      "prReviews": 12,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "Glad-Andrew",
+      "projects": [
+        "Edubot_V3",
+        "Edubot_CPLC",
+        "EduBot_University"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Deactivated Institution Login Displays Both Inline and Toast Error Messages",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Implement Subscription-Based Model - Backend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student Admission & Identity Management – Backend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Adaptive Learning & AI Learning Assistant – Backend",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "AI Plagiarism & Academic Integrity – Backend",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "AI Lesson Planner – Backend",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Deleted Institution User Login Displays Incorrect \"Invalid Email or Password\" Error Message",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "[Admin Role] Unable to Set Earned Leave Count to 0 in Institution Leave Policy for All Students",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Leave Balances Displays Default Values Instead of Zero for All Leave Types",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Generic Failure Toast Is Displayed When Adding More Than 10 Checkpoints",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Application Opens Directly in Incognito Mode Without Login Authentication",
+          "status": "Blocked",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Duplicate Task Name Is Allowed",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Inconsistent spacing in module option cards",
+          "status": "Blocked",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Duplicate Registration ID is allowed for different Institutions",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "OTP Expired Message Displayed Before Timer Ends",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Task Creation Allows Selection of Past Due Dates",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Admin Leave Request Module Is Missing",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Phone Number Field Accepts Unlimited Digits",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Theme Options Are Not Clearly Visible in Settings",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Profile Data Not Loaded on Attendance Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Notifications Are Not Working for Any User",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Section Content Text Box Is Not Properly Displayed",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 25,
+      "done": 4,
+      "inProgress": 15,
       "commits": 0,
-      "prs": 8,
-      "prsMerged": 8,
-      "prReviews": 9,
+      "prs": 6,
+      "prsMerged": 6,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "Antony-Bilgates",
+      "projects": [
+        "Edubot_V3",
+        "SabAi Bible App",
+        "EduBot_University"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Password Required Validation Missing",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Institution Allows Estimated Users Exceeding Subscription Member Limit",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Implementation of Subscription-Based Model – Frontend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student Admission & Identity Management – Frontend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Intelligent Assessment Management – Frontend",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Adaptive Learning & AI Learning Assistant – Frontend",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Digital Certification – Frontend",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Publish Button Is Hidden When Viewing a Newly Added Lesson Plan Module",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Administrators Count Allows More Than One User in Subscription Plan",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "My Task Redirects to Personal Task Page from Home Page",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "iOS Sign-In Option Is Missing on Login Page",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Success and Error Toast Messages Displayed Simultaneously During Student Registration",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Duplicate Staff ID Allows Staff Creation",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Career Path Card UI Breaks with Long Name and Domain Values",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Admin Username Is Not Displayed",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Check-In Fails When Attendance Location Is Not Configured",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "AI Self-Evaluation Section Is Displayed in Student Task Details",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Page Does Not Auto-Scroll After Proceeding to the Next Step in New Curriculum Session",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "\"Show All\" Option Hides Data Instead of Displaying All Records",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 21,
+      "done": 2,
+      "inProgress": 9,
+      "commits": 0,
+      "prs": 4,
+      "prsMerged": 4,
+      "prReviews": 0,
       "additions": 0,
       "deletions": 0
     },
@@ -10145,145 +10627,6 @@
       "deletions": 0
     },
     {
-      "login": "Glad-Andrew",
-      "projects": [
-        "Edubot_V3",
-        "Edubot_CPLC",
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Implement Subscription-Based Model - Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Adaptive Learning & AI Learning Assistant – Backend",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "AI Plagiarism & Academic Integrity – Backend",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "AI Lesson Planner – Backend",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Application Opens Directly in Incognito Mode Without Login Authentication",
-          "status": "Blocked",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Duplicate Task Name Is Allowed",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Inconsistent spacing in module option cards",
-          "status": "Blocked",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Duplicate Registration ID is allowed for different Institutions",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "OTP Expired Message Displayed Before Timer Ends",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Task Creation Allows Selection of Past Due Dates",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Admin Leave Request Module Is Missing",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Phone Number Field Accepts Unlimited Digits",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Theme Options Are Not Clearly Visible in Settings",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Data Not Loaded on Attendance Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Notifications Are Not Working for Any User",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Section Content Text Box Is Not Properly Displayed",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 20,
-      "done": 4,
-      "inProgress": 11,
-      "commits": 0,
-      "prs": 4,
-      "prsMerged": 4,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "Thariq-Abbas",
       "projects": [
         "Edubot_V3",
@@ -10406,121 +10749,6 @@
       "deletions": 0
     },
     {
-      "login": "Antony-Bilgates",
-      "projects": [
-        "Edubot_V3",
-        "SabAi Bible App",
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Implementation of Subscription-Based Model – Frontend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Frontend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Intelligent Assessment Management – Frontend",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Adaptive Learning & AI Learning Assistant – Frontend",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Digital Certification – Frontend",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS Sign-In Option Is Missing on Login Page",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Success and Error Toast Messages Displayed Simultaneously During Student Registration",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Duplicate Staff ID Allows Staff Creation",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Career Path Card UI Breaks with Long Name and Domain Values",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Admin Username Is Not Displayed",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Check-In Fails When Attendance Location Is Not Configured",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "AI Self-Evaluation Section Is Displayed in Student Task Details",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Page Does Not Auto-Scroll After Proceeding to the Next Step in New Curriculum Session",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "\"Show All\" Option Hides Data Instead of Displaying All Records",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 16,
-      "done": 2,
-      "inProgress": 7,
-      "commits": 0,
-      "prs": 2,
-      "prsMerged": 2,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "sriramgowthamE",
       "projects": [
         "Edubot_V3",
@@ -10532,6 +10760,12 @@
           "project": "Edubot_V3",
           "title": "Analytics, Reporting & Institutional Intelligence - Frontend",
           "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Billing Cycle Yearly Selection Does Not Update the Price Field Label from Monthly Price to Yearly Price",
+          "status": "In Review QA",
           "priority": ""
         },
         {
@@ -10607,12 +10841,12 @@
           "priority": ""
         }
       ],
-      "total": 13,
+      "total": 14,
       "done": 0,
       "inProgress": 9,
       "commits": 0,
-      "prs": 2,
-      "prsMerged": 2,
+      "prs": 5,
+      "prsMerged": 5,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -10662,6 +10896,12 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "TB - 01 Fill in timetable info before creating it",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "Supporting Document Returns 404 Error",
           "status": "DEV",
           "priority": ""
@@ -10686,17 +10926,23 @@
         },
         {
           "project": "Acadamiq AI",
-          "title": "TB - 01 Fill in timetable info before creating it",
-          "status": "TODO",
+          "title": "Student Section Filter Is Not Working",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Add Grade & Class Filters for Teacher Filter",
+          "status": "In progress",
           "priority": ""
         }
       ],
-      "total": 11,
+      "total": 13,
       "done": 0,
-      "inProgress": 6,
+      "inProgress": 8,
       "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
+      "prs": 1,
+      "prsMerged": 1,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -10780,49 +11026,8 @@
       "done": 0,
       "inProgress": 0,
       "commits": 6,
-      "prs": 3,
-      "prsMerged": 3,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "suruthisagar97",
-      "projects": [
-        "Acadamiq AI"
-      ],
-      "tasks": [
-        {
-          "project": "Acadamiq AI",
-          "title": "Curriculum Management page flickers and reloads data when navigating back.",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Chat search does not display names.",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Download and Upload fields are not working on the Companion page.",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "It should be displayed for Parent and Student roles.",
-          "status": "QA",
-          "priority": ""
-        }
-      ],
-      "total": 4,
-      "done": 0,
-      "inProgress": 4,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
+      "prs": 5,
+      "prsMerged": 5,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -10835,17 +11040,65 @@
       "tasks": [
         {
           "project": "Worklogix",
+          "title": "Project Manager – Newly Created Project Does Not Show Edit or Add Employee Options",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
           "title": "Intern Attendance Sign-In Button",
-          "status": "Todo",
+          "status": "In Progress",
           "priority": "P0"
         }
       ],
-      "total": 1,
+      "total": 2,
       "done": 0,
-      "inProgress": 0,
+      "inProgress": 2,
       "commits": 3,
-      "prs": 3,
-      "prsMerged": 3,
+      "prs": 4,
+      "prsMerged": 4,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "inbarasuv",
+      "projects": [
+        "Edubot_V3",
+        "Acadamiq AI"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Analytics, Reporting & Institutional Intelligence – Backend",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Digital Certification – Backend",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "AI Lesson Planner Displays 400 Error When Using HTML Output Format or Step 3 Details",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "CT-01 – Class Teacher Assignment & Access",
+          "status": "TODO",
+          "priority": ""
+        }
+      ],
+      "total": 4,
+      "done": 0,
+      "inProgress": 2,
+      "commits": 0,
+      "prs": 7,
+      "prsMerged": 7,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -10893,37 +11146,36 @@
       "deletions": 0
     },
     {
-      "login": "inbarasuv",
+      "login": "suruthisagar97",
       "projects": [
-        "Edubot_V3",
         "Acadamiq AI"
       ],
       "tasks": [
         {
-          "project": "Edubot_V3",
-          "title": "Analytics, Reporting & Institutional Intelligence – Backend",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Digital Certification – Backend",
-          "status": "In progress",
+          "project": "Acadamiq AI",
+          "title": "Curriculum Management page flickers and reloads data when navigating back.",
+          "status": "QA",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "CT-01 – Class Teacher Assignment & Access",
-          "status": "TODO",
+          "title": "Chat search does not display names.",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Download and Upload fields are not working on the Companion page.",
+          "status": "QA",
           "priority": ""
         }
       ],
       "total": 3,
       "done": 0,
-      "inProgress": 2,
+      "inProgress": 3,
       "commits": 0,
-      "prs": 6,
-      "prsMerged": 6,
+      "prs": 0,
+      "prsMerged": 0,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -10974,8 +11226,8 @@
       "done": 1,
       "inProgress": 0,
       "commits": 0,
-      "prs": 4,
-      "prsMerged": 4,
+      "prs": 5,
+      "prsMerged": 5,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
