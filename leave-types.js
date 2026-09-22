@@ -7,6 +7,7 @@
   "use strict";
 
   // Full names are the usual meaning of each GreytHR code; unknown codes still work, they just get a neutral colour.
+  var ABSENT_CODE = "__ABSENT__"; // matches the reserved marker services/greythr_api_client.py uses for plain Absent
   var KNOWN = [
     { code: "CL",     name: "Casual Leave",       color: "#0f9d8f", fg: "#fff" },
     { code: "SL",     name: "Sick Leave",         color: "#e0745c", fg: "#fff" },
@@ -17,18 +18,28 @@
     { code: "RH",     name: "Restricted Holiday", color: "#c98bb9", fg: "#fff" },
     { code: "ML",     name: "Maternity Leave",    color: "#9a6fd8", fg: "#fff" },
     { code: "BL",     name: "Bereavement Leave",  color: "#8b95a5", fg: "#fff" },
-    { code: "PTL",    name: "Paternity Leave",    color: "#7fb069", fg: "#10300a" }
+    { code: "PTL",    name: "Paternity Leave",    color: "#7fb069", fg: "#10300a" },
+    // Not a GreytHR leave code — plain "Absent" with no leave ever filed. Kept last and visually
+    // distinct so it reads as "no leave on record", not as another kind of approved leave.
+    { code: ABSENT_CODE, short: "ABS", name: "Absent (no leave filed)", color: "#55606e", fg: "#fff" }
   ];
   var FALLBACK_COLORS = ["#94a3b8", "#b08968", "#5aa9a2", "#a78bfa", "#d4a373"];
   var KNOWN_BY = {};
-  KNOWN.forEach(function (t) { KNOWN_BY[t.code.toUpperCase()] = t; });
+  KNOWN.forEach(function (t) { t.short = t.short || t.code; KNOWN_BY[t.code.toUpperCase()] = t; });
+
+  function hexRgb(hex) {
+    var h = hex.replace("#", "");
+    if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+    var n = parseInt(h, 16);
+    return ((n >> 16) & 255) + ", " + ((n >> 8) & 255) + ", " + (n & 255);
+  }
 
   function typeMeta(code) {
     var k = KNOWN_BY[String(code).toUpperCase()];
     if (k) return k;
     var h = 0;
     for (var i = 0; i < code.length; i++) h = (h * 31 + code.charCodeAt(i)) >>> 0;
-    return { code: code, name: code, color: FALLBACK_COLORS[h % FALLBACK_COLORS.length], fg: "#fff" };
+    return { code: code, short: code, name: code, color: FALLBACK_COLORS[h % FALLBACK_COLORS.length], fg: "#fff" };
   }
 
   // ---------- dates (ISO strings, UTC arithmetic so timezones never shift a day) ----------
@@ -193,9 +204,10 @@
 
   function legendHtml(agg) {
     return agg.codes.map(function (c) {
-      var v = agg.totals[c] || 0, t = typeMeta(c);
-      return '<button type="button" class="lt-lg' + (v ? "" : " lt-zero") + '" data-code="' + esc(c) + '" aria-pressed="' + (state.filter === c) + '" title="' + esc(t.name) + '">' +
-        '<span class="lt-dot" style="background:' + t.color + '"></span><span class="lt-code">' + esc(c) + '</span><span class="lt-n">' + (v ? num(v) : "0") + "</span></button>";
+      var v = agg.totals[c] || 0, t = typeMeta(c), rgb = hexRgb(t.color);
+      var tint = v ? ' style="--lt-bg:rgba(' + rgb + ',.10);--lt-bg-hover:rgba(' + rgb + ',.18);--lt-accent:' + t.color + ';--lt-edge:rgba(' + rgb + ',.35)"' : "";
+      return '<button type="button" class="lt-lg' + (v ? "" : " lt-zero") + '"' + tint + ' data-code="' + esc(c) + '" aria-pressed="' + (state.filter === c) + '" title="' + esc(t.name) + '">' +
+        '<span class="lt-dot" style="background:' + t.color + '"></span><span class="lt-code">' + esc(t.short) + '</span><span class="lt-n">' + (v ? num(v) : "0") + "</span></button>";
     }).join("");
   }
 
@@ -212,7 +224,7 @@
       var segs = "", tot = 0, tip = fmt(d, { weekday: "short", day: "numeric", month: "short" });
       agg.codes.forEach(function (c) {
         var v = (agg.perDay[d] || {})[c]; if (!v || (state.filter && state.filter !== c)) return;
-        tot += v; tip += " · " + c + " " + num(v);
+        tot += v; tip += " · " + typeMeta(c).short + " " + num(v);
         segs += '<div class="lt-seg-b" style="height:' + (v / max * 100) + "%;background:" + typeMeta(c).color + '"></div>';
       });
       var dn = D(d).getUTCDate();
@@ -269,7 +281,7 @@
       var runs = runsFor(p);
       var bars = runs.map(function (u) {
         var t = typeMeta(u.code), half = u.v < 1;
-        var label = week ? u.code + (half ? " ½" : "") : (u.len >= 2 && u.code.length <= 3 ? u.code : "");
+        var label = week ? t.short + (half ? " ½" : "") : (u.len >= 2 && t.short.length <= 3 ? t.short : "");
         var st = "left:" + pct(days.indexOf(u.start)) + ";width:calc(" + (u.len * cell).toFixed(3) + "% - 2px);margin-left:1px;";
         st += half ? "background:linear-gradient(90deg," + t.color + " 50%,transparent 50%);box-shadow:inset 0 0 0 1.5px " + t.color + ";color:var(--ink,#0f1c2e);"
                    : "background:" + t.color + ";color:" + t.fg + ";";
@@ -278,7 +290,7 @@
         return '<div class="lt-bar" style="' + st + '" title="' + esc(tip) + '">' + esc(label) + "</div>";
       }).join("");
       var dates = runs.map(function (u) {
-        return '<span class="lt-chip"><i style="background:' + typeMeta(u.code).color + '"></i>' + esc(u.code) + " · " + spanText(u.start, u.end) + (u.v < 1 ? " ½" : "") + "</span>";
+        return '<span class="lt-chip"><i style="background:' + typeMeta(u.code).color + '"></i>' + esc(typeMeta(u.code).short) + " · " + spanText(u.start, u.end) + (u.v < 1 ? " ½" : "") + "</span>";
       }).join("");
       return '<div class="lt-tl-row"><div class="lt-name"><div class="lt-who">' + esc(p.e.name) + '</div><div class="lt-team">' + esc(teamOf(p.e)) + " · " +
         num(sum) + (sum === 1 ? " day" : " days") + '</div></div><div class="lt-track">' + shade + todayMark + bars + '</div><div class="lt-dates">' + dates + "</div></div>";
@@ -291,7 +303,7 @@
       var ini = String(p.e.name || "?").split(" ").map(function (w) { return w[0]; }).slice(0, 2).join("");
       var sum = state.filter ? p.mine[state.filter] : p.sum;
       var chips = Object.keys(p.mine).filter(function (c) { return !state.filter || state.filter === c; }).map(function (c) {
-        return '<span class="lt-chip"><i style="background:' + typeMeta(c).color + '"></i>' + esc(c) + " " + num(p.mine[c]) + "</span>";
+        return '<span class="lt-chip"><i style="background:' + typeMeta(c).color + '"></i>' + esc(typeMeta(c).short) + " " + num(p.mine[c]) + "</span>";
       }).join("");
       return '<div class="lt-list-row"><div class="lt-av">' + esc(ini) + '</div><div><div class="lt-who">' + esc(p.e.name) + '</div><div class="lt-team">' + esc(teamOf(p.e)) +
         '</div></div><div class="lt-chips">' + chips + '</div><div class="lt-tot">' + num(sum) + " <small>" + (sum === 1 ? "day" : "days") + "</small></div></div>";
@@ -353,10 +365,10 @@
           (list.length > 15 ? '<button type="button" class="lt-more" data-showall="1">' + (collapse ? "Show all " + list.length + " people" : "Show fewer") + "</button>" : "");
       }
       body = note +
-        '<div class="lt-body"><div class="lt-donut">' + ringSvg(agg, sum) + '<div class="lt-mid"><div class="lt-big">' + num(sum) + '</div><div class="lt-mid-sub">Leaves taken</div></div></div>' +
+        '<div class="lt-body"><div class="lt-donut">' + ringSvg(agg, sum) + '<div class="lt-mid"><div class="lt-big">' + num(sum) + '</div><div class="lt-mid-sub">Leave &amp; absence days</div></div></div>' +
         '<div class="lt-legend">' + legendHtml(agg) + "</div></div>" +
         (state.mode === "day" ? "" : '<div><div class="lt-section-title"><h3>Day by day</h3><span>Weekends are dimmed</span></div><div class="lt-trend">' + trendHtml(r, agg) + "</div></div>") +
-        '<div><div class="lt-section-title"><h3>' + (state.filter ? "Who took " + esc(typeMeta(state.filter).name) : "Who was away") + (state.mode === "day" ? "" : ", and when") + "</h3><span>" +
+        '<div><div class="lt-section-title"><h3>' + (state.filter ? (state.filter === ABSENT_CODE ? "Who was marked Absent, no leave filed" : "Who took " + esc(typeMeta(state.filter).name)) : "Who was away") + (state.mode === "day" ? "" : ", and when") + "</h3><span>" +
         list.length + (list.length === 1 ? " person" : " people") + (state.mode === "day" ? " · click a type to filter" : " · hover a bar for details") + "</span></div>" + timeline + "</div>";
     }
     el.innerHTML = '<article class="panel lt-card">' + head + body + "</article>";

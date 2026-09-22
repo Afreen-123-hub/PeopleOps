@@ -417,9 +417,13 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
 # LEAVE TYPES PER DAY
 # ==========================
 
+_ABSENT_MARKER = "__ABSENT__"  # not a real GreytHR code — a reserved id for "marked Absent, no leave filed"
+
+
 def _leave_session_label(raw) -> str | None:
     """Return the label exactly as GreytHR sent it (e.g. "CL", "Prob-L") when the
-    session is a leave or WFH session, otherwise None.
+    session is a leave or WFH session; _ABSENT_MARKER for a plain Absent session
+    (no leave code at all); otherwise None.
 
     Uses _attendance_bucket so the notion of "leave" matches the existing attendance
     counts. The raw label is kept on purpose: _normalise_attendance_label strips
@@ -431,17 +435,22 @@ def _leave_session_label(raw) -> str | None:
     bucket = _attendance_bucket(text)
     if bucket == "WFH":
         return "WFH"
+    if bucket == "A":
+        return _ABSENT_MARKER
     return text if bucket == "Leave" else None
 
 
 def get_leave_days(start: str, end: str) -> tuple[dict[str, dict[str, dict[str, float]]], list[dict]]:
-    """Return ({employeeKey: {date: {leaveLabel: days}}}, people) for leave/WFH sessions only.
+    """Return ({employeeKey: {date: {leaveLabel: days}}}, people) for leave/WFH sessions,
+    plus plain Absent sessions under the reserved key _ABSENT_MARKER (no leave code was
+    filed at all — different from a formal leave type, kept separate so callers can
+    label it distinctly rather than counting it as "leave taken").
 
     Each session counts as 0.5 day, matching get_greythr_attendance, so a half day
     such as CL + P is {"CL": 0.5}. Keys are the same aliases get_greythr_attendance
     uses (GreytHR employee id, employee number, and "name:<normalised name>").
-    `people` lists each person who has leave/WFH, as {name, no, keys}, so callers can show
-    people who aren't in the dashboard. Read-only: this changes nothing in GreytHR.
+    `people` lists each person who has a leave/WFH/Absent day, as {name, no, keys}, so
+    callers can show people who aren't in the dashboard. Read-only: nothing in GreytHR changes.
     """
     token, domain = get_token()
     master = get_employee_master(token, domain)

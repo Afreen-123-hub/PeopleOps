@@ -28,14 +28,28 @@
 .lt-big { font-size: 2.2rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
 .lt-mid-sub { color: var(--muted, #5a6b82); font-size: .9rem; }
 
-.lt-legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
-.lt-lg { display: flex; align-items: center; gap: 9px; border: 1px solid transparent; background: transparent; color: var(--ink, #0f1c2e); font: inherit; text-align: left; padding: 8px 10px; border-radius: 8px; cursor: pointer; }
-.lt-lg:hover { background: #eef3f9; }
-.lt-lg[aria-pressed="true"] { background: #e3f6f3; border-color: var(--teal, #14B8A6); }
-.lt-dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
-.lt-code { color: var(--muted, #5a6b82); }
-.lt-n { margin-left: auto; font-weight: 700; font-variant-numeric: tabular-nums; }
-.lt-lg.lt-zero .lt-n, .lt-lg.lt-zero .lt-code { opacity: .45; font-weight: 500; }
+.lt-legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.lt-lg {
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--lt-edge, var(--line, #e2e8f0)); background: var(--lt-bg, transparent);
+  color: var(--ink, #0f1c2e); font: inherit; text-align: left;
+  padding: 10px 12px; border-radius: 12px; cursor: pointer;
+  transition: background-color .12s ease, border-color .12s ease, transform .12s ease, box-shadow .12s ease;
+}
+.lt-lg:hover { background: var(--lt-bg-hover, #eef3f9); transform: translateY(-1px); }
+.lt-lg:active { transform: translateY(0); }
+.lt-lg[aria-pressed="true"] {
+  border-color: var(--lt-accent, var(--teal, #14B8A6));
+  background: var(--lt-bg-hover, #e3f6f3);
+  box-shadow: inset 0 0 0 1px var(--lt-accent, var(--teal, #14B8A6));
+}
+.lt-dot { width: 11px; height: 11px; border-radius: 50%; flex: none; box-shadow: 0 0 0 3px var(--lt-bg, transparent); }
+.lt-code { color: var(--muted, #5a6b82); font-weight: 600; font-size: .81rem; letter-spacing: .01em; }
+.lt-n { margin-left: auto; font-weight: 800; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.lt-lg.lt-zero { border-style: dashed; }
+.lt-lg.lt-zero .lt-dot { box-shadow: none; }
+.lt-lg.lt-zero .lt-n, .lt-lg.lt-zero .lt-code { opacity: .45; font-weight: 500; font-size: .81rem; }
+@media (prefers-reduced-motion: reduce) { .lt-lg { transition: none; } }
 
 .lt-section-title { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin: 0 0 10px; }
 .lt-section-title h3 { margin: 0; font-size: .95rem; }
