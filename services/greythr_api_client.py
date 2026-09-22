@@ -411,3 +411,82 @@ def get_greythr_attendance(start: str, end: str) -> tuple[dict[str, Counter], di
 
     # Return attendance counters, master data, department/designation details, per-day map
     return result, master, dept_details, result_days
+
+
+# ==========================
+# LEAVE TYPES PER DAY
+# ==========================
+
+_ABSENT_MARKER = "__ABSENT__"  # not a real GreytHR code — a reserved id for "marked Absent, no leave filed"
+
+
+def _leave_session_label(raw) -> str | None:
+    """Return the label exactly as GreytHR sent it (e.g. "CL", "Prob-L") when the
+    session is a leave or WFH session; _ABSENT_MARKER for a plain Absent session
+    (no leave code at all); otherwise None.
+
+    Uses _attendance_bucket so the notion of "leave" matches the existing attendance
+    counts. The raw label is kept on purpose: _normalise_attendance_label strips
+    hyphens, which would turn "Prob-L" into "PROBL".
+    """
+    text = str(raw or "").strip()
+    if not text:
+        return None
+    bucket = _attendance_bucket(text)
+    if bucket == "WFH":
+        return "WFH"
+    if bucket == "A":
+        return _ABSENT_MARKER
+    return text if bucket == "Leave" else None
+
+
+def get_leave_days(start: str, end: str) -> tuple[dict[str, dict[str, dict[str, float]]], list[dict]]:
+    """Return ({employeeKey: {date: {leaveLabel: days}}}, people) for leave/WFH sessions,
+    plus plain Absent sessions under the reserved key _ABSENT_MARKER (no leave code was
+    filed at all — different from a formal leave type, kept separate so callers can
+    label it distinctly rather than counting it as "leave taken").
+
+    Each session counts as 0.5 day, matching get_greythr_attendance, so a half day
+    such as CL + P is {"CL": 0.5}. Keys are the same aliases get_greythr_attendance
+    uses (GreytHR employee id, employee number, and "name:<normalised name>").
+    `people` lists each person who has a leave/WFH/Absent day, as {name, no, keys}, so
+    callers can show people who aren't in the dashboard. Read-only: nothing in GreytHR changes.
+    """
+    token, domain = get_token()
+    master = get_employee_master(token, domain)
+    records = get_attendance_muster(token, domain, start, end, set(master.keys()))
+
+    by_employee: dict[str, dict[str, dict[str, float]]] = {}
+    for emp in records:
+        emp_id = str(emp.get("employeeId", "")).strip()
+        if not emp_id:
+            continue
+        for rec in emp.get("records", []):
+            summary = rec.get("summary") or {}
+            date_str = str(summary.get("attendanceDate") or "")[:10]
+            if not date_str:
+                continue
+            for session_label in (summary.get("session1Label"), summary.get("session2Label")):
+                label = _leave_session_label(session_label)
+                if not label:
+                    continue
+                day = by_employee.setdefault(emp_id, {}).setdefault(date_str, {})
+                day[label] = day.get(label, 0) + 0.5
+
+    result: dict[str, dict[str, dict[str, float]]] = {}
+    people: list[dict] = []
+    for emp_id, days in by_employee.items():
+        info = master.get(emp_id, {})
+        aliases = [
+            emp_id,
+            info.get("employee_no", ""),
+            f"name:{_normalise_match_key(info.get('name', ''))}",
+        ]
+        keys = []
+        for alias in aliases:
+            alias = str(alias or "").strip()
+            if alias and alias != "name:" and alias not in keys:
+                keys.append(alias)
+                result[alias] = days
+        people.append({"name": info.get("name") or emp_id, "no": info.get("employee_no", ""), "keys": keys})
+    return result, people

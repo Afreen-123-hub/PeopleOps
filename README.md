@@ -27,7 +27,10 @@ http://localhost:8000/api/data
 http://localhost:8000/api/employees
 http://localhost:8000/api/teams
 http://localhost:8000/api/projects
+http://localhost:8000/api/leave-types?month=2026-08
 ```
+
+`/api/leave-types` powers the "Type of leaves taken" card on the Attendance page: GreytHR leave codes (CL, SL, ...) per person per day for one month, cached in `data/leave/YYYY-MM.json`. The daily refresh keeps the previous and current month saved; other months are fetched on first click. To save a month by hand: `python .\scripts\refresh_leave_types.py --month 2026-08`.
 
 ## Regenerate Data
 

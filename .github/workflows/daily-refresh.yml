@@ -46,6 +46,11 @@ jobs:
       - name: Refresh Graph activity data
         run: python scripts/refresh_graph_activity.py --month $(date -u +%Y-%m)
 
+      - name: Refresh leave types
+        # Optional extra for the "Type of leaves taken" card. A GreytHR hiccup here must never block the rest of the refresh.
+        continue-on-error: true
+        run: python scripts/refresh_leave_types.py
+
       - name: Commit and push updated data
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -54,5 +59,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
           git add data/peopleops-data.json data/graph-activity.json data/github-data.json
+          # only if the leave step produced files; a missing path would make git add fail the whole step
+          if [ -d data/leave ]; then git add data/leave; fi
           git diff --staged --quiet || git commit -m "chore: daily data refresh [skip ci]"
           git push

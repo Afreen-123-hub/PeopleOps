@@ -759,7 +759,39 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 self.send_json({"error": "Employee not found"}, HTTPStatus.NOT_FOUND)
             return
 
+        if path == "/api/leave-types":
+            self.handle_leave_types()
+            return
+
         self.send_json({"error": "Route not found"}, HTTPStatus.NOT_FOUND)
+
+    def handle_leave_types(self):
+        """Per-day GreytHR leave types for one month, for the "Type of leaves taken" card.
+        Served from data/leave/YYYY-MM.json; fetched from GreytHR (read-only) when missing or stale."""
+        import re
+        from urllib.parse import parse_qs
+
+        month = (parse_qs(urlparse(self.path).query).get("month") or [""])[0].strip()
+        if not re.fullmatch(r"\d{4}-(0[1-9]|1[0-2])", month):
+            self.send_json({"error": "Month must use YYYY-MM format."}, HTTPStatus.BAD_REQUEST)
+            return
+        # +14h so a viewer in any timezone (IST is UTC+5:30) can open the month they're currently in
+        if month > time.strftime("%Y-%m", time.gmtime(time.time() + 14 * 3600)):
+            self.send_json({"error": "That month hasn't started yet."}, HTTPStatus.BAD_REQUEST)
+            return
+        try:
+            if str(PROJECT_ROOT) not in sys.path:
+                sys.path.insert(0, str(PROJECT_ROOT))
+            from services import leave_types_store
+            payload = leave_types_store.get_month(month)
+        except Exception as exc:
+            print(f"[leave-types] {month} failed: {type(exc).__name__}: {exc}", flush=True)
+            self.send_json(
+                {"error": "Leave data could not be loaded for that month. Please try again in a moment."},
+                HTTPStatus.BAD_GATEWAY,
+            )
+            return
+        self.send_json(payload)
 
     def regenerate_data(self):
         result = subprocess.run(
