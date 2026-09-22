@@ -436,7 +436,11 @@
       '</div><div class="lt-nav"><button type="button" data-nav="-1" aria-label="Previous period"' + (r[0] <= MIN ? " disabled" : "") + '>&#8249;</button>' +
       '<div class="lt-period" aria-live="polite">' + esc(periodLabel(r)) + '</div>' +
       '<button type="button" data-nav="1" aria-label="Next period"' + (r[1] >= TODAY ? " disabled" : "") + '>&#8250;</button>' +
-      '<button type="button" class="lt-today" data-nav="today"' + (r[0] <= TODAY && TODAY <= r[1] ? " disabled" : "") + ">Today</button></div></div></div>";
+      '<button type="button" class="lt-today" data-nav="today"' + (r[0] <= TODAY && TODAY <= r[1] ? " disabled" : "") + ">Today</button>" +
+      (state.mode === "month"
+        ? '<input type="month" class="lt-jump" id="ltJump" value="' + state.anchor.slice(0, 7) + '" min="' + MIN.slice(0, 7) + '" max="' + TODAY.slice(0, 7) + '" aria-label="Jump to a specific month">'
+        : '<input type="date" class="lt-jump" id="ltJump" value="' + state.anchor + '" min="' + MIN + '" max="' + TODAY + '" aria-label="Jump to a specific date">') +
+      "</div></div></div>";
 
     var body;
     if (failed && !loading) {
@@ -525,6 +529,12 @@
       if (ev.target.id !== "ltSearch") return;
       state.query = ev.target.value;
       renderSearchDrop(el);
+    });
+    el.addEventListener("change", function (ev) {
+      if (ev.target.id !== "ltJump" || !ev.target.value) return;
+      state.anchor = state.mode === "month" ? ev.target.value + "-01" : ev.target.value;
+      if (state.mode === "day") while (isWeekend(state.anchor)) state.anchor = add(state.anchor, -1); // weekends have no working-day view
+      safeRender();
     });
     el.addEventListener("keydown", function (ev) {
       if (ev.target.id !== "ltSearch" || ev.key !== "Enter") return;

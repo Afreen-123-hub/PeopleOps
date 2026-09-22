@@ -12,6 +12,11 @@
 .lt-nav button:disabled { opacity: .35; cursor: default; }
 .lt-nav .lt-today { width: auto; border-radius: 999px; padding: 0 12px; font: inherit; font-size: .82rem; font-weight: 600; }
 .lt-period { min-width: 168px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+.lt-jump {
+  border: 1px solid var(--line, #e2e8f0); border-radius: 999px; padding: 6px 10px;
+  font: inherit; font-size: .8rem; background: #fff; color: var(--ink, #0f1c2e); cursor: pointer;
+}
+.lt-jump:focus-visible { outline: 2px solid var(--teal, #14B8A6); outline-offset: 1px; }
 .lt-card button:focus-visible { outline: 2px solid var(--teal, #14B8A6); outline-offset: 2px; }
 
 .lt-note { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; background: #f4f7fb; border: 1px solid var(--line, #e2e8f0); border-radius: 8px; padding: 9px 12px; font-size: .84rem; color: var(--muted, #5a6b82); }
