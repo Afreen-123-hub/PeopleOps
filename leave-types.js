@@ -68,7 +68,7 @@
   var TODAY = localToday();
   var MIN = addMonths(monthStart(TODAY), -12);
 
-  var state = { mode: "month", anchor: TODAY, filter: null, includeOthers: false, showAll: false };
+  var state = { mode: "month", anchor: TODAY, filter: null, includeOthers: false, showAll: false, person: null, personFilter: null };
   var months = {};   // "YYYY-MM" -> { status: "loading" | "ready" | "error", days, stale }
   var bound = false;
 
@@ -235,18 +235,19 @@
   }
 
   // Consecutive calendar days with the same leave type and length become one bar.
-  function runsFor(p) {
+  function runsForDays(dayMap, filterCode) {
     var out = [], cur = null;
-    Object.keys(p.days).sort().forEach(function (d) {
-      Object.keys(p.days[d]).forEach(function (code) {
-        if (state.filter && state.filter !== code) return;
-        var v = p.days[d][code];
+    Object.keys(dayMap).sort().forEach(function (d) {
+      Object.keys(dayMap[d]).forEach(function (code) {
+        if (filterCode && filterCode !== code) return;
+        var v = dayMap[d][code];
         if (cur && cur.code === code && cur.v === v && add(cur.end, 1) === d) { cur.end = d; cur.len++; }
         else { cur = { code: code, v: v, start: d, end: d, len: 1 }; out.push(cur); }
       });
     });
     return out;
   }
+  function runsFor(p) { return runsForDays(p.days, state.filter); }
   function spanText(a, b) {
     if (a === b) return fmt(a, { day: "numeric", month: "short" });
     if (a.slice(0, 7) === b.slice(0, 7)) return D(a).getUTCDate() + "–" + fmt(b, { day: "numeric", month: "short" });
@@ -310,6 +311,89 @@
     }).join("");
   }
 
+  // ---------- person search (someone's whole leave history, independent of the Day/Week/Month view) ----------
+  function personMonths() {
+    var out = [], m = monthStart(TODAY);
+    for (var i = 0; i < 6; i++) { out.unshift(m.slice(0, 7)); m = addMonths(m, -1); }
+    return out; // 6 months ending at the current month, oldest first
+  }
+  function personTotals(dayMap) {
+    var totals = {}, codes = [];
+    Object.keys(dayMap).forEach(function (d) {
+      Object.keys(dayMap[d]).forEach(function (c) {
+        totals[c] = (totals[c] || 0) + dayMap[d][c];
+        if (codes.indexOf(c) < 0) codes.push(c);
+      });
+    });
+    var ordered = KNOWN.map(function (t) { return t.code; }).filter(function (c) { return codes.indexOf(c) >= 0; });
+    codes.forEach(function (c) { if (ordered.indexOf(c) < 0) ordered.push(c); });
+    return { totals: totals, codes: ordered };
+  }
+  function personChipsHtml(pt) {
+    return pt.codes.map(function (c) {
+      var v = pt.totals[c] || 0, t = typeMeta(c), rgb = hexRgb(t.color);
+      var tint = ' style="--lt-bg:rgba(' + rgb + ',.10);--lt-bg-hover:rgba(' + rgb + ',.18);--lt-accent:' + t.color + ';--lt-edge:rgba(' + rgb + ',.35)"';
+      return '<button type="button" class="lt-lg" data-pfilter="' + esc(c) + '" aria-pressed="' + (state.personFilter === c) + '"' + tint + '>' +
+        '<span class="lt-dot" style="background:' + t.color + '"></span><span class="lt-code">' + esc(t.short) + '</span><span class="lt-n">' + num(v) + "</span></button>";
+    }).join("");
+  }
+  function personTimelineHtml(dayMap, monthsList) {
+    var start = monthsList[0] + "-01", end = monthEnd(monthsList[monthsList.length - 1] + "-01");
+    var span = [], s = start;
+    while (s <= end) { span.push(s); s = add(s, 1); }
+    var n = span.length, cell = 100 / n;
+    function pct(i) { return (i * cell).toFixed(3) + "%"; }
+    var ticks = monthsList.map(function (m) {
+      var idx = span.indexOf(m + "-01");
+      return '<span style="left:' + pct(idx) + '">' + fmt(m + "-01", { month: "short" }) + "</span>";
+    }).join("");
+    var runs = runsForDays(dayMap, state.personFilter);
+    var bars = runs.map(function (u) {
+      var t = typeMeta(u.code), half = u.v < 1, a = span.indexOf(u.start);
+      var st = "left:" + pct(a) + ";width:calc(" + (u.len * cell).toFixed(3) + "% - 1px);";
+      st += half ? "background:linear-gradient(90deg," + t.color + " 50%,transparent 50%);box-shadow:inset 0 0 0 1.5px " + t.color + ";"
+                 : "background:" + t.color + ";";
+      var total = u.len * u.v;
+      var tip = t.name + " · " + spanText(u.start, u.end) + " (" + num(total) + (total === 1 ? " day" : " days") + ")";
+      return '<div class="lt-pbar" style="' + st + '" title="' + esc(tip) + '"></div>';
+    }).join("");
+    var ti = span.indexOf(TODAY);
+    var todayMark = ti >= 0 ? '<i class="lt-ptoday" style="left:' + pct(ti) + '"></i>' : "";
+    return '<div class="lt-pticks">' + ticks + '</div><div class="lt-ptrack">' + bars + todayMark + "</div>";
+  }
+  function personEntriesHtml(dayMap) {
+    var runs = runsForDays(dayMap, state.personFilter).slice().reverse(); // most recent first
+    if (!runs.length) return '<div class="lt-empty-msg">No leave or absence recorded in this range.</div>';
+    return runs.map(function (u) {
+      var t = typeMeta(u.code), total = u.len * u.v;
+      return '<div class="lt-pentry"><span class="lt-dot" style="background:' + t.color + '"></span>' +
+        '<span class="lt-pentry-name">' + esc(t.name) + '</span>' +
+        '<span class="lt-pentry-when">' + esc(spanText(u.start, u.end)) + (u.v < 1 ? " · half day" : "") + '</span>' +
+        '<span class="lt-pentry-days">' + num(total) + (total === 1 ? " day" : " days") + "</span></div>";
+    }).join("");
+  }
+  function personBodyHtml(emp) {
+    var monthsList = personMonths();
+    monthsList.forEach(function (m) { loadMonth(m, false); });
+    var loading = monthsList.some(function (m) { return !months[m] || months[m].status === "loading"; });
+    if (loading) return '<div class="lt-status">Loading ' + esc(emp.name) + "’s leave history…</div>";
+    var dayMap = daysFor(emp, monthsList);
+    if (state.personFilter && personTotals(dayMap).codes.indexOf(state.personFilter) < 0) state.personFilter = null;
+    var pt = personTotals(dayMap);
+    var total = pt.codes.reduce(function (a, c) { return a + (pt.totals[c] || 0); }, 0);
+    var rangeLabel = fmt(monthsList[0] + "-01", { month: "short", year: "numeric" }) + " – " + fmt(monthsList[monthsList.length - 1] + "-01", { month: "short", year: "numeric" });
+    return (
+      '<div class="lt-pheader"><div><div class="lt-who" style="font-size:1.05rem">' + esc(emp.name) + '</div><div class="lt-team">' + esc(teamOf(emp)) + " · " + rangeLabel + "</div></div>" +
+      '<div class="lt-ptotal">' + num(total) + " <small>" + (total === 1 ? "day" : "days") + " total</small></div></div>" +
+      (total === 0
+        ? '<div class="lt-empty-msg">No leave or absence recorded for ' + esc(emp.name) + " in this range.</div>"
+        : '<div class="lt-legend">' + personChipsHtml(pt) + "</div>" +
+          '<div class="lt-ptrack-wrap">' + personTimelineHtml(dayMap, monthsList) + "</div>" +
+          '<div class="lt-section-title"><h3>Leave history</h3><span>' + rangeLabel + "</span></div>" +
+          '<div class="lt-pentries">' + personEntriesHtml(dayMap) + "</div>")
+    );
+  }
+
   function render() {
     var el = root();
     if (!el || !isVisible()) return;
@@ -337,6 +421,11 @@
         " (" + num(outsiderDays) + (outsiderDays === 1 ? " day" : " days") + ").</span><button type=\"button\" data-others=\"1\">" + (state.includeOthers ? "Hide them" : "Include them") + "</button></div>"
       : "";
     var total = (typeof dataset !== "undefined" && dataset && dataset.employees) ? dataset.employees.length : inView;
+
+    var searchRow = state.person
+      ? '<div class="lt-search-row"><button type="button" class="lt-searchclear" data-clear-person="1">&#8592; Back to everyone</button></div>'
+      : '<div class="lt-search-row"><div class="lt-search-wrap"><input type="text" id="ltSearch" class="lt-search-input" placeholder="Search a person…" autocomplete="off" value="' + esc(state.query || "") + '">' +
+        '<div class="lt-search-drop" id="ltSearchDrop" hidden></div></div></div>';
 
     var head =
       '<div class="lt-head"><div><p class="eyebrow">Attendance intelligence</p><h2>Type of leaves taken</h2>' +
@@ -371,8 +460,17 @@
         '<div><div class="lt-section-title"><h3>' + (state.filter ? (state.filter === ABSENT_CODE ? "Who was marked Absent, no leave filed" : "Who took " + esc(typeMeta(state.filter).name)) : "Who was away") + (state.mode === "day" ? "" : ", and when") + "</h3><span>" +
         list.length + (list.length === 1 ? " person" : " people") + (state.mode === "day" ? " · click a type to filter" : " · hover a bar for details") + "</span></div>" + timeline + "</div>";
     }
-    el.innerHTML = '<article class="panel lt-card">' + head + body + "</article>";
+    if (state.person) {
+      var found = employees().concat(extraPeople(mk)).filter(function (e) { return e.id === state.person; })[0];
+      body = found ? personBodyHtml(found) : '<div class="lt-empty-msg">That person is no longer in view.</div>';
+    }
+    el.innerHTML = '<article class="panel lt-card">' + head + searchRow + body + "</article>";
     bind(el);
+    // Typing shouldn't be interrupted by the innerHTML replace above — restore focus/caret after a search selection re-render.
+    var input = el.querySelector("#ltSearch");
+    if (input && document.activeElement !== input && state.refocusSearch) {
+      input.focus(); input.setSelectionRange(input.value.length, input.value.length); state.refocusSearch = false;
+    }
   }
 
   function shift(dir) {
@@ -383,6 +481,22 @@
     if (a > TODAY) a = TODAY;
     if (a < MIN) return;
     state.anchor = a;
+  }
+
+  function searchMatches(q) {
+    q = q.trim().toLowerCase();
+    if (!q) return [];
+    return employees().filter(function (e) { return (e.name || "").toLowerCase().indexOf(q) >= 0; }).slice(0, 8);
+  }
+  function renderSearchDrop(el) {
+    var box = el.querySelector("#ltSearchDrop"), input = el.querySelector("#ltSearch");
+    if (!box || !input) return;
+    var matches = searchMatches(input.value);
+    if (!input.value.trim()) { box.hidden = true; box.innerHTML = ""; return; }
+    box.innerHTML = matches.length
+      ? matches.map(function (e) { return '<button type="button" class="lt-sres" data-person="' + esc(e.id) + '">' + esc(e.name) + '<small>' + esc(teamOf(e)) + "</small></button>"; }).join("")
+      : '<div class="lt-sres-empty">No one matches “' + esc(input.value.trim()) + '”</div>';
+    box.hidden = false;
   }
 
   function bind(el) {
@@ -397,11 +511,28 @@
       } else if (t.dataset.nav === "today") state.anchor = TODAY;
       else if (t.dataset.nav) shift(Number(t.dataset.nav));
       else if (t.dataset.code) state.filter = state.filter === t.dataset.code ? null : t.dataset.code;
+      else if (t.dataset.pfilter) state.personFilter = state.personFilter === t.dataset.pfilter ? null : t.dataset.pfilter;
       else if (t.dataset.others) state.includeOthers = !state.includeOthers;
       else if (t.dataset.showall) state.showAll = !state.showAll;
       else if (t.dataset.retry) monthsIn(range()).forEach(function (m) { if (months[m] && months[m].status === "error") loadMonth(m, true); });
+      else if (t.dataset.person) { state.person = t.dataset.person; state.personFilter = null; state.query = ""; }
+      else if (t.dataset.clearPerson) { state.person = null; state.refocusSearch = true; }
       else return;
       safeRender();
+    });
+    // Typing updates only the small dropdown — never a full safeRender(), so the input never loses focus or caret position mid-word.
+    el.addEventListener("input", function (ev) {
+      if (ev.target.id !== "ltSearch") return;
+      state.query = ev.target.value;
+      renderSearchDrop(el);
+    });
+    el.addEventListener("keydown", function (ev) {
+      if (ev.target.id !== "ltSearch" || ev.key !== "Enter") return;
+      var first = searchMatches(ev.target.value)[0];
+      if (first) { state.person = first.id; state.personFilter = null; state.query = ""; safeRender(); }
+    });
+    document.addEventListener("click", function (ev) {
+      if (!ev.target.closest(".lt-search-wrap")) { var box = el.querySelector("#ltSearchDrop"); if (box) box.hidden = true; }
     });
   }
 
