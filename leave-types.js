@@ -176,7 +176,10 @@
     // Known types first (in GreytHR's order), then any code we haven't seen before.
     var codes = KNOWN.map(function (t) { return t.code; });
     seen.forEach(function (c) { if (!KNOWN_BY[c.toUpperCase()] && codes.indexOf(c) < 0) codes.push(c); });
-    return { totals: totals, perDay: perDay, perEmp: perEmp, codes: codes };
+    // People, not days: each person counts once per type they had (and once overall), however many days that was.
+    var peopleBy = {};
+    perEmp.forEach(function (p) { Object.keys(p.mine).forEach(function (c) { if (p.mine[c] > 0) peopleBy[c] = (peopleBy[c] || 0) + 1; }); });
+    return { totals: totals, perDay: perDay, perEmp: perEmp, codes: codes, peopleBy: peopleBy, people: perEmp.length };
   }
 
   // ---------- drawing ----------
@@ -191,11 +194,11 @@
     var h = '<circle cx="100" cy="100" r="' + R + '" fill="none" stroke="#e9eef5" stroke-width="26"/>';
     if (sum > 0) {
       agg.codes.forEach(function (c) {
-        var v = agg.totals[c]; if (!v) return;
+        var v = agg.peopleBy[c]; if (!v) return;
         if (state.filter && state.filter !== c) return;
         var len = v / sum * C, t = typeMeta(c), dash = Math.max(0, len - 1.5);
         h += '<circle cx="100" cy="100" r="' + R + '" fill="none" stroke="' + t.color + '" stroke-width="26" stroke-dasharray="' + dash + " " + (C - dash) +
-             '" stroke-dashoffset="' + (-off) + '" transform="rotate(-90 100 100)"><title>' + esc(t.name) + ": " + num(v) + "</title></circle>";
+             '" stroke-dashoffset="' + (-off) + '" transform="rotate(-90 100 100)"><title>' + esc(t.name) + ": " + v + (v === 1 ? " person" : " people") + "</title></circle>";
         off += len;
       });
     }
@@ -204,10 +207,10 @@
 
   function legendHtml(agg) {
     return agg.codes.map(function (c) {
-      var v = agg.totals[c] || 0, t = typeMeta(c), rgb = hexRgb(t.color);
+      var v = agg.peopleBy[c] || 0, t = typeMeta(c), rgb = hexRgb(t.color);
       var tint = v ? ' style="--lt-bg:rgba(' + rgb + ',.10);--lt-bg-hover:rgba(' + rgb + ',.18);--lt-accent:' + t.color + ';--lt-edge:rgba(' + rgb + ',.35)"' : "";
-      return '<button type="button" class="lt-lg' + (v ? "" : " lt-zero") + '"' + tint + ' data-code="' + esc(c) + '" aria-pressed="' + (state.filter === c) + '" title="' + esc(t.name) + '">' +
-        '<span class="lt-dot" style="background:' + t.color + '"></span><span class="lt-code">' + esc(t.short) + '</span><span class="lt-n">' + (v ? num(v) : "0") + "</span></button>";
+      return '<button type="button" class="lt-lg' + (v ? "" : " lt-zero") + '"' + tint + ' data-code="' + esc(c) + '" aria-pressed="' + (state.filter === c) + '" title="' + esc(t.name + " · " + v + (v === 1 ? " person" : " people")) + '">' +
+        '<span class="lt-dot" style="background:' + t.color + '"></span><span class="lt-code">' + esc(t.short) + '</span><span class="lt-n">' + v + "</span></button>";
     }).join("");
   }
 
@@ -449,7 +452,7 @@
 
     var agg = aggregate(r);
     if (state.filter && agg.codes.indexOf(state.filter) < 0) state.filter = null;
-    var sum = agg.codes.reduce(function (a, c) { return a + (agg.totals[c] || 0); }, 0);
+    var ringTotal = agg.codes.reduce(function (a, c) { return a + (agg.peopleBy[c] || 0); }, 0); // slices are shares of this
     var list = agg.perEmp.filter(function (p) { return !state.filter || p.mine[state.filter]; });
     var inView = employees().length;
     var outsiders = 0, outsiderDays = 0;
@@ -501,7 +504,7 @@
           (list.length > 15 ? '<button type="button" class="lt-more" data-showall="1">' + (collapse ? "Show all " + list.length + " people" : "Show fewer") + "</button>" : "");
       }
       body = note +
-        '<div class="lt-body"><div class="lt-donut">' + ringSvg(agg, sum) + '<div class="lt-mid"><div class="lt-big">' + num(sum) + '</div><div class="lt-mid-sub">Leave &amp; absence days</div></div></div>' +
+        '<div class="lt-body"><div class="lt-donut">' + ringSvg(agg, ringTotal) + '<div class="lt-mid"><div class="lt-big">' + agg.people + '</div><div class="lt-mid-sub">' + (agg.people === 1 ? "Person away" : "People away") + '</div></div></div>' +
         '<div class="lt-legend">' + legendHtml(agg) + "</div></div>" +
         (state.mode === "day" ? "" : '<div><div class="lt-section-title"><h3>Day by day</h3><span>Weekends are dimmed</span></div><div class="lt-trend">' + trendHtml(r, agg) + "</div></div>") +
         '<div><div class="lt-section-title"><h3>' + (state.filter ? (state.filter === ABSENT_CODE ? "Who was marked Absent, no leave filed" : "Who took " + esc(typeMeta(state.filter).name)) : "Who was away") + (state.mode === "day" ? "" : ", and when") + "</h3><span>" +
