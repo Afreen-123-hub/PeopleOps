@@ -11,7 +11,8 @@ param(
 )
 
 $repo = Split-Path -Parent $PSScriptRoot
-Set-Location $repo
+# -LiteralPath: the folder name contains [ ], which plain Set-Location treats as a wildcard.
+Set-Location -LiteralPath $repo -ErrorAction Stop
 
 $lastSnapshot = ""
 $stableSince = $null
