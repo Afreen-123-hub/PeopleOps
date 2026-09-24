@@ -57,6 +57,7 @@
 .lt-ptrack-wrap { display: grid; gap: 4px; }
 .lt-pticks { position: relative; height: 18px; font-size: .74rem; color: var(--muted, #5a6b82); }
 .lt-pticks span { position: absolute; top: 0; }
+.lt-pticks small { font-weight: 700; color: var(--ink, #0f1c2e); font-size: inherit; }
 .lt-ptrack { position: relative; height: 30px; border-radius: 8px; background: #eef3f9; overflow: hidden; }
 .lt-pbar { position: absolute; top: 4px; bottom: 4px; border-radius: 5px; min-width: 2px; }
 .lt-ptoday { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--teal, #14B8A6); opacity: .55; }
@@ -146,6 +147,7 @@
   .lt-list-row { grid-template-columns: 34px 1fr auto; }
   .lt-list-row .lt-chips { grid-column: 2 / 4; }
   .lt-search-wrap { max-width: none; }
+  .lt-pticks small { display: none; }
   .lt-pentry { grid-template-columns: 12px 1fr; row-gap: 2px; }
   .lt-pentry-days { grid-column: 2; justify-self: start; color: var(--muted, #5a6b82); font-weight: 600; }
 }
