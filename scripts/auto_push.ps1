@@ -13,6 +13,16 @@ param(
 $repo = Split-Path -Parent $PSScriptRoot
 # -LiteralPath: the folder name contains [ ], which plain Set-Location treats as a wildcard.
 Set-Location -LiteralPath $repo -ErrorAction Stop
+[Environment]::CurrentDirectory = $repo
+
+# Every git call names the repo explicitly, so it works whatever folder the terminal started in.
+function g { git -C $repo @args }
+
+g rev-parse --git-dir *> $null
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Not a git repository: $repo" -ForegroundColor Red
+    exit 1
+}
 
 $lastSnapshot = ""
 $stableSince = $null
@@ -20,11 +30,12 @@ $stableSince = $null
 Write-Host "Watching $repo - changes are pushed to origin/$Branch after $QuietSeconds s of no edits. Ctrl+C to stop."
 
 while ($true) {
-    $snapshot = (git status --porcelain) -join "`n"
+    $snapshot = (g status --porcelain) -join "`n"
     if ($snapshot) {
         # Include file timestamps so an edit to an already-modified file resets the timer.
-        $stamps = git ls-files -m -o --exclude-standard | ForEach-Object {
-            if (Test-Path -LiteralPath $_) { (Get-Item -LiteralPath $_).LastWriteTimeUtc.Ticks }
+        $stamps = g ls-files -m -o --exclude-standard | ForEach-Object {
+            $full = Join-Path $repo $_
+            if (Test-Path -LiteralPath $full) { (Get-Item -LiteralPath $full).LastWriteTimeUtc.Ticks }
         }
         $snapshot = $snapshot + ($stamps -join ",")
     }
@@ -34,12 +45,12 @@ while ($true) {
     } elseif ($snapshot -ne $lastSnapshot) {
         $stableSince = Get-Date
     } elseif ($stableSince -and ((Get-Date) - $stableSince).TotalSeconds -ge $QuietSeconds) {
-        $files = (git status --porcelain | ForEach-Object { $_.Substring(3) }) -join ", "
-        git add -A
-        git commit -m "Auto-update: $files" | Out-Null
-        git pull --rebase origin $Branch
+        $files = (g status --porcelain | ForEach-Object { $_.Substring(3) }) -join ", "
+        g add -A
+        g commit -m "Auto-update: $files" | Out-Null
+        g pull --rebase origin $Branch
         if ($LASTEXITCODE -eq 0) {
-            git push origin $Branch
+            g push origin $Branch
             if ($LASTEXITCODE -eq 0) {
                 Write-Host "$(Get-Date -Format 'HH:mm:ss')  Pushed: $files"
             } else {
