@@ -324,10 +324,10 @@
     while (cur <= b) { out.push(cur); cur = addMonths(cur + "-01", 1).slice(0, 7); }
     return out;
   }
-  // The months shown: whatever the user picked with From / To (any month back to the earliest the card allows),
-  // otherwise the default above, up to the current month.
+  // The months shown: whatever the user picked with From / To, otherwise the default above, up to the current month.
+  // The choices follow the same window as the default: from January, or from last June until this year reaches June.
   function personRange() {
-    var lo = MIN.slice(0, 7), hi = TODAY.slice(0, 7);
+    var lo = personDefaultFrom(), hi = TODAY.slice(0, 7);
     var from = state.pFrom || personDefaultFrom(), to = state.pTo || hi;
     if (from < lo) from = lo;
     if (to > hi) to = hi;
@@ -336,7 +336,7 @@
   }
   function personMonths() { var r = personRange(); return monthsBetween(r[0], r[1]); }
   function personRangeHtml() {
-    var r = personRange(), all = monthsBetween(MIN.slice(0, 7), TODAY.slice(0, 7));
+    var r = personRange(), all = monthsBetween(personDefaultFrom(), TODAY.slice(0, 7));
     function opts(sel) {
       return all.map(function (m) { return '<option value="' + m + '"' + (m === sel ? " selected" : "") + ">" + esc(fmt(m + "-01", { month: "short", year: "numeric" })) + "</option>"; }).join("");
     }
