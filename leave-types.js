@@ -68,7 +68,7 @@
   var TODAY = localToday();
   var MIN = addMonths(monthStart(TODAY), -12);
 
-  var state = { mode: "month", anchor: TODAY, filter: null, includeOthers: false, showAll: false, person: null, personFilter: null };
+  var state = { mode: "month", anchor: TODAY, filter: null, includeOthers: false, showAll: false, person: null, personFilter: null, pFrom: null, pTo: null };
   var months = {};   // "YYYY-MM" -> { status: "loading" | "ready" | "error", days, stale }
   var bound = false;
 
@@ -315,11 +315,35 @@
   // A person's history starts in January of this year. Early in the year that would be only a few days (e.g. 2 Jan),
   // so until this year reaches June it starts from last June instead: always between 6 and 12 months, oldest first.
   var PERSON_LOAD_AT_ONCE = 3;
-  function personMonths() {
+  function personDefaultFrom() {
     var y = Number(TODAY.slice(0, 4)), m = Number(TODAY.slice(5, 7));
-    var cur = (m >= 6 ? y : y - 1) + "-" + pad(m >= 6 ? 1 : 6), last = TODAY.slice(0, 7), out = [];
-    while (cur <= last) { out.push(cur); cur = addMonths(cur + "-01", 1).slice(0, 7); }
+    return (m >= 6 ? y : y - 1) + "-" + pad(m >= 6 ? 1 : 6);
+  }
+  function monthsBetween(a, b) {
+    var out = [], cur = a;
+    while (cur <= b) { out.push(cur); cur = addMonths(cur + "-01", 1).slice(0, 7); }
     return out;
+  }
+  // The months shown: whatever the user picked with From / To (any month back to the earliest the card allows),
+  // otherwise the default above, up to the current month.
+  function personRange() {
+    var lo = MIN.slice(0, 7), hi = TODAY.slice(0, 7);
+    var from = state.pFrom || personDefaultFrom(), to = state.pTo || hi;
+    if (from < lo) from = lo;
+    if (to > hi) to = hi;
+    if (to < from) to = from;
+    return [from, to];
+  }
+  function personMonths() { var r = personRange(); return monthsBetween(r[0], r[1]); }
+  function personRangeHtml() {
+    var r = personRange(), all = monthsBetween(MIN.slice(0, 7), TODAY.slice(0, 7));
+    function opts(sel) {
+      return all.map(function (m) { return '<option value="' + m + '"' + (m === sel ? " selected" : "") + ">" + esc(fmt(m + "-01", { month: "short", year: "numeric" })) + "</option>"; }).join("");
+    }
+    var changed = r[0] !== personDefaultFrom() || r[1] !== TODAY.slice(0, 7);
+    return '<div class="lt-prange"><label>From <select class="lt-jump" id="ltPFrom" aria-label="Show from month">' + opts(r[0]) + "</select></label>" +
+      '<label>To <select class="lt-jump" id="ltPTo" aria-label="Show up to month">' + opts(r[1]) + "</select></label>" +
+      (changed ? '<button type="button" class="lt-searchclear" data-preset="1">Reset</button>' : "") + "</div>";
   }
   function personTotals(dayMap) {
     var totals = {}, codes = [];
@@ -347,10 +371,16 @@
     while (s <= end) { span.push(s); s = add(s, 1); }
     var n = span.length, cell = 100 / n;
     function pct(i) { return (i * cell).toFixed(3) + "%"; }
-    var ticks = monthsList.map(function (m, i) {
-      var idx = span.indexOf(m + "-01"), showYear = i === 0 || m.slice(5) === "01";
-      return '<span style="left:' + pct(idx) + '">' + fmt(m + "-01", { month: "short" }) + (showYear ? "<small> " + m.slice(0, 4) + "</small>" : "") + "</span>";
-    }).join("");
+    var ticks = monthsList.length <= 2
+      ? span.map(function (d, i) { // a month or two: label the days instead
+          var dn = D(d).getUTCDate();
+          if (!(dn === 1 || dn % 7 === 1)) return "";
+          return '<span style="left:' + pct(i) + '">' + (dn === 1 ? dn + " " + fmt(d, { month: "short" }) : dn) + "</span>";
+        }).join("")
+      : monthsList.map(function (m, i) {
+          var idx = span.indexOf(m + "-01"), showYear = i === 0 || m.slice(5) === "01";
+          return '<span style="left:' + pct(idx) + '">' + fmt(m + "-01", { month: "short" }) + (showYear ? "<small> " + m.slice(0, 4) + "</small>" : "") + "</span>";
+        }).join("");
     var runs = runsForDays(dayMap, state.personFilter);
     var bars = runs.map(function (u) {
       var t = typeMeta(u.code), half = u.v < 1, a = span.indexOf(u.start);
@@ -377,14 +407,14 @@
     }).join("");
   }
   function personBodyHtml(emp) {
-    var monthsList = personMonths();
+    var monthsList = personMonths(), controls = personRangeHtml();
     // Up to 12 months may need fetching the first time, so start a few at a time instead of all at once.
     var inFlight = Object.keys(months).filter(function (k) { return months[k].status === "loading"; }).length;
     monthsList.filter(function (m) { return !months[m]; }).slice(0, Math.max(0, PERSON_LOAD_AT_ONCE - inFlight)).forEach(function (m) { loadMonth(m, false); });
     var ready = monthsList.filter(function (m) { return months[m] && months[m].status === "ready"; }).length;
     var failedMonths = monthsList.filter(function (m) { return months[m] && months[m].status === "error"; });
     var loading = monthsList.some(function (m) { return !months[m] || months[m].status === "loading"; });
-    if (loading) return '<div class="lt-status">Loading ' + esc(emp.name) + "’s leave history… (" + ready + " of " + monthsList.length + " months)</div>";
+    if (loading) return controls + '<div class="lt-status">Loading ' + esc(emp.name) + "’s leave history… (" + ready + " of " + monthsList.length + " months)</div>";
     var warn = failedMonths.length
       ? '<div class="lt-note"><span>Some months couldn’t be loaded (' + failedMonths.map(function (m) { return fmt(m + "-01", { month: "short" }); }).join(", ") + "), so they’re missing below.</span><button type=\"button\" data-pretry=\"1\">Retry</button></div>"
       : "";
@@ -392,9 +422,10 @@
     if (state.personFilter && personTotals(dayMap).codes.indexOf(state.personFilter) < 0) state.personFilter = null;
     var pt = personTotals(dayMap);
     var total = pt.codes.reduce(function (a, c) { return a + (pt.totals[c] || 0); }, 0);
-    var rangeLabel = fmt(monthsList[0] + "-01", { month: "short", year: "numeric" }) + " – " + fmt(monthsList[monthsList.length - 1] + "-01", { month: "short", year: "numeric" });
+    var firstLabel = fmt(monthsList[0] + "-01", { month: "short", year: "numeric" }), lastLabel = fmt(monthsList[monthsList.length - 1] + "-01", { month: "short", year: "numeric" });
+    var rangeLabel = firstLabel === lastLabel ? firstLabel : firstLabel + " – " + lastLabel;
     return (
-      warn +
+      controls + warn +
       '<div class="lt-pheader"><div><div class="lt-who" style="font-size:1.05rem">' + esc(emp.name) + '</div><div class="lt-team">' + esc(teamOf(emp)) + " · " + rangeLabel + "</div></div>" +
       '<div class="lt-ptotal">' + num(total) + " <small>" + (total === 1 ? "day" : "days") + " total</small></div></div>" +
       (total === 0
@@ -531,6 +562,7 @@
       else if (t.dataset.others) state.includeOthers = !state.includeOthers;
       else if (t.dataset.showall) state.showAll = !state.showAll;
       else if (t.dataset.retry) monthsIn(range()).forEach(function (m) { if (months[m] && months[m].status === "error") loadMonth(m, true); });
+      else if (t.dataset.preset) { state.pFrom = null; state.pTo = null; }
       else if (t.dataset.pretry) personMonths().forEach(function (m) { if (months[m] && months[m].status === "error") loadMonth(m, true); });
       else if (t.dataset.person) { state.person = t.dataset.person; state.personFilter = null; state.query = ""; }
       else if (t.dataset.clearPerson) { state.person = null; state.refocusSearch = true; }
@@ -544,6 +576,13 @@
       renderSearchDrop(el);
     });
     el.addEventListener("change", function (ev) {
+      if (ev.target.id === "ltPFrom" || ev.target.id === "ltPTo") {
+        var cur = personRange(), v = ev.target.value;
+        if (ev.target.id === "ltPFrom") { state.pFrom = v; state.pTo = cur[1] < v ? v : cur[1]; }   // keep From <= To
+        else { state.pTo = v; state.pFrom = cur[0] > v ? v : cur[0]; }
+        safeRender();
+        return;
+      }
       if (ev.target.id !== "ltJump" || !ev.target.value) return;
       state.anchor = state.mode === "month" ? ev.target.value + "-01" : ev.target.value;
       if (state.mode === "day") while (isWeekend(state.anchor)) state.anchor = add(state.anchor, -1); // weekends have no working-day view
