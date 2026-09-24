@@ -1139,6 +1139,7 @@ function renderAll() {
   renderTeamsTable();
   renderAttendanceTeamRollup();
   if (window.renderLeaveTypesCard) window.renderLeaveTypesCard(); // leave-types.js; never throws
+  if (window.renderWorkLocationCard) window.renderWorkLocationCard(); // work-location.js; never throws
   renderAttendanceDetail(document.getElementById("attendanceEmployee").value || dataset.employees[0]?.id);
   renderProjects();
   renderAlerts();

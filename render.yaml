@@ -7,6 +7,13 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: python backend/server.py
     envVars:
+      # GreytHR: read by the Work location card, which fetches swipes at runtime
+      - key: GREYTHR_DOMAIN
+        sync: false
+      - key: GREYTHR_USERNAME
+        sync: false
+      - key: GREYTHR_PASSWORD
+        sync: false
       - key: TEAMS_TENANT_ID
         sync: false
       - key: TEAMS_CLIENT_ID

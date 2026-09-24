@@ -25,3 +25,6 @@ Thumbs.db
 # Local env files
 env
 env (*)
+
+# Work location cache: per-employee attendance, built by the server at runtime. Never commit (repo is public).
+data/worklocation/

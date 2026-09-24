@@ -1,0 +1,55 @@
+/* "Work location" card — Attendance page. All classes are prefixed wl- so nothing else is affected. */
+.wl-card { margin-bottom: 16px; display: grid; gap: 18px; }
+.wl-head { display: flex; flex-wrap: wrap; gap: 14px 24px; justify-content: space-between; align-items: flex-end; }
+.wl-head h2 { margin: 0; }
+.wl-sub { margin: 4px 0 0; color: var(--muted, #5a6b82); font-size: .82rem; max-width: 62ch; }
+.wl-days { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.wl-seg { display: inline-flex; background: #eef3f9; border-radius: 999px; padding: 3px; }
+.wl-seg button { border: 0; background: transparent; color: var(--muted, #5a6b82); font: inherit; font-size: .84rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; cursor: pointer; }
+.wl-seg button[aria-pressed="true"] { background: var(--teal, #14B8A6); color: #fff; }
+.wl-nav { display: inline-flex; align-items: center; gap: 6px; }
+.wl-nav button { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line, #e2e8f0); background: #fff; color: var(--ink, #0f1c2e); font-size: 1.05rem; line-height: 1; cursor: pointer; }
+.wl-nav button:disabled { opacity: .35; cursor: default; }
+.wl-period { min-width: 150px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+.wl-date { width: auto; min-width: 0; border: 1px solid var(--line, #e2e8f0); border-radius: 999px; padding: 5px 10px; font: inherit; font-size: .82rem; background: #fff; color: var(--ink, #0f1c2e); }
+.wl-card button:focus-visible, .wl-card input:focus-visible { outline: 2px solid var(--teal, #14B8A6); outline-offset: 2px; }
+
+.wl-office { --wl-fg: #0F766E; --wl-bg: #effaf8; --wl-edge: #bfe9e2; }
+.wl-wfh    { --wl-fg: #1d4ed8; --wl-bg: #eff4ff; --wl-edge: #c9d8fb; }
+.wl-absent { --wl-fg: #b91c1c; --wl-bg: #fef2f2; --wl-edge: #f7cdcd; }
+.wl-leave  { --wl-fg: #6d28d9; --wl-bg: #f5f0ff; --wl-edge: #ddd0fb; }
+
+.wl-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+.wl-tile { font: inherit; text-align: left; cursor: pointer; display: grid; gap: 2px; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--wl-edge); background: var(--wl-bg); color: var(--ink, #0f1c2e); }
+.wl-tile strong { font-size: 1.7rem; line-height: 1.15; font-variant-numeric: tabular-nums; color: var(--wl-fg); }
+.wl-tile span { font-size: .84rem; font-weight: 600; }
+.wl-tile small { font-size: .76rem; color: var(--muted, #5a6b82); }
+.wl-tile[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--wl-fg); }
+
+.wl-bar { display: flex; height: 10px; border-radius: 999px; overflow: hidden; background: #eef3f9; }
+.wl-bar i { display: block; background: var(--wl-fg); }
+
+.wl-note { display: flex; gap: 8px; align-items: flex-start; background: #f4f7fb; border: 1px solid var(--line, #e2e8f0); border-radius: 8px; padding: 9px 12px; font-size: .84rem; color: var(--muted, #5a6b82); }
+.wl-note b { color: var(--ink, #0f1c2e); }
+
+.wl-tools { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; }
+.wl-tools h3 { margin: 0; font-size: .95rem; }
+.wl-search { width: 260px; max-width: 100%; box-sizing: border-box; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line, #e2e8f0); background: #fff; color: var(--ink, #0f1c2e); font: inherit; font-size: .88rem; }
+
+.wl-scroll { overflow-x: auto; }
+.wl-table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+.wl-table th, .wl-table td { text-align: left; padding: 9px 10px; border-top: 1px solid var(--line, #e2e8f0); vertical-align: middle; }
+.wl-table thead th { border-top: 0; font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #5a6b82); font-weight: 700; }
+.wl-nm b { display: block; font-weight: 600; }
+.wl-nm small { color: var(--muted, #5a6b82); font-variant-numeric: tabular-nums; }
+.wl-dim { color: var(--muted, #5a6b82); }
+.wl-src { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.wl-src svg { width: 15px; height: 15px; flex: none; color: var(--muted, #5a6b82); }
+.wl-io { display: grid; gap: 1px; }
+.wl-io b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.wl-io small { font-size: .74rem; color: var(--muted, #5a6b82); white-space: nowrap; }
+.wl-chip { display: inline-block; font-size: .78rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; white-space: nowrap; background: var(--wl-bg); color: var(--wl-fg); }
+
+.wl-more { margin-top: 10px; border: 1px solid var(--line, #e2e8f0); background: #fff; color: var(--ink, #0f1c2e); border-radius: 999px; padding: 5px 14px; font: inherit; font-size: .82rem; font-weight: 600; cursor: pointer; }
+.wl-status { margin: 0; padding: 28px 8px; text-align: center; color: var(--muted, #5a6b82); }
+.wl-status button { margin-left: 8px; border: 1px solid var(--line, #e2e8f0); background: #fff; border-radius: 999px; padding: 5px 14px; font: inherit; font-weight: 600; cursor: pointer; }
