@@ -212,11 +212,12 @@
       return n[c.key] ? '<i class="wl-' + c.key + '" style="width:' + (n[c.key] / total * 100) + '%"></i>' : "";
     }).join("") + "</div>";
 
-    var notes = '<div class="wl-note"><span aria-hidden="true">ⓘ</span><span><b>WFH approval is not shown.</b> GreytHR\'s API does not say whether a web sign-in was approved or is pending.' +
-      (offCount ? " " + people(offCount) + " on a holiday or weekly off " + (offCount === 1 ? "is" : "are") + " not counted." : "") +
-      (payload.refreshing ? " Updating from GreytHR…" : "") +
-      ((payload.missing || []).length ? " Swipes could not be loaded for " + people(payload.missing.length) + "." : "") +
-      "</span></div>";
+    var noteText = [
+      offCount ? people(offCount) + " on a holiday or weekly off " + (offCount === 1 ? "is" : "are") + " not counted." : "",
+      payload.refreshing ? "Updating from GreytHR…" : "",
+      (payload.missing || []).length ? "Swipes could not be loaded for " + people(payload.missing.length) + "." : ""
+    ].filter(Boolean).join(" ");
+    var notes = noteText ? '<div class="wl-note"><span aria-hidden="true">ⓘ</span><span>' + noteText + "</span></div>" : "";
 
     var q = normKey(state.query);
     var shown = counted.filter(function (r) {
