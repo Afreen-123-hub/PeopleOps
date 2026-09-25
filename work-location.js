@@ -13,7 +13,8 @@
 //
 // Times: check-in is the first swipe. Today, the latest swipe is shown as "Last swipe · still in office",
 // because a mid-day swipe is usually a break; on past days it is the check-out, with hours worked.
-// Clicking a row opens "How it works" for that person: every swipe of the day on a timeline.
+// Search at the top: picking someone shows only that employee's day. Clicking a row in the list opens
+// the same day detail under that row: every swipe of the day on a timeline, check-in, last swipe and hours.
 (function () {
   "use strict";
 
@@ -54,7 +55,8 @@
   var TODAY = localToday();
   var MIN = add(TODAY, -366);
 
-  var state = { day: TODAY, filter: null, query: "", showAll: false, person: null };
+  // person: row whose detail is open in the list. focus: employee picked from the search (shown alone).
+  var state = { day: TODAY, filter: null, query: "", showAll: false, person: null, focus: null, dropOpen: false, active: -1 };
   var months = {};   // "YYYY-MM" -> { status: "loading" | "ready" | "building" | "error", payload, message }
   var pollTimer = null;
   var bound = false;
@@ -220,24 +222,19 @@
     return { svg: svg + "</svg>", running: running, hasOut: hasOut, now: now };
   }
 
-  function howHtml(rows, label) {
-    var list = rows.slice().sort(function (a, b) { return a.name.localeCompare(b.name); });
-    var r = null;
-    list.forEach(function (x) { if (x.id === state.person) r = x; });
-    if (!r) { // start on someone whose day shows the rules best: office, with a break swipe
-      list.forEach(function (x) { if (!r && x.cat === "office" && swipesOf(x).length >= 3) r = x; });
-      if (!r) list.forEach(function (x) { if (!r && x.cat === "office") r = x; });
-      if (!r) r = list[0];
-    }
-    if (!r) return "";
+  // One person's day: header, then the swipe timeline and four boxes (or a sentence when there are no swipes).
+  // big = the one-employee view opened from the search; otherwise it opens under the person's row.
+  function detailHtml(r, big) {
     var today = state.day === TODAY, dayText = fmt(state.day);
-    var pick = '<label class="wl-who">Person <select id="wlWho">' + list.map(function (x) {
-      return '<option value="' + esc(x.id) + '"' + (x.id === r.id ? " selected" : "") + ">" + esc(x.name) + "</option>";
-    }).join("") + "</select></label>";
+    var head = '<div class="wl-d-head"><div><p class="eyebrow">Day detail</p>' +
+      "<h3>" + esc(r.name) + ' <span class="wl-chip wl-' + r.cat + '">' + catLabel(r.cat) + "</span>" +
+      "<small>" + esc(r.no) + (r.team ? " · " + esc(r.team) : "") + " · " + esc(dayText) + "</small></h3></div>" +
+      '<button type="button" class="wl-d-close" ' + (big ? 'data-wl-back="1" aria-label="Back to everyone"' : 'data-wl-close="1" aria-label="Close detail"') + ">×</button></div>";
 
     var body, s = swipesOf(r);
     if (!s.length) {
       var why = r.cat === "leave" ? "GreytHR shows <b>" + esc(r.rec.s) + "</b> (leave) for " + esc(dayText) + ", so " + esc(r.name) + " is counted as <b>On leave</b>."
+        : r.cat === "off" ? esc(dayText) + " is a holiday or weekly off for " + esc(r.name) + ", so they are not counted."
         : today ? esc(r.name) + " hasn’t swiped or signed in yet today, so they show as <b>Not signed in yet</b>. They move to a tile as soon as they swipe."
         : "No biometric swipe and no sign-in on " + esc(dayText) + ", and no leave in GreytHR, so " + esc(r.name) + " is counted as <b>Absent</b>.";
       body = '<p class="wl-nodata">' + why + "</p>";
@@ -266,12 +263,68 @@
           return '<div class="wl-step"><h4>' + st[0] + "</h4><b>" + st[1] + "</b><p>" + st[2] + "</p></div>";
         }).join("") + "</div>";
     }
+    return '<div class="wl-detail' + (big ? " wl-detail-big" : "") + '">' + head + body + "</div>";
+  }
 
-    return '<section class="wl-how" id="wlHow" aria-label="How it works">' +
-      '<div class="wl-how-top"><div><p class="eyebrow">How it works</p><h3>' + esc(r.name) + " · " + esc(dayText) +
-      ' <span class="wl-chip wl-' + r.cat + '">' + label(CAT_BY[r.cat]) + "</span></h3></div>" + pick + "</div>" +
-      body +
-      "</section>";
+  // ---------- search at the top ----------
+  // Everyone on the chosen day, or null while the month is still loading.
+  function dayRows() {
+    var cur = months[state.day.slice(0, 7)];
+    var payload = cur && cur.payload;
+    return payload && payload.days ? rowsFor(payload, state.day) : null;
+  }
+
+  function matches(r, q) {
+    return normKey(r.name).indexOf(q) >= 0 || normKey(r.no).indexOf(q) >= 0 || normKey(r.team).indexOf(q) >= 0;
+  }
+
+  function suggestions() {
+    var q = normKey(state.query), rows = dayRows();
+    if (!q || !rows || isWeekend(state.day)) return [];
+    return rows.filter(function (r) { return matches(r, q); })
+      .sort(function (a, b) { return a.name.localeCompare(b.name); }).slice(0, 8);
+  }
+
+  function dropHtml() {
+    if (!state.dropOpen || !normKey(state.query) || state.focus) return "";
+    if (!dayRows()) return '<div class="wl-drop" id="wlDrop"><p class="wl-sres-empty">Loading employees…</p></div>';
+    var list = suggestions();
+    return '<div class="wl-drop" id="wlDrop" role="listbox">' + (list.length ? list.map(function (r, k) {
+      return '<button type="button" class="wl-sres' + (k === state.active ? " wl-on" : "") + '" data-wl-pick="' + esc(r.id) + '" role="option">' +
+        "<span><b>" + esc(r.name) + "</b><small>" + esc(r.no) + (r.team ? " · " + esc(r.team) : "") + "</small></span>" +
+        '<span class="wl-chip wl-' + r.cat + '">' + catLabel(r.cat) + "</span></button>";
+    }).join("") : '<p class="wl-sres-empty">No one matches “' + esc(state.query) + "”.</p>") + "</div>";
+  }
+
+  function findHtml() {
+    return '<div class="wl-find">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>' +
+      '<input id="wlFind" type="search" autocomplete="off" placeholder="Search employee, number or team…" aria-label="Search employee" value="' + esc(state.query) + '">' +
+      dropHtml() + "</div>";
+  }
+
+  // Redraw just the dropdown, so opening it never re-renders (and re-focuses) the whole card.
+  function refreshDrop() {
+    var el = root(), box = el && el.querySelector(".wl-find");
+    if (!box) return;
+    var old = box.querySelector("#wlDrop");
+    if (old) old.remove();
+    box.insertAdjacentHTML("beforeend", dropHtml());
+  }
+
+  function choose(id) {
+    var rows = dayRows() || [], r = null;
+    rows.forEach(function (x) { if (x.id === id) r = x; });
+    state.focus = id; state.query = r ? r.name : state.query;
+    state.dropOpen = false; state.active = -1; state.person = null; state.filter = null;
+    var input = root() && root().querySelector("#wlFind");
+    if (input) input.blur();
+    safeRender();
+  }
+
+  function backToEveryone() {
+    state.focus = null; state.query = ""; state.dropOpen = false; state.active = -1;
+    safeRender();
   }
 
   // ---------- render ----------
@@ -300,6 +353,12 @@
     return '<p class="wl-status">' + esc(text) + (retry ? ' <button type="button" data-wl-retry="1">Retry</button>' : "") + "</p>";
   }
 
+  function catLabel(key) {
+    var c = CAT_BY[key];
+    if (!c) return key === "off" ? "Holiday / week off" : key;
+    return state.day === TODAY && c.todayLabel ? c.todayLabel : c.label;
+  }
+
   function bodyHtml() {
     if (isWeekend(state.day)) return statusHtml(fmt(state.day) + " is a weekend. Pick a working day.");
     var m = state.day.slice(0, 7), cur = months[m];
@@ -313,6 +372,18 @@
 
     var payload = cur.payload;
     var rows = rowsFor(payload, state.day);
+
+    // One employee picked from the search: show only them.
+    if (state.focus) {
+      var picked = null;
+      rows.forEach(function (x) { if (x.id === state.focus) picked = x; });
+      if (picked) {
+        return '<div class="wl-focus-bar"><span>Showing 1 employee</span>' +
+          '<button type="button" class="wl-back" data-wl-back="1">← Back to everyone</button></div>' + detailHtml(picked, true);
+      }
+      state.focus = null; // not on this month's list; fall back to everyone
+    }
+
     var counted = rows.filter(function (r) { return r.cat !== "off"; });
     var offCount = rows.length - counted.length;
     var hasAny = counted.some(function (r) { return r.cat === "office" || r.cat === "wfh" || r.rec.s; });
@@ -326,7 +397,6 @@
     var n = {};
     CATS.forEach(function (c) { n[c.key] = counted.filter(function (r) { return r.cat === c.key; }).length; });
     var total = counted.length || 1;
-    var label = function (c) { return isToday && c.todayLabel ? c.todayLabel : c.label; };
     var asOf = "";
     if (isToday && payload.fetchedAt) {
       var f = new Date(payload.fetchedAt);
@@ -335,7 +405,7 @@
 
     var tiles = '<div class="wl-tiles">' + CATS.map(function (c) {
       return '<button type="button" class="wl-tile wl-' + c.key + '" data-wl-cat="' + c.key + '" aria-pressed="' + (state.filter === c.key) + '">' +
-        "<strong>" + n[c.key] + "</strong><span>" + label(c) + "</span><small>" + Math.round(n[c.key] / total * 100) + "% of " + counted.length + (c.key !== "leave" ? asOf : "") + "</small></button>";
+        "<strong>" + n[c.key] + "</strong><span>" + catLabel(c.key) + "</span><small>" + Math.round(n[c.key] / total * 100) + "% of " + counted.length + (c.key !== "leave" ? asOf : "") + "</small></button>";
     }).join("") + "</div>";
     var bar = '<div class="wl-bar" aria-hidden="true">' + CATS.map(function (c) {
       return n[c.key] ? '<i class="wl-' + c.key + '" style="width:' + (n[c.key] / total * 100) + '%"></i>' : "";
@@ -349,47 +419,49 @@
     var notes = noteText ? '<div class="wl-note"><span aria-hidden="true">ⓘ</span><span>' + noteText + "</span></div>" : "";
 
     var q = normKey(state.query);
-    var shown = counted.filter(function (r) {
-      return (!state.filter || r.cat === state.filter) &&
-        (!q || normKey(r.name).indexOf(q) >= 0 || normKey(r.no).indexOf(q) >= 0 || normKey(r.team).indexOf(q) >= 0);
-    });
+    var shown = counted.filter(function (r) { return (!state.filter || r.cat === state.filter) && (!q || matches(r, q)); });
     var order = { office: 0, wfh: 1, absent: 2, leave: 3 };
     shown.sort(function (a, b) { return order[a.cat] - order[b.cat] || a.name.localeCompare(b.name); });
     var visible = state.showAll ? shown : shown.slice(0, PAGE);
+    // The person whose detail is open always stays in the list, even if a filter would hide them.
+    if (state.person && !visible.some(function (r) { return r.id === state.person; })) {
+      counted.forEach(function (r) { if (r.id === state.person) visible = [r].concat(visible); });
+    }
 
-    var title = (state.filter ? label(CAT_BY[state.filter]) : "Everyone") + " · " + shown.length;
+    var title = (state.filter ? catLabel(state.filter) : "Everyone") + " · " + shown.length;
     var table = '<div class="wl-scroll"><table class="wl-table"><thead><tr>' +
       "<th>Employee</th><th>Team</th><th>How they signed in</th><th>Check-in</th><th>" + (isToday ? "Last swipe" : "Check-out") + "</th><th>Work location</th>" +
       "</tr></thead><tbody>" + visible.map(function (r) {
-        return '<tr data-wl-person="' + esc(r.id) + '" class="wl-row' + (r.id === state.person ? " wl-sel" : "") + '">' +
-          '<td class="wl-nm"><b>' + esc(r.name) + "</b><small>" + esc(r.no) + "</small></td>" +
+        var open = r.id === state.person;
+        return '<tr data-wl-person="' + esc(r.id) + '" class="wl-row' + (open ? " wl-sel" : "") + '" aria-expanded="' + open + '">' +
+          '<td class="wl-nm"><span class="wl-caret" aria-hidden="true">›</span><b>' + esc(r.name) + "</b><small>" + esc(r.no) + "</small></td>" +
           "<td>" + (r.team ? esc(r.team) : '<span class="wl-dim">—</span>') + "</td>" +
           "<td>" + howCell(r) + "</td>" +
           "<td>" + inCell(r) + "</td>" +
           "<td>" + outCell(r) + "</td>" +
-          '<td><span class="wl-chip wl-' + r.cat + '">' + label(CAT_BY[r.cat]) + "</span></td></tr>";
+          '<td><span class="wl-chip wl-' + r.cat + '">' + catLabel(r.cat) + "</span></td></tr>" +
+          (open ? '<tr class="wl-detail-row"><td colspan="6">' + detailHtml(r, false) + "</td></tr>" : "");
       }).join("") + "</tbody></table></div>" +
       (shown.length ? "" : '<p class="wl-status">No one in this group on this day.</p>') +
       (shown.length > visible.length ? '<button type="button" class="wl-more" data-wl-more="1">Show all ' + shown.length + "</button>" : "");
 
     return tiles + bar + notes +
       '<div class="wl-tools"><h3>' + esc(title) + "</h3>" +
-      '<input class="wl-search" id="wlSearch" type="search" placeholder="Search employee or team…" aria-label="Search employee or team" value="' + esc(state.query) + '"></div>' +
+      (state.filter ? '<button type="button" class="wl-clear" data-wl-cat="' + state.filter + '">Show everyone</button>' : "") + "</div>" +
       '<div id="wlList">' + table + "</div>" +
-      '<p class="wl-hint">Click a row to see how that person’s times were worked out.</p>' +
-      howHtml(counted, label);
+      '<p class="wl-hint">Click a row to see that person’s day, or search a name above.</p>';
   }
 
   function render() {
     var el = root();
     if (!el || !isVisible()) return;
     if (!isWeekend(state.day)) loadMonth(state.day.slice(0, 7), false);
-    var search = el.querySelector("#wlSearch");
-    var hadFocus = search && document.activeElement === search;
+    var find = el.querySelector("#wlFind");
+    var hadFocus = find && document.activeElement === find;
     el.className = "panel wl-card";
-    el.innerHTML = headHtml() + bodyHtml();
+    el.innerHTML = headHtml() + findHtml() + bodyHtml();
     bind(el);
-    if (hadFocus) { var s = el.querySelector("#wlSearch"); if (s) { s.focus(); s.setSelectionRange(s.value.length, s.value.length); } }
+    if (hadFocus) { var s = el.querySelector("#wlFind"); if (s) { s.focus(); s.setSelectionRange(s.value.length, s.value.length); } }
   }
 
   function goTo(day) {
@@ -402,30 +474,49 @@
     if (bound) return;
     bound = true; // el's children are replaced on every render, so delegate from the stable container
     el.addEventListener("click", function (ev) {
-      var row = ev.target.closest("tr[data-wl-person]");
-      if (row && el.contains(row)) {
-        state.person = row.dataset.wlPerson;
-        safeRender();
-        var how = root() && root().querySelector("#wlHow");
-        if (how && how.scrollIntoView) how.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      var t = ev.target.closest("button");
+      if (t && el.contains(t)) {
+        if (t.dataset.wlPick) choose(t.dataset.wlPick);
+        else if (t.dataset.wlBack) backToEveryone();
+        else if (t.dataset.wlClose) { state.person = null; safeRender(); }
+        else if (t.dataset.wlDay) goTo(t.dataset.wlDay);
+        else if (t.dataset.wlStep) goTo(add(state.day, +t.dataset.wlStep));
+        else if (t.dataset.wlCat) { state.filter = state.filter === t.dataset.wlCat ? null : t.dataset.wlCat; state.showAll = false; safeRender(); }
+        else if (t.dataset.wlMore) { state.showAll = true; safeRender(); }
+        else if (t.dataset.wlRetry) { loadMonth(state.day.slice(0, 7), true); safeRender(); }
         return;
       }
-      var t = ev.target.closest("button");
-      if (!t || !el.contains(t)) return;
-      if (t.dataset.wlDay) goTo(t.dataset.wlDay);
-      else if (t.dataset.wlStep) goTo(add(state.day, +t.dataset.wlStep));
-      else if (t.dataset.wlCat) { state.filter = state.filter === t.dataset.wlCat ? null : t.dataset.wlCat; state.showAll = false; safeRender(); }
-      else if (t.dataset.wlMore) { state.showAll = true; safeRender(); }
-      else if (t.dataset.wlRetry) { loadMonth(state.day.slice(0, 7), true); safeRender(); }
+      if (ev.target.closest(".wl-detail-row")) return; // clicks inside an open detail don't toggle it
+      var row = ev.target.closest("tr[data-wl-person]");
+      if (row && el.contains(row)) {
+        state.person = state.person === row.dataset.wlPerson ? null : row.dataset.wlPerson;
+        safeRender();
+      }
     });
     el.addEventListener("input", function (ev) {
-      if (ev.target.id !== "wlSearch") return;
-      state.query = ev.target.value; state.showAll = false;
+      if (ev.target.id !== "wlFind") return;
+      state.query = ev.target.value; state.showAll = false; state.active = -1;
+      state.dropOpen = true; state.focus = null; // typing again starts a new search
       safeRender();
+    });
+    el.addEventListener("focusin", function (ev) {
+      if (ev.target.id !== "wlFind" || state.dropOpen || state.focus) return;
+      state.dropOpen = true;
+      refreshDrop();
+    });
+    el.addEventListener("keydown", function (ev) {
+      if (ev.target.id !== "wlFind") return;
+      var list = suggestions();
+      if (ev.key === "ArrowDown" && list.length) { state.active = Math.min(list.length - 1, state.active + 1); refreshDrop(); ev.preventDefault(); }
+      else if (ev.key === "ArrowUp" && list.length) { state.active = Math.max(0, state.active - 1); refreshDrop(); ev.preventDefault(); }
+      else if (ev.key === "Enter" && list.length) { choose(list[Math.max(0, state.active)].id); ev.preventDefault(); }
+      else if (ev.key === "Escape") { state.dropOpen = false; refreshDrop(); }
     });
     el.addEventListener("change", function (ev) {
       if (ev.target.id === "wlPick" && ev.target.value) goTo(ev.target.value);
-      else if (ev.target.id === "wlWho") { state.person = ev.target.value; safeRender(); }
+    });
+    document.addEventListener("click", function (ev) {
+      if (state.dropOpen && !ev.target.closest(".wl-find")) { state.dropOpen = false; refreshDrop(); }
     });
   }
 
