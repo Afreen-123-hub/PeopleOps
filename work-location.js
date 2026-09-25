@@ -271,16 +271,6 @@
       '<div class="wl-how-top"><div><p class="eyebrow">How it works</p><h3>' + esc(r.name) + " · " + esc(dayText) +
       ' <span class="wl-chip wl-' + r.cat + '">' + label(CAT_BY[r.cat]) + "</span></h3></div>" + pick + "</div>" +
       body +
-      '<div class="wl-rules"><div><h4>Which tile a person lands in</h4><ul>' +
-        "<li><b>Biometric swipe</b> at an office door → Work from office</li>" +
-        "<li><b>Web or mobile sign-in</b>, no biometric → Work from home</li>" +
-        "<li><b>Leave code</b> in GreytHR (CL, SL…) → On leave</li>" +
-        "<li><b>Nothing</b> → Absent, or <b>Not signed in yet</b> while today is running</li></ul></div>" +
-      "<div><h4>How the times are read</h4><ul>" +
-        "<li><b>Check-in</b> is the first swipe of the day</li>" +
-        "<li><b>Today</b>, the last swipe so far shows as “still in office”, because a mid-day swipe is usually a break</li>" +
-        "<li><b>Past days</b>, the last swipe is the check-out, plus hours worked</li>" +
-        "<li><b>One swipe only</b> on a past day → “No check-out recorded”</li></ul></div></div>" +
       "</section>";
   }
 
