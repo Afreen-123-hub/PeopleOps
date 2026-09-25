@@ -1,11 +1,24 @@
 {
-  "lastUpdated": "2026-09-23T08:46:38.511852Z",
+  "lastUpdated": "2026-09-25T09:02:57.483328Z",
   "period": {
     "since": "2026-09-01",
     "until": "2026-09-30"
   },
   "org": "CodeWork-ai",
   "projects": [
+    {
+      "number": 53,
+      "title": "Vending Machine Project",
+      "items": [],
+      "stats": {
+        "total": 0,
+        "done": 0,
+        "inProgress": 0,
+        "todo": 0,
+        "backlog": 0,
+        "production": 0
+      }
+    },
     {
       "number": 50,
       "title": "My Medical Help",
@@ -23,6 +36,171 @@
       "number": 46,
       "title": "Edubot_V3",
       "items": [
+        {
+          "title": "Certificate Management – Feature Requirement",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/131",
+          "createdAt": "2026-09-17T10:26:30Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Default +91 Country Code Missing for Additional Administrator Phone Number",
+          "status": "Done QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/140",
+          "createdAt": "2026-09-22T12:03:20Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Add Update Option for Institution Administrator",
+          "status": "Done QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/138",
+          "createdAt": "2026-09-22T10:49:28Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Permissions Page Fails to Load for Institution",
+          "status": "Done QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/139",
+          "createdAt": "2026-09-22T11:41:33Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Admin Notification Does Not Navigate",
+          "status": "Done QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/142",
+          "createdAt": "2026-09-23T07:00:46Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Institution Logo/Image Not Displaying",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/135",
+          "createdAt": "2026-09-21T07:04:15Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Incorrect Button Name Displayed in Course Management – Assign",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/146",
+          "createdAt": "2026-09-23T11:58:11Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Task Submission Does Not Clearly Indicate Code/File Requirement",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/148",
+          "createdAt": "2026-09-23T12:03:29Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Incorrect Validation Behavior for Invalid Email Input",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/141",
+          "createdAt": "2026-09-23T05:04:32Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Lesson Plan Module Creation Notification Not Received",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/144",
+          "createdAt": "2026-09-23T11:13:13Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Subscription Plan Cannot Be Modified for Existing Institution",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "sriramgowthamE"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/143",
+          "createdAt": "2026-09-23T09:30:46Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Module Assessment Submission Does Not Display Completion Score",
           "status": "Done QA",
@@ -1206,36 +1384,6 @@
           "endDate": ""
         },
         {
-          "title": "Institution Logo/Image Not Displaying",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/135",
-          "createdAt": "2026-09-21T07:04:15Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Certificate Management – Feature Requirement",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/131",
-          "createdAt": "2026-09-17T10:26:30Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Certificate Notification Redirects to 404 Not Found Page",
           "status": "Done QA",
           "priority": "",
@@ -1251,7 +1399,22 @@
           "endDate": ""
         },
         {
-          "title": "Add Update Option for Institution Administrator",
+          "title": "Digital Signature Upload API Returns 404 Error",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/152",
+          "createdAt": "2026-09-25T07:16:27Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Admin – Task Due Date Allows Past Dates",
           "status": "To Do",
           "priority": "",
           "size": "",
@@ -1259,79 +1422,19 @@
             "Antony-Bilgates"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/138",
-          "createdAt": "2026-09-22T10:49:28Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Permissions Page Fails to Load for Institution",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "sriramgowthamE"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/139",
-          "createdAt": "2026-09-22T11:41:33Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Default +91 Country Code Missing for Additional Administrator Phone Number",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "sriramgowthamE"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/140",
-          "createdAt": "2026-09-22T12:03:20Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Incorrect Validation Behavior for Invalid Email Input",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/141",
-          "createdAt": "2026-09-23T05:04:32Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin Notification Does Not Navigate",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/142",
-          "createdAt": "2026-09-23T07:00:46Z",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/153",
+          "createdAt": "2026-09-25T08:55:54Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         }
       ],
       "stats": {
-        "total": 87,
+        "total": 93,
         "done": 9,
-        "inProgress": 2,
+        "inProgress": 5,
         "todo": 0,
-        "backlog": 5,
+        "backlog": 6,
         "production": 0
       }
     },
@@ -1352,6 +1455,36 @@
       "number": 41,
       "title": "Edubot_CPLC",
       "items": [
+        {
+          "title": "Historical Data Retention",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/346",
+          "createdAt": "2026-09-23T09:56:54Z",
+          "closedAt": "2026-09-24T06:51:10Z",
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Document Download Control",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/347",
+          "createdAt": "2026-09-23T09:58:17Z",
+          "closedAt": "2026-09-24T06:51:04Z",
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Application Opens Directly in Incognito Mode Without Login Authentication",
           "status": "Blocked",
@@ -2821,36 +2954,6 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "[version-2 CPLC]Online status indicator uses inconsistent colors in the Community Chat and sidebar profile sections of the Mentor and Student Portals.",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/166",
-          "createdAt": "2026-07-31T07:25:49Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[version-2 CPLC]Different total leave counts are displayed for students in the Student Portal Apply Leave module.",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/157",
-          "createdAt": "2026-07-30T07:39:39Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
@@ -2867,12 +2970,42 @@
       "title": "SabAi Bible App",
       "items": [
         {
-          "title": "Left-Side Panel Remains Visible in Full-Screen Video Lesson",
+          "title": "Chat Analyzes Video File Name Instead of Video Content",
           "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/88",
+          "createdAt": "2026-09-22T10:54:44Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Daily Verse Explore Button Displays Incorrect Network Error",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/87",
+          "createdAt": "2026-09-22T09:33:47Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Left-Side Panel Remains Visible in Full-Screen Video Lesson",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/84",
@@ -2913,7 +3046,7 @@
         },
         {
           "title": "Enrolled Button Remains Clickable and Opens the Plan After Enrollment",
-          "status": "In progress",
+          "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2928,7 +3061,7 @@
         },
         {
           "title": "Google SSO Login Displays \"Google Sign-In Is Disabled in Expo Go\" Error on iOS",
-          "status": "In progress",
+          "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3734,45 +3867,15 @@
         },
         {
           "title": "Irrelevant Prompt Generates Christian Content Instead of Displaying a Validation Error",
-          "status": "TODO",
+          "status": "DEV",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/83",
           "createdAt": "2026-09-16T04:45:23Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Daily Verse Explore Button Displays Incorrect Network Error",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/87",
-          "createdAt": "2026-09-22T09:33:47Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Chat Analyzes Video File Name Instead of Video Content",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/88",
-          "createdAt": "2026-09-22T10:54:44Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3781,8 +3884,8 @@
       "stats": {
         "total": 61,
         "done": 1,
-        "inProgress": 49,
-        "todo": 3,
+        "inProgress": 52,
+        "todo": 0,
         "backlog": 8,
         "production": 0
       }
@@ -5092,12 +5195,42 @@
       "title": "Acadamiq AI",
       "items": [
         {
-          "title": "KPI Metrics Heat Map Displays All Subjects Instead of Student-Specific Subjects",
+          "title": "Class Performance Trends Displays Subjects Not Assigned to the Logged-in Teacher",
           "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
-            "inbarasuv"
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/900",
+          "createdAt": "2026-09-23T09:24:50Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Marks Entry Reminder Notification Sent to Class Teacher Instead of Only the Related Subject Teacher",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/906",
+          "createdAt": "2026-09-24T05:11:12Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "KPI Metrics Heat Map Displays All Subjects Instead of Student-Specific Subjects",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/886",
@@ -5108,11 +5241,11 @@
         },
         {
           "title": "Students Do Not Receive Notifications for Published Assignments or Worksheets",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "inbarasuv"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/885",
@@ -5123,11 +5256,11 @@
         },
         {
           "title": "Login fails due to database connection pool timeout",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "inbarasuv"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/889",
@@ -5138,11 +5271,11 @@
         },
         {
           "title": "Duplicate Roll Number Allowed for Different Students",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/867",
@@ -5168,11 +5301,11 @@
         },
         {
           "title": "Recent Incidents Count Shows Incorrect Value",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/883",
@@ -5183,11 +5316,11 @@
         },
         {
           "title": "Incorrect Error Message Displayed When Notifying Parent",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/882",
@@ -5198,11 +5331,11 @@
         },
         {
           "title": "Class Teacher Attendance Displays Subject Teacher Class Student Details",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/881",
@@ -5213,11 +5346,11 @@
         },
         {
           "title": "Announcement Priority Filter Displays All Announcements",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/878",
@@ -5228,11 +5361,11 @@
         },
         {
           "title": "Announcement Status Panels Are Missing in My Class Tab",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/876",
@@ -5243,11 +5376,11 @@
         },
         {
           "title": "Editing a My Class Announcement Redirects to the Global Tab",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/875",
@@ -5258,11 +5391,11 @@
         },
         {
           "title": "Edit Icon Is Visible on Announcement Page for Student and Parent Roles",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/874",
@@ -5273,11 +5406,11 @@
         },
         {
           "title": "Event Preview Displays Only Classes Instead of Selected Grade and Class",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/732",
@@ -5288,11 +5421,11 @@
         },
         {
           "title": "Undefined Error Message Is Displayed for Invalid Contact Number",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/873",
@@ -5303,11 +5436,11 @@
         },
         {
           "title": "New Contact Email Incorrectly Shows “Email Already Exists” During School Creation",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/872",
@@ -5318,11 +5451,11 @@
         },
         {
           "title": "Existing School Can Be Created with Duplicate Details",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/871",
@@ -5483,11 +5616,11 @@
         },
         {
           "title": "Update and Delete Options Are Missing for Student Grades in Gradebook",
-          "status": "DEV",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/612",
@@ -5647,6 +5780,111 @@
           "endDate": ""
         },
         {
+          "title": "Assigned Subjects Count Does Not Match Curriculum Subjects",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/897",
+          "createdAt": "2026-09-22T10:46:31Z",
+          "closedAt": null,
+          "startDate": "2026-09-23",
+          "endDate": ""
+        },
+        {
+          "title": "Incorrect Grade Validation Error Displayed When Grade and Class Are Not Selected",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/895",
+          "createdAt": "2026-09-22T09:18:30Z",
+          "closedAt": null,
+          "startDate": "2026-09-23",
+          "endDate": ""
+        },
+        {
+          "title": "Invalid Email Format Accepted Without Validation Error",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/894",
+          "createdAt": "2026-09-22T09:11:41Z",
+          "closedAt": null,
+          "startDate": "2026-09-22",
+          "endDate": ""
+        },
+        {
+          "title": "Student timetable displays the Class Teacher instead of the assigned Subject Teacher",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/888",
+          "createdAt": "2026-09-22T04:28:18Z",
+          "closedAt": null,
+          "startDate": "2026-09-23",
+          "endDate": ""
+        },
+        {
+          "title": "CT-01 – Class Teacher Assignment & Access",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/626",
+          "createdAt": "2026-08-03T09:25:34Z",
+          "closedAt": null,
+          "startDate": "2026-08-12",
+          "endDate": ""
+        },
+        {
+          "title": "Pending Subjects Count Displays 0 Despite Pending Subject Data",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/898",
+          "createdAt": "2026-09-22T10:49:20Z",
+          "closedAt": null,
+          "startDate": "2026-09-22",
+          "endDate": ""
+        },
+        {
+          "title": "Non-Mandatory Title Field Showing “Title is Required” Validation Error",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/896",
+          "createdAt": "2026-09-22T09:29:42Z",
+          "closedAt": null,
+          "startDate": "2026-09-22",
+          "endDate": ""
+        },
+        {
           "title": "Add Grade & Class Filters for Teacher Filter",
           "status": "QA",
           "priority": "",
@@ -5749,21 +5987,6 @@
           "createdAt": "2026-09-15T09:18:03Z",
           "closedAt": null,
           "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "CT-01 – Class Teacher Assignment & Access",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Dharsan1102codework"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/626",
-          "createdAt": "2026-08-03T09:25:34Z",
-          "closedAt": null,
-          "startDate": "2026-08-12",
           "endDate": ""
         },
         {
@@ -6466,133 +6689,13 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Add \"Special Class\" Option in Period Type Dropdown",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/712",
-          "createdAt": "2026-08-10T09:38:22Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Break Period Can Be Assigned as a Subject Period in Teacher Timetable",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/711",
-          "createdAt": "2026-08-10T09:31:17Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Timetable PDF Download Displays Incorrect View Based on Selected Calendar View",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/710",
-          "createdAt": "2026-08-10T09:24:53Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Attendance Can Be Marked for Future Dates",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/709",
-          "createdAt": "2026-08-10T09:18:59Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Parent Full Timetable Displays the Wrong Child's Timetable",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/708",
-          "createdAt": "2026-08-10T08:21:03Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Parent Gradebook Action Column Label Is Not Updated to \"View\"",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/705",
-          "createdAt": "2026-08-10T06:36:56Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Student Dashboard GPA Average Displays 0% for All Students",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/704",
-          "createdAt": "2026-08-10T06:26:50Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Worksheet Can Be Submitted Without Entering an Answer",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/702",
-          "createdAt": "2026-08-10T05:36:49Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 99,
-        "todo": 1,
+        "inProgress": 100,
+        "todo": 0,
         "backlog": 0,
         "production": 0
       }
@@ -6601,6 +6704,81 @@
       "number": 26,
       "title": "Worklogix",
       "items": [
+        {
+          "title": "PM/Team Lead – Create Task Allows Past Assign and Due Dates",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/282",
+          "createdAt": "2026-09-18T12:05:01Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "PM – Project Members Working Hours Allows Negative Values",
+          "status": "QA Review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/292",
+          "createdAt": "2026-09-22T05:33:19Z",
+          "closedAt": null,
+          "startDate": "2026-09-25",
+          "endDate": "2026-09-25"
+        },
+        {
+          "title": "Intern/Employee/Team Lead – Duplicate Ticket ID Can Be Used for Daily Updates",
+          "status": "QA Review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/259",
+          "createdAt": "2026-09-15T06:08:51Z",
+          "closedAt": null,
+          "startDate": "2026-09-25",
+          "endDate": "2026-09-25"
+        },
+        {
+          "title": "Client – Project Module Is Not Available",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/252",
+          "createdAt": "2026-09-09T07:55:35Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "HR – Team Management Mentor & Interns Missing Add/Delete Employee Options",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/279",
+          "createdAt": "2026-09-18T11:53:34Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Client Unable to View Project Updates Submitted by Employees and Interns",
           "status": "In Progress",
@@ -6617,8 +6795,23 @@
           "endDate": ""
         },
         {
+          "title": "Daily Update Roles – Daily Update Allows Dates Before Project Creation",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/291",
+          "createdAt": "2026-09-22T05:29:50Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "HR – Organization Chart Collapse Arrow Is Not Working",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -6633,7 +6826,7 @@
         },
         {
           "title": "Duplicate Employee ID Validation Shown on Email Field",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7382,21 +7575,6 @@
           "endDate": ""
         },
         {
-          "title": "Client – Project Module Is Not Available",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Kxrthikeyan-76"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/252",
-          "createdAt": "2026-09-09T07:55:35Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Unable to Add Members to an Existing Team",
           "status": "QA Completed",
           "priority": "",
@@ -8025,89 +8203,14 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "“Back to Project” button does not return to the originating section for Intern role",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/111",
-          "createdAt": "2026-08-13T10:21:48Z",
-          "closedAt": null,
-          "startDate": "2026-08-17",
-          "endDate": "2026-08-17"
-        },
-        {
-          "title": "Start Date and End Date filter does not filter records correctly in Daily Updates for intern.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/113",
-          "createdAt": "2026-08-17T09:36:49Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Cannot create Daily Update even after filling all required fields",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/114",
-          "createdAt": "2026-08-17T09:40:20Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "In Employee Role CodeWork logo redirects to Dashboard when clicked from other pages",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/117",
-          "createdAt": "2026-08-17T11:18:59Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "In Leadership Role Intern employees are not displayed when filtering by Designation or Team in Employee List",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/118",
-          "createdAt": "2026-08-17T11:34:23Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 1,
+        "inProgress": 5,
         "todo": 0,
-        "backlog": 4,
+        "backlog": 3,
         "production": 0
       }
     },
@@ -8199,9 +8302,7 @@
           "status": "Done",
           "priority": "",
           "size": "",
-          "assignees": [
-            "Ganesann-Ashokkumarr"
-          ],
+          "assignees": [],
           "state": "CLOSED",
           "url": "https://github.com/CodeWork-ai/Ai-Interview-frontend/issues/13",
           "createdAt": "2025-10-23T06:21:24Z",
@@ -8214,9 +8315,7 @@
           "status": "Done",
           "priority": "",
           "size": "",
-          "assignees": [
-            "Ganesann-Ashokkumarr"
-          ],
+          "assignees": [],
           "state": "CLOSED",
           "url": "https://github.com/CodeWork-ai/Ai-Interview-frontend/issues/14",
           "createdAt": "2025-10-23T06:22:55Z",
@@ -8229,9 +8328,7 @@
           "status": "Production",
           "priority": "",
           "size": "",
-          "assignees": [
-            "Ganesann-Ashokkumarr"
-          ],
+          "assignees": [],
           "state": "CLOSED",
           "url": "https://github.com/CodeWork-ai/Ai-Interview-frontend/issues/15",
           "createdAt": "2025-10-23T06:24:31Z",
@@ -8327,9 +8424,7 @@
           "status": "Production",
           "priority": "",
           "size": "",
-          "assignees": [
-            "Ganesann-Ashokkumarr"
-          ],
+          "assignees": [],
           "state": "CLOSED",
           "url": "https://github.com/CodeWork-ai/Hire_Lens_API/issues/5",
           "createdAt": "2025-10-23T06:08:54Z",
@@ -8762,11 +8857,59 @@
           "closedAt": "2026-09-08T09:14:18Z",
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Create Frontend & Backend Repositories for Vending machine project",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Vinoth-codework",
+            "manju-209"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/901",
+          "createdAt": "2026-09-23T10:11:23Z",
+          "closedAt": "2026-09-23T12:19:52Z",
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Create Frontend & Backend Repositories for People Ops",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Vinoth-codework",
+            "manju-209"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/902",
+          "createdAt": "2026-09-23T10:16:39Z",
+          "closedAt": "2026-09-23T12:20:26Z",
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Access Request",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Vinoth-codework",
+            "manju-209"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/908",
+          "createdAt": "2026-09-24T10:19:54Z",
+          "closedAt": "2026-09-24T11:49:52Z",
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 23,
-        "done": 23,
+        "total": 26,
+        "done": 26,
         "inProgress": 0,
         "todo": 0,
         "backlog": 0,
@@ -9016,6 +9159,12 @@
         },
         {
           "project": "SabAi Bible App",
+          "title": "Left-Side Panel Remains Visible in Full-Screen Video Lesson",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
           "title": "Community Posts Display Posts from Before the New User's Login Time",
           "status": "DEV",
           "priority": ""
@@ -9029,13 +9178,13 @@
         {
           "project": "SabAi Bible App",
           "title": "Enrolled Button Remains Clickable and Opens the Plan After Enrollment",
-          "status": "In progress",
+          "status": "DEV",
           "priority": ""
         },
         {
           "project": "SabAi Bible App",
           "title": "Google SSO Login Displays \"Google Sign-In Is Disabled in Expo Go\" Error on iOS",
-          "status": "In progress",
+          "status": "DEV",
           "priority": ""
         },
         {
@@ -9303,6 +9452,12 @@
           "priority": ""
         },
         {
+          "project": "SabAi Bible App",
+          "title": "Irrelevant Prompt Generates Christian Content Instead of Displaying a Validation Error",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
           "project": "Oman Tourism",
           "title": "(Expense Tracker & Budget Manager) Track expenses",
           "status": "DEV",
@@ -9322,7 +9477,103 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "Marks Entry Reminder Notification Sent to Class Teacher Instead of Only the Related Subject Teacher",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "KPI Metrics Heat Map Displays All Subjects Instead of Student-Specific Subjects",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Students Do Not Receive Notifications for Published Assignments or Worksheets",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Login fails due to database connection pool timeout",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Duplicate Roll Number Allowed for Different Students",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "Student Last Name Is Not Displayed in My Class",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Recent Incidents Count Shows Incorrect Value",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Incorrect Error Message Displayed When Notifying Parent",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Class Teacher Attendance Displays Subject Teacher Class Student Details",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Announcement Priority Filter Displays All Announcements",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Announcement Status Panels Are Missing in My Class Tab",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Editing a My Class Announcement Redirects to the Global Tab",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Edit Icon Is Visible on Announcement Page for Student and Parent Roles",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Event Preview Displays Only Classes Instead of Selected Grade and Class",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Undefined Error Message Is Displayed for Invalid Contact Number",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "New Contact Email Incorrectly Shows “Email Already Exists” During School Creation",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Existing School Can Be Created with Duplicate Details",
           "status": "QA",
           "priority": ""
         },
@@ -9377,6 +9628,12 @@
         {
           "project": "Acadamiq AI",
           "title": "Duplicate Academic Sessions can be created with the same details",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Update and Delete Options Are Missing for Student Grades in Gradebook",
           "status": "QA",
           "priority": ""
         },
@@ -9745,59 +10002,11 @@
           "title": "Incorrect Total Assignment Count Displayed on Student Assignment Page",
           "status": "QA",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Add \"Special Class\" Option in Period Type Dropdown",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Break Period Can Be Assigned as a Subject Period in Teacher Timetable",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Timetable PDF Download Displays Incorrect View Based on Selected Calendar View",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Attendance Can Be Marked for Future Dates",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Parent Full Timetable Displays the Wrong Child's Timetable",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Parent Gradebook Action Column Label Is Not Updated to \"View\"",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Student Dashboard GPA Average Displays 0% for All Students",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Worksheet Can Be Submitted Without Entering an Answer",
-          "status": "QA",
-          "priority": ""
         }
       ],
-      "total": 164,
+      "total": 175,
       "done": 0,
-      "inProgress": 129,
+      "inProgress": 140,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -9813,6 +10022,30 @@
         "Worklogix"
       ],
       "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Default +91 Country Code Missing for Additional Administrator Phone Number",
+          "status": "Done QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Add Update Option for Institution Administrator",
+          "status": "Done QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Permissions Page Fails to Load for Institution",
+          "status": "Done QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Admin Notification Does Not Navigate",
+          "status": "Done QA",
+          "priority": ""
+        },
         {
           "project": "Edubot_V3",
           "title": "Add Another Administrator Allows Extra Admin Field Despite Subscription Limit",
@@ -10536,7 +10769,7 @@
         {
           "project": "Worklogix",
           "title": "Duplicate Employee ID Validation Shown on Email Field",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -10588,7 +10821,7 @@
           "priority": ""
         }
       ],
-      "total": 129,
+      "total": 133,
       "done": 88,
       "inProgress": 0,
       "commits": 0,
@@ -10642,21 +10875,21 @@
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC]Online status indicator uses inconsistent colors in the Community Chat and sidebar profile sections of the Mentor and Student Portals.",
-          "status": "Completed in QA",
+          "project": "Worklogix",
+          "title": "PM – Project Members Working Hours Allows Negative Values",
+          "status": "QA Review",
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC]Different total leave counts are displayed for students in the Student Portal Apply Leave module.",
-          "status": "Completed in QA",
+          "project": "Worklogix",
+          "title": "Intern/Employee/Team Lead – Duplicate Ticket ID Can Be Used for Daily Updates",
+          "status": "QA Review",
           "priority": ""
         },
         {
           "project": "Worklogix",
           "title": "HR – Organization Chart Collapse Arrow Is Not Working",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11132,40 +11365,10 @@
           "title": "Notifications reappear after clicking “Clear All” for Team Lead role",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "“Back to Project” button does not return to the originating section for Intern role",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Start Date and End Date filter does not filter records correctly in Daily Updates for intern.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Cannot create Daily Update even after filling all required fields",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "In Employee Role CodeWork logo redirects to Dashboard when clicked from other pages",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "In Leadership Role Intern employees are not displayed when filtering by Designation or Team in Employee List",
-          "status": "QA Completed",
-          "priority": ""
         }
       ],
-      "total": 93,
-      "done": 8,
+      "total": 88,
+      "done": 6,
       "inProgress": 0,
       "commits": 0,
       "prs": 0,
@@ -11178,6 +11381,7 @@
       "login": "nithisha-01",
       "projects": [
         "Edubot_V3",
+        "Worklogix",
         "Hirelysze",
         "HireLens"
       ],
@@ -11192,6 +11396,24 @@
           "project": "Edubot_V3",
           "title": "LMS Integration – Backend",
           "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "PM/Team Lead – Create Task Allows Past Assign and Due Dates",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Client – Project Module Is Not Available",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "HR – Team Management Mentor & Interns Missing Add/Delete Employee Options",
+          "status": "In Progress",
           "priority": ""
         },
         {
@@ -11219,15 +11441,15 @@
           "priority": ""
         }
       ],
-      "total": 6,
+      "total": 9,
       "done": 0,
-      "inProgress": 0,
-      "commits": 46,
-      "prs": 18,
-      "prsMerged": 18,
-      "prReviews": 21,
-      "additions": 632,
-      "deletions": 219
+      "inProgress": 3,
+      "commits": 64,
+      "prs": 22,
+      "prsMerged": 22,
+      "prReviews": 33,
+      "additions": 1275,
+      "deletions": 351
     },
     {
       "login": "Lakshana-Lakshmanan",
@@ -11248,6 +11470,18 @@
         },
         {
           "project": "SabAi Bible App",
+          "title": "Chat Analyzes Video File Name Instead of Video Content",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Daily Verse Explore Button Displays Incorrect Network Error",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
           "title": "AI Insights Takes Time to Load in Read Module",
           "status": "Backlog",
           "priority": ""
@@ -11256,24 +11490,6 @@
           "project": "SabAi Bible App",
           "title": "Video Generation Fails After Multiple Consecutive Requests",
           "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Irrelevant Prompt Generates Christian Content Instead of Displaying a Validation Error",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Daily Verse Explore Button Displays Incorrect Network Error",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Chat Analyzes Video File Name Instead of Video Content",
-          "status": "TODO",
           "priority": ""
         },
         {
@@ -11386,6 +11602,12 @@
         },
         {
           "project": "Worklogix",
+          "title": "Daily Update Roles – Daily Update Allows Dates Before Project Creation",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
           "title": "Add Visitor Date Support in Add Visitor API",
           "status": "Backlog",
           "priority": ""
@@ -11405,11 +11627,11 @@
       ],
       "total": 27,
       "done": 0,
-      "inProgress": 7,
+      "inProgress": 10,
       "commits": 12,
       "prs": 16,
       "prsMerged": 16,
-      "prReviews": 36,
+      "prReviews": 40,
       "additions": 576,
       "deletions": 31
     },
@@ -11566,10 +11788,28 @@
           "title": "Create repositories for My Medical Help – Frontend & Backend",
           "status": "Completed",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Create Frontend & Backend Repositories for Vending machine project",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Create Frontend & Backend Repositories for People Ops",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
         }
       ],
-      "total": 24,
-      "done": 23,
+      "total": 27,
+      "done": 26,
       "inProgress": 0,
       "commits": 0,
       "prs": 0,
@@ -11710,269 +11950,10 @@
       "total": 20,
       "done": 4,
       "inProgress": 8,
-      "commits": 0,
-      "prs": 14,
-      "prsMerged": 14,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Dharsan1102codework",
-      "projects": [
-        "Oman Tourism",
-        "Acadamiq AI"
-      ],
-      "tasks": [
-        {
-          "project": "Oman Tourism",
-          "title": "(Smart Itinerary Planner) Generate a personalized AI itinerary",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(offline Mode) Access essentials offline",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Offline Mode) Manage downloaded content",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Reviews & Community Engagement) Trustworthy, sorted reviews",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Duplicate Roll Number Allowed for Different Students",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Recent Incidents Count Shows Incorrect Value",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Incorrect Error Message Displayed When Notifying Parent",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Class Teacher Attendance Displays Subject Teacher Class Student Details",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Announcement Priority Filter Displays All Announcements",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Announcement Status Panels Are Missing in My Class Tab",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Editing a My Class Announcement Redirects to the Global Tab",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Edit Icon Is Visible on Announcement Page for Student and Parent Roles",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Event Preview Displays Only Classes Instead of Selected Grade and Class",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Undefined Error Message Is Displayed for Invalid Contact Number",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "New Contact Email Incorrectly Shows “Email Already Exists” During School Creation",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Existing School Can Be Created with Duplicate Details",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Update and Delete Options Are Missing for Student Grades in Gradebook",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "CT-09 – Notification Management",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "CT-01 – Class Teacher Assignment & Access",
-          "status": "TODO",
-          "priority": ""
-        }
-      ],
-      "total": 20,
-      "done": 0,
-      "inProgress": 15,
-      "commits": 0,
-      "prs": 8,
-      "prsMerged": 8,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Antony-Bilgates",
-      "projects": [
-        "Edubot_V3",
-        "SabAi Bible App",
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Implementation of Subscription-Based Model – Frontend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Frontend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Add Update Option for Institution Administrator",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Incorrect Validation Behavior for Invalid Email Input",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Admin Notification Does Not Navigate",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Left-Side Panel Remains Visible in Full-Screen Video Lesson",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS Sign-In Option Is Missing on Login Page",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Success and Error Toast Messages Displayed Simultaneously During Student Registration",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Duplicate Staff ID Allows Staff Creation",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Career Path Card UI Breaks with Long Name and Domain Values",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Admin Username Is Not Displayed",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Check-In Fails When Attendance Location Is Not Configured",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "AI Self-Evaluation Section Is Displayed in Student Task Details",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Page Does Not Auto-Scroll After Proceeding to the Next Step in New Curriculum Session",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "\"Show All\" Option Hides Data Instead of Displaying All Records",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 17,
-      "done": 2,
-      "inProgress": 5,
-      "commits": 0,
-      "prs": 21,
-      "prsMerged": 21,
-      "prReviews": 0,
+      "commits": 2,
+      "prs": 16,
+      "prsMerged": 16,
+      "prReviews": 2,
       "additions": 0,
       "deletions": 0
     },
@@ -11986,13 +11967,7 @@
       "tasks": [
         {
           "project": "Edubot_V3",
-          "title": "Permissions Page Fails to Load for Institution",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Default +91 Country Code Missing for Additional Administrator Phone Number",
+          "title": "Subscription Plan Cannot Be Modified for Existing Institution",
           "status": "In progress",
           "priority": ""
         },
@@ -12087,12 +12062,254 @@
           "priority": ""
         }
       ],
-      "total": 17,
+      "total": 16,
+      "done": 0,
+      "inProgress": 9,
+      "commits": 5,
+      "prs": 20,
+      "prsMerged": 18,
+      "prReviews": 0,
+      "additions": 863,
+      "deletions": 479
+    },
+    {
+      "login": "Antony-Bilgates",
+      "projects": [
+        "Edubot_V3",
+        "Edubot_CPLC",
+        "SabAi Bible App",
+        "EduBot_University"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Incorrect Button Name Displayed in Course Management – Assign",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Task Submission Does Not Clearly Indicate Code/File Requirement",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Incorrect Validation Behavior for Invalid Email Input",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Lesson Plan Module Creation Notification Not Received",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Implementation of Subscription-Based Model – Frontend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student Admission & Identity Management – Frontend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Admin – Task Due Date Allows Past Dates",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Historical Data Retention",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Document Download Control",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "iOS Sign-In Option Is Missing on Login Page",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Success and Error Toast Messages Displayed Simultaneously During Student Registration",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Duplicate Staff ID Allows Staff Creation",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Career Path Card UI Breaks with Long Name and Domain Values",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Admin Username Is Not Displayed",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Check-In Fails When Attendance Location Is Not Configured",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "AI Self-Evaluation Section Is Displayed in Student Task Details",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Page Does Not Auto-Scroll After Proceeding to the Next Step in New Curriculum Session",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "\"Show All\" Option Hides Data Instead of Displaying All Records",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 20,
+      "done": 4,
+      "inProgress": 8,
+      "commits": 0,
+      "prs": 27,
+      "prsMerged": 26,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "Dharsan1102codework",
+      "projects": [
+        "Oman Tourism",
+        "Acadamiq AI"
+      ],
+      "tasks": [
+        {
+          "project": "Oman Tourism",
+          "title": "(Smart Itinerary Planner) Generate a personalized AI itinerary",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(offline Mode) Access essentials offline",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Offline Mode) Manage downloaded content",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Reviews & Community Engagement) Trustworthy, sorted reviews",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Class Performance Trends Displays Subjects Not Assigned to the Logged-in Teacher",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "CT-09 – Notification Management",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Assigned Subjects Count Does Not Match Curriculum Subjects",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Incorrect Grade Validation Error Displayed When Grade and Class Are Not Selected",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Invalid Email Format Accepted Without Validation Error",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Student timetable displays the Class Teacher instead of the assigned Subject Teacher",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "CT-01 – Class Teacher Assignment & Access",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Pending Subjects Count Displays 0 Despite Pending Subject Data",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Non-Mandatory Title Field Showing “Title is Required” Validation Error",
+          "status": "DEV",
+          "priority": ""
+        }
+      ],
+      "total": 14,
       "done": 0,
       "inProgress": 10,
       "commits": 0,
-      "prs": 14,
-      "prsMerged": 14,
+      "prs": 9,
+      "prsMerged": 9,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -12114,23 +12331,17 @@
           "title": "Leadership Role – Wrong Date and Back Navigation Issue",
           "status": "Backlog",
           "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Client – Project Module Is Not Available",
-          "status": "Backlog",
-          "priority": ""
         }
       ],
-      "total": 3,
+      "total": 2,
       "done": 0,
       "inProgress": 0,
-      "commits": 9,
-      "prs": 13,
-      "prsMerged": 11,
+      "commits": 11,
+      "prs": 16,
+      "prsMerged": 14,
       "prReviews": 0,
-      "additions": 375,
-      "deletions": 197
+      "additions": 435,
+      "deletions": 202
     },
     {
       "login": "xavierrnelson",
@@ -12139,12 +12350,12 @@
       "total": 0,
       "done": 0,
       "inProgress": 0,
-      "commits": 9,
+      "commits": 10,
       "prs": 10,
       "prsMerged": 10,
       "prReviews": 0,
-      "additions": 17,
-      "deletions": 12
+      "additions": 32,
+      "deletions": 24
     },
     {
       "login": "saimanL",
@@ -12170,96 +12381,6 @@
       "deletions": 0
     },
     {
-      "login": "inbarasuv",
-      "projects": [
-        "Edubot_V3",
-        "Acadamiq AI"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Institution Logo/Image Not Displaying",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Certificate Management – Feature Requirement",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "KPI Metrics Heat Map Displays All Subjects Instead of Student-Specific Subjects",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Students Do Not Receive Notifications for Published Assignments or Worksheets",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Login fails due to database connection pool timeout",
-          "status": "In progress",
-          "priority": ""
-        }
-      ],
-      "total": 5,
-      "done": 0,
-      "inProgress": 3,
-      "commits": 0,
-      "prs": 19,
-      "prsMerged": 18,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Ganesann-Ashokkumarr",
-      "projects": [
-        "Hirelysze",
-        "HireLens"
-      ],
-      "tasks": [
-        {
-          "project": "Hirelysze",
-          "title": "Error Message Not Dismissed After Form Submission Fails",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Hirelysze",
-          "title": "Homepage Image Not Displaying Properly",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Hirelysze",
-          "title": "Voice interview doesn’t move to the next question when no response is given.",
-          "status": "Production",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Implement backend functionality for “Forgot Password” feature in the HireLernse application.",
-          "status": "Production",
-          "priority": ""
-        }
-      ],
-      "total": 4,
-      "done": 2,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "Vinoth-codework",
       "projects": [
         "Devops"
@@ -12276,14 +12397,81 @@
           "title": "Provide Repository Access to Testing Team – Edubot V3",
           "status": "Completed",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Create Frontend & Backend Repositories for Vending machine project",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Create Frontend & Backend Repositories for People Ops",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
         }
       ],
-      "total": 2,
-      "done": 2,
+      "total": 5,
+      "done": 5,
       "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "dharikfroz",
+      "projects": [],
+      "tasks": [],
+      "total": 0,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 4,
+      "prs": 8,
+      "prsMerged": 7,
+      "prReviews": 0,
+      "additions": 535,
+      "deletions": 286
+    },
+    {
+      "login": "inbarasuv",
+      "projects": [
+        "Edubot_V3"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Certificate Management – Feature Requirement",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Institution Logo/Image Not Displaying",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Digital Signature Upload API Returns 404 Error",
+          "status": "To Do",
+          "priority": ""
+        }
+      ],
+      "total": 3,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 21,
+      "prsMerged": 19,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -12330,20 +12518,6 @@
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "dharikfroz",
-      "projects": [],
-      "tasks": [],
-      "total": 0,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 1,
-      "prs": 4,
-      "prsMerged": 4,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
