@@ -23,7 +23,7 @@
   CATS.forEach(function (c) { CAT_BY[c.key] = c; });
   var NON_LEAVE = { P: 1, A: 1, H: 1, OFF: 1, WFH: 1 };
   var PAGE = 25;
-  var POLL_MS = 15000;
+  var POLL_MS = 8000;
 
   var ICON = {
     bio: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15h4M7 11h10"/></svg>',
@@ -59,7 +59,7 @@
     var cur = months[m];
     if (cur && cur.status === "loading") return;
     if (cur && !force) return; // only polling or an explicit Retry fetches again
-    months[m] = { status: "loading", payload: cur && cur.payload };
+    months[m] = { status: "loading", payload: cur && cur.payload, prev: cur && cur.status === "building" ? cur : null };
     apiFetch("/api/work-location?month=" + encodeURIComponent(m))
       .then(function (res) {
         if (!res) return null; // apiFetch already redirected to login
@@ -69,7 +69,12 @@
         if (!r) return;
         var b = r.body || {};
         if (r.ok && b.days) months[m] = { status: "ready", payload: b };
-        else if (r.ok && b.building) months[m] = { status: "building", message: b.error };
+        else if (r.ok && b.building && b.error) {
+          // The last background fetch failed. It is retried on every poll, but say so instead of waiting silently.
+          console.warn("Work location: GreytHR fetch failed:", b.error);
+          months[m] = { status: "error", message: "Could not fetch swipes from GreytHR. Check the GreytHR settings on the server, then retry." };
+        }
+        else if (r.ok && b.building) months[m] = { status: "building", done: b.done || 0, total: b.total || 0 };
         else months[m] = { status: "error", message: b.error || "Work location data could not be loaded." };
       })
       .catch(function () { months[m] = { status: "error", message: "Could not reach the server. Check your connection and retry." }; })
@@ -174,8 +179,12 @@
   function bodyHtml() {
     if (isWeekend(state.day)) return statusHtml(fmt(state.day) + " is a weekend. Pick a working day.");
     var m = state.day.slice(0, 7), cur = months[m];
+    if (cur && cur.status === "loading" && cur.prev) cur = cur.prev; // keep showing progress while re-checking
     if (!cur || (cur.status === "loading" && !cur.payload)) return statusHtml("Loading work location…");
-    if (cur.status === "building") return statusHtml("Fetching swipes from GreytHR for this month. This takes a minute or two the first time; the card updates by itself.");
+    if (cur.status === "building") {
+      var progress = cur.total ? " Fetched " + cur.done + " of " + cur.total + " employees." : "";
+      return statusHtml("Fetching swipes from GreytHR for this month. GreytHR is slow, so this takes about a minute the first time; the card updates by itself." + progress);
+    }
     if (cur.status === "error") return statusHtml(cur.message, true);
 
     var payload = cur.payload;

@@ -11,8 +11,10 @@ peopleops-data.json or data/months/*.json. Each month is stored as
 data/worklocation/YYYY-MM.json.
 
 GreytHR only returns swipes one employee at a time, so a month refresh is ~one
-call per employee and takes a minute or more. Requests therefore never wait for
-it: get_month() returns whatever is cached and refreshes in a background thread.
+call per employee and takes about a minute. Requests therefore never wait for it:
+get_month() returns whatever is cached and refreshes in a background thread, and
+start_background_refresher() keeps the current month warm from server start.
+Once a month is cached, routine refreshes re-fetch only the last few days.
 """
 from __future__ import annotations
 
@@ -22,7 +24,7 @@ import re
 import threading
 from calendar import monthrange
 from concurrent.futures import ThreadPoolExecutor
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -30,13 +32,20 @@ CACHE_DIR = PROJECT_ROOT / "data" / "worklocation"
 
 # The month in progress is refreshed in the background once its cache is this old.
 OPEN_MONTH_MAX_AGE = 30 * 60
-# Parallel swipe requests; GreytHR is slow per call, not rate limited at this level.
-WORKERS = 8
+# A routine refresh of the current month re-fetches only this many recent days;
+# a full re-fetch still happens when the cached full fetch is older than FULL_REFRESH_AGE
+# (so leave applied or approved later for earlier days is picked up).
+RECENT_DAYS = 3
+FULL_REFRESH_AGE = 12 * 3600
+# Parallel swipe requests. Measured on a 93-person month: 8 -> ~115s, 24 -> ~56s,
+# 48 -> ~107s (GreytHR slows down under more load), so 24.
+WORKERS = 24
 
 _MONTH_RE = re.compile(r"^\d{4}-(0[1-9]|1[0-2])$")
 _guard = threading.Lock()
 _refreshing: set[str] = set()
 _last_error: dict[str, str] = {}
+_progress: dict[str, tuple[int, int]] = {}  # month -> (employees fetched, total) while a refresh runs
 
 
 def _cache_path(month: str) -> Path:
@@ -130,8 +139,22 @@ def _day_status(summary: dict) -> str:
     return "/".join(labels)
 
 
-def refresh_month(month: str) -> dict:
-    """Fetch the month from GreytHR and write the cache file. Raises on GreytHR errors."""
+def _age_seconds(stamp) -> float:
+    try:
+        when = datetime.fromisoformat(stamp)
+    except (TypeError, ValueError):
+        return float("inf")
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=timezone.utc)
+    return (datetime.now(timezone.utc) - when).total_seconds()
+
+
+def refresh_month(month: str, full: bool = False) -> dict:
+    """Fetch the month from GreytHR and write the cache file. Raises on GreytHR errors.
+
+    When the month is already cached and its last full fetch is recent, only the last
+    RECENT_DAYS days are fetched and merged in, which is much quicker. full=True
+    always fetches the whole month."""
     from services.greythr_api_client import (
         API_BASE, _api_get, get_attendance_muster, get_employee_master, get_token,
     )
@@ -143,6 +166,14 @@ def refresh_month(month: str) -> dict:
     end = min(date(year, mon, monthrange(year, mon)[1]), date.today()).isoformat()
     if end < start:
         raise ValueError("That month hasn't started yet.")
+    month_start = start
+
+    cached = None if full else read_cache(month)
+    if cached and _age_seconds(cached.get("fullAt")) < FULL_REFRESH_AGE:
+        recent = (date.fromisoformat(end) - timedelta(days=RECENT_DAYS - 1)).isoformat()
+        start = max(start, recent)
+    else:
+        cached = None
 
     token, domain = get_token()
     master = get_employee_master(token, domain)
@@ -161,9 +192,11 @@ def refresh_month(month: str) -> dict:
     ids = list(master)
     results: dict[str, dict] = {}
     failed: list[str] = []
+    _progress[month] = (0, len(ids))
     with ThreadPoolExecutor(WORKERS) as pool:
-        for emp_id, days in pool.map(swipes_for, ids):
+        for n, (emp_id, days) in enumerate(pool.map(swipes_for, ids), 1):
             (failed.append(emp_id) if days is None else results.__setitem__(emp_id, days))
+            _progress[month] = (n, len(ids))
     for emp_id in list(failed):  # one retry, one at a time, for calls that timed out
         _, days = swipes_for(emp_id)
         if days is not None:
@@ -186,9 +219,14 @@ def refresh_month(month: str) -> dict:
             if rec:
                 days.setdefault(day, {}).setdefault(emp_id, {}).update(rec)
 
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    if cached:  # partial refresh: keep earlier days from the cache, replace the re-fetched ones
+        kept = {day: recs for day, recs in cached["days"].items() if day < start}
+        days = {**kept, **days}
     payload = {
         "month": month,
-        "fetchedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "fetchedAt": now,
+        "fullAt": cached.get("fullAt") if cached else now,
         "people": [
             {"id": emp_id, "no": info.get("employee_no", ""), "name": info.get("name") or emp_id}
             for emp_id, info in master.items()
@@ -200,6 +238,7 @@ def refresh_month(month: str) -> dict:
     tmp = _cache_path(month).with_suffix(".json.tmp")
     tmp.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
     os.replace(tmp, _cache_path(month))  # atomic: readers never see a half-written file
+    print(f"[work-location] {month} refreshed {start}..{end}" + (" (recent days)" if start > month_start else ""), flush=True)
     return payload
 
 
@@ -217,6 +256,7 @@ def _refresh_in_background(month: str) -> None:
             _last_error[month] = f"{type(exc).__name__}: {exc}"
             print(f"[work-location] {month} refresh failed: {_last_error[month]}", flush=True)
         finally:
+            _progress.pop(month, None)
             with _guard:
                 _refreshing.discard(month)
 
@@ -234,4 +274,17 @@ def get_month(month: str) -> dict:
     _refresh_in_background(month)
     if cached:
         return {**cached, "refreshing": True}
-    return {"month": month, "building": True, "error": _last_error.get(month)}
+    done, total = _progress.get(month, (0, 0))
+    return {"month": month, "building": True, "error": _last_error.get(month), "done": done, "total": total}
+
+
+def start_background_refresher() -> None:
+    """Keep the current month cached from server start, so the card rarely has to wait.
+    Refreshes right away, then every OPEN_MONTH_MAX_AGE while the server runs."""
+    def loop():
+        import time
+        while True:
+            _refresh_in_background(date.today().strftime("%Y-%m"))
+            time.sleep(OPEN_MONTH_MAX_AGE)
+
+    threading.Thread(target=loop, name="work-location-refresher", daemon=True).start()

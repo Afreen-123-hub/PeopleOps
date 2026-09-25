@@ -1333,6 +1333,14 @@ def run(port=8000, host="0.0.0.0"):
     # before AUTO_REFRESH_INTERVAL, based on the data file's real age — see above)
     t = threading.Thread(target=_auto_refresh_loop, daemon=True, name="auto-refresh")
     t.start()
+    # Keep the Work location card's current month cached, so it is ready before anyone opens it.
+    try:
+        if str(PROJECT_ROOT) not in sys.path:
+            sys.path.insert(0, str(PROJECT_ROOT))
+        from services import work_location_store
+        work_location_store.start_background_refresher()
+    except Exception as exc:
+        print(f"[work-location] background refresher not started: {type(exc).__name__}: {exc}", flush=True)
     server = ThreadingHTTPServer((host, port), PeopleOpsHandler)
     print(f"PeopleOPS Intelligence backend running on {host}:{port}", flush=True)
     print(f"API health endpoint available at /api/health on port {port}", flush=True)
