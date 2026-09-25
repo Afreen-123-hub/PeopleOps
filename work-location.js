@@ -10,6 +10,10 @@
 //   no swipe, GreytHR shows a leave code (CL, SL, ...)             -> On leave
 //   no swipe otherwise                                             -> Absent
 // People on a holiday or weekly off that day are left out of the counts.
+//
+// Times: check-in is the first swipe. Today, the latest swipe is shown as "Last swipe · still in office",
+// because a mid-day swipe is usually a break; on past days it is the check-out, with hours worked.
+// Clicking a row opens "How it works" for that person: every swipe of the day on a timeline.
 (function () {
   "use strict";
 
@@ -40,13 +44,17 @@
   function isWeekend(s) { var w = D(s).getUTCDay(); return w === 0 || w === 6; }
   function fmt(s) { return D(s).toLocaleDateString("en-GB", { timeZone: "UTC", weekday: "short", day: "numeric", month: "short", year: "numeric" }); }
   function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function toMin(t) { var p = String(t).split(":"); return (+p[0]) * 60 + (+p[1]); }
+  function hm(m) { return pad(Math.floor(m / 60)) + ":" + pad(m % 60); }
+  function dur(m) { return Math.floor(m / 60) + "h " + pad(m % 60) + "m"; }
+  function nowMin() { var d = new Date(); return d.getHours() * 60 + d.getMinutes(); }
   function people(n) { return n + (n === 1 ? " person" : " people"); }
   function normKey(v) { return String(v == null ? "" : v).trim().toLowerCase().replace(/[^a-z0-9]+/g, ""); }
 
   var TODAY = localToday();
   var MIN = add(TODAY, -366);
 
-  var state = { day: TODAY, filter: null, query: "", showAll: false };
+  var state = { day: TODAY, filter: null, query: "", showAll: false, person: null };
   var months = {};   // "YYYY-MM" -> { status: "loading" | "ready" | "building" | "error", payload, message }
   var pollTimer = null;
   var bound = false;
@@ -134,20 +142,146 @@
     if (rec.bi) parts.push('<span class="wl-src">' + ICON.bio + "Biometric</span>");
     if (rec.wi) parts.push('<span class="wl-src">' + (rec.mob ? ICON.mob + "Mobile sign-in" : ICON.web + "Web sign-in") + "</span>");
     if (parts.length) return parts.join(" + ");
-    return '<span class="wl-dim">No swipe' + (rec.s ? " · GreytHR: " + esc(rec.s) : "") + "</span>";
+    var showStatus = rec.s && !(state.day === TODAY && r.cat === "absent");
+    return '<span class="wl-dim">No swipe' + (showStatus ? " · GreytHR: " + esc(rec.s) : "") + "</span>";
   }
 
-  function timeCell(r, which) {
-    var rec = r.rec, office = r.cat === "office";
-    if (r.cat !== "office" && r.cat !== "wfh") return '<span class="wl-dim">—</span>';
-    var t = office ? (which === "in" ? rec.bi : rec.bo) : (which === "in" ? rec.wi : rec.wo);
-    var note = office ? "Biometric" + (rec.door ? " · " + esc(rec.door) : "") : (rec.mob ? "Mobile sign-in" : "Web sign-in");
-    if (!t) {
-      return state.day === TODAY
-        ? '<div class="wl-io"><b class="wl-dim">Not yet</b><small>still ' + (office ? "in office" : "signed in") + "</small></div>"
-        : '<div class="wl-io"><b class="wl-dim">—</b><small>no check-out recorded</small></div>';
+  function inCell(r) {
+    var rec = r.rec;
+    if (r.cat === "office") return '<div class="wl-io"><b>' + esc(rec.bi) + "</b><small>Biometric" + (rec.door ? " · " + esc(rec.door) : "") + "</small></div>";
+    if (r.cat === "wfh" && rec.wi) return '<div class="wl-io"><b>' + esc(rec.wi) + "</b><small>" + (rec.mob ? "Mobile" : "Web") + " sign-in</small></div>";
+    return '<span class="wl-dim">—</span>';
+  }
+
+  // Today the latest swipe is not a check-out yet; on past days it is, and hours are added.
+  function outCell(r) {
+    var rec = r.rec, today = state.day === TODAY;
+    if (r.cat === "office") {
+      if (!rec.bo) return today
+        ? '<div class="wl-io"><b class="wl-dim">No swipe yet</b><small>since check-in</small></div>'
+        : '<div class="wl-io"><b class="wl-dim">—</b><small>No check-out recorded</small></div>';
+      if (today) return '<div class="wl-io"><b>' + esc(rec.bo) + '</b><small><span class="wl-live">Last swipe · still in office</span></small></div>';
+      return '<div class="wl-io"><b>' + esc(rec.bo) + '<span class="wl-hrs">' + dur(toMin(rec.bo) - toMin(rec.bi)) + "</span></b>" +
+        "<small>Check-out · Biometric" + (rec.door ? " · " + esc(rec.door) : "") + "</small></div>";
     }
-    return '<div class="wl-io"><b>' + esc(t) + "</b><small>" + note + "</small></div>";
+    if (r.cat === "wfh" && rec.wi) {
+      if (!rec.wo) return today
+        ? '<div class="wl-io"><b class="wl-dim">Not yet</b><small><span class="wl-live">still signed in</span></small></div>'
+        : '<div class="wl-io"><b class="wl-dim">—</b><small>No sign-out recorded</small></div>';
+      return '<div class="wl-io"><b>' + esc(rec.wo) + (today ? "" : '<span class="wl-hrs">' + dur(toMin(rec.wo) - toMin(rec.wi)) + "</span>") +
+        "</b><small>Signed out · " + (rec.mob ? "Mobile" : "Web") + " sign-in</small></div>";
+    }
+    return '<span class="wl-dim">—</span>';
+  }
+
+  // ---------- how it works ----------
+  // Every swipe of the day, as minutes since midnight. Older cached data only has first/last.
+  function swipesOf(r) {
+    var rec = r.rec;
+    if (r.cat === "office") return (rec.bs || [rec.bi, rec.bo].filter(Boolean)).map(function (t) { return { t: toMin(t) }; });
+    if (r.cat === "wfh" && rec.wi) {
+      var rs = rec.rs || [rec.wi + "i"].concat(rec.wo ? [rec.wo + "o"] : []);
+      return rs.map(function (x) { return { t: toMin(x.slice(0, 5)), out: x.slice(5) === "o" }; });
+    }
+    return [];
+  }
+
+  function timelineSvg(r, s, today) {
+    var office = r.cat === "office", col = office ? "#0d9488" : "#1d4ed8";
+    var first = s[0].t, last = s[s.length - 1].t, now = nowMin();
+    var hasOut = !office && s.some(function (q) { return q.out; });
+    var running = today && (office || !hasOut) && now > last;
+    var endT = running ? now : last;
+    var start = Math.min(8 * 60, Math.floor(first / 60) * 60), stop = Math.max(20 * 60, Math.ceil(endT / 60) * 60);
+    var W = 1040, H = 120, L = 20, R = 20, y0 = 62;
+    var x = function (t) { return L + (t - start) / (stop - start) * (W - L - R); };
+    var svg = '<svg class="wl-tl" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Swipes for ' + esc(r.name) + '">' +
+      '<defs><pattern id="wlHatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">' +
+      '<rect width="3" height="6" fill="' + col + '" opacity=".35"/></pattern></defs>';
+    for (var h = start; h <= stop; h += 120) {
+      svg += '<line class="wl-tl-grid" x1="' + x(h) + '" x2="' + x(h) + '" y1="30" y2="' + (y0 + 18) + '"/>' +
+        '<text class="wl-tl-axis" x="' + x(h) + '" y="' + (H - 8) + '" text-anchor="middle">' + hm(h) + "</text>";
+    }
+    svg += '<rect x="' + x(first) + '" y="' + (y0 - 7) + '" width="' + Math.max(2, x(endT) - x(first)) + '" height="14" rx="4" fill="' + col + '" opacity=".18"/>';
+    if (running) {
+      svg += '<rect x="' + x(last) + '" y="' + (y0 - 7) + '" width="' + Math.max(0, x(now) - x(last)) + '" height="14" fill="url(#wlHatch)"/>' +
+        '<line x1="' + x(now) + '" x2="' + x(now) + '" y1="24" y2="' + (y0 + 18) + '" stroke="#0f1c2e" stroke-width="1.5" stroke-dasharray="3 3"/>' +
+        '<text x="' + (x(now) + 6) + '" y="30" font-size="11" font-weight="700" fill="#0f1c2e">now ' + hm(now) + "</text>";
+    }
+    s.forEach(function (q, i) {
+      var edge = i === 0 || i === s.length - 1;
+      var role = i === 0 ? (office ? "Check-in" : "Signed in")
+        : office ? (i === s.length - 1 ? (today ? "Last swipe" : "Check-out") : "Swipe in between")
+        : (q.out ? "Signed out" : "Signed in");
+      svg += '<circle cx="' + x(q.t) + '" cy="' + y0 + '" r="' + (edge ? 7 : 5) + '" fill="' + (edge ? col : "#fff") + '" stroke="' + col + '" stroke-width="2.5">' +
+        "<title>" + role + " · " + hm(q.t) + "</title></circle>";
+      if (edge) svg += '<text x="' + x(q.t) + '" y="' + (y0 - 16) + '" font-size="11.5" font-weight="700" text-anchor="middle" fill="#0f1c2e">' + hm(q.t) + "</text>";
+    });
+    return { svg: svg + "</svg>", running: running, hasOut: hasOut, now: now };
+  }
+
+  function howHtml(rows, label) {
+    var list = rows.slice().sort(function (a, b) { return a.name.localeCompare(b.name); });
+    var r = null;
+    list.forEach(function (x) { if (x.id === state.person) r = x; });
+    if (!r) { // start on someone whose day shows the rules best: office, with a break swipe
+      list.forEach(function (x) { if (!r && x.cat === "office" && swipesOf(x).length >= 3) r = x; });
+      if (!r) list.forEach(function (x) { if (!r && x.cat === "office") r = x; });
+      if (!r) r = list[0];
+    }
+    if (!r) return "";
+    var today = state.day === TODAY, dayText = fmt(state.day);
+    var pick = '<label class="wl-who">Person <select id="wlWho">' + list.map(function (x) {
+      return '<option value="' + esc(x.id) + '"' + (x.id === r.id ? " selected" : "") + ">" + esc(x.name) + "</option>";
+    }).join("") + "</select></label>";
+
+    var body, s = swipesOf(r);
+    if (!s.length) {
+      var why = r.cat === "leave" ? "GreytHR shows <b>" + esc(r.rec.s) + "</b> (leave) for " + esc(dayText) + ", so " + esc(r.name) + " is counted as <b>On leave</b>."
+        : today ? esc(r.name) + " hasn’t swiped or signed in yet today, so they show as <b>Not signed in yet</b>. They move to a tile as soon as they swipe."
+        : "No biometric swipe and no sign-in on " + esc(dayText) + ", and no leave in GreytHR, so " + esc(r.name) + " is counted as <b>Absent</b>.";
+      body = '<p class="wl-nodata">' + why + "</p>";
+    } else {
+      var office = r.cat === "office", tl = timelineSvg(r, s, today);
+      var first = s[0].t, last = s[s.length - 1].t;
+      var between = office ? Math.max(0, s.length - 2) : 0;
+      var lastLabel = office ? (today ? "Last swipe (so far)" : "Check-out") : "Sign-out";
+      var lastVal = office ? (s.length > 1 ? hm(last) : "—") : (r.rec.wo || (today ? "Not yet" : "—"));
+      var lastNote = office
+        ? (s.length === 1 ? (today ? "Only one swipe so far." : "Only one swipe, so no check-out was recorded.")
+          : (today ? "The day isn’t over, so this is not a check-out." : "The last swipe of the day."))
+        : (r.rec.wo ? "They signed out in GreytHR." : (today ? "Still signed in." : "No sign-out was recorded."));
+      var endForHours = office ? last : (r.rec.wo ? toMin(r.rec.wo) : null);
+      var hours = tl.running ? dur(tl.now - first) + " so far" : (endForHours != null && endForHours > first ? dur(endForHours - first) : "—");
+      var steps = [
+        ["Swipes found", String(s.length), office
+          ? "Biometric swipes" + (r.rec.door ? " at " + esc(r.rec.door) : "") + (between ? ", " + between + " in between (breaks or moving between doors)" : "") + "."
+          : (r.rec.mob ? "Mobile" : "Web") + " sign-in" + (tl.hasOut ? " and sign-out" : "") + ". No biometric swipe, so: work from home."],
+        [office ? "Check-in" : "Signed in", hm(first), "The first swipe of the day."],
+        [lastLabel, lastVal, lastNote],
+        ["Hours", hours, tl.running ? "Counted up to now while the day is running." : (office ? "Last swipe minus first swipe." : "Sign-out minus sign-in.")]
+      ];
+      body = '<div class="wl-tl-wrap">' + tl.svg + "</div>" +
+        '<div class="wl-steps">' + steps.map(function (st) {
+          return '<div class="wl-step"><h4>' + st[0] + "</h4><b>" + st[1] + "</b><p>" + st[2] + "</p></div>";
+        }).join("") + "</div>";
+    }
+
+    return '<section class="wl-how" id="wlHow" aria-label="How it works">' +
+      '<div class="wl-how-top"><div><p class="eyebrow">How it works</p><h3>' + esc(r.name) + " · " + esc(dayText) +
+      ' <span class="wl-chip wl-' + r.cat + '">' + label(CAT_BY[r.cat]) + "</span></h3></div>" + pick + "</div>" +
+      body +
+      '<div class="wl-rules"><div><h4>Which tile a person lands in</h4><ul>' +
+        "<li><b>Biometric swipe</b> at an office door → Work from office</li>" +
+        "<li><b>Web or mobile sign-in</b>, no biometric → Work from home</li>" +
+        "<li><b>Leave code</b> in GreytHR (CL, SL…) → On leave</li>" +
+        "<li><b>Nothing</b> → Absent, or <b>Not signed in yet</b> while today is running</li></ul></div>" +
+      "<div><h4>How the times are read</h4><ul>" +
+        "<li><b>Check-in</b> is the first swipe of the day</li>" +
+        "<li><b>Today</b>, the last swipe so far shows as “still in office”, because a mid-day swipe is usually a break</li>" +
+        "<li><b>Past days</b>, the last swipe is the check-out, plus hours worked</li>" +
+        "<li><b>One swipe only</b> on a past day → “No check-out recorded”</li></ul></div></div>" +
+      "</section>";
   }
 
   // ---------- render ----------
@@ -203,10 +337,15 @@
     CATS.forEach(function (c) { n[c.key] = counted.filter(function (r) { return r.cat === c.key; }).length; });
     var total = counted.length || 1;
     var label = function (c) { return isToday && c.todayLabel ? c.todayLabel : c.label; };
+    var asOf = "";
+    if (isToday && payload.fetchedAt) {
+      var f = new Date(payload.fetchedAt);
+      if (!isNaN(f)) asOf = " · as of " + pad(f.getHours()) + ":" + pad(f.getMinutes());
+    }
 
     var tiles = '<div class="wl-tiles">' + CATS.map(function (c) {
       return '<button type="button" class="wl-tile wl-' + c.key + '" data-wl-cat="' + c.key + '" aria-pressed="' + (state.filter === c.key) + '">' +
-        "<strong>" + n[c.key] + "</strong><span>" + label(c) + "</span><small>" + Math.round(n[c.key] / total * 100) + "% of " + counted.length + "</small></button>";
+        "<strong>" + n[c.key] + "</strong><span>" + label(c) + "</span><small>" + Math.round(n[c.key] / total * 100) + "% of " + counted.length + (c.key !== "leave" ? asOf : "") + "</small></button>";
     }).join("") + "</div>";
     var bar = '<div class="wl-bar" aria-hidden="true">' + CATS.map(function (c) {
       return n[c.key] ? '<i class="wl-' + c.key + '" style="width:' + (n[c.key] / total * 100) + '%"></i>' : "";
@@ -230,14 +369,14 @@
 
     var title = (state.filter ? label(CAT_BY[state.filter]) : "Everyone") + " · " + shown.length;
     var table = '<div class="wl-scroll"><table class="wl-table"><thead><tr>' +
-      "<th>Employee</th><th>Team</th><th>How they signed in</th><th>Check-in</th><th>Check-out</th><th>Work location</th>" +
+      "<th>Employee</th><th>Team</th><th>How they signed in</th><th>Check-in</th><th>" + (isToday ? "Last swipe" : "Check-out") + "</th><th>Work location</th>" +
       "</tr></thead><tbody>" + visible.map(function (r) {
-        return "<tr>" +
+        return '<tr data-wl-person="' + esc(r.id) + '" class="wl-row' + (r.id === state.person ? " wl-sel" : "") + '">' +
           '<td class="wl-nm"><b>' + esc(r.name) + "</b><small>" + esc(r.no) + "</small></td>" +
           "<td>" + (r.team ? esc(r.team) : '<span class="wl-dim">—</span>') + "</td>" +
           "<td>" + howCell(r) + "</td>" +
-          "<td>" + timeCell(r, "in") + "</td>" +
-          "<td>" + timeCell(r, "out") + "</td>" +
+          "<td>" + inCell(r) + "</td>" +
+          "<td>" + outCell(r) + "</td>" +
           '<td><span class="wl-chip wl-' + r.cat + '">' + label(CAT_BY[r.cat]) + "</span></td></tr>";
       }).join("") + "</tbody></table></div>" +
       (shown.length ? "" : '<p class="wl-status">No one in this group on this day.</p>') +
@@ -246,7 +385,9 @@
     return tiles + bar + notes +
       '<div class="wl-tools"><h3>' + esc(title) + "</h3>" +
       '<input class="wl-search" id="wlSearch" type="search" placeholder="Search employee or team…" aria-label="Search employee or team" value="' + esc(state.query) + '"></div>' +
-      '<div id="wlList">' + table + "</div>";
+      '<div id="wlList">' + table + "</div>" +
+      '<p class="wl-hint">Click a row to see how that person’s times were worked out.</p>' +
+      howHtml(counted, label);
   }
 
   function render() {
@@ -271,6 +412,14 @@
     if (bound) return;
     bound = true; // el's children are replaced on every render, so delegate from the stable container
     el.addEventListener("click", function (ev) {
+      var row = ev.target.closest("tr[data-wl-person]");
+      if (row && el.contains(row)) {
+        state.person = row.dataset.wlPerson;
+        safeRender();
+        var how = root() && root().querySelector("#wlHow");
+        if (how && how.scrollIntoView) how.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        return;
+      }
       var t = ev.target.closest("button");
       if (!t || !el.contains(t)) return;
       if (t.dataset.wlDay) goTo(t.dataset.wlDay);
@@ -286,6 +435,7 @@
     });
     el.addEventListener("change", function (ev) {
       if (ev.target.id === "wlPick" && ev.target.value) goTo(ev.target.value);
+      else if (ev.target.id === "wlWho") { state.person = ev.target.value; safeRender(); }
     });
   }
 

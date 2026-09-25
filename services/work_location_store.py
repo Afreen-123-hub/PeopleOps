@@ -41,6 +41,9 @@ FULL_REFRESH_AGE = 12 * 3600
 # 48 -> ~107s (GreytHR slows down under more load), so 24.
 WORKERS = 24
 
+# Bump when the cached record shape changes; older cache files are then rebuilt.
+CACHE_VERSION = 2
+
 _MONTH_RE = re.compile(r"^\d{4}-(0[1-9]|1[0-2])$")
 _guard = threading.Lock()
 _refreshing: set[str] = set()
@@ -57,7 +60,9 @@ def read_cache(month: str) -> dict | None:
         payload = json.loads(_cache_path(month).read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return None
-    return payload if isinstance(payload, dict) and isinstance(payload.get("days"), dict) else None
+    if not isinstance(payload, dict) or payload.get("v") != CACHE_VERSION or not isinstance(payload.get("days"), dict):
+        return None
+    return payload
 
 
 def _is_fresh(payload: dict, month: str) -> bool:
@@ -80,12 +85,15 @@ def _hhmm(punch: str) -> str:
 
 
 def _summarise_swipes(swipes: list[dict]) -> dict[str, dict]:
-    """{date: {bi, bo, door, wi, wo, mob}} from one employee's raw swipes.
+    """{date: {bi, bo, door, bs, wi, wo, rs, mob}} from one employee's raw swipes.
 
-    bi/bo = first/last biometric swipe, wi/wo = first/last web or mobile sign-in.
     A biometric swipe is one with no swipeCaptureType (it carries an access card and
     an office door name); "Web Sign In" and "Mobile Sign In" are the remote ones.
-    A single swipe (or several in the same minute) gives an in-time only, so "out" is left empty.
+      bi / bo : first / last biometric swipe ("bo" only when it is a later minute)
+      bs      : every biometric swipe that day, "HH:MM", repeats in the same minute dropped
+      wi / wo : first remote sign-in / last remote sign-out (GreytHR marks each IN or OUT)
+      rs      : every remote swipe, "HH:MMi" or "HH:MMo"
+    The full lists feed the card's "How it works" timeline.
     """
     by_day: dict[str, dict[str, list]] = {}
     for s in swipes:
@@ -96,27 +104,39 @@ def _summarise_swipes(swipes: list[dict]) -> dict[str, dict]:
         kind = str(s.get("swipeCaptureType") or "").strip()
         bucket = by_day.setdefault(day, {"bio": [], "remote": [], "mob": False})
         if kind:
-            bucket["remote"].append(punch)
+            direction = "o" if str(s.get("inOutIndicator") or "").upper() == "OUT" else "i"
+            bucket["remote"].append((punch, direction))
             if "mobile" in kind.lower():
                 bucket["mob"] = True
         else:
             bucket["bio"].append((punch, str(s.get("doorName") or "").strip()))
+
+    def minutes(times: list[str]) -> list[str]:
+        out: list[str] = []
+        for t in times:
+            if not out or out[-1] != t:
+                out.append(t)
+        return out
 
     out: dict[str, dict] = {}
     for day, b in by_day.items():
         rec: dict = {}
         if b["bio"]:
             bio = sorted(b["bio"])
-            rec["bi"] = _hhmm(bio[0][0])
-            if _hhmm(bio[-1][0]) != rec["bi"]:  # a second swipe in the same minute is not a check-out
-                rec["bo"] = _hhmm(bio[-1][0])
+            rec["bs"] = minutes([_hhmm(p) for p, _ in bio])
+            rec["bi"] = rec["bs"][0]
+            if len(rec["bs"]) > 1:  # a second swipe in the same minute is not a check-out
+                rec["bo"] = rec["bs"][-1]
             door = bio[0][1]
             rec["door"] = door[5:] if door.startswith("CW - ") else door
         if b["remote"]:
             remote = sorted(b["remote"])
-            rec["wi"] = _hhmm(remote[0])
-            if _hhmm(remote[-1]) != rec["wi"]:
-                rec["wo"] = _hhmm(remote[-1])
+            rs = minutes([_hhmm(p) + d for p, d in remote])
+            rec["rs"] = rs
+            rec["wi"] = rs[0][:5]
+            outs = [x[:5] for x in rs[1:] if x.endswith("o")]
+            if outs and outs[-1] != rec["wi"]:
+                rec["wo"] = outs[-1]
             if b["mob"]:
                 rec["mob"] = 1
         out[day] = rec
@@ -224,6 +244,7 @@ def refresh_month(month: str, full: bool = False) -> dict:
         kept = {day: recs for day, recs in cached["days"].items() if day < start}
         days = {**kept, **days}
     payload = {
+        "v": CACHE_VERSION,
         "month": month,
         "fetchedAt": now,
         "fullAt": cached.get("fullAt") if cached else now,

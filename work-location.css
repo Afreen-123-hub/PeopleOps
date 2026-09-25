@@ -53,3 +53,36 @@
 .wl-more { margin-top: 10px; border: 1px solid var(--line, #e2e8f0); background: #fff; color: var(--ink, #0f1c2e); border-radius: 999px; padding: 5px 14px; font: inherit; font-size: .82rem; font-weight: 600; cursor: pointer; }
 .wl-status { margin: 0; padding: 28px 8px; text-align: center; color: var(--muted, #5a6b82); }
 .wl-status button { margin-left: 8px; border: 1px solid var(--line, #e2e8f0); background: #fff; border-radius: 999px; padding: 5px 14px; font: inherit; font-weight: 600; cursor: pointer; }
+
+/* Check-out fix: live "still in office" marker and hours worked */
+.wl-live { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: #0F766E; }
+.wl-live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #14B8A6; box-shadow: 0 0 0 3px rgba(20, 184, 166, .2); }
+.wl-hrs { font-size: .74rem; font-weight: 700; color: var(--ink, #0f1c2e); background: #eef3f9; border-radius: 999px; padding: 1px 7px; margin-left: 5px; font-variant-numeric: tabular-nums; }
+
+/* Clickable rows open "How it works" */
+.wl-row { cursor: pointer; }
+.wl-row:hover td { background: #f8fafc; }
+.wl-row.wl-sel td { background: #f0faf8; }
+.wl-hint { margin: 0; font-size: .78rem; color: var(--muted, #5a6b82); }
+
+/* How it works */
+.wl-how { display: grid; gap: 14px; border-top: 1px solid var(--line, #e2e8f0); padding-top: 18px; }
+.wl-how-top { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between; }
+.wl-how-top h3 { margin: 0; font-size: 1.05rem; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.wl-how-top .eyebrow { margin-bottom: 4px; }
+.wl-who { font-size: .86rem; color: var(--muted, #5a6b82); display: inline-flex; align-items: center; gap: 8px; }
+.wl-who select { width: auto; max-width: 100%; border: 1px solid var(--line, #e2e8f0); border-radius: 10px; padding: 6px 10px; background: #fff; color: var(--ink, #0f1c2e); font: inherit; font-size: .86rem; }
+.wl-tl-wrap { overflow-x: auto; }
+.wl-tl { width: 100%; min-width: 560px; height: auto; display: block; overflow: visible; }
+.wl-tl-grid { stroke: var(--line, #e2e8f0); }
+.wl-tl-axis { fill: var(--muted, #5a6b82); font-size: 11px; font-variant-numeric: tabular-nums; }
+.wl-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.wl-step { border: 1px solid var(--line, #e2e8f0); border-radius: 8px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; }
+.wl-step h4, .wl-rules h4 { margin: 0; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted, #5a6b82); }
+.wl-step b { font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.wl-step p { margin: 0; font-size: .8rem; color: var(--muted, #5a6b82); }
+.wl-nodata { margin: 0; padding: 16px; border-radius: 8px; background: #eef3f9; color: var(--muted, #5a6b82); font-size: .9rem; }
+.wl-nodata b { color: var(--ink, #0f1c2e); }
+.wl-rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px 24px; }
+.wl-rules ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 3px; font-size: .82rem; color: var(--muted, #5a6b82); }
+.wl-rules b { color: var(--ink, #0f1c2e); }
