@@ -8,6 +8,7 @@
 
   // Full names are the usual meaning of each GreytHR code; unknown codes still work, they just get a neutral colour.
   var ABSENT_CODE = "__ABSENT__"; // matches the reserved marker services/greythr_api_client.py uses for plain Absent
+  var WFH_CODE = "WFH"; // work from home: its own view, not counted as "away"
   var KNOWN = [
     { code: "CL",     name: "Casual Leave",       color: "#0f9d8f", fg: "#fff" },
     { code: "SL",     name: "Sick Leave",         color: "#e0745c", fg: "#fff" },
@@ -33,6 +34,10 @@
     var n = parseInt(h, 16);
     return ((n >> 16) & 255) + ", " + ((n >> 8) & 255) + ", " + (n & 255);
   }
+
+  // Working from home is not "away", so unless the WFH chip is selected it stays out of the away totals, ring, bars and lists.
+  function visibleCode(code, filterCode) { return filterCode ? filterCode === code : code !== WFH_CODE; }
+  function ringCodes(agg) { return state.filter === WFH_CODE ? [WFH_CODE] : agg.codes.filter(function (c) { return c !== WFH_CODE; }); }
 
   function typeMeta(code) {
     var k = KNOWN_BY[String(code).toUpperCase()];
@@ -100,11 +105,49 @@
       .then(function (r) {
         if (!r) return;
         months[m] = r.ok && r.body && r.body.days
-          ? { status: "ready", days: r.body.days, people: r.body.people || [], stale: !!r.body.stale }
+          ? { status: "ready", days: r.body.days, people: r.body.people || [], stale: !!r.body.stale, wfh: r.body.wfh, wfhProgress: r.body.wfhProgress }
           : { status: "error", message: (r.body && r.body.error) || "Leave data could not be loaded." };
+        if (months[m].status === "ready" && months[m].wfh === "building") watchWfh(m);
       })
       .catch(function () { months[m] = { status: "error", message: "Could not reach the server. Check your connection and retry." }; })
       .then(safeRender);
+  }
+
+  // Months whose work-from-home data the server is still building (about a minute each, one at a time): check on them
+  // with a tiny request every few seconds and reload only that month once it is ready, so the numbers fill in by
+  // themselves without the card flashing "Loading".
+  var wfhWatch = {}, wfhTimer = null, wfhPolls = 0;
+  function watchWfh(m) { wfhWatch[m] = 1; armWfh(); }
+  function armWfh() { if (!wfhTimer && Object.keys(wfhWatch).length && wfhPolls < 200) wfhTimer = setTimeout(pollWfh, 8000); }
+  function reloadMonthQuietly(m) {
+    return apiFetch("/api/leave-types?month=" + encodeURIComponent(m))
+      .then(function (res) { return res && res.ok ? res.json() : null; })
+      .then(function (b) {
+        if (b && b.days) months[m] = { status: "ready", days: b.days, people: b.people || [], stale: !!b.stale, wfh: b.wfh, wfhProgress: b.wfhProgress };
+        if (!b || b.wfh !== "building") delete wfhWatch[m];
+        return !!(b && b.days);
+      })
+      .catch(function () { return false; });
+  }
+  function pollWfh() {
+    wfhTimer = null; wfhPolls++;
+    var list = Object.keys(wfhWatch), changed = false;
+    if (!list.length) return;
+    apiFetch("/api/leave-types-wfh?months=" + list.join(","))
+      .then(function (res) { return res && res.ok ? res.json() : null; })
+      .then(function (map) {
+        if (!map) return null;
+        var reloads = [];
+        list.forEach(function (m) {
+          var st = map[m] && map[m].wfh;
+          if (!months[m] || months[m].status !== "ready") { delete wfhWatch[m]; return; }
+          if (st === "ready") reloads.push(reloadMonthQuietly(m).then(function (ok) { if (ok) changed = true; }));
+          else if (st === "unavailable") { months[m].wfh = "unavailable"; delete wfhWatch[m]; changed = true; }
+        });
+        return Promise.all(reloads);
+      })
+      .catch(function () {})
+      .then(function () { if (changed) safeRender(); armWfh(); });
   }
 
   function employees() {
@@ -165,12 +208,12 @@
         inRange[d] = all[d];
         Object.keys(all[d]).forEach(function (c) {
           var n = all[d][c];
-          totals[c] = (totals[c] || 0) + n; mine[c] = (mine[c] || 0) + n; sum += n;
+          totals[c] = (totals[c] || 0) + n; mine[c] = (mine[c] || 0) + n; if (c !== WFH_CODE) sum += n;
           perDay[d] = perDay[d] || {}; perDay[d][c] = (perDay[d][c] || 0) + n;
           if (seen.indexOf(c) < 0) seen.push(c);
         });
       });
-      if (sum > 0) perEmp.push({ e: e, days: inRange, mine: mine, sum: sum });
+      if (Object.keys(mine).length) perEmp.push({ e: e, days: inRange, mine: mine, sum: sum }); // sum = days away (WFH not counted)
     });
     perEmp.sort(function (a, b) { return b.sum - a.sum || String(a.e.name).localeCompare(String(b.e.name)); });
     // Known types first (in GreytHR's order), then any code we haven't seen before.
@@ -179,7 +222,7 @@
     // People, not days: each person counts once per type they had (and once overall), however many days that was.
     var peopleBy = {};
     perEmp.forEach(function (p) { Object.keys(p.mine).forEach(function (c) { if (p.mine[c] > 0) peopleBy[c] = (peopleBy[c] || 0) + 1; }); });
-    return { totals: totals, perDay: perDay, perEmp: perEmp, codes: codes, peopleBy: peopleBy, people: perEmp.length };
+    return { totals: totals, perDay: perDay, perEmp: perEmp, codes: codes, peopleBy: peopleBy, people: perEmp.filter(function (p) { return p.sum > 0; }).length };
   }
 
   // ---------- drawing ----------
@@ -193,7 +236,7 @@
     var R = 78, C = 2 * Math.PI * R, off = 0;
     var h = '<circle cx="100" cy="100" r="' + R + '" fill="none" stroke="#e9eef5" stroke-width="26"/>';
     if (sum > 0) {
-      agg.codes.forEach(function (c) {
+      ringCodes(agg).forEach(function (c) {
         var v = agg.peopleBy[c]; if (!v) return;
         if (state.filter && state.filter !== c) return;
         var len = v / sum * C, t = typeMeta(c), dash = Math.max(0, len - 1.5);
@@ -205,12 +248,13 @@
     return '<svg viewBox="0 0 200 200" role="img" aria-label="Leave types breakdown">' + h + "</svg>";
   }
 
-  function legendHtml(agg) {
+  function legendHtml(agg, wfhState) {
     return agg.codes.map(function (c) {
       var v = agg.peopleBy[c] || 0, t = typeMeta(c), rgb = hexRgb(t.color);
       var tint = v ? ' style="--lt-bg:rgba(' + rgb + ',.10);--lt-bg-hover:rgba(' + rgb + ',.18);--lt-accent:' + t.color + ';--lt-edge:rgba(' + rgb + ',.35)"' : "";
-      return '<button type="button" class="lt-lg' + (v ? "" : " lt-zero") + '"' + tint + ' data-code="' + esc(c) + '" aria-pressed="' + (state.filter === c) + '" title="' + esc(t.name + " · " + v + (v === 1 ? " person" : " people")) + '">' +
-        '<span class="lt-dot" style="background:' + t.color + '"></span><span class="lt-code">' + esc(t.short) + '</span><span class="lt-n">' + v + "</span></button>";
+      var noData = c === WFH_CODE && wfhState !== "ready" && !v; // no data for this period (yet): show "…" or a dash, never a false 0
+      return '<button type="button" class="lt-lg' + (v ? "" : " lt-zero") + '"' + tint + ' data-code="' + esc(c) + '" aria-pressed="' + (state.filter === c) + '" title="' + esc(noData ? t.name + (wfhState === "building" ? " · being built, it fills in by itself" : " · not available for this period right now") : t.name + " · " + v + (v === 1 ? " person" : " people")) + '">' +
+        '<span class="lt-dot" style="background:' + t.color + '"></span><span class="lt-code">' + esc(t.short) + '</span><span class="lt-n">' + (noData ? (wfhState === "building" ? "…" : "–") : v) + "</span></button>";
     }).join("");
   }
 
@@ -220,13 +264,13 @@
     var max = 1;
     days.forEach(function (d) {
       var t = 0;
-      Object.keys(agg.perDay[d] || {}).forEach(function (c) { if (!state.filter || state.filter === c) t += agg.perDay[d][c]; });
+      Object.keys(agg.perDay[d] || {}).forEach(function (c) { if (visibleCode(c, state.filter)) t += agg.perDay[d][c]; });
       if (t > max) max = t;
     });
     return days.map(function (d) {
       var segs = "", tot = 0, tip = fmt(d, { weekday: "short", day: "numeric", month: "short" });
       agg.codes.forEach(function (c) {
-        var v = (agg.perDay[d] || {})[c]; if (!v || (state.filter && state.filter !== c)) return;
+        var v = (agg.perDay[d] || {})[c]; if (!v || !visibleCode(c, state.filter)) return;
         tot += v; tip += " · " + typeMeta(c).short + " " + num(v);
         segs += '<div class="lt-seg-b" style="height:' + (v / max * 100) + "%;background:" + typeMeta(c).color + '"></div>';
       });
@@ -242,7 +286,7 @@
     var out = [], cur = null;
     Object.keys(dayMap).sort().forEach(function (d) {
       Object.keys(dayMap[d]).forEach(function (code) {
-        if (filterCode && filterCode !== code) return;
+        if (!visibleCode(code, filterCode)) return;
         var v = dayMap[d][code];
         if (cur && cur.code === code && cur.v === v && add(cur.end, 1) === d) { cur.end = d; cur.len++; }
         else { cur = { code: code, v: v, start: d, end: d, len: 1 }; out.push(cur); }
@@ -306,7 +350,7 @@
     return list.map(function (p) {
       var ini = String(p.e.name || "?").split(" ").map(function (w) { return w[0]; }).slice(0, 2).join("");
       var sum = state.filter ? p.mine[state.filter] : p.sum;
-      var chips = Object.keys(p.mine).filter(function (c) { return !state.filter || state.filter === c; }).map(function (c) {
+      var chips = Object.keys(p.mine).filter(function (c) { return visibleCode(c, state.filter); }).map(function (c) {
         return '<span class="lt-chip"><i style="background:' + typeMeta(c).color + '"></i>' + esc(typeMeta(c).short) + " " + num(p.mine[c]) + "</span>";
       }).join("");
       return '<div class="lt-list-row"><div class="lt-av">' + esc(ini) + '</div><div><div class="lt-who">' + esc(p.e.name) + '</div><div class="lt-team">' + esc(teamOf(p.e)) +
@@ -400,7 +444,10 @@
   }
   function personEntriesHtml(dayMap) {
     var runs = runsForDays(dayMap, state.personFilter).slice().reverse(); // most recent first
-    if (!runs.length) return '<div class="lt-empty-msg">No leave or absence recorded in this range.</div>';
+    if (!runs.length) {
+      var hasWfh = !state.personFilter && Object.keys(dayMap).some(function (d) { return dayMap[d][WFH_CODE]; });
+      return '<div class="lt-empty-msg">No leave or absence recorded in this range.' + (hasWfh ? " Select WFH above to see the work-from-home days." : "") + "</div>";
+    }
     return runs.map(function (u) {
       var t = typeMeta(u.code), total = u.len * u.v;
       return '<div class="lt-pentry"><span class="lt-dot" style="background:' + t.color + '"></span>' +
@@ -421,17 +468,24 @@
     var warn = failedMonths.length
       ? '<div class="lt-note"><span>Some months couldn’t be loaded (' + failedMonths.map(function (m) { return fmt(m + "-01", { month: "short" }); }).join(", ") + "), so they’re missing below.</span><button type=\"button\" data-pretry=\"1\">Retry</button></div>"
       : "";
+    var wBuilding = monthsList.filter(function (m) { return months[m] && months[m].wfh === "building"; });
+    var wBroken = monthsList.filter(function (m) { return months[m] && months[m].wfh === "unavailable"; });
+    var monthNames = function (list) { return list.map(function (m) { return fmt(m + "-01", { month: "short" }); }).join(", "); };
+    var wfhNote = (wBuilding.length
+        ? '<div class="lt-note"><span>Building work-from-home days… ' + (monthsList.length - wBuilding.length - wBroken.length) + " of " + monthsList.length + " months ready. The rest appear here by themselves.</span></div>" : "") +
+      (wBroken.length
+        ? '<div class="lt-note"><span>Work-from-home days couldn’t be built for ' + monthNames(wBroken) + " just now, so they aren’t included. Reload the page in a few minutes to try again.</span></div>" : "");
     var dayMap = daysFor(emp, monthsList);
     if (state.personFilter && personTotals(dayMap).codes.indexOf(state.personFilter) < 0) state.personFilter = null;
     var pt = personTotals(dayMap);
-    var total = pt.codes.reduce(function (a, c) { return a + (pt.totals[c] || 0); }, 0);
+    var total = pt.codes.reduce(function (a, c) { return a + (visibleCode(c, state.personFilter) ? (pt.totals[c] || 0) : 0); }, 0);
     var firstLabel = fmt(monthsList[0] + "-01", { month: "short", year: "numeric" }), lastLabel = fmt(monthsList[monthsList.length - 1] + "-01", { month: "short", year: "numeric" });
     var rangeLabel = firstLabel === lastLabel ? firstLabel : firstLabel + " – " + lastLabel;
     return (
-      controls + warn +
+      controls + warn + wfhNote +
       '<div class="lt-pheader"><div><div class="lt-who" style="font-size:1.05rem">' + esc(emp.name) + '</div><div class="lt-team">' + esc(teamOf(emp)) + " · " + rangeLabel + "</div></div>" +
       '<div class="lt-ptotal">' + num(total) + " <small>" + (total === 1 ? "day" : "days") + " total</small></div></div>" +
-      (total === 0
+      (pt.codes.length === 0
         ? '<div class="lt-empty-msg">No leave or absence recorded for ' + esc(emp.name) + " in this range.</div>"
         : '<div class="lt-legend">' + personChipsHtml(pt) + "</div>" +
           '<div class="lt-ptrack-wrap">' + personTimelineHtml(dayMap, monthsList) + "</div>" +
@@ -452,13 +506,21 @@
 
     var agg = aggregate(r);
     if (state.filter && agg.codes.indexOf(state.filter) < 0) state.filter = null;
-    var ringTotal = agg.codes.reduce(function (a, c) { return a + (agg.peopleBy[c] || 0); }, 0); // slices are shares of this
-    var list = agg.perEmp.filter(function (p) { return !state.filter || p.mine[state.filter]; });
+    var ringTotal = ringCodes(agg).reduce(function (a, c) { return a + (agg.peopleBy[c] || 0); }, 0); // slices are shares of this
+    var list = agg.perEmp.filter(function (p) { return state.filter ? p.mine[state.filter] : p.sum > 0; });
+    if (state.filter === WFH_CODE) list = list.slice().sort(function (a, b) { return b.mine[WFH_CODE] - a.mine[WFH_CODE] || String(a.e.name).localeCompare(String(b.e.name)); });
+    var wfhBroken = mk.some(function (m) { return months[m] && months[m].wfh === "unavailable"; });
+    var wfhBuilding = mk.some(function (m) { return months[m] && months[m].wfh === "building"; });
+    var wfhState = wfhBroken ? "unavailable" : wfhBuilding ? "building" : "ready";
+    var centerN = state.filter === WFH_CODE ? (agg.peopleBy[WFH_CODE] || 0) : agg.people;
+    var centerLabel = state.filter === WFH_CODE ? "Working from home" : (agg.people === 1 ? "Person away" : "People away");
+    var wfhNote = wfhState === "building" ? '<div class="lt-note"><span>Work-from-home days are still being built for this period. They fill in by themselves, about a minute per month.</span></div>'
+      : wfhState === "unavailable" ? '<div class="lt-note"><span>Work-from-home days couldn’t be built for this period just now. Reload the page in a few minutes to try again.</span></div>' : "";
     var inView = employees().length;
     var outsiders = 0, outsiderDays = 0;
     extraPeople(mk).forEach(function (x) {
       var all = daysFor(x, mk), sum2 = 0;
-      Object.keys(all).forEach(function (d) { if (d >= r[0] && d <= r[1]) Object.keys(all[d]).forEach(function (c) { sum2 += all[d][c]; }); });
+      Object.keys(all).forEach(function (d) { if (d >= r[0] && d <= r[1]) Object.keys(all[d]).forEach(function (c) { if (c !== WFH_CODE) sum2 += all[d][c]; }); });
       if (sum2 > 0) { outsiders++; outsiderDays += sum2; }
     });
     var note = outsiders
@@ -503,11 +565,11 @@
         timeline = (state.mode === "day" ? listHtml(shown) : timelineHtml(r, shown)) +
           (list.length > 15 ? '<button type="button" class="lt-more" data-showall="1">' + (collapse ? "Show all " + list.length + " people" : "Show fewer") + "</button>" : "");
       }
-      body = note +
-        '<div class="lt-body"><div class="lt-donut">' + ringSvg(agg, ringTotal) + '<div class="lt-mid"><div class="lt-big">' + agg.people + '</div><div class="lt-mid-sub">' + (agg.people === 1 ? "Person away" : "People away") + '</div></div></div>' +
-        '<div class="lt-legend">' + legendHtml(agg) + "</div></div>" +
+      body = note + wfhNote +
+        '<div class="lt-body"><div class="lt-donut">' + ringSvg(agg, ringTotal) + '<div class="lt-mid"><div class="lt-big">' + centerN + '</div><div class="lt-mid-sub">' + centerLabel + '</div></div></div>' +
+        '<div class="lt-legend">' + legendHtml(agg, wfhState) + "</div></div>" +
         (state.mode === "day" ? "" : '<div><div class="lt-section-title"><h3>Day by day</h3><span>Weekends are dimmed</span></div><div class="lt-trend">' + trendHtml(r, agg) + "</div></div>") +
-        '<div><div class="lt-section-title"><h3>' + (state.filter ? (state.filter === ABSENT_CODE ? "Who was marked Absent, no leave filed" : "Who took " + esc(typeMeta(state.filter).name)) : "Who was away") + (state.mode === "day" ? "" : ", and when") + "</h3><span>" +
+        '<div><div class="lt-section-title"><h3>' + (state.filter ? (state.filter === ABSENT_CODE ? "Who was marked Absent, no leave filed" : state.filter === WFH_CODE ? "Who worked from home" : "Who took " + esc(typeMeta(state.filter).name)) : "Who was away") + (state.mode === "day" ? "" : ", and when") + "</h3><span>" +
         list.length + (list.length === 1 ? " person" : " people") + (state.mode === "day" ? " · click a type to filter" : " · hover a bar for details") + "</span></div>" + timeline + "</div>";
     }
     if (state.person) {

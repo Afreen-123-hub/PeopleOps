@@ -763,6 +763,10 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.handle_leave_types()
             return
 
+        if path == "/api/leave-types-wfh":
+            self.handle_leave_types_wfh()
+            return
+
         if path == "/api/work-location":
             self.handle_work_location()
             return
@@ -788,6 +792,10 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 sys.path.insert(0, str(PROJECT_ROOT))
             from services import leave_types_store
             payload = leave_types_store.get_month(month)
+            try:  # add work-from-home days from the Work location cache; never allowed to break the leave data
+                payload = leave_types_store.with_wfh(payload, month)
+            except Exception as exc:
+                print(f"[leave-types] {month} work-from-home data skipped: {type(exc).__name__}: {exc}", flush=True)
         except Exception as exc:
             print(f"[leave-types] {month} failed: {type(exc).__name__}: {exc}", flush=True)
             self.send_json(
@@ -796,6 +804,26 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             )
             return
         self.send_json(payload)
+
+    def handle_leave_types_wfh(self):
+        """Work-from-home status per month for the leave card: ready, building (with progress) or unavailable."""
+        import re
+        from urllib.parse import parse_qs
+
+        raw = (parse_qs(urlparse(self.path).query).get("months") or [""])[0]
+        months = [m.strip() for m in raw.split(",") if m.strip()]
+        limit = time.strftime("%Y-%m", time.gmtime(time.time() + 14 * 3600))
+        if not months or len(months) > 24 or not all(re.fullmatch(r"\d{4}-(0[1-9]|1[0-2])", m) and m <= limit for m in months):
+            self.send_json({"error": "months must be a comma-separated list of up to 24 past or current YYYY-MM months."}, HTTPStatus.BAD_REQUEST)
+            return
+        try:
+            if str(PROJECT_ROOT) not in sys.path:
+                sys.path.insert(0, str(PROJECT_ROOT))
+            from services import leave_types_store
+            self.send_json(leave_types_store.wfh_statuses(months))
+        except Exception as exc:
+            print(f"[leave-types] wfh status failed: {type(exc).__name__}: {exc}", flush=True)
+            self.send_json({"error": "Work-from-home status could not be loaded."}, HTTPStatus.BAD_GATEWAY)
 
     def handle_work_location(self):
         """Per-day office / home / absent data for one month, for the "Work location" card.
