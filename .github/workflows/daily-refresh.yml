@@ -40,6 +40,12 @@ jobs:
       - name: Refresh Teams data
         run: python scripts/refresh_teams.py
 
+      - name: Refresh org hierarchy
+        # Builds data/org-hierarchy.json (manager/reports tree) from the teamsId links
+        # refresh_teams.py just updated. Not safe to skip on error: a stale org chart
+        # silently breaks team-scoped access control, so a failure here fails the run.
+        run: python scripts/refresh_org_hierarchy.py
+
       - name: Refresh GitHub data
         run: python scripts/refresh_github.py --month $(date -u +%Y-%m)
 
@@ -58,7 +64,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
-          git add data/peopleops-data.json data/graph-activity.json data/github-data.json
+          git add data/peopleops-data.json data/graph-activity.json data/github-data.json data/org-hierarchy.json
           # only if the leave step produced files; a missing path would make git add fail the whole step
           if [ -d data/leave ]; then git add data/leave; fi
           git diff --staged --quiet || git commit -m "chore: daily data refresh [skip ci]"
