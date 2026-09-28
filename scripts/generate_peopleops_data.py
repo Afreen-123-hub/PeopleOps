@@ -293,6 +293,9 @@ def build_gap_analysis(sources, source_confidence, score_drivers, kpi):
 BLOCKED_IDS = {
     "11", "71", "CW002", "adam_1", "suus",
     "TestingTeamLead001", "EMP938977", "EMP938938",
+    # Found via the RBAC org-hierarchy review (2026-09-28): personal-email/placeholder
+    # test accounts that still pass is_real_employee()'s other checks.
+    "Ju123", "EMP001", "CW001", "CWINE3000",
 }
 
 def is_real_employee(user):

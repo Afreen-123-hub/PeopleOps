@@ -1,0 +1,73 @@
+{
+  "_comment": "Manual role corrections for RBAC. Keys are employee IDs (or email, for accounts with no employee record) from data/org-hierarchy.json. Regenerated 2026-09-28 after the org-hierarchy data refresh fixed stale manager links (was 48/95 matched, now 62/113). Each entry below is an UNREVIEWED rule-based guess (backend/access_control.py:_default_role_for) \u2014 please correct role for anyone it got wrong. Valid roles: employee, team_lead, manager, dept_head, hr, hr_admin, super_admin. Remove an entry to fall back to the rule guess.",
+  "CWINE084": {
+    "role": "team_lead",
+    "name": "Prasanth Pradeep Kumar",
+    "note": "reviewed: false"
+  },
+  "CWINE020": {
+    "role": "team_lead",
+    "name": "Felista Johnbritto",
+    "note": "reviewed: false"
+  },
+  "CWINE074": {
+    "role": "team_lead",
+    "name": "Divya Sree D V",
+    "note": "reviewed: false"
+  },
+  "CWINE014": {
+    "role": "dept_head",
+    "name": "Neaven Christopher",
+    "note": "reviewed: false"
+  },
+  "CWINE025": {
+    "role": "team_lead",
+    "name": "Sainath M",
+    "note": "reviewed: true \u2014 confirmed Team Lead of Development team"
+  },
+  "CWINE121": {
+    "role": "team_lead",
+    "name": "Divya R",
+    "note": "reviewed: false"
+  },
+  "CWINE117": {
+    "role": "team_lead",
+    "name": "Dhinaanithi V K",
+    "note": "reviewed: false"
+  },
+  "CWINE016": {
+    "role": "team_lead",
+    "name": "Nithisha S",
+    "note": "reviewed: false"
+  },
+  "CWINE153": {
+    "role": "team_lead",
+    "name": "Asir Alex Reagan J",
+    "note": "reviewed: false"
+  },
+  "CWINE154": {
+    "role": "hr",
+    "name": "Lexila T A",
+    "note": "reviewed: false"
+  },
+  "CWINE123": {
+    "role": "dept_head",
+    "name": "Trinita Rex",
+    "note": "reviewed: false"
+  },
+  "CWINE053": {
+    "role": "team_lead",
+    "name": "Senthil Kumar",
+    "note": "reviewed: false"
+  },
+  "CWINE001": {
+    "role": "dept_head",
+    "name": "Christina Arulraj",
+    "note": "reviewed: false"
+  },
+  "TCINMD02": {
+    "role": "super_admin",
+    "name": "Vijay Anand",
+    "note": "reviewed: false"
+  }
+}
