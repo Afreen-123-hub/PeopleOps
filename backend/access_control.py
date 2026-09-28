@@ -63,11 +63,18 @@ def _overrides() -> dict:
 
 
 def _default_role_for(employee: dict, by_id: dict[str, dict]) -> Role:
-    """Best-effort guess when there's no manual override. See module docstring for caveats."""
+    """Best-effort guess when there's no manual override. See module docstring for caveats.
+
+    Deliberately never auto-assigns a company-wide role (hr/hr_admin/super_admin): an empty
+    managerId is just as likely to be a data gap (e.g. the real manager is marked resigned
+    upstream and got filtered out, or a cross-system linking miss — both have happened in
+    practice) as it is to mean "this is the actual company root." Auto-granting company-wide
+    access on that signal would be a real privilege-escalation risk. The one true root
+    (currently Vijay Anand / TCINMD02) is covered by an explicit, human-reviewed entry in
+    data/role-overrides.json instead — company-wide roles should only ever come from there.
+    """
     if not employee.get("isManager"):
         return "employee"
-    if not employee.get("managerId"):
-        return "super_admin"  # root of the org tree — no one above them
 
     team = (employee.get("team") or "").lower()
     designation = (employee.get("designation") or "").lower()

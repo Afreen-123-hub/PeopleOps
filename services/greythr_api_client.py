@@ -196,6 +196,22 @@ def get_department_details(token: str, domain: str) -> dict[str, dict]:
 # REPORTING HIERARCHY
 # ==========================
 
+def get_reporting_hierarchy(token: str, domain: str) -> list[dict]:
+    """Return the full reporting-hierarchy roster: [{id, pid, employeeNo, name, email,
+    resigned, hasReportee, designation, department, location}, ...]. `pid` is the GreytHR
+    internal id (not employeeNo) of the employee's manager, or null at the top of the tree.
+    This is HR's own system of record for who reports to whom — unlike Microsoft Graph's
+    "Manager" field (which many accounts simply never have set), GreytHR's reporting
+    hierarchy is actively maintained as part of onboarding."""
+    core_base = f"https://{domain}"
+    data = _api_get(
+        f"{core_base}/core-hr/v1/employees/reporting-hierarchy",
+        token, domain,
+        params={"display": "all", "page": 0, "size": 30000},
+    )
+    return data.get("data", [])
+
+
 def get_reportees_by_employee_no(token: str, domain: str, manager_emp_no: str) -> list[dict]:
     """Return employees directly reporting to the given manager employee number.
     Each item includes: id, pid, employeeNo, name, email, designation, department, location.
