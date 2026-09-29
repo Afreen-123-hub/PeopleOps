@@ -1,8 +1,11 @@
 """
-Build manager → reportee hierarchy from Azure AD (User.Read.All — no extra permissions needed).
+Build manager -> reportee hierarchy from GreytHR's reporting-hierarchy API (HR's own
+system of record for reporting lines).
 
-Reads every employee's manager from Microsoft Graph, matches them back to
-PeopleOPS employee records, and writes data/org-hierarchy.json.
+This replaced a Microsoft Graph (Azure AD "Manager" field) based version: Graph's manager
+field is frequently unset (only ~55% of employees had it set), while GreytHR's hierarchy is
+actively maintained as part of onboarding and reflects the org chart HR itself works from
+(verified 2026-09-28 against an HR-exported org chart: 93/93 employees, fully linked).
 
 Also updates each employee record in peopleops-data.json with:
   - managerId, managerName, managerEmail
@@ -24,122 +27,111 @@ ORG_FILE = PROJECT / "data" / "org-hierarchy.json"
 import sys
 sys.path.insert(0, str(PROJECT))
 
-from services.teams_api_client import TeamsApiError, get_teams_users_with_manager
-from services.teams_auth import TeamsAuthError
+from services.greythr_api_client import GreytHRApiError, GreytHRAuthError, GreytHRConfigError, get_reporting_hierarchy, get_token
+
+# GreytHR carries a handful of non-employee rows (test/sample accounts) even in the live
+# hierarchy report — excluded the same way BLOCKED_IDS excludes them elsewhere.
+BLOCKED_EMPLOYEE_NOS = {"EM01"}
 
 
 def clean(value):
     return str(value or "").strip()
 
 
-def local_part(email: str) -> str:
-    return clean(email).split("@", 1)[0].lower()
-
-
 def main():
     if not PEOPLEOPS_FILE.exists():
         raise RuntimeError("peopleops-data.json not found. Run generate_peopleops_data.py first.")
 
-    print("Fetching Azure AD users with manager info...")
+    print("Fetching GreytHR reporting hierarchy...")
     try:
-        ad_users = get_teams_users_with_manager()
-    except (TeamsApiError, TeamsAuthError) as exc:
+        token, domain = get_token()
+        rows = get_reporting_hierarchy(token, domain)
+    except (GreytHRApiError, GreytHRAuthError, GreytHRConfigError) as exc:
         print(f"ERROR: {exc}")
         raise SystemExit(1)
 
-    print(f"Fetched {len(ad_users)} Azure AD users.")
+    rows = [
+        r for r in rows
+        if not r.get("resigned") and clean(r.get("employeeNo")) not in BLOCKED_EMPLOYEE_NOS
+    ]
+    print(f"Fetched {len(rows)} active GreytHR employees.")
 
-    # Build lookup: Azure AD id → user record
-    ad_by_id = {clean(u.get("id")).lower(): u for u in ad_users if u.get("id")}
+    # GreytHR's `pid` links to another row's internal `id` (not employeeNo) — resolve pid ->
+    # manager's employeeNo/name/email via this lookup, same shape the old Graph-based script
+    # produced so nothing downstream (access_control.py, the frontend) needs to change.
+    by_gid = {r["id"]: r for r in rows if r.get("id") is not None}
 
-    # Build manager map: manager_azure_id → list of reportee azure ids
     manager_to_reports: dict[str, list[str]] = defaultdict(list)
-    user_manager_map: dict[str, dict] = {}
+    employee_manager: dict[str, dict] = {}  # employeeNo -> {id, name, email}
 
-    for user in ad_users:
-        user_id = clean(user.get("id")).lower()
-        manager = user.get("manager")
-        if manager and manager.get("id"):
-            manager_id = clean(manager["id"]).lower()
-            manager_to_reports[manager_id].append(user_id)
-            user_manager_map[user_id] = {
-                "id": manager_id,
-                "name": clean(manager.get("displayName")),
-                "email": clean(manager.get("mail") or manager.get("userPrincipalName")),
-            }
+    for row in rows:
+        emp_no = clean(row.get("employeeNo"))
+        pid = row.get("pid")
+        if not emp_no or pid is None:
+            continue
+        mgr_row = by_gid.get(pid)
+        if not mgr_row:
+            continue
+        mgr_emp_no = clean(mgr_row.get("employeeNo"))
+        if not mgr_emp_no:
+            continue
+        employee_manager[emp_no] = {
+            "id": mgr_emp_no,
+            "name": clean(mgr_row.get("name")),
+            "email": clean(mgr_row.get("email")),
+        }
+        manager_to_reports[mgr_emp_no].append(emp_no)
 
-    # Load PeopleOPS employees and match by teamsId
+    # Load PeopleOPS employees for enrichment (team, designation, kpi, band) — GreytHR's own
+    # designation/department fields are inconsistently filled, so peopleops-data.json (sourced
+    # from Worklogix) remains the richer record where the same employee exists in both.
     peopleops = json.loads(PEOPLEOPS_FILE.read_text(encoding="utf-8-sig"))
     employees = peopleops.get("employees", [])
+    emp_by_id = {clean(e.get("id")): e for e in employees if e.get("id")}
 
-    # Build lookup: azure id → employee record
-    emp_by_azure_id = {}
-    for emp in employees:
-        teams_id = clean(emp.get("teamsId")).lower()
-        if teams_id:
-            emp_by_azure_id[teams_id] = emp
-
-    # Inject manager info into each employee record
     updated = 0
     for emp in employees:
-        teams_id = clean(emp.get("teamsId")).lower()
-        if not teams_id:
-            continue
-        mgr = user_manager_map.get(teams_id)
+        emp_id = clean(emp.get("id"))
+        mgr = employee_manager.get(emp_id)
         if mgr:
             emp["managerId"] = mgr["id"]
             emp["managerName"] = mgr["name"]
             emp["managerEmail"] = mgr["email"]
-            # Resolve manager to a PeopleOPS employee if possible
-            mgr_emp = emp_by_azure_id.get(mgr["id"])
-            if mgr_emp:
-                emp["managerEmployeeId"] = clean(mgr_emp.get("id"))
+            emp["managerEmployeeId"] = mgr["id"]  # already a PeopleOPS employee id (employeeNo)
             updated += 1
-
-    # Embed directReports into each employee record in peopleops-data.json
-    # Build emp_id → employee lookup for resolving names
-    emp_by_id = {clean(e.get("id")): e for e in employees if e.get("id")}
+        else:
+            for key in ("managerId", "managerName", "managerEmail", "managerEmployeeId"):
+                emp.pop(key, None)
 
     for emp in employees:
-        teams_id = clean(emp.get("teamsId")).lower()
-        report_azure_ids = manager_to_reports.get(teams_id, [])
-        report_entries = []
-        for rid in report_azure_ids:
-            reportee_emp = emp_by_azure_id.get(rid)
-            if reportee_emp:
-                report_entries.append({
-                    "id": clean(reportee_emp.get("id")),
-                    "name": clean(reportee_emp.get("name")),
-                    "designation": clean(reportee_emp.get("designation") or ""),
-                })
-        emp["directReports"] = report_entries
+        emp_id = clean(emp.get("id"))
+        report_ids = [r for r in manager_to_reports.get(emp_id, []) if r in emp_by_id]
+        emp["directReports"] = [
+            {"id": rid, "name": clean(emp_by_id[rid].get("name")), "designation": clean(emp_by_id[rid].get("designation") or "")}
+            for rid in report_ids
+        ]
 
-    # Build org hierarchy nodes
+    # Build org hierarchy nodes — same shape as before, still keyed by PeopleOPS employee id.
     nodes = []
-    managers_seen = set()
-
     for emp in employees:
-        teams_id = clean(emp.get("teamsId")).lower()
-        report_emp_ids = [r["id"] for r in emp.get("directReports", [])]
-        is_manager = len(report_emp_ids) > 0
+        emp_id = clean(emp.get("id"))
+        report_ids = [r["id"] for r in emp.get("directReports", [])]
+        is_manager = len(report_ids) > 0
         nodes.append({
-            "id": clean(emp.get("id")),
+            "id": emp_id,
             "name": clean(emp.get("name")),
             "team": clean(emp.get("team")),
             "designation": clean(emp.get("designation")),
             "teamsId": clean(emp.get("teamsId")),
             "managerId": emp.get("managerEmployeeId", ""),
             "managerName": emp.get("managerName", ""),
-            "directReports": report_emp_ids,
-            "directReportCount": len(report_emp_ids),
+            "directReports": report_ids,
+            "directReportCount": len(report_ids),
             "isManager": is_manager,
             "kpi": emp.get("kpi"),
             "band": emp.get("band", ""),
         })
-        if is_manager:
-            managers_seen.add(clean(emp.get("id")))
 
-    # Build summary
     managers = [n for n in nodes if n["isManager"]]
     print(f"\nOrg hierarchy built:")
     print(f"  Total employees : {len(nodes)}")
@@ -150,10 +142,10 @@ def main():
     for m in sorted(managers, key=lambda x: -x["directReportCount"]):
         print(f"  {m['name']} ({m['id']}) — {m['directReportCount']} reports")
 
-    # Save org-hierarchy.json
     payload = {
         "meta": {
             "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "source": "greythr-reporting-hierarchy",
             "totalEmployees": len(nodes),
             "managerCount": len(managers),
             "matchedWithManager": updated,
@@ -163,7 +155,6 @@ def main():
     ORG_FILE.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     print(f"\nSaved {ORG_FILE.relative_to(PROJECT)}")
 
-    # Update peopleops-data.json with manager fields
     PEOPLEOPS_FILE.write_text(json.dumps(peopleops, indent=2), encoding="utf-8")
     print(f"Updated {PEOPLEOPS_FILE.relative_to(PROJECT)} with manager info for {updated} employees.")
 

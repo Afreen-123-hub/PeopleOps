@@ -1,0 +1,77 @@
+{
+  "_comment": "Manual role corrections for RBAC. Keys are employee IDs (or email, for accounts with no employee record) from data/org-hierarchy.json. Regenerated 2026-09-28: switched org-hierarchy.json to source from GreytHR, widened the MTM fetch to the full reporting hierarchy (found a 25-person branch under Archana Arun previously invisible entirely), and fixed a bug where anyone with an unresolved managerId (e.g. their real manager is marked resigned in GreytHR) was auto-classified super_admin. Company-wide roles (hr/hr_admin/super_admin) now ONLY come from an explicit reviewed entry below \u2014 the automatic rule never assigns them. Valid roles: employee, team_lead, manager, dept_head, hr, hr_admin, super_admin. Remove an entry to fall back to the rule guess.",
+  "CWINE084": {
+    "role": "team_lead",
+    "name": "Prasanth Pradeep Kumar",
+    "note": "reviewed: true"
+  },
+  "CWINE020": {
+    "role": "team_lead",
+    "name": "Felista Johnbritto",
+    "extraReports": ["CWINI168"],
+    "note": "reviewed: true — CWINI168 (Bala Prasanna R) confirmed via Teams as her own existing report, unrelated to the Trinita question. Still holding off on inheriting Trinita's branch until that's confirmed in GreytHR. (Teams also showed Hemnath and Gayathri A reporting to her, but neither exists in our system yet, so nothing to add for them.)"
+  },
+  "CWINE074": {
+    "role": "team_lead",
+    "name": "Divya Sree D V",
+    "extraReports": ["CWINI230", "CWINI227", "CWINI232"],
+    "note": "reviewed: true — confirmed via Teams org chart as the real manager of 4 UI/UX interns (Sriram, Annamalai N, and two different people both named Guna Sivam S). Only CWINI232 (one of the two Guna Sivam S) exists in our system; the other isn't in peopleops-data.json at all. Not in GreytHR since these are interns."
+  },
+  "CWINE014": {
+    "role": "dept_head",
+    "name": "Neaven Christopher",
+    "note": "reviewed: true"
+  },
+  "CWINE025": {
+    "role": "team_lead",
+    "name": "Sainath M",
+    "note": "reviewed: true \u2014 confirmed Team Lead of Development team"
+  },
+  "CWINE117": {
+    "role": "team_lead",
+    "name": "Dhinaanithi V K",
+    "note": "reviewed: true"
+  },
+  "CWINE016": {
+    "role": "team_lead",
+    "name": "Nithisha S",
+    "note": "reviewed: true"
+  },
+  "CWINE154": {
+    "role": "hr",
+    "name": "Lexila T A",
+    "note": "reviewed: true"
+  },
+  "CWINE053": {
+    "role": "manager",
+    "name": "Senthil Kumar",
+    "note": "reviewed: true — 13 direct reports, manager tier fits better than team_lead given the scale"
+  },
+  "CWINE001": {
+    "role": "super_admin",
+    "name": "Christina Arulraj",
+    "note": "reviewed: true — second-in-command under CEO Vijay Anand, company-wide access confirmed"
+  },
+  "TCINMD02": {
+    "role": "super_admin",
+    "name": "Vijay Anand",
+    "note": "reviewed: true — CEO, root of the org tree in every data pull so far; company-wide access is correct"
+  },
+  "CWINE048": {
+    "role": "dept_head",
+    "name": "Archana Arun",
+    "note": "reviewed: true"
+  },
+  "CWINE153": {
+    "role": "team_lead",
+    "name": "Asir Alex Reagan J",
+    "extraReports": ["CWINI199", "CWINE175", "CWINI208", "CWINE176"],
+    "note": "reviewed: true — confirmed via Teams as active manager of Elakiya Y and Berlin sweety D H (Business Development). Both exist as duplicate records in our system (CWINI199/CWINE175 and CWINI208/CWINE176) so both ids are covered. His own managerId is empty (reports to resigned Trinita Rex Anto), same as Felista's situation."
+  },
+  "CWINE121": {
+    "role": "team_lead",
+    "name": "Divya R (Divya Ravi)",
+    "extraReports": ["CWINI249", "CWINI167"],
+    "note": "reviewed: true — confirmed via Teams as manager of 2 PM interns (Kamali E, Sham Sundar R); her own link to Christina Arulraj is already correct automatically. QA/Testing and DevOps intentionally left without a team_lead override: their former leads (QA and DevOps) have resigned, so those 5+2 unmatched people genuinely have no active manager right now, not a data gap."
+  }
+}

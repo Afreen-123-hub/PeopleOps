@@ -25,7 +25,7 @@ sys.path.insert(0, str(PROJECT))
 
 from services.greythr_api_client import (
     GreytHRApiError, GreytHRAuthError, GreytHRConfigError,
-    get_greythr_attendance, get_reportees_by_employee_no, get_token as greythr_get_token,
+    get_greythr_attendance, get_reporting_hierarchy, get_token as greythr_get_token,
 )
 from services.teams_api_client import TeamsApiError, get_presences_by_user_id, get_teams_activity_report, get_teams_users, get_teams_users_with_manager
 from services.teams_auth import TeamsAuthError
@@ -293,6 +293,12 @@ def build_gap_analysis(sources, source_confidence, score_drivers, kpi):
 BLOCKED_IDS = {
     "11", "71", "CW002", "adam_1", "suus",
     "TestingTeamLead001", "EMP938977", "EMP938938",
+    # Found via the RBAC org-hierarchy review (2026-09-28): personal-email/placeholder
+    # test accounts that still pass is_real_employee()'s other checks.
+    "Ju123", "EMP001", "CW001", "CWINE3000",
+    # GreytHR's own test/sample row (name "TEST"), surfaced once fetch_greythr_mtm_employees
+    # started reading the full reporting hierarchy instead of one manager's direct reports.
+    "EM01",
 }
 
 def is_real_employee(user):
@@ -1032,8 +1038,12 @@ def read_greythr_api(start: str, end: str) -> tuple[defaultdict, dict, dict, dic
 
 
 def fetch_greythr_mtm_employees(existing_ids: set, fallback_path: Path | None = None) -> dict:
-    """Return {emp_no: user_dict} for employees reporting to Senthil Kumar (CWINE053)
-    who are in GreytHR but not in Worklogix. These are MTM members from another office.
+    """Return {emp_no: user_dict} for every active GreytHR employee not already in Worklogix
+    (`existing_ids`) — MTM members from another office/engagement model that Worklogix
+    doesn't track. Originally scoped to only Senthil Kumar's (CWINE053) direct reports;
+    widened 2026-09-28 after finding a second, separate MTM branch (26 people under Archana
+    Arun, CWINE048) that the old manager-specific query never saw — there was no reason to
+    assume Senthil's team was the only one.
 
     If this GreytHR call fails, fall back to the MTM employee list from the previous
     successful generation (fallback_path) instead of returning empty. A transient
@@ -1043,11 +1053,13 @@ def fetch_greythr_mtm_employees(existing_ids: set, fallback_path: Path | None = 
     means a hiccup here just leaves things unchanged instead of erasing them."""
     try:
         token, domain = greythr_get_token()
-        reportees = get_reportees_by_employee_no(token, domain, "CWINE053")
+        rows = get_reporting_hierarchy(token, domain)
         mtm = {}
-        for emp in reportees:
+        for emp in rows:
+            if emp.get("resigned"):
+                continue
             emp_no = str(emp.get("employeeNo") or "").strip()
-            if not emp_no or emp_no in existing_ids:
+            if not emp_no or emp_no in existing_ids or emp_no in BLOCKED_IDS:
                 continue
             dept = str(emp.get("department") or "").strip()
             desig = str(emp.get("designation") or "").strip()
@@ -1069,7 +1081,7 @@ def fetch_greythr_mtm_employees(existing_ids: set, fallback_path: Path | None = 
                 "employee_no": emp_no,
                 "_is_mtm": True,
             }
-        print(f"MTM: {len(mtm)} employees added from GreytHR reporting to Senthil Kumar")
+        print(f"MTM: {len(mtm)} employees added from GreytHR (not already in Worklogix)")
         return mtm
     except (GreytHRConfigError, GreytHRAuthError, GreytHRApiError) as exc:
         print(f"WARNING: MTM employee fetch failed: {exc}", file=sys.stderr)

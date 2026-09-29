@@ -17,6 +17,8 @@ from urllib.parse import unquote, urlparse
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from chatbot.services import answer as tara_answer
 from auth_ms import login_url as ms_login_url, handle_callback as ms_handle_callback
+import access_control
+import audit_log
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -413,6 +415,15 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         token = auth[7:] if auth.startswith("Bearer ") else ""
         return _sessions.get(token, {})
 
+    def _current_scope(self) -> dict:
+        # Sessions created before RBAC (or ones missing a resolvable identity) default to
+        # "self" — the least-access fallback — rather than failing open.
+        return self._current_session().get("scope") or {"type": "self", "employeeIds": []}
+
+    def _accessor(self) -> str:
+        session = self._current_session()
+        return session.get("email") or session.get("name") or "unknown"
+
     def _require_admin_session(self) -> bool:
         """MTM verification is restricted to password-login accounts — SSO (leadership) accounts don't get it."""
         if not self._require_auth():
@@ -630,7 +641,11 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         token = secrets.token_hex(32)
         user_name = result.get("name", "") or result.get("displayName", "")
         user_email = result.get("email", "")
-        _sessions[token] = {"expiry": time.time() + SESSION_TTL, "name": user_name, "email": user_email, "type": "sso"}
+        identity = access_control.resolve_identity(email=user_email)
+        _sessions[token] = {
+            "expiry": time.time() + SESSION_TTL, "name": user_name, "email": user_email, "type": "sso",
+            "role": identity["role"], "scope": identity["scope"], "employeeId": identity["employeeId"],
+        }
         name = quote(user_name)
         self.send_response(302)
         self.send_header("Location", f"/login.html?sso_token={token}&sso_name={name}")
@@ -649,7 +664,12 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             return
         if body.get("username", "").strip() == username and body.get("password", "") == password:
             token = secrets.token_hex(32)
-            _sessions[token] = {"expiry": time.time() + SESSION_TTL, "name": username, "type": "password"}
+            _sessions[token] = {
+                "expiry": time.time() + SESSION_TTL, "name": username, "type": "password",
+                # Password-login accounts have no employee record to resolve a scope from;
+                # treated as company-wide admins per "HR/Admin retain company-wide access".
+                "role": "super_admin", "scope": {"type": "company", "employeeIds": []},
+            }
             self.send_json({"token": token, "name": username, "expires_in": SESSION_TTL})
         else:
             time.sleep(1)  # slow brute-force attempts
@@ -674,6 +694,17 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.send_json({"error": "MTM verification is restricted to admin accounts."}, HTTPStatus.FORBIDDEN)
             return
 
+        scope = current_session.get("scope") or {"type": "self", "employeeIds": []}
+
+        if path == "/api/overview" and scope.get("type") != "company":
+            # /api/overview is a precomputed company-wide aggregate — it isn't something we
+            # can filter down to one team without recomputing it from scratch, so per "must
+            # NOT access company-wide reports unless authorized" it's blocked outright for
+            # non-company scopes rather than risk leaking an unfiltered aggregate.
+            audit_log.record(who=self._accessor(), action="denied", resource="overview")
+            self.send_json({"error": "Company-wide reports are restricted to HR/Admin roles."}, HTTPStatus.FORBIDDEN)
+            return
+
         routes = {
             "/api/health": lambda: {
                 "status": "ok",
@@ -686,6 +717,8 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "name": current_session.get("name", ""),
                 "email": current_session.get("email", ""),
                 "type": current_session.get("type", "password"),
+                "role": current_session.get("role", "employee"),
+                "scope": scope,
             },
             "/api/available-months": lambda: {
                 "months": sorted([
@@ -693,11 +726,14 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                     if __import__("re").match(r"^\d{4}-\d{2}$", p.stem)
                 ]) if (PROJECT_ROOT / "data" / "months").exists() else []
             },
-            "/api/data": lambda: data,
+            # /api/data returns the whole cached dataset — its `employees` field is exactly
+            # as sensitive as /api/employees and must be scoped the same way, or a team-scoped
+            # user could bypass the /api/employees restriction just by calling this instead.
+            "/api/data": lambda: {**data, "employees": access_control.filter_employees(data.get("employees", []), scope)},
             "/api/meta": lambda: data.get("meta", {}),
             "/api/overview": lambda: data.get("overview", {}),
-            "/api/employees": lambda: data.get("employees", []),
-            "/api/teams": lambda: [
+            "/api/employees": lambda: access_control.filter_employees(data.get("employees", []), scope),
+            "/api/teams": lambda: access_control.filter_employees([
                 {
                     "id": employee.get("id"),
                     "name": employee.get("name"),
@@ -707,7 +743,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                     **employee.get("teams", {}),
                 }
                 for employee in data.get("employees", [])
-            ],
+            ], scope),
             "/api/projects": lambda: data.get("projects", []),
             "/api/github-data": lambda: self.load_github_data(),
             "/api/graph-data": lambda: self.load_graph_data(),
@@ -719,14 +755,23 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             "/api/mtm-tasks": lambda: _load_mtm_tasks(),
         }
 
+        AUDITED_LIST_PATHS = {"/api/employees", "/api/teams", "/api/data"}
+
         if path in routes:
             self.send_json(routes[path]())
+            if path in AUDITED_LIST_PATHS:
+                audit_log.record(who=self._accessor(), action="view", resource=path.removeprefix("/api/"), target=scope.get("type", ""))
             return
 
         if path.startswith("/api/employees/"):
             employee_id = unquote(path.removeprefix("/api/employees/"))
+            if not access_control.can_access(employee_id, scope):
+                audit_log.record(who=self._accessor(), action="denied", resource="employee", target=employee_id)
+                self.send_json({"error": "You don't have access to this employee's data."}, HTTPStatus.FORBIDDEN)
+                return
             employee = self.find_employee(data, employee_id)
             if employee:
+                audit_log.record(who=self._accessor(), action="view", resource="employee", target=employee_id)
                 self.send_json(employee)
             else:
                 self.send_json({"error": "Employee not found"}, HTTPStatus.NOT_FOUND)
@@ -743,8 +788,13 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
 
         if path.startswith("/api/attendance/"):
             employee_id = unquote(path.removeprefix("/api/attendance/"))
+            if not access_control.can_access(employee_id, scope):
+                audit_log.record(who=self._accessor(), action="denied", resource="attendance", target=employee_id)
+                self.send_json({"error": "You don't have access to this employee's data."}, HTTPStatus.FORBIDDEN)
+                return
             employee = self.find_employee(data, employee_id)
             if employee:
+                audit_log.record(who=self._accessor(), action="view", resource="attendance", target=employee_id)
                 self.send_json({
                     "id": employee.get("id"),
                     "name": employee.get("name"),
@@ -803,6 +853,8 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 HTTPStatus.BAD_GATEWAY,
             )
             return
+        payload = access_control.filter_leave_types_payload(payload, self._current_scope())
+        audit_log.record(who=self._accessor(), action="view", resource="leave-types", target=month)
         self.send_json(payload)
 
     def handle_leave_types_wfh(self):
@@ -852,6 +904,8 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 HTTPStatus.BAD_GATEWAY,
             )
             return
+        payload = access_control.filter_work_location_payload(payload, self._current_scope())
+        audit_log.record(who=self._accessor(), action="view", resource="work-location", target=month)
         self.send_json(payload)
 
     def regenerate_data(self):
