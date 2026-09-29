@@ -1125,6 +1125,470 @@ function renderAlerts() {
   });
 }
 
+// ---------- Overview: exact layout of "PeopleOps – Prototype 1" ----------
+// Draws #ovProto from the same data the rest of the dashboard uses. The previous Overview
+// sections are still rendered into a hidden holder, because other features rely on them.
+let ovpDeptBars = [];
+const ovpTone = (v) => (v >= 80 ? "G" : v >= 70 ? "B" : v >= 55 ? "A" : "R");
+const ovpBar = (pct, tone) => `<div class="ovp-bar"><i class="ovp-fill-${tone}" style="width:${Math.max(0, Math.min(100, pct))}%"></i></div>`;
+
+function ovpGo(view) {
+  document.querySelector(`.rail-item[data-view="${view}"]`)?.click();
+}
+
+// Next meeting still to start today (Microsoft Graph calendar), or null.
+function ovpNextMeeting() {
+  if (typeof graphMeetingGroups !== "function") return null;
+  const now = Date.now();
+  const endOfDay = new Date(); endOfDay.setHours(23, 59, 59, 999);
+  return graphMeetingGroups()
+    .map((g) => ({ ...g, startMs: new Date(g.start).getTime(), endMs: new Date(g.end).getTime() }))
+    .filter((g) => g.startMs > now && g.startMs <= endOfDay.getTime())
+    .sort((a, b) => a.startMs - b.startMs)[0] || null;
+}
+
+// "2:16" under an hour (ticks every second), otherwise "1h 05m".
+function ovpCountdown(ms) {
+  const s = Math.max(0, Math.round(ms / 1000));
+  if (s >= 3600) return `${Math.floor(s / 3600)}h ${String(Math.floor((s % 3600) / 60)).padStart(2, "0")}m`;
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+}
+
+let ovpNext = null;           // the meeting the countdown and "Remind me" refer to
+let ovpReminder = null;       // { key, timer } once "Remind me" is pressed
+
+let ovpMonthMsg = { state: "", text: "" }; // latest message from the month loader (loading / success / error)
+
+// "Refreshed today, 4:57 PM": when the data was last regenerated (every refresh, manual or daily).
+function ovpRefreshedText() {
+  const at = dataset?.meta?.generatedAt ? new Date(dataset.meta.generatedAt) : null;
+  if (!at || isNaN(at)) return "";
+  const time = at.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  const days = Math.round((new Date().setHours(0, 0, 0, 0) - new Date(at).setHours(0, 0, 0, 0)) / 864e5);
+  const day = days === 0 ? "today" : days === 1 ? "yesterday" : at.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  return `Refreshed ${day}, ${time}`;
+}
+
+// Hover / focus preview under a strip item.
+function ovpPeek(title, rows, action) {
+  return `<div class="ovp-peek" role="tooltip"><h4>${title}</h4>` +
+    (rows.length ? `<ul>${rows.map(([a, b]) => `<li><span>${a}</span><span>${b}</span></li>`).join("")}</ul>` : "") +
+    `<span class="ovp-peek-open">${action}</span></div>`;
+}
+
+// Daily proverb under the greeting. Picked by the local date, so everyone sees the same one
+// today and a new one tomorrow. Proverbs rather than attributed quotes, to avoid misattribution.
+const OVP_PROVERBS = [
+  ["Many hands make light work.", "English proverb"], ["Little by little, one travels far.", "Spanish proverb"],
+  ["The best time to plant a tree was 20 years ago. The second best time is now.", "Proverb"],
+  ["If you want to go fast, go alone. If you want to go far, go together.", "African proverb"],
+  ["A journey of a thousand miles begins with a single step.", "Chinese proverb"], ["Well begun is half done.", "English proverb"],
+  ["Fall seven times, stand up eight.", "Japanese proverb"], ["Drop by drop, the pot is filled.", "Proverb"],
+  ["Practice makes perfect.", "English proverb"], ["Where there's a will, there's a way.", "English proverb"],
+  ["One finger cannot lift a pebble.", "Hopi proverb"], ["Slow and steady wins the race.", "Proverb"],
+  ["Rome wasn't built in a day.", "English proverb"], ["The early bird catches the worm.", "English proverb"],
+  ["A smooth sea never made a skilled sailor.", "English proverb"],
+  ["Great things are done by a series of small things brought together.", "Proverb"],
+  ["Teamwork divides the task and multiplies the success.", "Saying"],
+  ["Learning is a treasure that follows its owner everywhere.", "Chinese proverb"],
+  ["When spiders' webs unite, they can tie up a lion.", "Ethiopian proverb"], ["Don't count the days, make the days count.", "Saying"],
+  ["The harder you work, the luckier you get.", "Saying"], ["Every expert was once a beginner.", "Saying"],
+  ["Small steps every day add up to big results.", "Saying"],
+  ["Tell me and I forget. Teach me and I remember. Involve me and I learn.", "Proverb"], ["Do it well, or not at all.", "Proverb"],
+  ["Unity is strength.", "Proverb"], ["Knowledge grows when shared.", "Proverb"], ["Patience is bitter, but its fruit is sweet.", "Proverb"],
+  ["The person who moves a mountain begins by carrying away small stones.", "Chinese proverb"],
+  ["Today's effort is tomorrow's strength.", "Saying"], ["Where there is unity, there is always victory.", "Proverb"],
+];
+
+function ovpProverb() {
+  const d = new Date();
+  const [text, from] = OVP_PROVERBS[Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5) % OVP_PROVERBS.length];
+  return `<span class="ovp-proverb">“${escapeHtml(text)}”</span> <small class="ovp-proverb-from">— ${escapeHtml(from)}</small>`;
+}
+
+// "Today" area, Meeting hero layout: the meeting as a big teal card (live, next, or none),
+// with "people out" and "overdue" as two small cards beside it and one status line underneath.
+function ovpTodayStrip() {
+  const live = typeof graphLiveMeetings === "function" ? graphLiveMeetings() : [];
+  ovpNext = live.length ? null : ovpNextMeeting();
+  const clock = (ms) => new Date(ms).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  const org = (m) => escapeHtml((m.organizer || "").trim() || "—");
+
+  // ---- Hero: live meeting, else the next one today, else a calm "clear" card
+  let hero;
+  if (live.length) {
+    const m = live[0];
+    const left = typeof graphLiveTimeLeft === "function" ? graphLiveTimeLeft(m.endMs) : "in progress";
+    const pct = Math.max(0, Math.min(100, Math.round(((Date.now() - m.startMs) / Math.max(1, m.endMs - m.startMs)) * 100)));
+    const who = typeof graphMeetingAttendeeRows === "function" ? graphMeetingAttendeeRows(m, live) : [];
+    const said = { busy: "joined", tentative: "tentative", free: "not joined" };
+    const rows = [["Organizer", org(m)], ["Time", `${clock(m.startMs)} – ${clock(m.endMs)}`]]
+      .concat(who.slice(0, 6).map((r) => [escapeHtml(r.name || "—"), said[r.status] || "unknown"]));
+    if (who.length > 6) rows.push([`+${who.length - 6} more invited`, ""]);
+    if (live.length > 1) rows.push(["Also live now", `+${live.length - 1} more`]);
+    const key = typeof graphMeetingKey === "function" ? graphMeetingKey(m) : "";
+    hero = `<div class="ovp-pk ovp-hero-wrap"><button type="button" class="ovp-hero" data-ovp-live="1" data-ovp-meeting="${escapeHtml(key)}" data-ovp-label="${escapeHtml(m.subject)}">
+        <span class="ovp-hero-kicker"><span class="ovp-live-dot" aria-hidden="true"></span>Live now${live.length > 1 ? ` · +${live.length - 1} more` : ""}</span>
+        <span class="ovp-hero-title">${escapeHtml(m.subject)} <small>by ${org(m)}</small></span>
+        <span class="ovp-hero-bar" aria-hidden="true"><i style="width:${pct}%"></i></span>
+        <span class="ovp-hero-foot"><span>Ends ${clock(m.endMs)}</span><b>${escapeHtml(left)} ›</b></span>
+      </button>${ovpPeek(escapeHtml(m.subject), rows, "Click to open live meetings ›")}</div>`;
+  } else if (ovpNext) {
+    const m = ovpNext;
+    const reminderSet = ovpReminder && ovpReminder.key === `${m.subject}|${m.startMs}`;
+    hero = `<div class="ovp-pk ovp-hero-wrap"><button type="button" class="ovp-hero" data-ovp-live="1" data-ovp-upcoming="1" data-ovp-label="${escapeHtml(m.subject)} at ${clock(m.startMs)}">
+        <span class="ovp-hero-kicker">⏱ Next meeting · starts ${clock(m.startMs)}</span>
+        <span class="ovp-hero-title">${escapeHtml(m.subject)} <small>by ${org(m)}</small></span>
+        <span class="ovp-hero-foot"><span>${(m.attendees || []).length} invited</span><b>in <span id="ovpCountdown">${ovpCountdown(m.startMs - Date.now())}</span> ›</b></span>
+      </button>
+      <button type="button" class="ovp-remind" data-ovp-remind="1"${reminderSet ? " disabled" : ""}>${reminderSet ? "Reminder set ✓" : "Remind me"}</button>
+      ${ovpPeek(escapeHtml(m.subject), [["Starts", clock(m.startMs)], ["Organizer", org(m)], ["Invited", `${(m.attendees || []).length} people`]], "Click for meeting details ›")}</div>`;
+  } else {
+    hero = `<div class="ovp-hero ovp-hero-clear">
+        <span class="ovp-hero-kicker">✓ Calendar</span>
+        <span class="ovp-hero-title">No more meetings today</span>
+        <span class="ovp-hero-foot"><span>Nothing live and nothing still to start</span></span>
+      </div>`;
+  }
+
+  // ---- People out today: Microsoft Teams "Out of Office" (the live signal; GreytHR has no data for
+  // the current day yet). Same people the Teams page lists under its Out of Office filter.
+  const outPeople = (dataset.employees || []).filter((e) => e.teams?.isOutOfOffice);
+  const outRows = outPeople.slice(0, 8).map((e) => [escapeHtml(e.name), escapeHtml(mergedTeam(e.team || "Unassigned"))]);
+  if (outPeople.length > 8) outRows.push([`+${outPeople.length - 8} more`, ""]);
+  const firstNames = outPeople.slice(0, 4).map((e) => escapeHtml(String(e.name).split(/\s+/)[0])).join(", ") + (outPeople.length > 4 ? ` +${outPeople.length - 4}` : "");
+  const outWord = `${outPeople.length} ${outPeople.length === 1 ? "person" : "people"} out today`;
+  const out = `<div class="ovp-pk"><button type="button" class="ovp-mini" data-ovp-out="1">
+      <span class="ovp-mini-ic ovp-mini-out" aria-hidden="true">●</span>
+      <span class="ovp-mini-txt"><b>${outWord}</b><small>${outPeople.length ? firstNames : "Nobody is out of office"}</small></span>
+      <span class="ovp-mini-go" aria-hidden="true">›</span>
+    </button>${ovpPeek(outWord, outRows.length ? outRows : [["Nobody is out of office", ""]], "Click to open in Teams ›")}</div>`;
+
+  // ---- Planner: tasks due today and not done, and how many are due in the next 7 days (local dates).
+  const todayKey = typeof todayDateKey === "function" ? todayDateKey() : "";
+  const weekEnd = new Date(); weekEnd.setDate(weekEnd.getDate() + 7);
+  const weekKey = `${weekEnd.getFullYear()}-${String(weekEnd.getMonth() + 1).padStart(2, "0")}-${String(weekEnd.getDate()).padStart(2, "0")}`;
+  const dueToday = [];
+  let dueWeek = 0;
+  (typeof graphData !== "undefined" && graphData?.planner?.plans || []).forEach((plan) => {
+    (plan.tasks || []).forEach((task) => {
+      if (task.status === "Completed") return;
+      const due = String(task.dueDateTime || "").slice(0, 10);
+      if (!due) return;
+      if (due === todayKey) dueToday.push(task);
+      if (due >= todayKey && due <= weekKey) dueWeek++;
+    });
+  });
+  const dueRows = dueToday.length
+    ? dueToday.slice(0, 5).map((t) => [escapeHtml(t.title || "Untitled task"), escapeHtml((t.assignees || [])[0] || "")])
+    : [["Due today, not done", "0"]];
+  dueRows.push(["Due in the next 7 days", String(dueWeek)]);
+  const dueFilter = dueToday.length ? "due-today" : "due-week";
+  const dueLabel = dueToday.length
+    ? `${dueToday.length} task${dueToday.length === 1 ? "" : "s"} due today, not done`
+    : `Nothing overdue today, so here are tasks due in the next 7 days (${dueWeek})`;
+  const dueTitle = dueToday.length ? `${dueToday.length} task${dueToday.length === 1 ? "" : "s"} due today` : "Nothing overdue";
+  const overdue = `<div class="ovp-pk"><button type="button" class="ovp-mini" data-ovp-due="${dueFilter}" data-ovp-label="${escapeHtml(dueLabel)}">
+      <span class="ovp-mini-ic ${dueToday.length ? "ovp-mini-warn" : "ovp-mini-ok"}" aria-hidden="true">${dueToday.length ? "!" : "✓"}</span>
+      <span class="ovp-mini-txt"><b>${dueTitle}</b><small>${dueToday.length ? "not done yet" : `${dueWeek} due in the next 7 days`}</small></span>
+      <span class="ovp-mini-go" aria-hidden="true">›</span>
+    </button>${ovpPeek("Planner · due today", dueRows, dueToday.length ? "Click to see them in Tasks ›" : "Click to see the next 7 days in Tasks ›")}</div>`;
+
+  // ---- Status line: what data you're looking at, and when it was last refreshed.
+  const period = String(dataset?.meta?.period || "").match(/(\d{4}-\d{2})/);
+  const monthLabel = period ? new Date(`${period[1]}-01T00:00:00`).toLocaleDateString("en-GB", { month: "short", year: "numeric" }) : "";
+  const refreshing = document.getElementById("refreshDataBtn")?.disabled;
+  let data;
+  if (ovpMonthMsg.state === "loading") data = `⏳ ${escapeHtml(ovpMonthMsg.text)}`;
+  else if (ovpMonthMsg.state === "error") data = `<span class="ovp-status-err">⚠ ${escapeHtml(ovpMonthMsg.text.replace(/^✗\s*/, ""))}</span>`;
+  else data = `✓ ${monthLabel} · ${number.format(filteredEmployees.length)} employees`;
+  const when = refreshing ? "Refreshing…" : ovpRefreshedText();
+
+  return `<section class="ovp-today" aria-label="Today">
+    ${hero}
+    <div class="ovp-today-side">${out}${overdue}</div>
+    <p class="ovp-status" aria-live="polite">${data}${when ? ` <i>·</i> ${when}` : ""}</p>
+  </section>`;
+}
+
+// Greeting, date line, month box (with the Load month highlight) and the Show interns switch.
+function ovpUpdateHeader() {
+  const hour = new Date().getHours();
+  const hello = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+  const g = document.getElementById("ovGreeting");
+  // Greeting with the short date beside it; the day's proverb is the line underneath.
+  const date = new Date().toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+  if (g) g.innerHTML = `${hello} 👋 <small class="ovp-hello-date">${date}</small>`;
+  const line = document.getElementById("ovTodayLine");
+  if (line) line.innerHTML = ovpProverb();
+  const month = document.getElementById("ovMonth");
+  const period = String(dataset?.meta?.period || "").match(/(\d{4}-\d{2})/);
+  if (month && period && document.activeElement !== month && !month.dataset.picked) month.value = period[1];
+  ovpUpdateLoadButton();
+  const interns = document.getElementById("ovInterns");
+  const realToggle = document.getElementById("internToggle");
+  if (interns && realToggle) interns.checked = realToggle.checked;
+}
+
+// "Load month" turns green once the month box differs from the month on screen.
+function ovpUpdateLoadButton() {
+  const month = document.getElementById("ovMonth");
+  const btn = document.getElementById("ovLoadMonth");
+  const period = String(dataset?.meta?.period || "").match(/(\d{4}-\d{2})/);
+  if (!month || !btn) return;
+  const loading = ovpMonthMsg.state === "loading";
+  btn.disabled = loading;
+  btn.innerHTML = loading
+    ? '<span class="ovp-spin" aria-hidden="true"></span>Loading…'
+    : 'Load month <span class="ovp-arr" aria-hidden="true">→</span>';
+  btn.classList.toggle("ovp-hot", !loading && !!month.value && !!period && month.value !== period[1]);
+}
+
+// A live meeting's "min left" and progress bar move on their own: redraw the Overview every 30 s
+// while it is on screen and a meeting is in progress (or has just ended).
+setInterval(() => {
+  if (!document.getElementById("overview")?.classList.contains("active-view")) return;
+  if (document.querySelector("#ovProto .ovp-hero[data-ovp-meeting]") || (typeof graphLiveMeetings === "function" && graphLiveMeetings().length)) {
+    renderOverviewPrototypeSafe();
+  }
+}, 30000);
+
+// Countdown ticks once a second while the Overview is on screen.
+setInterval(() => {
+  const el = document.getElementById("ovpCountdown");
+  if (!el || !ovpNext) return;
+  const left = ovpNext.startMs - Date.now();
+  if (left <= 0) renderOverviewPrototypeSafe(); // it has started: show it as in progress
+  else el.textContent = ovpCountdown(left);
+}, 1000);
+
+function renderOverviewPrototype() {
+  const root = document.getElementById("ovProto");
+  if (!root || !dataset) return;
+  const rows = filteredEmployees;
+  const scoredRows = rows.filter((e) => e.kpi !== null && e.kpi !== undefined);
+  const avgKpi = scoredRows.length ? average(scoredRows.map((e) => e.kpi)) : null;
+  const workItems = sum(rows.map((e) => e.worklogix.workItems));
+  const completed = sum(rows.map((e) => e.worklogix.completed));
+  const officeHours = sum(rows.map((e) => e.attendance.officeHours));
+  const online = rows.filter((e) => e.teams.isActive).length;
+  const fusion = rows.filter((e) => e.sourceConfidence === 100).length;
+  const total = dataset.overview?.employees || dataset.employees.length;
+  const activeCount = dataset.employees.filter((e) => e.active).length;
+
+  // Tiles: value, label, sub-line; "go" tiles open that page, like the prototype.
+  const tile = (value, label, sub, tone, go, big) => {
+    const tag = go ? "button" : "div";
+    return `<${tag}${go ? ` type="button" data-ovp-go="${go}"` : ""} class="ovp-card ovp-k${big ? " ovp-big" : ""}">
+      <b${tone ? ` class="ovp-t-${tone}"` : ""}>${value}</b>${label}<br><span>${sub}</span></${tag}>`;
+  };
+  const tiles = [
+    tile(number.format(total), "Employees",
+      rows.length < total ? `${number.format(rows.length)} in current view` : activeCount === total ? "All active" : `${number.format(activeCount)} active`, "", "people", true),
+    tile(avgKpi === null ? "—" : number.format(avgKpi), "Avg KPI", "75%+ confidence", avgKpi === null ? "" : ovpTone(avgKpi), "kpi"),
+    tile(workItems ? `${Math.round((completed / workItems) * 100)}%` : "—", "Completed", workItems ? `${completed}/${workItems} work items` : "No Worklogix activity synced", workItems ? "G" : ""),
+    tile(number.format(online), "Online now", "Teams presence", "", "teams"),
+    tile(number.format(officeHours), "Office hours", `${number.format(rows.length ? officeHours / rows.length : 0)} avg / employee`, ""),
+    tile(number.format(fusion), "Full fusion", "All sources matched", "", "integrations"),
+  ].join("");
+
+  // Engagement & output
+  const counts = { "High Performer": 0, "Ghost Worker": 0, "Present but Idle": 0, "Disengaged": 0 };
+  const quadScored = rows.filter((e) => e.quadrant);
+  quadScored.forEach((e) => { if (counts[e.quadrant] !== undefined) counts[e.quadrant]++; });
+  const idlePct = quadScored.length ? Math.round((counts["Present but Idle"] / quadScored.length) * 100) : 0;
+  const quads = [["High performer", "High Performer", "G"], ["Ghost worker", "Ghost Worker", "B"], ["Present but idle", "Present but Idle", "A"], ["Disengaged", "Disengaged", "R"]];
+  const engagement = `<div class="ovp-card"><h3>Engagement &amp; output</h3>
+    ${counts["Present but Idle"] ? `<button type="button" class="ovp-alert ovp-alert-in ovp-alert-btn" data-ovp-quad="Present but Idle">${idlePct}% of scored employees are "Present but idle" <span class="ovp-alert-go">See who ›</span></button>` : ""}
+    ${quads.map(([label, key, tone]) => `<button type="button" class="ovp-row" data-ovp-quad="${key}" title="See who is ${label.toLowerCase()}"><span class="ovp-n">${label}</span><b>${counts[key]}</b><span class="ovp-tag ovp-${tone}">${Math.round((counts[key] / (rows.length || 1)) * 100)}%</span><span class="ovp-row-go" aria-hidden="true">›</span></button>`).join("")}</div>`;
+
+  // Team health
+  const bands = [["Excellent", "Excellent", "G"], ["Good", "Good", "B"], ["Average", "Average", "A"], ["Needs improvement", "Needs Improvement", "A"], ["Critical", "Critical", "R"]];
+  const bandCount = {};
+  let insufficient = 0;
+  rows.forEach((e) => {
+    if (!e.band || e.band === "Insufficient Data") insufficient++;
+    else bandCount[e.band] = (bandCount[e.band] || 0) + 1;
+  });
+  const scoredN = bands.reduce((n, [, key]) => n + (bandCount[key] || 0), 0);
+  const maxBand = Math.max(1, ...bands.map(([, key]) => bandCount[key] || 0));
+  const health = `<div class="ovp-card"><h3>Team health · ${scoredN} scored</h3>
+    ${bands.map(([label, key, tone]) => `<button type="button" class="ovp-row" data-ovp-band="${key}" title="See who is ${label.toLowerCase()}"><span class="ovp-n">${label}</span><div class="ovp-bw">${ovpBar(((bandCount[key] || 0) / maxBand) * 100, tone)}</div><b>${bandCount[key] || 0}</b><span class="ovp-row-go" aria-hidden="true">›</span></button>`).join("")}
+    ${insufficient ? `<button type="button" class="ovp-sub ovp-sub-btn" data-ovp-band="Insufficient Data">${insufficient} employees have insufficient data and are excluded. <span class="ovp-sub-go">See who ›</span></button>` : ""}</div>`;
+
+  // Overall KPI by department: top 6, same grouping as the department chart
+  const activeRows = rows.filter((e) => e.active);
+  const groups = new Map();
+  (activeRows.length ? activeRows : rows).forEach((e) => {
+    const department = mergedTeam(e.team || "Unassigned");
+    if (!groups.has(department)) groups.set(department, []);
+    groups.get(department).push(e);
+  });
+  ovpDeptBars = [...groups.entries()].map(([department, employees]) => {
+    const scoredEmployees = employees.filter((e) => e.kpi !== null && e.kpi !== undefined);
+    return { department, employees, scoredEmployees, avgKpi: scoredEmployees.length ? average(scoredEmployees.map((e) => e.kpi)) : null };
+  }).filter((b) => b.avgKpi !== null).sort((a, b) => b.avgKpi - a.avgKpi);
+  const dept = `<div class="ovp-card"><h3>Overall KPI by department</h3>
+    ${ovpDeptBars.slice(0, 6).map((b, i) => `<button type="button" class="ovp-row" data-ovp-dept="${i}"><span class="ovp-n">${escapeHtml(b.department)}</span><div class="ovp-bw">${ovpBar(b.avgKpi, ovpTone(b.avgKpi))}</div><b>${number.format(b.avgKpi)}</b></button>`).join("")}
+    <button type="button" class="ovp-link" data-ovp-go="kpi">View all teams →</button></div>`;
+
+  // Attention required
+  const alerts = computeAlerts(rows).slice(0, 5);
+  const attention = `<div class="ovp-card"><h3>Attention required</h3>
+    ${alerts.length ? alerts.map(({ employee: e, reason }) => `<button type="button" class="ovp-row" data-ovp-emp="${escapeHtml(String(e.id))}"><div class="ovp-n"><b>${escapeHtml(e.name)}</b><small>${escapeHtml(mergedTeam(e.team || "Unassigned"))} · ${reason}</small></div>${e.kpi !== null && e.kpi !== undefined ? `<span class="ovp-tag ovp-${ovpTone(e.kpi)}">${number.format(e.kpi)}</span>` : ""}</button>`).join("") : '<div class="ovp-sub">All clear — no flags right now.</div>'}</div>`;
+
+  ovpUpdateHeader();
+  root.innerHTML = ovpTodayStrip() +
+    `<div class="ovp-grid">${tiles}</div>` +
+    `<div class="ovp-grid ovp-g2">${engagement}${health}</div>` +
+    `<div class="ovp-grid ovp-g2">${dept}${attention}</div>`;
+}
+
+// The Overview must never be able to break the rest of the dashboard.
+function renderOverviewPrototypeSafe() {
+  try { renderOverviewPrototype(); } catch (err) { console.warn("Overview:", err); }
+}
+
+document.addEventListener("click", (event) => {
+  const root = document.getElementById("ovProto");
+  if (!root || !root.contains(event.target)) return;
+  const dept = event.target.closest("[data-ovp-dept]");
+  const emp = event.target.closest("[data-ovp-emp]");
+  const live = event.target.closest("[data-ovp-live]");
+  const go = event.target.closest("[data-ovp-go]");
+  if (dept) {
+    const bar = ovpDeptBars[Number(dept.dataset.ovpDept)];
+    if (bar) renderDepartmentEmployees(bar);
+  } else if (emp) {
+    const employee = dataset.employees.find((e) => String(e.id) === emp.dataset.ovpEmp);
+    if (employee) showEmployee(employee);
+  } else if (event.target.closest("[data-ovp-quad]")) {
+    // Engagement & output: open the drawer listing just that group, highest KPI first.
+    const quadrant = event.target.closest("[data-ovp-quad]").dataset.ovpQuad;
+    const people = filteredEmployees.filter((e) => e.quadrant === quadrant).sort((a, b) => (b.kpi || 0) - (a.kpi || 0));
+    if (typeof openBandDrawer === "function") openBandDrawer(quadrant, people);
+  } else if (event.target.closest("[data-ovp-band]")) {
+    // Team health: open the drawer listing just that performance band, highest KPI first.
+    const band = event.target.closest("[data-ovp-band]").dataset.ovpBand;
+    const people = filteredEmployees
+      .filter((e) => (band === "Insufficient Data" ? !e.band || e.band === "Insufficient Data" : e.band === band))
+      .sort((a, b) => (b.kpi || 0) - (a.kpi || 0) || String(a.name).localeCompare(String(b.name)));
+    if (typeof openBandDrawer === "function") openBandDrawer(band, people);
+  } else if (event.target.closest("[data-ovp-out]")) {
+    // Open the Teams page filtered to "Out of Office".
+    teamsStatusFilter = "ooo";
+    ovpGo("teams");
+    if (typeof renderTeamsTable === "function") renderTeamsTable();
+  } else if (event.target.closest("[data-ovp-remind]")) {
+    ovpSetReminder();
+  } else if (event.target.closest("[data-ovp-due]")) {
+    // Open Graph → Tasks with the matching "due" filter, marked "From Overview".
+    const btn = event.target.closest("[data-ovp-due]");
+    if (typeof graphOpenFromOverview === "function") graphOpenFromOverview({ section: "tasks", filter: btn.dataset.ovpDue, label: btn.dataset.ovpLabel });
+    else ovpGo("graph");
+  } else if (live) {
+    // Open Graph → Live meetings on that exact meeting (or the calendar for one that hasn't started).
+    if (live.dataset.ovpUpcoming && ovpNext && typeof openMeetingDetailsDrawer === "function") {
+      // Meeting still to come: show its details right here (who's invited, time, join link).
+      const meeting = ovpNext;
+      openMeetingDetailsDrawer(meeting, {
+        onRemind: ovpSetReminder,
+        reminderSet: !!(ovpReminder && ovpReminder.key === `${meeting.subject}|${meeting.startMs}`),
+      });
+    } else if (typeof graphOpenFromOverview === "function" && live.dataset.ovpLabel) {
+      graphOpenFromOverview(live.dataset.ovpUpcoming
+        ? { section: "calendar", label: live.dataset.ovpLabel }
+        : { section: "live", label: live.dataset.ovpLabel, meetingKey: live.dataset.ovpMeeting });
+    } else if (typeof jumpToLiveMeetings === "function") jumpToLiveMeetings();
+  } else if (go) {
+    ovpGo(go.dataset.ovpGo);
+  }
+});
+
+// "Remind me": a note on screen (and a desktop notification if allowed) one minute before the next meeting.
+function ovpSetReminder() {
+  if (!ovpNext) return;
+  const meeting = ovpNext;
+  const key = `${meeting.subject}|${meeting.startMs}`;
+  if (ovpReminder) clearTimeout(ovpReminder.timer);
+  const fire = () => {
+    const text = `“${meeting.subject}” starts ${meeting.startMs - Date.now() > 30000 ? "in 1 minute" : "now"}`;
+    const toast = document.createElement("div");
+    toast.className = "ovp-toast";
+    toast.setAttribute("role", "status");
+    toast.textContent = `⏱ ${text}`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 12000);
+    if ("Notification" in window && Notification.permission === "granted") new Notification("PeopleOps reminder", { body: text });
+    ovpReminder = null;
+    renderOverviewPrototypeSafe();
+  };
+  ovpReminder = { key, timer: setTimeout(fire, Math.max(0, meeting.startMs - Date.now() - 60000)) };
+  if ("Notification" in window && Notification.permission === "default") Notification.requestPermission().catch(() => {});
+  renderOverviewPrototypeSafe();
+}
+
+// "Load month" loads the month picked in the month box (same loader as the old month picker).
+document.addEventListener("click", (event) => {
+  if (!event.target.closest("#ovLoadMonth")) return;
+  const month = document.getElementById("ovMonth")?.value;
+  if (!month) return;
+  const input = document.getElementById("globalMonthInput");
+  if (input) input.value = month;
+  if (typeof fetchGlobalAttendanceMonth === "function") fetchGlobalAttendanceMonth(month);
+});
+
+// Month box and Show interns switch drive the existing (hidden) month picker and interns filter.
+document.addEventListener("change", (event) => {
+  if (event.target.id === "ovMonth") {
+    event.target.dataset.picked = event.target.value ? "1" : "";
+    ovpUpdateLoadButton();
+  } else if (event.target.id === "ovInterns") {
+    const toggle = document.getElementById("internToggle");
+    if (toggle) {
+      toggle.checked = event.target.checked;
+      toggle.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  }
+});
+
+// The month loader writes to the hidden month picker; mirror its state into the Today strip.
+document.addEventListener("DOMContentLoaded", () => {
+  const source = document.getElementById("globalMonthStatus");
+  if (!source) return;
+  const sync = () => {
+    const cls = source.className || "";
+    const state = /\bloading\b/.test(cls) ? "loading" : /\berror\b/.test(cls) ? "error" : /\bsuccess\b/.test(cls) ? "success" : "";
+    ovpMonthMsg = { state, text: source.textContent.trim() };
+    if (state === "success") {
+      const month = document.getElementById("ovMonth");
+      if (month) delete month.dataset.picked; // the loaded month is now the one on screen
+    }
+    renderOverviewPrototypeSafe();
+  };
+  new MutationObserver(sync).observe(source, { childList: true, characterData: true, subtree: true, attributes: true, attributeFilter: ["class"] });
+});
+
+// The refresh button shows "Refreshing…" while it runs; show the same in the strip.
+document.addEventListener("click", (event) => {
+  if (event.target.closest("#refreshDataBtn")) [0, 800, 2000].forEach((ms) => setTimeout(renderOverviewPrototypeSafe, ms)); // the button disables after a quick server check
+});
+
+// Overview search, like the prototype: typing opens Employees with the text already in its search box.
+document.addEventListener("input", (event) => {
+  if (event.target.id !== "ovSearch") return;
+  const text = event.target.value;
+  event.target.value = "";
+  ovpGo("people");
+  const box = document.getElementById("peopleSearchInput");
+  if (box) {
+    box.value = text;
+    box.dispatchEvent(new Event("input", { bubbles: true }));
+    box.focus();
+    box.setSelectionRange(text.length, text.length);
+  }
+});
+
 function renderAll() {
   updateGlobalMonthLabel();
   renderTotalEmployeeBadge();
@@ -1147,6 +1611,7 @@ function renderAll() {
   drawDonutChart();
   drawScatter();
   document.getElementById("filteredCount").textContent = `${filteredEmployees.length} employees in view`;
+  renderOverviewPrototypeSafe();
 }
 
 function getKpiRows() {
@@ -3773,6 +4238,7 @@ function _briefEmptyRow(iconClass, icon, label, message) {
 // live-only widget this always stays visible (each row has its own empty state), since
 // "who's out today" is meant to be a daily-check habit, not something that pops in and out.
 function renderTodayBriefing() {
+  queueMicrotask(renderOverviewPrototypeSafe); // Overview briefing uses the same live-meeting data
   const widget = document.getElementById("overviewLiveWidget");
   if (!widget) return;
   widget.hidden = false;
