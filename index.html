@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css?v=20260825-tarapanelfix">
     <link rel="stylesheet" href="leave-types.css?v=20260921-leavetypes">
     <link rel="stylesheet" href="work-location.css?v=20260925-search">
+    <link rel="stylesheet" href="overview.css?v=20260929-greet2">
   </head>
   <body style="visibility:hidden">
     <main class="app-shell">
@@ -74,7 +75,37 @@
       </aside>
 
       <section class="workspace">
-        <section id="overview" class="view active-view">
+        <section id="overview" class="view active-view ovp">
+          <!-- Overview: exact layout of "PeopleOps – Prototype 1", drawn by renderOverviewPrototype() in app.js. -->
+          <div class="ovp-top">
+            <div class="ovp-hello">
+              <h1 id="ovGreeting">Good morning 👋</h1>
+              <p id="ovTodayLine"></p>
+            </div>
+            <div class="ovp-controls">
+              <label class="ovp-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                <input id="ovSearch" type="search" placeholder="Search a person, team or project…" aria-label="Search a person, team or project" autocomplete="off">
+              </label>
+              <label class="ovp-switch"><input type="checkbox" id="ovInterns" checked><span class="ovp-track" aria-hidden="true"></span>Show interns</label>
+              <div class="ovp-period">
+                <input id="ovMonth" type="month" aria-label="Month to show">
+                <button id="ovLoadMonth" type="button">Load month <span class="ovp-arr" aria-hidden="true">→</span></button>
+              </div>
+              <button class="ovp-icon-btn" id="refreshDataBtn" type="button" title="Refresh data: pull the latest from Worklogix, GreytHR, Teams, GitHub and Graph" aria-label="Refresh data">↻</button>
+            </div>
+          </div>
+          <div id="ovProto"></div>
+          <!-- Group drawer (Engagement rows open it); outside the hidden holder so it can show. -->
+          <div id="bandDrawerOverlay" class="teams-drawer-overlay" hidden onclick="closeBandDrawer()"></div>
+          <aside id="bandDrawer" class="teams-drawer" hidden>
+            <button class="teams-drawer-close" onclick="closeBandDrawer()">&#x2715;</button>
+            <div id="bandDrawerContent"></div>
+          </aside>
+
+          <!-- Previous Overview content, kept hidden: other pages and app.js still use these elements
+               (global filters, month picker, export, drawers). Not shown in the prototype layout. -->
+          <div class="ovp-legacy" hidden>
           <div class="gradient-panel">
             <header class="hero gradient-hero">
               <div class="gradient-hero-brand">
@@ -90,7 +121,6 @@
                   <div><strong id="heroPeriodLabel">—</strong><span>Period</span></div>
                 </div>
                 <div class="hero-actions">
-                  <button class="button" id="refreshDataBtn" type="button" title="Pull the latest data from Worklogix, GreytHR, Teams, GitHub and Graph">Refresh Data</button>
                   <div class="export-dropdown" id="exportDropdown">
                     <button class="button export-btn" id="exportBtn">Export ▾</button>
                     <div class="export-menu" id="exportMenu">
@@ -193,11 +223,6 @@
           </div>
           <div id="quadrantAlertBanner"></div>
           <div id="quadrantGrid" class="band-summary quadrant-grid"></div>
-          <div id="bandDrawerOverlay" class="teams-drawer-overlay" hidden onclick="closeBandDrawer()"></div>
-          <aside id="bandDrawer" class="teams-drawer" hidden>
-            <button class="teams-drawer-close" onclick="closeBandDrawer()">&#x2715;</button>
-            <div id="bandDrawerContent"></div>
-          </aside>
           <article class="panel donut-panel overview-team-health">
             <div class="donut-wrap">
               <div class="donut-canvas-wrap">
@@ -261,6 +286,7 @@
           </article>
           <div id="departmentTooltip" hidden></div>
           <div id="departmentEmployeesPanel" hidden></div>
+          </div>
         </section>
 
         <section id="kpi" class="view">
@@ -892,9 +918,9 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260824-todaybrief2"></script>
+    <script src="app.js?v=20260929-greet2"></script>
     <script src="leave-types.js?v=20260921-leavetypes"></script>
     <script src="work-location.js?v=20260925-search"></script>
-    <script src="graph-explorer.js?v=20260824-todaybrief"></script>
+    <script src="graph-explorer.js?v=20260929-meet"></script>
   </body>
 </html>

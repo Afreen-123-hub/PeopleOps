@@ -2,6 +2,7 @@ const graphExplorerState = {
   section: "plans", search: "", filter: "all", sort: "name",
   page: 1, pageSize: 24, calendarView: "month", employeeView: "table",
   calendarDate: null,
+  fromOverview: null, // { section, label, meetingKey?, scrolled } when opened from the Overview "Today" strip
 };
 
 const graphEmployeeState = {
@@ -121,6 +122,11 @@ function graphLiveNameToken(row) {
     : `<span class="graph-live-flag-name-plain">${escapeHtml(row.name)}</span>`;
 }
 
+// Stable id for a meeting: same subject + start time on the Overview and the Graph page.
+function graphMeetingKey(meeting) {
+  return `${meeting.subject}|${new Date(meeting.start).getTime()}`;
+}
+
 function renderGraphLiveCard(meeting, allLiveMeetings) {
   const rows = graphMeetingAttendeeRows(meeting, allLiveMeetings);
   const notAttending = rows.filter(row => row.status === "free");
@@ -129,10 +135,12 @@ function renderGraphLiveCard(meeting, allLiveMeetings) {
   rows.forEach(row => { counts[row.status] = (counts[row.status] || 0) + 1; });
   const startLabel = new Date(meeting.start).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   const endLabel = new Date(meeting.end).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  return `<div class="graph-live-card">
+  const key = graphMeetingKey(meeting);
+  const isTarget = graphExplorerState.fromOverview?.meetingKey === key;
+  return `<div class="graph-live-card${isTarget ? " graph-from-target" : ""}" data-meeting-key="${escapeHtml(key)}">
     <div class="graph-live-top">
       <div>
-        <p class="graph-live-subject">${escapeHtml(meeting.subject)}</p>
+        <p class="graph-live-subject">${escapeHtml(meeting.subject)}${isTarget ? `<span class="graph-from-badge">You clicked this</span>` : ""}</p>
         <div class="graph-live-meta">
           <span>Organizer: ${escapeHtml(meeting.organizer)}</span>
           <span>${startLabel} – ${endLabel}</span>
@@ -919,6 +927,7 @@ function profileEmpty(message) {
 let graphLiveTicker = null;
 
 function setGraphSection(section) {
+  graphExplorerState.fromOverview = null;
   graphExplorerState.section = section;
   graphExplorerState.page = 1;
   graphExplorerState.search = "";
@@ -1016,7 +1025,7 @@ function renderGraphToolbar() {
   const filters = {
     live: [["all", "All live meetings"], ["flagged", "Has flags"]],
     plans: [["all", "All plans"], ["active", "Has open tasks"], ["complete", "100% complete"]],
-    tasks: [["all", "All statuses"], ["Completed", "Completed"], ["In Progress", "In progress"], ["Not Started", "Not started"], ["Overdue", "Overdue"], ["Unassigned", "Unassigned"], ["Orphaned", "No owner + no deadline"], ["Priority", "High/Urgent priority"]],
+    tasks: [["all", "All statuses"], ["due-today", "Due today (not done)"], ["due-week", "Due in next 7 days (not done)"], ["Completed", "Completed"], ["In Progress", "In progress"], ["Not Started", "Not started"], ["Overdue", "Overdue"], ["Unassigned", "Unassigned"], ["Orphaned", "No owner + no deadline"], ["Priority", "High/Urgent priority"]],
     completed: [["all", "All completed"]],
     calendar: [["all", "All events"], ["busy", "Busy"], ["tentative", "Tentative"], ["free", "Free"], ["cancelled", "Cancelled"]],
     sites: [["all", "All sites"], ["files", "Has files"], ["lists", "Has lists"], ["Empty", "Empty sites"], ["Stale", "Inactive 180+ days"], ["Duplicate", "Possible duplicate"], ["Archival", "Archival candidate"]],
@@ -1057,6 +1066,7 @@ function renderGraphToolbar() {
     }, 180);
   };
   document.getElementById("graphFilter").onchange = event => {
+    graphExplorerState.fromOverview = null;
     graphExplorerState.filter = event.target.value; graphExplorerState.page = 1; renderGraphSection();
   };
   document.getElementById("graphSort").onchange = event => {
@@ -1108,6 +1118,54 @@ function graphPage(rows) {
 }
 
 function renderGraphSection() {
+  renderGraphSectionInner();
+  renderGraphFromOverview();
+}
+
+// Shown when the page was opened from the Overview "Today" strip: why you're here, Clear, and a way back.
+function renderGraphFromOverview() {
+  const from = graphExplorerState.fromOverview;
+  const workspace = document.getElementById("graphWorkspace");
+  if (!from || !workspace || from.section !== graphExplorerState.section) return;
+  workspace.insertAdjacentHTML("afterbegin", `<div class="graph-from-bar" role="status">
+    <span aria-hidden="true">↪</span><span>From Overview: <b>${escapeHtml(from.label)}</b></span>
+    <button type="button" data-from-clear>Clear ✕</button>
+    <button type="button" data-from-back>← Back to Overview</button>
+  </div>`);
+  workspace.querySelector("[data-from-clear]").onclick = () => {
+    graphExplorerState.fromOverview = null;
+    graphExplorerState.filter = "all";
+    graphExplorerState.page = 1;
+    renderGraphToolbar();
+    renderGraphSection();
+  };
+  workspace.querySelector("[data-from-back]").onclick = () => {
+    graphExplorerState.fromOverview = null;
+    document.querySelector('.rail-item[data-view="overview"]')?.click();
+  };
+  if (!from.scrolled) { // bring the target into view once, not on every 30s live refresh
+    from.scrolled = true;
+    const target = workspace.querySelector(".graph-from-target") || workspace.querySelector(".graph-from-bar");
+    setTimeout(() => target?.scrollIntoView({ behavior: "smooth", block: "center" }), 80);
+  }
+}
+
+// Called by the Overview "Today" strip: open the Graph page on one section, filtered, marked "From Overview".
+function graphOpenFromOverview({ section, filter = "all", label, meetingKey = null }) {
+  graphExplorerState.section = section;
+  graphExplorerState.filter = filter;
+  graphExplorerState.search = "";
+  graphExplorerState.page = 1;
+  if (section === "calendar" && !graphExplorerState.calendarDate) graphExplorerState.calendarDate = new Date().toISOString();
+  graphExplorerState.fromOverview = { section, label, meetingKey, scrolled: false };
+  clearInterval(graphLiveTicker);
+  graphLiveTicker = section === "live" ? setInterval(() => {
+    if (graphExplorerState.section === "live") renderGraphSection();
+  }, 30000) : null;
+  document.querySelector('.rail-item[data-view="graph"]')?.click(); // loads Graph data and renders this state
+}
+
+function renderGraphSectionInner() {
   ({
     live: renderGraphLive,
     plans: renderGraphPlans,
@@ -1189,6 +1247,16 @@ function graphDaysOverdue(task) {
   return diff > 0 ? diff : 0;
 }
 
+// Not completed, due from today up to `days` days ahead (0 = today only). Dates compared as local days.
+function graphTaskDueSoon(task, days) {
+  if (!task.dueDateTime || graphStatus(task) === "Completed") return false;
+  const key = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const due = String(task.dueDateTime).slice(0, 10);
+  const today = new Date();
+  const until = new Date(); until.setDate(until.getDate() + days);
+  return due >= key(today) && due <= key(until);
+}
+
 function graphTaskStats(tasks) {
   const overdue = tasks.filter(task => graphStatus(task) === "Overdue");
   const chronic = overdue.filter(task => graphDaysOverdue(task) > 90);
@@ -1204,7 +1272,15 @@ function graphTaskStatStrip(tasks) {
   if (!tasks.length) return "";
   const s = graphTaskStats(tasks);
   const pct = tasks.length ? Math.round(s.unassigned / tasks.length * 100) : 0;
+  const dueToday = tasks.filter(task => graphTaskDueSoon(task, 0)).length;
+  const dueWeek = tasks.filter(task => graphTaskDueSoon(task, 7)).length;
   return `<div class="graph-task-stat-strip">
+    <button type="button" class="graph-stat-tile stat-due${graphExplorerState.filter === "due-today" ? " is-active" : ""}" data-stat-filter="due-today">
+      <b>${dueToday}</b><span class="label">Due today</span><span class="sub">not done yet</span>
+    </button>
+    <button type="button" class="graph-stat-tile stat-due${graphExplorerState.filter === "due-week" ? " is-active" : ""}" data-stat-filter="due-week">
+      <b>${dueWeek}</b><span class="label">Due in next 7 days</span><span class="sub">not done yet</span>
+    </button>
     <button type="button" class="graph-stat-tile stat-overdue" data-stat-filter="Overdue">
       <b>${s.overdue}</b><span class="label">Overdue</span><span class="sub">${s.chronic} over 90 days chronic</span>
     </button>
@@ -1223,6 +1299,7 @@ function graphTaskStatStrip(tasks) {
 function bindGraphTaskStatTiles() {
   document.querySelectorAll("[data-stat-filter]").forEach(tile => {
     tile.onclick = () => {
+      graphExplorerState.fromOverview = null;
       graphExplorerState.filter = tile.dataset.statFilter;
       graphExplorerState.page = 1;
       renderGraphToolbar();
@@ -1240,6 +1317,7 @@ function renderGraphTasks(completedOnly) {
     if (filter === "Unassigned") return !(task.assignees || []).length;
     if (filter === "Orphaned") return !(task.assignees || []).length && !task.dueDateTime;
     if (filter === "Priority") return Number(task.priority) <= 4 && graphStatus(task) !== "Completed";
+    if (filter === "due-today" || filter === "due-week") return graphTaskDueSoon(task, filter === "due-today" ? 0 : 7);
     return graphStatus(task) === filter;
   });
   rows.sort((a, b) => {
@@ -1724,6 +1802,51 @@ function openEventDrawer(id, employeeId) {
     ${graphDetail("Status", event.isCancelled ? "Cancelled" : event.showAs)}
   </div>${event.meetingLink ? `<a class="button graph-open-link" href="${escapeHtml(event.meetingLink)}" target="_blank" rel="noopener noreferrer">Join meeting</a>` : ""}
   ${event.webLink ? `<a class="button secondary-button graph-open-link" href="${escapeHtml(event.webLink)}" target="_blank" rel="noopener noreferrer">Open in Outlook</a>` : ""}`);
+}
+
+// Details of one meeting (all attendees' calendar copies grouped), opened from the Overview "Today" card.
+// Works for meetings that haven't started yet; shows each invitee's own calendar status.
+function openMeetingDetailsDrawer(meeting, { onRemind, reminderSet } = {}) {
+  if (!meeting) return;
+  const start = new Date(meeting.start), end = new Date(meeting.end);
+  const time = d => d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  const mins = Math.max(0, Math.round((end - start) / 60000));
+  const untilMin = Math.round((start - Date.now()) / 60000);
+  const when = untilMin > 0
+    ? `Starts in ${untilMin >= 60 ? `${Math.floor(untilMin / 60)}h ${untilMin % 60}m` : `${untilMin} min`}`
+    : Date.now() <= end ? "In progress" : "Ended";
+  const rows = graphMeetingAttendeeRows(meeting, [meeting]);
+  const said = { busy: "Busy · attending", tentative: "Tentative", free: "Marked free", unknown: "Not tracked" };
+  const counts = { busy: 0, tentative: 0, free: 0, unknown: 0 };
+  rows.forEach(r => { counts[r.status] = (counts[r.status] || 0) + 1; });
+  const people = rows.length ? `<div class="graph-mini-list">${rows.map(r => `
+      <button type="button" ${r.employee ? `data-meeting-person="${escapeHtml(r.employee.id)}"` : "disabled"}>
+        <span>${escapeHtml(r.name || "—")}</span><span class="graph-meeting-status status-${r.status}">${said[r.status] || r.status}</span>
+      </button>`).join("")}</div>` : `<p class="graph-meeting-empty">No attendee list on this invite.</p>`;
+  openGraphDrawer(meeting.subject, `Meeting · ${when}`, `
+    <div class="graph-detail-stack">
+      ${graphDetail("Date", start.toLocaleDateString([], { weekday: "long", day: "numeric", month: "long" }))}
+      ${graphDetail("Time", `${time(start)} – ${time(end)} (${mins} min)`)}
+      ${graphDetail("Organizer", meeting.organizer || "—")}
+      ${graphDetail("Location", meeting.location || (meeting.meetingLink ? "Microsoft Teams" : "Not specified"))}
+    </div>
+    <div class="graph-meeting-actions">
+      ${meeting.meetingLink ? `<a class="button graph-open-link" href="${escapeHtml(meeting.meetingLink)}" target="_blank" rel="noopener noreferrer">Join in Teams</a>` : ""}
+      ${meeting.webLink ? `<a class="button secondary-button graph-open-link" href="${escapeHtml(meeting.webLink)}" target="_blank" rel="noopener noreferrer">Open in Outlook</a>` : ""}
+      ${onRemind && untilMin > 0 ? `<button type="button" class="button secondary-button" data-meeting-remind ${reminderSet ? "disabled" : ""}>${reminderSet ? "Reminder set ✓" : "Remind me"}</button>` : ""}
+      <button type="button" class="button secondary-button" data-meeting-calendar>Open in calendar ›</button>
+    </div>
+    <h3 class="graph-meeting-h">Invited · ${rows.length}</h3>
+    <p class="graph-meeting-sum"><b>${counts.busy}</b> attending · <b>${counts.tentative}</b> tentative · <b>${counts.free}</b> marked free · <b>${counts.unknown}</b> not tracked</p>
+    ${people}`);
+  const content = document.getElementById("graphDrawerContent");
+  content.querySelectorAll("[data-meeting-person]").forEach(b => { b.onclick = () => openGraphEmployeeDrawer(b.dataset.meetingPerson); });
+  const remind = content.querySelector("[data-meeting-remind]");
+  if (remind) remind.onclick = () => { onRemind(); remind.disabled = true; remind.textContent = "Reminder set ✓"; };
+  content.querySelector("[data-meeting-calendar]").onclick = () => {
+    closeGraphDrawer();
+    graphOpenFromOverview({ section: "calendar", label: `${meeting.subject} at ${time(start)}` });
+  };
 }
 
 function openCalendarDayDrawer(dateKey) {

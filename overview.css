@@ -1,0 +1,201 @@
+/* Overview page: "PeopleOps – Prototype 1" look, with the one-line header and the clickable Today strip.
+   Every rule is scoped to #overview so no other page is affected, except .ovp-toast and the
+   "arriving from the Overview" rules for the Graph page at the end (scoped to #graph).
+   The dashboard is light-only. */
+#overview {
+  --p-bg: #f3f6fa; --p-card: #fff; --p-ink: #0f1c2e; --p-mut: #64748b; --p-line: #e3e8ef; --p-pri: #0f8f7e;
+  --p-g: #16a34a; --p-a: #e08a00; --p-r: #dc2626; --p-b: #2563eb; --p-soft: #eef3f9;
+  --p-gs: #e6f6ec; --p-as: #fdf1dc; --p-rs: #fde7e7; --p-bs: #e5edff;
+  max-width: 1200px;
+  color: var(--p-ink);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+#overview button { font: inherit; color: inherit; }
+#overview button:focus-visible, #overview input:focus-visible { outline: 2px solid var(--p-pri); outline-offset: 2px; }
+#overview .ovp-legacy[hidden] { display: none !important; }
+
+/* ---------- header: greeting left, controls right, one line ---------- */
+#overview .ovp-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+#overview .ovp-hello { flex: 1 1 300px; min-width: 0; }
+#overview .ovp-hello h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+#overview .ovp-hello p { margin: 2px 0 0; color: var(--p-mut); font-size: 15px; }
+#overview .ovp-hello-date { margin-left: 8px; font-size: 14px; font-weight: 500; color: var(--p-mut); letter-spacing: 0; }
+#overview .ovp-hello .ovp-proverb { color: var(--p-ink); font-size: 16px; font-weight: 600; }
+#overview .ovp-hello .ovp-proverb-from { color: var(--p-mut); font-size: 12.5px; }
+#overview .ovp-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+#overview .ovp-search { display: flex; align-items: center; gap: 8px; box-sizing: border-box; height: 42px; width: 275px; max-width: 100%; padding: 0 12px; background: var(--p-card); border: 1px solid var(--p-line); border-radius: 10px; margin: 0; cursor: text; }
+#overview .ovp-search:focus-within { border-color: var(--p-pri); box-shadow: 0 0 0 3px rgba(15, 143, 126, .14); }
+#overview .ovp-search svg { width: 17px; height: 17px; color: var(--p-mut); flex: none; }
+#overview .ovp-search input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; box-shadow: none; background: transparent; padding: 0; font: inherit; color: var(--p-ink); }
+
+#overview .ovp-search input::placeholder { font-weight: 400; color: var(--p-mut); opacity: 1; }
+
+/* Show interns: on/off switch (the real checkbox is visually hidden but still focusable) */
+#overview .ovp-switch { position: relative; display: inline-flex; align-items: center; gap: 8px; box-sizing: border-box; height: 42px; padding: 0 12px; margin: 0; background: var(--p-card); border: 1px solid var(--p-line); border-radius: 10px; cursor: pointer; white-space: nowrap; font-weight: 500; font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--p-ink); user-select: none; }
+#overview .ovp-switch input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+#overview .ovp-track { position: relative; width: 34px; height: 20px; border-radius: 99px; background: #cbd5e1; transition: background .15s; flex: none; }
+#overview .ovp-track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .2); transition: left .15s; }
+#overview .ovp-switch input:checked + .ovp-track { background: var(--p-pri); }
+#overview .ovp-switch input:checked + .ovp-track::after { left: 16px; }
+#overview .ovp-switch input:focus-visible + .ovp-track { outline: 2px solid var(--p-pri); outline-offset: 2px; }
+
+/* Month + Load month joined into one control */
+#overview .ovp-period { display: inline-flex; align-items: center; gap: 6px; }
+#overview .ovp-period input { box-sizing: border-box; width: 160px; height: 42px; margin: 0; padding: 0 10px; border: 1px solid var(--p-line); border-radius: 10px; background: var(--p-card); box-shadow: none; font: inherit; color: var(--p-ink); }
+#overview .ovp-period input:focus { outline: 0; border-color: var(--p-pri); box-shadow: 0 0 0 3px rgba(15, 143, 126, .14); }
+/* Load month: teal outline that fills on hover, and stays filled with a glow once a different month is picked */
+#overview .ovp-period button { box-sizing: border-box; height: 42px; display: inline-flex; align-items: center; gap: 8px; padding: 0 14px; border: 1.5px solid var(--p-pri); border-radius: 10px; background: var(--p-card); color: var(--p-pri); font-weight: 700; white-space: nowrap; cursor: pointer; transition: background .15s, color .15s, box-shadow .15s; }
+#overview .ovp-period button .ovp-arr { transition: transform .15s; }
+#overview .ovp-period button:hover:not(:disabled), #overview .ovp-period button.ovp-hot { background: var(--p-pri); color: #fff; }
+#overview .ovp-period button:hover:not(:disabled) .ovp-arr { transform: translateX(3px); }
+#overview .ovp-period button.ovp-hot { box-shadow: 0 0 0 4px rgba(15, 143, 126, .15); }
+#overview .ovp-period button:active:not(:disabled) { transform: translateY(1px); }
+#overview .ovp-period button:disabled { cursor: progress; opacity: .85; }
+#overview .ovp-period button:focus-visible { outline: 2px solid var(--p-pri); outline-offset: 2px; }
+#overview .ovp-spin { display: inline-block; width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: ovp-spin .8s linear infinite; }
+@keyframes ovp-spin { to { transform: rotate(360deg); } }
+
+/* Refresh: icon button (the existing handler shows "Refreshing…" in it while it runs) */
+#overview .ovp-icon-btn { min-width: 42px; height: 42px; box-sizing: border-box; padding: 0 12px; border-radius: 10px; border: 1px solid var(--p-line); background: var(--p-card); cursor: pointer; font-size: 17px; line-height: 1; white-space: nowrap; }
+#overview .ovp-icon-btn:hover:not(:disabled) { border-color: var(--p-pri); color: var(--p-pri); }
+#overview .ovp-icon-btn:disabled { font-size: 13px; font-weight: 600; cursor: progress; color: var(--p-mut); }
+
+/* ---------- Today: Meeting hero (big teal meeting card + two small cards + status line) ---------- */
+#overview .ovp-today { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 12px; margin-bottom: 14px; }
+#overview .ovp-pk { position: relative; display: block; min-width: 0; }
+#overview .ovp-hero-wrap { height: 100%; }
+#overview .ovp-hero { display: grid; align-content: space-between; gap: 8px; width: 100%; height: 100%; min-height: 118px; padding: 14px 18px; border: 0; border-radius: 14px; background: linear-gradient(120deg, #0b5d52, #0f8f7e); color: #fff; text-align: left; cursor: pointer; box-shadow: 0 6px 18px rgba(11, 93, 82, .18); transition: filter .15s, transform .15s; }
+#overview button.ovp-hero:hover { filter: brightness(1.06); transform: translateY(-1px); }
+#overview button.ovp-hero:focus-visible { outline: 2px solid var(--p-pri); outline-offset: 3px; }
+#overview .ovp-hero-kicker { display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .9; }
+#overview .ovp-hero-title { font-size: 19px; font-weight: 700; line-height: 1.25; }
+#overview .ovp-hero-title small { font-size: 13px; font-weight: 500; opacity: .85; white-space: nowrap; }
+#overview .ovp-hero-bar { display: block; height: 5px; border-radius: 9px; background: rgba(255, 255, 255, .25); overflow: hidden; }
+#overview .ovp-hero-bar i { display: block; height: 100%; border-radius: 9px; background: #fff; }
+#overview .ovp-hero-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 13px; opacity: .95; }
+#overview .ovp-hero-foot b { white-space: nowrap; }
+#overview #ovpCountdown { font-variant-numeric: tabular-nums; }
+#overview .ovp-hero-clear { cursor: default; background: linear-gradient(120deg, #334155, #475569); box-shadow: none; }
+#overview .ovp-live-dot { width: 8px; height: 8px; border-radius: 50%; background: #f87171; flex: none; animation: ovp-pulse 1.8s infinite; }
+@keyframes ovp-pulse { 0% { box-shadow: 0 0 0 0 rgba(248, 113, 113, .6); } 70% { box-shadow: 0 0 0 7px rgba(248, 113, 113, 0); } 100% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0); } }
+/* Remind me sits on the hero for an upcoming meeting (a separate button, not inside the card button) */
+#overview .ovp-hero-wrap .ovp-remind { position: absolute; top: 12px; right: 14px; border: 0; border-radius: 999px; padding: 5px 14px; background: rgba(255, 255, 255, .2); color: #fff; font-weight: 600; font-size: 13px; cursor: pointer; }
+#overview .ovp-hero-wrap .ovp-remind:hover:not(:disabled) { background: rgba(255, 255, 255, .32); }
+#overview .ovp-hero-wrap .ovp-remind:disabled { cursor: default; }
+#overview .ovp-hero-wrap .ovp-remind:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+#overview .ovp-today-side { display: grid; gap: 10px; align-content: stretch; }
+#overview .ovp-mini { display: flex; align-items: center; gap: 12px; width: 100%; height: 100%; padding: 12px 14px; border: 1px solid var(--p-line); border-radius: 12px; background: var(--p-card); color: var(--p-ink); text-align: left; cursor: pointer; transition: border-color .15s, transform .15s; }
+#overview .ovp-mini:hover { border-color: var(--p-pri); transform: translateY(-1px); }
+#overview .ovp-mini-ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-size: 15px; font-weight: 900; flex: none; }
+#overview .ovp-mini-out { background: var(--p-as); color: #d97706; }
+#overview .ovp-mini-ok { background: var(--p-gs); color: var(--p-g); }
+#overview .ovp-mini-warn { background: var(--p-as); color: #b45309; }
+#overview .ovp-mini-txt { flex: 1; min-width: 0; display: grid; }
+#overview .ovp-mini-txt b { font-weight: 700; }
+#overview .ovp-mini-txt small { color: var(--p-mut); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#overview .ovp-mini-go { color: var(--p-mut); font-size: 18px; transition: transform .15s; }
+#overview .ovp-mini:hover .ovp-mini-go { transform: translateX(3px); color: var(--p-pri); }
+
+#overview .ovp-status { grid-column: 1 / -1; margin: -2px 0 0; text-align: right; font-size: 12px; color: var(--p-mut); }
+#overview .ovp-status i { font-style: normal; opacity: .6; }
+#overview .ovp-status-err { color: var(--p-r); font-weight: 600; }
+
+#overview .ovp-peek { display: none; position: absolute; top: calc(100% + 10px); left: 0; z-index: 20; width: 300px; box-sizing: border-box; background: #fff; color: var(--p-ink); border-radius: 12px; box-shadow: 0 16px 40px rgba(15, 28, 46, .22); padding: 12px 14px; gap: 8px; font-size: 13px; text-align: left; cursor: default; }
+#overview .ovp-peek::before { content: ""; position: absolute; top: -6px; left: 22px; width: 12px; height: 12px; background: #fff; transform: rotate(45deg); }
+#overview .ovp-pk:hover .ovp-peek, #overview .ovp-pk:focus-within .ovp-peek { display: grid; }
+#overview .ovp-peek h4 { margin: 0; font-size: 13px; }
+#overview .ovp-peek ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 5px; }
+#overview .ovp-peek li { display: flex; justify-content: space-between; gap: 10px; }
+#overview .ovp-peek li span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#overview .ovp-peek li span:last-child { color: var(--p-mut); white-space: nowrap; }
+#overview .ovp-peek-open { color: var(--p-pri); font-weight: 700; }
+
+/* ---------- rest of the Overview ---------- */
+#overview .ovp-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 14px; }
+#overview .ovp-g2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+#overview .ovp-card { background: var(--p-card); border: 1px solid var(--p-line); border-radius: 12px; padding: 14px; transition: .15s; text-align: left; display: block; width: 100%; box-shadow: none; }
+#overview .ovp-card h3 { margin: 0 0 10px; font-size: 14px; font-weight: 700; }
+#overview .ovp-sub { color: var(--p-mut); font-size: 12px; }
+#overview .ovp-sub-btn { display: block; width: 100%; margin-top: 6px; padding: 6px 0 0; border: 0; background: none; text-align: left; cursor: pointer; }
+#overview .ovp-sub-go { color: var(--p-pri); font-weight: 700; white-space: nowrap; }
+#overview .ovp-sub-btn:hover .ovp-sub-go { text-decoration: underline; }
+
+#overview .ovp-k { color: var(--p-ink); }
+#overview .ovp-k b { display: block; font-size: 24px; line-height: 1.1; font-weight: 700; }
+#overview .ovp-k span { color: var(--p-mut); font-size: 12px; }
+#overview .ovp-big { background: linear-gradient(135deg, #0b1a2e, #0f8f7e); color: #fff; border: 0; }
+#overview .ovp-big span { color: #d1fae5; }
+#overview .ovp-t-G { color: var(--p-g); } #overview .ovp-t-B { color: var(--p-b); }
+#overview .ovp-t-A { color: var(--p-a); } #overview .ovp-t-R { color: var(--p-r); }
+#overview button.ovp-card { cursor: pointer; }
+#overview button.ovp-card:hover { border-color: var(--p-pri); transform: translateY(-1px); }
+#overview button.ovp-big:hover { border-color: transparent; }
+
+#overview .ovp-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border: 0; border-bottom: 1px solid var(--p-line); background: none; width: 100%; text-align: left; border-radius: 0; }
+#overview .ovp-row:last-child { border-bottom: 0; }
+#overview button.ovp-row { cursor: pointer; }
+#overview button.ovp-row:hover { background: var(--p-bg); }
+#overview .ovp-row > b { min-width: 30px; text-align: right; font-variant-numeric: tabular-nums; }
+#overview .ovp-n { flex: 1; min-width: 0; }
+#overview .ovp-n small { display: block; color: var(--p-mut); font-size: 12px; }
+#overview .ovp-bw { width: 38%; min-width: 70px; }
+#overview .ovp-bar { height: 7px; background: var(--p-line); border-radius: 9px; overflow: hidden; }
+#overview .ovp-bar i { display: block; height: 100%; border-radius: 9px; }
+#overview .ovp-fill-G { background: var(--p-g); } #overview .ovp-fill-B { background: var(--p-b); }
+#overview .ovp-fill-A { background: var(--p-a); } #overview .ovp-fill-R { background: var(--p-r); }
+#overview .ovp-tag { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+#overview .ovp-G { background: var(--p-gs); color: var(--p-g); } #overview .ovp-A { background: var(--p-as); color: var(--p-a); }
+#overview .ovp-R { background: var(--p-rs); color: var(--p-r); } #overview .ovp-B { background: var(--p-bs); color: var(--p-b); }
+#overview .ovp-alert { background: var(--p-rs); color: var(--p-r); padding: 10px 14px; border-radius: 10px; margin-bottom: 14px; font-weight: 500; }
+#overview .ovp-alert-in { margin: 0 0 10px; }
+#overview .ovp-alert-btn { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; border: 0; text-align: left; cursor: pointer; font: inherit; }
+#overview .ovp-alert-btn:hover { filter: brightness(.97); }
+#overview .ovp-alert-go { font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+#overview .ovp-row-go { color: var(--p-mut); font-size: 18px; line-height: 1; margin-left: 2px; transition: transform .15s; }
+#overview button.ovp-row:hover .ovp-row-go { transform: translateX(3px); color: var(--p-pri); }
+#overview .ovp-link { border: 0; background: none; padding: 6px 0 0; color: var(--p-pri); cursor: pointer; font: inherit; }
+#overview .ovp-link:hover { text-decoration: underline; }
+
+@media (max-width: 760px) {
+  #overview .ovp-search { width: 100%; }
+  #overview .ovp-today { grid-template-columns: 1fr; }
+  #overview .ovp-status { text-align: left; }
+  #overview .ovp-peek { width: min(300px, 86vw); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #overview .ovp-track, #overview .ovp-track::after, #overview .ovp-card, #overview .ovp-hero, #overview .ovp-mini { transition: none; }
+  #overview .ovp-live-dot, #overview .ovp-spin { animation: none; }
+  #overview .ovp-period button, #overview .ovp-period button .ovp-arr { transition: none; }
+}
+
+/* Reminder note: shown on any page, so it lives on <body>; the ovp- prefix keeps it unique. */
+.ovp-toast { position: fixed; right: 20px; bottom: 90px; z-index: 9999; max-width: min(360px, calc(100vw - 40px)); padding: 12px 16px; border-radius: 12px; background: #0b5d52; color: #fff; font: 600 14px/1.4 system-ui, "Segoe UI", sans-serif; box-shadow: 0 10px 30px rgba(15, 28, 46, .25); }
+
+/* ---------- Graph page: arriving from the Overview "Today" strip ---------- */
+#graph .graph-from-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; padding: 10px 14px; border-radius: 10px; background: #e6f6f3; color: #0b5d52; font-size: 13px; }
+#graph .graph-from-bar b { font-weight: 700; }
+#graph .graph-from-bar button { border: 0; background: none; color: #0b5d52; font: inherit; font-weight: 700; cursor: pointer; padding: 2px 4px; }
+#graph .graph-from-bar [data-from-clear] { margin-left: auto; }
+#graph .graph-from-bar button:hover { text-decoration: underline; }
+#graph .graph-from-bar button:focus-visible { outline: 2px solid #0f8f7e; outline-offset: 2px; }
+#graph .graph-live-card.graph-from-target { border-color: #0f8f7e; box-shadow: 0 0 0 3px rgba(15, 143, 126, .25); animation: graph-from-flash 1.6s ease-out 1; }
+@keyframes graph-from-flash { 0% { box-shadow: 0 0 0 0 rgba(15, 143, 126, .55); } 100% { box-shadow: 0 0 0 3px rgba(15, 143, 126, .25); } }
+#graph .graph-from-badge { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 99px; background: #0f8f7e; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; vertical-align: 2px; }
+#graph .graph-workspace .graph-task-stat-strip { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+#graph .graph-stat-tile.stat-due { border-color: #bfe9e2; }
+#graph .graph-stat-tile.stat-due b { color: #0f8f7e; }
+#graph .graph-stat-tile.is-active { border-color: #0f8f7e; box-shadow: 0 0 0 2px rgba(15, 143, 126, .2); }
+@media (prefers-reduced-motion: reduce) { #graph .graph-live-card.graph-from-target { animation: none; } }
+
+/* Meeting details drawer (opened from the Overview Today card; the drawer itself is global) */
+.graph-meeting-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 18px; }
+.graph-meeting-h { margin: 6px 0 4px; font-size: 15px; }
+.graph-meeting-sum { margin: 0 0 10px; color: #64748b; font-size: 13px; }
+.graph-meeting-empty { color: #64748b; }
+.graph-meeting-status { font-size: 12px; font-weight: 600; white-space: nowrap; }
+.graph-meeting-status.status-busy { color: #15803d; }
+.graph-meeting-status.status-tentative { color: #b45309; }
+.graph-meeting-status.status-free { color: #b91c1c; }
+.graph-meeting-status.status-unknown { color: #64748b; }
