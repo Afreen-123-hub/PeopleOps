@@ -213,6 +213,40 @@ def filter_work_location_payload(payload: dict, scope: dict) -> dict:
     return {**payload, "days": days, "people": people}
 
 
+def filter_projects(projects: list[dict], scope: dict) -> list[dict]:
+    """Scope a projects list (data/peopleops-data.json's `projects`) down to `scope`. Drops
+    projects with no scoped members entirely, and filters each remaining project's
+    per-member breakdown (`memberStats`) to scoped employees only. Project-level aggregate
+    totals (hoursWorked, tasksTotal, etc.) are left as company-wide figures — they summarize
+    the whole project rather than attributing work to any one person, so they don't carry
+    the same per-employee sensitivity `memberStats` does."""
+    if scope.get("type") == "company":
+        return projects
+    allowed = _lower_set(scope.get("employeeIds", []))
+    out = []
+    for p in projects:
+        stats = [m for m in p.get("memberStats", []) if str(m.get("id", "")).strip().lower() in allowed]
+        if not stats:
+            continue
+        out.append({**p, "memberStats": stats})
+    return out
+
+
+def filter_github_contributors(contributors: list[dict], scope: dict, login_to_employee_id: dict[str, str]) -> list[dict]:
+    """Scope a github-data.json `contributors` list down to `scope`. Contributors are keyed
+    by GitHub login, not employee id, so `login_to_employee_id` (built from peopleops-data.json's
+    employee[].github.login field) is needed to translate between the two."""
+    if scope.get("type") == "company":
+        return contributors
+    allowed = _lower_set(scope.get("employeeIds", []))
+    out = []
+    for c in contributors:
+        emp_id = login_to_employee_id.get(str(c.get("login", "")).strip().lower())
+        if emp_id and emp_id.strip().lower() in allowed:
+            out.append(c)
+    return out
+
+
 def can_access(employee_id: str, scope: dict) -> bool:
     """Whether `scope` is allowed to see this specific employee id — used to block
     direct-ID-in-URL bypasses (e.g. GET /api/employees/{id}, /api/attendance/{id})."""
