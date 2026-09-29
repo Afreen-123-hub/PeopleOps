@@ -56,8 +56,12 @@ def _employee_id_for_email(email: str) -> str:
 
 
 def _overrides() -> dict:
-    """{employeeIdOrEmail: {"role": "...", ...}} — hand-maintained corrections. See module
-    docstring for why these exist; they always take priority over the rule-based guess."""
+    """{employeeIdOrEmail: {"role": "...", "extraReports": [employeeId, ...]}} — hand-
+    maintained corrections. `role` always wins over the rule-based guess. `extraReports`
+    (optional) adds specific people — and their own subtrees — to this manager's scope on
+    top of what the automatic hierarchy resolves, for real org changes the data source
+    (GreytHR/Graph) hasn't caught up to yet, e.g. a successor taking over after someone
+    resigns."""
     data = _load_json(OVERRIDES_FILE, {})
     return {k: v for k, v in data.items() if not k.startswith("_")}
 
@@ -140,6 +144,11 @@ def resolve_identity(employee_id: str = "", email: str = "") -> dict:
         scope_type = "self"
     else:
         scope_ids = _resolve_scope_ids(employee_id, by_id)
+        # An override can add people to this manager's scope beyond what the automatic
+        # hierarchy gives (e.g. a real reassignment GreytHR hasn't caught up to yet). Each
+        # extra id pulls in that person's own subtree too, not just themselves.
+        for extra_id in override.get("extraReports") or []:
+            scope_ids = sorted(set(scope_ids) | set(_resolve_scope_ids(extra_id, by_id)))
         scope_type = "reports"
 
     return {
