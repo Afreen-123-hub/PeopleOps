@@ -149,6 +149,10 @@ def resolve_identity(employee_id: str = "", email: str = "") -> dict:
         # extra id pulls in that person's own subtree too, not just themselves.
         for extra_id in override.get("extraReports") or []:
             scope_ids = sorted(set(scope_ids) | set(_resolve_scope_ids(extra_id, by_id)))
+        # A manager's own record is deliberately excluded from their own scope: their data
+        # (attendance/leave/performance/appraisal) is only visible to whoever manages THEM,
+        # not to themselves via their own manager-level access.
+        scope_ids = sorted(set(scope_ids) - {employee_id})
         scope_type = "reports"
 
     return {
