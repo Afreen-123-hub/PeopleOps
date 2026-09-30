@@ -1037,13 +1037,18 @@ def read_greythr_api(start: str, end: str) -> tuple[defaultdict, dict, dict, dic
     return result, master, dept_details, day_map
 
 
-def fetch_greythr_mtm_employees(existing_ids: set, fallback_path: Path | None = None) -> dict:
+def fetch_greythr_mtm_employees(existing_users: dict, fallback_path: Path | None = None) -> dict:
     """Return {emp_no: user_dict} for every active GreytHR employee not already in Worklogix
-    (`existing_ids`) — MTM members from another office/engagement model that Worklogix
-    doesn't track. Originally scoped to only Senthil Kumar's (CWINE053) direct reports;
-    widened 2026-09-28 after finding a second, separate MTM branch (26 people under Archana
-    Arun, CWINE048) that the old manager-specific query never saw — there was no reason to
-    assume Senthil's team was the only one.
+    (`existing_users`, {emp_id: user_dict}) — MTM members from another office/engagement
+    model that Worklogix doesn't track. Originally scoped to only Senthil Kumar's
+    (CWINE053) direct reports; widened 2026-09-28 after finding a second, separate MTM
+    branch (26 people under Archana Arun, CWINE048) that the old manager-specific query
+    never saw — there was no reason to assume Senthil's team was the only one.
+
+    Dedupes by normalized name as well as employee code (2026-09-30): the same person can
+    have a *different* code in Worklogix vs GreytHR, so an id-only check let 4 people
+    through as "new" MTM hires when they already existed in Worklogix under another id —
+    e.g. Worklogix's CWINI208 and GreytHR's CWINE176 were both "Berlin sweety D H".
 
     If this GreytHR call fails, fall back to the MTM employee list from the previous
     successful generation (fallback_path) instead of returning empty. A transient
@@ -1051,6 +1056,8 @@ def fetch_greythr_mtm_employees(existing_ids: set, fallback_path: Path | None = 
     and with it their real verified-sprint data, reverting them to a generic fallback
     profile — until the next refresh happened to succeed. Reusing the last known list
     means a hiccup here just leaves things unchanged instead of erasing them."""
+    existing_ids = set(existing_users)
+    existing_names = {normalize_name(u.get("name", "")) for u in existing_users.values() if u.get("name")}
     try:
         token, domain = greythr_get_token()
         rows = get_reporting_hierarchy(token, domain)
@@ -1060,6 +1067,8 @@ def fetch_greythr_mtm_employees(existing_ids: set, fallback_path: Path | None = 
                 continue
             emp_no = str(emp.get("employeeNo") or "").strip()
             if not emp_no or emp_no in existing_ids or emp_no in BLOCKED_IDS:
+                continue
+            if normalize_name(emp.get("name", "")) in existing_names:
                 continue
             dept = str(emp.get("department") or "").strip()
             desig = str(emp.get("designation") or "").strip()
@@ -1102,6 +1111,7 @@ def fetch_greythr_mtm_employees(existing_ids: set, fallback_path: Path | None = 
                     }
                     for e in previous.get("employees", [])
                     if e.get("isMtm") and e.get("id") and e.get("id") not in existing_ids
+                    and normalize_name(e.get("name", "")) not in existing_names
                 }
                 if fallback_mtm:
                     print(
@@ -1155,7 +1165,7 @@ def main():
               f"Sample is_active values: {list(set(str(u.get('is_active', '')) for u in list(all_users.values())[:5]))}",
               file=sys.stderr)
         sys.exit(1)
-    mtm_users = fetch_greythr_mtm_employees(set(users), fallback_path=out_path)
+    mtm_users = fetch_greythr_mtm_employees(users, fallback_path=out_path)
     users.update(mtm_users)
     mtm_ids = set(mtm_users)
     allowed_employee_ids = set(users)
