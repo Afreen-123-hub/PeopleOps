@@ -731,10 +731,15 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             # /api/data returns the whole cached dataset — its `employees` field is exactly
             # as sensitive as /api/employees and must be scoped the same way, or a team-scoped
             # user could bypass the /api/employees restriction just by calling this instead.
+            # `overview` is a company-wide performance aggregate (avg KPI, risk counts, total
+            # work items, etc.) — same sensitivity as the standalone /api/overview endpoint,
+            # which is already company-wide-only, so it's dropped here too for anyone else
+            # rather than leaking it through this endpoint instead.
             "/api/data": lambda: {
                 **data,
                 "employees": access_control.filter_employees(data.get("employees", []), scope),
                 "projects": access_control.filter_projects(data.get("projects", []), scope),
+                "overview": data.get("overview", {}) if scope.get("type") == "company" else {},
             },
             "/api/meta": lambda: data.get("meta", {}),
             "/api/overview": lambda: data.get("overview", {}),
@@ -764,8 +769,19 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                     },
                 ),
             })(self.load_github_data()),
+            # planner.plans[].tasks[] are keyed by Azure AD user GUID (assigneeIds), not
+            # employee id, so translate via employee[].teamsId the same way github logins are.
             "/api/graph-data": lambda: (lambda gr: {
-                **gr, "employees": access_control.filter_employees(gr.get("employees", []), scope)
+                **gr,
+                "employees": access_control.filter_employees(gr.get("employees", []), scope),
+                "planner": access_control.filter_planner(
+                    gr.get("planner", {}), scope,
+                    {
+                        str(e.get("id", "")).strip().lower(): e.get("teamsId", "")
+                        for e in data.get("employees", [])
+                        if e.get("teamsId")
+                    },
+                ),
             })(self.load_graph_data()),
             "/api/mtm-employees": lambda: [
                 {"id": str(e["id"]), "name": e.get("name", "")}
