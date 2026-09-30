@@ -175,6 +175,30 @@ def filter_employees(records: list[dict], scope: dict, id_key: str = "id") -> li
     return [r for r in records if str(r.get(id_key, "")).strip().lower() in allowed]
 
 
+def filter_planner(planner: dict, scope: dict, empid_to_teamsid: dict[str, str]) -> dict:
+    """Scope a graph-activity.json `planner` object down to `scope`. Tasks are keyed by
+    Azure AD user GUIDs (`assigneeIds`), not employee id, so `empid_to_teamsid` (built from
+    peopleops-data.json's employee[].teamsId) is needed to translate between the two — same
+    pattern as filter_github_contributors. A plan with no scoped assignee on any task is
+    dropped entirely; a plan with some is kept with only the matching tasks."""
+    if scope.get("type") == "company":
+        return planner
+    allowed_teamsids = {
+        str(empid_to_teamsid.get(str(e).strip().lower(), "")).strip().lower()
+        for e in scope.get("employeeIds", [])
+    }
+    allowed_teamsids.discard("")
+    plans = []
+    for p in planner.get("plans", []):
+        tasks = [
+            t for t in p.get("tasks", [])
+            if any(str(a).strip().lower() in allowed_teamsids for a in t.get("assigneeIds", []))
+        ]
+        if tasks:
+            plans.append({**p, "tasks": tasks})
+    return {**planner, "plans": plans}
+
+
 def filter_leave_types_payload(payload: dict, scope: dict) -> dict:
     """Scope a leave-types month payload (data/leave/YYYY-MM.json) down to `scope`.
 
