@@ -267,7 +267,8 @@ async function renderGraph() {
   graphSkeleton();
   try {
     const response = await apiFetch("/api/graph-data");
-    graphData = await response.json();
+    // /api/graph-data isn't scoped on the server yet; keep the 360° search to this user's people.
+    graphData = scopeGraphData(await response.json());
     setupGraphExplorer();
     renderGraphExplorer();
     if (typeof renderTodayBriefing === "function") renderTodayBriefing();
@@ -301,7 +302,7 @@ async function refreshGraph() {
     if (!response || !response.ok) throw new Error("Graph refresh failed");
     const result = await response.json();
     if (result.status !== "refreshed") throw new Error(result.stderr || "Refresh failed");
-    graphData = result.graph;
+    graphData = scopeGraphData(result.graph);
     renderGraphExplorer();
     if (typeof renderTodayBriefing === "function") renderTodayBriefing();
     label.innerHTML = result.generatedAt ? CLOCK_SVG + formatRefreshTimestamp(result.generatedAt, "Updated") : "Updated";
@@ -969,7 +970,10 @@ function renderGraphExplorer() {
 
   const totalEmployees = meta.totalEmployees || 0;
   const eyebrowEl = document.getElementById("graphSummaryEyebrow");
-  if (eyebrowEl) eyebrowEl.textContent = `Organization Overview${totalEmployees ? ` · All ${totalEmployees} Employees` : ""}`;
+  // Leads/managers get Graph data trimmed to their people (scopeGraphData in app.js), so say so.
+  if (eyebrowEl) eyebrowEl.textContent = typeof isCompanyScope === "function" && !isCompanyScope()
+    ? `Your team${totalEmployees ? ` · ${totalEmployees} ${totalEmployees === 1 ? "person" : "people"}` : ""}`
+    : `Organization Overview${totalEmployees ? ` · All ${totalEmployees} Employees` : ""}`;
 
   const cards = [
     ["live", "Live meetings", graphLiveMeetings().length, "Happening right now"],

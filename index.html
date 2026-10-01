@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
     <link rel="icon" type="image/svg+xml" href="peopleops-icon.svg">
-    <link rel="stylesheet" href="styles.css?v=20260825-tarapanelfix">
+    <link rel="stylesheet" href="styles.css?v=20260929-rbac">
     <link rel="stylesheet" href="leave-types.css?v=20260921-leavetypes">
     <link rel="stylesheet" href="work-location.css?v=20260925-search">
     <link rel="stylesheet" href="overview.css?v=20260929-greet2">
@@ -17,7 +17,12 @@
           <img src="peopleops-logo.svg" class="brand-logo" alt="PeopleOps Intelligence" style="width:152px;height:auto;display:block;">
         </div>
         <div class="rail-nav-label">Main</div>
-        <button class="rail-item active" data-view="overview" title="Overview">
+        <!-- Role-based nav: company-only / reports-only / are toggled by the scope-* class app.js puts on <body>. -->
+        <button class="rail-item reports-only" data-view="myteam" title="My team">
+          <svg class="rail-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          My team
+        </button>
+        <button class="rail-item company-only active" data-view="overview" title="Overview">
           <svg class="rail-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
           Overview
         </button>
@@ -50,7 +55,7 @@
           <svg class="rail-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
           Graph
         </button>
-        <button class="rail-item" data-view="integrations" title="Integrations">
+        <button class="rail-item company-only" data-view="integrations" title="Integrations">
           <svg class="rail-icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           Integrations
         </button>
@@ -92,7 +97,7 @@
                 <input id="ovMonth" type="month" aria-label="Month to show">
                 <button id="ovLoadMonth" type="button">Load month <span class="ovp-arr" aria-hidden="true">→</span></button>
               </div>
-              <button class="ovp-icon-btn" id="refreshDataBtn" type="button" title="Refresh data: pull the latest from Worklogix, GreytHR, Teams, GitHub and Graph" aria-label="Refresh data">↻</button>
+              <button class="ovp-icon-btn company-only" id="refreshDataBtn" type="button" title="Refresh data: pull the latest from Worklogix, GreytHR, Teams, GitHub and Graph" aria-label="Refresh data">↻</button>
             </div>
           </div>
           <div id="ovProto"></div>
@@ -289,95 +294,34 @@
           </div>
         </section>
 
+        <section id="myteam" class="view">
+          <!-- Team leads / managers: a summary of their own people, in place of the company-wide
+               Overview (which the server restricts to HR/Admin). Drawn by renderMyTeam() in app.js. -->
+          <article class="panel myteam-panel" id="myTeamContent"></article>
+        </section>
+
         <section id="kpi" class="view">
-          <div class="kpi-layout">
-            <article class="panel kpi-chart-panel">
-              <div class="panel-head">
-                <div>
-                  <p class="eyebrow">KPI performance</p>
-                  <h2>Team-wise KPI Bar Chart</h2>
-                </div>
-                <div class="kpi-head-actions">
-                  <span id="kpiRefreshStatus" class="pill"></span>
-                  <span id="kpiTeamCount" class="pill"></span>
-                  <button id="clearKpiTeam" class="button secondary-button" type="button">All teams</button>
-                  <button id="refreshKpi" class="button" type="button">Refresh KPI</button>
-                </div>
+          <div class="kpi-layout kpx-layout">
+            <div class="kpx-toolbar">
+              <span data-scope-count></span>
+              <div class="kpi-head-actions">
+                <span id="kpiRefreshStatus" class="pill"></span>
+                <span id="kpiTeamCount" class="pill"></span>
+                <button id="clearKpiTeam" class="button secondary-button" type="button">All teams</button>
+                <button id="refreshKpi" class="button company-only" type="button">Refresh KPI</button>
               </div>
-              <div id="kpiTeamBars" class="kpi-team-bars"></div>
+            </div>
+
+            <div id="kpiSignalSummary" class="kpx-grid"></div>
+
+            <article class="kpx-card">
+              <h3>Team-wise KPI <span id="kpiTeamSub" class="kpx-sub"></span></h3>
+              <div id="kpiTeamBars"></div>
             </article>
 
-            <article class="panel">
-              <p class="eyebrow">API score mix</p>
-              <h2>Worklogix + Teams Signals</h2>
-              <div id="kpiSignalSummary" class="kpi-signal-summary"></div>
-            </article>
-
-            <article class="panel heatmap-panel">
-              <div class="panel-head">
-                <div>
-                  <p class="eyebrow">Team performance breakdown</p>
-                  <h2>Team Pulse — KPI by Team</h2>
-                </div>
-                <span class="pill">
-                  <span class="tpc-legend-dot tpc-legend-good"></span>Excellent &nbsp;·&nbsp;
-                  <span class="tpc-legend-dot tpc-legend-watch"></span>Watch &nbsp;·&nbsp;
-                  <span class="tpc-legend-dot tpc-legend-risk"></span>At Risk
-                </span>
-              </div>
-              <div id="teamHeatmap"></div>
-            </article>
-
-            <article class="panel table-panel kpi-employee-panel">
-              <div class="panel-head">
-                <div>
-                  <p class="eyebrow">Employee KPI</p>
-                  <h2>Performance And Lagging Areas</h2>
-                </div>
-                <span id="kpiEmployeeCount" class="pill"></span>
-              </div>
-              <div class="panel-filter-bar">
-                <label class="pill-field-label search-field page-search-field">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-                  <input id="kpiSearchInput" type="search" placeholder="Search name, ID, team, designation">
-                </label>
-                <div class="pill-field-label page-search-field band-select-wrap" id="kpiBandFilter">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                  <button type="button" class="band-select-trigger" aria-haspopup="listbox" aria-expanded="false">
-                    <span class="band-trigger-dot"></span>
-                    <span class="band-select-label">All performance bands</span>
-                    <svg class="band-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                  </button>
-                  <ul class="band-select-panel" role="listbox" hidden></ul>
-                </div>
-                <label class="pill-field-label page-search-field">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"/></svg>
-                  <select id="kpiTeamFilter">
-                    <option value="all">All teams</option>
-                  </select>
-                </label>
-                <label class="pill-field-label page-search-field">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4M2 12l3 3L15 5"/></svg>
-                  <select id="kpiConfidenceFilter">
-                    <option value="0">Any confidence</option>
-                    <option value="50">50% and above</option>
-                    <option value="75">75% and above</option>
-                    <option value="100">Full confidence</option>
-                  </select>
-                </label>
-              </div>
-              <div class="table-wrap">
-                <table class="kpi-table">
-                  <thead>
-                    <tr>
-                      <th>Employee</th>
-                      <th>Team</th>
-                      <th>KPI</th>
-                    </tr>
-                  </thead>
-                  <tbody id="kpiEmployeeTable"></tbody>
-                </table>
-              </div>
+            <article class="kpx-card">
+              <h3>KPI weights</h3>
+              <div id="kpiWeights"></div>
             </article>
           </div>
         </section>
@@ -391,6 +335,7 @@
               <div>
                 <p class="eyebrow">Attendance intelligence</p>
                 <h2>Employee Attendance Details</h2>
+                <span data-scope-count></span>
               </div>
               <div class="employee-picker-wrap">
                 <label class="pill-field-label search-field page-search-field">
@@ -461,101 +406,27 @@
         </section>
 
         <section id="people" class="view">
-          <div id="leadershipStrip"></div>
-          <div id="peopleStatStrip" class="stat-strip"></div>
-          <article class="panel table-panel">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Employee intelligence</p>
-                <h2>Ranked KPI Register</h2>
+          <div class="kpx-layout">
+            <div class="kpx-toolbar"><span data-scope-count></span></div>
+            <div id="peopleStatStrip" class="kpx-grid"></div>
+            <article id="leadershipStrip" class="kpx-card" hidden></article>
+            <article class="kpx-card">
+              <h3>Ranked KPI register <span class="kpx-sub">· tasks shown as completed/total</span></h3>
+              <div class="kpx-chips" id="peopleBandChips">
+                <button type="button" class="kpx-chip on" data-band="All">All</button>
+                <button type="button" class="kpx-chip" data-band="Excellent">Excellent</button>
+                <button type="button" class="kpx-chip" data-band="Good">Good</button>
+                <button type="button" class="kpx-chip" data-band="Watch">Watch</button>
+                <button type="button" class="kpx-chip" data-band="At risk">At risk</button>
+                <input id="peopleSearchInput" class="kpx-search" type="search" placeholder="Search name, ID, team, designation">
               </div>
-              <span class="pill">Click a row for details</span>
-            </div>
-            <div class="panel-filter-bar">
-              <label class="pill-field-label search-field page-search-field">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-                <input id="peopleSearchInput" type="search" placeholder="Search name, ID, team, designation">
-              </label>
-              <div class="pill-field-label page-search-field band-select-wrap" id="peopleBandFilter">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                <button type="button" class="band-select-trigger" aria-haspopup="listbox" aria-expanded="false">
-                  <span class="band-trigger-dot"></span>
-                  <span class="band-select-label">All performance bands</span>
-                  <svg class="band-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                </button>
-                <ul class="band-select-panel" role="listbox" hidden></ul>
-              </div>
-              <label class="pill-field-label page-search-field">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"/></svg>
-                <select id="peopleTeamFilter">
-                  <option value="all">All teams</option>
-                </select>
-              </label>
-              <label class="pill-field-label page-search-field">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4M2 12l3 3L15 5"/></svg>
-                <select id="peopleConfidenceFilter">
-                  <option value="0">Any confidence</option>
-                  <option value="50">50% and above</option>
-                  <option value="75">75% and above</option>
-                  <option value="100">Full confidence</option>
-                </select>
-              </label>
-              <label class="pill-field-label page-search-field">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <select id="peopleTypeFilter">
-                  <option value="all">All types</option>
-                  <option value="employee">Employees</option>
-                  <option value="intern">Interns</option>
-                  <option value="trainee">Trainees</option>
-                  <option value="mtm">MTM</option>
-                </select>
-              </label>
-            </div>
-            <div class="tsec-label">Scored &amp; ranked <span class="n" id="scoredCountBadge"></span></div>
-            <div class="table-wrap">
-              <table class="employees-table">
-                <colgroup>
-                  <col class="col-employee">
-                  <col class="col-kpi">
-                  <col class="col-band">
-                  <col class="col-small">
-                  <col class="col-small">
-                  <col class="col-small">
-                  <col class="col-small">
-                  <col style="width:120px">
-                </colgroup>
-                <thead>
-                  <tr>
-                    <th>Employee</th>
-                    <th>KPI</th>
-                    <th>Band</th>
-                    <th>Tasks</th>
-                    <th>Present</th>
-                    <th>Leave</th>
-                    <th>Absent</th>
-                    <th>Teams</th>
-                  </tr>
-                </thead>
-                <tbody id="peopleTable">
-                  <tr class="skel-row"><td><div class="skel-cell wide"></div></td><td><div class="skel-cell mid"></div></td><td><div class="skel-cell mid"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell mid"></div></td></tr>
-                  <tr class="skel-row"><td><div class="skel-cell wide"></div></td><td><div class="skel-cell mid"></div></td><td><div class="skel-cell mid"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell mid"></div></td></tr>
-                  <tr class="skel-row"><td><div class="skel-cell wide"></div></td><td><div class="skel-cell mid"></div></td><td><div class="skel-cell mid"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell mid"></div></td></tr>
-                  <tr class="skel-row"><td><div class="skel-cell wide"></div></td><td><div class="skel-cell mid"></div></td><td><div class="skel-cell mid"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell mid"></div></td></tr>
-                  <tr class="skel-row"><td><div class="skel-cell wide"></div></td><td><div class="skel-cell mid"></div></td><td><div class="skel-cell mid"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell short"></div></td><td><div class="skel-cell mid"></div></td></tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="awaiting-data" id="awaitingDataSection" hidden>
-              <div class="awaiting-head" id="awaitingDataToggle">
-                <div class="awaiting-title">
-                  Awaiting data <span class="badge" id="awaitingDataBadge"></span>
-                  <div class="awaiting-sub">No Worklogix tasks or attendance link yet — mostly new interns, filtered out of the ranked list above</div>
-                </div>
-                <span class="awaiting-toggle" id="awaitingDataToggleLabel">Show ▾</span>
-              </div>
-              <div class="awaiting-body" id="awaitingDataBody" hidden></div>
-            </div>
-          </article>
+              <div id="peopleTable"></div>
+              <details id="awaitingDataSection" class="kpx-awaiting" hidden>
+                <summary>Awaiting data · <span id="awaitingDataBadge"></span> <span class="kpx-sub">(no Worklogix tasks or attendance link yet)</span></summary>
+                <div id="awaitingDataBody"></div>
+              </details>
+            </article>
+          </div>
         </section>
 
         <section id="projects" class="view">
@@ -593,7 +464,7 @@
                 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
               </span>
               <span id="ghRefreshLabel" class="refresh-pill"></span>
-              <button class="button refresh-btn" onclick="refreshGitHub()">
+              <button class="button refresh-btn company-only" onclick="refreshGitHub()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.85-3.36L23 10M1 14l4.65 4.36A9 9 0 0020.5 15"/></svg>
                 Refresh now
               </button>
@@ -785,7 +656,7 @@
             <div class="gh-header-actions">
               <span id="graphRefreshLabel" class="refresh-pill"></span>
               <input type="month" id="graphMonthPicker" class="month-picker-input">
-              <button id="graphRefreshButton" class="button refresh-btn" type="button">
+              <button id="graphRefreshButton" class="button refresh-btn company-only" type="button">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.85-3.36L23 10M1 14l4.65 4.36A9 9 0 0020.5 15"/></svg>
                 Refresh now
               </button>
@@ -850,7 +721,7 @@
     </dialog>
 
     <!-- Tara Chatbot -->
-    <div id="taraBtn" class="tara-btn" onclick="toggleTara()">
+    <div id="taraBtn" class="tara-btn company-only" onclick="toggleTara()">
       <span class="tara-btn-icon">✦</span>
       <span class="tara-btn-label">Ask Tara</span>
     </div>
@@ -918,9 +789,9 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20260929-greet2"></script>
-    <script src="leave-types.js?v=20260921-leavetypes"></script>
-    <script src="work-location.js?v=20260925-search"></script>
-    <script src="graph-explorer.js?v=20260929-meet"></script>
+    <script src="app.js?v=20260929-rbac"></script>
+    <script src="leave-types.js?v=20260929-rbac"></script>
+    <script src="work-location.js?v=20260929-rbac"></script>
+    <script src="graph-explorer.js?v=20260929-rbac"></script>
   </body>
 </html>
