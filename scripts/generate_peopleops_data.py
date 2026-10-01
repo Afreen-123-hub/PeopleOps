@@ -705,10 +705,12 @@ def read_biometric_api(month_label):
     result = defaultdict(lambda: Counter())
     checkin_times: dict[str, list[float]] = defaultdict(list)
     checkout_times: dict[str, list[float]] = defaultdict(list)
-    # Track (emp_id, date) pairs already counted to deduplicate API rows.
-    # The Worklogix presence report sometimes returns multiple rows per employee
-    # per day (e.g. two sessions), which would double-count biometricDays.
-    seen_biometric_dates: set[tuple[str, str]] = set()
+    # The presence report returns one row per biometric session, so a person often has
+    # several rows for the same day (e.g. "09:04 AM - 01:10 PM" at Codework-Beta and
+    # "01:52 PM - 06:35 PM" at Server-Beta). All of a day's sessions are collected here and
+    # resolved once per day below: check-in = earliest swipe, check-out = latest swipe.
+    # (Keeping only the first row made a mid-day session look like the day's check-in.)
+    day_sessions: dict[tuple[str, str], dict] = {}
     seen_presence_dates: set[tuple[str, str]] = set()
 
     for row in extract_rows(payload):
@@ -733,10 +735,8 @@ def read_biometric_api(month_label):
                     continue
 
         bio = row.get("biometric_in_office_status") or {}
-        _bio_date_key = (emp_id, _row_date_str)
-        if bio and not _is_weekend and _bio_date_key not in seen_biometric_dates:
-            seen_biometric_dates.add(_bio_date_key)
-            result[emp_id]["biometricDays"] += 1
+        if bio and not _is_weekend:
+            day = day_sessions.setdefault((emp_id, _row_date_str), {"ins": [], "outs": [], "locs": []})
             # "09:13 AM - 06:05 PM"
             time_range = clean(bio.get("time", ""))
             if " - " in time_range:
@@ -744,15 +744,10 @@ def read_biometric_api(month_label):
                 cin = parse_time_ampm(cin_str)
                 cout = parse_time_ampm(cout_str)
                 if cin is not None:
-                    checkin_times[emp_id].append(cin)
+                    day["ins"].append(cin)
                 if cout is not None:
-                    checkout_times[emp_id].append(cout)
-                if cin is not None and cout is not None and cout > cin:
-                    result[emp_id]["biometricWorkHours"] += (cout - cin)
-                    result[emp_id]["biometricWorkDays"] += 1
-            loc = clean(bio.get("location", ""))
-            if loc:
-                result[emp_id][f"loc:{loc}"] += 1
+                    day["outs"].append(cout)
+                day["locs"].append((cin if cin is not None else 99, clean(bio.get("location", ""))))
 
         _pres_date_key = (emp_id, _row_date_str)
         if not _is_weekend and _pres_date_key not in seen_presence_dates:
@@ -768,6 +763,23 @@ def read_biometric_api(month_label):
             result[emp_id]["teamsAwayHours"] += away
             result[emp_id]["teamsOfflineHours"] += offline
             result[emp_id]["presenceReports"] += 1
+
+    # One check-in / check-out per biometric day: earliest and latest swipe across sessions.
+    for (emp_id, _date), day in day_sessions.items():
+        result[emp_id]["biometricDays"] += 1
+        cin = min(day["ins"]) if day["ins"] else None
+        cout = max(day["outs"]) if day["outs"] else None
+        if cin is not None:
+            checkin_times[emp_id].append(cin)
+        if cout is not None:
+            checkout_times[emp_id].append(cout)
+        if cin is not None and cout is not None and cout > cin:
+            result[emp_id]["biometricWorkHours"] += (cout - cin)
+            result[emp_id]["biometricWorkDays"] += 1
+        # The day's location is where the person checked in (their earliest session).
+        first_loc = min(day["locs"])[1] if day["locs"] else ""
+        if first_loc:
+            result[emp_id][f"loc:{first_loc}"] += 1
 
     # Compute punctuality scores for all shift cutoffs
     for emp_id, times in checkin_times.items():

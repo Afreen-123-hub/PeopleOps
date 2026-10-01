@@ -2862,24 +2862,23 @@ function teamsStatusBadge(teams, clickable = false, empIndex = -1) {
   return `<span class="presence-badge ${cls}">${label}${loc}</span>`;
 }
 
+// Biometric times are stored as 24-hour decimal hours (9.25 = 9:15 AM, 18.5 = 6:30 PM).
 function formatCheckinHour(h) {
   if (h == null) return "—";
-  const hours = Math.floor(h);
-  const mins = Math.round((h - hours) * 60);
+  const total = Math.round(h * 60);
+  const hours = Math.floor(total / 60) % 24;
+  const mins = total % 60;
   const period = hours >= 12 ? "PM" : "AM";
-  const h12 = hours > 12 ? hours - 12 : hours === 0 ? 12 : hours;
+  const h12 = hours % 12 === 0 ? 12 : hours % 12;
   return `${h12}:${String(mins).padStart(2, "0")} ${period}`;
 }
 
-// Backend sometimes stores checkout in 12-hr format (6.0 = 6 PM, not 6 AM)
-// Safe to add 12 for any checkout < 12 since nobody leaves before noon
+// Check-out is the day's last biometric swipe, already in 24-hour time, so it is shown as is
+// (an 11:30 check-out is a real half-day, not 11:30 PM).
 function formatCheckoutHour(h) {
-  if (h == null) return "—";
-  const adjusted = (h > 0 && h < 12) ? h + 12 : h;
-  return formatCheckinHour(adjusted);
+  return formatCheckinHour(h);
 }
 
-// Applies a 10-minute grace period to punctuality.
 // Count Mon–Fri days from period start up to the earlier of generatedAt or period end.
 // Capping at period end prevents cross-month bleed when old data stays deployed past its month.
 function countWorkingDaysElapsed(dataset) {
@@ -2903,34 +2902,11 @@ function countWorkingDaysElapsed(dataset) {
   return count;
 }
 
-// Backend uses strict 9:00 AM cutoff — arriving at 9:01 AM counts as late.
-// We use avgCheckinHour to estimate how many "late" days were actually within grace.
+// Punctuality is the biometric score from the data pipeline (on-time days / swiped days at the
+// role's cutoff), the same number the KPI uses. No browser-side estimate, so they always agree.
 function calcPunctuality(att) {
-  const present = Math.max(1, att.present || 1);
-  const checkin = att.avgCheckinHour;
-  const score = att.punctualityScore;
-  const GRACE_MINS = 10;
-
-  if (score == null && checkin == null) return null;
-
-  if (score != null && checkin != null) {
-    const strictOnTime = Math.round(score * present / 100);
-    const lateDays = present - strictOnTime;
-    const avgLateMins = Math.max(0, (checkin - 9.0) * 60);
-    // Fraction of late days likely within the grace window (linear 0→1 as avg late → 0 mins)
-    const graceFraction = avgLateMins < GRACE_MINS ? (GRACE_MINS - avgLateMins) / GRACE_MINS : 0;
-    const additionalOnTime = Math.round(lateDays * graceFraction);
-    const graceOnTime = Math.min(present, strictOnTime + additionalOnTime);
-    return Math.round((graceOnTime / present) * 100);
-  }
-
-  // No backend score — estimate directly from avgCheckinHour with grace applied
-  if (checkin != null) {
-    const lateMinutes = Math.max(0, (checkin - 9.0) * 60 - GRACE_MINS);
-    return Math.max(0, Math.round(100 - lateMinutes));
-  }
-
-  return score;
+  const score = att?.punctualityScore;
+  return score == null ? null : Math.round(score);
 }
 
 function teamsStatusKey(teams) {
