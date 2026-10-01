@@ -719,6 +719,8 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "type": current_session.get("type", "password"),
                 "role": current_session.get("role", "employee"),
                 "scope": scope,
+                "employeeId": current_session.get("employeeId", ""),
+                "team": (self.find_employee(data, current_session["employeeId"]) or {}).get("team", "") if current_session.get("employeeId") else "",
             },
             "/api/available-months": lambda: {
                 "months": sorted([
@@ -729,7 +731,16 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             # /api/data returns the whole cached dataset — its `employees` field is exactly
             # as sensitive as /api/employees and must be scoped the same way, or a team-scoped
             # user could bypass the /api/employees restriction just by calling this instead.
-            "/api/data": lambda: {**data, "employees": access_control.filter_employees(data.get("employees", []), scope)},
+            # `overview` is a company-wide performance aggregate (avg KPI, risk counts, total
+            # work items, etc.) — same sensitivity as the standalone /api/overview endpoint,
+            # which is already company-wide-only, so it's dropped here too for anyone else
+            # rather than leaking it through this endpoint instead.
+            "/api/data": lambda: {
+                **data,
+                "employees": access_control.filter_employees(data.get("employees", []), scope),
+                "projects": access_control.filter_projects(data.get("projects", []), scope),
+                "overview": data.get("overview", {}) if scope.get("type") == "company" else {},
+            },
             "/api/meta": lambda: data.get("meta", {}),
             "/api/overview": lambda: data.get("overview", {}),
             "/api/employees": lambda: access_control.filter_employees(data.get("employees", []), scope),
@@ -744,9 +755,34 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 }
                 for employee in data.get("employees", [])
             ], scope),
-            "/api/projects": lambda: data.get("projects", []),
-            "/api/github-data": lambda: self.load_github_data(),
-            "/api/graph-data": lambda: self.load_graph_data(),
+            "/api/projects": lambda: access_control.filter_projects(data.get("projects", []), scope),
+            # github-data.json's contributors are keyed by GitHub login, not employee id —
+            # build that translation from peopleops-data.json's employee[].github.login field.
+            "/api/github-data": lambda: (lambda gh: {
+                **gh,
+                "contributors": access_control.filter_github_contributors(
+                    gh.get("contributors", []), scope,
+                    {
+                        str(e["github"]["login"]).strip().lower(): e.get("id", "")
+                        for e in data.get("employees", [])
+                        if isinstance(e.get("github"), dict) and e["github"].get("login")
+                    },
+                ),
+            })(self.load_github_data()),
+            # planner.plans[].tasks[] are keyed by Azure AD user GUID (assigneeIds), not
+            # employee id, so translate via employee[].teamsId the same way github logins are.
+            "/api/graph-data": lambda: (lambda gr: {
+                **gr,
+                "employees": access_control.filter_employees(gr.get("employees", []), scope),
+                "planner": access_control.filter_planner(
+                    gr.get("planner", {}), scope,
+                    {
+                        str(e.get("id", "")).strip().lower(): e.get("teamsId", "")
+                        for e in data.get("employees", [])
+                        if e.get("teamsId")
+                    },
+                ),
+            })(self.load_graph_data()),
             "/api/mtm-employees": lambda: [
                 {"id": str(e["id"]), "name": e.get("name", "")}
                 for e in data.get("employees", [])
@@ -755,7 +791,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             "/api/mtm-tasks": lambda: _load_mtm_tasks(),
         }
 
-        AUDITED_LIST_PATHS = {"/api/employees", "/api/teams", "/api/data"}
+        AUDITED_LIST_PATHS = {"/api/employees", "/api/teams", "/api/data", "/api/projects", "/api/github-data", "/api/graph-data"}
 
         if path in routes:
             self.send_json(routes[path]())

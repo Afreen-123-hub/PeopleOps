@@ -2,6 +2,10 @@ let dataset;
 let filteredEmployees = [];
 let loggedInUserName = "";
 let loggedInUserEmail = "";
+let loggedInUserRole = "employee";
+let loggedInUserScope = { type: "self", employeeIds: [] };
+let loggedInEmployeeId = "";
+let loggedInUserTeam = "";
 let departmentChartBars = [];
 let teamsStatusFilter = "all";
 let teamsSearchQuery = "";
@@ -14,6 +18,40 @@ const state = {
   showInterns: true,
   type: "all",
 };
+
+const ROLE_LABELS = {
+  employee: "Employee", team_lead: "Team Lead", manager: "Manager",
+  dept_head: "Dept Head", hr: "HR", hr_admin: "HR Admin", super_admin: "Admin",
+};
+
+function isCompanyWideScope() {
+  return loggedInUserScope?.type === "company";
+}
+
+function roleBadgeLabel(role, team) {
+  const label = ROLE_LABELS[role] || "Employee";
+  if (role === "hr" || role === "hr_admin" || role === "super_admin") return `${label} — Company-wide`;
+  return team ? `${label} — ${team}` : label;
+}
+
+// Elements marked data-requires-company-scope are only meaningful for HR/Admin/CEO-level
+// roles (e.g. company-wide reports, cross-team search). The server already blocks the
+// underlying data for anyone else -- this just keeps the UI from offering a control that
+// would only ever come back 403.
+function applyRoleBasedVisibility() {
+  const companyWide = isCompanyWideScope();
+  document.querySelectorAll("[data-requires-company-scope]").forEach(el => {
+    el.style.display = companyWide ? "" : "none";
+  });
+  document.querySelectorAll("[data-requires-company-scope-disable]").forEach(el => {
+    el.disabled = !companyWide;
+  });
+  // Overview itself stays visible for every role -- it's meant to show, and does show,
+  // per-role numbers (built from the already-scoped employee list). Only the raw
+  // company-wide aggregate object (dataset.overview, from the server) is off-limits to
+  // non-company roles; anything on this page that needs it recomputes its own scoped
+  // version from dataset.employees instead (see renderSourceCoverage).
+}
 
 const DEMO_MODE = false;
 const DEMO_REFRESH_MESSAGE = "Demo mode: backend refresh is disabled";
@@ -937,6 +975,10 @@ async function boot() {
     if (me.name) {
       loggedInUserName = me.name;
       loggedInUserEmail = (me.email || "").toLowerCase();
+      loggedInUserRole = me.role || "employee";
+      loggedInUserScope = me.scope || { type: "self", employeeIds: [] };
+      loggedInEmployeeId = me.employeeId || "";
+      loggedInUserTeam = me.team || "";
       const initials = me.name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
       const avatarEl = document.getElementById("railUserAvatar");
       const nameEl   = document.getElementById("railUserName");
@@ -944,7 +986,7 @@ async function boot() {
       const wrapEl   = document.getElementById("railUser");
       if (avatarEl) avatarEl.textContent = initials;
       if (nameEl)   { nameEl.textContent = me.name; nameEl.title = me.name; }
-      if (typeEl)   typeEl.textContent   = me.type === "sso" ? "Microsoft account" : "Admin";
+      if (typeEl)   typeEl.textContent   = roleBadgeLabel(me.role, me.team);
       if (wrapEl)   wrapEl.style.display = "flex";
       // MTM verification is an admin-only tool — leadership signing in via SSO shouldn't see it
       const mtmLink = document.getElementById("mtmVerifyLink");
@@ -953,6 +995,7 @@ async function boot() {
         if (mtmLink) mtmLink.style.display = "none";
         if (mtmLabel) mtmLabel.style.display = "none";
       }
+      applyRoleBasedVisibility();
     }
   }
   dataset = scopeDataset(await loadDataset());
@@ -2297,11 +2340,14 @@ function renderMetrics() {
     worklogix: "Worklogix records", worklogixActivity: "Worklogix activity",
     teams: "Teams activity", greythr: "GreytHR muster", biometrics: "Biometric swipes", github: "GitHub",
   };
-  const coverageEntries = Object.entries(dataset.overview?.sourceCoverage || {}).filter(([key]) => key in coverageLabels);
+  // Computed from rows (already scoped), same reasoning as renderSourceCoverage(): the
+  // server withholds the precomputed company-wide aggregate from non-HR/Admin roles, so
+  // this is recomputed directly rather than depending on it.
+  const coverageEntries = Object.keys(coverageLabels).map((key) => [key, rows.filter((e) => e.sources?.[key]).length]);
   const bottleneck = coverageEntries.length
     ? coverageEntries.reduce((min, entry) => (entry[1] < min[1] ? entry : min))
     : null;
-  const bottleneckPct = bottleneck ? Math.round((bottleneck[1] / (dataset.overview.employees || 1)) * 100) : 0;
+  const bottleneckPct = bottleneck && rows.length ? Math.round((bottleneck[1] / rows.length) * 100) : 0;
   const officeHoursAvg = rows.length ? officeHours / rows.length : 0;
   const metrics = [
     ["Employees", rows.length, "Filtered population", "people", "blue"],
@@ -2487,7 +2533,15 @@ function metricIcon(name) {
 }
 
 function renderSourceCoverage() {
-  const total = dataset.overview.employees;
+  const container = document.getElementById("sourceCoverage");
+  if (!container) return;
+  // dataset.overview (the server's precomputed company-wide aggregate) is withheld from
+  // anyone who isn't HR/Admin, so this is computed directly from dataset.employees instead
+  // -- already scoped to whatever this viewer is allowed to see, so the coverage shown here
+  // is naturally "coverage across my team" for a Team Lead/Manager and "coverage across the
+  // company" for HR/Admin, without needing two separate code paths.
+  const rows = dataset.employees || [];
+  const total = rows.length;
   const labels = {
     worklogix: "Worklogix employee records",
     worklogixActivity: "Worklogix activity",
@@ -2496,8 +2550,9 @@ function renderSourceCoverage() {
     biometrics: "Biometric swipes",
     github: "GitHub contributions",
   };
-  document.getElementById("sourceCoverage").innerHTML = Object.entries(dataset.overview.sourceCoverage)
-    .filter(([key]) => key in labels)
+  if (!total) { container.innerHTML = ""; return; }
+  const counts = Object.keys(labels).map((key) => [key, rows.filter((e) => e.sources?.[key]).length]);
+  container.innerHTML = counts
     .map(([key, value]) => [key, value, Math.round((value / total) * 100)])
     .sort((a, b) => a[2] - b[2])
     .map(([key, value, pct]) => `<div class="coverage-item${pct < 10 ? " coverage-item--gap" : ""}">

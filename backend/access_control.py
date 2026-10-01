@@ -149,6 +149,10 @@ def resolve_identity(employee_id: str = "", email: str = "") -> dict:
         # extra id pulls in that person's own subtree too, not just themselves.
         for extra_id in override.get("extraReports") or []:
             scope_ids = sorted(set(scope_ids) | set(_resolve_scope_ids(extra_id, by_id)))
+        # A manager's own record is deliberately excluded from their own scope: their data
+        # (attendance/leave/performance/appraisal) is only visible to whoever manages THEM,
+        # not to themselves via their own manager-level access.
+        scope_ids = sorted(set(scope_ids) - {employee_id})
         scope_type = "reports"
 
     return {
@@ -169,6 +173,30 @@ def filter_employees(records: list[dict], scope: dict, id_key: str = "id") -> li
         return records
     allowed = _lower_set(scope.get("employeeIds", []))
     return [r for r in records if str(r.get(id_key, "")).strip().lower() in allowed]
+
+
+def filter_planner(planner: dict, scope: dict, empid_to_teamsid: dict[str, str]) -> dict:
+    """Scope a graph-activity.json `planner` object down to `scope`. Tasks are keyed by
+    Azure AD user GUIDs (`assigneeIds`), not employee id, so `empid_to_teamsid` (built from
+    peopleops-data.json's employee[].teamsId) is needed to translate between the two — same
+    pattern as filter_github_contributors. A plan with no scoped assignee on any task is
+    dropped entirely; a plan with some is kept with only the matching tasks."""
+    if scope.get("type") == "company":
+        return planner
+    allowed_teamsids = {
+        str(empid_to_teamsid.get(str(e).strip().lower(), "")).strip().lower()
+        for e in scope.get("employeeIds", [])
+    }
+    allowed_teamsids.discard("")
+    plans = []
+    for p in planner.get("plans", []):
+        tasks = [
+            t for t in p.get("tasks", [])
+            if any(str(a).strip().lower() in allowed_teamsids for a in t.get("assigneeIds", []))
+        ]
+        if tasks:
+            plans.append({**p, "tasks": tasks})
+    return {**planner, "plans": plans}
 
 
 def filter_leave_types_payload(payload: dict, scope: dict) -> dict:
@@ -207,6 +235,40 @@ def filter_work_location_payload(payload: dict, scope: dict) -> dict:
         for date, records in payload.get("days", {}).items()
     }
     return {**payload, "days": days, "people": people}
+
+
+def filter_projects(projects: list[dict], scope: dict) -> list[dict]:
+    """Scope a projects list (data/peopleops-data.json's `projects`) down to `scope`. Drops
+    projects with no scoped members entirely, and filters each remaining project's
+    per-member breakdown (`memberStats`) to scoped employees only. Project-level aggregate
+    totals (hoursWorked, tasksTotal, etc.) are left as company-wide figures — they summarize
+    the whole project rather than attributing work to any one person, so they don't carry
+    the same per-employee sensitivity `memberStats` does."""
+    if scope.get("type") == "company":
+        return projects
+    allowed = _lower_set(scope.get("employeeIds", []))
+    out = []
+    for p in projects:
+        stats = [m for m in p.get("memberStats", []) if str(m.get("id", "")).strip().lower() in allowed]
+        if not stats:
+            continue
+        out.append({**p, "memberStats": stats})
+    return out
+
+
+def filter_github_contributors(contributors: list[dict], scope: dict, login_to_employee_id: dict[str, str]) -> list[dict]:
+    """Scope a github-data.json `contributors` list down to `scope`. Contributors are keyed
+    by GitHub login, not employee id, so `login_to_employee_id` (built from peopleops-data.json's
+    employee[].github.login field) is needed to translate between the two."""
+    if scope.get("type") == "company":
+        return contributors
+    allowed = _lower_set(scope.get("employeeIds", []))
+    out = []
+    for c in contributors:
+        emp_id = login_to_employee_id.get(str(c.get("login", "")).strip().lower())
+        if emp_id and emp_id.strip().lower() in allowed:
+            out.append(c)
+    return out
 
 
 def can_access(employee_id: str, scope: dict) -> bool:
