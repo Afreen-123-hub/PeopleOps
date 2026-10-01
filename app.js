@@ -144,10 +144,11 @@ function setCurrentAccess(me) {
   const scopeType = ["self", "reports", "company"].includes(scope.type) ? scope.type : "company";
   currentAccess = {
     role: me?.role || "super_admin",
+    designation: me?.designation || "",
     scopeType,
     employeeIds: (scope.employeeIds || []).map((id) => String(id).trim().toLowerCase()),
     team: "",
-    ownTeam: "",
+    ownTeam: me?.team || "", // server already resolves this correctly from employeeId -- trust it
     ownId: me?.employeeId ? String(me.employeeId) : "", // only if /api/me sends it
   };
   // Manager-tier: their own id never counts as in scope (see excludeOwnRecord).
@@ -268,7 +269,9 @@ function mostCommonTeam(employees) {
 }
 
 function roleBadgeText() {
-  const role = ROLE_LABELS[currentAccess.role] || "Employee";
+  // Prefer the person's real job title over the internal access-tier name -- "Admin" reads
+  // oddly for the actual CEO, even though it's the correct tier.
+  const role = currentAccess.designation || ROLE_LABELS[currentAccess.role] || "Employee";
   if (isCompanyScope()) return `${role} · Company-wide`;
   return currentAccess.team ? `${role} · ${currentAccess.team}` : role;
 }
@@ -297,7 +300,8 @@ function applyRoleAccess() {
   const typeEl = document.getElementById("railUserType");
   if (typeEl) {
     const reach = isCompanyScope() ? "Company-wide" : currentAccess.team || "Your team";
-    typeEl.innerHTML = `<span class="rail-role-badge rail-role-badge--${currentAccess.scopeType}">${escapeHtml(ROLE_LABELS[currentAccess.role] || "Employee")}</span>`
+    const badgeLabel = currentAccess.designation || ROLE_LABELS[currentAccess.role] || "Employee";
+    typeEl.innerHTML = `<span class="rail-role-badge rail-role-badge--${currentAccess.scopeType}">${escapeHtml(badgeLabel)}</span>`
       + `<span class="rail-role-scope">${escapeHtml(reach)}</span>`;
     typeEl.title = roleBadgeText();
   }
@@ -1811,7 +1815,7 @@ function renderOverviewPrototype() {
   }).filter((b) => b.avgKpi !== null).sort((a, b) => b.avgKpi - a.avgKpi);
   const dept = `<div class="ovp-card"><h3>Overall KPI by department</h3>
     ${ovpDeptBars.slice(0, 6).map((b, i) => `<button type="button" class="ovp-row" data-ovp-dept="${i}"><span class="ovp-n">${escapeHtml(b.department)}</span><div class="ovp-bw">${ovpBar(b.avgKpi, ovpTone(b.avgKpi))}</div><b>${number.format(b.avgKpi)}</b></button>`).join("")}
-    <button type="button" class="ovp-link" data-ovp-go="kpi">View all teams →</button></div>`;
+    <button type="button" class="ovp-link" data-ovp-go="kpi">${isCompanyScope() ? "View all teams" : "View KPI breakdown"} →</button></div>`;
 
   // Attention required
   const alerts = computeAlerts(rows).slice(0, 5);
@@ -2317,11 +2321,11 @@ function renderTotalEmployeeBadge() {
         <strong>${number.format(total)}</strong>
         <span>Employees</span>
       </div>
-      <span class="workforce-banner-action">View all employees →</span>
+      <span class="workforce-banner-action">${isCompanyScope() ? "View all employees" : "View my team"} →</span>
     </button>
   `;
   document.querySelector("[data-overview-metric='employees']").addEventListener("click", () => {
-    renderOverviewMetricEmployees("employees", "All Employees");
+    renderOverviewMetricEmployees("employees", isCompanyScope() ? "All Employees" : "My Team");
   });
 }
 
