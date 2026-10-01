@@ -120,6 +120,14 @@
     return teamIndex[p.no] || teamIndex[p.id] || teamIndex["name:" + normKey(p.name)] || "";
   }
 
+  // The name opens the person's dashboard profile (app.js) when they have one; the rest of the
+  // row still opens the day's swipe detail.
+  function nameCell(r) {
+    var found = window.findEmployeeByAnyKey && window.findEmployeeByAnyKey(r.no, r.id, r.name);
+    if (!found) return "<b>" + esc(r.name) + "</b>";
+    return '<button type="button" class="emp-link" data-wl-profile="' + esc(found.id) + '" title="Open profile">' + esc(r.name) + "</button>";
+  }
+
   function classify(rec) {
     if (rec.bi) return "office";
     if (rec.wi) return "wfh";
@@ -436,7 +444,7 @@
       "</tr></thead><tbody>" + visible.map(function (r) {
         var open = r.id === state.person;
         return '<tr data-wl-person="' + esc(r.id) + '" class="wl-row' + (open ? " wl-sel" : "") + '" aria-expanded="' + open + '">' +
-          '<td class="wl-nm"><span class="wl-caret" aria-hidden="true">›</span><b>' + esc(r.name) + "</b><small>" + esc(r.no) + "</small></td>" +
+          '<td class="wl-nm"><span class="wl-caret" aria-hidden="true">›</span>' + nameCell(r) + "<small>" + esc(r.no) + "</small></td>" +
           "<td>" + (r.team ? esc(r.team) : '<span class="wl-dim">—</span>') + "</td>" +
           "<td>" + howCell(r) + "</td>" +
           "<td>" + inCell(r) + "</td>" +
@@ -478,7 +486,8 @@
     el.addEventListener("click", function (ev) {
       var t = ev.target.closest("button");
       if (t && el.contains(t)) {
-        if (t.dataset.wlPick) choose(t.dataset.wlPick);
+        if (t.dataset.wlProfile) { if (window.openEmployeeProfile) window.openEmployeeProfile(t.dataset.wlProfile); }
+        else if (t.dataset.wlPick) choose(t.dataset.wlPick);
         else if (t.dataset.wlBack) backToEveryone();
         else if (t.dataset.wlClose) { state.person = null; safeRender(); }
         else if (t.dataset.wlDay) goTo(t.dataset.wlDay);
