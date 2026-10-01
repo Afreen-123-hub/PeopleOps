@@ -1086,6 +1086,8 @@ async function loadDataset({ fresh = false } = {}) {
 function setupNavigation() {
   document.querySelectorAll(".rail-item[data-view]").forEach((button) => {
     button.addEventListener("click", () => {
+      const leavingView = document.querySelector(".view.active-view")?.id;
+      if (leavingView && leavingView !== button.dataset.view) clearPageSearches();
       document.querySelectorAll(".rail-item").forEach((item) => item.classList.remove("active"));
       document.querySelectorAll(".view").forEach((view) => view.classList.remove("active-view"));
       button.classList.add("active");
@@ -1098,6 +1100,24 @@ function setupNavigation() {
       if (button.dataset.view === "graph") renderGraph();
     });
   });
+}
+
+// A search belongs to the page it was typed on: moving to another page starts with everyone shown.
+// (The Overview search box still works — it switches to Employees first, then fills the search.)
+function clearPageSearches() {
+  ["projectSearch", "ghProjectSearch", "ghContribSearch", "graphGlobalSearch"].forEach((id) => {
+    const input = document.getElementById(id);
+    if (input) input.value = "";
+  });
+  if (typeof graphExplorerState !== "undefined") graphExplorerState.search = "";
+  if (dataset && document.getElementById("projectGrid")) renderProjects(""); // Projects isn't redrawn on page switch
+  if (!state.search) return;
+  state.search = "";
+  ["searchInput", "kpiSearchInput", "peopleSearchInput"].forEach((id) => {
+    const input = document.getElementById(id);
+    if (input) input.value = "";
+  });
+  applyFilters();
 }
 
 function toggleControls(view) {
@@ -1278,20 +1298,6 @@ function setupFilters() {
   document.getElementById("ghContribDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
   document.getElementById("closeGhContribDialog").addEventListener("click", () => document.getElementById("ghContribDialog").close());
   document.getElementById("graphRefreshButton")?.addEventListener("click", () => refreshGraph());
-  populateAttendanceOptions();
-  document.getElementById("attendanceEmployee").addEventListener("change", () => renderAttendanceDetail(document.getElementById("attendanceEmployee").value));
-  document.getElementById("attendanceSearch").addEventListener("input", function () {
-    const q = this.value.trim().toLowerCase();
-    const sel = document.getElementById("attendanceEmployee");
-    Array.from(sel.options).forEach(opt => {
-      opt.hidden = q && !opt.text.toLowerCase().includes(q);
-    });
-    const firstVisible = Array.from(sel.options).find(o => !o.hidden);
-    if (firstVisible && (q && !sel.options[sel.selectedIndex]?.text.toLowerCase().includes(q))) {
-      sel.value = firstVisible.value;
-      renderAttendanceDetail(sel.value);
-    }
-  });
   window.addEventListener("resize", () => { drawScatter(); drawDonutChart(); });
 }
 
@@ -1368,28 +1374,6 @@ function populateFilterOptions() {
   });
   // KPI page's "All teams" reset has nothing to reset when the filter is locked to one team.
   document.getElementById("clearKpiTeam")?.classList.toggle("role-hidden", lockedToOneTeam);
-}
-
-function populateAttendanceOptions() {
-  const attendanceSelect = document.getElementById("attendanceEmployee");
-  const previousEmployee = attendanceSelect.value;
-  const meNorm = loggedInUserName.trim().toLowerCase();
-  const sorted = dataset.employees
-    .slice()
-    .sort((a, b) => {
-      const aMe = meNorm && a.name.trim().toLowerCase() === meNorm ? -1 : 0;
-      const bMe = meNorm && b.name.trim().toLowerCase() === meNorm ? 1 : 0;
-      return aMe + bMe || a.name.localeCompare(b.name);
-    });
-  attendanceSelect.innerHTML = sorted
-    .map((employee) => `<option value="${employee.id}">${employee.name} (${employee.id})</option>`)
-    .join("");
-  if (previousEmployee && dataset.employees.some((employee) => employee.id === previousEmployee)) {
-    attendanceSelect.value = previousEmployee;
-  } else if (meNorm) {
-    const match = dataset.employees.find(e => e.name.trim().toLowerCase() === meNorm);
-    if (match) attendanceSelect.value = match.id;
-  }
 }
 
 function isIntern(employee) {
@@ -1983,7 +1967,6 @@ function renderAll() {
   renderAttendanceTeamRollup();
   if (window.renderLeaveTypesCard) window.renderLeaveTypesCard(); // leave-types.js; never throws
   if (window.renderWorkLocationCard) window.renderWorkLocationCard(); // work-location.js; never throws
-  renderAttendanceDetail(document.getElementById("attendanceEmployee").value || dataset.employees[0]?.id);
   renderProjects();
   renderAlerts();
   renderIntegrations();
@@ -3260,6 +3243,9 @@ function closeBandDrawer() {
   }, { once: true });
 }
 
+// Team summary view state: kept while the page is open, reset on reload.
+const attRollupView = { sort: "att", showAll: false };
+
 function renderAttendanceTeamRollup() {
   const container = document.getElementById("attendanceTeamRollup");
   if (!container) return;
@@ -3304,49 +3290,80 @@ function renderAttendanceTeamRollup() {
 
   const toneClass = t => t === "good" ? "good" : t === "warn" ? "warn" : t === "bad" ? "bad" : "muted";
 
+  // Prototype layout: summary cards, sort buttons, top 5 teams with "View all".
+  const SHOW = 5;
+  const companyAtt = avgOf(filteredEmployees, empAttPct);
+  const companyPunct = avgOf(filteredEmployees, e => e.attendance?.punctualityScore);
+  const belowSixty = rows.filter(r => r.avgAtt != null && r.avgAtt < 60).length;
+  const best = rows[0];
+  const sortValue = { att: r => r.avgAtt, punct: r => r.avgPunct, hrs: r => r.avgHrs };
+  const statCard = (value, label, cls = "") => `<div class="att-sum-stat"><b class="${cls}">${value}</b><span>${label}</span></div>`;
+
   container.innerHTML = `
-    <article class="panel" style="margin-bottom:16px;">
-      <div class="panel-head">
+    <article class="panel att-sum" style="margin-bottom:16px;">
+      <div class="att-sum-head">
         <div>
           <p class="eyebrow">Team overview</p>
-          <h2>Team Attendance Summary</h2>
+          <h2>Team attendance summary</h2>
+          <div class="att-sum-sub">${rows.length} team${rows.length === 1 ? "" : "s"} · click a team to see its members</div>
+        </div>
+        <div class="att-sum-seg" role="group" aria-label="Sort teams by">
+          ${[["att", "Attendance"], ["punct", "Punctuality"], ["hrs", "Office hours"]].map(([k, label]) =>
+            `<button type="button" data-sort="${k}" class="${attRollupView.sort === k ? "on" : ""}">${label}</button>`).join("")}
         </div>
       </div>
-      <div class="att-rollup-wrap">
-        <table class="att-rollup-table">
-          <thead>
-            <tr>
-              <th>Team</th>
-              <th class="att-num">Avg Attendance</th>
-              <th class="att-num">Punctuality</th>
-              <th class="att-num">Avg Office Hrs</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rows.map(({ team, members, avgAtt, avgPunct, avgHrs }) => {
-              const tc = tone(avgAtt);
-              return `
-              <tr class="att-rollup-row" data-team="${escapeHtml(team)}" role="button" tabindex="0" title="Click to view members">
-                <td>
-                  <div class="att-rollup-team">${escapeHtml(team)}</div>
-                  <div class="att-rollup-size">${members.length} member${members.length === 1 ? "" : "s"}</div>
-                </td>
-                <td class="att-num">
-                  <div class="att-rollup-bar-cell">
-                    ${avgAtt != null ? `<span class="att-rollup-pill att-rollup-${tc}">${avgAtt}%</span>` : `<span class="att-rollup-muted">—</span>`}
-                    ${avgAtt != null ? `<div class="att-rollup-mini-bar"><div class="att-rollup-mini-fill ${tc === "good" ? "" : tc}" style="width:${avgAtt}%"></div></div>` : ""}
-                  </div>
-                </td>
-                <td class="att-num att-rollup-pct-${tone(avgPunct)}">
-                  ${avgPunct != null ? avgPunct + "%" : `<span class="att-rollup-muted">—</span>`}
-                </td>
-                <td class="att-num">${avgHrs > 0 ? avgHrs.toFixed(1) + " h" : `<span class="att-rollup-muted">—</span>`}</td>
-              </tr>`;
-            }).join("")}
-          </tbody>
-        </table>
+      <div class="att-sum-stats">
+        ${statCard(companyAtt != null ? companyAtt + "%" : "—", "Company avg attendance", toneClass(tone(companyAtt)))}
+        ${statCard(companyPunct != null ? companyPunct + "%" : "—", "Company avg punctuality", toneClass(tone(companyPunct)))}
+        ${statCard(belowSixty, "Teams below 60% attendance", belowSixty ? "bad" : "good")}
+        ${best ? statCard(escapeHtml(best.team), `Best attendance · ${best.avgAtt != null ? best.avgAtt + "%" : "—"}`) : ""}
       </div>
+      <div class="att-sum-cols"><span>#</span><span>Team</span><span>Avg attendance</span><span class="r">Punctuality</span><span class="r">Office hrs / member</span><span></span></div>
+      <div id="attSumRows"></div>
+      <button type="button" class="att-sum-more" id="attSumMore"></button>
     </article>`;
+
+  function drawRows() {
+    const key = attRollupView.sort;
+    const sorted = [...rows].sort((a, b) => (sortValue[key](b) ?? -1) - (sortValue[key](a) ?? -1));
+    const shown = attRollupView.showAll ? sorted : sorted.slice(0, SHOW);
+    const list = container.querySelector("#attSumRows");
+    list.innerHTML = shown.map(({ team, members, avgAtt, avgPunct, avgHrs }, i) => {
+      const tc = toneClass(tone(avgAtt));
+      const pc = toneClass(tone(avgPunct));
+      return `
+        <div class="att-rollup-row att-sum-row" data-team="${escapeHtml(team)}" role="button" tabindex="0" title="Click to view members">
+          <span class="att-sum-rank">${i + 1}</span>
+          <span class="att-sum-team"><b>${escapeHtml(team)}</b><small>${members.length} member${members.length === 1 ? "" : "s"}</small></span>
+          <span class="att-sum-att"><span class="att-sum-bar"><i class="${tc}" style="width:${avgAtt ?? 0}%"></i></span><span class="att-sum-pct ${tc}">${avgAtt != null ? avgAtt + "%" : "—"}</span></span>
+          <span class="r att-sum-punct"><span class="att-sum-tag ${pc}">${avgPunct != null ? avgPunct + "%" : "—"}</span></span>
+          <span class="r att-sum-hrs">${avgHrs > 0 ? avgHrs.toFixed(1) + " h" : "—"}</span>
+          <span class="att-sum-chev" aria-hidden="true">›</span>
+        </div>`;
+    }).join("") || `<p class="att-sum-sub">No teams in view.</p>`;
+    list.querySelectorAll(".att-rollup-row").forEach(row => {
+      const handler = () => openTeamModal(row.dataset.team);
+      row.addEventListener("click", handler);
+      row.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); } });
+    });
+    const more = container.querySelector("#attSumMore");
+    const rest = rows.length - SHOW;
+    more.hidden = rest <= 0;
+    more.textContent = attRollupView.showAll ? "Show top 5 only ▴" : `View all ${rows.length} teams (${rest} more) ▾`;
+  }
+
+  container.querySelector(".att-sum-seg").addEventListener("click", (ev) => {
+    const btn = ev.target.closest("button[data-sort]");
+    if (!btn) return;
+    attRollupView.sort = btn.dataset.sort;
+    container.querySelectorAll(".att-sum-seg button").forEach(b => b.classList.toggle("on", b === btn));
+    drawRows();
+  });
+  container.querySelector("#attSumMore").addEventListener("click", () => {
+    attRollupView.showAll = !attRollupView.showAll;
+    drawRows();
+  });
+  drawRows();
 
   // Wire up modal
   const overlay = document.getElementById("teamMembersModal");
@@ -3381,7 +3398,7 @@ function renderAttendanceTeamRollup() {
       const pc = tone(punct);
       const hrs = e.attendance?.officeHours;
       return `
-        <div class="team-modal-member">
+        <div class="team-modal-member is-clickable" data-id="${escapeHtml(e.id)}" role="button" tabindex="0" title="Open ${escapeHtml(e.name)}'s profile">
           <div class="team-modal-member-info">
             <div class="team-modal-avatar">${initials}</div>
             <div>
@@ -3398,6 +3415,20 @@ function renderAttendanceTeamRollup() {
         </div>`;
     }).join("");
 
+    // Clicking a member opens their full profile (same dialog as the Employees page).
+    const body = document.getElementById("teamModalBody");
+    const openMember = (row) => {
+      const employee = members.find((m) => String(m.id) === row.dataset.id);
+      if (!employee) return;
+      closeTeamModal();
+      showEmployee(employee);
+    };
+    body.onclick = (ev) => { const row = ev.target.closest(".team-modal-member[data-id]"); if (row) openMember(row); };
+    body.onkeydown = (ev) => {
+      const row = ev.target.closest(".team-modal-member[data-id]");
+      if (row && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); openMember(row); }
+    };
+
     overlay.classList.add("open");
     document.body.style.overflow = "hidden";
   }
@@ -3411,257 +3442,62 @@ function renderAttendanceTeamRollup() {
   overlay.addEventListener("click", e => { if (e.target === overlay) closeTeamModal(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape" && overlay.classList.contains("open")) closeTeamModal(); });
 
-  container.querySelectorAll(".att-rollup-row").forEach(row => {
-    const handler = () => openTeamModal(row.dataset.team);
-    row.addEventListener("click", handler);
-    row.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); } });
-  });
-}
-
-function renderAttendanceDetail(employeeId) {
-  const employee = dataset.employees.find((item) => item.id === employeeId) || dataset.employees[0];
-  if (!employee) return;
-  const attendance = employee.attendance;
-  const _elapsedSum = (attendance.present ?? 0) + (attendance.absent ?? 0) + (attendance.leave ?? 0) + (attendance.off ?? 0) + (attendance.holidays ?? 0);
-  const _effectiveCal = attendance.calendarDays ? Math.min(attendance.calendarDays, _elapsedSum) : _elapsedSum;
-  const workingDays = _effectiveCal
-    ? _effectiveCal - (attendance.off ?? 0) - (attendance.holidays ?? 0)
-    : (attendance.present ?? 0) + (attendance.absent ?? 0) + (attendance.leave ?? 0);
-  const trackedDays = workingDays + attendance.off + attendance.holidays;
-  const presentRate = workingDays ? Math.min(100, Math.round((attendance.present / workingDays) * 100)) : 0;
-  const absentRate = workingDays ? Math.round((attendance.absent / workingDays) * 100) : 0;
-  const biometricCoverage = attendance.present
-    ? Math.min(100, Math.round((attendance.biometricDays / attendance.present) * 100))
-    : 0;
-  const avgOfficeHours = Number.isFinite(attendance.avgOfficeHours) ? attendance.avgOfficeHours : 0;
-  const monthlyOfficeHours = Number.isFinite(attendance.officeHours) ? attendance.officeHours : 0;
-  const health = presentRate >= 90 && absentRate <= 5
-    ? { label: "Excellent", tone: "good", color: "#2fb36d", note: "Attendance is consistent for the selected period." }
-    : presentRate >= 75
-      ? { label: "Stable", tone: "watch", color: "#f3a229", note: "Attendance is acceptable, with a few days to review." }
-      : { label: "Needs Review", tone: "risk", color: "#db4d5c", note: "Attendance requires manager attention for the selected period." };
-  const biometricStatus = employee.sources.biometrics
-    ? `${attendance.biometricDays} biometric days captured`
-    : "No biometric match found";
-  const initials = employee.name
-    .split(" ")
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase();
-  const hasData = trackedDays > 0;
-
-  const detailEl = document.getElementById("attendanceDetail");
-
-  if (!hasData) {
-    detailEl.innerHTML = `
-      <section class="attendance-hero attendance-hero-empty">
-        <div class="attendance-person">
-          <div class="attendance-avatar attendance-avatar-empty">${initials}</div>
-          <div>
-            <p class="eyebrow">${employee.id} | ${mergedTeam(employee.team || "Unassigned")}</p>
-            <h1>${employee.name}</h1>
-            <p class="subtle">${employee.designation || "Unassigned"} | No attendance data recorded this period</p>
-          </div>
-        </div>
-        <span class="attendance-empty-tag">No data</span>
-      </section>
-
-      <section class="attendance-empty-panel">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9.5 15 2 2 3-4"/></svg>
-        <h3>No attendance data for ${employee.name} yet</h3>
-        <p>Neither GreytHR nor biometric records exist for this employee this period — common for new joiners who haven't been linked yet. This isn't a 0% attendance score, it's an absence of tracking data.</p>
-      </section>
-    `;
-    return;
-  }
-
-  const donutKnownSum = attendance.present + attendance.leave + attendance.off + attendance.absent + attendance.holidays;
-  const donutCalendarTotal = attendance.calendarDays || donutKnownSum;
-  const donutUnaccounted = Math.max(0, donutCalendarTotal - donutKnownSum);
-  const donutSegments = [
-    ["Present", attendance.present, "#2fb36d"],
-    ["Leave/status", attendance.leave, "#f3a229"],
-    ["Week off", attendance.off, "#627084"],
-    ["Absent", attendance.absent, "#db4d5c"],
-    ["Holidays", attendance.holidays, "#7b55d9"],
-  ];
-  if (donutUnaccounted > 0) donutSegments.push(["No data", donutUnaccounted, "#e2e8f0"]);
-  const donutTotal = Math.max(donutCalendarTotal, donutKnownSum) || 1;
-  let donutAcc = 0;
-  const donutGradient = donutSegments
-    .map(([, value, color]) => {
-      const start = (donutAcc / donutTotal) * 100;
-      donutAcc += value;
-      const end = (donutAcc / donutTotal) * 100;
-      return `${color} ${start}% ${end}%`;
-    })
-    .join(", ");
-
-  const summaryCards = [
-    ["Present", attendance.present, "days", "good"],
-    ["Absent", attendance.absent, "days", attendance.absent ? "risk" : "neutral"],
-    ["Leave / Status", attendance.leave, "days", "watch"],
-    ["Week Off", attendance.off, "days", "neutral"],
-    ["Holidays", attendance.holidays, "days", "neutral"],
-    ["Biometric", attendance.biometricDays, "days", employee.sources.biometrics ? "info" : "neutral"],
-  ];
-  const sourceRows = [
-    ["GreytHR attendance", employee.sources.greythr ? "Matched" : "Missing", employee.sources.greythr ? "good" : "risk"],
-    ["Biometric presence", employee.sources.biometrics ? "Matched" : "Missing", employee.sources.biometrics ? "good" : "risk"],
-    ["Source confidence", `${employee.sourceConfidence}%`, employee.sourceConfidence >= 75 ? "good" : "watch"],
-    ["Performance band", employee.band || "KPI blank", employee.band ? "info" : "neutral"],
-  ];
-
-  detailEl.innerHTML = `
-    <section class="attendance-hero attendance-hero-${health.tone}">
-      <div class="attendance-person">
-        <div class="attendance-avatar">${initials}</div>
-        <div>
-          <p class="eyebrow">${employee.id} | ${mergedTeam(employee.team || "Unassigned")}</p>
-          <h1>${employee.name}</h1>
-          <p class="subtle">${employee.designation || "Unassigned"} | ${trackedDays} tracked days | ${biometricStatus}</p>
-        </div>
-      </div>
-      <div class="attendance-scorecard">
-        <span class="attendance-status attendance-status-${health.tone}">${health.label}</span>
-        <div class="emp-kpi-ring" style="--pct:${presentRate}; --c:${health.color}">
-          <div class="emp-kpi-ring-inner">
-            <div class="emp-kpi-val">${presentRate}%</div>
-            <div class="emp-kpi-lbl">Present</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="attendance-explain">
-      <strong>${health.note}</strong>
-      <span>${attendance.present} present, ${attendance.absent} absent, ${attendance.leave} leave/status, ${attendance.off} week off, and ${attendance.holidays} holidays are recorded for this employee.</span>
-    </section>
-
-    <section class="attendance-grid">
-      ${summaryCards.map(([label, value, unit, tone]) => `
-        <div class="attendance-metric attendance-metric-${tone}">
-          <span>${label}</span>
-          <strong>${value}</strong>
-          <small>${unit}</small>
-        </div>
-      `).join("")}
-    </section>
-
-    <section class="attendance-layout">
-      <article class="attendance-chart">
-        <div class="attendance-chart-head">
-          <div>
-            <p class="eyebrow">Status breakdown</p>
-            <h2>Attendance Days</h2>
-          </div>
-          <span class="pill">${workingDays} working days</span>
-        </div>
-        <div class="attendance-donut-wrap">
-          <div class="attendance-donut" style="background:conic-gradient(${donutGradient})">
-            <div class="attendance-donut-center"><strong>${donutTotal}</strong><span>calendar days</span></div>
-          </div>
-          <div class="attendance-donut-legend">
-            ${donutSegments.map(([label, value, color]) => `
-              <div class="adl-row"><span class="adl-dot${label === "No data" ? " adl-dot-empty" : ""}" style="${label === "No data" ? "" : `background:${color}`}"></span>${label} <b>${value}</b></div>
-            `).join("")}
-          </div>
-        </div>
-      </article>
-
-      <article class="attendance-chart attendance-facts">
-        <div class="attendance-chart-head">
-          <div>
-            <p class="eyebrow">Workplace presence</p>
-            <h2>Hours and Sources</h2>
-          </div>
-        </div>
-        <div class="attendance-hours">
-          <div><strong>${number.format(monthlyOfficeHours)} h</strong><span class="subtle">Total office hours</span></div>
-          <div><strong>${number.format(avgOfficeHours)} h</strong><span class="subtle">Average office hours/day</span></div>
-          <div><strong>${biometricCoverage}%</strong><span class="subtle">Biometric coverage</span></div>
-          <div><strong>${absentRate}%</strong><span class="subtle">Absent rate</span></div>
-        </div>
-        <div class="attendance-source-list">
-          ${sourceRows.map(([label, value, tone]) => `
-            <div>
-              <span>${label}</span>
-              <strong class="attendance-source-${tone}">${value}</strong>
-            </div>
-          `).join("")}
-        </div>
-      </article>
-    </section>
-  `;
 }
 
 let _projSort = "completion";
 let _projStatus = "all";
 
+let _projDormantOpen = false;
+
+// Prototype layout: summary cards, pill sort/status controls, project cards; projects with no
+// tasks this period are folded into one expandable list at the bottom.
 function renderProjects(filterText) {
-  const query = (filterText !== undefined ? filterText : document.getElementById("projectSearch")?.value || "").toLowerCase().trim();
+  const searchEl = document.getElementById("projectSearch");
+  const hadFocus = searchEl && document.activeElement === searchEl;
+  const query = (filterText !== undefined ? filterText : searchEl?.value || "").toLowerCase().trim();
   const all = dataset.projects || [];
+
+  const pctOf = (p) => p.tasksTotal ? Math.round(p.tasksCompleted / p.tasksTotal * 100) : 0;
+  const toneOf = (pct) => pct >= 75 ? "good" : pct >= 40 ? "watch" : "risk";
+  const isAtRisk = (p) => p.tasksTotal > 0 && pctOf(p) < 40 && p.members >= 5;
+  const fmtHours = (h) => h >= 1000 ? (h / 1000).toFixed(1) + "K" : Math.round(h);
 
   const totalTasks = all.reduce((s, p) => s + (p.tasksTotal || 0), 0);
   const totalCompleted = all.reduce((s, p) => s + (p.tasksCompleted || 0), 0);
   const totalHours = all.reduce((s, p) => s + (p.hoursWorked || 0), 0);
   const overallPct = totalTasks ? Math.round(totalCompleted / totalTasks * 100) : 0;
-  const atRiskCount = all.filter(p => p.tasksTotal > 0 && (p.tasksCompleted / p.tasksTotal * 100) < 40 && p.members >= 5).length;
+  const atRiskCount = all.filter(isAtRisk).length;
+  const withTasks = all.filter(p => p.tasksTotal > 0).length;
 
-  const completionTierClass = overallPct >= 75 ? "proj-stat-item--good" : overallPct >= 40 ? "proj-stat-item--warn" : "proj-stat-item--bad";
-  const statBar = `
-    <div class="proj-stat-bar">
-      <div class="proj-stat-item">
-        <div class="proj-stat-icon" style="--icon-bg:#eff6ff;--icon-fg:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 7v11a2 2 0 002 2h14a2 2 0 002-2V7M3 7l2-4h14l2 4"/></svg></div>
-        <div><span class="proj-stat-val">${all.length}</span><span class="proj-stat-lbl">Projects</span></div>
-      </div>
-      <div class="proj-stat-item">
-        <div class="proj-stat-icon" style="--icon-bg:#f0fdfa;--icon-fg:#00a99d"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M2 12l3 3L15 5"/></svg></div>
-        <div><span class="proj-stat-val">${totalTasks.toLocaleString()}</span><span class="proj-stat-lbl">Total Tasks</span></div>
-      </div>
-      <div class="proj-stat-item ${completionTierClass}">
-        <div class="proj-stat-icon" style="--icon-bg:var(--tier-icon-bg);--icon-fg:var(--tier-icon-fg)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 12l4-4"/></svg></div>
-        <div><span class="proj-stat-val">${overallPct}%</span><span class="proj-stat-lbl">Completion Rate</span></div>
-      </div>
-      <div class="proj-stat-item">
-        <div class="proj-stat-icon" style="--icon-bg:#f5f3ff;--icon-fg:#7c3aed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-        <div><span class="proj-stat-val">${totalHours >= 1000 ? (totalHours/1000).toFixed(1)+"K" : Math.round(totalHours)}h</span><span class="proj-stat-lbl">Hours Logged</span></div>
-      </div>
-      ${atRiskCount ? `
-      <div class="proj-stat-item proj-stat-item--risk">
-        <div class="proj-stat-icon" style="--icon-bg:#fee2e2;--icon-fg:#dc2626"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></div>
-        <div><span class="proj-stat-val proj-stat-val--risk">${atRiskCount}</span><span class="proj-stat-lbl">At Risk</span></div>
-      </div>` : ""}
+  const stats = `
+    <div class="kpx-grid prj-stats">
+      <div class="kpx-card kpx-stat"><b>${all.length}</b>Projects<small>${withTasks} with tasks this period</small></div>
+      <div class="kpx-card kpx-stat"><b>${totalTasks.toLocaleString()}</b>Total tasks<small>${totalCompleted.toLocaleString()} completed</small></div>
+      <div class="kpx-card kpx-stat ${toneOf(overallPct)}"><b>${overallPct}%</b>Completion rate<small>&nbsp;</small></div>
+      <div class="kpx-card kpx-stat"><b>${fmtHours(totalHours)}h</b>Hours logged<small>This month</small></div>
+      ${atRiskCount ? `<div class="kpx-card kpx-stat risk"><b>${atRiskCount}</b>At risk<small>Under 40% done, 5+ members</small></div>` : ""}
     </div>`;
 
-  const statusValues = [...new Set(all.map(p => p.status || ""))];
-  const hasStatuses = statusValues.some(s => s.length > 0);
-  const tabs = hasStatuses ? `
-    <div class="proj-filter-tabs">
-      ${["all", ...statusValues.filter(Boolean)].map(s =>
-        `<button class="proj-filter-tab${_projStatus === s ? " proj-filter-tab--active" : ""}" onclick="_projStatus='${s}';renderProjects()">${s === "all" ? "All" : s}</button>`
+  const statusValues = [...new Set(all.map(p => p.status || ""))].filter(Boolean);
+  const tabs = statusValues.length ? `
+    <div class="kpx-chips prj-controls">
+      ${["all", ...statusValues].map(s =>
+        `<button type="button" class="kpx-chip${_projStatus === s ? " on" : ""}" onclick="_projStatus='${escapeHtml(s)}';renderProjects()">${s === "all" ? "All" : escapeHtml(s)}</button>`
       ).join("")}
     </div>` : "";
 
-  const controlsRow = `
-    <div class="proj-controls-row">
-      <div class="proj-sort-group">
-        <span class="proj-sort-label">Sort by</span>
-        ${[["completion","Completion %"],["hours","Hours Logged"],["members","Members"],["name","Name"]].map(([val, lbl]) =>
-          `<button class="proj-sort-btn${_projSort === val ? " proj-sort-btn--active" : ""}" onclick="_projSort='${val}';renderProjects()">${lbl}</button>`
-        ).join("")}
-      </div>
-      <div class="proj-search-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input id="projectSearch" type="search" placeholder="Search by project or manager..." value="${query}" oninput="renderProjects(this.value)">
-      </div>
+  const controls = `
+    <div class="kpx-chips prj-controls">
+      <span class="prj-sort-label">Sort by</span>
+      ${[["completion", "Completion %"], ["hours", "Hours logged"], ["members", "Members"], ["name", "Name"]].map(([val, lbl]) =>
+        `<button type="button" class="kpx-chip${_projSort === val ? " on" : ""}" onclick="_projSort='${val}';renderProjects()">${lbl}</button>`
+      ).join("")}
+      <input id="projectSearch" class="kpx-search" type="search" placeholder="Search by project or manager…" value="${escapeHtml(query)}" oninput="renderProjects(this.value)">
     </div>`;
 
   let visible = all;
   if (_projStatus !== "all") visible = visible.filter(p => (p.status || "") === _projStatus);
   if (query) visible = visible.filter(p => (p.name || "").toLowerCase().includes(query) || (p.manager || "").toLowerCase().includes(query));
-
   visible = [...visible].sort((a, b) => {
     if (_projSort === "completion") {
       const pa = a.tasksTotal ? a.tasksCompleted / a.tasksTotal : 0;
@@ -3672,77 +3508,57 @@ function renderProjects(filterText) {
     if (_projSort === "members") return (b.members || 0) - (a.members || 0);
     return (a.name || "").localeCompare(b.name || "");
   });
+  const active = visible.filter(p => p.tasksTotal > 0);
+  const dormant = visible.filter(p => !p.tasksTotal);
+  const initialsOf = (n) => (n || "").split(" ").map(w => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
 
-  const cards = visible.map(p => {
-    const pct = p.tasksTotal ? Math.round(p.tasksCompleted / p.tasksTotal * 100) : 0;
+  const cards = active.map(p => {
+    const pct = pctOf(p);
+    const tone = toneOf(pct);
     const approvalPct = p.tasksTotal ? Math.round(p.tasksApproved / p.tasksTotal * 100) : 0;
-    const workedH = p.hoursWorked || 0;
+    const atRisk = isAtRisk(p);
     const statusLabel = p.status || "Active";
-    const statusClass = statusLabel.toLowerCase().includes("complet") ? "proj-badge--done"
-      : statusLabel.toLowerCase().includes("hold") ? "proj-badge--hold"
-      : "proj-badge--active";
-    const dormant = p.tasksTotal === 0;
-    const completionColor = dormant ? "" : pct >= 75 ? "#22c55e" : pct >= 40 ? "#f59e0b" : "#ef4444";
-    const atRisk = p.tasksTotal > 0 && pct < 40 && p.members >= 5;
-    const stripeColor = atRisk ? "#e11d48" : dormant ? "#e2e8f0" : completionColor;
-
-    const initialsOf = (n) => n.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
-    const memberStats = p.memberStats || [];
-    const avatarGradient = dormant ? "linear-gradient(135deg,#cbd5e1,#94a3b8)" : "linear-gradient(135deg,var(--blue),var(--teal))";
-    const shown = memberStats.slice(0, 3);
-    const overflowCount = p.members - shown.length;
-    const avatars = shown.length ? `
-      <div class="proj-avatars">
-        ${shown.map(m => `<div class="proj-avatar" style="background:${avatarGradient}">${initialsOf(m.name)}</div>`).join("")}
-        ${overflowCount > 0 ? `<div class="proj-avatar proj-avatar--more">+${overflowCount}</div>` : ""}
-      </div>` : "";
-
+    const statusTone = statusLabel.toLowerCase().includes("complet") ? "good" : statusLabel.toLowerCase().includes("hold") ? "watch" : "fair";
+    const shown = (p.memberStats || []).slice(0, 3);
+    const overflow = p.members - shown.length;
     return `
-      <article class="project-card proj-card-v2${atRisk ? " proj-card--risk" : ""}" onclick="showProjDetail('${p.id}')" style="cursor:pointer;--stripe:${stripeColor}">
-        <div class="proj-card-top">
-          <div>
-            <div class="proj-card-name">${p.name || p.id}</div>
-            ${p.manager ? `<div class="proj-card-pm">PM: ${p.manager}</div>` : ""}
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
-            <span class="proj-badge ${statusClass}">${statusLabel}</span>
-            ${atRisk ? `<span class="proj-badge proj-badge--risk">At Risk</span>` : ""}
-          </div>
+      <article class="kpx-card prj-card ${atRisk ? "risk" : tone}" onclick="showProjDetail('${p.id}')" role="button" tabindex="0"
+        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showProjDetail('${p.id}')}">
+        <div class="prj-top">
+          <h3>${escapeHtml(p.name || p.id)}</h3>
+          <span class="kpx-tag ${statusTone}">${escapeHtml(statusLabel)}</span>
+          ${atRisk ? `<span class="kpx-tag risk">At risk</span>` : ""}
         </div>
-
-        ${dormant ? `
-        <div class="proj-dormant-line"><span class="proj-dormant-dot"></span>No tasks logged this period</div>
-        ` : `
-        <div class="proj-progress-section">
-          <div class="proj-progress-label">
-            <span>Task completion</span>
-            <strong style="color:${completionColor}">${pct}%</strong>
-          </div>
-          <div class="proj-bar-wrap"><div class="proj-bar-fill" style="width:${pct}%;background:${completionColor}"></div></div>
-          <div class="proj-progress-sub">${p.tasksCompleted} of ${p.tasksTotal} tasks done · ${approvalPct}% approved</div>
-        </div>
-
-        ${workedH > 0 ? `
-        <div class="proj-progress-section">
-          <div class="proj-progress-label">
-            <span>Hours logged this month</span>
-            <strong>${workedH >= 1000 ? (workedH/1000).toFixed(1)+"K" : workedH}h</strong>
-          </div>
-        </div>` : ""}`}
-
-        <div class="proj-card-footer">
-          ${avatars}
-          <span class="proj-chip">${p.members} member${p.members !== 1 ? "s" : ""}</span>
-          <span class="proj-chip proj-chip--link">View members &rsaquo;</span>
+        <div class="kpx-sub">${p.manager ? `PM: ${escapeHtml(p.manager)}` : "&nbsp;"}</div>
+        ${kpxBar(pct, tone)}
+        <div class="prj-meta"><span class="kpx-sub">${p.tasksCompleted} of ${p.tasksTotal} tasks done · ${approvalPct}% approved</span><b class="kpx-num kpx-${tone}">${pct}%</b></div>
+        <div class="kpx-sub">${p.hoursWorked > 0 ? `${fmtHours(p.hoursWorked)}h logged this month · ` : ""}${p.members} member${p.members !== 1 ? "s" : ""}</div>
+        <div class="prj-foot">
+          <div class="prj-avatars">${shown.map(m => `<span class="kpx-avatar">${initialsOf(m.name)}</span>`).join("")}${overflow > 0 ? `<span class="kpx-avatar none">+${overflow}</span>` : ""}</div>
+          <span class="prj-link">View members ›</span>
         </div>
       </article>`;
   }).join("");
 
-  document.getElementById("projectGrid").innerHTML =
-    statBar + tabs + controlsRow +
-    (visible.length
-      ? `<div class="project-grid">${cards}</div>`
-      : `<p class="proj-empty">No projects match the current filter.</p>`);
+  const dormantList = dormant.length ? `
+    <details class="kpx-card prj-dormant"${_projDormantOpen ? " open" : ""} ontoggle="_projDormantOpen=this.open">
+      <summary>${dormant.length} more project${dormant.length === 1 ? " has" : "s have"} no tasks logged this period</summary>
+      ${dormant.map(p => `
+        <button type="button" class="kpx-row" onclick="showProjDetail('${p.id}')">
+          <span class="kpx-name"><b>${escapeHtml(p.name || p.id)}</b>${p.manager ? `<small>PM: ${escapeHtml(p.manager)}</small>` : ""}</span>
+          <span class="kpx-sub">${p.members} member${p.members !== 1 ? "s" : ""} ›</span>
+        </button>`).join("")}
+    </details>` : "";
+
+  document.getElementById("projectGrid").innerHTML = `<div class="kpx-layout">${stats}${tabs}${controls}${
+    active.length ? `<div class="prj-grid">${cards}</div>` : `<p class="kpx-sub kpx-empty">No projects with tasks match the current filter.</p>`
+  }${dormantList}</div>`;
+
+  if (hadFocus) {
+    const input = document.getElementById("projectSearch");
+    input.focus();
+    input.setSelectionRange(input.value.length, input.value.length);
+  }
 }
 
 function showProjDetail(projId) {
@@ -3865,41 +3681,80 @@ async function renderIntegrations() {
     ["Microsoft Calendar", "api", "Live employee calendar events and meeting-hour activity for the current month.", gStatus],
     ["Microsoft SharePoint", "api", "Live SharePoint sites, lists, files, and reporting assets.", gStatus],
   ];
-  document.getElementById("integrationGrid").innerHTML = items.map(([name, files, detail, status]) => `
-    <article class="integration-card">
-      <div class="integration-card-top">
-        <p class="eyebrow">${files === "api" ? "Live API" : "File Sync"}</p>
-        <span class="integration-status${status.ok ? " integration-status--ok" : " integration-status--stale"}">
-          <span class="integration-dot${status.ok ? " integration-dot--ok" : " integration-dot--stale"}"></span>${status.ok ? "Active" : "Needs Attention"}
-        </span>
-      </div>
-      <h2>${name}</h2>
-      <p class="subtle">${detail}</p>
-      <div class="integration-synced">${CLOCK_SVG}${status.label}</div>
-    </article>
-  `).join("");
-
+  const refreshFor = {
+    Worklogix: refreshKpiPerformance, GreytHR: refreshKpiPerformance, Biometrics: refreshKpiPerformance,
+    Teams: autoRefreshTeams, GitHub: refreshGitHub,
+    "Microsoft Planner": () => refreshGraph?.(), "Microsoft Calendar": () => refreshGraph?.(), "Microsoft SharePoint": () => refreshGraph?.(),
+  };
   const liveCount = items.filter(([, , , status]) => status.ok).length;
-  const roadmapStats = document.getElementById("integrationRoadmapStats");
-  if (roadmapStats) {
-    roadmapStats.innerHTML = `
-      <div class="rm-stat-row">
-        <div class="rm-stat">
-          <div class="rm-stat-icon rm-stat-icon--green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M2 12l3 3L15 5"/></svg></div>
-          <div><div class="rm-stat-val">${liveCount} / ${items.length}</div><div class="rm-stat-lbl">Connectors Live</div></div>
-        </div>
-        <div class="rm-stat">
-          <div class="rm-stat-icon rm-stat-icon--blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.85-3.36L23 10M1 14l4.65 4.36A9 9 0 0020.5 15"/></svg></div>
-          <div><div class="rm-stat-val">Daily</div><div class="rm-stat-lbl">Auto-Refresh Schedule</div></div>
-        </div>
-        <div class="rm-stat">
-          <div class="rm-stat-icon rm-stat-icon--violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7c.5.4.8 1 .8 1.6v.7h6.4v-.7c0-.6.3-1.2.8-1.6A7 7 0 0012 2z"/></svg></div>
-          <div><div class="rm-stat-val">1</div><div class="rm-stat-lbl">Under Consideration</div></div>
-        </div>
+
+  // Prototype layout: three summary cards, a grid of connector cards, one note.
+  document.getElementById("integrationRoadmapStats").innerHTML = `
+    <div class="kpx-card kpx-stat ${liveCount === items.length ? "good" : "watch"}"><b>${liveCount} / ${items.length}</b>Connectors live<small>${liveCount === items.length ? "All syncing normally" : `${items.length - liveCount} need attention`}</small></div>
+    <div class="kpx-card kpx-stat"><b>Daily</b>Auto-refresh<small>Plus “Refresh now” on each page</small></div>
+    <div class="kpx-card kpx-stat"><b>1</b>Under consideration<small>Slack real-time presence</small></div>`;
+
+  document.getElementById("integrationGrid").innerHTML = items.map(([name, files, detail, status], index) => `
+    <article class="kpx-card int-card" data-int="${index}" role="button" tabindex="0" title="Show ${escapeHtml(name)} details">
+      <div class="int-top">
+        <b>${escapeHtml(name)}</b>
+        <span class="kpx-tag ${status.ok ? "good" : "watch"}">● ${status.ok ? "Active" : "Needs attention"}</span>
       </div>
-      <p class="rm-note">All connectors refresh automatically every day, in addition to the manual <b>Refresh now</b> button on each page. Under consideration: Slack integration for real-time presence.</p>
-    `;
-  }
+      <span class="kpx-sub">${files === "api" ? "Live API" : "File sync"}</span>
+      <p>${escapeHtml(detail)}</p>
+      <span class="int-synced">${CLOCK_SVG}${status.label}</span>
+    </article>`).join("");
+
+  document.getElementById("integrationNote").innerHTML =
+    "All connectors refresh automatically every day, in addition to the manual <b>Refresh now</b> button on each page. Under consideration: Slack integration for real-time presence.";
+
+  const openConnector = (index) => {
+    const [name, files, detail, status] = items[index];
+    const canRefresh = !DEMO_MODE && isCompanyScope() && refreshFor[name];
+    document.getElementById("kpxDrawer")?.remove();
+    const drawer = document.createElement("div");
+    drawer.id = "kpxDrawer";
+    drawer.className = "kpx-drawer";
+    drawer.innerHTML = `
+      <div class="kpx-panel" role="dialog" aria-modal="true" aria-label="${escapeHtml(name)}">
+        <button type="button" class="kpx-close" aria-label="Close">✕</button>
+        <h2>${escapeHtml(name)}</h2>
+        <p class="kpx-sub">${files === "api" ? "Live API" : "File sync"}</p>
+        <div class="int-kv">
+          <span>Status</span><b class="${status.ok ? "ok" : "warn"}">${status.ok ? "Active" : "Needs attention"}</b>
+          <span>Data</span><b>${escapeHtml(detail)}</b>
+          <span>Last synced</span><b>${status.label.replace(/<[^>]*>/g, "")}</b>
+          <span>Refresh</span><b>Automatic, daily</b>
+        </div>
+        ${canRefresh ? `<button type="button" class="button int-refresh">↻ Refresh now</button><p class="kpx-sub int-refresh-status" aria-live="polite"></p>` : ""}
+      </div>`;
+    const close = () => { drawer.remove(); document.removeEventListener("keydown", onKey); };
+    const onKey = (event) => { if (event.key === "Escape") close(); };
+    drawer.addEventListener("click", (event) => { if (event.target === drawer || event.target.closest(".kpx-close")) close(); });
+    document.addEventListener("keydown", onKey);
+    document.body.appendChild(drawer);
+    const button = drawer.querySelector(".int-refresh");
+    if (button) {
+      button.onclick = async () => {
+        const note = drawer.querySelector(".int-refresh-status");
+        button.disabled = true;
+        note.textContent = `Refreshing ${name}…`;
+        try {
+          await refreshFor[name]();
+          note.textContent = `${name} refresh finished.`;
+          renderIntegrations();
+        } catch {
+          note.textContent = "Refresh failed — try again.";
+        } finally {
+          button.disabled = false;
+        }
+      };
+    }
+  };
+  document.querySelectorAll("#integrationGrid [data-int]").forEach(card => {
+    card.onclick = () => openConnector(Number(card.dataset.int));
+    card.onkeydown = (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openConnector(Number(card.dataset.int)); } };
+  });
 }
 
 function drawScatter() {
@@ -3998,6 +3853,29 @@ function roundRect(ctx, x, y, width, height, radius) {
   ctx.quadraticCurveTo(x, y, x + safeRadius, y);
   ctx.closePath();
 }
+
+// Finds a dashboard employee by any key the Attendance cards carry: dashboard id, GreytHR or
+// biometric number, or name. leave-types.js and work-location.js use these to open the same
+// profile dialog as the rest of the app.
+function findEmployeeByAnyKey(...keys) {
+  const list = dataset?.employees || [];
+  const norm = (v) => String(v ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "");
+  for (const key of keys.filter(Boolean).map(String)) {
+    const n = norm(key);
+    const hit = list.find((e) => String(e.id) === key
+      || String(e.sourceKeys?.greythr || "") === key
+      || String(e.sourceKeys?.biometric || "") === key)
+      || (n && list.find((e) => norm(e.name) === n));
+    if (hit) return hit;
+  }
+  return null;
+}
+window.findEmployeeByAnyKey = findEmployeeByAnyKey;
+window.openEmployeeProfile = (...keys) => {
+  const employee = findEmployeeByAnyKey(...keys);
+  if (employee) showEmployee(employee);
+  return !!employee;
+};
 
 function showEmployee(e) {
   const att  = e.attendance  || {};
@@ -4183,56 +4061,97 @@ function showEmployee(e) {
     return "";
   })();
 
-  document.getElementById("employeeDetail").innerHTML = `
-    <section class="detail">
+  // Profile window: compact header, tabs (one short group at a time), footer with period + sources.
+  const pfDriverKeys = {
+    technical: ["productivity","delivery","efficiency","attendance","taskCompletion","punctuality","collaboration","codeContribution","github"],
+    management: ["projectDelivery","attendance","collaboration","taskApprovalSpeed","taskReviewEffectiveness","teamAvgKpi","plannerCompletion"],
+    executive:  ["teamAvgKpi","attendance","collaboration","pmProjectScore"],
+    support:    ["attendance","punctuality","collaboration","taskCompletion","managerRatings"],
+    intern:     ["attendance","punctuality","collaboration","mentorFeedback","taskCompletion"],
+    trainee:    ["taskCompletion","attendance","punctuality","collaboration","mentorFeedback"],
+  };
+  const pfDrivers = (pfDriverKeys[e.roleCategory] || pfDriverKeys.technical)
+    .filter(k => e.scoreDrivers?.[k] != null).map(k => [k, title(k), e.scoreDrivers[k]]);
+  const pfTier = (v) => v < 20 ? "#dc2626" : v < 60 ? "#d97706" : "#16a34a";
+  const pfWeights = e.weightsApplied || {};
+  const pfPunct = !isWFH ? calcPunctuality(att) : null;
+  const pfTabs = [
+    ["summary", "Summary", true],
+    ["attendance", "Attendance", true],
+    ["work", "Work", true],
+    ["meetings", "Meetings", true],
+    ["github", "GitHub", !!gc],
+    ["sharepoint", "SharePoint", !!e.sharepoint],
+    ["team", "Team", !!(e.directReports?.length || e.roleCategory === "executive")],
+  ].filter(([, , show]) => show);
+  const pfKpi = e.roleCategory === "intern"
+    ? `<div class="pf-kpi muted"><b>N/A</b><span>KPI<em>not applicable</em></span></div>`
+    : e.band === "Insufficient Data"
+      ? `<div class="pf-kpi muted"><b>—</b><span>KPI<em>no attendance data</em></span></div>`
+      : `<div class="pf-kpi" style="--c:${ringColor}"><b>${e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? "—") : (e.kpi ?? "—")}</b>
+          <span>${e.roleCategory === "executive" ? "Team KPI" : "KPI"}${kpiDelta != null ? `<em class="${kpiDelta < 0 ? "down" : kpiDelta > 0 ? "up" : ""}">${kpiDelta > 0 ? "+" : ""}${kpiDelta} vs team</em>` : ""}</span></div>`;
 
-      <!-- Header -->
-      <div class="emp-detail-header">
-        <div class="emp-detail-avatar">${initials}</div>
-        <div class="emp-detail-identity">
+  document.getElementById("employeeDetail").innerHTML = `
+    <section class="detail pf">
+      <div class="pf-head">
+        <div class="emp-detail-avatar pf-avatar">${initials}</div>
+        <div class="pf-who">
           <h1>${e.name}</h1>
           <p>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}${e.managerName ? ` &middot; Reports to <strong>${e.managerName}</strong>` : ""}</p>
-          <div class="emp-detail-badges">
-            ${e.roleCategory !== "intern" ? `<span class="${bandCls}">${bandLabel}</span>` : ""}
-            ${e.roleCategory !== "intern" && e.quadrant ? `<span class="quadrant-badge" style="background:color-mix(in srgb, ${quadrantColor} 16%, white);color:${quadrantColor};border-color:color-mix(in srgb, ${quadrantColor} 40%, white)">${e.quadrant}</span>` : ""}
-            <span class="conf-badge" style="background:${confTone.bg};color:${confTone.fg}">${e.sourceConfidence}% confidence</span>
-          </div>
         </div>
-        ${e.roleCategory === "intern"
-          ? `<div class="emp-detail-kpi no-info"><span class="emp-kpi-val" style="font-size:0.95rem;color:#94a3b8">N/A</span><span class="emp-kpi-lbl">KPI not applicable</span></div>`
-          : e.band === "Insufficient Data"
-            ? `<div class="emp-detail-kpi no-info"><span class="emp-kpi-val" style="font-size:1.1rem">—</span><span class="emp-kpi-lbl">No attendance data</span></div>`
-            : `<div>
-                 <div class="emp-kpi-ring" style="--pct:${Math.min(100, Math.max(0, ringPct))};--c:${ringColor}">
-                   <div class="emp-kpi-ring-inner">
-                     <span class="emp-kpi-val">${e.roleCategory === "executive" ? (e.scoreDrivers?.teamAvgKpi ?? "—") : (e.kpi ?? "—")}</span>
-                     <span class="emp-kpi-lbl">${e.roleCategory === "executive" ? "Team KPI" : "KPI"}</span>
-                   </div>
-                 </div>
-                 ${kpiDelta != null ? `<div class="emp-kpi-vs ${kpiDelta < 0 ? "down" : kpiDelta > 0 ? "up" : ""}">${kpiDelta > 0 ? "+" : ""}${kpiDelta} vs team avg</div>` : ""}
-               </div>`
-        }
+        ${pfKpi}
       </div>
-
+      <div class="pf-tags">
+        ${e.roleCategory !== "intern" ? `<span class="${bandCls}">${bandLabel}</span>` : ""}
+        ${e.roleCategory !== "intern" && e.quadrant ? `<span class="quadrant-badge" style="background:color-mix(in srgb, ${quadrantColor} 16%, white);color:${quadrantColor};border-color:color-mix(in srgb, ${quadrantColor} 40%, white)">${e.quadrant}</span>` : ""}
+        <span class="conf-badge" style="background:${confTone.bg};color:${confTone.fg}">${e.sourceConfidence}% confidence</span>
+        ${e.laggingDrivers?.length ? `<span class="pf-lag">⚠ ${escapeHtml(e.laggingDrivers.join(", ").replace(/\bgithub\b/gi, "GitHub"))}</span>` : ""}
+      </div>
       ${insightSentence && e.roleCategory !== "intern" ? `<div class="insight-banner">
         <span class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></span>
         <div class="insight-text">${escapeHtml(insightSentence)}</div>
       </div>` : ""}
+      <nav class="pf-tabs" role="tablist">${pfTabs.map(([key, label], i) =>
+        `<button type="button" role="tab" data-pf-tab="${key}" class="${i === 0 ? "on" : ""}">${label}</button>`).join("")}</nav>
 
-      <p class="detail-period">Period: <strong>${dataset.meta?.period || "—"}</strong> &nbsp;·&nbsp; Teams status is live &nbsp;·&nbsp; Generated: ${dataset.meta?.generatedAt ? new Date(dataset.meta.generatedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "—"}</p>
-      <div class="source-chips">${sources}</div>
+      <div class="pf-panel" data-pf-panel="summary">
+        <div class="pf-nums">
+          ${e.roleCategory === "intern"
+            ? `<div><b>${e.worklogixActivity?.daysLogged ?? "—"}</b><span>Days with logged work</span></div>`
+            : `<div class="${attPct == null ? "" : attPct >= 90 ? "good" : attPct >= 70 ? "warn" : "bad"}"><b>${attPct != null ? attPct + "%" : "—"}</b><span>Attendance</span></div>`}
+          <div><b>${e.roleCategory === "intern" || isWFH ? (isWFH ? "WFH" : "—") : formatCheckinHour(att.avgCheckinHour)}</b><span>Avg check-in</span></div>
+          <div class="${hasWorklogixActivity && wl.workItems && wl.completed === wl.workItems ? "good" : ""}"><b>${hasWorklogixActivity ? `${wl.completed}/${wl.workItems}` : "—"}</b><span>Tasks done</span></div>
+          <div class="${pfPunct == null ? "" : pfPunct >= 80 ? "good" : pfPunct < 50 ? "warn" : ""}"><b>${pfPunct != null ? pfPunct + "%" : "—"}</b><span>Punctuality</span></div>
+        </div>
+        ${pfDrivers.length ? `
+        <div class="pf-drivers">${pfDrivers.map(([key, label, value]) => `
+          <div><span>${label}${pfWeights[key] != null ? `<small>${pfWeights[key]}%</small>` : ""}</span>
+            <i><s style="width:${Math.max(2, Math.min(value, 100))}%;background:${pfTier(value)}"></s></i>
+            <b style="color:${pfTier(value)}">${number.format(value)}</b></div>`).join("")}
+        </div>
+        <div class="bar-chart-legend pf-legend">
+          <span><i style="background:#dc2626"></i>Weak (&lt;20)</span>
+          <span><i style="background:#d97706"></i>Low (20&ndash;59)</span>
+          <span><i style="background:#16a34a"></i>Strong (60+)</span>
+          ${Object.keys(pfWeights).length ? `<span>· small % = weight in the KPI</span>` : ""}
+        </div>` : `<div class="empty-note">No score-driver data available for this employee.</div>`}
+      ${(() => {
+        if (!e.gapReason) return "";
+        const cleaned = e.gapReason.replace(/worklogixActivity/gi, "Worklogix activity").replace(/\bgithub\b/gi, "GitHub");
+        const [headline, ...rest] = cleaned.split(";").map(s => s.trim());
+        const detail = rest.join("; ");
+        return `<div class="gap-reason-note">
+          <span class="gap-reason-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></span>
+          <div class="gap-reason-text">
+            <strong>${escapeHtml(headline)}</strong>
+            ${detail ? `<span>${escapeHtml(detail)}</span>` : ""}
+          </div>
+        </div>`;
+      })()}
+      </div>
 
-      <!-- Work Activity -->
-      <h3 class="detail-section-title">Work Activity</h3>
-      ${hasWorklogixActivity ? `<div class="detail-grid4">
-        <div class="dg-stat"><span class="dg-val">${wl.completed}/${wl.workItems}</span><span class="dg-lbl">Tasks Completed</span></div>
-        <div class="dg-stat"><span class="dg-val">${wl.approved ?? "—"}</span><span class="dg-lbl">Approved</span></div>
-        <div class="dg-stat ${wl.blocked ? "dg-warn" : ""}"><span class="dg-val">${wl.blocked ?? 0}</span><span class="dg-lbl">Blocked</span></div>
-        <div class="dg-stat"><span class="dg-val">${wl.inProgress ?? 0}</span><span class="dg-lbl">In Progress</span></div>
-      </div>` : `<div class="empty-note">No Worklogix task data synced for this employee this period</div>`}
-
-      <!-- Attendance & Biometrics -->
-      <h3 class="detail-section-title">Attendance &amp; Biometrics${e.roleCategory !== "intern" && teamAvgAtt != null ? `<span class="detail-section-context">Team avg: ${teamAvgAtt}%</span>` : ""}</h3>
+      <div class="pf-panel" data-pf-panel="attendance" hidden>
+        ${e.roleCategory !== "intern" && teamAvgAtt != null ? `<p class="pf-note">Team average attendance: <b>${teamAvgAtt}%</b></p>` : ""}
       ${e.roleCategory === "intern" ? `
       <div class="na-block">
         <span class="na-icon">–</span>
@@ -4290,26 +4209,46 @@ function showEmployee(e) {
           <div class="dg-stat"><span class="dg-val">${att.officeLocation || (isWFH ? "Work From Home" : (tm.workLocation === "office" ? "Office" : "—"))}</span><span class="dg-lbl">Work Location</span></div>
         </div>`;
       })()}
+      </div>
 
-      <!-- Collaboration -->
-      <h3 class="detail-section-title">Collaboration &amp; Meetings</h3>
+      <div class="pf-panel" data-pf-panel="work" hidden>
+      ${hasWorklogixActivity ? `<div class="detail-grid4">
+        <div class="dg-stat"><span class="dg-val">${wl.completed}/${wl.workItems}</span><span class="dg-lbl">Tasks Completed</span></div>
+        <div class="dg-stat"><span class="dg-val">${wl.approved ?? "—"}</span><span class="dg-lbl">Approved</span></div>
+        <div class="dg-stat ${wl.blocked ? "dg-warn" : ""}"><span class="dg-val">${wl.blocked ?? 0}</span><span class="dg-lbl">Blocked</span></div>
+        <div class="dg-stat"><span class="dg-val">${wl.inProgress ?? 0}</span><span class="dg-lbl">In Progress</span></div>
+      </div>` : `<div class="empty-note">No Worklogix task data synced for this employee this period</div>`}
+      ${e.isMtm ? (() => {
+        const s = e.mtmSprintSummary;
+        return `
+      <!-- MTM Sprint Performance -->
+      <h3 class="detail-section-title">Sprint Performance <span style="font-weight:400;color:var(--muted)">(${s?.sprintsVerified || 0} verified &middot; ${s?.sprintsPending || 0} pending)</span></h3>
+      ${s && s.completionRate != null ? `
+      <div class="detail-grid4">
+        <div class="dg-stat"><span class="dg-val">${s.completionRate}%</span><span class="dg-lbl">Completion Rate</span></div>
+        <div class="dg-stat"><span class="dg-val">${s.totalCompleted} / ${s.totalAssigned}</span><span class="dg-lbl">Tasks Completed / Assigned</span></div>
+        <div class="dg-stat"><span class="dg-val">${s.avgUtilisation}</span><span class="dg-lbl">Avg Utilisation</span></div>
+      </div>
+      <div class="attendance-source-list">
+        ${e.mtmSprints.map(sp => `
+          <div>
+            <span>Sprint ${sp.sprint}</span>
+            <strong class="attendance-source-good">${sp.tasks_completed}/${sp.tasks_assigned} tasks &middot; ${sp.utilisation} utilisation</strong>
+          </div>
+        `).join("")}
+      </div>` : `<div class="empty-note">No verified sprint data yet — entries are pending review in the MTM verification screen.</div>`}
+      `;
+      })() : ""}
+      </div>
+
+      <div class="pf-panel" data-pf-panel="meetings" hidden>
+        <h3 class="detail-section-title">Collaboration &amp; meetings</h3>
       <div class="detail-grid4">
         <div class="dg-stat"><span class="dg-val">${cal.events ?? "—"}</span><span class="dg-lbl">Calendar Events</span></div>
         <div class="dg-stat"><span class="dg-val">${cal.meetingHours != null ? cal.meetingHours + " hrs" : "—"}</span><span class="dg-lbl">Meeting Hours</span></div>
         <div class="dg-stat"><span class="dg-val">${plan.assigned ?? "—"}</span><span class="dg-lbl">Planner Tasks</span></div>
         <div class="dg-stat"><span class="dg-val">${plan.completed ?? "—"}</span><span class="dg-lbl">Planner Done</span></div>
       </div>
-
-      ${gc ? `
-      <!-- GitHub -->
-      <h3 class="detail-section-title">GitHub Contributions</h3>
-      <div class="detail-grid4">
-        <div class="dg-stat ${gc.commits > 0 ? "dg-good" : ""}"><span class="dg-val">${gc.commits}</span><span class="dg-lbl">Commits</span></div>
-        <div class="dg-stat ${gc.prs > 0 ? "dg-good" : ""}"><span class="dg-val">${gc.prs}</span><span class="dg-lbl">Pull Requests</span></div>
-        <div class="dg-stat"><span class="dg-val">${gc.done}</span><span class="dg-lbl">Issues Closed</span></div>
-        <div class="dg-stat"><span class="dg-val">${gc.contributionScore}</span><span class="dg-lbl">Contribution Score</span></div>
-      </div>` : ""}
-
       ${e.calendar ? (() => {
         const rate = e.calendar.attendanceRate ?? 0;
         const notAccepted = e.calendar.invited > 0 ? (e.calendar.invited - e.calendar.attended) : 0;
@@ -4323,7 +4262,21 @@ function showEmployee(e) {
         <div class="dg-stat"><span class="dg-val">${notAccepted}</span><span class="dg-lbl">Not Responded</span></div>
       </div>`;
       })() : ""}
+      </div>
 
+      <div class="pf-panel" data-pf-panel="github" hidden>
+      ${gc ? `
+      <!-- GitHub -->
+      <h3 class="detail-section-title">GitHub Contributions</h3>
+      <div class="detail-grid4">
+        <div class="dg-stat ${gc.commits > 0 ? "dg-good" : ""}"><span class="dg-val">${gc.commits}</span><span class="dg-lbl">Commits</span></div>
+        <div class="dg-stat ${gc.prs > 0 ? "dg-good" : ""}"><span class="dg-val">${gc.prs}</span><span class="dg-lbl">Pull Requests</span></div>
+        <div class="dg-stat"><span class="dg-val">${gc.done}</span><span class="dg-lbl">Issues Closed</span></div>
+        <div class="dg-stat"><span class="dg-val">${gc.contributionScore}</span><span class="dg-lbl">Contribution Score</span></div>
+      </div>` : ""}
+      </div>
+
+      <div class="pf-panel" data-pf-panel="sharepoint" hidden>
       ${e.sharepoint ? `
       <!-- SharePoint -->
       <h3 class="detail-section-title">SharePoint Activity <small style="font-weight:400;color:var(--muted)">(last 30 days)</small></h3>
@@ -4333,7 +4286,9 @@ function showEmployee(e) {
         <div class="dg-stat"><span class="dg-val">${e.sharepoint.filesShared}</span><span class="dg-lbl">Files Shared</span></div>
         <div class="dg-stat"><span class="dg-val">${e.sharepoint.pageVisits}</span><span class="dg-lbl">Page Visits</span></div>
       </div>` : ""}
+      </div>
 
+      <div class="pf-panel" data-pf-panel="team" hidden>
       ${e.directReports?.length ? `
       <!-- Direct Reports -->
       <h3 class="detail-section-title">Direct Reports <span style="font-weight:400;color:var(--muted)">(${e.directReports.length})</span></h3>
@@ -4378,81 +4333,24 @@ function showEmployee(e) {
             <p class="exec-team-note">This executive's performance is measured by their team's average KPI. Personal attendance and collaboration are still tracked below.</p>
           </div>`;
         })() : ""}
-
-      <!-- Score Drivers -->
-      <h3 class="detail-section-title">Score Drivers</h3>
-      ${(() => {
-        const roleDrivers = {
-          technical: ["productivity","delivery","efficiency","attendance","taskCompletion","punctuality","collaboration","codeContribution","github"],
-          management: ["projectDelivery","attendance","collaboration","taskApprovalSpeed","taskReviewEffectiveness","teamAvgKpi","plannerCompletion"],
-          executive:  ["teamAvgKpi","attendance","collaboration","pmProjectScore"],
-          support:    ["attendance","punctuality","collaboration","taskCompletion","managerRatings"],
-          intern:     ["attendance","punctuality","collaboration","mentorFeedback","taskCompletion"],
-          trainee:    ["taskCompletion","attendance","punctuality","collaboration","mentorFeedback"],
-        };
-        const allowed = roleDrivers[e.roleCategory] || roleDrivers.technical;
-        const drivers = allowed.filter(k => e.scoreDrivers[k] != null).map(k => [title(k), e.scoreDrivers[k]]);
-        if (!drivers.length) return `<div class="empty-note">No score-driver data available for this employee.</div>`;
-        const tierColor = (v) => v < 20 ? "#dc2626" : v < 60 ? "#d97706" : "#16a34a";
-        return `
-        <div class="driver-bar-chart">
-          <div class="driver-bar-chart-grid"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
-          <div class="driver-bar-cols">
-            ${drivers.map(([label, value]) => `
-              <div class="driver-bar-col">
-                <span class="driver-bar-value" style="color:${tierColor(value)}">${number.format(value)}</span>
-                <div class="driver-bar-track"><div class="driver-bar-fill" style="height:${Math.max(2, Math.min(value, 100))}%;background:${tierColor(value)}"></div></div>
-                <span class="driver-bar-label">${label}</span>
-              </div>`).join("")}
-          </div>
-        </div>
-        <div class="bar-chart-legend">
-          <span><i style="background:#dc2626"></i>Weak (&lt;20)</span>
-          <span><i style="background:#d97706"></i>Low (20&ndash;59)</span>
-          <span><i style="background:#16a34a"></i>Strong (60+)</span>
-        </div>`;
-      })()}
-
-      ${(() => {
-        if (!e.gapReason) return "";
-        const cleaned = e.gapReason.replace(/worklogixActivity/gi, "Worklogix activity").replace(/\bgithub\b/gi, "GitHub");
-        const [headline, ...rest] = cleaned.split(";").map(s => s.trim());
-        const detail = rest.join("; ");
-        return `<div class="gap-reason-note">
-          <span class="gap-reason-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></span>
-          <div class="gap-reason-text">
-            <strong>${escapeHtml(headline)}</strong>
-            ${detail ? `<span>${escapeHtml(detail)}</span>` : ""}
-          </div>
-        </div>`;
-      })()}
-
-      ${e.isMtm ? (() => {
-        const s = e.mtmSprintSummary;
-        return `
-      <!-- MTM Sprint Performance -->
-      <h3 class="detail-section-title">Sprint Performance <span style="font-weight:400;color:var(--muted)">(${s?.sprintsVerified || 0} verified &middot; ${s?.sprintsPending || 0} pending)</span></h3>
-      ${s && s.completionRate != null ? `
-      <div class="detail-grid4">
-        <div class="dg-stat"><span class="dg-val">${s.completionRate}%</span><span class="dg-lbl">Completion Rate</span></div>
-        <div class="dg-stat"><span class="dg-val">${s.totalCompleted} / ${s.totalAssigned}</span><span class="dg-lbl">Tasks Completed / Assigned</span></div>
-        <div class="dg-stat"><span class="dg-val">${s.avgUtilisation}</span><span class="dg-lbl">Avg Utilisation</span></div>
       </div>
-      <div class="attendance-source-list">
-        ${e.mtmSprints.map(sp => `
-          <div>
-            <span>Sprint ${sp.sprint}</span>
-            <strong class="attendance-source-good">${sp.tasks_completed}/${sp.tasks_assigned} tasks &middot; ${sp.utilisation} utilisation</strong>
-          </div>
-        `).join("")}
-      </div>` : `<div class="empty-note">No verified sprint data yet — entries are pending review in the MTM verification screen.</div>`}
-      `;
-      })() : ""}
 
+      <div class="pf-foot">
+        <p class="detail-period">Period: <strong>${dataset.meta?.period || "—"}</strong> &nbsp;·&nbsp; Teams status is live &nbsp;·&nbsp; Generated: ${dataset.meta?.generatedAt ? new Date(dataset.meta.generatedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "—"}</p>
+        <div class="source-chips">${sources}</div>
+      </div>
     </section>
   `;
   document.querySelectorAll("dialog[open]").forEach(d => d.close());
   document.getElementById("employeeDialog").showModal();
+
+  // Profile tabs: show one panel at a time.
+  document.querySelectorAll("#employeeDetail [data-pf-tab]").forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll("#employeeDetail [data-pf-tab]").forEach(t => t.classList.toggle("on", t === tab));
+      document.querySelectorAll("#employeeDetail [data-pf-panel]").forEach(panel => { panel.hidden = panel.dataset.pfPanel !== tab.dataset.pfTab; });
+    };
+  });
 
   // Attendance chip buttons → show dates for that status
   document.querySelectorAll(".att-chip-btn").forEach(btn => {
@@ -4753,6 +4651,8 @@ const STATUS_COLOR = {
   "qa":              "#3b82f6",
   "review in qa":    "#3b82f6",
   "todo":            "#f59e0b",
+  "to do":           "#f59e0b",
+  "done qa":         "#22c55e",
   "backlog":         "#94a3b8",
   "production":      "#dc2626",
 };
@@ -4863,43 +4763,56 @@ function showGhContributor(login) {
 }
 
 function switchGhTab(tab, btn) {
-  document.querySelectorAll(".gh-tab").forEach(b => b.classList.remove("gh-tab--active"));
+  document.querySelectorAll(".gh-tab").forEach(b => b.classList.remove("gh-tab--active", "on"));
   document.querySelectorAll(".gh-tab-panel").forEach(p => p.hidden = true);
-  btn.classList.add("gh-tab--active");
+  btn.classList.add("gh-tab--active", "on");
   document.getElementById(`gh-tab-${tab}`).hidden = false;
 }
 
+// Matches a GitHub login to a dashboard employee name, or null when unsure.
+// Logins look like "Santhakumar082", "Glad-Andrew", "sriramgowthamE", "sarancodework".
+// Single-letter initials never match on their own, and a tie between two employees
+// (e.g. two people called Anisha) returns null, so the login is shown instead of a wrong name.
 function ghLoginToName(login) {
   const employees = dataset?.employees;
   if (!login || !employees?.length) return null;
-  // Strip numbers, split on hyphens/underscores, keep words ≥4 chars
-  const parts = login.toLowerCase()
+  const tokens = login.toLowerCase()
     .replace(/[0-9]/g, "")
-    .split(/[-_]/)
-    .map(p => p.trim())
-    .filter(p => p.length >= 4);
-  if (!parts.length) return null;
-  for (const emp of employees) {
-    const n = (emp.name || "").toLowerCase().replace(/[^a-z ]/g, "");
-    if (parts.every(p => n.includes(p))) return emp.name;
-  }
-  // Single-word fallback: try if any part ≥5 chars matches start of any name word
-  for (const emp of employees) {
-    const nameWords = (emp.name || "").toLowerCase().replace(/[^a-z ]/g, "").split(" ");
-    if (parts.some(p => p.length >= 5 && nameWords.some(w => w.startsWith(p) || p.startsWith(w)))) {
-      return emp.name;
-    }
-  }
-  return null;
-}
+    .split(/[-_.\s]+/)
+    .map(t => t.replace(/(codeworkai|codework)$/, ""))
+    .filter(t => t.length >= 3 && !["cw", "codework", "codeworkai", "dev"].includes(t));
+  if (!tokens.length) return null;
+  const joined = tokens.join("");
 
-function toggleGhProject(listId, header) {
-  const list    = document.getElementById(listId);
-  const chevron = header.querySelector(".gh-chevron");
-  if (!list) return;
-  const isOpen = list.style.display !== "none";
-  list.style.display    = isOpen ? "none" : "";
-  chevron?.classList.toggle("open", !isOpen);
+  // Can `text` be spelled by name words in order (skipping any), e.g. sriram+gowtham+e?
+  const spelledBy = (text, words) => {
+    let pos = 0;
+    for (const w of words) {
+      if (pos === 0 && w.length < 3) continue; // must start on a real word, not an initial
+      if (text.startsWith(w, pos)) pos += w.length;
+      if (pos === text.length) return true;
+    }
+    return false;
+  };
+
+  const scoreFor = (name) => {
+    const words = (name || "").toLowerCase().replace(/[^a-z ]/g, " ").split(/\s+/).filter(Boolean);
+    if (!words.length) return 0;
+    if (tokens.every(t => words.includes(t))) return 100 + tokens.length;      // "iftikhaar-ali"
+    if (words.join("") === joined || spelledBy(joined, words)) return 90;        // "inbarasuv", "sriramgowthame"
+    const head = words.find(w => w.length >= 4 && tokens.some(t => t.length >= 4 && (t.startsWith(w) || w.startsWith(t))));
+    if (!head) return 0;                                                         // "saran", "glad" → "glady"
+    const extra = words.filter(w => w !== head && w.length >= 3 && joined.includes(w)).length;
+    return 50 + extra * 5 + (head === words[0] ? 2 : 0);
+  };
+
+  let best = 0, matches = [];
+  for (const emp of employees) {
+    const score = scoreFor(emp.name);
+    if (score > best) { best = score; matches = [emp.name]; }
+    else if (score === best && score > 0 && !matches.includes(emp.name)) matches.push(emp.name);
+  }
+  return best >= 50 && matches.length === 1 ? matches[0] : null;
 }
 
 function buildMonthOptions() {
@@ -4915,6 +4828,8 @@ function buildMonthOptions() {
     opt.textContent = lbl;
     sel.appendChild(opt);
   }
+  // Remember a hand-picked month (it's what "Refresh now" loads) until that refresh happens.
+  sel.addEventListener("change", () => { sel.dataset.userPicked = "1"; });
 }
 
 async function refreshGitHub() {
@@ -4929,6 +4844,7 @@ async function refreshGitHub() {
     });
     const json = await res.json();
     if (json.status === "refreshed") {
+      delete document.getElementById("ghMonthPicker")?.dataset.userPicked; // data now matches the picked month
       githubData = scopeGithubData(json.github);
       renderGitHub(false);
       label.textContent = "Refreshed just now";
@@ -4972,10 +4888,19 @@ async function renderGitHub(fetchFresh = true) {
     document.getElementById("ghPeriodLabel").textContent =
       same ? `Period: ${fmt(period.since)}` : `Period: ${fmt(period.since)} – ${fmt(period.until)}`;
     const sel = document.getElementById("ghMonthPicker");
-    if (sel && !sel.value) sel.value = period.since.slice(0, 7);
+    // Show the month the data is for. The picker starts on the current month, so the old
+    // "only when empty" check never fired and showed October over September data.
+    const dataMonth = period.since.slice(0, 7);
+    if (sel && !sel.dataset.userPicked) {
+      if (![...sel.options].some(o => o.value === dataMonth)) {
+        const [y, m] = dataMonth.split("-");
+        sel.add(new Option(new Date(y, m - 1, 1).toLocaleString("default", { month: "long", year: "numeric" }), dataMonth));
+      }
+      sel.value = dataMonth;
+    }
   }
 
-  // ── Summary stat bar ───────────────────────────────────────────────────
+  // ── Summary cards (prototype layout) ───────────────────────────────────
   const totalTasks   = projects.reduce((s, p) => s + (p.stats?.total      || 0), 0);
   const doneTasks    = projects.reduce((s, p) => s + (p.stats?.done       || 0), 0);
   const inProg       = projects.reduce((s, p) => s + (p.stats?.inProgress || 0), 0);
@@ -4984,70 +4909,45 @@ async function renderGitHub(fetchFresh = true) {
   const totalCommits = contributors.reduce((s, c) => s + (c.commits || 0), 0);
   const totalLoc     = contributors.reduce((s, c) => s + (c.additions || 0) + (c.deletions || 0), 0);
   const donePct      = totalTasks > 0 ? Math.round(doneTasks / totalTasks * 100) : 0;
-  const warnSvg  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg>`;
-  const folderSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>`;
+  const ghTone = (pct) => pct >= 75 ? "good" : pct >= 40 ? "watch" : "risk";
+  const stat = (value, label, hint = "", tone = "") => `<div class="kpx-card kpx-stat ${tone}"><b>${value}</b>${label}<small>${hint || "&nbsp;"}</small></div>`;
 
-  document.getElementById("ghSummaryCards").innerHTML = `
-    <div class="gh-stat-item">
-      <div class="gh-stat-icon" style="--icon-bg:#eff6ff;--icon-fg:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 7v11a2 2 0 002 2h14a2 2 0 002-2V7M3 7l2-4h14l2 4"/></svg></div>
-      <div><span class="gh-stat-val">${projects.length}</span><span class="gh-stat-lbl">Active Projects</span></div>
-    </div>
-    <div class="gh-stat-item">
-      <div class="gh-stat-icon" style="--icon-bg:#f0fdf4;--icon-fg:#16a34a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M2 12l3 3L15 5"/></svg></div>
-      <div><span class="gh-stat-val">${doneTasks}<span class="gh-stat-sub"> / ${totalTasks}</span></span><span class="gh-stat-lbl">Tasks Done &nbsp;<span style="color:#16a34a;font-weight:600">${donePct}%</span></span></div>
-    </div>
-    <div class="gh-stat-item">
-      <div class="gh-stat-icon" style="--icon-bg:#eff6ff;--icon-fg:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></div>
-      <div><span class="gh-stat-val">${inProg}</span><span class="gh-stat-lbl">In Progress</span></div>
-    </div>
-    <div class="gh-stat-item${inProd ? " gh-stat-item--urgent" : ""}">
-      <div class="gh-stat-icon" style="--icon-bg:${inProd ? "#fee2e2" : "#f1f5f9"};--icon-fg:${inProd ? "#dc2626" : "#64748b"}">${warnSvg}</div>
-      <div><span class="gh-stat-val">${inProd}</span><span class="gh-stat-lbl">Live Production Issues</span></div>
-    </div>
-    <div class="gh-stat-item">
-      <div class="gh-stat-icon" style="--icon-bg:#f5f3ff;--icon-fg:#7c3aed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><path d="M2 21v-1a5 5 0 015-5h1M14 21v-1a5 5 0 015-5h-1"/></svg></div>
-      <div><span class="gh-stat-val">${totalContrib}</span><span class="gh-stat-lbl">Contributors</span></div>
-    </div>
-    <div class="gh-stat-item">
-      <div class="gh-stat-icon" style="--icon-bg:#f0fdfa;--icon-fg:#00a99d"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg></div>
-      <div><span class="gh-stat-val">${totalCommits}</span><span class="gh-stat-lbl">Total Code Saves</span></div>
-    </div>
-    ${totalLoc ? `
-    <div class="gh-stat-item">
-      <div class="gh-stat-icon" style="--icon-bg:#f5f3ff;--icon-fg:#7c3aed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
-      <div><span class="gh-stat-val">${fmtLoc(totalLoc)}</span><span class="gh-stat-lbl">Lines Changed</span></div>
-    </div>` : ""}
-  `;
+  document.getElementById("ghSummaryCards").innerHTML =
+    stat(projects.length, "Active projects") +
+    stat(`${doneTasks} / ${totalTasks}`, "Tasks done", `${donePct}% done`, ghTone(donePct)) +
+    stat(inProg, "In progress", "", "fair") +
+    stat(inProd, "Live production issues", "", inProd ? "risk" : "") +
+    stat(totalContrib, "Contributors") +
+    stat(totalCommits, "Code saves") +
+    (totalLoc ? stat(fmtLoc(totalLoc), "Lines changed") : "");
 
-  // ── Attention banner ────────────────────────────────────────────────────
+  // ── Production alert ───────────────────────────────────────────────────
   const prodProjects = projects.filter(p => (p.stats?.production || 0) > 0);
   document.getElementById("ghAttentionBanner").innerHTML = prodProjects.length ? `
-    <div class="gh-attn-banner">
-      <div class="gh-attn-icon">${warnSvg}</div>
-      <div class="gh-attn-text"><b>${prodProjects.length} project${prodProjects.length !== 1 ? "s" : ""} have live bugs reported in production</b> — <span class="gh-attn-links">${prodProjects.map(p => p.title).join(", ")}</span>. Sorted to the top below.</div>
-    </div>` : "";
+    <div class="gh-v2-alert">⚠ ${prodProjects.length} project${prodProjects.length !== 1 ? "s have" : " has"} live bugs reported in production — ${prodProjects.map(p => escapeHtml(p.title)).join(", ")}. Sorted to the top below.</div>` : "";
 
-  // ── Controls row (sort + search) ────────────────────────────────────────
+  // Keep focus in a search box while it re-renders on every keystroke.
+  const focusedId = document.activeElement?.id;
+  const restoreFocus = () => {
+    if (focusedId !== "ghProjectSearch" && focusedId !== "ghContribSearch") return;
+    const input = document.getElementById(focusedId);
+    if (input) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+  };
+
+  // ── Projects: sort + search, compact list, side panel on click ─────────
   const ghQuery = (document.getElementById("ghProjectSearch")?.value || "").toLowerCase().trim();
   document.getElementById("ghControlsRow").innerHTML = `
-    <div class="gh-controls-row">
-      <div class="gh-sort-group">
-        <span class="gh-sort-label">Sort by</span>
-        ${[["attention","Needs Attention"],["completion","Completion %"],["tasks","Most Tasks"],["name","Name"]].map(([val, lbl]) =>
-          `<button class="gh-sort-btn${_ghSort === val ? " gh-sort-btn--active" : ""}" onclick="_ghSort='${val}';renderGitHub(false)">${lbl}</button>`
-        ).join("")}
-      </div>
-      <div class="gh-search-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input id="ghProjectSearch" type="search" placeholder="Search projects..." value="${ghQuery}" oninput="renderGitHub(false)">
-      </div>
+    <div class="kpx-chips">
+      <span class="prj-sort-label">Sort by</span>
+      ${[["attention","Needs attention"],["completion","Completion %"],["tasks","Most tasks"],["name","Name"]].map(([val, lbl]) =>
+        `<button type="button" class="kpx-chip${_ghSort === val ? " on" : ""}" onclick="_ghSort='${val}';renderGitHub(false)">${lbl}</button>`
+      ).join("")}
+      <input id="ghProjectSearch" class="kpx-search" type="search" placeholder="Search projects…" value="${escapeHtml(ghQuery)}" oninput="renderGitHub(false)">
     </div>`;
 
-  // ── Projects list ──────────────────────────────────────────────────────
   const searched = ghQuery ? projects.filter(p => (p.title || "").toLowerCase().includes(ghQuery)) : projects;
   const activeProjects  = searched.filter(p => (p.stats?.total || 0) > 0);
   const dormantProjects = searched.filter(p => (p.stats?.total || 0) === 0);
-
   activeProjects.sort((a, b) => {
     const sa = a.stats || {}, sb = b.stats || {};
     if (_ghSort === "attention") {
@@ -5063,81 +4963,41 @@ async function renderGitHub(fetchFresh = true) {
     return (a.title || "").localeCompare(b.title || "");
   });
 
-  const cardsHtml = activeProjects.map(proj => {
+  const rowsHtml = activeProjects.map(proj => {
     const s = proj.stats || {};
     const pct = s.total > 0 ? Math.round(s.done / s.total * 100) : 0;
-    const hasProd = (s.production || 0) > 0;
-    const stripeColor = hasProd ? "#e11d48" : pct >= 75 ? "#22c55e" : pct >= 40 ? "#f59e0b" : (s.inProgress || 0) > 0 ? "#3b82f6" : "#ef4444";
-    const taskCount = (proj.items || []).length;
-    const startOpen = taskCount <= 5;
-    const listId = `gh-tasks-${proj.number}`;
-    const items = (proj.items || []).map(item => {
-      const isUrgent = (item.status || "").toLowerCase() === "production";
-      return `
-        <div class="gh-task-row${isUrgent ? " gh-task-row--urgent" : ""}">
-          <span class="gh-task-dot" style="background:${ghStatusColor(item.status)}"></span>
-          <span class="gh-task-title">${item.title}</span>
-          <span class="gh-task-badges">
-            ${item.priority ? `<span class="gh-badge gh-badge--pri">${item.priority}</span>` : ""}
-            ${item.size     ? `<span class="gh-badge">${item.size}</span>` : ""}
-            ${(item.assignees || []).map(a => `<span class="gh-badge gh-badge--user">${a}</span>`).join("")}
-          </span>
-          <span class="gh-task-status${isUrgent ? " gh-task-status--urgent" : ""}" style="color:${ghStatusColor(item.status)}">${isUrgent ? warnSvg + " Live in Production" : ghDisplayStatus(item.status)}</span>
-        </div>
-      `;
-    }).join("");
-
+    const tone = ghTone(pct);
+    const parts = [`${s.total} tasks`, `${pct}% done`, `${s.done || 0} done`, `${s.inProgress || 0} in progress`];
+    if (s.todo) parts.push(`${s.todo} to do`);
+    if (s.backlog) parts.push(`${s.backlog} backlog`);
     return `
-      <article class="panel gh-project-card${hasProd ? " gh-project-card--urgent" : ""}" style="--stripe:${stripeColor}">
-        <div class="gh-project-head gh-project-toggle" onclick="toggleGhProject('${listId}', this)" style="cursor:pointer">
-          <div>
-            <h3 class="gh-project-name">${proj.title} ${hasProd ? `<span class="gh-pill gh-pill--urgent">${warnSvg} ${s.production} live issue${s.production !== 1 ? "s" : ""}</span>` : ""}</h3>
-            <span class="gh-project-meta">${s.total} tasks · ${pct}% done</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-            <div class="gh-status-pills">
-              ${s.done       ? `<span class="gh-pill" style="background:#dcfce7;color:#15803d">✓ ${s.done} Done</span>` : ""}
-              ${s.inProgress ? `<span class="gh-pill" style="background:#dbeafe;color:#1d4ed8">⟳ ${s.inProgress} In Progress</span>` : ""}
-              ${s.todo       ? `<span class="gh-pill" style="background:#fef9c3;color:#a16207">○ ${s.todo} Todo</span>` : ""}
-              ${s.backlog    ? `<span class="gh-pill" style="background:#f1f5f9;color:#475569">· ${s.backlog} Backlog</span>` : ""}
-            </div>
-            <span class="gh-chevron ${startOpen ? "open" : ""}">&#8964;</span>
-          </div>
-        </div>
-        <div class="gh-progress-bar-wrap">
-          <div class="gh-progress-bar" style="width:${pct}%;background:${pct >= 75 ? "#22c55e" : pct >= 40 ? "#f59e0b" : "#ef4444"}"></div>
-        </div>
-        <div class="gh-task-list" id="${listId}" ${startOpen ? "" : 'style="display:none"'}>${items}</div>
-      </article>
-    `;
+      <button type="button" class="kpx-row gh-v2-row" onclick="showGhProject(${Number(proj.number)})">
+        <span class="kpx-name"><b>${escapeHtml(proj.title)}</b>${s.production ? ` <span class="kpx-tag risk">⚠ ${s.production} live issue${s.production !== 1 ? "s" : ""}</span>` : ""}<small>${parts.join(" · ")}</small></span>
+        ${kpxBar(pct, tone)}
+        <b class="kpx-num kpx-${tone}">${pct}%</b>
+        <span class="kpx-sub" aria-hidden="true">›</span>
+      </button>`;
   }).join("");
 
   const dormantHtml = dormantProjects.length ? `
-    <div class="gh-dormant-group">
-      <div class="gh-dormant-group-label">${folderSvg}${dormantProjects.length} project${dormantProjects.length !== 1 ? "s" : ""} with no tasks logged</div>
-      <div class="gh-dormant-chips">
-        ${dormantProjects.map(p => `<span class="gh-dormant-chip">${folderSvg}${p.title}</span>`).join("")}
-      </div>
-    </div>` : "";
+    <details class="kpx-card prj-dormant">
+      <summary>${dormantProjects.length} project${dormantProjects.length !== 1 ? "s" : ""} with no tasks logged</summary>
+      <div class="gh-v2-chips">${dormantProjects.map(p => `<span class="kpx-tag none">${escapeHtml(p.title)}</span>`).join("")}</div>
+    </details>` : "";
 
   document.getElementById("ghProjectsList").innerHTML = projects.length
-    ? (cardsHtml + dormantHtml || `<p style="color:var(--muted)">No projects match the current search.</p>`)
-    : `<p style="color:var(--muted)">No project data yet. Click "Refresh now".</p>`;
+    ? ((rowsHtml ? `<div class="kpx-card">${rowsHtml}</div>` : `<p class="kpx-sub kpx-empty">No projects match the current search.</p>`) + dormantHtml)
+    : `<p class="kpx-sub kpx-empty">No project data yet. Click "Refresh now".</p>`;
 
-  // ── Contributors grid ──────────────────────────────────────────────────
+  // ── Contributors: sort + search, prototype cards; click opens the existing dialog ──
   const contribQuery = (document.getElementById("ghContribSearch")?.value || "").toLowerCase().trim();
   document.getElementById("ghContribControlsRow").innerHTML = `
-    <div class="gh-controls-row">
-      <div class="gh-sort-group">
-        <span class="gh-sort-label">Sort by</span>
-        ${[["attention","Needs Attention"],["active","Most Active"],["tasks","Most Tasks"],["name","Name"]].map(([val, lbl]) =>
-          `<button class="gh-sort-btn${_ghContribSort === val ? " gh-sort-btn--active" : ""}" onclick="_ghContribSort='${val}';renderGitHub(false)">${lbl}</button>`
-        ).join("")}
-      </div>
-      <div class="gh-search-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input id="ghContribSearch" type="search" placeholder="Search contributors..." value="${contribQuery}" oninput="renderGitHub(false)">
-      </div>
+    <div class="kpx-chips">
+      <span class="prj-sort-label">Sort by</span>
+      ${[["attention","Needs attention"],["active","Most active"],["tasks","Most tasks"],["name","Name"]].map(([val, lbl]) =>
+        `<button type="button" class="kpx-chip${_ghContribSort === val ? " on" : ""}" onclick="_ghContribSort='${val}';renderGitHub(false)">${lbl}</button>`
+      ).join("")}
+      <input id="ghContribSearch" class="kpx-search" type="search" placeholder="Search contributors…" value="${escapeHtml(contribQuery)}" oninput="renderGitHub(false)">
     </div>`;
 
   const searchedContribs = contribQuery
@@ -5146,12 +5006,10 @@ async function renderGitHub(fetchFresh = true) {
         return (realName || "").toLowerCase().includes(contribQuery) || (c.login || "").toLowerCase().includes(contribQuery);
       })
     : contributors;
-
+  const isStalled = (c) => (c.total || 0) >= 10 && (c.done || 0) === 0;
   const sortedContribs = [...searchedContribs].sort((a, b) => {
-    const aStalled = (a.total || 0) >= 10 && (a.done || 0) === 0;
-    const bStalled = (b.total || 0) >= 10 && (b.done || 0) === 0;
     if (_ghContribSort === "attention") {
-      if (aStalled !== bStalled) return aStalled ? -1 : 1;
+      if (isStalled(a) !== isStalled(b)) return isStalled(a) ? -1 : 1;
       return (b.commits + b.total) - (a.commits + a.total);
     }
     if (_ghContribSort === "active") return (b.commits || 0) - (a.commits || 0);
@@ -5160,44 +5018,83 @@ async function renderGitHub(fetchFresh = true) {
   });
 
   document.getElementById("ghContributors").innerHTML = sortedContribs.length ? `
-    <div class="gh-contrib-grid">
+    <div class="prj-grid">
       ${sortedContribs.map(c => {
-        const realName  = ghLoginToName(c.login);
+        const realName    = ghLoginToName(c.login);
         const displayName = realName || c.login;
-        const mergeRate = c.prs > 0 ? Math.round((c.prsMerged || 0) / c.prs * 100) : null;
-        const initials  = displayName.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
-        const color     = ghAvatarColor(c.login);
-        const locTotal  = (c.additions || 0) + (c.deletions || 0);
-        const taskPct   = c.total > 0 ? Math.round((c.done || 0) / c.total * 100) : 0;
-        const stalled   = (c.total || 0) >= 10 && (c.done || 0) === 0;
-        const barColor  = taskPct >= 75 ? "#22c55e" : taskPct >= 40 ? "#f59e0b" : "#ef4444";
-        const stripe    = stalled ? "#f59e0b" : c.total > 0 ? barColor : "#e2e8f0";
+        const mergeRate   = c.prs > 0 ? Math.round((c.prsMerged || 0) / c.prs * 100) : null;
+        const initials    = displayName.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+        const locTotal    = (c.additions || 0) + (c.deletions || 0);
+        const taskPct     = c.total > 0 ? Math.round((c.done || 0) / c.total * 100) : 0;
+        const stalled     = isStalled(c);
+        const edge        = stalled ? "watch" : c.total > 0 ? ghTone(taskPct) : "";
         return `
-        <div class="gh-contrib-card${stalled ? " gh-contrib-card--warn" : ""}" onclick="showGhContributor('${c.login}')" style="cursor:pointer;--stripe:${stripe}">
-          <div class="gh-contrib-card-header">
-            <div class="gh-contrib-avatar2" style="background:${color}">${initials}</div>
-            <div class="gh-contrib-card-identity">
-              <div class="gh-contrib-card-name">${displayName}</div>
-              ${realName ? `<div class="gh-contrib-card-login">${c.login}</div>` : ""}
-              ${stalled ? `<span class="gh-warn-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg>${c.total} tasks, 0 done</span>` : ""}
-            </div>
+        <article class="kpx-card prj-card gh-v2-contrib ${edge}" onclick="showGhContributor('${escapeHtml(c.login)}')" role="button" tabindex="0"
+          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showGhContributor('${escapeHtml(c.login)}')}">
+          <div class="prj-top">
+            <span class="kpx-avatar" style="background:${ghAvatarColor(c.login)}">${escapeHtml(initials)}</span>
+            <span class="kpx-name"><b>${escapeHtml(displayName)}</b>${realName ? `<small>${escapeHtml(c.login)}</small>` : ""}</span>
+            ${stalled ? `<span class="kpx-tag watch">⚠ ${c.total} tasks, 0 done</span>` : ""}
           </div>
-          <div class="gh-contrib-chips">${(c.projects || []).length ? c.projects.map(p => `<span class="gh-contrib-chip">${p}</span>`).join("") : `<span class="gh-contrib-chip" style="opacity:.6">No board tasks</span>`}</div>
+          <div class="gh-v2-chips">${(c.projects || []).length ? c.projects.map(p => `<span class="kpx-tag none">${escapeHtml(p)}</span>`).join("") : `<span class="kpx-tag none">No board tasks</span>`}</div>
           ${c.total > 0 ? `
-          <div class="gh-contrib-task-block">
-            <div class="gh-contrib-task-label"><span>Task completion</span><strong style="color:${barColor}">${taskPct}%</strong></div>
-            <div class="gh-contrib-bar-wrap"><div class="gh-contrib-bar-fill" style="width:${taskPct}%;background:${barColor}"></div></div>
-          </div>` : ""}
-          <div class="gh-contrib-card-stats">
-            ${c.commits > 0 ? `<span class="gh-cs"><b>${c.commits}</b> code saves</span>` : ""}
-            ${c.total  > 0 ? `<span class="gh-cs"><b>${c.done}/${c.total}</b> tasks</span>` : ""}
-            ${c.prs    > 0 ? `<span class="gh-cs"><b>${c.prs}</b> review${c.prs!==1?"s":""}${mergeRate!==null?` <span class="gh-merged">${mergeRate}% merged</span>`:"" }</span>` : ""}
-            ${locTotal > 0 ? `<span class="gh-cs"><b>${fmtLoc(locTotal)}</b> lines changed</span>` : ""}
+          <div class="prj-meta"><span class="kpx-sub">Task completion</span><b class="kpx-num kpx-${ghTone(taskPct)}">${taskPct}%</b></div>
+          ${kpxBar(taskPct, ghTone(taskPct))}` : ""}
+          <div class="gh-v2-cstats">
+            ${c.commits > 0 ? `<span><b>${c.commits}</b> code saves</span>` : ""}
+            ${c.total   > 0 ? `<span><b>${c.done}/${c.total}</b> tasks</span>` : ""}
+            ${c.prs     > 0 ? `<span><b>${c.prs}</b> review${c.prs !== 1 ? "s" : ""}${mergeRate !== null ? ` · ${mergeRate}% merged` : ""}</span>` : ""}
+            ${locTotal  > 0 ? `<span><b>${fmtLoc(locTotal)}</b> lines changed</span>` : ""}
           </div>
-        </div>`;
+        </article>`;
       }).join("")}
     </div>
-  ` : `<p style="color:var(--muted);padding:24px">No contributors match the current search.</p>`;
+  ` : `<p class="kpx-sub kpx-empty">No contributors match the current search.</p>`;
+
+  restoreFocus();
+}
+
+// Side panel for one GitHub project: status counts and every task (production issues first).
+function showGhProject(number) {
+  const proj = (githubData?.projects || []).find(p => Number(p.number) === Number(number));
+  if (!proj) return;
+  document.getElementById("kpxDrawer")?.remove();
+  const s = proj.stats || {};
+  const pct = s.total > 0 ? Math.round(s.done / s.total * 100) : 0;
+  const tone = pct >= 75 ? "good" : pct >= 40 ? "watch" : "risk";
+  const isProd = (t) => (t.status || "").toLowerCase() === "production";
+  const items = [...(proj.items || [])].sort((a, b) => isProd(b) - isProd(a));
+  const drawer = document.createElement("div");
+  drawer.id = "kpxDrawer";
+  drawer.className = "kpx-drawer";
+  drawer.innerHTML = `
+    <div class="kpx-panel" role="dialog" aria-modal="true" aria-label="${escapeHtml(proj.title)}">
+      <button type="button" class="kpx-close" aria-label="Close">✕</button>
+      <h2>${escapeHtml(proj.title)}</h2>
+      <p class="kpx-sub">${s.total} tasks · ${pct}% done</p>
+      <div class="gh-v2-chips">
+        ${s.done       ? `<span class="kpx-tag good">✓ ${s.done} Done</span>` : ""}
+        ${s.inProgress ? `<span class="kpx-tag fair">⟳ ${s.inProgress} In progress</span>` : ""}
+        ${s.todo       ? `<span class="kpx-tag watch">○ ${s.todo} To do</span>` : ""}
+        ${s.backlog    ? `<span class="kpx-tag none">· ${s.backlog} Backlog</span>` : ""}
+        ${s.production ? `<span class="kpx-tag risk">⚠ ${s.production} Live issue${s.production !== 1 ? "s" : ""}</span>` : ""}
+      </div>
+      ${kpxBar(pct, tone)}
+      <h3>Tasks · ${items.length}</h3>
+      ${items.map(item => `
+        <div class="gh-v2-task${isProd(item) ? " urgent" : ""}">
+          <span class="gh-task-dot" style="background:${ghStatusColor(item.status)}"></span>
+          <span class="kpx-name">${escapeHtml(item.title)}
+            <small>${item.priority ? `<span class="gh-badge gh-badge--pri">${escapeHtml(item.priority)}</span>` : ""}${item.size ? `<span class="gh-badge">${escapeHtml(item.size)}</span>` : ""}${(item.assignees || []).map(a => `<span class="gh-badge gh-badge--user">${escapeHtml(a)}</span>`).join("")}</small>
+          </span>
+          <b class="gh-v2-status" style="color:${ghStatusColor(item.status)}">${isProd(item) ? "⚠ Live in production" : escapeHtml(ghDisplayStatus(item.status))}</b>
+        </div>`).join("") || `<p class="kpx-sub">No tasks.</p>`}
+    </div>`;
+  const close = () => { drawer.remove(); document.removeEventListener("keydown", onKey); };
+  const onKey = (event) => { if (event.key === "Escape") close(); };
+  drawer.addEventListener("click", (event) => { if (event.target === drawer || event.target.closest(".kpx-close")) close(); });
+  document.addEventListener("keydown", onKey);
+  document.body.appendChild(drawer);
 }
 
 // ======= TARA MARKDOWN RENDERER =======

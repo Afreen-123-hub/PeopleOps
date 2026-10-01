@@ -167,6 +167,13 @@
       .then(function () { if (changed) safeRender(); armWfh(); });
   }
 
+  // A person's name opens their dashboard profile (app.js). GreytHR-only people ("gh:" ids,
+  // not in the dashboard) have no profile, so their name stays plain text.
+  function whoName(e) {
+    if (!e || String(e.id || "").indexOf("gh:") === 0 || !window.openEmployeeProfile) return esc(e && e.name);
+    return '<button type="button" class="emp-link" data-lt-profile="' + esc(e.id) + '" title="Open profile">' + esc(e.name) + "</button>";
+  }
+
   function employees() {
     return (typeof filteredEmployees !== "undefined" && filteredEmployees) ? filteredEmployees : [];
   }
@@ -357,7 +364,7 @@
       var dates = runs.map(function (u) {
         return '<span class="lt-chip"><i style="background:' + typeMeta(u.code).color + '"></i>' + esc(typeMeta(u.code).short) + " · " + spanText(u.start, u.end) + (u.v < 1 ? " ½" : "") + "</span>";
       }).join("");
-      return '<div class="lt-tl-row"><div class="lt-name"><div class="lt-who">' + esc(p.e.name) + '</div><div class="lt-team">' + esc(teamOf(p.e)) + " · " +
+      return '<div class="lt-tl-row"><div class="lt-name"><div class="lt-who">' + whoName(p.e) + '</div><div class="lt-team">' + esc(teamOf(p.e)) + " · " +
         num(sum) + (sum === 1 ? " day" : " days") + '</div></div><div class="lt-track">' + shade + todayMark + bars + '</div><div class="lt-dates">' + dates + "</div></div>";
     }).join("");
     return head + rows;
@@ -370,7 +377,7 @@
       var chips = Object.keys(p.mine).filter(function (c) { return visibleCode(c, state.filter); }).map(function (c) {
         return '<span class="lt-chip"><i style="background:' + typeMeta(c).color + '"></i>' + esc(typeMeta(c).short) + " " + num(p.mine[c]) + "</span>";
       }).join("");
-      return '<div class="lt-list-row"><div class="lt-av">' + esc(ini) + '</div><div><div class="lt-who">' + esc(p.e.name) + '</div><div class="lt-team">' + esc(teamOf(p.e)) +
+      return '<div class="lt-list-row"><div class="lt-av">' + esc(ini) + '</div><div><div class="lt-who">' + whoName(p.e) + '</div><div class="lt-team">' + esc(teamOf(p.e)) +
         '</div></div><div class="lt-chips">' + chips + '</div><div class="lt-tot">' + num(sum) + " <small>" + (sum === 1 ? "day" : "days") + "</small></div></div>";
     }).join("");
   }
@@ -500,7 +507,7 @@
     var rangeLabel = firstLabel === lastLabel ? firstLabel : firstLabel + " – " + lastLabel;
     return (
       controls + warn + wfhNote +
-      '<div class="lt-pheader"><div><div class="lt-who" style="font-size:1.05rem">' + esc(emp.name) + '</div><div class="lt-team">' + esc(teamOf(emp)) + " · " + rangeLabel + "</div></div>" +
+      '<div class="lt-pheader"><div><div class="lt-who" style="font-size:1.05rem">' + whoName(emp) + '</div><div class="lt-team">' + esc(teamOf(emp)) + " · " + rangeLabel + "</div></div>" +
       '<div class="lt-ptotal">' + num(total) + " <small>" + (total === 1 ? "day" : "days") + " total</small></div></div>" +
       (pt.codes.length === 0
         ? '<div class="lt-empty-msg">No leave or absence recorded for ' + esc(emp.name) + " in this range.</div>"
@@ -634,6 +641,7 @@
     el.addEventListener("click", function (ev) {
       var t = ev.target.closest("button");
       if (!t || t.disabled) return;
+      if (t.dataset.ltProfile) { window.openEmployeeProfile(t.dataset.ltProfile); return; }
       if (t.dataset.mode) {
         state.mode = t.dataset.mode;
         if (state.mode === "day") while (isWeekend(state.anchor)) state.anchor = add(state.anchor, -1); // weekends have no working-day view

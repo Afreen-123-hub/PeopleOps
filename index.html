@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
     <link rel="icon" type="image/svg+xml" href="peopleops-icon.svg">
-    <link rel="stylesheet" href="styles.css?v=20261001-checkin">
+    <link rel="stylesheet" href="styles.css?v=20261001-search2">
     <link rel="stylesheet" href="leave-types.css?v=20260921-leavetypes">
     <link rel="stylesheet" href="work-location.css?v=20260925-search">
     <link rel="stylesheet" href="overview.css?v=20260929-greet2">
@@ -330,26 +330,6 @@
           <div id="leaveTypesCard"></div>
           <div id="workLocationCard"></div>
           <div id="attendanceTeamRollup"></div>
-          <article class="panel">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Attendance intelligence</p>
-                <h2>Employee Attendance Details</h2>
-                <span data-scope-count></span>
-              </div>
-              <div class="employee-picker-wrap">
-                <label class="pill-field-label search-field page-search-field">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-                  <input id="attendanceSearch" type="text" placeholder="Search employee…" autocomplete="off">
-                </label>
-                <label class="pill-field-label page-search-field">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"/></svg>
-                  <select id="attendanceEmployee"></select>
-                </label>
-              </div>
-            </div>
-            <div id="attendanceDetail" class="attendance-detail"></div>
-          </article>
         </section>
 
         <section id="teams" class="view">
@@ -451,13 +431,14 @@
         </dialog>
 
         <section id="github" class="view">
-          <div class="gh-header">
-            <div>
-              <p class="eyebrow">Codework.ai · GitHub Projects</p>
-              <h1 class="gh-title">Project Tracker</h1>
-              <p class="gh-sub">Tasks, assignees, and completion status across all active GitHub Projects. <span id="ghPeriodLabel"></span></p>
-            </div>
-            <div class="gh-header-actions">
+          <div class="kpx-layout gh-v2">
+            <div class="gh-v2-head">
+              <div>
+                <p class="eyebrow">Codework.ai · GitHub Projects</p>
+                <h2>GitHub</h2>
+                <p class="kpx-sub">Tasks, assignees and completion across all active GitHub Projects. <span id="ghPeriodLabel"></span></p>
+              </div>
+              <div class="gh-header-actions">
               <span class="month-picker">
                 <svg class="cal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
                 <select id="ghMonthPicker"></select>
@@ -468,21 +449,22 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.85-3.36L23 10M1 14l4.65 4.36A9 9 0 0020.5 15"/></svg>
                 Refresh now
               </button>
+              </div>
             </div>
-          </div>
-          <div id="ghSummaryCards" class="gh-stat-bar"></div>
-          <div class="gh-tabs-bar">
-            <button class="gh-tab gh-tab--active" data-tab="projects" onclick="switchGhTab('projects',this)">Projects</button>
-            <button class="gh-tab" data-tab="contributors" onclick="switchGhTab('contributors',this)">Contributors</button>
-          </div>
-          <div id="gh-tab-projects" class="gh-tab-panel">
+            <div id="ghSummaryCards" class="kpx-grid"></div>
             <div id="ghAttentionBanner"></div>
-            <div id="ghControlsRow"></div>
-            <div id="ghProjectsList"></div>
-          </div>
-          <div id="gh-tab-contributors" class="gh-tab-panel" hidden>
-            <div id="ghContribControlsRow"></div>
-            <div id="ghContributors"></div>
+            <div class="kpx-chips gh-v2-tabs">
+              <button type="button" class="kpx-chip gh-tab gh-tab--active on" data-tab="projects" onclick="switchGhTab('projects',this)">Projects</button>
+              <button type="button" class="kpx-chip gh-tab" data-tab="contributors" onclick="switchGhTab('contributors',this)">Contributors</button>
+            </div>
+            <div id="gh-tab-projects" class="gh-tab-panel">
+              <div id="ghControlsRow"></div>
+              <div id="ghProjectsList"></div>
+            </div>
+            <div id="gh-tab-contributors" class="gh-tab-panel" hidden>
+              <div id="ghContribControlsRow"></div>
+              <div id="ghContributors"></div>
+            </div>
           </div>
         </section>
 
@@ -648,53 +630,54 @@
             .graphd-overdue-banner { display:flex; align-items:flex-start; gap:10px; background:#fef2f2; border:1px solid #fecaca; color:#991b1b; border-radius:10px; padding:12px 14px; margin-top:12px; font-size:0.84rem; line-height:1.5; }
             .graphd-overdue-banner svg { width:15px; height:15px; flex-shrink:0; margin-top:1px; }
           </style>
-          <div class="graph-command">
-            <div>
-              <p class="eyebrow">Microsoft Graph</p>
-              <div id="graphBreadcrumbs" class="graph-breadcrumbs">Microsoft Graph / Overview</div>
-            </div>
-            <div class="gh-header-actions">
-              <span id="graphRefreshLabel" class="refresh-pill"></span>
-              <input type="month" id="graphMonthPicker" class="month-picker-input">
+          <div class="gx">
+            <div class="gx-head">
+              <div class="gx-title">
+                <span class="gx-logo" aria-hidden="true">⌘</span>
+                <div>
+                  <h2>Microsoft 365</h2>
+                  <div id="graphBreadcrumbs" class="graph-breadcrumbs">Microsoft Graph / Overview</div>
+                </div>
+              </div>
+              <div class="gh-header-actions">
+                <span id="graphRefreshLabel" class="refresh-pill"></span>
+                <input type="month" id="graphMonthPicker" class="month-picker-input">
               <button id="graphRefreshButton" class="button refresh-btn company-only" type="button">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.85-3.36L23 10M1 14l4.65 4.36A9 9 0 0020.5 15"/></svg>
                 Refresh now
               </button>
-            </div>
-          </div>
-          <section class="graph-people-search">
-            <div class="graph-search-copy">
-              <span class="graph-search-icon">⌕</span>
-              <div>
-                <strong>Employee 360° Search</strong>
-                <small>Search by employee name, ID or Microsoft 365 email</small>
               </div>
             </div>
-            <div class="graph-search-field">
-              <input id="graphEmployeeSearch" type="search" placeholder="Search by employee or name or ID or email" autocomplete="off">
-              <button id="graphEmployeeSearchClear" type="button" hidden>Clear</button>
-            </div>
-            <div id="graphEmployeeSuggestions" class="graph-employee-suggestions" hidden></div>
-          </section>
-          <p id="graphSummaryEyebrow" class="graph-org-eyebrow"></p>
-          <div id="graphSummaryCards" class="graph-kpi-grid"></div>
-          <div class="graph-explorer">
-            <section class="graph-content">
-              <header id="graphSectionHeader" class="graph-section-header"></header>
-              <div id="graphToolbar" class="graph-toolbar"></div>
-              <div id="graphWorkspace" class="graph-workspace"></div>
-              <div id="graphPagination" class="graph-pagination"></div>
+            <section class="graph-people-search gx-spot">
+              <span class="graph-search-icon" aria-hidden="true">⌕</span>
+              <div class="graph-search-field">
+                <input id="graphEmployeeSearch" type="search" placeholder="Employee 360° — search a person by name, ID or Microsoft 365 email" autocomplete="off" aria-label="Employee 360° search">
+                <button id="graphEmployeeSearchClear" type="button" hidden>Clear</button>
+                <kbd class="gx-kbd" aria-hidden="true">/</kbd>
+              </div>
+              <div id="graphEmployeeSuggestions" class="graph-employee-suggestions" hidden></div>
             </section>
+            <div class="gx-body">
+              <nav class="gx-rail" aria-label="Microsoft 365 sections">
+                <p id="graphSummaryEyebrow" class="graph-org-eyebrow"></p>
+                <div id="graphSummaryCards" class="gx-rail-list"></div>
+              </nav>
+              <section class="graph-content gx-panel">
+                <header id="graphSectionHeader" class="graph-section-header"></header>
+                <div id="graphToolbar" class="graph-toolbar"></div>
+                <div id="graphWorkspace" class="graph-workspace"></div>
+                <div id="graphPagination" class="graph-pagination"></div>
+              </section>
+            </div>
           </div>
         </section>
 
         <section id="integrations" class="view">
-          <div id="integrationGrid" class="integration-grid"></div>
-          <article class="panel">
-            <p class="eyebrow">API-ready architecture</p>
-            <h2>Connector Status</h2>
-            <div id="integrationRoadmapStats"></div>
-          </article>
+          <div class="kpx-layout">
+            <div id="integrationRoadmapStats" class="kpx-grid"></div>
+            <div id="integrationGrid" class="int-grid"></div>
+            <p id="integrationNote" class="kpx-sub int-note"></p>
+          </div>
         </section>
       </section>
     </main>
@@ -789,9 +772,9 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20261001-checkin"></script>
-    <script src="leave-types.js?v=20261001-checkin"></script>
-    <script src="work-location.js?v=20261001-checkin"></script>
-    <script src="graph-explorer.js?v=20261001-checkin"></script>
+    <script src="app.js?v=20261001-search2"></script>
+    <script src="leave-types.js?v=20261001-search2"></script>
+    <script src="work-location.js?v=20261001-search2"></script>
+    <script src="graph-explorer.js?v=20261001-search2"></script>
   </body>
 </html>

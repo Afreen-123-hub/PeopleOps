@@ -137,7 +137,7 @@ function renderGraphLiveCard(meeting, allLiveMeetings) {
   const endLabel = new Date(meeting.end).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   const key = graphMeetingKey(meeting);
   const isTarget = graphExplorerState.fromOverview?.meetingKey === key;
-  return `<div class="graph-live-card${isTarget ? " graph-from-target" : ""}" data-meeting-key="${escapeHtml(key)}">
+  return `<div class="graph-live-card${isTarget ? " graph-from-target" : ""}" data-meeting-key="${escapeHtml(key)}" role="button" tabindex="0" title="Show meeting details">
     <div class="graph-live-top">
       <div>
         <p class="graph-live-subject">${escapeHtml(meeting.subject)}${isTarget ? `<span class="graph-from-badge">You clicked this</span>` : ""}</p>
@@ -198,7 +198,17 @@ function renderGraphLive() {
   document.getElementById("graphWorkspace").innerHTML =
     `<div class="graph-live-list">${rows.map(meeting => renderGraphLiveCard(meeting, allLive)).join("")}</div>`;
   document.querySelectorAll("[data-graph-employee]").forEach(el => {
-    el.onclick = () => openGraphEmployeeDrawer(el.dataset.graphEmployee);
+    el.onclick = (event) => { event.stopPropagation(); openGraphEmployeeDrawer(el.dataset.graphEmployee); };
+  });
+  // Clicking anywhere else on a live meeting card opens its details (time, organizer, location,
+  // Join in Teams / Outlook, and everyone invited with their status). Links keep working as links.
+  document.querySelectorAll(".graph-live-card[data-meeting-key]").forEach(card => {
+    const meeting = rows.find(m => graphMeetingKey(m) === card.dataset.meetingKey);
+    if (!meeting) return;
+    card.onclick = (event) => { if (!event.target.closest("a")) openMeetingDetailsDrawer(meeting); };
+    card.onkeydown = (event) => {
+      if (event.target === card && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); openMeetingDetailsDrawer(meeting); }
+    };
   });
 }
 
@@ -219,6 +229,12 @@ function graphEmpty(titleText, message) {
 
 function handleGraphKeyboard(event) {
   if (event.key === "Escape" && !document.getElementById("graphDrawerOverlay")?.hidden) closeGraphDrawer();
+  const graphOpen = document.getElementById("graph")?.classList.contains("active-view");
+  const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || "");
+  if (event.key === "/" && graphOpen && !typing) {
+    event.preventDefault();
+    document.getElementById("graphEmployeeSearch")?.focus();
+  }
 }
 
 function graphCalendarBase() {
@@ -258,7 +274,7 @@ function graphSearch(...values) {
 
 function graphSkeleton() {
   document.getElementById("graphSummaryCards").innerHTML =
-    Array.from({ length: 6 }, () => '<div class="graph-skeleton graph-skeleton-card"></div>').join("");
+    Array.from({ length: 7 }, () => '<div class="graph-skeleton gx-skel-item"></div>').join("");
   document.getElementById("graphWorkspace").innerHTML =
     Array.from({ length: 8 }, () => '<div class="graph-skeleton graph-skeleton-row"></div>').join("");
 }
@@ -422,43 +438,48 @@ function renderEmployeeContextHeader(employee, titleText = "Employee 360°") {
 }
 
 function employeeProfileHeader(employee) {
+  const initials = String(employee.name || "?").trim().split(/\s+/).map(w => w[0]).slice(0, 2).join("").toUpperCase();
+  const status = employee.teams?.status || "";
+  const tone = /available/i.test(status) ? "ok" : /away|brb/i.test(status) ? "away" : /busy|dnd|call|meeting/i.test(status) ? "busy" : "off";
   return `
-    <header class="graph-profile-hero">
-      <div class="graph-profile-avatar">${escapeHtml(employee.name?.[0] || "?")}</div>
-      <div class="graph-profile-identity">
-        <div class="graph-profile-name-row">
-          <h2>${escapeHtml(employee.name)}</h2>
-          <span class="graph-match ${employee.matched ? "yes" : "no"}">${employee.matched ? "Microsoft 365 matched" : "Unmatched"}</span>
-        </div>
-        <div class="graph-identity-grid">
-          ${profileFact("Employee ID", employee.id)}
-          ${profileFact("Designation", employee.designation || "Not available")}
-          ${profileFact("Department", employee.team || "Not available")}
-          ${profileFact("Microsoft 365 email", employee.email || "Not available")}
-          ${profileFact("Reporting manager", graphEmployeeManager(employee))}
+    <header class="graph-profile-hero e360-prof">
+      <div class="e360-avatar" aria-hidden="true">${escapeHtml(initials)}</div>
+      <div class="e360-who">
+        <h2>${escapeHtml(employee.name)}
+          <span class="graph-match ${employee.matched ? "yes" : "no"}">${employee.matched ? "Microsoft 365 matched" : "Unmatched"}</span></h2>
+        <div class="e360-facts">
+          <span>ID <b>${escapeHtml(employee.id)}</b></span>
+          <span><b>${escapeHtml(employee.designation || "Designation not available")}</b></span>
+          <span>${escapeHtml(employee.team || "Department not available")}</span>
+          <span>${escapeHtml(employee.email || "No Microsoft 365 email")}</span>
+          <span>Reports to <b>${escapeHtml(graphEmployeeManager(employee))}</b></span>
         </div>
       </div>
+      ${status ? `<span class="e360-presence ${tone}"><i></i>Teams · ${escapeHtml(status)}</span>` : ""}
     </header>`;
 }
 
 function employeeTabs(employee, activeTab) {
   const tasks = employee.planner?.tasks || [];
   const tabs = [
-    ["plans", "Planner Plans", employeePlans(employee).length],
-    ["tasks", "Planner Tasks", tasks.length],
-    ["completed", "Completed Tasks", tasks.filter(task => graphStatus(task) === "Completed").length],
+    ["overview", "Overview", null],
+    ["plans", "Plans", employeePlans(employee).length],
+    ["tasks", "Tasks", tasks.length],
+    ["completed", "Completed", tasks.filter(task => graphStatus(task) === "Completed").length],
     ["calendar", "Calendar", employee.calendar?.items?.length || 0],
-    ["sites", "SharePoint Sites", employeeRelevantSites(employee).length],
+    ["sites", "SharePoint", employeeRelevantSites(employee).length],
   ];
-  return `<nav class="graph-employee-tabs" aria-label="Employee Microsoft 365 data">${tabs.map(([id, label, count]) => `
+  return `<nav class="graph-employee-tabs e360-tabs" aria-label="Employee Microsoft 365 data">${tabs.map(([id, label, count]) => `
     <button type="button" data-employee-tab="${id}" class="${activeTab === id ? "active" : ""}">
-      <span>${escapeHtml(label)}</span><strong>${count}</strong>
+      ${escapeHtml(label)}${count != null ? `<small>${count}</small>` : ""}
     </button>`).join("")}</nav>`;
 }
 
 function bindEmployeeTabs(employee) {
   document.querySelectorAll("[data-employee-tab]").forEach(button => {
-    button.onclick = () => renderEmployeeOption(employee, button.dataset.employeeTab);
+    button.onclick = () => button.dataset.employeeTab === "overview"
+      ? showEmployeeWorkspace(employee)
+      : renderEmployeeOption(employee, button.dataset.employeeTab);
   });
 }
 
@@ -521,7 +542,7 @@ function showEmployeeSearchResults(query = graphEmployeeState.query) {
   graphEmployeeState.employeeId = null;
   document.getElementById("graphEmployeeSuggestions").hidden = true;
   document.getElementById("graphBreadcrumbs").textContent = `Microsoft Graph / Employee 360° / Search results`;
-  document.querySelectorAll(".graph-subnav-item").forEach(button => button.classList.remove("active"));
+  document.querySelectorAll(".graph-subnav-item, .gx-rail-item").forEach(button => button.classList.remove("active"));
   document.getElementById("graphToolbar").innerHTML = `
     <div class="graph-profile-toolbar">
       <span>${matches.length} matching employee${matches.length === 1 ? "" : "s"} for “${escapeHtml(query)}”</span>
@@ -565,28 +586,68 @@ function graphDataCoverage(employee) {
   return { matchedCount: matched.length, total: sources.length, matched, missing };
 }
 
-function graphCoverageBanner(employee) {
-  const { matchedCount, total, matched, missing } = graphDataCoverage(employee);
-  const checkSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>`;
-  const warnSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg>`;
-  if (matchedCount === total) {
-    return `<div class="graph-coverage graph-coverage--full">${checkSvg}<div><b>All ${total} data sources matched.</b> Full activity picture available for this employee.</div></div>`;
-  }
-  if (matchedCount === 0) {
-    return `<div class="graph-coverage graph-coverage--partial">${warnSvg}<div><b>No Microsoft 365 activity matched for this employee this period.</b> Either no activity occurred, or this employee isn't yet linked in these systems.</div></div>`;
-  }
-  return `<div class="graph-coverage graph-coverage--partial">${warnSvg}<div><b>Only ${escapeHtml(matched.join(", "))} activity matched (${matchedCount} of ${total} sources).</b> ${escapeHtml(missing.join(", "))} show no records this period — either no activity occurred, or this employee isn't yet linked in those systems.</div></div>`;
-}
-
-function employeeTeamsPanel(employee) {
-  const t = employee.teams || {};
-  const hasActivity = (t.messagesCount || 0) > 0 || (t.meetingCount || 0) > 0 || (t.callCount || 0) > 0;
-  return employeeProfilePanel("Teams activity", "teams", hasActivity ? `
-    <div class="graph-teams-stats">
-      <div><strong>${t.messagesCount || 0}</strong><span>Messages</span></div>
-      <div><strong>${t.meetingCount || 0}</strong><span>Meetings</span></div>
-      <div><strong>${t.callCount || 0}</strong><span>Calls</span></div>
-    </div>` : profileEmpty("No Teams activity this period"));
+// Employee 360° Overview: four KPI tiles + two report-style panels + a sources footer.
+// Keeps the attendance-month fetch (same element IDs as before, used by loadEmployeeAttendanceMonth).
+function employeeOverviewHtml(employee) {
+  const a = employee.attendance || {}, p = employee.planner || {}, t = employee.teams || {}, c = employee.calendar || {};
+  const coverage = graphDataCoverage(employee);
+  const clock = h => (h == null ? "—" : (typeof formatCheckinHour === "function" ? formatCheckinHour(h) : String(h)));
+  const working = Math.max(1, (a.calendarDays || 0) - (a.off || 0) - (a.holidays || 0)
+    || (a.present || 0) + (a.absent || 0) + (a.leave || 0));
+  const attPct = Math.min(100, Math.round(((a.present || 0) / working) * 100));
+  const donePct = p.assigned ? Math.round(((p.completed || 0) / p.assigned) * 100) : 0;
+  const tile = (label, value, sub, pct) => `<div class="e360-tile"><div class="e360-label">${label}</div>
+    <div class="e360-value">${value}</div><div class="e360-sub">${sub}</div>
+    ${pct != null ? `<div class="e360-meter"><i style="width:${pct}%"></i></div>` : ""}</div>`;
+  const row = (label, value, cls = "") => `<div class="e360-row ${cls}"><span>${label}</span><b>${value}</b></div>`;
+  const sources = [["Planner"], ["Calendar"], ["Attendance"], ["Teams"]]
+    .map(([name]) => `<em class="${coverage.matched.includes(name) ? "" : "off"}">${name}</em>`).join(", ");
+  return `
+      <section class="graph-employee-overview e360">
+        <div class="e360-head">
+          <div>
+            <h3>Overview</h3>
+            <p>Attendance period: ${escapeHtml(attendanceMonthLabel())}${attendancePeriod() ? ` (${escapeHtml(attendancePeriod())})` : ""} · Microsoft 365 activity: current month</p>
+          </div>
+          <div class="e360-month">
+            <input id="graphAttendanceMonth" type="month" value="${attendanceMonthValue()}" max="${new Date().toISOString().slice(0, 7)}" aria-label="Attendance month">
+            <button type="button" id="graphAttendanceLoad">Fetch month</button>
+          </div>
+        </div>
+        <span id="graphAttendanceStatus" class="graph-attendance-status" aria-live="polite"></span>
+        <div class="e360-tiles">
+          ${tile("Attendance rate", `${attPct}%`, `${a.present || 0} of ${working} working days present`, attPct)}
+          ${tile("Average check-in", escapeHtml(clock(a.avgCheckinHour)), `Check-out ${escapeHtml(clock(a.avgCheckoutHour))} · biometric`)}
+          ${tile("Task completion", `${donePct}%`, `${p.completed || 0} of ${p.assigned || 0} Planner tasks${p.overdueOpen ? ` · <span class="e360-bad">${p.overdueOpen} overdue</span>` : ""}`, donePct)}
+          ${tile("Meeting time", `${c.meetingHours || 0} h`, `${c.events || 0} calendar meetings this month`)}
+        </div>
+        <div class="e360-panels">
+          <section class="e360-panel">
+            <h4>Attendance &amp; time</h4>
+            ${row("Present", `${a.present || 0} days`)}
+            ${row("Absent", `${a.absent || 0} day${a.absent === 1 ? "" : "s"}`, a.absent ? "warn" : "")}
+            ${row("Leave", `${a.leave || 0} days`)}
+            ${row("Week off / holidays", `${a.off || 0} / ${a.holidays || 0}`)}
+            ${row("Biometric days", a.biometricDays ?? "—")}
+            ${row("Average office hours", a.avgOfficeHours != null ? `${a.avgOfficeHours} h per day` : "—")}
+            ${row("Office location", escapeHtml(a.officeLocation || "—"))}
+          </section>
+          <section class="e360-panel">
+            <h4>Work &amp; collaboration</h4>
+            ${row("Planner tasks", `${p.assigned || 0} assigned · ${p.completed || 0} completed`)}
+            ${row("In progress / not started", `${p.inProgress || 0} / ${p.notStarted || 0}`)}
+            ${row("Overdue (open)", p.overdueOpen || 0, p.overdueOpen ? "bad" : "")}
+            ${row("On-time completion", p.onTimeRate != null ? `${p.onTimeRate}%` : "—")}
+            ${row("Teams messages", Number(t.messagesCount || 0).toLocaleString())}
+            ${row("Teams meetings / calls", `${t.meetingCount || 0} / ${t.callCount || 0}`)}
+            ${row("Teams status", escapeHtml(t.status || "Unknown"))}
+          </section>
+        </div>
+        <div class="e360-foot">
+          <span><b>Performance band:</b> ${escapeHtml(employee.band || "—")} · KPI ${employee.kpi ?? "not scored"}</span>
+          <span><b>Data sources:</b> ${coverage.matchedCount} of ${coverage.total} matched — ${sources}</span>
+        </div>
+      </section>`;
 }
 
 function showEmployeeWorkspace(employee) {
@@ -596,7 +657,7 @@ function showEmployeeWorkspace(employee) {
   document.getElementById("graphEmployeeSearch").value = employee.name;
   document.getElementById("graphEmployeeSearchClear").hidden = false;
   document.getElementById("graphBreadcrumbs").textContent = `Microsoft Graph / Employee 360° / ${employee.name}`;
-  document.querySelectorAll(".graph-subnav-item").forEach(button => button.classList.remove("active"));
+  document.querySelectorAll(".graph-subnav-item, .gx-rail-item").forEach(button => button.classList.remove("active"));
   renderEmployeeContextHeader(employee);
   document.getElementById("graphToolbar").innerHTML = `
     <div class="graph-profile-toolbar">
@@ -608,34 +669,7 @@ function showEmployeeWorkspace(employee) {
     <article class="graph-employee-profile">
       ${employeeProfileHeader(employee)}
       ${employeeTabs(employee, "overview")}
-      <section class="graph-employee-overview">
-        <div class="graph-attendance-period">
-          <div>
-            <p class="eyebrow">Attendance reporting month</p>
-            <strong>Currently showing: ${escapeHtml(attendanceMonthLabel())}</strong>
-            <small>${escapeHtml(attendancePeriod() || "Attendance period has not been generated yet")}</small>
-          </div>
-          <label for="graphAttendanceMonth">Choose month
-            <input id="graphAttendanceMonth" type="month" value="${attendanceMonthValue()}" max="${new Date().toISOString().slice(0, 7)}">
-          </label>
-          <button type="button" id="graphAttendanceLoad">Fetch selected month</button>
-          <span id="graphAttendanceStatus" class="graph-attendance-status" aria-live="polite"></span>
-        </div>
-        ${graphCoverageBanner(employee)}
-        <div class="graph-profile-metrics">
-          ${profileMetric("KPI", employee.kpi ?? "—", employee.band || "Performance")}
-          ${profileMetric("Planner", employee.planner?.assigned || 0, `${employee.planner?.completed || 0} completed`)}
-          ${profileMetric("Calendar", employee.calendar?.events || 0, `${employee.calendar?.meetingHours || 0} meeting hours`)}
-          ${profileMetric(`Attendance · ${attendanceMonthLabel()}`, employee.attendance?.present || 0, `${employee.attendance?.absent || 0} absent days`)}
-          ${profileMetric("Teams", employee.teams?.status || "Unknown", `${employee.teams?.messagesCount || 0} messages`)}
-          ${profileMetric("Data Coverage", `${graphDataCoverage(employee).matchedCount} / ${graphDataCoverage(employee).total}`, "sources matched")}
-        </div>
-        ${employeeTeamsPanel(employee)}
-        <div class="graph-profile-callout">
-          <strong>Choose a Microsoft 365 data area</strong>
-          <p>Use the tabs above to view records connected only to this employee.</p>
-        </div>
-      </section>
+      ${employeeOverviewHtml(employee)}
     </article>`;
   document.getElementById("employeeSearchBack").onclick = () =>
     showEmployeeSearchResults(graphEmployeeState.query || employee.name);
@@ -681,14 +715,16 @@ function employeeOptionEmpty(message) {
 function renderEmployeePlans(employee) {
   const plans = employeePlans(employee);
   document.getElementById("graphEmployeeOptionContent").innerHTML = plans.length
-    ? `<div class="graph-plan-grid">${plans.map((plan, index) => {
+    ? `<div class="gx-list">${plans.map(plan => {
       const tasks = plan.tasks || [];
       const completed = tasks.filter(task => graphStatus(task) === "Completed").length;
       const pct = tasks.length ? Math.round(completed / tasks.length * 100) : 0;
-      return `<button class="graph-plan-card" data-employee-plan="${escapeHtml(plan.id)}" style="--plan:${graphHue(index)}">
-        <span class="graph-plan-mark"></span><small>${escapeHtml(plan.groupName || "Planner")}</small>
-        <h3>${escapeHtml(plan.title)}</h3><p>${tasks.length} employee tasks · ${completed} completed</p>
-        <div class="graph-progress"><span style="width:${pct}%"></span></div><strong>${pct}%</strong>
+      return `<button type="button" class="gx-row" data-employee-plan="${escapeHtml(plan.id)}" style="--tone:${planTierColor(pct)}">
+        <span class="gx-row-main"><b>${escapeHtml(plan.title)}</b>
+          <small>${escapeHtml(plan.groupName || "Planner")} · ${tasks.length} assigned task${tasks.length === 1 ? "" : "s"} · ${completed} completed</small></span>
+        <span class="gx-bar e360-bar"><i style="width:${pct}%"></i></span>
+        <strong class="gx-pct">${pct}%</strong>
+        <span class="e360-chev" aria-hidden="true">›</span>
       </button>`;
     }).join("")}</div>` : employeeOptionEmpty("No Planner plans found for this employee.");
   document.querySelectorAll("[data-employee-plan]").forEach(button => {
@@ -751,9 +787,10 @@ function renderEmployeeTasks(employee, completedOnly) {
 
   const content = document.getElementById("graphEmployeeOptionContent");
   content.innerHTML = `
-    <div class="graph-toolbar">
+    <div class="graph-toolbar e360-tasktools">
       <input id="empTaskSearch" class="graph-toolbar-search" type="search" placeholder="Search tasks..." aria-label="Search this employee's tasks">
-      <select id="empTaskFilter">${filters.map(([value, name]) => `<option value="${value}">${escapeHtml(name)}</option>`).join("")}</select>
+      <div id="empTaskFilter" class="gx-pills" role="group" aria-label="Filter tasks">${filters.map(([value, name]) =>
+        `<button type="button" class="gx-pill${value === "all" ? " on" : ""}" data-emp-task-filter="${value}">${escapeHtml(name)}</button>`).join("")}</div>
       <select id="empTaskSort">
         ${!completedOnly ? '<option value="attention">Needs Attention</option>' : ""}
         <option value="name" selected>Name A-Z</option>
@@ -785,13 +822,13 @@ function renderEmployeeTasks(employee, completedOnly) {
     const statStrip = completedOnly ? "" : graphTaskStatStrip(matching);
     const results = document.getElementById("empTaskResults");
     results.innerHTML = statStrip + (rows.length
-      ? `<div class="graph-task-grid">${rows.map(task => graphTaskCard(task, completedOnly)).join("")}</div>`
+      ? `<div class="gx-list">${rows.map(task => graphTaskCard(task, completedOnly)).join("")}</div>`
       : `<div class="graph-empty-state"><span aria-hidden="true">⌕</span><h3>No tasks found</h3><p>Try changing the search or status filter.</p></div>`);
     bindGraphTaskCards();
     document.querySelectorAll("[data-stat-filter]").forEach(tile => {
       tile.onclick = () => {
         state.filter = tile.dataset.statFilter;
-        document.getElementById("empTaskFilter").value = state.filter;
+        markEmpTaskFilter();
         renderResults();
       };
     });
@@ -803,7 +840,12 @@ function renderEmployeeTasks(employee, completedOnly) {
     const value = event.target.value;
     searchTimer = setTimeout(() => { state.search = value; renderResults(); }, 180);
   };
-  document.getElementById("empTaskFilter").onchange = event => { state.filter = event.target.value; renderResults(); };
+  function markEmpTaskFilter() {
+    document.querySelectorAll("[data-emp-task-filter]").forEach(pill => pill.classList.toggle("on", pill.dataset.empTaskFilter === state.filter));
+  }
+  document.querySelectorAll("[data-emp-task-filter]").forEach(pill => {
+    pill.onclick = () => { state.filter = pill.dataset.empTaskFilter; markEmpTaskFilter(); renderResults(); };
+  });
   document.getElementById("empTaskSort").onchange = event => { state.sort = event.target.value; renderResults(); };
   renderResults();
 }
@@ -818,89 +860,91 @@ function renderEmployeeCalendar(employee, selectedDate = null, showCancelled = f
   const cancelledCount = allEvents.filter(event => event.isCancelled).length;
   const events = showCancelled ? allEvents.filter(event => event.isCancelled) : allEvents.filter(event => !event.isCancelled);
   const content = document.getElementById("graphEmployeeOptionContent");
-  if (selectedDate) {
-    const meetings = events.filter(event => employeeCalendarKey(event.start) === selectedDate)
-      .sort((a, b) => new Date(a.start) - new Date(b.start));
-    const label = new Date(`${selectedDate}T00:00:00`).toLocaleDateString([], {
-      weekday: "long", year: "numeric", month: "long", day: "numeric",
-    });
-    content.innerHTML = `
-      <div class="graph-calendar-selection-header">
-        <button type="button" id="employeeCalendarBack">← Back to monthly calendar</button>
-        <div><p class="eyebrow">Selected date</p><h3>${escapeHtml(label)}</h3></div>
-      </div>
-      ${meetings.length ? `<div class="graph-day-event-list">${meetings.map(event => `
-        <button class="graph-day-event event-${event.showAs || "busy"}" data-employee-event="${escapeHtml(event.id)}">
-          <time>${new Date(event.start).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</time>
-          <span><strong>${escapeHtml(event.subject)}</strong><small>${escapeHtml(event.organizer || "Organizer unavailable")}</small></span>
-          <i>${event.durationMinutes || 0} min</i>
-        </button>`).join("")}</div>` : employeeOptionEmpty(showCancelled ? "No cancelled meetings found for this date." : "No calendar meetings found for this date.")}`;
-    document.getElementById("employeeCalendarBack").onclick = () => renderEmployeeCalendar(employee, null, showCancelled);
-    document.querySelectorAll("[data-employee-event]").forEach(button => {
-      button.onclick = () => openEventDrawer(button.dataset.employeeEvent, employee.id);
-    });
-    return;
-  }
   const base = new Date(graphData?.meta?.periodStart || allEvents[0]?.start || new Date());
   const year = base.getFullYear(), month = base.getMonth();
-  const first = new Date(year, month, 1), last = new Date(year, month + 1, 0), cells = [];
-  for (let index = 0; index < first.getDay(); index++) cells.push(null);
-  for (let day = 1; day <= last.getDate(); day++) cells.push(new Date(year, month, day));
-  const dayCounts = [];
-  for (let day = 1; day <= last.getDate(); day++) {
-    dayCounts.push(events.filter(event => {
-      const d = new Date(event.start);
-      return d.getFullYear() === year && d.getMonth() === month && d.getDate() === day;
-    }).length);
+  const prefix = `${year}-${String(month + 1).padStart(2, "0")}`;
+  const first = new Date(year, month, 1), daysInMonth = new Date(year, month + 1, 0).getDate();
+  const byDay = {};
+  events.forEach(event => {
+    const key = employeeCalendarKey(event.start);
+    if (key.startsWith(prefix)) (byDay[key] ||= []).push(event);
+  });
+  const maxCount = Math.max(1, ...Object.values(byDay).map(list => list.length));
+  const todayKey = employeeCalendarKey(new Date());
+  const selected = selectedDate && selectedDate.startsWith(prefix) ? selectedDate
+    : (byDay[todayKey] ? todayKey : Object.keys(byDay).sort().find(key => key >= todayKey) || Object.keys(byDay).sort()[0] || `${prefix}-01`);
+
+  let cells = "";
+  for (let i = 0; i < first.getDay(); i++) cells += '<span class="gcal-cell blank"></span>';
+  for (let day = 1; day <= daysInMonth; day++) {
+    const key = `${prefix}-${String(day).padStart(2, "0")}`;
+    const count = (byDay[key] || []).length;
+    const dow = new Date(year, month, day).getDay();
+    const classes = ["gcal-cell"];
+    if (dow === 0 || dow === 6) classes.push("weekend");
+    if (key === todayKey) classes.push("today");
+    if (key === selected) classes.push("sel");
+    cells += `<button type="button" class="${classes.join(" ")}" data-employee-date="${key}" title="${count} meeting${count === 1 ? "" : "s"}">
+      <span class="gcal-num">${day}</span>${count ? `<span class="gcal-bar" style="--r:${(count / maxCount).toFixed(2)}"></span>` : ""}</button>`;
   }
-  const maxCount = Math.max(1, ...dayCounts);
+
+  const meetings = (byDay[selected] || []).sort((a, b) => new Date(a.start) - new Date(b.start));
+  const day = new Date(`${selected}T00:00:00`);
+  const firstName = String(employee.name || "").split(" ")[0];
+  const color = event => event.isCancelled ? GCAL_COLORS.cancelled : GCAL_COLORS[event.showAs] || GCAL_COLORS.busy;
   content.innerHTML = `
-    <div class="graph-employee-calendar-heading">
-      <div><p class="eyebrow">Employee calendar</p>
-      <h3>${base.toLocaleString([], { month: "long", year: "numeric" })}</h3></div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <span>Choose a date to see only that day's meetings</span>
-        ${cancelledCount ? `<button type="button" id="employeeCancelledToggle" class="graph-cancelled-toggle">
-          ${showCancelled ? "← Back to real meetings" : `${cancelledCount} cancelled hidden — show cancelled`}
-        </button>` : ""}
+    <div class="gcal e360-cal">
+      <div class="e360-cal-head">
+        <b>${escapeHtml(base.toLocaleString([], { month: "long", year: "numeric" }))}</b>
+        ${cancelledCount ? `<button type="button" id="employeeCancelledToggle" class="e360-link">
+          ${showCancelled ? "Back to real meetings" : `${cancelledCount} cancelled hidden · show`}</button>` : ""}
       </div>
-    </div>
-    <div class="graph-calendar-head">${["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(day => `<span>${day}</span>`).join("")}</div>
-    <div class="graph-calendar-grid graph-employee-calendar">${cells.map((date, index) => {
-      if (!date) return '<div class="graph-calendar-day empty"></div>';
-      const key = employeeCalendarKey(date);
-      const count = dayCounts[date.getDate() - 1];
-      return `<button type="button" class="graph-calendar-day" style="--bar:${graphCalendarDayBar(count, maxCount)}" data-employee-date="${key}">
-        <span class="graph-day-number">${date.getDate()}</span>
-        ${count ? `<strong>${count}</strong><small>${count === 1 ? "meeting" : "meetings"}</small>` : "<small>No meetings</small>"}
-      </button>`;
-    }).join("")}</div>`;
-  document.querySelectorAll("[data-employee-date]").forEach(button => {
+      <div class="gcal-split">
+        <div>
+          <div class="gcal-week">${["S", "M", "T", "W", "T", "F", "S"].map(d => `<span>${d}</span>`).join("")}</div>
+          <div class="gcal-dots">${cells}</div>
+        </div>
+        <div class="gcal-agenda">
+          <h3>${escapeHtml(day.toLocaleDateString([], { weekday: "long" }))}, ${escapeHtml(day.toLocaleDateString([], { day: "numeric", month: "long" }))}</h3>
+          <p class="gcal-sub">${meetings.length ? `${meetings.length} ${showCancelled ? "cancelled " : ""}meeting${meetings.length === 1 ? "" : "s"} for ${escapeHtml(firstName)}` : "Nothing scheduled"}</p>
+          ${meetings.map(event => `
+            <button type="button" class="gcal-row${event.isCancelled ? " cancelled" : ""}" data-employee-event="${escapeHtml(event.id)}" style="--c:${color(event)}">
+              <span class="gcal-time">${event.isAllDay ? "All day" : escapeHtml(gcalTime(event.start))}<small>${event.isAllDay ? "" : `${event.durationMinutes || 0} min`}</small></span>
+              <span class="gcal-mark"></span>
+              <span class="gcal-text"><b>${escapeHtml(event.subject)}</b><small>${escapeHtml(event.organizer || "Organizer unavailable")}</small></span>
+            </button>`).join("") || '<p class="gcal-empty">No meetings on this day.</p>'}
+        </div>
+      </div>
+    </div>`;
+  content.querySelectorAll("[data-employee-date]").forEach(button => {
     button.onclick = () => renderEmployeeCalendar(employee, button.dataset.employeeDate, showCancelled);
   });
+  content.querySelectorAll("[data-employee-event]").forEach(button => {
+    button.onclick = () => openEventDrawer(button.dataset.employeeEvent, employee.id);
+  });
   const cancelledToggle = document.getElementById("employeeCancelledToggle");
-  if (cancelledToggle) {
-    cancelledToggle.onclick = () => renderEmployeeCalendar(employee, null, !showCancelled);
-  }
+  if (cancelledToggle) cancelledToggle.onclick = () => renderEmployeeCalendar(employee, null, !showCancelled);
 }
 
 function renderEmployeeSites(employee) {
   const sites = employeeRelevantSites(employee);
   const dupMap = graphSiteDuplicateMap(graphData?.sharePoint?.sites || []);
+  const lastActive = employee.sharePoint?.lastActivityDate;
   document.getElementById("graphEmployeeOptionContent").innerHTML = `
-    <p class="graph-profile-note">Microsoft Graph does not expose direct per-user site membership with the current permissions. These resources are matched from the employee's department and tenant activity.</p>
-    ${sites.length ? `<div class="graph-site-grid">${sites.map((site, index) => {
+    <p class="graph-profile-note e360-note">Microsoft Graph does not expose direct per-user site membership with the current permissions. These resources are matched from the employee's department and tenant activity.${lastActive ? ` Last SharePoint activity: <b>${escapeHtml(graphDate(lastActive))}</b>.` : ""}</p>
+    ${sites.length ? `<div class="gx-list">${sites.map((site, index) => {
       const isEmpty = graphSiteIsEmpty(site);
       const isStale = graphSiteIsStale(site);
       const isDup = dupMap.has(site.id);
       const flags = isEmpty || isStale || isDup
         ? `<span class="graph-site-flags">${isEmpty ? '<span class="graph-warn-pill graph-warn-pill--muted">Empty</span>' : ""}${isStale ? '<span class="graph-warn-pill graph-warn-pill--muted">Inactive</span>' : ""}${isDup ? '<span class="graph-warn-pill">Possible duplicate</span>' : ""}</span>`
         : "";
-      return `<article class="graph-site-card" style="--site:${graphHue(index + 2)}">
-        <button data-employee-site="${escapeHtml(site.id)}"><span class="graph-site-icon">S</span>
-        <h3>${escapeHtml(site.displayName)}</h3><p>${site.lists?.length || 0} lists · ${site.files?.length || 0} files/folders</p>
-        <small>${site.lastActivity ? `Active ${graphDate(site.lastActivity)}` : "Activity unavailable"}</small>
-        ${flags}</button>
+      return `<article class="gx-row gx-site" style="--site:${graphHue(index + 2)}">
+        <button type="button" data-employee-site="${escapeHtml(site.id)}">
+          <span class="graph-site-icon">${escapeHtml((site.displayName || "S").trim()[0] || "S")}</span>
+          <span class="gx-row-main"><b>${escapeHtml(site.displayName)}</b><small>${site.lists?.length || 0} lists · ${site.files?.length || 0} files/folders · ${site.lastActivity ? `Active ${graphDate(site.lastActivity)}` : "Activity unavailable"}</small></span>
+          ${flags}
+        </button>
         <a href="${escapeHtml(site.webUrl)}" target="_blank" rel="noopener noreferrer">Quick access ↗</a>
       </article>`;
     }).join("")}</div>` : employeeOptionEmpty("No SharePoint sites found for this employee.")}`;
@@ -909,20 +953,8 @@ function renderEmployeeSites(employee) {
   });
 }
 
-function profileMetric(label, value, note) {
-  return `<div><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong><small>${escapeHtml(note)}</small></div>`;
-}
-
-function employeeProfilePanel(titleText, type, body) {
-  return `<section class="graph-profile-panel graph-profile-${type}"><header><span>${type[0].toUpperCase()}</span><h3>${titleText}</h3></header>${body}</section>`;
-}
-
 function profileFact(label, value) {
   return `<div><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`;
-}
-
-function profileEmpty(message) {
-  return `<div class="graph-profile-empty">${escapeHtml(message)}</div>`;
 }
 
 let graphLiveTicker = null;
@@ -965,6 +997,9 @@ const GRAPH_KPI_ICONS = {
 function renderGraphExplorer() {
   const overview = graphData?.overview || {};
   const meta = graphData?.meta || {};
+  // Show the month the data covers instead of an empty "------, ----" picker.
+  const monthPicker = document.getElementById("graphMonthPicker");
+  if (monthPicker && !monthPicker.value && meta.periodStart) monthPicker.value = String(meta.periodStart).slice(0, 7);
   document.getElementById("graphRefreshLabel").innerHTML = meta.generatedAt
     ? CLOCK_SVG + formatRefreshTimestamp(meta.generatedAt, "Updated") : "Not refreshed yet";
 
@@ -984,11 +1019,14 @@ function renderGraphExplorer() {
     ["sites", "SharePoint sites", overview.sharePointSites || 0, "Lists and files"],
     ["employees", "Matched employees", `${meta.matchedEmployees || 0}/${meta.totalEmployees || 0}`, "Microsoft 365 identities"],
   ];
-  document.getElementById("graphSummaryCards").innerHTML = cards.map(([section, name, value, note], index) => `
-    <button class="graph-kpi-card ${graphExplorerState.section === section ? "active" : ""}"
-      data-graph-kpi="${section}" style="--accent:${graphHue(index)}">
-      <span class="graph-kpi-icon">${GRAPH_KPI_ICONS[section]}</span><strong>${escapeHtml(value)}</strong>
-      <span>${escapeHtml(name)}</span><small>${escapeHtml(note)}</small>
+  // Left section list: one row per section with its count; the note shows as a tooltip.
+  // Live meetings gets a pulsing dot while anything is in progress.
+  document.getElementById("graphSummaryCards").innerHTML = cards.map(([section, name, value, note]) => `
+    <button type="button" class="gx-rail-item ${graphExplorerState.section === section ? "active" : ""}"
+      data-graph-kpi="${section}" title="${escapeHtml(note)}">
+      <span class="gx-rail-icon">${section === "live" && Number(value) > 0 ? '<i class="gx-live-dot"></i>' : GRAPH_KPI_ICONS[section]}</span>
+      <span class="gx-rail-name">${escapeHtml(name)}<small>${escapeHtml(note)}</small></span>
+      <strong>${escapeHtml(value)}</strong>
     </button>`).join("");
   document.querySelectorAll("[data-graph-kpi]").forEach(card => {
     card.onclick = () => setGraphSection(card.dataset.graphKpi);
@@ -1035,7 +1073,7 @@ function renderGraphToolbar() {
     sites: [["all", "All sites"], ["files", "Has files"], ["lists", "Has lists"], ["Empty", "Empty sites"], ["Stale", "Inactive 180+ days"], ["Duplicate", "Possible duplicate"], ["Archival", "Archival candidate"]],
     employees: [["all", "All employees"], ["matched", "Matched"], ["unmatched", "Unmatched"]],
   }[graphExplorerState.section];
-  const viewSwitch = graphExplorerState.section === "calendar" ? `
+  const viewSwitch = graphExplorerState.section === "calendar" && graphExplorerState.calendarView !== "month" ? `
     <div class="graph-calendar-nav">
       <button type="button" data-calendar-move="-1" aria-label="Previous period">‹</button>
       <button type="button" data-calendar-today>Today</button>
@@ -1046,14 +1084,15 @@ function renderGraphToolbar() {
     ).join("")}</div>` : "";
   const employeeSwitch = graphExplorerState.section === "employees" ? `
     <div class="graph-view-switch">${["table", "cards"].map(view =>
-      `<button data-employee-view="${view}" class="${graphExplorerState.employeeView === view ? "active" : ""}>${title(view)}</button>`
+      `<button type="button" data-employee-view="${view}" class="${graphExplorerState.employeeView === view ? "active" : ""}">${title(view)}</button>`
     ).join("")}</div>` : "";
+  document.getElementById("graphToolbar").dataset.section = graphExplorerState.section;
   document.getElementById("graphToolbar").innerHTML = `
     <input id="graphGlobalSearch" class="graph-toolbar-search" type="search" value="${escapeHtml(graphExplorerState.search)}"
       placeholder="Search ${graphExplorerState.section}..." aria-label="Search current Graph records">
-    <select id="graphFilter">${filters.map(([value, name]) =>
-      `<option value="${value}" ${graphExplorerState.filter === value ? "selected" : ""}>${name}</option>`
-    ).join("")}</select>
+    <div id="graphFilter" class="gx-pills" role="group" aria-label="Filter">${filters.map(([value, name]) =>
+      `<button type="button" class="gx-pill${graphExplorerState.filter === value ? " on" : ""}" data-graph-filter="${value}">${name}</button>`
+    ).join("")}</div>
     <select id="graphSort">
       ${graphExplorerState.section === "plans" || graphExplorerState.section === "tasks" ? `<option value="attention" ${graphExplorerState.sort === "attention" ? "selected" : ""}>Needs Attention</option>` : ""}
       <option value="name" ${graphExplorerState.sort === "name" ? "selected" : ""}>Name A-Z</option>
@@ -1069,10 +1108,14 @@ function renderGraphToolbar() {
       renderGraphSection();
     }, 180);
   };
-  document.getElementById("graphFilter").onchange = event => {
-    graphExplorerState.fromOverview = null;
-    graphExplorerState.filter = event.target.value; graphExplorerState.page = 1; renderGraphSection();
-  };
+  document.querySelectorAll("[data-graph-filter]").forEach(pill => {
+    pill.onclick = () => {
+      graphExplorerState.fromOverview = null;
+      graphExplorerState.filter = pill.dataset.graphFilter; graphExplorerState.page = 1;
+      document.querySelectorAll("[data-graph-filter]").forEach(p => p.classList.toggle("on", p === pill));
+      renderGraphSection();
+    };
+  });
   document.getElementById("graphSort").onchange = event => {
     graphExplorerState.sort = event.target.value; renderGraphSection();
   };
@@ -1228,10 +1271,11 @@ function renderGraphPlans() {
     const pct = planPct(plan);
     const tier = planTierColor(pct);
     const isStalled = pct === 0;
-    return `<button class="graph-plan-card${isStalled ? " graph-plan-card--attn" : ""}" data-plan-id="${escapeHtml(plan.id)}" style="--plan:${tier}">
-      <span class="graph-plan-mark"></span><small>${escapeHtml(plan.groupName)}</small><h3>${escapeHtml(plan.title)}</h3>
-      <p>${tasks.length} tasks · ${completed} completed</p><div class="graph-progress"><span style="width:${pct}%"></span></div><strong>${pct}%</strong>
+    return `<button type="button" class="gx-row" data-plan-id="${escapeHtml(plan.id)}" style="--tone:${tier}">
+      <span class="gx-row-main"><b>${escapeHtml(plan.title)}</b><small>${escapeHtml(plan.groupName)} · ${tasks.length} tasks · ${completed} completed</small></span>
       ${isStalled ? `<span class="graph-warn-pill">${warnSvg}${tasks.length} tasks stalled</span>` : ""}
+      <span class="gx-bar"><i style="width:${pct}%"></i></span>
+      <strong class="gx-pct">${pct}%</strong>
     </button>`;
   }).join("");
 
@@ -1241,7 +1285,7 @@ function renderGraphPlans() {
       <div class="graph-dormant-chips">${dormant.map(p => `<span class="graph-dormant-chip">${escapeHtml(p.title)}</span>`).join("")}</div>
     </div>` : "";
 
-  document.getElementById("graphWorkspace").innerHTML = `${attnBanner}<div class="graph-plan-grid">${cardsHtml}</div>${dormantHtml}`;
+  document.getElementById("graphWorkspace").innerHTML = `${attnBanner}<div class="gx-list">${cardsHtml}</div>${dormantHtml}`;
   document.querySelectorAll("[data-plan-id]").forEach(card => card.onclick = () => openPlanDrawer(card.dataset.planId));
 }
 
@@ -1339,7 +1383,7 @@ function renderGraphTasks(completedOnly) {
   }
   const page = graphPage(rows);
   document.getElementById("graphWorkspace").innerHTML =
-    `${statStrip}<div class="graph-task-grid">${page.map(task => graphTaskCard(task, completedOnly)).join("")}</div>`;
+    `${statStrip}<div class="gx-list">${page.map(task => graphTaskCard(task, completedOnly)).join("")}</div>`;
   bindGraphTaskCards();
   bindGraphTaskStatTiles();
 }
@@ -1353,7 +1397,7 @@ function graphTaskCard(task, completedOnly = false) {
   const showPriority = priority === "Urgent" || priority === "High";
   const priorityColor = GRAPH_PRIORITY_COLOR[priority.toLowerCase()] || "#94a3b8";
   const hasOwner = (task.assignees || []).length > 0;
-  return `<button class="graph-task-card status-${status.toLowerCase().replace(/\s/g, "-")}" data-task-id="${escapeHtml(task.id)}">
+  return `<button type="button" class="gx-row gx-task status-${status.toLowerCase().replace(/\s/g, "-")}" data-task-id="${escapeHtml(task.id)}">
     <div class="graph-task-top"><span class="graph-status">${escapeHtml(statusLabel)}</span>${showPriority ? `<span class="graph-task-priority" style="background:color-mix(in srgb, ${priorityColor} 16%, white);color:${priorityColor}">${escapeHtml(priority)}</span>` : ""}</div>
     <h3>${escapeHtml(task.title)}</h3><p>${escapeHtml(task.planTitle)}</p>
     <div class="graph-task-meta"><span class="${hasOwner ? "" : "graph-task-gap"}">${hasOwner ? escapeHtml(task.assignees.join(", ")) : "No owner"}</span>
@@ -1370,6 +1414,7 @@ function bindGraphTaskCards() {
 }
 
 function renderGraphCalendar() {
+  if (graphExplorerState.calendarView === "month") return renderGraphMonth();
   const matching = graphEvents().filter(event => graphSearch(event.subject, event.organizer, event.employee?.name, event.location));
   const cancelledCount = matching.filter(event => event.isCancelled).length;
   let rows = matching.filter(event => {
@@ -1378,7 +1423,6 @@ function renderGraphCalendar() {
     return graphExplorerState.filter === "all" || event.showAs === graphExplorerState.filter;
   });
   rows.sort((a, b) => new Date(a.start) - new Date(b.start));
-  if (graphExplorerState.calendarView === "month") return renderGraphMonth(rows, cancelledCount);
   const base = graphCalendarBase();
   if (graphExplorerState.calendarView === "week") base.setDate(base.getDate() - base.getDay());
   const span = graphExplorerState.calendarView === "week" ? 7 : 1;
@@ -1397,104 +1441,214 @@ function renderGraphCalendar() {
   bindGraphEvents();
 }
 
-function graphCalendarDayBar(count, max) {
-  if (!count) return "color-mix(in srgb, #00a99d 5%, #eef2f8)";
-  const pct = Math.max(8, Math.min(100, Math.round((count / max) * 100)));
-  return `color-mix(in srgb, #00a99d ${pct}%, #eef2f8)`;
+// ── Calendar month view: "dot calendar" + day agenda ──
+// Every attendee has their own copy of a meeting in Graph, so copies are grouped into one meeting
+// (same organizer, start, end and subject). Counts are real meetings, not one per invitee.
+// Unlike graphMeetingGroups (used by Live), this keeps cancelled and all-day meetings so the
+// Cancelled tab and all-day events still show up.
+function graphCalendarMeetings() {
+  const groups = new Map();
+  graphEvents().forEach(event => {
+    const clean = graphCleanSubject(event.subject) || event.subject || "Untitled meeting";
+    const key = `${graphNameKey(event.organizer)}|${event.start}|${event.end}|${clean.toLowerCase()}`;
+    if (!groups.has(key)) {
+      groups.set(key, {
+        subject: clean, start: event.start, end: event.end, organizer: event.organizer,
+        location: event.location, meetingLink: event.meetingLink, webLink: event.webLink,
+        isAllDay: event.isAllDay, attendees: event.attendees || [], entries: [],
+      });
+    }
+    const group = groups.get(key);
+    group.entries.push(event);
+    if ((event.attendees || []).length > group.attendees.length) group.attendees = event.attendees;
+    group.location = group.location || event.location;
+    group.meetingLink = group.meetingLink || event.meetingLink;
+    group.webLink = group.webLink || event.webLink;
+  });
+  return [...groups.values()].map(group => {
+    // One status per meeting so the tabs add up: the organizer's own copy when we track them,
+    // otherwise the status most invitees show.
+    const active = group.entries.filter(entry => !entry.isCancelled);
+    const tally = {};
+    active.forEach(entry => { const s = entry.showAs || "busy"; tally[s] = (tally[s] || 0) + 1; });
+    const organizerCopy = active.find(entry => graphNameKey(entry.employee?.name) === graphNameKey(group.organizer));
+    const majority = Object.entries(tally).sort((a, b) => b[1] - a[1])[0]?.[0] || "busy";
+    const status = !active.length ? "cancelled" : organizerCopy?.showAs || majority;
+    return { ...group, cancelled: !active.length, status };
+  });
 }
 
-function renderGraphMonth(events, cancelledCount = 0) {
+const GCAL_COLORS = { busy: "#2563eb", tentative: "#e08a00", free: "#16a34a", cancelled: "#a3adbb" };
+let graphCalendarShown = []; // meetings in the current agenda, so a row click can find its meeting
+
+function gcalDateKey(value) {
+  const d = new Date(value);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function gcalTime(value) {
+  return new Date(value).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+}
+
+function gcalMinutes(meeting) {
+  return Math.max(0, Math.round((new Date(meeting.end) - new Date(meeting.start)) / 60000));
+}
+
+function renderGraphMonth() {
   const base = graphCalendarBase();
   const year = base.getFullYear(), month = base.getMonth();
-  const first = new Date(year, month, 1), last = new Date(year, month + 1, 0), cells = [];
-  const monthLabel = base.toLocaleString([], { month: "long", year: "numeric" });
-  const monthShort = base.toLocaleString([], { month: "short" });
-  for (let i = 0; i < first.getDay(); i++) cells.push(null);
-  for (let day = 1; day <= last.getDate(); day++) cells.push(new Date(year, month, day));
-  const isShowingCancelled = graphExplorerState.filter === "cancelled";
+  const monthPrefix = `${year}-${String(month + 1).padStart(2, "0")}`;
+  const first = new Date(year, month, 1), daysInMonth = new Date(year, month + 1, 0).getDate();
+  const filter = graphExplorerState.filter;
+  const passes = meeting => filter === "all" ? !meeting.cancelled : meeting.status === filter;
 
-  const daysInMonth = last.getDate();
-  const dayCounts = [];
-  for (let day = 1; day <= daysInMonth; day++) {
-    dayCounts.push(events.filter(event => {
-      const d = new Date(event.start);
-      return d.getFullYear() === year && d.getMonth() === month && d.getDate() === day;
-    }).length);
+  const inMonth = graphCalendarMeetings()
+    .filter(meeting => gcalDateKey(meeting.start).startsWith(monthPrefix))
+    .filter(meeting => graphSearch(meeting.subject, meeting.organizer, meeting.location, ...meeting.entries.map(entry => entry.employee?.name)));
+  const visible = inMonth.filter(passes).sort((a, b) => new Date(a.start) - new Date(b.start));
+  const byDay = {};
+  visible.forEach(meeting => { (byDay[gcalDateKey(meeting.start)] ||= []).push(meeting); });
+  const maxCount = Math.max(1, ...Object.values(byDay).map(list => list.length));
+
+  // Selected day: keep the user's pick while it's in this month, else today, else the first busy day.
+  const todayKey = gcalDateKey(new Date());
+  let selected = graphExplorerState.calendarSelected;
+  if (!selected || !selected.startsWith(monthPrefix)) {
+    selected = todayKey.startsWith(monthPrefix) ? todayKey : (Object.keys(byDay).sort()[0] || `${monthPrefix}-01`);
   }
-  const maxCount = Math.max(1, ...dayCounts);
-  const activeDays = dayCounts.map((count, i) => ({ day: i + 1, count })).filter(item => item.count > 0);
-  const busiestDay = activeDays.length ? activeDays.reduce((a, b) => (b.count > a.count ? b : a)) : null;
-  const quietestDay = activeDays.length ? activeDays.reduce((a, b) => (b.count < a.count ? b : a)) : null;
+  graphExplorerState.calendarSelected = selected;
 
-  const heatStripHtml = `<div class="graph-heatstrip-wrap">
-    <div class="graph-heatstrip-label"><span>Month shape · daily meeting volume</span><span>${graphDate(first)} – ${graphDate(last)}</span></div>
-    <div class="graph-heatstrip" style="--days:${daysInMonth}">${dayCounts.map((count, i) =>
-      `<div class="graph-heatbar" style="height:${Math.max(3, Math.round((count / maxCount) * 34))}px" title="${escapeHtml(monthShort)} ${i + 1}: ${count} events"></div>`
-    ).join("")}</div>
-    <div class="graph-heatstrip-days" style="--days:${daysInMonth}">${dayCounts.map((_, i) => `<span>${(i + 1) % 5 === 0 || i === 0 ? i + 1 : ""}</span>`).join("")}</div>
-  </div>`;
+  const busiest = Object.entries(byDay).sort((a, b) => b[1].length - a[1].length)[0];
+  const totalHours = visible.reduce((sum, meeting) => sum + gcalMinutes(meeting), 0) / 60;
+  const tabCount = key => inMonth.filter(meeting => key === "all" ? !meeting.cancelled : meeting.status === key).length;
+  const tabs = [["all", "All"], ["busy", "Busy"], ["tentative", "Tentative"], ["free", "Free"], ["cancelled", "Cancelled"]];
+  const meta = graphData?.meta || {};
 
-  document.getElementById("graphPagination").innerHTML = `<span>${events.length} events in ${monthLabel}</span>`;
+  let cells = "";
+  for (let i = 0; i < first.getDay(); i++) cells += '<span class="gcal-cell blank"></span>';
+  for (let day = 1; day <= daysInMonth; day++) {
+    const key = `${monthPrefix}-${String(day).padStart(2, "0")}`;
+    const count = (byDay[key] || []).length;
+    const ratio = count / maxCount;
+    const dow = new Date(year, month, day).getDay();
+    const classes = ["gcal-cell"];
+    if (dow === 0 || dow === 6) classes.push("weekend");
+    if (key === todayKey) classes.push("today");
+    if (key === selected) classes.push("sel");
+    cells += `<button type="button" class="${classes.join(" ")}" data-gcal-day="${key}"
+      title="${escapeHtml(new Date(year, month, day).toLocaleDateString([], { weekday: "long", day: "numeric", month: "long" }))} · ${count} meeting${count === 1 ? "" : "s"}">
+      <span class="gcal-num">${day}</span>
+      ${count ? `<span class="gcal-bar" style="--r:${ratio.toFixed(2)}"></span>` : ""}</button>`;
+  }
+
+  document.getElementById("graphPagination").innerHTML =
+    `<span>${visible.length} meeting${visible.length === 1 ? "" : "s"} in ${escapeHtml(base.toLocaleString([], { month: "long", year: "numeric" }))}</span>`;
   document.getElementById("graphWorkspace").innerHTML = `
-    <div class="graph-calendar-titlebar">
-      <div>
-        <p class="eyebrow">Calendar reporting period</p>
-        <h2>${monthLabel}</h2>
-        <span>${graphDate(graphData?.meta?.periodStart)} – ${graphDate(graphData?.meta?.periodEnd)} · ${escapeHtml(graphData?.meta?.calendarTimeZone || "Local time")}</span>
+    <div class="gcal">
+      <div class="gcal-head">
+        <div>
+          <div class="gcal-title">
+            <h2><b>${escapeHtml(base.toLocaleString([], { month: "long" }))}</b> ${year}</h2>
+            <span class="gcal-arrows">
+              <button type="button" data-gcal-move="-1" aria-label="Previous month">‹</button>
+              <button type="button" data-gcal-move="1" aria-label="Next month">›</button>
+            </span>
+            <button type="button" class="gcal-today" data-gcal-today>Today</button>
+          </div>
+          <p class="gcal-line"><b>${visible.length}</b> meetings · <b>${Math.round(totalHours)} h</b> in meetings${busiest
+            ? ` · busiest <b>${escapeHtml(new Date(busiest[0] + "T00:00").toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" }))}</b> (${busiest[1].length})` : ""}
+            · ${escapeHtml(meta.calendarTimeZone || "Local time")}</p>
+          <p class="gcal-period">Reporting period ${escapeHtml(graphDate(meta.periodStart))} – ${escapeHtml(graphDate(meta.periodEnd))}</p>
+        </div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-        <div class="graph-cal-chips">
-          ${busiestDay ? `<div class="graph-cal-chip busiest">🔥 Busiest <b>${escapeHtml(monthShort)} ${busiestDay.day} · ${busiestDay.count}</b></div>` : ""}
-          ${quietestDay && quietestDay.day !== busiestDay?.day ? `<div class="graph-cal-chip quietest">😴 Quietest <b>${escapeHtml(monthShort)} ${quietestDay.day} · ${quietestDay.count}</b></div>` : ""}
-        </div>
-        <div class="graph-calendar-legend" aria-label="Calendar event status legend">
-          <span><i class="legend-busy"></i> Busy</span>
-          <span><i class="legend-tentative"></i> Tentative</span>
-          <span class="${isShowingCancelled ? "" : "legend-dead"}"><i class="legend-free"></i> Free</span>
-        </div>
-        ${cancelledCount || isShowingCancelled ? `<button type="button" id="graphCancelledToggle" class="graph-cancelled-toggle">
-          ${isShowingCancelled ? "← Back to real events" : `${cancelledCount} cancelled hidden — show cancelled`}
-        </button>` : ""}
+      <div class="gcal-tabs" role="tablist">${tabs.map(([key, label]) => `
+        <button type="button" role="tab" class="${filter === key ? "on" : ""}" data-gcal-filter="${key}">
+          ${key !== "all" ? `<i style="background:${GCAL_COLORS[key]}"></i>` : ""}${label}<small>${tabCount(key)}</small>
+        </button>`).join("")}
       </div>
-    </div>
-    ${heatStripHtml}
-    <div class="graph-calendar-head">${["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(day => `<span>${day}</span>`).join("")}</div>
-    <div class="graph-calendar-grid">${cells.map(date => {
-      if (!date) return '<div class="graph-calendar-day empty"></div>';
-      const daily = events.filter(event => {
-        const d = new Date(event.start);
-        return d.getFullYear() === year && d.getMonth() === month && d.getDate() === date.getDate();
-      });
-      const count = daily.length;
-      const isToday = date.toDateString() === new Date().toDateString();
-      const isBusiest = !!(busiestDay && date.getDate() === busiestDay.day && count > 0);
-      const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-      const classes = ["graph-calendar-day"];
-      if (isToday) classes.push("today");
-      if (isBusiest) classes.push("busiest");
-      return `<div class="${classes.join(" ")}" style="--bar:${isBusiest ? "#00a99d" : graphCalendarDayBar(count, maxCount)}">
-        <div class="graph-cal-top">
-          <span class="graph-day-num">${date.getDate()}</span>
-          ${count ? `<span class="graph-cal-count">${count}</span>` : ""}
+      <div class="gcal-split">
+        <div>
+          <div class="gcal-week">${["S", "M", "T", "W", "T", "F", "S"].map(d => `<span>${d}</span>`).join("")}</div>
+          <div class="gcal-dots">${cells}</div>
         </div>
-        <div class="graph-cal-events">${daily.slice(0, 2).map(event =>
-          `<button class="graph-cal-ev${event.showAs === "tentative" ? " tentative" : ""}" data-event-id="${escapeHtml(event.id)}" data-event-user="${escapeHtml(event.employee?.id)}"><i></i><b>${escapeHtml(event.subject)}</b></button>`
-        ).join("")}</div>
-        ${count > 2 ? `<button class="graph-cal-viewday" data-calendar-day="${dateKey}">+${count - 2} more ›</button>` : ""}
-      </div>`;
-    }).join("")}</div>`;
-  bindGraphEvents();
-  document.querySelectorAll("[data-calendar-day]").forEach(button => {
-    button.onclick = () => openCalendarDayDrawer(button.dataset.calendarDay);
+        <div class="gcal-agenda" id="gcalAgenda"></div>
+      </div>
+    </div>`;
+  renderGraphCalendarAgenda(byDay[selected] || [], selected);
+
+  const workspace = document.getElementById("graphWorkspace");
+  workspace.querySelectorAll("[data-gcal-day]").forEach(cell => {
+    cell.onclick = () => {
+      graphExplorerState.calendarSelected = cell.dataset.gcalDay;
+      graphExplorerState.calendarShowAll = false;
+      workspace.querySelectorAll("[data-gcal-day]").forEach(c => c.classList.toggle("sel", c === cell));
+      renderGraphCalendarAgenda(byDay[cell.dataset.gcalDay] || [], cell.dataset.gcalDay);
+    };
   });
-  const cancelledToggle = document.getElementById("graphCancelledToggle");
-  if (cancelledToggle) {
-    cancelledToggle.onclick = () => {
-      graphExplorerState.filter = isShowingCancelled ? "all" : "cancelled";
+  workspace.querySelectorAll("[data-gcal-filter]").forEach(tab => {
+    tab.onclick = () => {
+      graphExplorerState.fromOverview = null;
+      graphExplorerState.filter = tab.dataset.gcalFilter;
+      graphExplorerState.calendarShowAll = false;
       renderGraphToolbar();
       renderGraphSection();
     };
-  }
+  });
+  workspace.querySelectorAll("[data-gcal-move]").forEach(button => {
+    button.onclick = () => {
+      const date = graphCalendarBase();
+      date.setDate(1);
+      date.setMonth(date.getMonth() + Number(button.dataset.gcalMove));
+      graphExplorerState.calendarDate = date.toISOString();
+      graphExplorerState.calendarSelected = null;
+      graphExplorerState.calendarShowAll = false;
+      renderGraphExplorer();
+    };
+  });
+  workspace.querySelector("[data-gcal-today]").onclick = () => {
+    graphExplorerState.calendarDate = new Date().toISOString();
+    graphExplorerState.calendarSelected = gcalDateKey(new Date());
+    graphExplorerState.calendarShowAll = false;
+    renderGraphExplorer();
+  };
+}
+
+function renderGraphCalendarAgenda(list, dateKey) {
+  const agenda = document.getElementById("gcalAgenda");
+  if (!agenda) return;
+  const sorted = [...list].sort((a, b) => new Date(a.start) - new Date(b.start));
+  const shown = graphExplorerState.calendarShowAll ? sorted : sorted.slice(0, 10);
+  graphCalendarShown = shown;
+  const day = new Date(dateKey + "T00:00");
+  const totalMinutes = sorted.reduce((sum, meeting) => sum + gcalMinutes(meeting), 0);
+  const now = Date.now();
+  let lastPart = null;
+  const rows = shown.map((meeting, index) => {
+    const hour = new Date(meeting.start).getHours();
+    const part = meeting.isAllDay ? "ALL DAY" : hour < 12 ? "MORNING" : hour < 17 ? "AFTERNOON" : "EVENING";
+    const heading = part !== lastPart ? `<div class="gcal-part">${part}</div>` : "";
+    lastPart = part;
+    const isLive = !meeting.cancelled && new Date(meeting.start) <= now && now <= new Date(meeting.end);
+    const invited = meeting.attendees?.length || 0;
+    return `${heading}<button type="button" class="gcal-row${meeting.cancelled ? " cancelled" : ""}" data-gcal-meeting="${index}" style="--c:${GCAL_COLORS[meeting.status] || GCAL_COLORS.busy}">
+      <span class="gcal-time">${meeting.isAllDay ? "All day" : escapeHtml(gcalTime(meeting.start))}<small>${meeting.isAllDay ? "" : `${gcalMinutes(meeting)} min`}</small></span>
+      <span class="gcal-mark"></span>
+      <span class="gcal-text"><b>${escapeHtml(meeting.subject)}${isLive ? '<span class="gcal-live">LIVE</span>' : ""}</b>
+        <small>${escapeHtml(meeting.organizer || "Unknown organizer")} · ${invited} invited${meeting.cancelled ? " · cancelled" : ""}</small></span>
+    </button>`;
+  }).join("");
+  agenda.innerHTML = `
+    <h3>${escapeHtml(day.toLocaleDateString([], { weekday: "long" }))}, ${escapeHtml(day.toLocaleDateString([], { day: "numeric", month: "long" }))}</h3>
+    <p class="gcal-sub">${sorted.length
+      ? `${sorted.length} meeting${sorted.length === 1 ? "" : "s"} · ${Math.round(totalMinutes / 6) / 10} h · ${escapeHtml(gcalTime(sorted[0].start))} to ${escapeHtml(gcalTime(sorted[sorted.length - 1].end))}`
+      : "A free day"}</p>
+    ${rows || '<p class="gcal-empty">Nothing scheduled.</p>'}
+    ${sorted.length > shown.length ? `<button type="button" class="gcal-more" data-gcal-more>Show ${sorted.length - shown.length} more</button>` : ""}`;
+  agenda.querySelectorAll("[data-gcal-meeting]").forEach(row => {
+    row.onclick = () => openMeetingDetailsDrawer(graphCalendarShown[Number(row.dataset.gcalMeeting)]);
+  });
+  const more = agenda.querySelector("[data-gcal-more]");
+  if (more) more.onclick = () => { graphExplorerState.calendarShowAll = true; renderGraphCalendarAgenda(list, dateKey); };
 }
 
 function bindGraphEvents() {
@@ -1613,17 +1767,16 @@ function renderGraphSites() {
     return;
   }
   const page = graphPage(rows);
-  document.getElementById("graphWorkspace").innerHTML = `${statStrip}${dupBanner}<div class="graph-site-grid">${page.map((site, index) => {
+  document.getElementById("graphWorkspace").innerHTML = `${statStrip}${dupBanner}<div class="gx-list">${page.map((site, index) => {
     const isEmpty = graphSiteIsEmpty(site);
     const isStale = graphSiteIsStale(site);
     const isDup = dupMap.has(site.id);
     const flags = isEmpty || isStale || isDup
       ? `<span class="graph-site-flags">${isEmpty ? '<span class="graph-warn-pill graph-warn-pill--muted">Empty</span>' : ""}${isStale ? '<span class="graph-warn-pill graph-warn-pill--muted">Inactive</span>' : ""}${isDup ? '<span class="graph-warn-pill">Possible duplicate</span>' : ""}</span>`
       : "";
-    return `<article class="graph-site-card" style="--site:${graphHue(index + 2)}"><button data-site-id="${escapeHtml(site.id)}">
-      <span class="graph-site-icon">S</span><h3>${escapeHtml(site.displayName)}</h3>
-      <p>${site.lists?.length || 0} lists · ${site.files?.length || 0} files/folders</p>
-      <small>${site.lastActivity ? `Active ${graphDate(site.lastActivity)}` : "Activity unavailable"}</small>
+    return `<article class="gx-row gx-site" style="--site:${graphHue(index + 2)}"><button type="button" data-site-id="${escapeHtml(site.id)}">
+      <span class="graph-site-icon">${escapeHtml((site.displayName || "S").trim()[0] || "S")}</span>
+      <span class="gx-row-main"><b>${escapeHtml(site.displayName)}</b><small>${site.lists?.length || 0} lists · ${site.files?.length || 0} files/folders · ${site.lastActivity ? `Active ${graphDate(site.lastActivity)}` : "Activity unavailable"}</small></span>
       ${flags}
     </button><a href="${escapeHtml(site.webUrl)}" target="_blank" rel="noreferrer">Open site ↗</a></article>`;
   }).join("")}</div>`;
