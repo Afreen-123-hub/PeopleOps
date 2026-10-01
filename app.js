@@ -28,8 +28,10 @@ function isCompanyWideScope() {
   return loggedInUserScope?.type === "company";
 }
 
-function roleBadgeLabel(role, team) {
-  const label = ROLE_LABELS[role] || "Employee";
+function roleBadgeLabel(role, team, designation) {
+  // Prefer the person's real job title over the internal access-tier name (e.g. "Chief
+  // Executive Officer" reads right; "Admin" doesn't, even though that's the correct tier).
+  const label = designation || ROLE_LABELS[role] || "Employee";
   if (role === "hr" || role === "hr_admin" || role === "super_admin") return `${label} — Company-wide`;
   return team ? `${label} — ${team}` : label;
 }
@@ -308,14 +310,14 @@ function applyRoleAccess() {
   }
 
   renderScopeCounts();
-  renderMyTeam();
 
-  // Overview is HR/Admin only: leads open on My team, employees on their own profile.
+  // Overview now shows for every role (see renderOverviewPrototype/renderMetrics/
+  // renderSourceCoverage), built from the already-scoped employee list rather than the
+  // withheld company aggregate -- so everyone lands here, same as before role-based access
+  // existed, just with per-role data instead of a separate "My team" page.
   const active = document.querySelector(".rail-item.active[data-view]");
   if (!active || active.offsetParent === null) {
-    const landing = currentAccess.scopeType === "reports" ? "myteam" : "";
-    const first = document.querySelector(`.rail-item[data-view="${landing}"]`)
-      || [...document.querySelectorAll(".rail-item[data-view]")].find((b) => b.offsetParent !== null);
+    const first = [...document.querySelectorAll(".rail-item[data-view]")].find((b) => b.offsetParent !== null);
     first?.click();
   }
 }
@@ -982,7 +984,7 @@ async function boot() {
       const wrapEl   = document.getElementById("railUser");
       if (avatarEl) avatarEl.textContent = initials;
       if (nameEl)   { nameEl.textContent = me.name; nameEl.title = me.name; }
-      if (typeEl)   typeEl.textContent   = roleBadgeLabel(me.role, me.team);
+      if (typeEl)   typeEl.textContent   = roleBadgeLabel(me.role, me.team, me.designation);
       if (wrapEl)   wrapEl.style.display = "flex";
       // MTM verification is an admin-only tool — leadership signing in via SSO shouldn't see it
       const mtmLink = document.getElementById("mtmVerifyLink");
