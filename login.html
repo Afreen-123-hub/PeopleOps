@@ -163,6 +163,10 @@
     }
     .msg-error   { background: #fff0f1; color: #c0192b; border: 1px solid #fcd0d4; }
     .msg-success { background: #f0fff4; color: #1a7f4b; border: 1px solid #b2f2cb; }
+    /* Role + data scope from /api/me, shown in the welcome message */
+    .role-badge { display: block; width: fit-content; margin-top: 8px; padding: 3px 10px; border-radius: 999px; font-size: 0.74rem; font-weight: 800; }
+    .role-badge--company { background: #ede5fd; color: #5b21b6; }
+    .role-badge--reports { background: #dbeafe; color: #1e40af; }
 
     /* ── Footer ────────────────────────────────────── */
     .card-footer {
@@ -242,6 +246,48 @@
       } catch { /* server unreachable, stay on login */ }
     })();
 
+    // After sign-in: say which role and data the person gets, so a shorter dashboard for a
+    // team lead or employee reads as intended rather than broken. Then go to the dashboard.
+    const ROLE_LABELS = {
+      employee: "Employee", team_lead: "Team Lead", manager: "Manager", dept_head: "Department Head",
+      hr: "HR", hr_admin: "HR Admin", super_admin: "Super Admin",
+    };
+    async function welcomeThenContinue(token, name) {
+      localStorage.removeItem("tara_history"); // a previous user's chat shouldn't carry over
+      const el = document.getElementById("successMsg");
+      el.textContent = "Welcome, " + name + "! Loading dashboard...";
+      el.style.display = "block";
+      let delay = 600;
+      try {
+        const res = await fetch("/api/me", { headers: { "Authorization": "Bearer " + token } });
+        const me = res.ok ? await res.json() : {};
+        const type = (me.scope && me.scope.type) || "company";
+        if (type === "self") { refuseEmployee(token, name); return; } // employees: no dashboard
+        // Managers don't count themselves: their own record is only visible to their manager.
+        const n = ((me.scope && me.scope.employeeIds) || []).filter((id) => !(type === "reports" && id === me.employeeId)).length;
+        const reach = type === "company" ? "Company-wide"
+          : "Your team" + (n ? " (" + n + " " + (n === 1 ? "person" : "people") + ")" : "");
+        const badge = document.createElement("span");
+        badge.className = "role-badge role-badge--" + type;
+        badge.textContent = (ROLE_LABELS[me.role] || "Super Admin") + " · " + reach;
+        el.appendChild(badge);
+        delay = 1400; // long enough to read the badge
+      } catch { /* no badge; the dashboard shows it too */ }
+      setTimeout(() => { window.location.href = "splash.html"; }, delay);
+    }
+
+    // Employee accounts don't get PeopleOps (it's for team leads, managers, HR and Admin):
+    // say so, end the session on the server, and stay on the sign-in page.
+    function refuseEmployee(token, name) {
+      document.getElementById("successMsg").style.display = "none";
+      const err = document.getElementById("errorMsg");
+      err.textContent = "Sorry " + name + ", your account doesn't have access to PeopleOps. "
+        + "It's for team leads, managers, HR and Admin. Ask HR if you think you should have access.";
+      err.style.display = "block";
+      localStorage.removeItem("po_token");
+      fetch("/api/logout", { method: "POST", headers: { "Authorization": "Bearer " + token } }).catch(() => {});
+    }
+
     // SSO callback: ?sso_token=...&sso_name=...
     (function handleSsoCallback() {
       const params   = new URLSearchParams(window.location.search);
@@ -252,11 +298,8 @@
       if (ssoToken) {
         localStorage.setItem("po_token", ssoToken);
         const name = ssoName ? decodeURIComponent(ssoName) : "there";
-        const el = document.getElementById("successMsg");
-        el.textContent = "Welcome, " + name + "! Loading dashboard...";
-        el.style.display = "block";
-        // Go to splash which then loads the dashboard
-        setTimeout(() => { window.location.href = "splash.html"; }, 600);
+        history.replaceState(null, "", window.location.pathname); // keep the token out of the address bar
+        welcomeThenContinue(ssoToken, name); // then splash, which loads the dashboard
         return;
       }
 
@@ -289,8 +332,8 @@
         const data = await res.json();
         if (res.ok && data.token) {
           localStorage.setItem("po_token", data.token);
-          // Login → splash → dashboard
-          window.location.href = "splash.html";
+          // Login → welcome with role → splash → dashboard
+          welcomeThenContinue(data.token, data.name || username);
         } else {
           err.textContent   = data.error || "Invalid username or password.";
           err.style.display = "block";

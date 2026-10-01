@@ -132,7 +132,9 @@
 
   function rowsFor(payload, day) {
     var recs = (payload.days && payload.days[day]) || {};
-    return (payload.people || []).map(function (p) {
+    // inScope (app.js) also leaves out a manager's own record, which only their manager may see.
+    var visible = (payload.people || []).filter(function (p) { return typeof inScope !== "function" || inScope(p.no); });
+    return visible.map(function (p) {
       var rec = recs[p.id] || {};
       return { id: p.id, no: p.no, name: p.name, team: teamOf(p), rec: rec, cat: classify(rec) };
     });

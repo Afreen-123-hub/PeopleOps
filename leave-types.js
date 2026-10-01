@@ -93,6 +93,21 @@
     return out;
   }
 
+  // Keeps only people the user's scope covers (inScope in app.js), dropping every alias key of
+  // anyone else from `days` too. The server already filters this; it matters for a manager's
+  // own record, which only their manager may see, so it must not appear as an "outsider" here.
+  function scoped(body) {
+    var people = body.people || [], days = body.days || {};
+    if (typeof inScope !== "function") return { people: people, days: days };
+    var kept = people.filter(function (p) { return inScope(p.no); });
+    if (kept.length === people.length) return { people: people, days: days };
+    var drop = {};
+    people.forEach(function (p) { if (kept.indexOf(p) < 0) (p.keys || []).forEach(function (k) { drop[k] = 1; }); });
+    var out = {};
+    Object.keys(days).forEach(function (k) { if (!drop[k]) out[k] = days[k]; });
+    return { people: kept, days: out };
+  }
+
   function loadMonth(m, force) {
     var cur = months[m];
     if (cur && !force) return; // loading, ready or failed: only an explicit Retry fetches again
@@ -104,8 +119,9 @@
       })
       .then(function (r) {
         if (!r) return;
-        months[m] = r.ok && r.body && r.body.days
-          ? { status: "ready", days: r.body.days, people: r.body.people || [], stale: !!r.body.stale, wfh: r.body.wfh, wfhProgress: r.body.wfhProgress }
+        var sc = r.ok && r.body && r.body.days ? scoped(r.body) : null;
+        months[m] = sc
+          ? { status: "ready", days: sc.days, people: sc.people, stale: !!r.body.stale, wfh: r.body.wfh, wfhProgress: r.body.wfhProgress }
           : { status: "error", message: (r.body && r.body.error) || "Leave data could not be loaded." };
         if (months[m].status === "ready" && months[m].wfh === "building") watchWfh(m);
       })
@@ -123,7 +139,8 @@
     return apiFetch("/api/leave-types?month=" + encodeURIComponent(m))
       .then(function (res) { return res && res.ok ? res.json() : null; })
       .then(function (b) {
-        if (b && b.days) months[m] = { status: "ready", days: b.days, people: b.people || [], stale: !!b.stale, wfh: b.wfh, wfhProgress: b.wfhProgress };
+        var sc = b && b.days ? scoped(b) : null;
+        if (sc) months[m] = { status: "ready", days: sc.days, people: sc.people, stale: !!b.stale, wfh: b.wfh, wfhProgress: b.wfhProgress };
         if (!b || b.wfh !== "building") delete wfhWatch[m];
         return !!(b && b.days);
       })

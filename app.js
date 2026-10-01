@@ -115,12 +115,336 @@ async function apiFetch(path, options = {}) {
     window.location.href = "login.html";
     return null;
   }
+  // 403 = signed in, but this person's role can't see it. Say so in plain words instead of
+  // letting the page render a raw error; callers still get the response and treat it as !ok.
+  if (res.status === 403 && !options.quiet403) {
+    res.clone().json().catch(() => ({})).then((body) => showAccessDenied(body.error, path));
+  }
   return res;
 }
 
 function logout() {
   localStorage.removeItem("po_token");
+  localStorage.removeItem("tara_history"); // the next person to sign in shouldn't see this chat
   window.location.href = "login.html";
+}
+
+// --- Role-based access (backend RBAC: /api/me returns role + scope) ---
+// scope.type: "company" (HR/Admin: everyone) or "reports" (leads/managers: their people).
+// "self" (plain employees) gets no dashboard at all: see showNoAccessPage(). The server already
+// trims the data to the scope; the UI matches it: hide what doesn't apply, label shorter lists.
+// Missing role/scope (e.g. an older backend) means company, i.e. the app as it was before.
+let currentAccess = { role: "super_admin", scopeType: "company", employeeIds: [], team: "" };
+
+const ROLE_LABELS = {
+  employee: "Employee", team_lead: "Team Lead", manager: "Manager", dept_head: "Department Head",
+  hr: "HR", hr_admin: "HR Admin", super_admin: "Super Admin",
+};
+
+function setCurrentAccess(me) {
+  const scope = me?.scope || {};
+  const scopeType = ["self", "reports", "company"].includes(scope.type) ? scope.type : "company";
+  currentAccess = {
+    role: me?.role || "super_admin",
+    scopeType,
+    employeeIds: (scope.employeeIds || []).map((id) => String(id).trim().toLowerCase()),
+    team: "",
+    ownTeam: "",
+    ownId: me?.employeeId ? String(me.employeeId) : "", // only if /api/me sends it
+  };
+  // Manager-tier: their own id never counts as in scope (see excludeOwnRecord).
+  if (scopeType === "reports" && currentAccess.ownId) {
+    const ownId = currentAccess.ownId.trim().toLowerCase();
+    currentAccess.employeeIds = currentAccess.employeeIds.filter((id) => id !== ownId);
+  }
+  document.body.classList.remove("scope-company", "scope-reports", "scope-self");
+  document.body.classList.add(`scope-${scopeType}`);
+}
+
+function isCompanyScope() { return currentAccess.scopeType === "company"; }
+
+// Keeps only the people this user's scope covers. The server already does this for /api/data;
+// this is for the responses it doesn't filter yet (Load month, Graph), so they can't widen
+// the lists (and the exports built from them) back to the whole company.
+function inScope(employeeId) {
+  return isCompanyScope() || currentAccess.employeeIds.includes(String(employeeId ?? "").trim().toLowerCase());
+}
+
+// Manager-tier roles (team lead, manager, dept head) can't see their own record: their own
+// attendance, leave and performance is for their manager only. The server returns 403 for it;
+// here their own id is also dropped from the scope, so every list, card and export leaves
+// them out even if a response still includes them. Employees still see their own basic record.
+function excludeOwnRecord(employees) {
+  if (currentAccess.scopeType !== "reports" || !loggedInUserEmail) return;
+  const own = (employees || []).find((e) => (e.email || "").toLowerCase() === loggedInUserEmail);
+  if (!own) return;
+  currentAccess.ownTeam = own.team || "";
+  currentAccess.ownId = String(own.id);
+  const ownId = String(own.id).trim().toLowerCase();
+  currentAccess.employeeIds = currentAccess.employeeIds.filter((id) => id !== ownId);
+}
+
+function scopeDataset(data) {
+  if (!data || isCompanyScope()) return data;
+  excludeOwnRecord(data.employees);
+  const employees = (data.employees || []).filter((e) => inScope(e.id));
+  // `overview` is the company-wide aggregate: rebuild the two fields the UI reads from the
+  // scoped list so no company totals are ever shown.
+  const sourceCoverage = {};
+  employees.forEach((e) => Object.entries(e.sources || {}).forEach(([key, ok]) => {
+    sourceCoverage[key] = (sourceCoverage[key] || 0) + (ok ? 1 : 0);
+  }));
+  // Projects carry per-person task stats for every member: keep only projects this user's
+  // people work on, and only those people's stats. bands/quadrants/graphOverview are company
+  // totals the UI doesn't use, so they're dropped rather than left in memory.
+  const projects = (data.projects || []).map((p) => {
+    const memberStats = (p.memberStats || []).filter((m) => inScope(m.id));
+    return { ...p, memberStats, members: memberStats.length };
+  }).filter((p) => p.memberStats.length);
+  const { bands, quadrants, graphOverview, ...rest } = data;
+  return { ...rest, employees, projects, overview: { employees: employees.length, sourceCoverage } };
+}
+
+// Same buckets as services/github_api_client.py (_status_bucket), recounted for a scoped item list.
+function githubProjectStats(items) {
+  const stats = { total: items.length, done: 0, inProgress: 0, todo: 0, backlog: 0, production: 0 };
+  items.forEach((item) => {
+    const s = (item.status || "").toLowerCase();
+    if (["done", "completed", "completed in qa"].includes(s)) stats.done++;
+    else if (["in progress", "dev", "qa", "review in qa"].includes(s)) stats.inProgress++;
+    else if (s === "todo") stats.todo++;
+    else if (s === "backlog") stats.backlog++;
+    else if (s === "production") stats.production++;
+  });
+  return stats;
+}
+
+// GitHub data lists every contributor's tasks. Keep the contributors who are this user's
+// people (matched by the GitHub login on their employee record) and the project items
+// assigned to them.
+function scopeGithubData(data) {
+  if (!data || isCompanyScope()) return data;
+  const logins = new Set((dataset?.employees || []).map((e) => (e.github?.login || "").toLowerCase()).filter(Boolean));
+  const mine = (login) => logins.has(String(login || "").toLowerCase());
+  const projects = (data.projects || []).map((p) => {
+    const items = (p.items || []).filter((item) => (item.assignees || []).some(mine));
+    return { ...p, items, stats: githubProjectStats(items) };
+  }).filter((p) => p.items.length);
+  return { ...data, projects, contributors: (data.contributors || []).filter((c) => mine(c.login)) };
+}
+
+// Graph data has company-wide parts besides the people list: every Planner plan, every
+// SharePoint site and org totals. Keep only tasks assigned to this user's people, drop the
+// sites, and recount the totals, so the Graph page shows the team, not the organisation.
+function scopeGraphData(data) {
+  if (!data || isCompanyScope()) return data;
+  const employees = (data.employees || []).filter((e) => inScope(e.id));
+  const userIds = new Set(employees.map((e) => e.userId).filter(Boolean));
+  const plans = (data.planner?.plans || []).map((plan) => {
+    const tasks = (plan.tasks || []).filter((t) => (t.assigneeIds || []).some((id) => userIds.has(id)));
+    const summary = {};
+    tasks.forEach((t) => { summary[t.status] = (summary[t.status] || 0) + 1; });
+    return { ...plan, tasks, summary };
+  }).filter((plan) => plan.tasks.length);
+  const tasks = plans.flatMap((plan) => plan.tasks);
+  return {
+    ...data,
+    employees,
+    meta: { ...(data.meta || {}), totalEmployees: employees.length, matchedEmployees: employees.filter((e) => e.matched).length },
+    planner: { ...(data.planner || {}), plans },
+    sharePoint: { ...(data.sharePoint || {}), sites: [] },
+    overview: {
+      plans: plans.length,
+      plannerTasks: tasks.length,
+      completedPlannerTasks: tasks.filter((t) => t.status === "Completed" || t.percentComplete === 100).length,
+      calendarEvents: sum(employees.map((e) => e.calendar?.events || 0)),
+      sharePointSites: 0,
+    },
+  };
+}
+
+function mostCommonTeam(employees) {
+  const counts = {};
+  (employees || []).forEach((e) => { if (e.team) counts[e.team] = (counts[e.team] || 0) + 1; });
+  return Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] || "";
+}
+
+function roleBadgeText() {
+  const role = ROLE_LABELS[currentAccess.role] || "Employee";
+  if (isCompanyScope()) return `${role} · Company-wide`;
+  return currentAccess.team ? `${role} · ${currentAccess.team}` : role;
+}
+
+function scopeCountText() {
+  const n = dataset?.employees?.length || 0;
+  if (currentAccess.scopeType === "company") return `Showing all employees (${number.format(n)})`;
+  return `Showing your team (${number.format(n)})`;
+}
+
+function renderScopeCounts() {
+  document.querySelectorAll("[data-scope-count]").forEach((el) => {
+    el.textContent = scopeCountText();
+    el.className = `scope-count scope-count--${currentAccess.scopeType}`;
+  });
+}
+
+// Once the (scoped) dataset is in: badge, sidebar, labels and the page to open on.
+function applyRoleAccess() {
+  // Team for the badge: the user's own record, or for managers (who aren't in their own data)
+  // the team most of their people are in.
+  const own = dataset.employees.find((e) => loggedInUserEmail && (e.email || "").toLowerCase() === loggedInUserEmail);
+  currentAccess.team = own?.team || currentAccess.ownTeam || mostCommonTeam(dataset.employees);
+
+  // Badge in the sidebar user pill: role on the badge, whose data they see on the line below.
+  const typeEl = document.getElementById("railUserType");
+  if (typeEl) {
+    const reach = isCompanyScope() ? "Company-wide" : currentAccess.team || "Your team";
+    typeEl.innerHTML = `<span class="rail-role-badge rail-role-badge--${currentAccess.scopeType}">${escapeHtml(ROLE_LABELS[currentAccess.role] || "Employee")}</span>`
+      + `<span class="rail-role-scope">${escapeHtml(reach)}</span>`;
+    typeEl.title = roleBadgeText();
+  }
+
+  // Tara answers from the whole company's data on the server, so until the chat is scoped
+  // there it stays HR/Admin only (the Ask Tara button is hidden by CSS for other scopes).
+  if (!isCompanyScope()) {
+    document.getElementById("taraPanel")?.setAttribute("hidden", "");
+    localStorage.removeItem("tara_history");
+  }
+
+  renderScopeCounts();
+  renderMyTeam();
+
+  // Overview is HR/Admin only: leads open on My team, employees on their own profile.
+  const active = document.querySelector(".rail-item.active[data-view]");
+  if (!active || active.offsetParent === null) {
+    const landing = currentAccess.scopeType === "reports" ? "myteam" : "";
+    const first = document.querySelector(`.rail-item[data-view="${landing}"]`)
+      || [...document.querySelectorAll(".rail-item[data-view]")].find((b) => b.offsetParent !== null);
+    first?.click();
+  }
+}
+
+// "My team" page for leads/managers, in place of the company-wide Overview. Built only from
+// the scoped employees list, never from the company aggregate.
+function renderMyTeam() {
+  const root = document.getElementById("myTeamContent");
+  if (!root || !dataset || currentAccess.scopeType !== "reports") return;
+  const people = dataset.employees;
+  const scored = people.filter((e) => e.kpi !== null && e.kpi !== undefined);
+  const avgKpi = scored.length ? Math.round(average(scored.map((e) => e.kpi))) : null;
+  const present = sum(people.map((e) => e.attendance?.present || 0));
+  const missed = sum(people.map((e) => (e.attendance?.absent || 0) + (e.attendance?.leave || 0)));
+  const attendancePct = present + missed ? Math.round((present / (present + missed)) * 100) : null;
+  const out = people.filter((e) => e.teams?.isOutOfOffice);
+  const watch = people.filter((e) => ["Critical", "Needs Improvement"].includes(e.band));
+  const teams = [...new Set(people.map((e) => e.team).filter(Boolean))];
+  const period = dataset.meta?.period || "";
+
+  const tile = (label, value, sub, pct) => `
+    <div class="myteam-tile">
+      <span class="myteam-tile-label">${label}</span>
+      <strong class="myteam-tile-value">${value}</strong>
+      ${pct != null ? `<span class="myteam-bar"><i style="width:${Math.max(0, Math.min(100, pct))}%"></i></span>` : ""}
+      ${sub ? `<span class="myteam-tile-sub">${escapeHtml(sub)}</span>` : ""}
+    </div>`;
+
+  const rows = people.slice().sort((a, b) => (b.kpi ?? -1) - (a.kpi ?? -1)).map((e) => `
+    <tr data-myteam-employee="${escapeHtml(e.id)}" tabindex="0">
+      <td><strong>${escapeHtml(e.name)}</strong><small>${escapeHtml(e.designation || "")}</small></td>
+      <td>${escapeHtml(e.team || "—")}</td>
+      <td class="num">${e.kpi != null ? number.format(e.kpi) : "—"}</td>
+      <td>${e.band ? `<span class="band ${bandClass(e.band)}">${escapeHtml(e.band)}</span>` : '<span class="band no-info">No Data</span>'}</td>
+      <td class="num">${e.attendance?.present ?? "—"}</td>
+      <td>${escapeHtml(e.teams?.status || "—")}</td>
+    </tr>`).join("");
+
+  root.innerHTML = `
+    <div class="panel-head">
+      <div>
+        <p class="eyebrow">My team${period ? ` · ${escapeHtml(period)}` : ""}</p>
+        <h2>${escapeHtml(currentAccess.team || "Your team")}</h2>
+        <span data-scope-count class="scope-count scope-count--reports">${scopeCountText()}</span>
+        <p class="myteam-note">Your own attendance, leave and performance aren't shown here. Your manager sees them.</p>
+      </div>
+      <span class="pill">Company-wide Overview is for HR and Admin</span>
+    </div>
+    <div class="myteam-tiles">
+      ${tile("People", number.format(people.length), teams.length > 1 ? `${teams.length} teams: ${teams.join(", ")}` : "Direct and indirect reports")}
+      ${tile("Average KPI", avgKpi ?? "—", `${scored.length} of ${people.length} scored`, avgKpi)}
+      ${tile("Attendance", attendancePct != null ? `${attendancePct}%` : "—", `${number.format(present)} days present`, attendancePct)}
+      ${tile("Out of office now", out.length, out.map((e) => e.name.split(" ")[0]).join(", ") || "Nobody")}
+      ${tile("Needs attention", watch.length, watch.map((e) => e.name.split(" ")[0]).slice(0, 4).join(", ") || "Nobody flagged")}
+    </div>
+    <div class="table-wrap myteam-table-wrap">
+      <table class="myteam-table">
+        <thead><tr><th>Name</th><th>Team</th><th class="num">KPI</th><th>Band</th><th class="num">Days present</th><th>Teams status</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  root.querySelectorAll("[data-myteam-employee]").forEach((row) => {
+    const open = () => {
+      const e = dataset.employees.find((item) => item.id === row.dataset.myteamEmployee);
+      if (e) showEmployee(e);
+    };
+    row.addEventListener("click", open);
+    row.addEventListener("keydown", (ev) => { if (ev.key === "Enter") open(); });
+  });
+}
+
+// Plain employees (scope "self") don't get the dashboard: it's for team leads, managers, HR and
+// Admin. Replace the app with a short explanation and a way to sign out. No data is fetched.
+function showNoAccessPage(me) {
+  document.querySelector(".app-shell")?.remove();
+  document.getElementById("taraBtn")?.remove();
+  document.getElementById("taraPanel")?.remove();
+  const page = document.createElement("main");
+  page.className = "no-access-page";
+  page.innerHTML = `
+    <div class="no-access-card" role="alert">
+      <img src="peopleops-logo.svg" alt="PeopleOps Intelligence" width="150">
+      <div class="access-denied-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+      <h1>You don't have access to PeopleOps</h1>
+      <p>${me?.name ? `${escapeHtml(me.name)}, your` : "Your"} account is an employee account. PeopleOps is for team leads, managers, HR and Admin.</p>
+      <p>If you think you should have access, ask HR.</p>
+      <button type="button" class="button" id="noAccessSignOut">Sign out</button>
+    </div>`;
+  document.body.appendChild(page);
+  document.getElementById("noAccessSignOut").addEventListener("click", logout);
+  document.body.style.visibility = "visible";
+}
+
+// Shown when the server answers 403: the person is signed in, but their role can't see this.
+function showAccessDenied(message, path = "") {
+  let overlay = document.getElementById("accessDeniedOverlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "accessDeniedOverlay";
+    overlay.className = "access-denied-overlay";
+    overlay.innerHTML = `
+      <div class="access-denied-card" role="alertdialog" aria-modal="true" aria-labelledby="accessDeniedTitle">
+        <div class="access-denied-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+        <h2 id="accessDeniedTitle"></h2>
+        <p id="accessDeniedText"></p>
+        <button type="button" class="button" id="accessDeniedBack">Back</button>
+      </div>`;
+    document.body.appendChild(overlay);
+    overlay.addEventListener("click", (ev) => { if (ev.target === overlay) overlay.hidden = true; });
+    overlay.querySelector("#accessDeniedBack").addEventListener("click", () => { overlay.hidden = true; });
+    document.addEventListener("keydown", (ev) => { if (ev.key === "Escape") overlay.hidden = true; });
+  }
+  const who = isCompanyScope() ? "" : "the people on your team";
+  // A manager asking for their own record (e.g. /api/attendance/<their id>) is blocked on purpose.
+  const ownId = currentAccess.ownId && decodeURIComponent(path).split(/[/?]/).includes(currentAccess.ownId);
+  overlay.querySelector("#accessDeniedTitle").textContent = ownId
+    ? "Your own record is visible to your manager"
+    : message || "You don't have access to this.";
+  overlay.querySelector("#accessDeniedText").textContent = ownId
+    ? `As ${ROLE_LABELS[currentAccess.role]} you see your team's attendance, leave and performance, but not your own. Your manager reviews yours.`
+    : who
+      ? `As ${ROLE_LABELS[currentAccess.role] || "an employee"} you can see ${who}. Ask HR if you need access to someone else.`
+      : "Ask HR if you think you should have access.";
+  overlay.hidden = false;
+  overlay.querySelector("#accessDeniedBack").focus();
 }
 
 const TEAMS_REFRESH_INTERVAL = 5 * 60 * 1000; // 5 minutes
@@ -589,7 +913,9 @@ async function fetchGlobalAttendanceMonth(month) {
     const teamsCache = new Map();
     (dataset?.employees || []).forEach(e => { if (e.id) teamsCache.set(e.id, e.teams); });
 
-    dataset = payload.data;
+    // The month endpoint isn't scoped on the server yet: trim it to this user's people so
+    // Load month can't bring the whole company back into the lists and exports.
+    dataset = scopeDataset(payload.data);
 
     // Re-inject Teams live data so the leaderboard and presence stay current.
     dataset.employees.forEach(e => {
@@ -602,7 +928,7 @@ async function fetchGlobalAttendanceMonth(month) {
 
     const actualPeriod = payload.period || label;
     status.className = "graph-attendance-status success";
-    status.textContent = `✓ Showing ${actualPeriod} data (${payload.employees} employees) — Teams presence stays live`;
+    status.textContent = `✓ Showing ${actualPeriod} data (${dataset.employees.length} employees) — Teams presence stays live`;
   } catch (err) {
     status.className = "graph-attendance-status error";
     status.textContent = `✗ ${err.message}`;
@@ -635,11 +961,17 @@ async function boot() {
   // Validate token with server — catches expired sessions before any data loads
   const ping = await apiFetch("/api/health");
   if (!ping) return; // apiFetch already cleared token and redirected to login.html
-  document.body.style.visibility = "visible"; // auth confirmed — reveal the app
-  // Load logged-in user profile — await so loggedInUserName is set before first render
+  // Load logged-in user profile — await so loggedInUserName and the role are set before the
+  // app is revealed, so restricted users never see a flash of company-only navigation.
   const meRes = await apiFetch("/api/me");
+  const me = meRes?.ok ? await meRes.json().catch(() => ({})) : {};
+  setCurrentAccess(me);
+  if (currentAccess.scopeType === "self") {
+    showNoAccessPage(me); // employees have no dashboard access; load nothing
+    return;
+  }
+  document.body.style.visibility = "visible"; // auth confirmed — reveal the app
   if (meRes) {
-    const me = await meRes.json();
     if (me.name) {
       loggedInUserName = me.name;
       loggedInUserEmail = (me.email || "").toLowerCase();
@@ -666,7 +998,7 @@ async function boot() {
       applyRoleBasedVisibility();
     }
   }
-  dataset = await loadDataset();
+  dataset = scopeDataset(await loadDataset());
   if (!dataset) return;
   const TEST_IDS = new Set(["11","71","CW002","adam_1","suus","TestingTeamLead001","EMP938977","EMP938938"]);
   dataset.employees = dataset.employees.filter(e => {
@@ -686,6 +1018,7 @@ async function boot() {
   setupFilters();
   setupDepartmentChartEvents();
   renderAll();
+  applyRoleAccess();
   setupGlobalMonthPicker();
   updateAvailableMonthsBadge();
   updateTeamsRefreshLabel();
@@ -694,7 +1027,7 @@ async function boot() {
   // Graph tab's own (heavier) fetch, which only runs once that tab is opened.
   apiFetch("/api/graph-data").then(res => res?.ok ? res.json() : null).then(data => {
     if (!data) return;
-    graphData = data;
+    graphData = scopeGraphData(data);
     if (typeof renderTodayBriefing === "function") renderTodayBriefing();
   }).catch(() => {});
   setInterval(() => {
@@ -702,7 +1035,8 @@ async function boot() {
       renderTodayBriefing();
     }
   }, 30000);
-  if (!DEMO_MODE) {
+  // These call the server's refresh routes, which are an HR/Admin tool.
+  if (!DEMO_MODE && isCompanyScope()) {
     setInterval(autoRefreshTeams, TEAMS_REFRESH_INTERVAL);
     setInterval(() => { if (typeof refreshGraph === "function") refreshGraph(); }, TEAMS_REFRESH_INTERVAL);
   }
@@ -772,7 +1106,7 @@ function setupNavigation() {
 
 function toggleControls(view) {
   const controls = document.querySelector(".controls");
-  controls.hidden = ["attendance", "projects", "integrations", "github", "graph"].includes(view);
+  controls.hidden = ["myteam", "attendance", "projects", "integrations", "github", "graph"].includes(view);
 }
 
 function setupFilters() {
@@ -942,13 +1276,6 @@ function setupFilters() {
     renderTeamsTable();
   });
   document.getElementById("clearKpiTeam").addEventListener("click", clearKpiTeamFilter);
-  document.getElementById("awaitingDataToggle")?.addEventListener("click", () => {
-    const body = document.getElementById("awaitingDataBody");
-    const label = document.getElementById("awaitingDataToggleLabel");
-    const isHidden = body.hidden;
-    body.hidden = !isHidden;
-    label.textContent = isHidden ? "Hide ▴" : "Show ▾";
-  });
   document.getElementById("closeDialog").addEventListener("click", () => document.getElementById("employeeDialog").close());
   document.getElementById("employeeDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
   document.getElementById("projDetailDialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
@@ -1003,7 +1330,12 @@ function populateFilterOptions() {
   const previousTeam = state.team;
   const bands = [...new Set(dataset.employees.map((e) => e.band).filter(Boolean))];
   const teams = [...new Set(dataset.employees.map((e) => mergedTeam(e.team || "Unassigned")))].sort();
-  const teamOptionsHtml = `<option value="all">All teams</option>${teams.map((t) => `<option>${t}</option>`).join("")}`;
+  // HR/Admin pick from every team. Leads/managers only have their own team(s) in the data, so
+  // the filter is locked to those (fixed when it's just one); employees don't get one at all.
+  const lockedToOneTeam = !isCompanyScope() && teams.length <= 1;
+  const teamOptionsHtml = lockedToOneTeam
+    ? `<option value="all">${escapeHtml(teams[0] || "Your team")}</option>`
+    : `<option value="all">${isCompanyScope() ? "All teams" : "All my teams"}</option>${teams.map((t) => `<option>${t}</option>`).join("")}`;
   state.band = bands.includes(previousBand) ? previousBand : "all";
   state.team = teams.includes(previousTeam) ? previousTeam : "all";
   bandFilterIds.forEach((id) => {
@@ -1030,8 +1362,16 @@ function populateFilterOptions() {
     const el = document.getElementById(id);
     if (!el) return;
     el.innerHTML = teamOptionsHtml;
-    el.value = state.team;
+    el.value = lockedToOneTeam ? "all" : state.team;
+    el.disabled = lockedToOneTeam;
+    el.title = lockedToOneTeam ? "Locked to your team" : "";
+    const field = el.closest("label");
+    if (field) {
+      field.classList.toggle("is-locked", lockedToOneTeam);
+    }
   });
+  // KPI page's "All teams" reset has nothing to reset when the filter is locked to one team.
+  document.getElementById("clearKpiTeam")?.classList.toggle("role-hidden", lockedToOneTeam);
 }
 
 function populateAttendanceOptions() {
@@ -1655,6 +1995,8 @@ function renderAll() {
   drawScatter();
   document.getElementById("filteredCount").textContent = `${filteredEmployees.length} employees in view`;
   renderOverviewPrototypeSafe();
+  renderScopeCounts();
+  renderMyTeam();
 }
 
 function getKpiRows() {
@@ -1707,74 +2049,143 @@ function teamKpiSummary(rows) {
     .sort((a, b) => b.avgKpi - a.avgKpi);
 }
 
+// Prototype-style KPI page: four bands (Excellent / Good / Watch / At risk).
+function kpxBand(value) {
+  if (value >= 80) return { label: "Excellent", tone: "good" };
+  if (value >= 70) return { label: "Good", tone: "fair" };
+  if (value >= 55) return { label: "Watch", tone: "watch" };
+  return { label: "At risk", tone: "risk" };
+}
+
+function kpxBar(value, tone) {
+  const width = Math.max(2, Math.min(Number(value) || 0, 100));
+  return `<span class="kpx-bar"><i class="${tone || kpxBand(value).tone}" style="width:${width}%"></i></span>`;
+}
+
+function kpxCard(value, label, hint) {
+  const tone = value == null ? "" : kpxBand(value).tone;
+  return `<div class="kpx-card kpx-stat ${tone}"><b>${value == null ? "—" : number.format(value)}</b>${label}<small>${hint || ""}</small></div>`;
+}
+
+let kpiWeightRole = null;
+
+function renderKpiWeights() {
+  const container = document.getElementById("kpiWeights");
+  const fw = dataset.meta?.kpiFramework;
+  if (!container || !fw) return;
+  const roles = Object.keys(fw).filter((k) => k !== "note" && typeof fw[k] === "object");
+  if (!roles.includes(kpiWeightRole)) kpiWeightRole = roles[0];
+  const LABELS = {
+    productivity: "Productivity", codeContribution: "Code contribution", attendance: "Attendance",
+    punctuality: "Punctuality", collaboration: "Collaboration", taskCompletion: "Task completion",
+    managerRatings: "Manager ratings", teamAverageKpi: "Team avg KPI", projectDelivery: "Project delivery",
+    taskApprovalSpeed: "Approval speed", plannerCompletion: "Planner completion", mentorFeedback: "Mentor feedback",
+  };
+  container.innerHTML = `
+    <div class="kpx-chips">${roles.map((r) => `<button type="button" class="kpx-chip${r === kpiWeightRole ? " on" : ""}" data-role="${r}">${r[0].toUpperCase() + r.slice(1)}</button>`).join("")}</div>
+    ${Object.entries(fw[kpiWeightRole]).sort((a, b) => b[1] - a[1]).map(([key, weight]) => `
+      <div class="kpx-row kpx-static">
+        <span class="kpx-name">${LABELS[key] || key}</span>
+        ${kpxBar(weight * 1.8, "good")}
+        <b class="kpx-num">${weight}%</b>
+      </div>`).join("")}`;
+  container.querySelectorAll(".kpx-chip").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      kpiWeightRole = chip.dataset.role;
+      renderKpiWeights();
+    });
+  });
+}
+
+function showKpiTeamDrawer(team, companyAvg) {
+  document.getElementById("kpxDrawer")?.remove();
+  const band = kpxBand(team.avgKpi);
+  const diff = team.avgKpi - companyAvg;
+  const driverAvg = (key) => {
+    const vals = team.employees.map((e) => e.scoreDrivers?.[key]).filter((v) => v != null);
+    return vals.length ? average(vals) : null;
+  };
+  const members = [...team.employees].sort((a, b) => b.kpi - a.kpi || a.name.localeCompare(b.name));
+  const drawer = document.createElement("div");
+  drawer.id = "kpxDrawer";
+  drawer.className = "kpx-drawer";
+  drawer.innerHTML = `
+    <div class="kpx-panel" role="dialog" aria-modal="true" aria-label="${escapeHtml(team.team)}">
+      <button type="button" class="kpx-close" aria-label="Close">✕</button>
+      <h2>${escapeHtml(team.team)}</h2>
+      <p class="kpx-sub">${band.label} · company avg ${number.format(companyAvg)}</p>
+      ${kpxCard(team.avgKpi, "Team KPI", `${diff >= 0 ? "+" : ""}${number.format(diff)} vs company avg`)}
+      ${kpxBar(team.avgKpi)}
+      <h3>KPI breakdown</h3>
+      ${[["Delivery", "delivery"], ["Attendance", "attendance"], ["Collaboration", "collaboration"], ["Efficiency", "efficiency"]].map(([label, key]) => {
+        const v = driverAvg(key);
+        return v == null
+          ? `<div class="kpx-row kpx-static"><span class="kpx-name">${label}</span><span class="kpx-sub">No data</span></div>`
+          : `<div class="kpx-row kpx-static"><span class="kpx-name">${label}</span>${kpxBar(v)}<b class="kpx-num">${number.format(v)}</b></div>`;
+      }).join("")}
+      <h3>Members · ${members.length}</h3>
+      ${members.map((e) => `
+        <button type="button" class="kpx-row" data-id="${e.id}">
+          <span class="kpx-name"><b>${escapeHtml(e.name)}</b><small>${escapeHtml(e.designation || "Unassigned")}</small></span>
+          <span class="kpx-tag ${kpxBand(e.kpi).tone}">${number.format(e.kpi)}</span>
+        </button>`).join("")}
+    </div>`;
+  const close = () => {
+    drawer.remove();
+    document.removeEventListener("keydown", onKey);
+  };
+  const onKey = (event) => { if (event.key === "Escape") close(); };
+  drawer.addEventListener("click", (event) => {
+    if (event.target === drawer || event.target.closest(".kpx-close")) return close();
+    const row = event.target.closest("[data-id]");
+    if (!row) return;
+    const employee = dataset.employees.find((item) => item.id === row.dataset.id);
+    if (employee) {
+      close();
+      showEmployee(employee);
+    }
+  });
+  document.addEventListener("keydown", onKey);
+  document.body.appendChild(drawer);
+}
+
 function renderKpiPerformance() {
   const rows = getKpiRows();
   const teamRows = teamKpiSummary(rows);
-  const maxKpi = Math.max(100, ...teamRows.map((team) => team.avgKpi));
   const avgKpi = rows.length ? average(rows.map((employee) => employee.kpi)) : 0;
   const prodVals = rows.map((e) => e.scoreDrivers?.productivity).filter((v) => v != null);
-  const avgProductivity = prodVals.length ? average(prodVals) : 0;
+  const avgProductivity = prodVals.length ? average(prodVals) : null;
   const taskVals = rows.map((e) => e.scoreDrivers?.taskCompletion).filter((v) => v != null);
-  const avgTaskCompletion = taskVals.length ? average(taskVals) : 0;
+  const avgTaskCompletion = taskVals.length ? average(taskVals) : null;
   const laggingEmployees = rows.filter((employee) => laggingAreas(employee)[0][0] !== "On track");
   document.getElementById("clearKpiTeam").hidden = state.team === "all";
-  renderTeamHeatmap();
 
   document.getElementById("kpiTeamCount").textContent = `${teamRows.length} teams`;
-  document.getElementById("kpiEmployeeCount").textContent = `${rows.length} employees`;
+  document.getElementById("kpiTeamSub").textContent = `· ${teamRows.length} teams · ${rows.length} scored employees`;
 
   document.getElementById("kpiSignalSummary").innerHTML = [
-    ["Overall KPI", number.format(avgKpi), `${laggingEmployees.length} employees lagging`, kpiTone(avgKpi)],
-    ["Productivity", number.format(avgProductivity), "Worklogix delivery — 35% weight", kpiTone(avgProductivity)],
-    ["Task Completion", number.format(avgTaskCompletion), "Work items completed — 20% weight", kpiTone(avgTaskCompletion)],
-  ].map(([label, value, hint, tone]) => `
-    <div class="kpi-signal-card ${tone}">
-      <strong>${value}</strong>
-      <span>${label}</span>
-      <small>${hint}</small>
-    </div>
-  `).join("");
+    ["Overall KPI", avgKpi, `${laggingEmployees.length} employees lagging`],
+    ["Productivity", avgProductivity, "Worklogix delivery · 35%"],
+    ["Task completion", avgTaskCompletion, "Work items · 20%"],
+  ].map(([label, value, hint]) => kpxCard(value, label, hint)).join("");
 
-  document.getElementById("kpiTeamBars").innerHTML = teamRows.map((team) => {
-    const width = Math.max(4, (team.avgKpi / maxKpi) * 100);
-    return `
-      <button class="kpi-team-row" data-team="${encodeURIComponent(team.team)}">
-        <span class="kpi-team-name">${team.team}</span>
-        <span class="kpi-bar-track">
-          <span class="kpi-bar-fill ${kpiTone(team.avgKpi)}" style="width:${width}%"></span>
-        </span>
-        <span class="kpi-team-score">${number.format(team.avgKpi)}</span>
-        <span class="kpi-team-meta">${team.employees.length} employees | ${team.laggingCount} lagging</span>
-      </button>
-    `;
-  }).join("");
+  document.getElementById("kpiTeamBars").innerHTML = teamRows.map((team) => `
+    <button type="button" class="kpx-row" data-team="${encodeURIComponent(team.team)}">
+      <span class="kpx-name">${escapeHtml(team.team)}</span>
+      ${kpxBar(team.avgKpi)}
+      <b class="kpx-num">${number.format(team.avgKpi)}</b>
+      <span class="kpx-tag ${kpxBand(team.avgKpi).tone}">${kpxBand(team.avgKpi).label}</span>
+    </button>
+  `).join("") || `<p class="kpx-sub">No scored employees in view.</p>`;
 
-  document.querySelectorAll(".kpi-team-row").forEach((row) => {
+  document.querySelectorAll("#kpiTeamBars .kpx-row").forEach((row) => {
     row.addEventListener("click", () => {
-      const team = decodeURIComponent(row.dataset.team);
-      const members = filteredEmployees.filter((e) => mergedTeam(e.team || "Unassigned") === team);
-      showTeamMembersModal(team, members);
+      const team = teamRows.find((t) => t.team === decodeURIComponent(row.dataset.team));
+      if (team) showKpiTeamDrawer(team, avgKpi);
     });
   });
 
-  document.getElementById("kpiEmployeeTable").innerHTML = rows
-    .slice()
-    .sort((a, b) => b.kpi - a.kpi || a.name.localeCompare(b.name))
-    .map((employee) => `
-        <tr data-id="${employee.id}">
-          <td><div class="person"><strong>${employee.name}</strong><small>${employee.id} | ${employee.designation || "Unassigned"}</small></div></td>
-          <td>${mergedTeam(employee.team || "Unassigned")}</td>
-          <td class="numeric-cell"><span class="kpi-score ${kpiTone(employee.kpi)}">${number.format(employee.kpi)}</span> ${lowConfidenceWarning(employee)}</td>
-        </tr>
-      `)
-    .join("");
-
-  document.querySelectorAll("#kpiEmployeeTable tr").forEach((row) => {
-    row.addEventListener("click", () => {
-      const employee = dataset.employees.find((item) => item.id === row.dataset.id);
-      if (employee) showEmployee(employee);
-    });
-  });
+  renderKpiWeights();
 }
 
 function clearKpiTeamFilter() {
@@ -1804,7 +2215,7 @@ async function refreshKpiPerformance() {
     if (!res) return;
     const payload = await res.json().catch(() => ({}));
     if (res.ok && payload.data?.employees?.length) {
-      dataset = payload.data;
+      dataset = scopeDataset(payload.data);
       applyFilters();
       updateGlobalMonthLabel();
       status.textContent = `KPI data updated ✓ (${payload.period || month})`;
@@ -2304,42 +2715,25 @@ function renderLeadershipStrip() {
   const strip = document.getElementById("leadershipStrip");
   if (!strip || !dataset) return;
   const executives = (dataset.employees || []).filter(e => e.band === "Executive");
+  strip.hidden = !executives.length;
   if (!executives.length) { strip.innerHTML = ""; return; }
   strip.innerHTML = `
-
-    <div class="leadership-strip">
-      <div class="leadership-strip-header">
-        <span class="eyebrow">Leadership</span>
-        <span class="pill">${executives.length} executives · scored by team performance</span>
-      </div>
-      <div class="leadership-cards">
-        ${executives.map((e, i) => {
-          const teamKpi   = e.scoreDrivers?.teamAvgKpi ?? null;
-          const reports   = (e.directReports || []).length;
-          const status    = e.teams?.presence || "";
-          const statusCls = status === "Available" ? "avail" : status === "Away" ? "away" : "offline";
-          const kpiBlock  = teamKpi != null
-            ? `<div class="lc-kpi">${teamKpi}<span class="lc-kpi-label">Team Avg KPI</span></div>`
-            : `<div class="lc-kpi lc-kpi-none">—<span class="lc-kpi-label">No team data yet</span></div>`;
-          return `
-          <div class="leadership-card" data-exec-index="${i}" style="cursor:pointer" title="Click for details">
-            <div class="lc-top">
-              <div class="lc-avatar" style="background:${LEADERSHIP_AVATAR_COLORS[i % LEADERSHIP_AVATAR_COLORS.length]}">${e.name.trim().split(" ").map(w => w[0]).slice(0,2).join("")}</div>
-              <div class="lc-info">
-                <strong class="lc-name">${e.name}</strong>
-                <span class="lc-title">${e.designation || ""}</span>
-                ${status ? `<span class="lc-status ${statusCls}">${status}</span>` : ""}
-              </div>
-            </div>
-            ${kpiBlock}
-            ${reports ? `<div class="lc-reports">${reports} direct report${reports > 1 ? "s" : ""}</div>` : ""}
-          </div>`;
-        }).join("")}
-      </div>
-    </div>`;
-  strip.querySelectorAll(".leadership-card").forEach(card => {
-    card.addEventListener("click", () => {
-      const exec = executives[Number(card.dataset.execIndex)];
+    <h3>Leadership <span class="kpx-sub">· ${executives.length} executives · scored by team performance</span></h3>
+    ${executives.map((e, i) => {
+      const teamKpi = e.scoreDrivers?.teamAvgKpi ?? null;
+      const reports = (e.directReports || []).length;
+      return `
+      <button type="button" class="kpx-row" data-exec-index="${i}">
+        <span class="kpx-avatar" style="background:${LEADERSHIP_AVATAR_COLORS[i % LEADERSHIP_AVATAR_COLORS.length]}">${avatarInitials(e.name)}</span>
+        <span class="kpx-name"><b>${escapeHtml(e.name)}</b><small>${escapeHtml(e.designation || "")} · ${reports} direct report${reports === 1 ? "" : "s"}</small></span>
+        ${teamKpi != null
+          ? `<b class="kpx-num kpx-${kpxBand(teamKpi).tone}">${number.format(teamKpi)}</b><span class="kpx-sub">team avg</span>`
+          : `<span class="kpx-sub">No team data</span>`}
+      </button>`;
+    }).join("")}`;
+  strip.querySelectorAll("[data-exec-index]").forEach(row => {
+    row.addEventListener("click", () => {
+      const exec = executives[Number(row.dataset.execIndex)];
       if (exec) showEmployee(exec);
     });
   });
@@ -2362,72 +2756,66 @@ function avatarColor(e) {
   return BAND_AVATAR_COLORS[e.band] || "#94a3b8";
 }
 
+let peopleBandChip = "All";
+
 function renderPeopleTable() {
   const meNorm = loggedInUserName.trim().toLowerCase();
-  const sorted = filteredEmployees
-    .filter(e => e.band !== "Executive")
-    .slice()
-    .sort((a, b) => {
-      const aMe = meNorm && a.name.trim().toLowerCase() === meNorm ? -1 : 0;
-      const bMe = meNorm && b.name.trim().toLowerCase() === meNorm ? 1 : 0;
-      return aMe + bMe;
-    });
-  const scored = sorted.filter((e) => e.kpi != null);
-  const awaiting = sorted.filter((e) => e.kpi == null);
+  const isMe = (e) => meNorm && e.name.trim().toLowerCase() === meNorm;
+  const nonExec = filteredEmployees.filter(e => e.band !== "Executive");
+  const scored = nonExec
+    .filter((e) => e.kpi != null)
+    .sort((a, b) => (isMe(b) ? 1 : 0) - (isMe(a) ? 1 : 0) || b.kpi - a.kpi || a.name.localeCompare(b.name));
+  const awaiting = nonExec.filter((e) => e.kpi == null);
+  const isIntern = (e) => e.roleCategory === "intern";
+  const shown = scored.filter((e) => peopleBandChip === "All" || (!isIntern(e) && kpxBand(e.kpi).label === peopleBandChip));
 
-  const scoredBadge = document.getElementById("scoredCountBadge");
-  if (scoredBadge) scoredBadge.textContent = scored.length;
+  const chips = document.getElementById("peopleBandChips");
+  if (chips) {
+    chips.querySelectorAll(".kpx-chip").forEach((chip) => chip.classList.toggle("on", chip.dataset.band === peopleBandChip));
+    chips.onclick = (event) => {
+      const chip = event.target.closest(".kpx-chip");
+      if (!chip) return;
+      peopleBandChip = chip.dataset.band;
+      renderPeopleTable();
+    };
+  }
 
-  const indexMap = new Map(scored.map((e, i) => [e.id, i]));
-  const makeEmpRow = (e) => {
-    const index = indexMap.get(e.id);
-    const kpiCls = e.kpi >= 85 ? "kpi-good" : e.kpi >= 70 ? "kpi-avg" : "kpi-low";
-    const kpiBarColor = e.kpi >= 85 ? "#16a34a" : e.kpi >= 70 ? "#d97706" : "#dc2626";
-    const bandDisplay = e.band === "Insufficient Data" ? "No Data" : e.band === "Needs Improvement" ? "Needs Improv." : (e.band || "");
-    const avatarCls = e.isMtm ? "p-avatar p-avatar-indigo" : "p-avatar p-avatar-teal";
+  const typeBadge = (e) => {
     const eType = employeeType(e);
-    const typeBadge = eType === "mtm" ? '<span class="mtm-row-badge">MTM</span>'
-      : eType === "intern" ? '<span class="intern-row-badge">Intern</span>'
-      : eType === "trainee" ? '<span class="trainee-row-badge">Trainee</span>'
-      : '';
-    const teamChipCls = e.isMtm ? "p-team-chip p-team-chip-indigo" : "p-team-chip";
-    return `<tr data-index="${index}" class="${e.isMtm ? 'is-mtm-row' : ''}">
-          <td><div class="person-row"><div class="${avatarCls}">${avatarInitials(e.name)}</div><div class="person"><strong>${e.name}</strong>${typeBadge}<small>${e.designation || "Unassigned"}</small><span class="${teamChipCls}">${mergedTeam(e.team || "Unassigned")}</span></div></div></td>
-          <td class="numeric-cell">${e.roleCategory === "intern" ? `<span style="color:#94a3b8;font-size:0.85rem">N/A</span>` : `<div class="pt-kpi-cell"><span class="score ${kpiCls}">${e.kpi}</span><span class="pt-kpi-bar"><span class="pt-kpi-fill" style="width:${Math.min(e.kpi, 100)}%;background:${kpiBarColor}"></span></span></div>`}</td>
-          <td>${e.roleCategory === "intern" ? `<span style="color:#94a3b8;font-size:0.85rem">—</span>` : e.band ? `<span class="band ${bandClass(e.band)}">${bandDisplay}</span>` : '<span class="band no-info">Pending Link</span>'} ${e.roleCategory !== "intern" ? lowConfidenceWarning(e) : ""}</td>
-          <td class="numeric-cell">${e.worklogix.completed}/${e.worklogix.workItems}</td>
-          <td class="numeric-cell">${e.attendance.present}</td>
-          <td class="numeric-cell">${e.attendance.leave ?? 0}</td>
-          <td class="numeric-cell">${e.attendance.absent}</td>
-          <td>${teamsStatusBadge(e.teams)}</td>
-        </tr>`;
+    return eType === "mtm" ? '<span class="kpx-mini mtm">MTM</span>'
+      : eType === "intern" ? '<span class="kpx-mini intern">Intern</span>'
+      : eType === "trainee" ? '<span class="kpx-mini trainee">Trainee</span>'
+      : "";
   };
-  const makeDivider = (label, count, cls) =>
-    `<tr class="mtm-section-divider"><td colspan="8"><div class="mtm-divider-inner">
-      <span class="mtm-divider-label ${cls}">${label}</span>
-      <span class="mtm-divider-line"></span>
-      <span class="mtm-divider-count">${count}</span>
-    </div></td></tr>`;
+  const makeEmpRow = (e) => {
+    const score = isIntern(e)
+      ? `<b class="kpx-num kpx-sub">N/A</b><span class="kpx-tag none">—</span>`
+      : `<b class="kpx-num kpx-${kpxBand(e.kpi).tone}">${number.format(e.kpi)}</b><span class="kpx-tag ${kpxBand(e.kpi).tone}">${kpxBand(e.kpi).label}</span>`;
+    return `<button type="button" class="kpx-row" data-id="${e.id}">
+      <span class="kpx-avatar${e.isMtm ? " mtm" : ""}">${avatarInitials(e.name)}</span>
+      <span class="kpx-name"><b>${escapeHtml(e.name)}</b>${typeBadge(e)}${isIntern(e) ? "" : lowConfidenceWarning(e)}<small>${escapeHtml(e.designation || "Unassigned")} · ${escapeHtml(mergedTeam(e.team || "Unassigned"))}</small></span>
+      ${score}
+      <span class="kpx-tasks">${e.worklogix?.completed ?? 0}/${e.worklogix?.workItems ?? 0}</span>
+    </button>`;
+  };
+  const office = shown.filter(e => !e.isMtm);
+  const mtm = shown.filter(e => e.isMtm);
+  const divider = (label, count) => `<div class="kpx-divider">${label} · ${count}</div>`;
 
-  const officeScored = scored.filter(e => !e.isMtm);
-  const mtmScored   = scored.filter(e =>  e.isMtm);
-  const hasBothGroups = officeScored.length > 0 && mtmScored.length > 0;
-
-  document.getElementById("peopleTable").innerHTML = scored.length
+  document.getElementById("peopleTable").innerHTML = shown.length
     ? [
-        ...(hasBothGroups ? [makeDivider("Office", officeScored.length, "divider-office")] : []),
-        ...officeScored.map(makeEmpRow),
-        ...(mtmScored.length ? [makeDivider("MTM · External", mtmScored.length, "divider-mtm")] : []),
-        ...mtmScored.map(makeEmpRow),
+        ...(office.length && mtm.length ? [divider("Office", office.length)] : []),
+        ...office.map(makeEmpRow),
+        ...(mtm.length ? [divider("MTM · External", mtm.length)] : []),
+        ...mtm.map(makeEmpRow),
       ].join("")
-    : `<tr><td colspan="8"><div class="table-empty-state">
-        <div class="table-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
-        <div class="table-empty-title">No employees found</div>
-        <div class="table-empty-sub">Try adjusting your filters or search term</div>
-      </div></td></tr>`;
+    : `<p class="kpx-sub kpx-empty">No employees found. Try another band or search term.</p>`;
 
-  document.querySelectorAll("#peopleTable tr[data-index]").forEach((row) => {
-    row.addEventListener("click", () => showEmployee(scored[Number(row.dataset.index)]));
+  document.querySelectorAll("#peopleTable [data-id]").forEach((row) => {
+    row.addEventListener("click", () => {
+      const employee = scored.find((e) => e.id === row.dataset.id);
+      if (employee) showEmployee(employee);
+    });
   });
 
   renderAwaitingData(awaiting);
@@ -2437,22 +2825,18 @@ function renderPeopleTable() {
 function renderAwaitingData(list) {
   const section = document.getElementById("awaitingDataSection");
   if (!section) return;
-  const badge = document.getElementById("awaitingDataBadge");
+  section.hidden = !list.length;
+  if (!list.length) return;
+  document.getElementById("awaitingDataBadge").textContent = list.length;
   const body = document.getElementById("awaitingDataBody");
-  if (!list.length) {
-    section.hidden = true;
-    return;
-  }
-  section.hidden = false;
-  badge.textContent = list.length;
   body.innerHTML = list
-    .map((e, index) => `<div class="await-chip" data-await-index="${index}">
-      <span class="ca">${avatarInitials(e.name)}</span>
-      <span class="cn"><strong>${e.name}</strong><small>${e.designation || "Unassigned"}</small></span>
-    </div>`)
+    .map((e, index) => `<button type="button" class="kpx-row" data-await-index="${index}">
+      <span class="kpx-avatar none">${avatarInitials(e.name)}</span>
+      <span class="kpx-name"><b>${escapeHtml(e.name)}</b><small>${escapeHtml(e.designation || "Unassigned")} · ${escapeHtml(mergedTeam(e.team || "Unassigned"))}</small></span>
+    </button>`)
     .join("");
-  body.querySelectorAll(".await-chip").forEach((chip) => {
-    chip.addEventListener("click", () => showEmployee(list[Number(chip.dataset.awaitIndex)]));
+  body.querySelectorAll("[data-await-index]").forEach((row) => {
+    row.addEventListener("click", () => showEmployee(list[Number(row.dataset.awaitIndex)]));
   });
 }
 
@@ -2463,28 +2847,11 @@ function renderPeopleStats() {
   const scoredCount = nonExec.filter((e) => e.kpi != null).length;
   const awaitingCount = nonExec.filter((e) => e.kpi == null).length;
   const execCount = filteredEmployees.filter((e) => e.band === "Executive").length;
-  const total = filteredEmployees.length;
   el.innerHTML = `
-    <div class="stat-tile is-active">
-      <div class="stat-num c-blue">${scoredCount}</div>
-      <div class="stat-lbl">Scored &amp; ranked</div>
-      <div class="stat-sub">Shown below by default</div>
-    </div>
-    <div class="stat-tile">
-      <div class="stat-num c-amber">${awaitingCount}</div>
-      <div class="stat-lbl">Awaiting data</div>
-      <div class="stat-sub">No Worklogix/attendance link yet</div>
-    </div>
-    <div class="stat-tile">
-      <div class="stat-num c-violet">${execCount}</div>
-      <div class="stat-lbl">Executives</div>
-      <div class="stat-sub">Scored by team performance</div>
-    </div>
-    <div class="stat-tile">
-      <div class="stat-num c-ink">${total}</div>
-      <div class="stat-lbl">Total headcount</div>
-      <div class="stat-sub">Matching current filters</div>
-    </div>`;
+    <div class="kpx-card kpx-stat"><b>${scoredCount}</b>Scored &amp; ranked<small>Shown below</small></div>
+    <div class="kpx-card kpx-stat watch"><b>${awaitingCount}</b>Awaiting data<small>No Worklogix link yet</small></div>
+    <div class="kpx-card kpx-stat exec"><b>${execCount}</b>Executives<small>Scored by team performance</small></div>
+    <div class="kpx-card kpx-stat"><b>${filteredEmployees.length}</b>Total headcount<small>Matching current filters</small></div>`;
 }
 
 function teamsStatusBadge(teams, clickable = false, empIndex = -1) {
@@ -4590,7 +4957,7 @@ async function refreshGitHub() {
     });
     const json = await res.json();
     if (json.status === "refreshed") {
-      githubData = json.github;
+      githubData = scopeGithubData(json.github);
       renderGitHub(false);
       label.textContent = "Refreshed just now";
     } else {
@@ -4606,7 +4973,7 @@ async function renderGitHub(fetchFresh = true) {
   if (fetchFresh) {
     try {
       const res = await apiFetch("/api/github-data");
-      githubData = await res.json();
+      githubData = scopeGithubData(await res.json()); // not scoped on the server yet
     } catch {
       document.getElementById("ghProjectsList").innerHTML =
         `<p style="color:var(--muted)">Could not load GitHub data. Click "Refresh now" to fetch.</p>`;
