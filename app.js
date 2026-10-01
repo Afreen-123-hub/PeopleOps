@@ -148,7 +148,7 @@ function setCurrentAccess(me) {
     scopeType,
     employeeIds: (scope.employeeIds || []).map((id) => String(id).trim().toLowerCase()),
     team: "",
-    ownTeam: "",
+    ownTeam: me?.team || "", // server already resolves this correctly from employeeId -- trust it
     ownId: me?.employeeId ? String(me.employeeId) : "", // only if /api/me sends it
   };
   // Manager-tier: their own id never counts as in scope (see excludeOwnRecord).
