@@ -721,6 +721,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "scope": scope,
                 "employeeId": current_session.get("employeeId", ""),
                 "team": (self.find_employee(data, current_session["employeeId"]) or {}).get("team", "") if current_session.get("employeeId") else "",
+                "designation": (self.find_employee(data, current_session["employeeId"]) or {}).get("designation", "") if current_session.get("employeeId") else "",
             },
             "/api/available-months": lambda: {
                 "months": sorted([
