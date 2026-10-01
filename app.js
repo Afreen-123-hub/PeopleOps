@@ -135,11 +135,7 @@ function logout() {
 // trims the data to the scope; the UI matches it: hide what doesn't apply, label shorter lists.
 // Missing role/scope (e.g. an older backend) means company, i.e. the app as it was before.
 let currentAccess = { role: "super_admin", scopeType: "company", employeeIds: [], team: "" };
-
-const ROLE_LABELS = {
-  employee: "Employee", team_lead: "Team Lead", manager: "Manager", dept_head: "Department Head",
-  hr: "HR", hr_admin: "HR Admin", super_admin: "Super Admin",
-};
+// Role names come from the shared ROLE_LABELS declared near the top of this file.
 
 function setCurrentAccess(me) {
   const scope = me?.scope || {};

@@ -1504,12 +1504,6 @@ def main():
         work_item_stats[eid]["weightedPointsCompleted"] / max(1, efficiency_hours_map[eid])
         for eid in efficiency_hours_map
     ]
-    # Punctuality: avg daily office hours as proxy when check-in time is unavailable
-    avg_office_hours_list = [
-        attendance[eid]["officeHours"] / max(1, attendance[eid]["validOfficeDays"])
-        for eid in employees
-        if attendance[eid]["validOfficeDays"]
-    ]
     # Collaboration: messages + meeting count weighted signal
     all_collab_signals = [
         ta["messagesCount"] + ta["meetingCount"] * 2
@@ -1673,19 +1667,14 @@ def main():
                 _punct_key = "punctualityScore_10"
             else:
                 _punct_key = "punctualityScore_930"
-            # Prefer GreytHR punctuality (firstInTime vs actual shift start) over biometric API
-            _gh_punct = gh.get("punctualityScore_gh") if gh else None
-            _punct_raw = _gh_punct if _gh_punct is not None else bio.get(_punct_key)
-            if _bio_sparse:
-                # < 3 biometric swipes — WFH or card-reader miss; can't judge punctuality
-                punctuality_score = None
-            elif _punct_raw is not None:
-                punctuality_score = _punct_raw
-            elif bio["validOfficeDays"]:
-                avg_hrs = bio["officeHours"] / bio["validOfficeDays"]
-                punctuality_score = minmax(avg_hrs, avg_office_hours_list) if avg_office_hours_list else 50
-            else:
-                punctuality_score = 50
+            # Punctuality comes only from biometric check-in swipes (on-time days / swiped
+            # days at the role's cutoff). GreytHR's punctualityScore_gh is no longer used: it
+            # scored nearly everyone 100%, including people with no swipes at all.
+            # < 3 biometric swipes (WFH or card-reader miss) → None, so weighted_score drops
+            # punctuality and shares its weight across the other components, instead of the
+            # old Teams-hours / flat-50 stand-ins that had nothing to do with arrival time.
+            _punct_raw = None if _bio_sparse else bio.get(_punct_key)
+            punctuality_score = _punct_raw
             # --- KPI Calculation Framework: category-specific formulas ---
             # Attendance / Punctuality / Collaboration are computed the same way for every
             # category (they share identical formulas in the framework); only the weights
@@ -1916,7 +1905,7 @@ def main():
                     "avgCheckinHour": bio.get("avgCheckinHour"),
                     "avgCheckoutHour": bio.get("avgCheckoutHour"),
                     "officeLocation": bio.get("officeLocation", ""),
-                    "punctualityScore": bio.get(_punct_key) if role_cat not in ("management", "executive") else None,
+                    "punctualityScore": round(punctuality_pct, 1) if (punctuality_pct is not None and role_cat not in ("management", "executive")) else None,
                     "teamsAvailableHours": round(bio.get("teamsAvailableHours", bio["officeHours"]), 1),
                     "teamsAwayHours": round(bio.get("teamsAwayHours", 0), 1),
                     "teamsOfflineHours": round(bio.get("teamsOfflineHours", 0), 1),
