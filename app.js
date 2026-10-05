@@ -78,9 +78,13 @@ const DEPT_MERGE_MAP = {
   "Frontend": "Software Development",
   "Fullstack": "Software Development",
   "Technology & Development": "Software Development",
+  "Development": "Software Development",
+  "Digital Marketing": "Marketing Team",
   "HR": "HR Team",
   "HR Team": "HR Team",
+  "Human Resources": "HR Team",
   "Quality Analyst": "Quality & Testing",
+  "QA / Testing": "Quality & Testing",
   "Testing": "Quality & Testing",
   "Testing Team": "Quality & Testing",
   "cyber security": "Cyber Security Team",
@@ -4380,7 +4384,8 @@ function showEmployee(e) {
           <div class="emp-detail-avatar">${initials}</div>
           <div class="emp-detail-identity">
             <h1>${e.name}<span class="mtm-row-badge" style="margin-left:8px">MTM</span></h1>
-            <p>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}${e.managerName ? ` &middot; Reports to <strong>${e.managerName}</strong>` : ""}</p>
+            <p class="pf-role">${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}</p>
+            ${e.managerName ? `<p>Reports to <strong>${e.managerName}</strong></p>` : ""}
           </div>
           ${hasVerified ? `
           <div class="emp-kpi-ring" style="--pct:${Math.min(100, Math.max(0, s.completionRate))};--c:${deliveryColor};margin-left:auto;flex:none">
@@ -4469,33 +4474,6 @@ function showEmployee(e) {
   const teamAttValues = teamMates.map(employeeAttPct).filter((v) => v != null);
   const teamAvgAtt = teamAttValues.length >= 2 ? Math.round(average(teamAttValues)) : null;
 
-  const insightSentence = (() => {
-    if (!e.quadrant || e.band === "Insufficient Data") return "";
-    const sd = e.scoreDrivers || {};
-    const strengths = [];
-    if (attPct != null && attPct >= 80) strengths.push(`${attPct}% attendance`);
-    if (att.punctualityScore != null && att.punctualityScore >= 80) strengths.push(`${att.punctualityScore}% punctuality`);
-    const weaknesses = [];
-    if (!hasWorklogixActivity) weaknesses.push("no Worklogix task activity tracked");
-    if (sd.collaboration != null && sd.collaboration < 40) weaknesses.push(`low collaboration (${number.format(sd.collaboration)})`);
-    if (e.sources?.github === false) weaknesses.push("no GitHub activity");
-    const strengthText = strengths.length ? strengths.join(" and ") : null;
-    const weaknessText = weaknesses.length ? weaknesses.join(", ") : null;
-
-    if (e.quadrant === "Present but Idle") {
-      return strengthText && weaknessText
-        ? `Solid ${strengthText} ${strengths.length > 1 ? "aren't" : "isn't"} matched by delivery — ${weaknessText}. That combination is why this profile is flagged "Present but Idle" rather than a stronger band.`
-        : `Flagged "Present but Idle" — present and available, but delivery signals are weak this period.`;
-    }
-    if (e.quadrant === "Ghost Worker") {
-      return `Flagged "Ghost Worker" — delivery signals look fine, but physical presence is low. Worth confirming this reflects genuine remote work rather than a tracking gap.`;
-    }
-    if (e.quadrant === "Disengaged") {
-      return `Flagged "Disengaged"${weaknessText ? ` — ${weaknessText}` : ""}. Low signal across the board; this profile likely needs direct follow-up.`;
-    }
-    return "";
-  })();
-
   // Profile window: compact header, tabs (one short group at a time), footer with period + sources.
   const pfDriverKeys = {
     technical: ["productivity","delivery","efficiency","attendance","taskCompletion","punctuality","collaboration","codeContribution","github"],
@@ -4532,7 +4510,8 @@ function showEmployee(e) {
         <div class="emp-detail-avatar pf-avatar">${initials}</div>
         <div class="pf-who">
           <h1>${e.name}</h1>
-          <p>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}${e.managerName ? ` &middot; Reports to <strong>${e.managerName}</strong>` : ""}</p>
+          <p>${e.designation || "Unassigned"} &middot; ${mergedTeam(e.team || "Unassigned")}</p>
+          ${e.managerName ? `<p class="pf-reports">Reports to <strong>${e.managerName}</strong></p>` : ""}
         </div>
         ${pfKpi}
       </div>
@@ -4542,10 +4521,6 @@ function showEmployee(e) {
         <span class="conf-badge" style="background:${confTone.bg};color:${confTone.fg}">${e.sourceConfidence}% confidence</span>
         ${e.laggingDrivers?.length ? `<span class="pf-lag">⚠ ${escapeHtml(e.laggingDrivers.join(", ").replace(/\bgithub\b/gi, "GitHub"))}</span>` : ""}
       </div>
-      ${insightSentence && e.roleCategory !== "intern" ? `<div class="insight-banner">
-        <span class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></span>
-        <div class="insight-text">${escapeHtml(insightSentence)}</div>
-      </div>` : ""}
       <nav class="pf-tabs" role="tablist">${pfTabs.map(([key, label], i) =>
         `<button type="button" role="tab" data-pf-tab="${key}" class="${i === 0 ? "on" : ""}">${label}</button>`).join("")}</nav>
 
@@ -4570,19 +4545,6 @@ function showEmployee(e) {
           <span><i style="background:#16a34a"></i>Strong (60+)</span>
           ${Object.keys(pfWeights).length ? `<span>· small % = weight in the KPI</span>` : ""}
         </div>` : `<div class="empty-note">No score-driver data available for this employee.</div>`}
-      ${(() => {
-        if (!e.gapReason) return "";
-        const cleaned = e.gapReason.replace(/worklogixActivity/gi, "Worklogix activity").replace(/\bgithub\b/gi, "GitHub");
-        const [headline, ...rest] = cleaned.split(";").map(s => s.trim());
-        const detail = rest.join("; ");
-        return `<div class="gap-reason-note">
-          <span class="gap-reason-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17.1a1.5 1.5 0 001.3 2.25h16.4a1.5 1.5 0 001.3-2.25L13.7 3.9a1.5 1.5 0 00-2.6 0z"/></svg></span>
-          <div class="gap-reason-text">
-            <strong>${escapeHtml(headline)}</strong>
-            ${detail ? `<span>${escapeHtml(detail)}</span>` : ""}
-          </div>
-        </div>`;
-      })()}
       </div>
 
       <div class="pf-panel" data-pf-panel="attendance" hidden>

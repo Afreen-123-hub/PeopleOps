@@ -10233,3 +10233,6 @@ body:not(.scope-reports) .reports-only,
 @media (max-width: 760px) { .pm-sep { display: none; } }
 .pm-hint { display: block; width: 100%; margin-top: 12px; padding: 10px 12px; border: 1px dashed #c7cbf7; border-radius: 10px; background: #f7f7fe; color: #4338ca; font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
 .pm-hint:hover { background: #eef0fd; }
+/* Profile header: "Reports to" on its own line under designation · team */
+.pf-who .pf-reports { margin-top: 2px; }
+.emp-detail-identity p.pf-role { margin-bottom: 2px; }
