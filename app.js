@@ -2884,6 +2884,13 @@ function renderPeopleTable() {
 
   const mtmCount = document.getElementById("peopleMtmCount");
   if (mtmCount) mtmCount.textContent = filteredEmployees.filter((e) => e.isMtm).length;
+  // Like the MTM Members rail item: only for people whose view has MTM members at all.
+  const mtmChip = chips?.querySelector('.kpx-chip[data-band="MTM"]');
+  if (mtmChip) {
+    mtmChip.hidden = !(dataset?.employees || []).some((e) => e.isMtm);
+    const sep = mtmChip.previousElementSibling;
+    if (sep?.classList.contains("pm-sep")) sep.hidden = mtmChip.hidden;
+  }
 
   const typeBadge = (e) => {
     const eType = employeeType(e);
