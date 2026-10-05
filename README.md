@@ -60,6 +60,8 @@ To check what each role sees, set `PEOPLEOPS_TEST_PASSWORD` in `.env` (or on Ren
 
 For demos, sign in with username `demo` and the password in `PEOPLEOPS_DEMO_PASSWORD` (`.env` or Render). That session sees only the fake dataset in `data/demo/`: every name, id, email, project, meeting and link is made up, and scores are shifted. Refresh buttons, live Teams/GreytHR calls and MTM are off for it. Leave the variable unset to turn the demo login off.
 
+Role demo logins use the same password and act as the fake copy of a real person, with that person's role and team: `demo-ceo`, `demo-md`, `demo-centerhead`, `demo-peoplemanager`, `demo-marketing`, `demo-bdm`. The list is `DEMO_ROLE_ACCOUNTS` in `scripts/generate_demo_data.py`; rerun the script after changing it.
+
 To rebuild the demo data after the real data changes:
 
 ```powershell

@@ -145,6 +145,18 @@ def _save_mtm_tasks(tasks: list[dict]) -> None:
     MTM_TASKS_FILE.write_text(json.dumps(tasks, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+def _scoped_dataset(data: dict, scope: dict) -> dict:
+    """A whole dataset (peopleops-data.json or a month of it) cut down to what `scope` may see.
+    Its `employees` and `projects` are as sensitive as /api/employees and /api/projects, and
+    `overview` is a company-wide aggregate like /api/overview, so it's dropped for anyone else."""
+    return {
+        **data,
+        "employees": access_control.filter_employees(data.get("employees", []), scope),
+        "projects": access_control.filter_projects(data.get("projects", []), scope),
+        "overview": data.get("overview", {}) if scope.get("type") == "company" else {},
+    }
+
+
 def _demo_month_file(folder: str, month: str) -> dict | None:
     """data/demo/<folder>/<YYYY-MM>.json for a demo session, or None if that month has no demo file."""
     path = DEMO_DIR / folder / f"{month}.json"
@@ -414,11 +426,22 @@ def _test_account_employee_id(username: str, password: str) -> str:
     return str(accounts.get(key, ""))
 
 
-def _is_demo_login(username: str, password: str) -> bool:
-    """Username "demo" with PEOPLEOPS_DEMO_PASSWORD. Disabled while that variable is unset."""
+def _demo_login(username: str, password: str) -> str | None:
+    """For a demo login with PEOPLEOPS_DEMO_PASSWORD: "" for "demo" (company-wide), or the fake
+    employee id for a role login from data/demo/demo-accounts.json (e.g. "demo-ceo"). None if it
+    isn't a demo login. Disabled while PEOPLEOPS_DEMO_PASSWORD is unset."""
     _load_env()
     demo_password = os.environ.get("PEOPLEOPS_DEMO_PASSWORD", "").strip()
-    return bool(demo_password) and username.strip().lower() == "demo" and secrets.compare_digest(password.encode(), demo_password.encode())
+    if not demo_password or not secrets.compare_digest(password.encode(), demo_password.encode()):
+        return None
+    key = username.strip().lower()
+    if key == "demo":
+        return ""
+    try:
+        accounts = json.loads((DEMO_DIR / "demo-accounts.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return str(accounts[key]) if key in accounts else None
 
 
 def _is_valid_token(token: str) -> bool:
@@ -742,15 +765,20 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             }
             audit_log.record(who=f"test:{body.get('username', '').strip().lower()}", action="login", resource="test-account")
             self.send_json({"token": token, "name": display_name, "expires_in": SESSION_TTL})
-        elif _is_demo_login(body.get("username", ""), body.get("password", "")):
-            # Demo login: company-wide view of the fake dataset in data/demo/ only (see _is_demo).
+        elif (demo_employee_id := _demo_login(body.get("username", ""), body.get("password", ""))) is not None:
+            # Demo login: the fake dataset in data/demo/ only (see _is_demo). "demo" sees the whole
+            # company; a role login (demo-ceo, demo-bdm, ...) gets that fake person's role and team.
+            if demo_employee_id:
+                identity = access_control.resolve_identity(employee_id=demo_employee_id, demo=True)
+                display_name = f"{access_control.employee_name(demo_employee_id, demo=True) or demo_employee_id} (demo)"
+                session = {"role": identity["role"], "scope": identity["scope"], "employeeId": identity["employeeId"]}
+            else:
+                display_name = "Demo User"
+                session = {"role": "super_admin", "scope": {"type": "company", "employeeIds": []}}
             token = secrets.token_hex(32)
-            _sessions[token] = {
-                "expiry": time.time() + SESSION_TTL, "name": "Demo User", "type": "demo",
-                "role": "super_admin", "scope": {"type": "company", "employeeIds": []},
-            }
-            audit_log.record(who="demo", action="login", resource="demo-account")
-            self.send_json({"token": token, "name": "Demo User", "expires_in": SESSION_TTL})
+            _sessions[token] = {"expiry": time.time() + SESSION_TTL, "name": display_name, "type": "demo", **session}
+            audit_log.record(who=f"demo:{body.get('username', '').strip().lower()}", action="login", resource="demo-account")
+            self.send_json({"token": token, "name": display_name, "expires_in": SESSION_TTL})
         else:
             time.sleep(1)  # slow brute-force attempts
             self.send_json({"error": "Invalid username or password."}, HTTPStatus.UNAUTHORIZED)
@@ -816,12 +844,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             # work items, etc.) — same sensitivity as the standalone /api/overview endpoint,
             # which is already company-wide-only, so it's dropped here too for anyone else
             # rather than leaking it through this endpoint instead.
-            "/api/data": lambda: {
-                **data,
-                "employees": access_control.filter_employees(data.get("employees", []), scope),
-                "projects": access_control.filter_projects(data.get("projects", []), scope),
-                "overview": data.get("overview", {}) if scope.get("type") == "company" else {},
-            },
+            "/api/data": lambda: _scoped_dataset(data, scope),
             "/api/meta": lambda: data.get("meta", {}),
             "/api/overview": lambda: data.get("overview", {}),
             "/api/employees": lambda: access_control.filter_employees(data.get("employees", []), scope),
@@ -955,7 +978,8 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.send_json({"error": "That month hasn't started yet."}, HTTPStatus.BAD_REQUEST)
             return
         if self._is_demo():
-            self.send_json(_demo_month_file("leave", month) or {"month": month, "days": {}, "people": [], "wfh": "ready"})
+            payload = _demo_month_file("leave", month) or {"month": month, "days": {}, "people": [], "wfh": "ready"}
+            self.send_json(access_control.filter_leave_types_payload(payload, self._current_scope()))
             return
         try:
             if str(PROJECT_ROOT) not in sys.path:
@@ -1016,7 +1040,8 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.send_json({"error": "That month hasn't started yet."}, HTTPStatus.BAD_REQUEST)
             return
         if self._is_demo():
-            self.send_json(_demo_month_file("worklocation", month) or {"v": 2, "month": month, "people": [], "days": {}})
+            payload = _demo_month_file("worklocation", month) or {"v": 2, "month": month, "people": [], "days": {}}
+            self.send_json(access_control.filter_work_location_payload(payload, self._current_scope()))
             return
         try:
             if str(PROJECT_ROOT) not in sys.path:
@@ -1136,7 +1161,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 return
             self.send_json({
                 "status": "cached", "month": month, "period": demo.get("meta", {}).get("period", ""),
-                "employees": len(demo["employees"]), "data": _merge_mtm_sprint_data(demo, DEMO_DIR / "mtm-tasks.json"),
+                "employees": len(demo["employees"]), "data": _scoped_dataset(_merge_mtm_sprint_data(demo, DEMO_DIR / "mtm-tasks.json"), self._current_scope()),
             })
             return
 
@@ -1184,7 +1209,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                     "month": month,
                     "period": cached_data.get("meta", {}).get("period", ""),
                     "employees": len(cached_data.get("employees", [])),
-                    "data": _merge_mtm_sprint_data(cached_data),
+                    "data": _scoped_dataset(_merge_mtm_sprint_data(cached_data), self._current_scope()),
                 })
                 return
             detail = next(
@@ -1207,7 +1232,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                     "month": month,
                     "period": cached_data.get("meta", {}).get("period", ""),
                     "employees": len(cached_data.get("employees", [])),
-                    "data": _merge_mtm_sprint_data(cached_data),
+                    "data": _scoped_dataset(_merge_mtm_sprint_data(cached_data), self._current_scope()),
                 })
                 return
             message = f"No employee data was generated for {month}. Check Worklogix API connectivity."
@@ -1229,7 +1254,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             "month": month,
             "period": data.get("meta", {}).get("period", ""),
             "employees": len(data.get("employees", [])),
-            "data": _merge_mtm_sprint_data(data),
+            "data": _scoped_dataset(_merge_mtm_sprint_data(data), self._current_scope()),
         })
 
     def refresh_teams(self):
