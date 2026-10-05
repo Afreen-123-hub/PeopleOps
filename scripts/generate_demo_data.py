@@ -84,6 +84,17 @@ SUBSTRING_REPLACEMENTS = [
     (r"sspdl", "Tower B"),
     (r"akshaya", "Main"),
 ]
+# Demo logins that act as the fake copy of a real person, so a demo can show what each role sees.
+# Username -> real employee id. Signed in with PEOPLEOPS_DEMO_PASSWORD (see backend/server.py).
+DEMO_ROLE_ACCOUNTS = {
+    "demo-ceo": "TCINMD02",            # CEO: company-wide
+    "demo-md": "CWINE001",             # Managing Director: company-wide
+    "demo-centerhead": "CWINE014",     # Center head: department head
+    "demo-peoplemanager": "CWINE053",  # People Manager: manager
+    "demo-marketing": "CWINE020",      # Digital Marketing: team lead
+    "demo-bdm": "CWINE153",            # Senior Business Development Manager: team lead
+}
+
 # Words that must not appear anywhere in the output (checked at the end).
 FORBIDDEN_WORDS = ["codework", "cplc", "sspdl", "akshaya", "trustamend", "trust amend", "oman", "edubot", "worklogix.ai"]
 
@@ -466,6 +477,21 @@ def main() -> int:
         if kind == "peopleops" or kind == "months":
             result.setdefault("meta", {})["dataMode"] = "Demo data (not real people)"
         outputs[OUT / src.relative_to(SRC)] = json.dumps(result, ensure_ascii=False, separators=(",", ":"))
+
+    # Role settings for the fake people, so the demo role logins get the same roles and teams as the
+    # real people they stand in for. Notes are dropped (they name real people).
+    overrides = {
+        anon.id_map[real_id]: {
+            "role": entry["role"],
+            **({"extraReports": [anon.id_map[r] for r in entry["extraReports"] if r in anon.id_map]}
+               if entry.get("extraReports") else {}),
+        }
+        for real_id, entry in _load(SRC / "role-overrides.json").items()
+        if not real_id.startswith("_") and real_id in anon.id_map and entry.get("role")
+    }
+    outputs[OUT / "role-overrides.json"] = json.dumps(overrides, indent=2)
+    accounts = {user: anon.id_map[real_id] for user, real_id in DEMO_ROLE_ACCOUNTS.items() if real_id in anon.id_map}
+    outputs[OUT / "demo-accounts.json"] = json.dumps(accounts, indent=2)
 
     if anon.unknown_keys:
         print("Replaced text in fields not on the allowlist (check these look right in the demo):")
