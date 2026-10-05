@@ -55,7 +55,8 @@ function applyRoleBasedVisibility() {
   // version from dataset.employees instead (see renderSourceCoverage).
 }
 
-const DEMO_MODE = false;
+// Set from /api/me: the demo login sees the fake dataset, with every backend refresh turned off.
+let DEMO_MODE = false;
 const DEMO_REFRESH_MESSAGE = "Demo mode: backend refresh is disabled";
 
 const BAND_COLORS = {
@@ -968,6 +969,7 @@ async function boot() {
   const meRes = await apiFetch("/api/me");
   const me = meRes?.ok ? await meRes.json().catch(() => ({})) : {};
   setCurrentAccess(me);
+  DEMO_MODE = me.type === "demo";
   if (currentAccess.scopeType === "self") {
     showNoAccessPage(me); // employees have no dashboard access; load nothing
     return;

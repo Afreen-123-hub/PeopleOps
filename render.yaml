@@ -33,6 +33,9 @@ services:
       # Shared password for the role test logins in data/test-accounts.json (unset = disabled)
       - key: PEOPLEOPS_TEST_PASSWORD
         sync: false
+      # Password for the "demo" login, which shows only the fake data in data/demo/ (unset = disabled)
+      - key: PEOPLEOPS_DEMO_PASSWORD
+        sync: false
       - key: ALLOWED_EMAILS
         sync: false
       - key: SSO_REDIRECT_URI
