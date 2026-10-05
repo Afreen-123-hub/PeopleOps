@@ -95,6 +95,15 @@ DEMO_ROLE_ACCOUNTS = {
     "demo-bdm": "CWINE153",            # Senior Business Development Manager: team lead
 }
 
+# The real teams behind some role logins are tiny (1-2 people), which makes a thin demo. Since the
+# people are fake anyway, these logins get extra reports up to a team size, taken from the listed
+# teams first (in order). Only data/demo/role-overrides.json changes; the real site is unaffected.
+DEMO_TEAM_SIZES = {
+    "demo-centerhead": (8, ["CPLC", "Quality & Testing"]),
+    "demo-marketing": (6, ["Marketing Team", "Digital Marketing", "UI / UX"]),
+    "demo-bdm": (8, ["Business Development"]),
+}
+
 # Words that must not appear anywhere in the output (checked at the end).
 FORBIDDEN_WORDS = ["codework", "cplc", "sspdl", "akshaya", "trustamend", "trust amend", "oman", "edubot", "worklogix.ai"]
 
@@ -463,6 +472,29 @@ def _leak_check(anon: Anonymizer, texts: dict[Path, str]) -> list[str]:
     return problems
 
 
+def _grow_demo_teams(anon: Anonymizer, overrides: dict) -> None:
+    """Add extraReports to the demo role logins in DEMO_TEAM_SIZES (see there)."""
+    sys.path.insert(0, str(PROJECT_ROOT / "backend"))
+    import access_control
+
+    employees = _load(SRC / "peopleops-data.json").get("employees", [])
+    managers = {e["id"] for e in _load(SRC / "org-hierarchy.json").get("employees", []) if e.get("isManager")}
+    taken: set[str] = set()
+    for user, (size, teams) in DEMO_TEAM_SIZES.items():
+        real_id = DEMO_ROLE_ACCOUNTS[user]
+        have = set(access_control.resolve_identity(employee_id=real_id)["scope"]["employeeIds"])
+        have &= {e["id"] for e in employees}  # only people the dashboard actually shows
+        candidates = [
+            e["id"] for team in teams for e in sorted(employees, key=lambda e: e["id"])
+            if e.get("team") == team and e["id"] not in managers and e["id"] != real_id
+            and e["id"] not in have and e["id"] not in taken and e["id"] in anon.id_map
+        ]
+        extra = candidates[: max(0, size - len(have))]
+        taken.update(extra)
+        entry = overrides.setdefault(anon.id_map[real_id], {"role": access_control.resolve_identity(employee_id=real_id)["role"]})
+        entry["extraReports"] = sorted(set(entry.get("extraReports", [])) | {anon.id_map[i] for i in extra})
+
+
 def main() -> int:
     sources = {p: _load(p) for p in _source_files()}
     anon = Anonymizer(sources)
@@ -489,6 +521,7 @@ def main() -> int:
         for real_id, entry in _load(SRC / "role-overrides.json").items()
         if not real_id.startswith("_") and real_id in anon.id_map and entry.get("role")
     }
+    _grow_demo_teams(anon, overrides)
     outputs[OUT / "role-overrides.json"] = json.dumps(overrides, indent=2)
     accounts = {user: anon.id_map[real_id] for user, real_id in DEMO_ROLE_ACCOUNTS.items() if real_id in anon.id_map}
     outputs[OUT / "demo-accounts.json"] = json.dumps(accounts, indent=2)
