@@ -364,8 +364,10 @@ if (token) {
 
 
 def _load_env():
-    if ENV_FILE.exists():
-        for line in ENV_FILE.read_text(encoding="utf-8").splitlines():
+    for env_file in (ENV_FILE, PROJECT_ROOT / "backend" / ".env"):
+        if not env_file.exists():
+            continue
+        for line in env_file.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if not line or line.startswith("#") or "=" not in line:
                 continue
@@ -378,6 +380,26 @@ def _get_credentials():
     username = os.environ.get("PEOPLEOPS_USERNAME", "admin").strip()
     password = os.environ.get("PEOPLEOPS_PASSWORD", "").strip()
     return username, password
+
+
+TEST_ACCOUNTS_FILE = PROJECT_ROOT / "data" / "test-accounts.json"
+
+
+def _test_account_employee_id(username: str, password: str) -> str:
+    """Employee id for a test login (data/test-accounts.json + PEOPLEOPS_TEST_PASSWORD),
+    or "" if it isn't one. Disabled entirely while PEOPLEOPS_TEST_PASSWORD is unset."""
+    _load_env()
+    test_password = os.environ.get("PEOPLEOPS_TEST_PASSWORD", "").strip()
+    if not test_password or not secrets.compare_digest(password, test_password):
+        return ""
+    try:
+        accounts = json.loads(TEST_ACCOUNTS_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return ""
+    key = username.strip().lower()
+    if key.startswith("_"):
+        return ""
+    return str(accounts.get(key, ""))
 
 
 def _is_valid_token(token: str) -> bool:
@@ -659,10 +681,10 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.send_json({"error": "Invalid request body."}, HTTPStatus.BAD_REQUEST)
             return
         username, password = _get_credentials()
-        if not password:
+        if not password and not os.environ.get("PEOPLEOPS_TEST_PASSWORD", "").strip():
             self.send_json({"error": "Server has no password configured. Set PEOPLEOPS_PASSWORD in .env"}, HTTPStatus.INTERNAL_SERVER_ERROR)
             return
-        if body.get("username", "").strip() == username and body.get("password", "") == password:
+        if password and body.get("username", "").strip() == username and body.get("password", "") == password:
             token = secrets.token_hex(32)
             _sessions[token] = {
                 "expiry": time.time() + SESSION_TTL, "name": username, "type": "password",
@@ -671,6 +693,18 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "role": "super_admin", "scope": {"type": "company", "employeeIds": []},
             }
             self.send_json({"token": token, "name": username, "expires_in": SESSION_TTL})
+        elif test_employee_id := _test_account_employee_id(body.get("username", ""), body.get("password", "")):
+            # Test login: same role/scope resolution as a real SSO sign-in for that employee,
+            # so whoever is testing sees exactly what that person would see.
+            identity = access_control.resolve_identity(employee_id=test_employee_id)
+            display_name = f"{access_control.employee_name(test_employee_id) or test_employee_id} (test)"
+            token = secrets.token_hex(32)
+            _sessions[token] = {
+                "expiry": time.time() + SESSION_TTL, "name": display_name, "type": "test",
+                "role": identity["role"], "scope": identity["scope"], "employeeId": identity["employeeId"],
+            }
+            audit_log.record(who=f"test:{body.get('username', '').strip().lower()}", action="login", resource="test-account")
+            self.send_json({"token": token, "name": display_name, "expires_in": SESSION_TTL})
         else:
             time.sleep(1)  # slow brute-force attempts
             self.send_json({"error": "Invalid username or password."}, HTTPStatus.UNAUTHORIZED)

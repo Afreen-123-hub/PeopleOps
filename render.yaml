@@ -30,6 +30,9 @@ services:
         sync: false
       - key: PEOPLEOPS_PASSWORD
         sync: false
+      # Shared password for the role test logins in data/test-accounts.json (unset = disabled)
+      - key: PEOPLEOPS_TEST_PASSWORD
+        sync: false
       - key: ALLOWED_EMAILS
         sync: false
       - key: SSO_REDIRECT_URI

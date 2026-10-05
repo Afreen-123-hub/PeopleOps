@@ -1,0 +1,18 @@
+{
+  "_comment": "Test logins for checking what each role sees. Sign in on the normal login page with one of these usernames and the shared password from PEOPLEOPS_TEST_PASSWORD in .env (no password set = test logins disabled). Each login resolves its role and scope from the employee id exactly like a real SSO sign-in, via access_control.resolve_identity + data/role-overrides.json. Keys are usernames (lowercase), values are employee ids from data/org-hierarchy.json.",
+  "vijay": "TCINMD02",
+  "christy": "CWINE001",
+  "lexila": "CWINE154",
+  "neaven": "CWINE014",
+  "archana": "CWINE048",
+  "senthil": "CWINE053",
+  "sainath": "CWINE025",
+  "prasanth": "CWINE084",
+  "asir": "CWINE153",
+  "divyaravi": "CWINE121",
+  "divyasree": "CWINE074",
+  "nithisha": "CWINE016",
+  "dhinaanithi": "CWINE117",
+  "felista": "CWINE020",
+  "employee": "CWINE147"
+}

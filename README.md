@@ -52,6 +52,10 @@ You can also regenerate data through the backend:
 Invoke-WebRequest -Method POST http://localhost:8000/api/regenerate
 ```
 
+## Role Test Logins
+
+To check what each role sees, set `PEOPLEOPS_TEST_PASSWORD` in `.env` (or on Render) and sign in on the normal login page with a username from `data/test-accounts.json` (e.g. `vijay`, `christy`, `neaven`, `senthil`) and that password. Each test login gets the same role and scope that person would get through Microsoft SSO. Leave the variable unset to turn test logins off.
+
 ## Backend
 
 The backend is dependency-free and uses Python standard library only. No `pip install` is required.
