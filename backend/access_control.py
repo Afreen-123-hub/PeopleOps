@@ -43,6 +43,10 @@ def _org_employees() -> list[dict]:
     return _load_json(ORG_FILE, {}).get("employees", [])
 
 
+def employee_name(employee_id: str) -> str:
+    return next((str(e.get("name", "")) for e in _org_employees() if e.get("id") == employee_id), "")
+
+
 def _employee_id_for_email(email: str) -> str:
     """org-hierarchy.json has no email field, so a logged-in SSO email is resolved to an
     employee id via peopleops-data.json (the file that actually carries `email`) first."""

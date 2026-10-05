@@ -990,10 +990,10 @@ async function boot() {
       if (nameEl)   { nameEl.textContent = me.name; nameEl.title = me.name; }
       if (typeEl)   typeEl.textContent   = roleBadgeLabel(me.role, me.team, me.designation);
       if (wrapEl)   wrapEl.style.display = "flex";
-      // MTM verification is an admin-only tool — leadership signing in via SSO shouldn't see it
+      // MTM verification is an admin-only tool — leadership signing in via SSO (or a test login) shouldn't see it
       const mtmLink = document.getElementById("mtmVerifyLink");
       const mtmLabel = document.getElementById("mtmAdminLabel");
-      if (me.type === "sso") {
+      if (me.type !== "password") {
         if (mtmLink) mtmLink.style.display = "none";
         if (mtmLabel) mtmLabel.style.display = "none";
       }
