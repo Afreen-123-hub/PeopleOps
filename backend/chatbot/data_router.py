@@ -5,13 +5,15 @@ import re
 import threading
 from pathlib import Path
 
-DATA_FILE        = Path(__file__).resolve().parents[2] / "data" / "peopleops-data.json"
-MONTHS_DIR       = Path(__file__).resolve().parents[2] / "data" / "months"
-GITHUB_DATA_FILE = Path(__file__).resolve().parents[2] / "data" / "github-data.json"
-GRAPH_DATA_FILE  = Path(__file__).resolve().parents[2] / "data" / "graph-activity.json"
+DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
-# Thread-local storage so concurrent requests each use their own month data
+# Thread-local storage so concurrent requests each use their own month data (and demo flag)
 _tl = threading.local()
+
+
+def _data_dir() -> Path:
+    """data/, or data/demo/ (the fake dataset) when route() was called for a demo session."""
+    return DATA_DIR / "demo" if getattr(_tl, "demo", False) else DATA_DIR
 
 _PRONOUN_TRIGGERS = ("their", "them", "these people", "those people", "the same")
 
@@ -55,22 +57,23 @@ def _load() -> dict:
     override = getattr(_tl, "month_data", None)
     if override is not None:
         return override
-    return json.loads(DATA_FILE.read_text(encoding="utf-8-sig"))
+    return json.loads((_data_dir() / "peopleops-data.json").read_text(encoding="utf-8-sig"))
 
 
 def _available_months() -> list[str]:
     """Return sorted list of available month keys, e.g. ['2026-05', '2026-06']."""
-    if not MONTHS_DIR.exists():
+    months_dir = _data_dir() / "months"
+    if not months_dir.exists():
         return []
     return sorted([
-        p.stem for p in MONTHS_DIR.glob("*.json")
+        p.stem for p in months_dir.glob("*.json")
         if re.match(r"^\d{4}-\d{2}$", p.stem)
     ])
 
 
 def _load_month_file(ym_key: str) -> dict | None:
     """Load data for a specific YYYY-MM key. Returns None if file doesn't exist."""
-    path = MONTHS_DIR / f"{ym_key}.json"
+    path = _data_dir() / "months" / f"{ym_key}.json"
     if not path.exists():
         return None
     try:
@@ -95,10 +98,11 @@ def _data_period() -> str:
 
 
 def _load_graph() -> dict:
-    if not GRAPH_DATA_FILE.exists():
+    graph_file = _data_dir() / "graph-activity.json"
+    if not graph_file.exists():
         return {}
     try:
-        return json.loads(GRAPH_DATA_FILE.read_text(encoding="utf-8-sig"))
+        return json.loads(graph_file.read_text(encoding="utf-8-sig"))
     except (json.JSONDecodeError, OSError):
         return {}
 
@@ -482,6 +486,8 @@ def _name_score(full_name: str, query_name: str) -> int:
 
 def _fetch_live_presence(name: str) -> str | None:
     """Call Teams API live for a single employee's real-time presence status."""
+    if getattr(_tl, "demo", False):
+        return None  # demo people are fake: never look them up in the real Teams
     import sys
     from pathlib import Path
     project_root = Path(__file__).resolve().parents[2]
@@ -539,6 +545,8 @@ def _fetch_teams_today(name: str) -> dict:
 
     user_id = graph_emp.get("userId")
     result["name"] = graph_emp.get("name", name)
+    if getattr(_tl, "demo", False):
+        return result  # demo people are fake: never look them up in the real Teams/Calendar
 
     # 1. Live presence status
     if user_id:
@@ -782,10 +790,11 @@ _GITHUB_TASK_LIMIT = 8
 
 
 def get_github_data(question: str = "") -> dict:
-    if not GITHUB_DATA_FILE.exists():
+    github_file = _data_dir() / "github-data.json"
+    if not github_file.exists():
         return {"_note": "No GitHub data available yet. Ask the admin to refresh it.", "projects": [], "contributors": []}
     try:
-        raw = json.loads(GITHUB_DATA_FILE.read_text(encoding="utf-8"))
+        raw = json.loads(github_file.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
         return {"_note": "GitHub data could not be read.", "projects": [], "contributors": []}
 
@@ -1366,8 +1375,9 @@ _EMPLOYEE_HOLISTIC_KEYWORDS = (
 _LIST_STARTERS = ("who ", "show ", "list ", "which ", "give me", "find ")
 
 
-def route(category: str, question: str = "", history: list | None = None, active_month: str | None = None) -> dict:
+def route(category: str, question: str = "", history: list | None = None, active_month: str | None = None, demo: bool = False) -> dict:
     _tl.month_data = None  # reset any previous month override
+    _tl.demo = demo
 
     try:
         if category not in ("calendar", "availability"):

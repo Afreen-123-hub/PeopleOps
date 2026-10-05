@@ -27,6 +27,8 @@ DATA_FILE_MONTH = PROJECT_ROOT / "data" / "peopleops-data-month.json"  # temp fi
 GITHUB_DATA_FILE = PROJECT_ROOT / "data" / "github-data.json"
 GRAPH_DATA_FILE = PROJECT_ROOT / "data" / "graph-activity.json"
 MTM_TASKS_FILE = PROJECT_ROOT / "data" / "mtm-tasks.json"
+# Fake dataset for the demo login (scripts/generate_demo_data.py). A demo session reads only from here.
+DEMO_DIR = PROJECT_ROOT / "data" / "demo"
 GENERATOR = PROJECT_ROOT / "scripts" / "generate_peopleops_data.py"
 ATTENDANCE_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_attendance_month.py"
 TEAMS_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_teams.py"
@@ -35,12 +37,12 @@ GRAPH_REFRESHER = PROJECT_ROOT / "scripts" / "refresh_graph_activity.py"
 API_FETCHER = PROJECT_ROOT / "scripts" / "fetch_real_api_data.py"
 ENV_FILE = PROJECT_ROOT.parent / ".env"
 
-def _merge_mtm_sprint_data(data: dict) -> dict:
+def _merge_mtm_sprint_data(data: dict, tasks_file: Path = MTM_TASKS_FILE) -> dict:
     """Attach verified MTM sprint entries (from the MTM task API) onto each MTM employee's record,
     plus team-wide rollup stats (rank, share of team output, vs-team-average deltas) so an
     individual's contribution to their manager's team performance is visible, not just their own numbers."""
     try:
-        tasks = json.loads(MTM_TASKS_FILE.read_text(encoding="utf-8")) if MTM_TASKS_FILE.exists() else []
+        tasks = json.loads(tasks_file.read_text(encoding="utf-8")) if tasks_file.exists() else []
     except (json.JSONDecodeError, OSError):
         tasks = []
 
@@ -143,6 +145,15 @@ def _save_mtm_tasks(tasks: list[dict]) -> None:
     MTM_TASKS_FILE.write_text(json.dumps(tasks, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+def _demo_month_file(folder: str, month: str) -> dict | None:
+    """data/demo/<folder>/<YYYY-MM>.json for a demo session, or None if that month has no demo file."""
+    path = DEMO_DIR / folder / f"{month}.json"
+    try:
+        return json.loads(path.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
 def _known_mtm_ids() -> set[str]:
     data = json.loads(DATA_FILE.read_text(encoding="utf-8-sig"))
     return {str(e["id"]) for e in data.get("employees", []) if e.get("isMtm")}
@@ -156,6 +167,7 @@ _sessions: dict[str, dict] = {}  # token -> {expiry, name, type}
 _last_full_refresh: float = 0.0   # epoch seconds of last successful full refresh
 _refresh_lock = threading.Lock()
 
+PRIVATE_DIRS = {"backend", "services", "scripts", "venv", "env", "__pycache__"}
 PUBLIC_PATHS = {"/login.html", "/splash.html", "/api/login", "/styles.css", "/favicon.ico", "/auth/login", "/auth/callback"}
 _instance_lock = None
 
@@ -390,7 +402,7 @@ def _test_account_employee_id(username: str, password: str) -> str:
     or "" if it isn't one. Disabled entirely while PEOPLEOPS_TEST_PASSWORD is unset."""
     _load_env()
     test_password = os.environ.get("PEOPLEOPS_TEST_PASSWORD", "").strip()
-    if not test_password or not secrets.compare_digest(password, test_password):
+    if not test_password or not secrets.compare_digest(password.encode(), test_password.encode()):
         return ""
     try:
         accounts = json.loads(TEST_ACCOUNTS_FILE.read_text(encoding="utf-8"))
@@ -400,6 +412,13 @@ def _test_account_employee_id(username: str, password: str) -> str:
     if key.startswith("_"):
         return ""
     return str(accounts.get(key, ""))
+
+
+def _is_demo_login(username: str, password: str) -> bool:
+    """Username "demo" with PEOPLEOPS_DEMO_PASSWORD. Disabled while that variable is unset."""
+    _load_env()
+    demo_password = os.environ.get("PEOPLEOPS_DEMO_PASSWORD", "").strip()
+    return bool(demo_password) and username.strip().lower() == "demo" and secrets.compare_digest(password.encode(), demo_password.encode())
 
 
 def _is_valid_token(token: str) -> bool:
@@ -437,6 +456,9 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         token = auth[7:] if auth.startswith("Bearer ") else ""
         return _sessions.get(token, {})
 
+    def _is_demo(self) -> bool:
+        return self._current_session().get("type") == "demo"
+
     def _current_scope(self) -> dict:
         # Sessions created before RBAC (or ones missing a resolvable identity) default to
         # "self" — the least-access fallback — rather than failing open.
@@ -457,6 +479,13 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         path = urlparse(self.path).path
+
+        # The static file server's root is the whole project, so never serve server code,
+        # secrets (.env) or dot-folders (.git) from it, logged in or not.
+        segments = [s for s in unquote(path).replace("\\", "/").split("/") if s]
+        if any(s.startswith(".") for s in segments) or (segments and segments[0] in PRIVATE_DIRS):
+            self.send_json({"error": "Not found"}, HTTPStatus.NOT_FOUND)
+            return
 
         # Always allow login page and static assets
         if path == "/auth/login":
@@ -492,6 +521,9 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         if path.startswith("/data/"):
             if not self._require_auth():
                 return
+            if self._is_demo():  # the raw data files are real data
+                self.send_json({"error": "Not found"}, HTTPStatus.NOT_FOUND)
+                return
 
         super().do_GET()
 
@@ -507,6 +539,11 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             return
 
         if not self._require_auth():
+            return
+
+        if self._is_demo() and path not in ("/api/chat", "/api/refresh-month"):
+            # 409 rather than 403: the page shows 403 as "you don't have access", which isn't the case here.
+            self.send_json({"status": "failed", "error": "Demo mode: refresh is disabled.", "message": "Demo mode: refresh is disabled."}, HTTPStatus.CONFLICT)
             return
 
         if path == "/api/regenerate":
@@ -681,7 +718,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.send_json({"error": "Invalid request body."}, HTTPStatus.BAD_REQUEST)
             return
         username, password = _get_credentials()
-        if not password and not os.environ.get("PEOPLEOPS_TEST_PASSWORD", "").strip():
+        if not password and not any(os.environ.get(k, "").strip() for k in ("PEOPLEOPS_TEST_PASSWORD", "PEOPLEOPS_DEMO_PASSWORD")):
             self.send_json({"error": "Server has no password configured. Set PEOPLEOPS_PASSWORD in .env"}, HTTPStatus.INTERNAL_SERVER_ERROR)
             return
         if password and body.get("username", "").strip() == username and body.get("password", "") == password:
@@ -705,6 +742,15 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             }
             audit_log.record(who=f"test:{body.get('username', '').strip().lower()}", action="login", resource="test-account")
             self.send_json({"token": token, "name": display_name, "expires_in": SESSION_TTL})
+        elif _is_demo_login(body.get("username", ""), body.get("password", "")):
+            # Demo login: company-wide view of the fake dataset in data/demo/ only (see _is_demo).
+            token = secrets.token_hex(32)
+            _sessions[token] = {
+                "expiry": time.time() + SESSION_TTL, "name": "Demo User", "type": "demo",
+                "role": "super_admin", "scope": {"type": "company", "employeeIds": []},
+            }
+            audit_log.record(who="demo", action="login", resource="demo-account")
+            self.send_json({"token": token, "name": "Demo User", "expires_in": SESSION_TTL})
         else:
             time.sleep(1)  # slow brute-force attempts
             self.send_json({"error": "Invalid username or password."}, HTTPStatus.UNAUTHORIZED)
@@ -757,12 +803,12 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "team": (self.find_employee(data, current_session["employeeId"]) or {}).get("team", "") if current_session.get("employeeId") else "",
                 "designation": (self.find_employee(data, current_session["employeeId"]) or {}).get("designation", "") if current_session.get("employeeId") else "",
             },
-            "/api/available-months": lambda: {
+            "/api/available-months": lambda: (lambda months_dir: {
                 "months": sorted([
-                    p.stem for p in (PROJECT_ROOT / "data" / "months").glob("*.json")
+                    p.stem for p in months_dir.glob("*.json")
                     if __import__("re").match(r"^\d{4}-\d{2}$", p.stem)
-                ]) if (PROJECT_ROOT / "data" / "months").exists() else []
-            },
+                ]) if months_dir.exists() else []
+            })((DEMO_DIR if self._is_demo() else PROJECT_ROOT / "data") / "months"),
             # /api/data returns the whole cached dataset — its `employees` field is exactly
             # as sensitive as /api/employees and must be scoped the same way, or a team-scoped
             # user could bypass the /api/employees restriction just by calling this instead.
@@ -908,6 +954,9 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         if month > time.strftime("%Y-%m", time.gmtime(time.time() + 14 * 3600)):
             self.send_json({"error": "That month hasn't started yet."}, HTTPStatus.BAD_REQUEST)
             return
+        if self._is_demo():
+            self.send_json(_demo_month_file("leave", month) or {"month": month, "days": {}, "people": [], "wfh": "ready"})
+            return
         try:
             if str(PROJECT_ROOT) not in sys.path:
                 sys.path.insert(0, str(PROJECT_ROOT))
@@ -939,6 +988,9 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         if not months or len(months) > 24 or not all(re.fullmatch(r"\d{4}-(0[1-9]|1[0-2])", m) and m <= limit for m in months):
             self.send_json({"error": "months must be a comma-separated list of up to 24 past or current YYYY-MM months."}, HTTPStatus.BAD_REQUEST)
             return
+        if self._is_demo():  # demo leave files already include their work-from-home days
+            self.send_json({m: {"wfh": "ready"} for m in months})
+            return
         try:
             if str(PROJECT_ROOT) not in sys.path:
                 sys.path.insert(0, str(PROJECT_ROOT))
@@ -962,6 +1014,9 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         # +14h so a viewer in any timezone (IST is UTC+5:30) can open the month they're currently in
         if month > time.strftime("%Y-%m", time.gmtime(time.time() + 14 * 3600)):
             self.send_json({"error": "That month hasn't started yet."}, HTTPStatus.BAD_REQUEST)
+            return
+        if self._is_demo():
+            self.send_json(_demo_month_file("worklocation", month) or {"v": 2, "month": month, "people": [], "days": {}})
             return
         try:
             if str(PROJECT_ROOT) not in sys.path:
@@ -1068,6 +1123,21 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         month = str(body.get("month", "")).strip()
         if not re.fullmatch(r"\d{4}-\d{2}", month):
             self.send_json({"error": "Month must use YYYY-MM format."}, HTTPStatus.BAD_REQUEST)
+            return
+
+        if self._is_demo():
+            # Past months come from data/demo/months/; the latest month is the main demo file.
+            demo = _demo_month_file("months", month)
+            if not demo:
+                latest = self.load_data() or {}
+                demo = latest if latest.get("meta", {}).get("period", "").startswith(month) else None
+            if not demo or not demo.get("employees"):
+                self.send_json({"status": "failed", "message": f"No demo data for {month}."}, HTTPStatus.NOT_FOUND)
+                return
+            self.send_json({
+                "status": "cached", "month": month, "period": demo.get("meta", {}).get("period", ""),
+                "employees": len(demo["employees"]), "data": _merge_mtm_sprint_data(demo, DEMO_DIR / "mtm-tasks.json"),
+            })
             return
 
         # Acquire the same lock used by auto-refresh so both subprocesses
@@ -1265,15 +1335,17 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.send_json({"status": "failed", "message": detail}, HTTPStatus.INTERNAL_SERVER_ERROR)
 
     def load_github_data(self):
-        if not GITHUB_DATA_FILE.exists():
+        github_file = DEMO_DIR / "github-data.json" if self._is_demo() else GITHUB_DATA_FILE
+        if not github_file.exists():
             return {"projects": [], "contributors": [], "lastUpdated": None}
         try:
-            return json.loads(GITHUB_DATA_FILE.read_text(encoding="utf-8"))
+            return json.loads(github_file.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             return {"projects": [], "contributors": [], "lastUpdated": None}
 
     def load_graph_data(self):
-        if not GRAPH_DATA_FILE.exists():
+        graph_file = DEMO_DIR / "graph-activity.json" if self._is_demo() else GRAPH_DATA_FILE
+        if not graph_file.exists():
             return {
                 "meta": {"generatedAt": None},
                 "overview": {},
@@ -1282,7 +1354,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
                 "sharePoint": {"sites": []},
             }
         try:
-            return json.loads(GRAPH_DATA_FILE.read_text(encoding="utf-8-sig"))
+            return json.loads(graph_file.read_text(encoding="utf-8-sig"))
         except (json.JSONDecodeError, OSError):
             return {
                 "meta": {"generatedAt": None},
@@ -1335,7 +1407,7 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.send_json({"error": "No question provided."}, HTTPStatus.BAD_REQUEST)
             return
         try:
-            reply, category = tara_answer(question, history, active_month=active_month)
+            reply, category = tara_answer(question, history, active_month=active_month, demo=self._is_demo())
             self.send_json({"answer": reply, "category": category})
         except Exception as exc:
             import traceback
@@ -1353,6 +1425,9 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
 
     def load_data(self):
         try:
+            if self._is_demo():
+                data = json.loads((DEMO_DIR / "peopleops-data.json").read_text(encoding="utf-8-sig"))
+                return _merge_mtm_sprint_data(data, DEMO_DIR / "mtm-tasks.json")
             data = json.loads(DATA_FILE.read_text(encoding="utf-8-sig"))
             return _merge_mtm_sprint_data(data)
         except FileNotFoundError:

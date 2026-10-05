@@ -56,6 +56,18 @@ Invoke-WebRequest -Method POST http://localhost:8000/api/regenerate
 
 To check what each role sees, set `PEOPLEOPS_TEST_PASSWORD` in `.env` (or on Render) and sign in on the normal login page with a username from `data/test-accounts.json` (e.g. `vijay`, `christy`, `neaven`, `senthil`) and that password. Each test login gets the same role and scope that person would get through Microsoft SSO. Leave the variable unset to turn test logins off.
 
+## Demo Login
+
+For demos, sign in with username `demo` and the password in `PEOPLEOPS_DEMO_PASSWORD` (`.env` or Render). That session sees only the fake dataset in `data/demo/`: every name, id, email, project, meeting and link is made up, and scores are shifted. Refresh buttons, live Teams/GreytHR calls and MTM are off for it. Leave the variable unset to turn the demo login off.
+
+To rebuild the demo data after the real data changes:
+
+```powershell
+python .\scripts\generate_demo_data.py
+```
+
+It refuses to write anything if it finds a real name, id, email, login or company/client word in the output.
+
 ## Backend
 
 The backend is dependency-free and uses Python standard library only. No `pip install` is required.
