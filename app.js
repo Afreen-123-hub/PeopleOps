@@ -1116,6 +1116,7 @@ function clearPageSearches() {
     if (input) input.value = "";
   });
   if (typeof graphExplorerState !== "undefined") graphExplorerState.search = "";
+  if (mtmView.query) { mtmView.query = ""; renderMtmMembers(); }
   if (dataset && document.getElementById("projectGrid")) renderProjects(""); // Projects isn't redrawn on page switch
   if (!state.search) return;
   state.search = "";
@@ -1128,7 +1129,7 @@ function clearPageSearches() {
 
 function toggleControls(view) {
   const controls = document.querySelector(".controls");
-  controls.hidden = ["myteam", "attendance", "projects", "integrations", "github", "graph"].includes(view);
+  controls.hidden = ["myteam", "attendance", "mtm", "projects", "integrations", "github", "graph"].includes(view);
 }
 
 function setupFilters() {
@@ -1731,6 +1732,106 @@ setInterval(() => {
   else el.textContent = ovpCountdown(left);
 }, 1000);
 
+// "Full fusion": every core data source the KPI needs has a record for this person. Same rule as
+// generate_peopleops_data.py (Worklogix only counts for technical roles or people who are in
+// Worklogix). Worked out here instead of reading sourceConfidence, because the Teams refresh
+// rewrites sourceConfidence over all 8 sources and would make this count jump around.
+const CORE_SOURCES = { worklogix: "Worklogix", greythr: "GreytHR", biometrics: "Biometrics", teams: "Teams" };
+function coreSourceStatus(employee) {
+  const src = employee.sources || {};
+  const relevant = employee.roleCategory === "technical" || src.worklogix
+    ? Object.keys(CORE_SOURCES) : Object.keys(CORE_SOURCES).filter((k) => k !== "worklogix");
+  const missing = relevant.filter((k) => !src[k]);
+  return { relevant, missing, full: missing.length === 0, pct: Math.round(((relevant.length - missing.length) / relevant.length) * 100) };
+}
+
+// "Data coverage" box on the Integrations page: who is fully matched, and who is missing which source.
+// Shows the first 5 people; "Show all" expands the list (a search always shows every match).
+const fusionView = { tab: "full", query: "", sort: "kpi", missing: null, all: false };
+
+function renderFusionCoverage() {
+  const box = document.getElementById("fusionCoverage");
+  if (!box || !dataset) return;
+  const people = filteredEmployees.map((e) => ({ e, ...coreSourceStatus(e) }));
+  const full = people.filter((p) => p.full);
+  const partial = people.filter((p) => !p.full);
+  const view = fusionView;
+  const isFull = view.tab === "full";
+  if (!box.dataset.ready) {
+    box.dataset.ready = "1";
+    box.innerHTML = `
+      <div class="fz-head">
+        <div><h2>Data coverage</h2><p class="kpx-sub">Who has a record in every core source the KPI is built from, and who is missing one.</p></div>
+        <div class="fz-srcs">${Object.values(CORE_SOURCES).map((l) => `<span>${l}</span>`).join("")}</div>
+      </div>
+      <div class="fz-tabs" role="tablist"></div>
+      <div class="fz-tools">
+        <input type="search" class="kpx-search fz-search" placeholder="Search name, ID, team…" aria-label="Search people">
+        <select class="fz-sort" aria-label="Sort"><option value="kpi">KPI · high to low</option><option value="name">Name A–Z</option><option value="team">Team</option></select>
+      </div>
+      <div class="fz-missing"></div>
+      <div class="fz-list"></div>
+      <button type="button" class="fz-more"></button>`;
+    box.addEventListener("click", (event) => {
+      const tab = event.target.closest("[data-fz-tab]");
+      if (tab) { Object.assign(fusionView, { tab: tab.dataset.fzTab, missing: null, all: false }); return renderFusionCoverage(); }
+      const miss = event.target.closest("[data-fz-missing]");
+      if (miss) { Object.assign(fusionView, { missing: fusionView.missing === miss.dataset.fzMissing ? null : miss.dataset.fzMissing, all: false }); return renderFusionCoverage(); }
+      if (event.target.closest(".fz-more")) { fusionView.all = !fusionView.all; return renderFusionCoverage(); }
+      const row = event.target.closest(".fz-row[data-id]");
+      if (row) {
+        const employee = dataset.employees.find((e) => String(e.id) === row.dataset.id);
+        if (employee) showEmployee(employee);
+      }
+    });
+    box.querySelector(".fz-search").addEventListener("input", (event) => { fusionView.query = event.target.value; renderFusionCoverage(); });
+    box.querySelector(".fz-sort").addEventListener("change", (event) => { fusionView.sort = event.target.value; renderFusionCoverage(); });
+  }
+  const $ = (sel) => box.querySelector(sel);
+  $(".fz-tabs").innerHTML = `
+    <button type="button" data-fz-tab="full" class="${isFull ? "on" : ""}">Fully matched<small>${full.length}</small></button>
+    <button type="button" data-fz-tab="partial" class="${isFull ? "" : "on"}">Missing a source<small>${partial.length}</small></button>`;
+  const counts = {};
+  partial.forEach((p) => p.missing.forEach((k) => { counts[k] = (counts[k] || 0) + 1; }));
+  $(".fz-missing").innerHTML = isFull ? "" : Object.entries(counts).sort((a, b) => b[1] - a[1])
+    .map(([k, c]) => `<button type="button" data-fz-missing="${k}" class="${view.missing === k ? "on" : ""}">No ${CORE_SOURCES[k]} · ${c}</button>`).join("");
+  $(".fz-search").value = view.query;
+  $(".fz-sort").value = view.sort;
+  const q = view.query.trim().toLowerCase();
+  const rows = (isFull ? full : partial)
+    .filter((p) => !q || [p.e.name, p.e.id, p.e.team, p.e.designation].join(" ").toLowerCase().includes(q))
+    .filter((p) => isFull || !view.missing || p.missing.includes(view.missing))
+    .sort((a, b) => view.sort === "name" ? a.e.name.localeCompare(b.e.name)
+      : view.sort === "team" ? mergedTeam(a.e.team || "").localeCompare(mergedTeam(b.e.team || "")) || a.e.name.localeCompare(b.e.name)
+      : (b.e.kpi ?? -1) - (a.e.kpi ?? -1));
+  const shown = view.all || q ? rows : rows.slice(0, 5);
+  $(".fz-list").innerHTML = shown.map((p) => `
+    <button type="button" class="kpx-row fz-row" data-id="${escapeHtml(p.e.id)}">
+      <span class="kpx-avatar${p.e.isMtm ? " mtm" : ""}">${escapeHtml(avatarInitials(p.e.name))}</span>
+      <span class="kpx-name"><b>${escapeHtml(p.e.name)}</b><small>${escapeHtml(p.e.designation || "Unassigned")} · ${escapeHtml(mergedTeam(p.e.team || "Unassigned"))}</small></span>
+      <span class="fz-dots">${Object.entries(CORE_SOURCES).map(([k, l]) => !p.relevant.includes(k)
+        ? `<i class="na" title="Not expected for this role">– ${l}</i>`
+        : `<i class="${p.e.sources?.[k] ? "" : "no"}">${p.e.sources?.[k] ? "✓" : "✗"} ${l}</i>`).join("")}</span>
+      <span class="fz-kpi"><b>${p.e.roleCategory === "intern" ? "N/A" : (p.e.kpi ?? "—")}</b><small>${escapeHtml(p.e.band || "—")} · ${p.pct}%</small></span>
+    </button>`).join("") || `<p class="kpx-sub kpx-empty">No one matches.</p>`;
+  const more = $(".fz-more");
+  more.hidden = Boolean(q) || rows.length <= 5;
+  more.textContent = view.all ? "Show top 5 only ▴" : `Show all ${rows.length} (${rows.length - 5} more) ▾`;
+}
+
+// Overview "Full fusion" card → Integrations page, scrolled to the coverage box on the "Fully matched" tab.
+function openFusionCoverage() {
+  Object.assign(fusionView, { tab: "full", query: "", missing: null, all: false });
+  ovpGo("integrations");
+  renderFusionCoverage();
+  const box = document.getElementById("fusionCoverage");
+  if (!box) return;
+  box.classList.remove("fz-flash");
+  void box.offsetWidth; // restart the highlight animation
+  box.classList.add("fz-flash");
+  setTimeout(() => box.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+}
+
 function renderOverviewPrototype() {
   const root = document.getElementById("ovProto");
   if (!root || !dataset) return;
@@ -1741,14 +1842,15 @@ function renderOverviewPrototype() {
   const completed = sum(rows.map((e) => e.worklogix.completed));
   const officeHours = sum(rows.map((e) => e.attendance.officeHours));
   const online = rows.filter((e) => e.teams.isActive).length;
-  const fusion = rows.filter((e) => e.sourceConfidence === 100).length;
+  const fusion = rows.filter((e) => coreSourceStatus(e).full).length;
   const total = dataset.overview?.employees || dataset.employees.length;
   const activeCount = dataset.employees.filter((e) => e.active).length;
 
   // Tiles: value, label, sub-line; "go" tiles open that page, like the prototype.
   const tile = (value, label, sub, tone, go, big) => {
     const tag = go ? "button" : "div";
-    return `<${tag}${go ? ` type="button" data-ovp-go="${go}"` : ""} class="ovp-card ovp-k${big ? " ovp-big" : ""}">
+    const action = go === "fusion" ? ` type="button" data-ovp-fusion title="See who is fully matched (Integrations)"` : go ? ` type="button" data-ovp-go="${go}"` : "";
+    return `<${tag}${action} class="ovp-card ovp-k${big ? " ovp-big" : ""}">
       <b${tone ? ` class="ovp-t-${tone}"` : ""}>${value}</b>${label}<br><span>${sub}</span></${tag}>`;
   };
   const tiles = [
@@ -1758,7 +1860,7 @@ function renderOverviewPrototype() {
     tile(workItems ? `${Math.round((completed / workItems) * 100)}%` : "—", "Completed", workItems ? `${completed}/${workItems} work items` : "No Worklogix activity synced", workItems ? "G" : ""),
     tile(number.format(online), "Online now", "Teams presence", "", "teams"),
     tile(number.format(officeHours), "Office hours", `${number.format(rows.length ? officeHours / rows.length : 0)} avg / employee`, ""),
-    tile(number.format(fusion), "Full fusion", "All sources matched", "", "integrations"),
+    tile(number.format(fusion), "Full fusion", "All sources matched", "", isCompanyScope() ? "fusion" : ""),
   ].join("");
 
   // Engagement & output
@@ -1825,7 +1927,9 @@ document.addEventListener("click", (event) => {
   const emp = event.target.closest("[data-ovp-emp]");
   const live = event.target.closest("[data-ovp-live]");
   const go = event.target.closest("[data-ovp-go]");
-  if (dept) {
+  if (event.target.closest("[data-ovp-fusion]")) {
+    openFusionCoverage();
+  } else if (dept) {
     const bar = ovpDeptBars[Number(dept.dataset.ovpDept)];
     if (bar) renderDepartmentEmployees(bar);
   } else if (emp) {
@@ -1976,6 +2080,7 @@ function renderAll() {
   renderProjects();
   renderAlerts();
   renderIntegrations();
+  renderMtmMembers();
   drawDonutChart();
   drawScatter();
   document.getElementById("filteredCount").textContent = `${filteredEmployees.length} employees in view`;
@@ -2699,7 +2804,8 @@ const LEADERSHIP_AVATAR_COLORS = ["#6366f1", "#0891b2", "#d97706", "#be185d", "#
 function renderLeadershipStrip() {
   const strip = document.getElementById("leadershipStrip");
   if (!strip || !dataset) return;
-  const executives = (dataset.employees || []).filter(e => e.band === "Executive");
+  // MTM members are external contractors, not leadership, even if the data marks one as "Executive"
+  const executives = (dataset.employees || []).filter(e => e.band === "Executive" && !e.isMtm);
   strip.hidden = !executives.length;
   if (!executives.length) { strip.innerHTML = ""; return; }
   strip.innerHTML = `
@@ -2743,6 +2849,14 @@ function avatarColor(e) {
 
 let peopleBandChip = "All";
 
+// Employees "MTM members" chip and link: open the MTM Members page, carrying over any search.
+function openMtmPage() {
+  const query = document.getElementById("peopleSearchInput")?.value || "";
+  ovpGo("mtm"); // switching pages clears the searches...
+  Object.assign(mtmView, { filter: "all", team: "", all: false, query }); // ...so apply it after
+  renderMtmMembers();
+}
+
 function renderPeopleTable() {
   const meNorm = loggedInUserName.trim().toLowerCase();
   const isMe = (e) => meNorm && e.name.trim().toLowerCase() === meNorm;
@@ -2760,10 +2874,14 @@ function renderPeopleTable() {
     chips.onclick = (event) => {
       const chip = event.target.closest(".kpx-chip");
       if (!chip) return;
+      if (chip.dataset.band === "MTM") return openMtmPage();
       peopleBandChip = chip.dataset.band;
       renderPeopleTable();
     };
   }
+
+  const mtmCount = document.getElementById("peopleMtmCount");
+  if (mtmCount) mtmCount.textContent = filteredEmployees.filter((e) => e.isMtm).length;
 
   const typeBadge = (e) => {
     const eType = employeeType(e);
@@ -2783,18 +2901,18 @@ function renderPeopleTable() {
       <span class="kpx-tasks">${e.worklogix?.completed ?? 0}/${e.worklogix?.workItems ?? 0}</span>
     </button>`;
   };
+  // MTM members aren't ranked here: they have their own view behind the "MTM members" chip.
   const office = shown.filter(e => !e.isMtm);
-  const mtm = shown.filter(e => e.isMtm);
-  const divider = (label, count) => `<div class="kpx-divider">${label} · ${count}</div>`;
+  const mtmCountInView = filteredEmployees.filter(e => e.isMtm).length;
+  const mtmLink = !mtmCountInView ? ""
+    : `<button type="button" class="pm-hint" data-pm-open>◆ ${state.search
+      ? `${mtmCountInView} MTM member${mtmCountInView === 1 ? " also matches" : "s also match"} “${escapeHtml(state.search)}”.`
+      : `${mtmCountInView} MTM member${mtmCountInView === 1 ? " is" : "s are"} listed separately.`} <b>Show MTM members →</b></button>`;
 
-  document.getElementById("peopleTable").innerHTML = shown.length
-    ? [
-        ...(office.length && mtm.length ? [divider("Office", office.length)] : []),
-        ...office.map(makeEmpRow),
-        ...(mtm.length ? [divider("MTM · External", mtm.length)] : []),
-        ...mtm.map(makeEmpRow),
-      ].join("")
-    : `<p class="kpx-sub kpx-empty">No employees found. Try another band or search term.</p>`;
+  document.getElementById("peopleTable").innerHTML = (office.length
+    ? office.map(makeEmpRow).join("")
+    : (mtmLink ? "" : `<p class="kpx-sub kpx-empty">No employees found. Try another band or search term.</p>`)) + mtmLink;
+  document.querySelector("#peopleTable [data-pm-open]")?.addEventListener("click", openMtmPage);
 
   document.querySelectorAll("#peopleTable [data-id]").forEach((row) => {
     row.addEventListener("click", () => {
@@ -2803,7 +2921,7 @@ function renderPeopleTable() {
     });
   });
 
-  renderAwaitingData(awaiting);
+  renderAwaitingData(awaiting.filter((e) => !e.isMtm));
   renderPeopleStats();
 }
 
@@ -2829,11 +2947,11 @@ function renderPeopleStats() {
   const el = document.getElementById("peopleStatStrip");
   if (!el || !dataset) return;
   const nonExec = filteredEmployees.filter((e) => e.band !== "Executive");
-  const scoredCount = nonExec.filter((e) => e.kpi != null).length;
-  const awaitingCount = nonExec.filter((e) => e.kpi == null).length;
-  const execCount = filteredEmployees.filter((e) => e.band === "Executive").length;
+  const scoredCount = nonExec.filter((e) => e.kpi != null && !e.isMtm).length; // MTM are listed separately
+  const awaitingCount = nonExec.filter((e) => e.kpi == null && !e.isMtm).length;
+  const execCount = filteredEmployees.filter((e) => e.band === "Executive" && !e.isMtm).length;
   el.innerHTML = `
-    <div class="kpx-card kpx-stat"><b>${scoredCount}</b>Scored &amp; ranked<small>Shown below</small></div>
+    <div class="kpx-card kpx-stat"><b>${scoredCount}</b>Scored &amp; ranked<small>Office employees · MTM listed separately</small></div>
     <div class="kpx-card kpx-stat watch"><b>${awaitingCount}</b>Awaiting data<small>No Worklogix link yet</small></div>
     <div class="kpx-card kpx-stat exec"><b>${execCount}</b>Executives<small>Scored by team performance</small></div>
     <div class="kpx-card kpx-stat"><b>${filteredEmployees.length}</b>Total headcount<small>Matching current filters</small></div>`;
@@ -3252,6 +3370,17 @@ function closeBandDrawer() {
 // Team summary view state: kept while the page is open, reset on reload.
 const attRollupView = { sort: "att", showAll: false };
 
+// Present days as a % of scheduled working days so far (week offs and holidays excluded).
+function attendancePct(e) {
+  const att = e.attendance || {};
+  const cal = att.calendarDays || ((att.present ?? 0) + (att.absent ?? 0) + (att.off ?? 0) + (att.leave ?? 0) + (att.holidays ?? 0));
+  if (!cal) return null;
+  const elapsedSum = (att.present ?? 0) + (att.absent ?? 0) + (att.leave ?? 0) + (att.off ?? 0) + (att.holidays ?? 0);
+  const elapsed = att.calendarDays ? Math.min(cal, elapsedSum) : cal;
+  const sched = Math.max(1, elapsed - (att.off ?? 0) - (att.holidays ?? 0));
+  return Math.min(100, Math.round(((att.present ?? 0) / sched) * 100));
+}
+
 function renderAttendanceTeamRollup() {
   const container = document.getElementById("attendanceTeamRollup");
   if (!container) return;
@@ -3263,15 +3392,7 @@ function renderAttendanceTeamRollup() {
     teamMap[team].push(e);
   });
 
-  function empAttPct(e) {
-    const att = e.attendance || {};
-    const cal = att.calendarDays || ((att.present ?? 0) + (att.absent ?? 0) + (att.off ?? 0) + (att.leave ?? 0) + (att.holidays ?? 0));
-    if (!cal) return null;
-    const elapsedSum = (att.present ?? 0) + (att.absent ?? 0) + (att.leave ?? 0) + (att.off ?? 0) + (att.holidays ?? 0);
-    const elapsed = att.calendarDays ? Math.min(cal, elapsedSum) : cal;
-    const sched = Math.max(1, elapsed - (att.off ?? 0) - (att.holidays ?? 0));
-    return Math.min(100, Math.round(((att.present ?? 0) / sched) * 100));
-  }
+  const empAttPct = attendancePct;
 
   function avgOf(members, fn) {
     const vals = members.map(fn).filter(v => v != null && isFinite(v));
@@ -3698,7 +3819,7 @@ async function renderIntegrations() {
   document.getElementById("integrationRoadmapStats").innerHTML = `
     <div class="kpx-card kpx-stat ${liveCount === items.length ? "good" : "watch"}"><b>${liveCount} / ${items.length}</b>Connectors live<small>${liveCount === items.length ? "All syncing normally" : `${items.length - liveCount} need attention`}</small></div>
     <div class="kpx-card kpx-stat"><b>Daily</b>Auto-refresh<small>Plus “Refresh now” on each page</small></div>
-    <div class="kpx-card kpx-stat"><b>1</b>Under consideration<small>Slack real-time presence</small></div>`;
+    <div class="kpx-card kpx-stat good"><b>${filteredEmployees.filter((e) => coreSourceStatus(e).full).length}</b>Full fusion<small>Employees with all core sources</small></div>`;
 
   document.getElementById("integrationGrid").innerHTML = items.map(([name, files, detail, status], index) => `
     <article class="kpx-card int-card" data-int="${index}" role="button" tabindex="0" title="Show ${escapeHtml(name)} details">
@@ -3713,6 +3834,7 @@ async function renderIntegrations() {
 
   document.getElementById("integrationNote").innerHTML =
     "All connectors refresh automatically every day, in addition to the manual <b>Refresh now</b> button on each page. Under consideration: Slack integration for real-time presence.";
+  renderFusionCoverage();
 
   const openConnector = (index) => {
     const [name, files, detail, status] = items[index];
@@ -3761,6 +3883,304 @@ async function renderIntegrations() {
     card.onclick = () => openConnector(Number(card.dataset.int));
     card.onkeydown = (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openConnector(Number(card.dataset.int)); } };
   });
+}
+
+// ── MTM Members page ──
+// External contract team. They have no Worklogix or biometric records, so they are measured on
+// verified sprint delivery (data/mtm-tasks.json, merged onto each MTM employee by the server as
+// mtmSprints). Delivery = tasks completed / assigned over all verified sprints.
+const mtmView = { filter: "all", query: "", team: "", sort: "delivery", all: false };
+
+function mtmMembers(employees = dataset?.employees || []) {
+  const sum = (list, pick) => list.reduce((total, item) => total + (Number(pick(item)) || 0), 0);
+  return employees.filter((e) => e.isMtm).map((e) => {
+    const sprints = [...(e.mtmSprints || [])].sort((a, b) => String(a.sprint).localeCompare(String(b.sprint)));
+    const assigned = sum(sprints, (s) => s.tasks_assigned);
+    const completed = sum(sprints, (s) => s.tasks_completed);
+    return {
+      e, sprints, assigned, completed,
+      rate: assigned ? Math.round((completed / assigned) * 1000) / 10 : null,
+      util: sprints.length ? Math.round((sum(sprints, (s) => s.utilisation) / sprints.length) * 100) : null,
+      status: e.teams?.status || "Offline",
+    };
+  });
+}
+
+const mtmTone = (rate) => (rate >= 90 ? "good" : rate >= 70 ? "watch" : "risk");
+
+function renderMtmMembers() {
+  const root = document.getElementById("mtmPage");
+  if (!root || !dataset) return;
+  const members = mtmMembers();
+  const railItem = document.querySelector('.rail-item[data-view="mtm"]');
+  if (railItem) railItem.hidden = !members.length; // nothing to show for scopes without MTM members
+  if (!members.length) {
+    root.innerHTML = `<article class="kpx-card"><p class="kpx-sub kpx-empty">No MTM members in your view.</p></article>`;
+    return;
+  }
+  const withData = members.filter((m) => m.rate != null);
+  const teamAssigned = withData.reduce((t, m) => t + m.assigned, 0);
+  const teamCompleted = withData.reduce((t, m) => t + m.completed, 0);
+  const teamRate = teamAssigned ? Math.round((teamCompleted / teamAssigned) * 1000) / 10 : null;
+  const teamUtil = withData.length ? Math.round(withData.reduce((t, m) => t + m.util, 0) / withData.length) : null;
+  const ranked = [...withData].sort((a, b) => b.completed - a.completed);
+
+  if (!root.dataset.ready) {
+    root.dataset.ready = "1";
+    root.innerHTML = `
+      <div class="mm-head">
+        <div><h2>MTM Members</h2><p class="kpx-sub">External contract team, measured on verified sprint delivery (not Worklogix or office biometrics).</p></div>
+        <span class="mm-pill">● Sprint data from MTM Verification</span>
+      </div>
+      <div id="mtmStats" class="kpx-grid"></div>
+      <div class="mm-two">
+        <article class="kpx-card"><h3>Sprint delivery</h3><p class="kpx-sub">Tasks completed vs assigned, all verified MTM entries per sprint</p><div id="mtmTrend" class="mm-trend"></div>
+          <div class="mm-legend"><span><i class="done"></i>Completed</span><span><i></i>Assigned</span></div></article>
+        <article class="kpx-card"><h3>Top contributors</h3><p class="kpx-sub">By tasks completed across all sprints</p><div id="mtmLeaders" class="mm-leaders"></div></article>
+      </div>
+      <article class="kpx-card">
+        <div class="mm-tools">
+          <div class="mm-seg" id="mtmFilter"></div>
+          <input id="mtmSearch" class="kpx-search" type="search" placeholder="Search name, ID, role, manager…" aria-label="Search MTM members">
+          <select id="mtmTeam" class="mm-select" aria-label="Team"></select>
+          <select id="mtmSort" class="mm-select" aria-label="Sort"><option value="delivery">Delivery · high to low</option><option value="name">Name A–Z</option><option value="team">Team</option><option value="util">Utilisation</option></select>
+        </div>
+        <div class="mm-thead"><span>Member</span><span>Team · Manager</span><span>Attendance</span><span>Sprint delivery</span><span>Util.</span></div>
+        <div id="mtmList"></div>
+        <button type="button" class="mm-more" id="mtmMore"></button>
+      </article>`;
+    root.addEventListener("click", (event) => {
+      const seg = event.target.closest("[data-mm-filter]");
+      if (seg) { Object.assign(mtmView, { filter: seg.dataset.mmFilter, all: false }); return renderMtmMembers(); }
+      if (event.target.closest("#mtmMore")) { mtmView.all = !mtmView.all; return renderMtmMembers(); }
+      if (event.target.closest("[data-mm-groups]")) return showMtmGroups();
+      const person = event.target.closest("[data-mm-id]");
+      if (person) showMtmMember(person.dataset.mmId);
+    });
+    root.querySelector("#mtmSearch").addEventListener("input", (event) => { mtmView.query = event.target.value; renderMtmMembers(); });
+    root.querySelector("#mtmTeam").addEventListener("change", (event) => { Object.assign(mtmView, { team: event.target.value, all: false }); renderMtmMembers(); });
+    root.querySelector("#mtmSort").addEventListener("change", (event) => { mtmView.sort = event.target.value; renderMtmMembers(); });
+  }
+  const $ = (sel) => root.querySelector(sel);
+  const teams = [...new Set(members.map((m) => mergedTeam(m.e.team || "Unassigned")))].sort();
+  const managers = new Set(members.map((m) => m.e.managerName).filter(Boolean));
+  const online = members.filter((m) => m.status === "Available").length;
+
+  $("#mtmStats").innerHTML = `
+    <button type="button" class="kpx-card kpx-stat mm-violet mm-stat-click" data-mm-groups title="See teams and managers"><b>${members.length}</b>MTM members<small>${teams.length} teams · ${managers.size} managers</small></button>
+    <div class="kpx-card kpx-stat ${withData.length < members.length ? "watch" : "good"}"><b>${withData.length} / ${members.length}</b>With sprint data<small>${members.length - withData.length} awaiting verified entries</small></div>
+    <div class="kpx-card kpx-stat ${teamRate == null ? "" : mtmTone(teamRate)}"><b>${teamRate ?? "—"}${teamRate == null ? "" : "%"}</b>Team delivery<small>${teamCompleted} of ${teamAssigned} tasks completed</small></div>
+    <div class="kpx-card kpx-stat"><b>${teamUtil ?? "—"}${teamUtil == null ? "" : "%"}</b>Avg utilisation<small>Across ${withData.length} contributors</small></div>
+    <div class="kpx-card kpx-stat"><b>${online}</b>Online now<small>Teams presence</small></div>`;
+
+  // Per-sprint totals across everyone with verified entries
+  const bySprint = new Map();
+  withData.forEach((m) => m.sprints.forEach((s) => {
+    const row = bySprint.get(s.sprint) || { assigned: 0, completed: 0 };
+    row.assigned += Number(s.tasks_assigned) || 0;
+    row.completed += Number(s.tasks_completed) || 0;
+    bySprint.set(s.sprint, row);
+  }));
+  const sprintRows = [...bySprint.entries()].sort((a, b) => String(a[0]).localeCompare(String(b[0])));
+  const peak = Math.max(1, ...sprintRows.map(([, r]) => r.assigned));
+  $("#mtmTrend").innerHTML = sprintRows.map(([sprint, r]) => `
+    <div class="mm-col" title="Sprint ${escapeHtml(sprint)}: ${r.completed}/${r.assigned} tasks">
+      <span class="mm-pct">${r.assigned ? Math.round((r.completed / r.assigned) * 100) : 0}%</span>
+      <div class="mm-bars"><span class="mm-as" style="height:${(r.assigned / peak) * 100}%"></span><span class="mm-cp" style="height:${(r.completed / peak) * 100}%"></span></div>
+      <small>${escapeHtml(String(sprint).slice(5))}</small>
+    </div>`).join("") || `<p class="kpx-sub kpx-empty">No verified sprint entries yet.</p>`;
+
+  $("#mtmLeaders").innerHTML = ranked.slice(0, 6).map((m, i) => `
+    <button type="button" data-mm-id="${escapeHtml(m.e.id)}">
+      <span class="mm-rank">${i + 1}</span>
+      <span class="kpx-avatar mtm">${escapeHtml(avatarInitials(m.e.name))}</span>
+      <span class="mm-name"><b>${escapeHtml(m.e.name)}</b><small>${m.completed} tasks · ${m.rate}% delivery</small></span>
+      <span class="mm-share"><b>${teamCompleted ? Math.round((m.completed / teamCompleted) * 100) : 0}%</b><small>of output</small></span>
+    </button>`).join("") || `<p class="kpx-sub kpx-empty">No verified sprint entries yet.</p>`;
+
+  $("#mtmFilter").innerHTML = [["all", "All", members.length], ["data", "With sprint data", withData.length], ["await", "Awaiting data", members.length - withData.length]]
+    .map(([key, label, count]) => `<button type="button" data-mm-filter="${key}" class="${mtmView.filter === key ? "on" : ""}">${label}<small>${count}</small></button>`).join("");
+  const teamSelect = $("#mtmTeam");
+  if (!teams.includes(mtmView.team)) mtmView.team = "";
+  teamSelect.innerHTML = `<option value="">All teams</option>` + teams.map((t) => `<option${t === mtmView.team ? " selected" : ""}>${escapeHtml(t)}</option>`).join("");
+  $("#mtmSearch").value = mtmView.query;
+  $("#mtmSort").value = mtmView.sort;
+
+  const q = mtmView.query.trim().toLowerCase();
+  const rows = members
+    .filter((m) => mtmView.filter === "all" || (mtmView.filter === "data") === (m.rate != null))
+    .filter((m) => !mtmView.team || mergedTeam(m.e.team || "Unassigned") === mtmView.team)
+    .filter((m) => !q || [m.e.name, m.e.id, m.e.designation, m.e.managerName, m.e.team].join(" ").toLowerCase().includes(q))
+    .sort((a, b) => mtmView.sort === "name" ? a.e.name.localeCompare(b.e.name)
+      : mtmView.sort === "team" ? mergedTeam(a.e.team || "").localeCompare(mergedTeam(b.e.team || "")) || a.e.name.localeCompare(b.e.name)
+      : mtmView.sort === "util" ? (b.util ?? -1) - (a.util ?? -1)
+      : (b.rate ?? -1) - (a.rate ?? -1) || a.e.name.localeCompare(b.e.name));
+  const shown = mtmView.all || q ? rows : rows.slice(0, 10);
+  $("#mtmList").innerHTML = shown.map((m) => {
+    const att = m.e.attendance || {};
+    return `
+    <button type="button" class="mm-row" data-mm-id="${escapeHtml(m.e.id)}">
+      <span class="kpx-avatar mtm mm-av">${escapeHtml(avatarInitials(m.e.name))}<i class="mm-dot ${escapeHtml(m.status)}" title="Teams: ${escapeHtml(m.status)}"></i></span>
+      <span class="mm-name"><b>${escapeHtml(m.e.name)}</b><small>${escapeHtml(m.e.designation || "Unassigned")} · ${escapeHtml(m.e.id)}</small></span>
+      <span class="mm-name mm-c-team"><b>${escapeHtml(mergedTeam(m.e.team || "Unassigned"))}</b><small>${m.e.managerName ? `↳ ${escapeHtml(m.e.managerName)}` : "—"}</small></span>
+      <span class="mm-att mm-c-att"><b>${att.present ?? 0}</b> present${att.leave ? ` · ${att.leave} leave` : ""}</span>
+      <span class="mm-c-dl">${m.rate != null
+        ? `<span class="mm-dl"><span class="mm-bar"><i class="${mtmTone(m.rate)}" style="width:${Math.min(100, m.rate)}%"></i></span><b>${m.rate}%</b></span><small>${m.completed}/${m.assigned} tasks · ${m.sprints.length} sprints</small>`
+        : `<span class="mm-await">Awaiting verified sprints</span>`}</span>
+      <span class="mm-util">${m.util != null ? `${m.util}%` : "—"}</span>
+    </button>`;
+  }).join("") || `<p class="kpx-sub kpx-empty">No one matches.</p>`;
+  const more = $("#mtmMore");
+  more.hidden = Boolean(q) || rows.length <= 10;
+  more.textContent = mtmView.all ? "Show first 10 only ▴" : `Show all ${rows.length} (${rows.length - 10} more) ▾`;
+}
+
+// Side panel from the "MTM members" card: the team grouped by team or by manager.
+// Each group opens to list its people; a person opens their panel, with a way back here.
+function showMtmGroups(groupBy = "team") {
+  const members = mtmMembers();
+  const byTeam = groupBy === "team";
+  const keyOf = (m) => byTeam ? mergedTeam(m.e.team || "Unassigned") : (m.e.managerName || "No manager");
+  const otherOf = (m) => byTeam ? m.e.managerName : mergedTeam(m.e.team || "Unassigned");
+  const grouped = new Map();
+  members.forEach((m) => {
+    const key = keyOf(m);
+    if (!grouped.has(key)) grouped.set(key, []);
+    grouped.get(key).push(m);
+  });
+  const groups = [...grouped.entries()].map(([name, list]) => {
+    const withData = list.filter((m) => m.rate != null);
+    const assigned = withData.reduce((t, m) => t + m.assigned, 0);
+    const completed = withData.reduce((t, m) => t + m.completed, 0);
+    return {
+      name, withData: withData.length,
+      list: list.sort((a, b) => (b.rate ?? -1) - (a.rate ?? -1) || a.e.name.localeCompare(b.e.name)),
+      rate: assigned ? Math.round((completed / assigned) * 1000) / 10 : null,
+      others: [...new Set(list.map(otherOf).filter(Boolean))],
+    };
+  }).sort((a, b) => b.list.length - a.list.length || a.name.localeCompare(b.name));
+  const teamCount = new Set(members.map((m) => mergedTeam(m.e.team || "Unassigned"))).size;
+  const managerCount = new Set(members.map((m) => m.e.managerName).filter(Boolean)).size;
+  const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
+
+  document.getElementById("kpxDrawer")?.remove();
+  const drawer = document.createElement("div");
+  drawer.id = "kpxDrawer";
+  drawer.className = "kpx-drawer";
+  drawer.innerHTML = `
+    <div class="kpx-panel mm-panel" role="dialog" aria-modal="true" aria-label="MTM teams and managers">
+      <button type="button" class="kpx-close" aria-label="Close">✕</button>
+      <h2 class="mm-gtitle">MTM members · ${members.length}</h2>
+      <p class="kpx-sub mm-gsub">Where the external contract team sits, and who they report to. Open a group to see its people.</p>
+      <div class="mm-seg mm-gseg">
+        <button type="button" data-mm-group="team" class="${byTeam ? "on" : ""}">By team<small>${teamCount}</small></button>
+        <button type="button" data-mm-group="manager" class="${byTeam ? "" : "on"}">By manager<small>${managerCount}</small></button>
+      </div>
+      ${groups.map((g) => `
+        <div class="mm-grp">
+          <button type="button" class="mm-grp-head" aria-expanded="false">
+            <span class="mm-gi${byTeam ? "" : " mgr"}">${byTeam ? g.list.length : escapeHtml(avatarInitials(g.name))}</span>
+            <span class="mm-name"><b>${escapeHtml(g.name)}</b>
+              <small>${byTeam
+                ? `${plural(g.list.length, "member")} · ${plural(g.others.length, "manager")}: ${escapeHtml(g.others.join(", "))}`
+                : `${plural(g.list.length, "report")} · ${escapeHtml(g.others.join(", "))}`}</small>
+              <span class="mm-gbar" title="${g.list.length} of ${members.length} MTM members"><i style="width:${(g.list.length / members.length) * 100}%"></i></span></span>
+            <span class="mm-gv">${g.rate != null
+              ? `<b class="mm-t-${mtmTone(g.rate)}">${g.rate}%</b><small>delivery · ${g.withData}/${g.list.length} with data</small>`
+              : `<b>—</b><small>no sprint data yet</small>`}</span>
+            <span class="mm-chev">›</span>
+          </button>
+          <div class="mm-gm">${g.list.map((m) => `
+            <button type="button" data-mm-person="${escapeHtml(m.e.id)}">
+              <span class="kpx-avatar mtm mm-av">${escapeHtml(avatarInitials(m.e.name))}<i class="mm-dot ${escapeHtml(m.status)}"></i></span>
+              <span class="mm-name"><b>${escapeHtml(m.e.name)}</b><small>${escapeHtml(m.e.designation || "Unassigned")} · ${byTeam ? `↳ ${escapeHtml(m.e.managerName || "—")}` : escapeHtml(mergedTeam(m.e.team || "Unassigned"))}</small></span>
+              ${m.rate != null ? `<span class="mm-gpv mm-t-${mtmTone(m.rate)}">${m.rate}%</span>` : `<span class="mm-gpv mm-gpv-none">Awaiting</span>`}
+            </button>`).join("")}</div>
+        </div>`).join("")}
+    </div>`;
+  const close = () => { drawer.remove(); document.removeEventListener("keydown", onKey); };
+  const onKey = (event) => { if (event.key === "Escape") close(); };
+  drawer.addEventListener("click", (event) => {
+    if (event.target === drawer || event.target.closest(".kpx-close")) return close();
+    const seg = event.target.closest("[data-mm-group]");
+    if (seg) { close(); return showMtmGroups(seg.dataset.mmGroup); }
+    const head = event.target.closest(".mm-grp-head");
+    if (head) {
+      const open = head.parentElement.classList.toggle("open");
+      head.setAttribute("aria-expanded", String(open));
+      return;
+    }
+    const person = event.target.closest("[data-mm-person]");
+    if (person) { close(); showMtmMember(person.dataset.mmPerson, () => showMtmGroups(groupBy)); }
+  });
+  document.addEventListener("keydown", onKey);
+  document.body.appendChild(drawer);
+}
+
+// Side panel for one MTM member: delivery ring, team comparison and a bar per sprint.
+// onBack (optional) adds a link back to the panel it was opened from.
+function showMtmMember(id, onBack) {
+  const members = mtmMembers();
+  const m = members.find((x) => String(x.e.id) === String(id));
+  if (!m) return;
+  const withData = members.filter((x) => x.rate != null);
+  const teamAssigned = withData.reduce((t, x) => t + x.assigned, 0);
+  const teamCompleted = withData.reduce((t, x) => t + x.completed, 0);
+  const teamRate = teamAssigned ? Math.round((teamCompleted / teamAssigned) * 1000) / 10 : null;
+  const teamUtil = withData.length ? Math.round(withData.reduce((t, x) => t + x.util, 0) / withData.length) : null;
+  const rank = [...withData].sort((a, b) => b.completed - a.completed).indexOf(m) + 1;
+  const att = m.e.attendance || {};
+  const vsTeam = m.rate != null && teamRate != null ? Math.round((m.rate - teamRate) * 10) / 10 : null;
+  document.getElementById("kpxDrawer")?.remove();
+  const drawer = document.createElement("div");
+  drawer.id = "kpxDrawer";
+  drawer.className = "kpx-drawer";
+  drawer.innerHTML = `
+    <div class="kpx-panel mm-panel" role="dialog" aria-modal="true" aria-label="${escapeHtml(m.e.name)}">
+      <button type="button" class="kpx-close" aria-label="Close">✕</button>
+      ${onBack ? `<button type="button" class="mm-back">← Teams &amp; managers</button>` : ""}
+      <div class="mm-ph">
+        <span class="kpx-avatar mtm mm-av mm-av-lg">${escapeHtml(avatarInitials(m.e.name))}<i class="mm-dot ${escapeHtml(m.status)}"></i></span>
+        <div><h2>${escapeHtml(m.e.name)} <span class="mm-pill mm-pill-sm">MTM</span></h2>
+          <p class="kpx-sub">${escapeHtml(m.e.designation || "Unassigned")} · ${escapeHtml(mergedTeam(m.e.team || "Unassigned"))}</p>
+          <p class="kpx-sub">Reports to <b>${escapeHtml(m.e.managerName || "—")}</b> · Teams: ${escapeHtml(m.status)}</p></div>
+        ${m.rate != null ? `<div class="mm-ring ${mtmTone(m.rate)}" style="--p:${Math.min(100, m.rate)}"><div><b>${m.rate}</b><small>Delivery</small></div></div>` : ""}
+      </div>
+      ${m.rate != null ? `
+      <div class="mm-kv">
+        <div><b>${m.completed} / ${m.assigned}</b><small>Tasks done / assigned</small></div>
+        <div><b>${m.util}%</b><small>Avg utilisation (team ${teamUtil}%)</small></div>
+        <div><b>#${rank} of ${withData.length}</b><small>Rank · ${teamCompleted ? Math.round((m.completed / teamCompleted) * 100) : 0}% of output</small></div>
+        <div><b class="${vsTeam >= 0 ? "mm-up" : "mm-down"}">${vsTeam >= 0 ? "+" : ""}${vsTeam} pts</b><small>Delivery vs team ${teamRate}%</small></div>
+        <div><b>${att.present ?? 0}</b><small>Present days (GreytHR)</small></div>
+        <div><b>${att.leave ?? 0}</b><small>Leave days</small></div>
+      </div>
+      <h3 class="mm-sec">Sprint by sprint</h3>
+      ${m.sprints.map((s) => `
+        <div class="mm-spr">
+          <span>${escapeHtml(s.sprint)}</span>
+          <span class="mm-bar"><i class="${s.tasks_completed < s.tasks_assigned ? "watch" : "good"}" style="width:${s.tasks_assigned ? Math.min(100, (s.tasks_completed / s.tasks_assigned) * 100) : 0}%"></i></span>
+          <span>${s.tasks_completed}/${s.tasks_assigned}</span>
+          <span>${Math.round((Number(s.utilisation) || 0) * 100)}%</span>
+        </div>`).join("")}` : `
+      <p class="mm-note">No verified sprint entries yet. Once entries are approved in MTM Verification, delivery, utilisation and ranking appear here.</p>
+      <div class="mm-kv">
+        <div><b>${att.present ?? 0}</b><small>Present days</small></div>
+        <div><b>${att.leave ?? 0}</b><small>Leave days</small></div>
+        <div><b>${att.absent ?? 0}</b><small>Absent</small></div>
+      </div>`}
+      <button type="button" class="mm-profile">Open full profile →</button>
+      <p class="kpx-sub mm-foot">MTM members are scored on verified sprint delivery, not the standard KPI, because they have no Worklogix or biometric records.</p>
+    </div>`;
+  const close = () => { drawer.remove(); document.removeEventListener("keydown", onKey); };
+  const onKey = (event) => { if (event.key === "Escape") close(); };
+  drawer.addEventListener("click", (event) => {
+    if (event.target === drawer || event.target.closest(".kpx-close")) return close();
+    if (event.target.closest(".mm-profile")) { close(); showEmployee(m.e); }
+    if (onBack && event.target.closest(".mm-back")) { close(); onBack(); }
+  });
+  document.addEventListener("keydown", onKey);
+  document.body.appendChild(drawer);
 }
 
 function drawScatter() {

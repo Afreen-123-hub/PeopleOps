@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
     <link rel="icon" type="image/svg+xml" href="peopleops-icon.svg">
-    <link rel="stylesheet" href="styles.css?v=20261001-search2">
+    <link rel="stylesheet" href="styles.css?v=20261005-mtm6">
     <link rel="stylesheet" href="leave-types.css?v=20260921-leavetypes">
     <link rel="stylesheet" href="work-location.css?v=20260925-search">
     <link rel="stylesheet" href="overview.css?v=20260929-greet2">
@@ -33,6 +33,10 @@
         <button class="rail-item" data-view="attendance" title="Attendance">
           <svg class="rail-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Attendance
+        </button>
+        <button class="rail-item" data-view="mtm" title="MTM Members">
+          <svg class="rail-icon" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          MTM Members
         </button>
         <div class="rail-nav-label">Data Sources</div>
         <button class="rail-item" data-view="teams" title="Teams">
@@ -394,6 +398,8 @@
                 <button type="button" class="kpx-chip" data-band="Good">Good</button>
                 <button type="button" class="kpx-chip" data-band="Watch">Watch</button>
                 <button type="button" class="kpx-chip" data-band="At risk">At risk</button>
+                <span class="pm-sep" aria-hidden="true"></span>
+                <button type="button" class="kpx-chip pm-chip" data-band="MTM" title="Open the MTM Members page">◆ MTM members <b id="peopleMtmCount"></b> →</button>
                 <input id="peopleSearchInput" class="kpx-search" type="search" placeholder="Search name, ID, team, designation">
               </div>
               <div id="peopleTable"></div>
@@ -403,6 +409,10 @@
               </details>
             </article>
           </div>
+        </section>
+
+        <section id="mtm" class="view">
+          <div id="mtmPage" class="kpx-layout"></div>
         </section>
 
         <section id="projects" class="view">
@@ -672,6 +682,7 @@
           <div class="kpx-layout">
             <div id="integrationRoadmapStats" class="kpx-grid"></div>
             <div id="integrationGrid" class="int-grid"></div>
+            <div id="fusionCoverage" class="kpx-card fz-box"></div>
             <p id="integrationNote" class="kpx-sub int-note"></p>
           </div>
         </section>
@@ -768,9 +779,9 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20261001-search2"></script>
-    <script src="leave-types.js?v=20261001-search2"></script>
-    <script src="work-location.js?v=20261001-search2"></script>
-    <script src="graph-explorer.js?v=20261001-search2"></script>
+    <script src="app.js?v=20261005-mtm6"></script>
+    <script src="leave-types.js?v=20261005-mtm6"></script>
+    <script src="work-location.js?v=20261005-mtm6"></script>
+    <script src="graph-explorer.js?v=20261005-mtm6"></script>
   </body>
 </html>
