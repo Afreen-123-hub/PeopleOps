@@ -299,7 +299,15 @@ BLOCKED_IDS = {
     # GreytHR's own test/sample row (name "TEST"), surfaced once fetch_greythr_mtm_employees
     # started reading the full reporting hierarchy instead of one manager's direct reports.
     "EM01",
+    # Worklogix test users (personal gmail, names like "test(002)", "key", "elephant").
+    "EMP-202", "ss", "hu88uh", "EMP-0111", "234yu7i",
+    # Worklogix test users with throwaway emails (yopmail) or placeholder gmail addresses.
+    "869452310.", "EMP-1003", "89456213000......---==", "EMP-1001", "dfgcvl",
+    "EMP-1002", "EMP-1004", "EMP-1005", "ka101", "CWINE232", "EMP-223",
 }
+
+# Disposable-inbox domains used only for test accounts.
+BLOCKED_EMAIL_DOMAINS = {"yopmail.com"}
 
 def is_real_employee(user):
     emp_id = clean(user.get("user_id") or user.get("id"))
@@ -308,6 +316,9 @@ def is_real_employee(user):
     team = clean(user.get("team")).lower()
     designation = clean(user.get("designation")).lower()
     if emp_id in BLOCKED_IDS:
+        return False
+    email = clean(user.get("email") or user.get("mail")).lower()
+    if email.rpartition("@")[2] in BLOCKED_EMAIL_DOMAINS:
         return False
     if role == "7" or emp_id.startswith("CLT"):
         return False
@@ -327,7 +338,7 @@ def is_real_employee(user):
         return False
     # Names beginning with "test ", containing "(test", or containing " test" as a word
     # Catches: "Test Hr", "AARON Test Leadership", "Nithisha Test-PM", "Sam PM(Testing )", etc.
-    if name.startswith("test ") or "(test" in name or " test" in name:
+    if name.startswith(("test ", "test(")) or "(test" in name or " test" in name:
         return False
     # Accounts with no team AND no designation are incomplete placeholders
     if not team and not designation:
