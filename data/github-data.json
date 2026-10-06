@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-05T10:44:45.880827Z",
+  "lastUpdated": "2026-10-06T10:39:06.179202Z",
   "period": {
     "since": "2026-10-01",
     "until": "2026-10-31"
@@ -1484,12 +1484,145 @@
       "title": "Edubot_CPLC",
       "items": [
         {
-          "title": "Admin Role - Register Batch – Courses Multi-Select Does Not Filter Options Based on Search Input",
+          "title": "Admin – Task Allows Past Date in Due Date Field",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/425",
+          "createdAt": "2026-10-05T12:07:31Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Bug: Mentor Portal Functionality",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/11",
+          "createdAt": "2026-07-13T05:07:47Z",
+          "closedAt": "2026-07-13T07:58:04Z",
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "# Backend: Add IT asset tracking section to Learner Onboarding",
+          "status": "Blocked",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/382",
+          "createdAt": "2026-09-28T07:31:18Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Default Values Are Automatically Displayed for Start Time, End Time, Max Marks, and Passing Marks",
           "status": "In Progress",
           "priority": "",
           "size": "",
           "assignees": [
             "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/431",
+          "createdAt": "2026-10-06T06:19:32Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Start Time and End Time Are Displayed by Default",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/430",
+          "createdAt": "2026-10-06T05:55:06Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Mentor - Category Dropdown Is Not Available in Create a Post Form",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/418",
+          "createdAt": "2026-10-05T09:45:10Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Study Material Allows Uploading File After Changing Resource Type",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/424",
+          "createdAt": "2026-10-05T11:39:23Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Admin Role - Regularization Request History Is Not Displayed in History Tab",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/414",
+          "createdAt": "2026-10-05T09:29:44Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Admin – Learner/Mentor Registration Does Not Show Validation for Empty ID and Roll Number",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/422",
+          "createdAt": "2026-10-05T10:25:23Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Admin Role - Register Batch – Courses Multi-Select Does Not Filter Options Based on Search Input",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/421",
@@ -1515,11 +1648,11 @@
         },
         {
           "title": "Admin Role - Mentor and Learner Leave options are not correctly selected from the Leave Approvals section",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/413",
@@ -1560,7 +1693,7 @@
         },
         {
           "title": "# Frontend: Automatically show assignment/task feedback and grades in the Grade tab",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1575,7 +1708,7 @@
         },
         {
           "title": "# Frontend: Add “Withdraw Application” option for submitted leave requests",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1590,7 +1723,7 @@
         },
         {
           "title": "# Frontend: Add Location field for physical/offline sessions in Class Scheduler",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1620,7 +1753,7 @@
         },
         {
           "title": "# Frontend: Allow learners to request and track Attendance Regularization",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1634,23 +1767,8 @@
           "endDate": ""
         },
         {
-          "title": "# Backend: Add IT asset tracking section to Learner Onboarding",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/382",
-          "createdAt": "2026-09-28T07:31:18Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "# Frontend: Add “All Batches” / “Select All” option in Schedule Module",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1665,7 +1783,7 @@
         },
         {
           "title": "# Frontend: Display uploaded images correctly aligned and framed",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1695,7 +1813,7 @@
         },
         {
           "title": "# Frontend: Display Attendance Log in chronological order in Learner ESS",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1710,7 +1828,7 @@
         },
         {
           "title": "# Frontend: Display holidays and assessment dates on the Calendar",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1740,7 +1858,7 @@
         },
         {
           "title": "# Backend: Auto-align / adapt uploaded images to available display space",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1755,7 +1873,7 @@
         },
         {
           "title": "# Backend: Return Attendance Log records in chronological order for Learner ESS",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1770,7 +1888,7 @@
         },
         {
           "title": "# Backend: Add “All Batches” / “Select All” support for multi-batch event scheduling",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1785,7 +1903,7 @@
         },
         {
           "title": "# Backend: Enable Calendar to fetch holidays and assessment dates",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1815,7 +1933,7 @@
         },
         {
           "title": "# Backend: Resolve multi-batch scheduling conflicts in Calendar Module",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1830,7 +1948,7 @@
         },
         {
           "title": "# Backend: Support Attendance Regularization requests for missing or incorrect records",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1890,7 +2008,7 @@
         },
         {
           "title": "# Backend: Terminology update – “Mentor” → “Mentors”, “Students” → “Learners”",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1935,7 +2053,7 @@
         },
         {
           "title": "# Backend: Support multi-file add, view, and delete for Assignment/Task Submission",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1950,7 +2068,7 @@
         },
         {
           "title": "# Frontend: Enable multiple file uploads per section in Lesson Plan Builder",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1965,7 +2083,7 @@
         },
         {
           "title": "# Backend: Support multiple file uploads per section in Lesson Plan Builder",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2025,7 +2143,7 @@
         },
         {
           "title": "# Backend: Make Interactive Checkpoints optional in Lesson Plan Builder",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2040,7 +2158,7 @@
         },
         {
           "title": "# Backend: Support PPT, JPG/images, and short videos as study materials",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2055,7 +2173,7 @@
         },
         {
           "title": "# Backend: Auto-reflect assignment/task feedback and grades in the Grade tab",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2070,7 +2188,7 @@
         },
         {
           "title": "# Backend: Add “Withdraw Application” support for submitted leave requests",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2862,132 +2980,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "[version-2 CPLC]Modules removed from Admin permissions in the Super Admin Portal are still visible in the Admin Portal",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/160",
-          "createdAt": "2026-07-31T00:09:35Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Task Due Date is Incorrectly Displayed as the Next Day After Publishing",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/243",
-          "createdAt": "2026-08-10T08:40:52Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[version-2 CPLC] Mentor can schedule a class for another mentor.",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/252",
-          "createdAt": "2026-08-11T07:25:01Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Dashboard Grades summary is not reflected in the Grades module",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/233",
-          "createdAt": "2026-08-07T06:49:57Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Student Leave module displays leave types that are not applicable to students",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/238",
-          "createdAt": "2026-08-10T05:08:28Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[version-2 CPLC] Student Lesson Plan navigation does not match Mentor Preview behavior for newly published modules",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/237",
-          "createdAt": "2026-08-10T05:02:57Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Signed-in  is incorrectly counted as absent in Mentor Dashboard",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/210",
-          "createdAt": "2026-08-06T05:39:30Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Incorrect sick leave allocation displayed in Mentor Leave Apply page",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/218",
-          "createdAt": "2026-08-06T09:18:54Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 70,
-        "inProgress": 29,
+        "done": 86,
+        "inProgress": 12,
         "todo": 0,
         "backlog": 0,
         "production": 0
@@ -3068,6 +3066,36 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/94",
           "createdAt": "2026-09-28T09:20:03Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Voice Recording Displays \"Disabled in Expo Go\" Error in Chat on iOS",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/77",
+          "createdAt": "2026-08-25T12:22:04Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "iOS – API Failure and Inconsistent Toast Messages for Report, Video, and Quiz in Visualize Module",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/93",
+          "createdAt": "2026-09-28T06:34:55Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3173,21 +3201,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/76",
           "createdAt": "2026-08-25T12:19:04Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Voice Recording Displays \"Disabled in Expo Go\" Error in Chat on iOS",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/77",
-          "createdAt": "2026-08-25T12:22:04Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3952,28 +3965,13 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "iOS – API Failure and Inconsistent Toast Messages for Report, Video, and Quiz in Visualize Module",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/93",
-          "createdAt": "2026-09-28T06:34:55Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 65,
         "done": 1,
-        "inProgress": 56,
-        "todo": 2,
+        "inProgress": 58,
+        "todo": 0,
         "backlog": 6,
         "production": 0
       }
@@ -6793,7 +6791,7 @@
       "title": "Worklogix",
       "items": [
         {
-          "title": "Team Lead – Dashboard – Change “All Projects” Section to “Active Projects”",
+          "title": "PM/Leadership – Task Report → Timesheet – Excessive Page Scrolling",
           "status": "In Progress",
           "priority": "",
           "size": "",
@@ -6801,38 +6799,8 @@
             "nithisha-01"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/310",
-          "createdAt": "2026-09-30T07:01:23Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Suggestion – Daily Updates Table Enhancement",
-          "status": "In Progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "nithisha-01"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/151",
-          "createdAt": "2026-08-24T11:31:42Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Task Report – Utilization Report Filter Dropdowns Overlap Page Layout While Scrolling",
-          "status": "In Progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "nithisha-01"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/344",
-          "createdAt": "2026-10-05T05:44:36Z",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/322",
+          "createdAt": "2026-10-01T07:27:22Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -6853,12 +6821,57 @@
           "endDate": ""
         },
         {
-          "title": "Leadership/PM – Employee Performance Analytics Employee Filter Does Not Show All Employees",
-          "status": "In Progress",
+          "title": "Team Lead – Dashboard – Change “All Projects” Section to “Active Projects”",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/310",
+          "createdAt": "2026-09-30T07:01:23Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Suggestion – Daily Updates Table Enhancement",
+          "status": "QA Review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/151",
+          "createdAt": "2026-08-24T11:31:42Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Task Report – Utilization Report Filter Dropdowns Overlap Page Layout While Scrolling",
+          "status": "QA Review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/344",
+          "createdAt": "2026-10-05T05:44:36Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Leadership/PM – Employee Performance Analytics Employee Filter Does Not Show All Employees",
+          "status": "QA Completed",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/330",
@@ -6869,11 +6882,11 @@
         },
         {
           "title": "PM – Employee Performance Analytics Employee Filter Does Not Display All Employees",
-          "status": "In Progress",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "nithisha-01"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/342",
@@ -6914,7 +6927,7 @@
         },
         {
           "title": "Leadership – Notification Option Is Not Available",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7121,21 +7134,6 @@
           "closedAt": null,
           "startDate": "2026-09-04",
           "endDate": "2026-09-04"
-        },
-        {
-          "title": "Intern Attendance Sign-In Button",
-          "status": "QA Completed",
-          "priority": "P0",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/49",
-          "createdAt": "2026-06-26T11:46:56Z",
-          "closedAt": null,
-          "startDate": "2026-08-12",
-          "endDate": "2026-08-12"
         },
         {
           "title": "Task Approval Notification Not Received by Project Manager",
@@ -7586,6 +7584,21 @@
           "closedAt": "2026-06-29T05:42:24Z",
           "startDate": "2026-06-10",
           "endDate": "2026-06-16"
+        },
+        {
+          "title": "Intern Attendance Sign-In Button",
+          "status": "QA Completed",
+          "priority": "P0",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/49",
+          "createdAt": "2026-06-26T11:46:56Z",
+          "closedAt": null,
+          "startDate": "2026-08-12",
+          "endDate": "2026-08-12"
         },
         {
           "title": "HR – Visitor Name Sorting Issue",
@@ -8276,27 +8289,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Clicking the Codework logo in the Team Lead Portal incorrectly navigates to the Employee List page, even though the Employee List module is not available in the sidebar.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/98",
-          "createdAt": "2026-08-10T11:29:09Z",
-          "closedAt": null,
-          "startDate": "2026-08-17",
-          "endDate": "2026-08-17"
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 6,
+        "inProgress": 2,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -10439,6 +10437,24 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "Admin – Task Allows Past Date in Due Date Field",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "# Backend: Add IT asset tracking section to Learner Onboarding",
+          "status": "Blocked",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Study Material Allows Uploading File After Changing Resource Type",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Frontend Ticket - Notifications: Introduce a notification tone/sound for assigned tasks and received/posted messages.",
           "status": "Completed in QA",
           "priority": ""
@@ -10446,19 +10462,19 @@
         {
           "project": "Edubot_CPLC",
           "title": "# Frontend: Automatically show assignment/task feedback and grades in the Grade tab",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Frontend: Add “Withdraw Application” option for submitted leave requests",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Frontend: Add Location field for physical/offline sessions in Class Scheduler",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -10470,25 +10486,19 @@
         {
           "project": "Edubot_CPLC",
           "title": "# Frontend: Allow learners to request and track Attendance Regularization",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "# Backend: Add IT asset tracking section to Learner Onboarding",
           "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Frontend: Add “All Batches” / “Select All” option in Schedule Module",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Frontend: Display uploaded images correctly aligned and framed",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -10500,13 +10510,13 @@
         {
           "project": "Edubot_CPLC",
           "title": "# Frontend: Display Attendance Log in chronological order in Learner ESS",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Frontend: Display holidays and assessment dates on the Calendar",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -10518,25 +10528,25 @@
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Auto-align / adapt uploaded images to available display space",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Return Attendance Log records in chronological order for Learner ESS",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Add “All Batches” / “Select All” support for multi-batch event scheduling",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Enable Calendar to fetch holidays and assessment dates",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -10548,13 +10558,13 @@
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Resolve multi-batch scheduling conflicts in Calendar Module",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Support Attendance Regularization requests for missing or incorrect records",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -10578,7 +10588,7 @@
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Terminology update – “Mentor” → “Mentors”, “Students” → “Learners”",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -10596,19 +10606,19 @@
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Support multi-file add, view, and delete for Assignment/Task Submission",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Frontend: Enable multiple file uploads per section in Lesson Plan Builder",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Support multiple file uploads per section in Lesson Plan Builder",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -10632,25 +10642,25 @@
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Make Interactive Checkpoints optional in Lesson Plan Builder",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Support PPT, JPG/images, and short videos as study materials",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Auto-reflect assignment/task feedback and grades in the Grade tab",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Add “Withdraw Application” support for submitted leave requests",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -10930,54 +10940,6 @@
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC]Modules removed from Admin permissions in the Super Admin Portal are still visible in the Admin Portal",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Task Due Date is Incorrectly Displayed as the Next Day After Publishing",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC] Mentor can schedule a class for another mentor.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Dashboard Grades summary is not reflected in the Grades module",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Student Leave module displays leave types that are not applicable to students",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC] Student Lesson Plan navigation does not match Mentor Preview behavior for newly published modules",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Signed-in  is incorrectly counted as absent in Mentor Dashboard",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Incorrect sick leave allocation displayed in Mentor Leave Apply page",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
           "project": "Worklogix",
           "title": "Duplicate Employee ID Validation Shown on Email Field",
           "status": "QA Completed",
@@ -11032,9 +10994,9 @@
           "priority": ""
         }
       ],
-      "total": 142,
-      "done": 65,
-      "inProgress": 25,
+      "total": 136,
+      "done": 80,
+      "inProgress": 3,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -11051,8 +11013,62 @@
       "tasks": [
         {
           "project": "Edubot_CPLC",
+          "title": "Admin Role - Regularization Request History Is Not Displayed in History Tab",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin – Learner/Mentor Registration Does Not Show Validation for Empty ID and Roll Number",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin Role - Register Batch – Courses Multi-Select Does Not Filter Options Based on Search Input",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin Role - Mentor and Learner Leave options are not correctly selected from the Leave Approvals section",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "[version-2 CPLC] Admin and Super Admin users are automatically logged out with an incorrect “Account Deactivated” error message.",
           "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Team Lead – Dashboard – Change “All Projects” Section to “Active Projects”",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Suggestion – Daily Updates Table Enhancement",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Task Report – Utilization Report Filter Dropdowns Overlap Page Layout While Scrolling",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Leadership/PM – Employee Performance Analytics Employee Filter Does Not Show All Employees",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "PM – Employee Performance Analytics Employee Filter Does Not Display All Employees",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11070,7 +11086,7 @@
         {
           "project": "Worklogix",
           "title": "Leadership – Notification Option Is Not Available",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11144,12 +11160,6 @@
           "title": "Intern - Work From Home Sign In Reloads Page Without Signing In",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Intern Attendance Sign-In Button",
-          "status": "QA Completed",
-          "priority": "P0"
         },
         {
           "project": "Worklogix",
@@ -11280,6 +11290,12 @@
         {
           "project": "Worklogix",
           "title": "Visitor Log Management",
+          "status": "QA Completed",
+          "priority": "P0"
+        },
+        {
+          "project": "Worklogix",
+          "title": "Intern Attendance Sign-In Button",
           "status": "QA Completed",
           "priority": "P0"
         },
@@ -11546,23 +11562,85 @@
           "title": "Application error occurs when the Team Lead opens the Daily Update module.",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Clicking the Codework logo in the Team Lead Portal incorrectly navigates to the Employee List page, even though the Employee List module is not available in the sidebar.",
-          "status": "QA Completed",
-          "priority": ""
         }
       ],
-      "total": 84,
+      "total": 92,
       "done": 1,
-      "inProgress": 0,
+      "inProgress": 4,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
+    },
+    {
+      "login": "nithisha-01",
+      "projects": [
+        "Edubot_V3",
+        "Worklogix",
+        "Hirelysze",
+        "HireLens"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "AI Plagiarism & Academic Integrity – Frontend",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "LMS Integration – Backend",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "PM/Leadership – Task Report → Timesheet – Excessive Page Scrolling",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "PM/Leadership – Task Report Utilization Report Filters Have Layout Issue While Scrolling",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Hirelysze",
+          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Add “Forgot Password” functionality to the HireLernse application.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Interview duration allows 1 min — missing minimum limit validation.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 8,
+      "done": 0,
+      "inProgress": 2,
+      "commits": 24,
+      "prs": 11,
+      "prsMerged": 11,
+      "prReviews": 2,
+      "additions": 480,
+      "deletions": 149
     },
     {
       "login": "manju-209",
@@ -11766,98 +11844,6 @@
       "deletions": 0
     },
     {
-      "login": "nithisha-01",
-      "projects": [
-        "Edubot_V3",
-        "Worklogix",
-        "Hirelysze",
-        "HireLens"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "AI Plagiarism & Academic Integrity – Frontend",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "LMS Integration – Backend",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Team Lead – Dashboard – Change “All Projects” Section to “Active Projects”",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Suggestion – Daily Updates Table Enhancement",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Task Report – Utilization Report Filter Dropdowns Overlap Page Layout While Scrolling",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "PM/Leadership – Task Report Utilization Report Filters Have Layout Issue While Scrolling",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Leadership/PM – Employee Performance Analytics Employee Filter Does Not Show All Employees",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "PM – Employee Performance Analytics Employee Filter Does Not Display All Employees",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Hirelysze",
-          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Add “Forgot Password” functionality to the HireLernse application.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Interview duration allows 1 min — missing minimum limit validation.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 12,
-      "done": 0,
-      "inProgress": 6,
-      "commits": 14,
-      "prs": 10,
-      "prsMerged": 10,
-      "prReviews": 1,
-      "additions": 51,
-      "deletions": 2
-    },
-    {
       "login": "Antony-Bilgates",
       "projects": [
         "Edubot_V3",
@@ -11880,19 +11866,19 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Admin Role - Register Batch – Courses Multi-Select Does Not Filter Options Based on Search Input",
+          "title": "Default Values Are Automatically Displayed for Start Time, End Time, Max Marks, and Passing Marks",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Start Time and End Time Are Displayed by Default",
           "status": "In Progress",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin Role - Assign IT Asset toggle cannot be disabled while registering a learner",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin Role - Mentor and Learner Leave options are not correctly selected from the Leave Approvals section",
           "status": "In Progress",
           "priority": ""
         },
@@ -11947,19 +11933,19 @@
         {
           "project": "SabAi Bible App",
           "title": "Voice Recording Displays \"Disabled in Expo Go\" Error in Chat on iOS",
-          "status": "TODO",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "iOS – API Failure and Inconsistent Toast Messages for Report, Video, and Quiz in Visualize Module",
+          "status": "In progress",
           "priority": ""
         },
         {
           "project": "SabAi Bible App",
           "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
           "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS – API Failure and Inconsistent Toast Messages for Report, Video, and Quiz in Visualize Module",
-          "status": "TODO",
           "priority": ""
         },
         {
@@ -12013,10 +11999,10 @@
       ],
       "total": 24,
       "done": 4,
-      "inProgress": 13,
+      "inProgress": 15,
       "commits": 0,
-      "prs": 2,
-      "prsMerged": 2,
+      "prs": 3,
+      "prsMerged": 3,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -12417,8 +12403,8 @@
       "done": 4,
       "inProgress": 8,
       "commits": 0,
-      "prs": 1,
-      "prsMerged": 1,
+      "prs": 5,
+      "prsMerged": 4,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -12514,6 +12500,29 @@
       "deletions": 0
     },
     {
+      "login": "Kxrthikeyan-76",
+      "projects": [
+        "Worklogix"
+      ],
+      "tasks": [
+        {
+          "project": "Worklogix",
+          "title": "Leadership Role – Wrong Date and Back Navigation Issue",
+          "status": "Backlog",
+          "priority": ""
+        }
+      ],
+      "total": 1,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 5,
+      "prs": 3,
+      "prsMerged": 3,
+      "prReviews": 0,
+      "additions": 276,
+      "deletions": 157
+    },
+    {
       "login": "Vinoth-codework",
       "projects": [
         "Devops"
@@ -12561,32 +12570,10 @@
       "deletions": 0
     },
     {
-      "login": "Kxrthikeyan-76",
-      "projects": [
-        "Worklogix"
-      ],
-      "tasks": [
-        {
-          "project": "Worklogix",
-          "title": "Leadership Role – Wrong Date and Back Navigation Issue",
-          "status": "Backlog",
-          "priority": ""
-        }
-      ],
-      "total": 1,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 3,
-      "prs": 2,
-      "prsMerged": 2,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "inbarasuv",
       "projects": [
-        "Edubot_V3"
+        "Edubot_V3",
+        "Edubot_CPLC"
       ],
       "tasks": [
         {
@@ -12594,11 +12581,17 @@
           "title": "Institution Logo/Image Not Displaying",
           "status": "Backlog",
           "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Mentor - Category Dropdown Is Not Available in Create a Post Form",
+          "status": "In Progress",
+          "priority": ""
         }
       ],
-      "total": 1,
+      "total": 2,
       "done": 0,
-      "inProgress": 0,
+      "inProgress": 1,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -12625,7 +12618,7 @@
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
-      "prReviews": 0,
+      "prReviews": 1,
       "additions": 0,
       "deletions": 0
     },
