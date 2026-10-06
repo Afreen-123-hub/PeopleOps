@@ -34,7 +34,7 @@ def _parse_hour(s: str | None, utc_to_ist: bool = False) -> float | None:
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORKSPACE_ROOT = PROJECT_ROOT.parent
-ENV_FILES = (WORKSPACE_ROOT / ".env", PROJECT_ROOT / ".env")
+ENV_FILES = (WORKSPACE_ROOT / ".env", PROJECT_ROOT / ".env", PROJECT_ROOT / "backend" / ".env")
 PLACEHOLDER_VALUES = {
     "PUT_GREYTHR_USERNAME_HERE",
     "PUT_GREYTHR_PASSWORD_HERE",
