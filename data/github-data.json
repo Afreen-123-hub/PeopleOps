@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-06T10:39:06.179202Z",
+  "lastUpdated": "2026-10-07T10:29:55.728774Z",
   "period": {
     "since": "2026-10-01",
     "until": "2026-10-31"
@@ -60,6 +60,36 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/131",
           "createdAt": "2026-09-17T10:26:30Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Subscription Plan Cannot Be Modified for Existing Institution",
+          "status": "In Review QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/143",
+          "createdAt": "2026-09-23T09:30:46Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Mandatory Field Does Not Display Inline Validation Message",
+          "status": "In Review QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/154",
+          "createdAt": "2026-09-25T12:02:13Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -170,21 +200,6 @@
           "endDate": ""
         },
         {
-          "title": "Mandatory Field Does Not Display Inline Validation Message",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "sriramgowthamE"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/154",
-          "createdAt": "2026-09-25T12:02:13Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Incorrect Validation Behavior for Invalid Email Input",
           "status": "In Review QA",
           "priority": "",
@@ -210,21 +225,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/144",
           "createdAt": "2026-09-23T11:13:13Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Subscription Plan Cannot Be Modified for Existing Institution",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "sriramgowthamE"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/143",
-          "createdAt": "2026-09-23T09:30:46Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -1455,12 +1455,72 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Backend - Admin User Seat Allowance Update",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/157",
+          "createdAt": "2026-10-07T04:54:38Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Frontend - Admin User Seat Allowance Update",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/158",
+          "createdAt": "2026-10-07T04:56:24Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Backend Ticket - Subscription Plan Modification in Institution",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/159",
+          "createdAt": "2026-10-07T05:12:43Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Frontend - Subscription Plan Modification in Institution",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/160",
+          "createdAt": "2026-10-07T05:15:04Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 94,
+        "total": 98,
         "done": 9,
-        "inProgress": 2,
+        "inProgress": 0,
         "todo": 0,
         "backlog": 6,
         "production": 0
@@ -1483,6 +1543,96 @@
       "number": 41,
       "title": "Edubot_CPLC",
       "items": [
+        {
+          "title": "End Date Allows Selection of a Date Earlier Than the Start Date",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/445",
+          "createdAt": "2026-10-07T09:26:23Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Duplicate Data Validation Not Implemented During Bulk Excel Import",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/446",
+          "createdAt": "2026-10-07T09:29:25Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Version-2 CPLC] Inconsistent spacing in module option cards",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/202",
+          "createdAt": "2026-08-05T17:03:45Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "# Backend: Add IT asset tracking section to Learner Onboarding",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/382",
+          "createdAt": "2026-09-28T07:31:18Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Regularization Request Type Is Selected by Default",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/437",
+          "createdAt": "2026-10-06T10:58:26Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Deleted Learner Status Is Not Updated After Changing Active/Inactive Status",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/435",
+          "createdAt": "2026-10-06T10:54:02Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Admin – Task Allows Past Date in Due Date Field",
           "status": "Completed in QA",
@@ -1512,27 +1662,12 @@
           "endDate": ""
         },
         {
-          "title": "# Backend: Add IT asset tracking section to Learner Onboarding",
-          "status": "Blocked",
+          "title": "Default Values Are Automatically Displayed for Start Time, End Time, Max Marks, and Passing Marks",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
             "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/382",
-          "createdAt": "2026-09-28T07:31:18Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Default Values Are Automatically Displayed for Start Time, End Time, Max Marks, and Passing Marks",
-          "status": "In Progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/431",
@@ -1543,11 +1678,11 @@
         },
         {
           "title": "Start Time and End Time Are Displayed by Default",
-          "status": "In Progress",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/430",
@@ -1558,11 +1693,11 @@
         },
         {
           "title": "Mentor - Category Dropdown Is Not Available in Create a Post Form",
-          "status": "In Progress",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "inbarasuv"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/418",
@@ -1588,7 +1723,7 @@
         },
         {
           "title": "Admin Role - Regularization Request History Is Not Displayed in History Tab",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1603,7 +1738,7 @@
         },
         {
           "title": "Admin – Learner/Mentor Registration Does Not Show Validation for Empty ID and Roll Number",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1618,7 +1753,7 @@
         },
         {
           "title": "Admin Role - Register Batch – Courses Multi-Select Does Not Filter Options Based on Search Input",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1633,11 +1768,11 @@
         },
         {
           "title": "Admin Role - Assign IT Asset toggle cannot be disabled while registering a learner",
-          "status": "In Progress",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/417",
@@ -1648,11 +1783,11 @@
         },
         {
           "title": "Admin Role - Mentor and Learner Leave options are not correctly selected from the Leave Approvals section",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Anisha-cw"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/413",
@@ -1663,11 +1798,11 @@
         },
         {
           "title": "Admin Role - Category dropdown list is not displayed in Community → Forum → Create a Post",
-          "status": "In Progress",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/412",
@@ -1792,21 +1927,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/367",
           "createdAt": "2026-09-28T07:03:54Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Inconsistent spacing in module option cards",
-          "status": "Review in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/202",
-          "createdAt": "2026-08-05T17:03:45Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -1978,7 +2098,7 @@
         },
         {
           "title": "Frontend- Provide Virtual Candidate Sign-In Option",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1993,7 +2113,7 @@
         },
         {
           "title": "Backend -  User Story: Support Virtual Candidate Sign-In Without Geolocation Tracking",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2920,72 +3040,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "[version-2 CPLC] Schedule module displays a generic error when scheduling a class for the same mentor at an already occupied time slot.",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/251",
-          "createdAt": "2026-08-11T05:24:40Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Admin Dashboard Mentor Attendance chart redirects to Student Attendance module instead of Mentor Attendance.",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/260",
-          "createdAt": "2026-08-11T12:09:28Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Student Dashboard displays an unnecessary Leave Balance card",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/239",
-          "createdAt": "2026-08-10T05:18:23Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Task and Study Material Modules Have Slow Loading Time Across All User Roles",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/242",
-          "createdAt": "2026-08-10T07:05:42Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 86,
-        "inProgress": 12,
+        "done": 97,
+        "inProgress": 2,
         "todo": 0,
         "backlog": 0,
         "production": 0
@@ -5301,13 +5361,13 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "inbarasuv"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/905",
           "createdAt": "2026-09-24T05:08:11Z",
           "closedAt": null,
-          "startDate": "",
+          "startDate": "2026-10-06",
           "endDate": ""
         },
         {
@@ -6791,6 +6851,36 @@
       "title": "Worklogix",
       "items": [
         {
+          "title": "HR – Team Management – Intern Already Assigned to a Team Can Be Added to Another Team",
+          "status": "QA Completed",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/309",
+          "createdAt": "2026-09-30T06:21:37Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "PM – Task Manager Hours Worked Field Accepts Invalid Values",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/302",
+          "createdAt": "2026-09-25T12:39:21Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "PM/Leadership – Task Report → Timesheet – Excessive Page Scrolling",
           "status": "In Progress",
           "priority": "",
@@ -6852,11 +6942,11 @@
         },
         {
           "title": "Task Report – Utilization Report Filter Dropdowns Overlap Page Layout While Scrolling",
-          "status": "QA Review",
+          "status": "In Progress",
           "priority": "",
           "size": "",
           "assignees": [
-            "Anisha-cw"
+            "nithisha-01"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/344",
@@ -6897,7 +6987,7 @@
         },
         {
           "title": "PM – Resource Allocation Request Not Properly Sent to Existing Project PM",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -8259,42 +8349,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Bug Summary  Application error occurs when opening a project directly from the “Available Projects” section in the Team Lead Dashboard.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/96",
-          "createdAt": "2026-08-10T11:14:55Z",
-          "closedAt": null,
-          "startDate": "2026-08-13",
-          "endDate": "2026-08-13"
-        },
-        {
-          "title": "Application error occurs when the Team Lead opens the Daily Update module.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/97",
-          "createdAt": "2026-08-10T11:24:19Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 2,
+        "inProgress": 4,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -10185,6 +10245,18 @@
         },
         {
           "project": "Edubot_V3",
+          "title": "Subscription Plan Cannot Be Modified for Existing Institution",
+          "status": "In Review QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Mandatory Field Does Not Display Inline Validation Message",
+          "status": "In Review QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
           "title": "Default +91 Country Code Missing for Additional Administrator Phone Number",
           "status": "Done QA",
           "priority": ""
@@ -10437,19 +10509,73 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Admin – Task Allows Past Date in Due Date Field",
+          "title": "[Version-2 CPLC] Inconsistent spacing in module option cards",
           "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "# Backend: Add IT asset tracking section to Learner Onboarding",
-          "status": "Blocked",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Regularization Request Type Is Selected by Default",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Deleted Learner Status Is Not Updated After Changing Active/Inactive Status",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin – Task Allows Past Date in Due Date Field",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Default Values Are Automatically Displayed for Start Time, End Time, Max Marks, and Passing Marks",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Start Time and End Time Are Displayed by Default",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Mentor - Category Dropdown Is Not Available in Create a Post Form",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Study Material Allows Uploading File After Changing Resource Type",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin Role - Assign IT Asset toggle cannot be disabled while registering a learner",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin Role - Mentor and Learner Leave options are not correctly selected from the Leave Approvals section",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin Role - Category dropdown list is not displayed in Community → Forum → Create a Post",
           "status": "Completed in QA",
           "priority": ""
         },
@@ -10499,12 +10625,6 @@
           "project": "Edubot_CPLC",
           "title": "# Frontend: Display uploaded images correctly aligned and framed",
           "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Inconsistent spacing in module option cards",
-          "status": "Review in QA",
           "priority": ""
         },
         {
@@ -10576,13 +10696,13 @@
         {
           "project": "Edubot_CPLC",
           "title": "Frontend- Provide Virtual Candidate Sign-In Option",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Backend -  User Story: Support Virtual Candidate Sign-In Without Geolocation Tracking",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -10916,30 +11036,6 @@
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC] Schedule module displays a generic error when scheduling a class for the same mentor at an already occupied time slot.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Admin Dashboard Mentor Attendance chart redirects to Student Attendance module instead of Mentor Attendance.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Student Dashboard displays an unnecessary Leave Balance card",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Task and Study Material Modules Have Slow Loading Time Across All User Roles",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
           "project": "Worklogix",
           "title": "Duplicate Employee ID Validation Shown on Email Field",
           "status": "QA Completed",
@@ -10994,9 +11090,9 @@
           "priority": ""
         }
       ],
-      "total": 136,
-      "done": 80,
-      "inProgress": 3,
+      "total": 142,
+      "done": 88,
+      "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -11014,31 +11110,31 @@
         {
           "project": "Edubot_CPLC",
           "title": "Admin Role - Regularization Request History Is Not Displayed in History Tab",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin – Learner/Mentor Registration Does Not Show Validation for Empty ID and Roll Number",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin Role - Register Batch – Courses Multi-Select Does Not Filter Options Based on Search Input",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin Role - Mentor and Learner Leave options are not correctly selected from the Leave Approvals section",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[version-2 CPLC] Admin and Super Admin users are automatically logged out with an incorrect “Account Deactivated” error message.",
           "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "HR – Team Management – Intern Already Assigned to a Team Can Be Added to Another Team",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11050,12 +11146,6 @@
         {
           "project": "Worklogix",
           "title": "Suggestion – Daily Updates Table Enhancement",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Task Report – Utilization Report Filter Dropdowns Overlap Page Layout While Scrolling",
           "status": "QA Review",
           "priority": ""
         },
@@ -11074,7 +11164,7 @@
         {
           "project": "Worklogix",
           "title": "PM – Resource Allocation Request Not Properly Sent to Existing Project PM",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11550,23 +11640,11 @@
           "title": "Client Portal fails to load due to a client-side application exception.",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Bug Summary  Application error occurs when opening a project directly from the “Available Projects” section in the Team Lead Dashboard.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Application error occurs when the Team Lead opens the Daily Update module.",
-          "status": "QA Completed",
-          "priority": ""
         }
       ],
-      "total": 92,
-      "done": 1,
-      "inProgress": 4,
+      "total": 89,
+      "done": 4,
+      "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -11608,6 +11686,12 @@
           "priority": ""
         },
         {
+          "project": "Worklogix",
+          "title": "Task Report – Utilization Report Filter Dropdowns Overlap Page Layout While Scrolling",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
           "project": "Hirelysze",
           "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
           "status": "Todo",
@@ -11632,9 +11716,9 @@
           "priority": ""
         }
       ],
-      "total": 8,
+      "total": 9,
       "done": 0,
-      "inProgress": 2,
+      "inProgress": 3,
       "commits": 24,
       "prs": 11,
       "prsMerged": 11,
@@ -11865,27 +11949,15 @@
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "Default Values Are Automatically Displayed for Start Time, End Time, Max Marks, and Passing Marks",
-          "status": "In Progress",
+          "project": "Edubot_V3",
+          "title": "Frontend - Admin User Seat Allowance Update",
+          "status": "To Do",
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "Start Time and End Time Are Displayed by Default",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin Role - Assign IT Asset toggle cannot be disabled while registering a learner",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin Role - Category dropdown list is not displayed in Community → Forum → Create a Post",
-          "status": "In Progress",
+          "project": "Edubot_V3",
+          "title": "Frontend - Subscription Plan Modification in Institution",
+          "status": "To Do",
           "priority": ""
         },
         {
@@ -11997,12 +12069,12 @@
           "priority": ""
         }
       ],
-      "total": 24,
+      "total": 22,
       "done": 4,
-      "inProgress": 15,
+      "inProgress": 11,
       "commits": 0,
-      "prs": 3,
-      "prsMerged": 3,
+      "prs": 5,
+      "prsMerged": 5,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -12149,26 +12221,152 @@
       "deletions": 0
     },
     {
-      "login": "sriramgowthamE",
+      "login": "Glad-Andrew",
       "projects": [
         "Edubot_V3",
+        "Edubot_CPLC",
+        "EduBot_University"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Implement Subscription-Based Model - Backend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student Admission & Identity Management – Backend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "End Date Allows Selection of a Date Earlier Than the Start Date",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Duplicate Data Validation Not Implemented During Bulk Excel Import",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Duplicate Task Name Is Allowed",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Version-2 CPLC] Duplicate Registration ID is allowed for different Institutions",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "OTP Expired Message Displayed Before Timer Ends",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Task Creation Allows Selection of Past Due Dates",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Admin Leave Request Module Is Missing",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Phone Number Field Accepts Unlimited Digits",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Theme Options Are Not Clearly Visible in Settings",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Profile Data Not Loaded on Attendance Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Notifications Are Not Working for Any User",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Section Content Text Box Is Not Properly Displayed",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 20,
+      "done": 4,
+      "inProgress": 10,
+      "commits": 0,
+      "prs": 6,
+      "prsMerged": 5,
+      "prReviews": 4,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "sriramgowthamE",
+      "projects": [
         "Edubot_CPLC",
         "SabAi Bible App",
         "Oman Tourism"
       ],
       "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Mandatory Field Does Not Display Inline Validation Message",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Subscription Plan Cannot Be Modified for Existing Institution",
-          "status": "In progress",
-          "priority": ""
-        },
         {
           "project": "Edubot_CPLC",
           "title": "Application Opens Directly in Incognito Mode Without Login Authentication",
@@ -12272,139 +12470,12 @@
           "priority": ""
         }
       ],
-      "total": 19,
+      "total": 17,
       "done": 0,
-      "inProgress": 11,
+      "inProgress": 9,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Glad-Andrew",
-      "projects": [
-        "Edubot_V3",
-        "Edubot_CPLC",
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Implement Subscription-Based Model - Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Duplicate Task Name Is Allowed",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Duplicate Registration ID is allowed for different Institutions",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "OTP Expired Message Displayed Before Timer Ends",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Task Creation Allows Selection of Past Due Dates",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Admin Leave Request Module Is Missing",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Phone Number Field Accepts Unlimited Digits",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Theme Options Are Not Clearly Visible in Settings",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Data Not Loaded on Attendance Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Notifications Are Not Working for Any User",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Section Content Text Box Is Not Properly Displayed",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 18,
-      "done": 4,
-      "inProgress": 8,
-      "commits": 0,
-      "prs": 5,
-      "prsMerged": 4,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -12448,12 +12519,6 @@
         },
         {
           "project": "Acadamiq AI",
-          "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
           "title": "Timetable Is Not Associated with an Academic Year",
           "status": "In progress",
           "priority": ""
@@ -12489,7 +12554,7 @@
           "priority": ""
         }
       ],
-      "total": 12,
+      "total": 11,
       "done": 0,
       "inProgress": 6,
       "commits": 0,
@@ -12507,14 +12572,20 @@
       "tasks": [
         {
           "project": "Worklogix",
+          "title": "PM – Task Manager Hours Worked Field Accepts Invalid Values",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
           "title": "Leadership Role – Wrong Date and Back Navigation Issue",
           "status": "Backlog",
           "priority": ""
         }
       ],
-      "total": 1,
+      "total": 2,
       "done": 0,
-      "inProgress": 0,
+      "inProgress": 1,
       "commits": 5,
       "prs": 3,
       "prsMerged": 3,
@@ -12573,7 +12644,7 @@
       "login": "inbarasuv",
       "projects": [
         "Edubot_V3",
-        "Edubot_CPLC"
+        "Acadamiq AI"
       ],
       "tasks": [
         {
@@ -12583,15 +12654,27 @@
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "Mentor - Category Dropdown Is Not Available in Create a Post Form",
-          "status": "In Progress",
+          "project": "Edubot_V3",
+          "title": "Backend - Admin User Seat Allowance Update",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Backend Ticket - Subscription Plan Modification in Institution",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
+          "status": "TODO",
           "priority": ""
         }
       ],
-      "total": 2,
+      "total": 4,
       "done": 0,
-      "inProgress": 1,
+      "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -12667,6 +12750,20 @@
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
+    },
+    {
+      "login": "xavierrnelson",
+      "projects": [],
+      "tasks": [],
+      "total": 0,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 1,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 3,
+      "deletions": 3
     }
   ]
 }
