@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-07T10:29:55.728774Z",
+  "lastUpdated": "2026-10-08T10:50:21.585618Z",
   "period": {
     "since": "2026-10-01",
     "until": "2026-10-31"
@@ -1544,12 +1544,42 @@
       "title": "Edubot_CPLC",
       "items": [
         {
-          "title": "End Date Allows Selection of a Date Earlier Than the Start Date",
+          "title": "Personal Task Is Displayed Under My Task",
           "status": "In Progress",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/452",
+          "createdAt": "2026-10-08T09:08:00Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Mentor – Assigned Task Can Be Deleted by Mentor",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/451",
+          "createdAt": "2026-10-08T05:07:50Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "End Date Allows Selection of a Date Earlier Than the Start Date",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/445",
@@ -1560,11 +1590,11 @@
         },
         {
           "title": "Duplicate Data Validation Not Implemented During Bulk Excel Import",
-          "status": "In Progress",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "ranjini-03"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/446",
@@ -3010,36 +3040,6 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Multiple UI issues observed in the Create New Task form",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/221",
-          "createdAt": "2026-08-06T09:44:56Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[version-2 CPLC] Mentor dashboard has unnecessary blank space due to missing “View All” options for Today’s Schedule and Student Tasks.",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ranjini-03"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/253",
-          "createdAt": "2026-08-11T07:33:51Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
@@ -4054,6 +4054,21 @@
       "title": "Oman Tourism",
       "items": [
         {
+          "title": "(Expense Tracker & Budget Manager) Track expenses",
+          "status": "DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/49",
+          "createdAt": "2026-08-20T10:19:37Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "[Backend] User Preferences APIs — Budget, Currency, Interests & Language",
           "status": "TODO",
           "priority": "",
@@ -4154,21 +4169,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/4",
           "createdAt": "2026-07-06T08:58:11Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Expense Tracker & Budget Manager) Track expenses",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/49",
-          "createdAt": "2026-08-20T10:19:37Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -4445,10 +4445,12 @@
         },
         {
           "title": "(Location-Based Recommendations & Discovery) See nearby attractions",
-          "status": "Backlog",
+          "status": "In progress",
           "priority": "",
           "size": "",
-          "assignees": [],
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/9",
           "createdAt": "2026-07-06T09:45:48Z",
@@ -4458,10 +4460,12 @@
         },
         {
           "title": "(Location-Based Recommendations & Discovery) Personalized discovery feed",
-          "status": "Backlog",
+          "status": "In progress",
           "priority": "",
           "size": "",
-          "assignees": [],
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/11",
           "createdAt": "2026-07-06T09:50:54Z",
@@ -4735,10 +4739,12 @@
         },
         {
           "title": "(Gamification Challenges & Leaderboard) Complete tourist challenges",
-          "status": "Backlog",
+          "status": "In progress",
           "priority": "",
           "size": "",
-          "assignees": [],
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/53",
           "createdAt": "2026-08-20T10:28:01Z",
@@ -4748,10 +4754,12 @@
         },
         {
           "title": "(Gamification Challenges & Leaderboard) Monthly leaderboard",
-          "status": "Backlog",
+          "status": "In progress",
           "priority": "",
           "size": "",
-          "assignees": [],
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/54",
           "createdAt": "2026-08-20T10:29:38Z",
@@ -4899,9 +4907,9 @@
       "stats": {
         "total": 59,
         "done": 2,
-        "inProgress": 20,
+        "inProgress": 24,
         "todo": 6,
-        "backlog": 31,
+        "backlog": 27,
         "production": 0
       }
     },
@@ -5341,6 +5349,51 @@
       "title": "Acadamiq AI",
       "items": [
         {
+          "title": "Add Day-Wise Attendance Flow for Class Teacher",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/916",
+          "createdAt": "2026-09-30T05:49:52Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/905",
+          "createdAt": "2026-09-24T05:08:11Z",
+          "closedAt": null,
+          "startDate": "2026-10-06",
+          "endDate": ""
+        },
+        {
+          "title": "Syllabus Upload Fails with 422 Error in Curriculum Management",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/928",
+          "createdAt": "2026-10-08T06:29:58Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Curriculum Management – Incorrect Topics Displayed After Document Upload",
           "status": "QA",
           "priority": "",
@@ -5353,21 +5406,6 @@
           "createdAt": "2026-09-30T05:54:53Z",
           "closedAt": null,
           "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/905",
-          "createdAt": "2026-09-24T05:08:11Z",
-          "closedAt": null,
-          "startDate": "2026-10-06",
           "endDate": ""
         },
         {
@@ -6805,44 +6843,14 @@
           "closedAt": null,
           "startDate": "2026-08-04",
           "endDate": ""
-        },
-        {
-          "title": "Operational Days Configuration Is Not Enforced in Attendance and Event Calendar",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/624",
-          "createdAt": "2026-08-03T09:03:30Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Network Error Occurs When Updating a Period",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/770",
-          "createdAt": "2026-08-17T04:56:44Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
         "inProgress": 98,
-        "todo": 2,
-        "backlog": 0,
+        "todo": 1,
+        "backlog": 1,
         "production": 0
       }
     },
@@ -6850,6 +6858,51 @@
       "number": 26,
       "title": "Worklogix",
       "items": [
+        {
+          "title": "All Roles – Daily Update Filters Have Layout Issue While Scrolling",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/341",
+          "createdAt": "2026-10-05T05:34:30Z",
+          "closedAt": null,
+          "startDate": "2026-10-05",
+          "endDate": "2026-10-05"
+        },
+        {
+          "title": "HR – Organization Chart “All Managers” Option Displays Non-Manager Employees",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/373",
+          "createdAt": "2026-10-07T11:26:32Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "All Roles – Daily Update Filter Dropdowns Overlap Layout While Scrolling",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/336",
+          "createdAt": "2026-10-05T05:05:58Z",
+          "closedAt": null,
+          "startDate": "2026-10-05",
+          "endDate": "2026-10-05"
+        },
         {
           "title": "HR – Team Management – Intern Already Assigned to a Team Can Be Added to Another Team",
           "status": "QA Completed",
@@ -6927,7 +6980,7 @@
         },
         {
           "title": "Suggestion – Daily Updates Table Enhancement",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -8304,57 +8357,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Task status remains “Pending” after the Project Manager approves the task in the Manager Task module.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/92",
-          "createdAt": "2026-08-10T09:03:42Z",
-          "closedAt": null,
-          "startDate": "2026-08-17",
-          "endDate": "2026-08-17"
-        },
-        {
-          "title": "Team Lead is unable to create and assign tasks to Employees or Interns under their team.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/93",
-          "createdAt": "2026-08-10T09:33:35Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Client Portal fails to load due to a client-side application exception.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/95",
-          "createdAt": "2026-08-10T11:01:16Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 4,
+        "inProgress": 7,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -9096,11 +9104,26 @@
           "closedAt": "2026-09-28T09:47:23Z",
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Provide git access to Santha Kumar for Edubot CPLC",
+          "status": "Completed",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "manju-209"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/447",
+          "createdAt": "2026-10-07T10:38:10Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 29,
-        "done": 29,
+        "total": 30,
+        "done": 30,
         "inProgress": 0,
         "todo": 0,
         "backlog": 0,
@@ -10205,23 +10228,11 @@
           "title": "Gradebook Class View Page Flickers When Opening Student Details",
           "status": "QA",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Operational Days Configuration Is Not Enforced in Attendance and Event Calendar",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Network Error Occurs When Updating a Period",
-          "status": "QA",
-          "priority": ""
         }
       ],
-      "total": 179,
+      "total": 177,
       "done": 0,
-      "inProgress": 144,
+      "inProgress": 142,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -10505,6 +10516,18 @@
           "project": "Edubot_V3",
           "title": "Digital Signature Upload API Returns 404 Error",
           "status": "Done QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "End Date Allows Selection of a Date Earlier Than the Start Date",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Duplicate Data Validation Not Implemented During Bulk Excel Import",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -11024,18 +11047,6 @@
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "[Version-2 CPLC] Multiple UI issues observed in the Create New Task form",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[version-2 CPLC] Mentor dashboard has unnecessary blank space due to missing “View All” options for Today’s Schedule and Student Tasks.",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
           "project": "Worklogix",
           "title": "Duplicate Employee ID Validation Shown on Email Field",
           "status": "QA Completed",
@@ -11146,7 +11157,7 @@
         {
           "project": "Worklogix",
           "title": "Suggestion – Daily Updates Table Enhancement",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11622,27 +11633,9 @@
           "title": "Employees and interns assigned under a Team Lead are not displayed in the Team Lead Portal.",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Task status remains “Pending” after the Project Manager approves the task in the Manager Task module.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Team Lead is unable to create and assign tasks to Employees or Interns under their team.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Client Portal fails to load due to a client-side application exception.",
-          "status": "QA Completed",
-          "priority": ""
         }
       ],
-      "total": 89,
+      "total": 86,
       "done": 4,
       "inProgress": 0,
       "commits": 0,
@@ -11915,15 +11908,186 @@
           "title": "Grant Sriram Backend & Frontend Access to EduBot_CPLC_Institute Project",
           "status": "Done",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Provide git access to Santha Kumar for Edubot CPLC",
+          "status": "Completed",
+          "priority": ""
         }
       ],
-      "total": 30,
-      "done": 29,
+      "total": 31,
+      "done": 30,
       "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "Lakshana-Lakshmanan",
+      "projects": [
+        "Edubot_V3",
+        "SabAi Bible App",
+        "Oman Tourism",
+        "Worklogix",
+        "HireLens"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "LMS Integration – Backend",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "AI Insights Takes Time to Load in Read Module",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Video Generation Fails After Multiple Consecutive Requests",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] User Preferences APIs — Budget, Currency, Interests & Language",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(User Registration & Profile Management) Sign up with multiple methods",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] Itinerary Persistence APIs — Save, Get, Export & Offline Download",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(AI Chatbot & Voice Assistant) Hands-free voice assistant",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Smart Itinerary Planner) Share and access the itinerary offline",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Interactive Map & Navigation) Explore an interactive map of Oman",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] Sign In APIs — Phone + OTP & Google Sign In",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] Sign Up APIs — Reg No. + OTP & Google OAuth",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(User Registration & Profile Management) Secure login and session management",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Smart Itinerary Planner) Edit and reorganize the itinerary",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Location-Based Recommendations & Discovery) See nearby attractions",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Location-Based Recommendations & Discovery) Personalized discovery feed",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] Itinerary Editing APIs — Add, Remove, Reorder & Revert",
+          "status": "DEV",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] Itinerary Generation API — Personalized Day-by-Day Trip Plan",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Gamification Challenges & Leaderboard) Complete tourist challenges",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Gamification Challenges & Leaderboard) Monthly leaderboard",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Travel Insurance) Browse and manage travel insurance",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Add Visitor Date Support in Add Visitor API",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "API allows creation of interview with same interviewer and candidate email — validation missing.",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 24,
+      "done": 0,
+      "inProgress": 13,
+      "commits": 1,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 1,
       "additions": 0,
       "deletions": 0
     },
@@ -11958,6 +12122,18 @@
           "project": "Edubot_V3",
           "title": "Frontend - Subscription Plan Modification in Institution",
           "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Personal Task Is Displayed Under My Task",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Mentor – Assigned Task Can Be Deleted by Mentor",
+          "status": "In Progress",
           "priority": ""
         },
         {
@@ -12069,154 +12245,13 @@
           "priority": ""
         }
       ],
-      "total": 22,
+      "total": 24,
       "done": 4,
-      "inProgress": 11,
+      "inProgress": 13,
       "commits": 0,
-      "prs": 5,
-      "prsMerged": 5,
+      "prs": 6,
+      "prsMerged": 6,
       "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Lakshana-Lakshmanan",
-      "projects": [
-        "Edubot_V3",
-        "SabAi Bible App",
-        "Oman Tourism",
-        "Worklogix",
-        "HireLens"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "LMS Integration – Backend",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "AI Insights Takes Time to Load in Read Module",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Video Generation Fails After Multiple Consecutive Requests",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] User Preferences APIs — Budget, Currency, Interests & Language",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(User Registration & Profile Management) Sign up with multiple methods",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Persistence APIs — Save, Get, Export & Offline Download",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(AI Chatbot & Voice Assistant) Hands-free voice assistant",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Smart Itinerary Planner) Share and access the itinerary offline",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Interactive Map & Navigation) Explore an interactive map of Oman",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Sign In APIs — Phone + OTP & Google Sign In",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Sign Up APIs — Reg No. + OTP & Google OAuth",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(User Registration & Profile Management) Secure login and session management",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Smart Itinerary Planner) Edit and reorganize the itinerary",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Editing APIs — Add, Remove, Reorder & Revert",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Generation API — Personalized Day-by-Day Trip Plan",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Travel Insurance) Browse and manage travel insurance",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Add Visitor Date Support in Add Visitor API",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "API allows creation of interview with same interviewer and candidate email — validation missing.",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 20,
-      "done": 0,
-      "inProgress": 9,
-      "commits": 1,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 1,
       "additions": 0,
       "deletions": 0
     },
@@ -12256,18 +12291,6 @@
           "project": "Edubot_V3",
           "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
           "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "End Date Allows Selection of a Date Earlier Than the Start Date",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Duplicate Data Validation Not Implemented During Bulk Excel Import",
-          "status": "In Progress",
           "priority": ""
         },
         {
@@ -12349,12 +12372,12 @@
           "priority": ""
         }
       ],
-      "total": 20,
+      "total": 18,
       "done": 4,
-      "inProgress": 10,
+      "inProgress": 8,
       "commits": 0,
-      "prs": 6,
-      "prsMerged": 5,
+      "prs": 8,
+      "prsMerged": 7,
       "prReviews": 4,
       "additions": 0,
       "deletions": 0
@@ -12572,6 +12595,24 @@
       "tasks": [
         {
           "project": "Worklogix",
+          "title": "All Roles – Daily Update Filters Have Layout Issue While Scrolling",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "HR – Organization Chart “All Managers” Option Displays Non-Manager Employees",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "All Roles – Daily Update Filter Dropdowns Overlap Layout While Scrolling",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
           "title": "PM – Task Manager Hours Worked Field Accepts Invalid Values",
           "status": "In Progress",
           "priority": ""
@@ -12583,15 +12624,69 @@
           "priority": ""
         }
       ],
-      "total": 2,
+      "total": 5,
       "done": 0,
-      "inProgress": 1,
-      "commits": 5,
-      "prs": 3,
-      "prsMerged": 3,
+      "inProgress": 4,
+      "commits": 6,
+      "prs": 5,
+      "prsMerged": 5,
       "prReviews": 0,
-      "additions": 276,
-      "deletions": 157
+      "additions": 375,
+      "deletions": 173
+    },
+    {
+      "login": "inbarasuv",
+      "projects": [
+        "Edubot_V3",
+        "Acadamiq AI"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Institution Logo/Image Not Displaying",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Backend - Admin User Seat Allowance Update",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Backend Ticket - Subscription Plan Modification in Institution",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Add Day-Wise Attendance Flow for Class Teacher",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Syllabus Upload Fails with 422 Error in Curriculum Management",
+          "status": "In progress",
+          "priority": ""
+        }
+      ],
+      "total": 6,
+      "done": 0,
+      "inProgress": 2,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
     },
     {
       "login": "Vinoth-codework",
@@ -12641,48 +12736,6 @@
       "deletions": 0
     },
     {
-      "login": "inbarasuv",
-      "projects": [
-        "Edubot_V3",
-        "Acadamiq AI"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Institution Logo/Image Not Displaying",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Backend - Admin User Seat Allowance Update",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Backend Ticket - Subscription Plan Modification in Institution",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
-          "status": "TODO",
-          "priority": ""
-        }
-      ],
-      "total": 4,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "saimanL",
       "projects": [
         "Edubot_V3"
@@ -12698,7 +12751,7 @@
       "total": 1,
       "done": 1,
       "inProgress": 0,
-      "commits": 0,
+      "commits": 2,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 1,
