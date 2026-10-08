@@ -22,8 +22,6 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 ORG_FILE = PROJECT_ROOT / "data" / "org-hierarchy.json"
 OVERRIDES_FILE = PROJECT_ROOT / "data" / "role-overrides.json"
 PEOPLEOPS_FILE = PROJECT_ROOT / "data" / "peopleops-data.json"
-# The demo logins resolve roles the same way, from the fake copies made by scripts/generate_demo_data.py.
-DEMO_DIR = PROJECT_ROOT / "data" / "demo"
 
 Role = Literal["employee", "team_lead", "manager", "dept_head", "hr", "hr_admin", "super_admin"]
 
@@ -41,12 +39,12 @@ def _load_json(path: Path, default):
         return default
 
 
-def _org_employees(demo: bool = False) -> list[dict]:
-    return _load_json(DEMO_DIR / "org-hierarchy.json" if demo else ORG_FILE, {}).get("employees", [])
+def _org_employees() -> list[dict]:
+    return _load_json(ORG_FILE, {}).get("employees", [])
 
 
-def employee_name(employee_id: str, demo: bool = False) -> str:
-    return next((str(e.get("name", "")) for e in _org_employees(demo) if e.get("id") == employee_id), "")
+def employee_name(employee_id: str) -> str:
+    return next((str(e.get("name", "")) for e in _org_employees() if e.get("id") == employee_id), "")
 
 
 def _employee_id_for_email(email: str) -> str:
@@ -61,14 +59,14 @@ def _employee_id_for_email(email: str) -> str:
     return ""
 
 
-def _overrides(demo: bool = False) -> dict:
+def _overrides() -> dict:
     """{employeeIdOrEmail: {"role": "...", "extraReports": [employeeId, ...]}} — hand-
     maintained corrections. `role` always wins over the rule-based guess. `extraReports`
     (optional) adds specific people — and their own subtrees — to this manager's scope on
     top of what the automatic hierarchy resolves, for real org changes the data source
     (GreytHR/Graph) hasn't caught up to yet, e.g. a successor taking over after someone
     resigns."""
-    data = _load_json(DEMO_DIR / "role-overrides.json" if demo else OVERRIDES_FILE, {})
+    data = _load_json(OVERRIDES_FILE, {})
     return {k: v for k, v in data.items() if not k.startswith("_")}
 
 
@@ -114,7 +112,7 @@ def _resolve_scope_ids(employee_id: str, by_id: dict[str, dict]) -> list[str]:
     return sorted(seen)
 
 
-def resolve_identity(employee_id: str = "", email: str = "", demo: bool = False) -> dict:
+def resolve_identity(employee_id: str = "", email: str = "") -> dict:
     """Resolve a logged-in user to {employeeId, role, scope: {type, employeeIds}}.
 
     If `employee_id` isn't given, it's looked up from `email` via peopleops-data.json
@@ -124,15 +122,13 @@ def resolve_identity(employee_id: str = "", email: str = "", demo: bool = False)
     email says otherwise — callers that need a different fallback (e.g. server.py treating
     the password-login admin account as super_admin) should check for that case explicitly
     rather than relying on this function to guess.
-
-    `demo=True` resolves a fake employee id against the demo copies in data/demo/ instead.
     """
     if not employee_id and email:
         employee_id = _employee_id_for_email(email)
 
-    employees = _org_employees(demo)
+    employees = _org_employees()
     by_id = {e["id"]: e for e in employees}
-    overrides = _overrides(demo)
+    overrides = _overrides()
 
     employee = by_id.get(employee_id)
     override = overrides.get(employee_id) or (overrides.get(email) if email else None) or {}
