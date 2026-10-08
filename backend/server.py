@@ -426,22 +426,12 @@ def _test_account_employee_id(username: str, password: str) -> str:
     return str(accounts.get(key, ""))
 
 
-def _demo_login(username: str, password: str) -> str | None:
-    """For a demo login with PEOPLEOPS_DEMO_PASSWORD: "" for "demo" (company-wide), or the fake
-    employee id for a role login from data/demo/demo-accounts.json (e.g. "demo-ceo"). None if it
-    isn't a demo login. Disabled while PEOPLEOPS_DEMO_PASSWORD is unset."""
+def _is_demo_login(username: str, password: str) -> bool:
+    """Username "demo" with PEOPLEOPS_DEMO_PASSWORD. Disabled while that variable is unset."""
     _load_env()
     demo_password = os.environ.get("PEOPLEOPS_DEMO_PASSWORD", "").strip()
-    if not demo_password or not secrets.compare_digest(password.encode(), demo_password.encode()):
-        return None
-    key = username.strip().lower()
-    if key == "demo":
-        return ""
-    try:
-        accounts = json.loads((DEMO_DIR / "demo-accounts.json").read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return None
-    return str(accounts[key]) if key in accounts else None
+    return (bool(demo_password) and username.strip().lower() == "demo"
+            and secrets.compare_digest(password.encode(), demo_password.encode()))
 
 
 def _is_valid_token(token: str) -> bool:
@@ -765,20 +755,15 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             }
             audit_log.record(who=f"test:{body.get('username', '').strip().lower()}", action="login", resource="test-account")
             self.send_json({"token": token, "name": display_name, "expires_in": SESSION_TTL})
-        elif (demo_employee_id := _demo_login(body.get("username", ""), body.get("password", ""))) is not None:
-            # Demo login: the fake dataset in data/demo/ only (see _is_demo). "demo" sees the whole
-            # company; a role login (demo-ceo, demo-bdm, ...) gets that fake person's role and team.
-            if demo_employee_id:
-                identity = access_control.resolve_identity(employee_id=demo_employee_id, demo=True)
-                display_name = f"{access_control.employee_name(demo_employee_id, demo=True) or demo_employee_id} (demo)"
-                session = {"role": identity["role"], "scope": identity["scope"], "employeeId": identity["employeeId"]}
-            else:
-                display_name = "Demo User"
-                session = {"role": "super_admin", "scope": {"type": "company", "employeeIds": []}}
+        elif _is_demo_login(body.get("username", ""), body.get("password", "")):
+            # Demo login: company-wide view of the fake dataset in data/demo/ only (see _is_demo).
             token = secrets.token_hex(32)
-            _sessions[token] = {"expiry": time.time() + SESSION_TTL, "name": display_name, "type": "demo", **session}
-            audit_log.record(who=f"demo:{body.get('username', '').strip().lower()}", action="login", resource="demo-account")
-            self.send_json({"token": token, "name": display_name, "expires_in": SESSION_TTL})
+            _sessions[token] = {
+                "expiry": time.time() + SESSION_TTL, "name": "Demo User", "type": "demo",
+                "role": "super_admin", "scope": {"type": "company", "employeeIds": []},
+            }
+            audit_log.record(who="demo", action="login", resource="demo-account")
+            self.send_json({"token": token, "name": "Demo User", "expires_in": SESSION_TTL})
         else:
             time.sleep(1)  # slow brute-force attempts
             self.send_json({"error": "Invalid username or password."}, HTTPStatus.UNAUTHORIZED)
