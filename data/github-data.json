@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-15T08:31:43.804427Z",
+  "lastUpdated": "2026-10-16T08:25:04.126707Z",
   "period": {
     "since": "2026-10-01",
     "until": "2026-10-31"
@@ -1454,12 +1454,102 @@
       "title": "Edubot_CPLC",
       "items": [
         {
-          "title": "Incorrect Location Validation and Unnecessary Radius Distance Display in Check-In Failure Toast",
+          "title": "Leave Count Not Updated in Leave Summary After Applying for Leave",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/526",
+          "createdAt": "2026-10-15T07:36:25Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Withdraw Application Dialog Overlaps with the Left Sidebar and User Manual Button",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/524",
+          "createdAt": "2026-10-15T06:34:48Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Assessment Page Flickering and Duplicate Messages Displayed",
           "status": "In Progress",
           "priority": "",
           "size": "",
           "assignees": [
             "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/527",
+          "createdAt": "2026-10-15T09:26:46Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Virtual Check-In and Check-Out History Not Displayed in Admin Learner Attendance Information",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/520",
+          "createdAt": "2026-10-15T04:54:56Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Mentor and Learner can check in on Admin-scheduled leave days",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/519",
+          "createdAt": "2026-10-15T04:25:58Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Student Sign In Shows “You Are Already Clocked In” Despite Approved Casual Leave",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/525",
+          "createdAt": "2026-10-15T07:14:49Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Incorrect Location Validation and Unnecessary Radius Distance Display in Check-In Failure Toast",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/517",
@@ -1470,11 +1560,11 @@
         },
         {
           "title": "Institution Address Not Displayed in Admin Profile & Settings",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "inbarasuv"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/516",
@@ -1485,11 +1575,11 @@
         },
         {
           "title": "Schedule Notification Redirects to the Current Week Instead of the Scheduled Week",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/514",
@@ -1500,11 +1590,11 @@
         },
         {
           "title": "Mark Inactive Button Is Missing in the Mentor Section",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/515",
@@ -1515,7 +1605,7 @@
         },
         {
           "title": "Attached Documents in Forum Posts Return a 404 Not Found Error",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1622,7 +1712,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/498",
@@ -1648,11 +1738,11 @@
         },
         {
           "title": "Admin – Completed Meetings Still Display the Join Button in Today's Schedule",
-          "status": "In Progress",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/495",
@@ -1753,7 +1843,7 @@
         },
         {
           "title": "Add Batch – End Date Picker and Month Selection Are Hidden",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2756,90 +2846,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Guardian Contact shows “Invalid contact number” when cleared",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/315",
-          "createdAt": "2026-08-24T04:39:24Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Optional Phone Number Field Shows Validation Error",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/332",
-          "createdAt": "2026-08-27T09:09:49Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Student Attendance Info Displays Unassigned Students",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/337",
-          "createdAt": "2026-08-28T04:19:36Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Task Weightage Field Accepts Marks Greater Than 100 Without Proper Validation",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/334",
-          "createdAt": "2026-08-27T10:40:58Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Check-In / Check-Out Status and Success Message Mismatch",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/329",
-          "createdAt": "2026-08-25T06:33:07Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Designation Field Accepts Numeric Values",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/328",
-          "createdAt": "2026-08-25T05:15:59Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 71,
-        "inProgress": 27,
+        "done": 67,
+        "inProgress": 31,
         "todo": 0,
         "backlog": 0,
         "production": 0
@@ -5151,12 +5163,42 @@
       "title": "Acadamiq AI",
       "items": [
         {
-          "title": "Report Cards – Access Denied Error When Class Teacher Attempts to Submit Report Cards for Approval",
+          "title": "Curriculum Management – Incorrect Topics Displayed After Document Upload",
           "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
             "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/917",
+          "createdAt": "2026-09-30T05:54:53Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Assignment and Worksheet Content Is Generated in Tamil Instead of English",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/940",
+          "createdAt": "2026-10-15T11:02:15Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Report Cards – Access Denied Error When Class Teacher Attempts to Submit Report Cards for Approval",
+          "status": "QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/935",
@@ -5167,11 +5209,11 @@
         },
         {
           "title": "Teacher can mark a resolved incident as unresolved",
-          "status": "In progress",
+          "status": "QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "inbarasuv"
+            "Dharsan1102codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/933",
@@ -5182,11 +5224,11 @@
         },
         {
           "title": "Add Cancel Button for Event Management / Event Calendar",
-          "status": "In progress",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "inbarasuv"
+            "Dharsan1102codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/927",
@@ -5208,6 +5250,21 @@
           "createdAt": "2026-09-24T05:08:11Z",
           "closedAt": null,
           "startDate": "2026-10-06",
+          "endDate": ""
+        },
+        {
+          "title": "Student Names and Marks Are Overlapping in the Gradebook",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/938",
+          "createdAt": "2026-10-13T12:17:39Z",
+          "closedAt": null,
+          "startDate": "",
           "endDate": ""
         },
         {
@@ -5328,21 +5385,6 @@
           "createdAt": "2026-10-06T12:29:37Z",
           "closedAt": null,
           "startDate": "2026-10-12",
-          "endDate": ""
-        },
-        {
-          "title": "Curriculum Management – Incorrect Topics Displayed After Document Upload",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/917",
-          "createdAt": "2026-09-30T05:54:53Z",
-          "closedAt": null,
-          "startDate": "",
           "endDate": ""
         },
         {
@@ -6619,43 +6661,13 @@
           "closedAt": null,
           "startDate": "2026-08-05",
           "endDate": ""
-        },
-        {
-          "title": "Parent and Student Do Not Receive Notifications After AI Overnight Analysis Approval",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/725",
-          "createdAt": "2026-08-11T06:10:27Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Editing Room Details Creates a New Room and No Success Toast Is Displayed",
-          "status": "QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/775",
-          "createdAt": "2026-08-17T07:42:45Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 100,
-        "todo": 0,
+        "inProgress": 99,
+        "todo": 1,
         "backlog": 0,
         "production": 0
       }
@@ -9162,8 +9174,56 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Attached Documents in Forum Posts Return a 404 Not Found Error",
+          "title": "Leave Count Not Updated in Leave Summary After Applying for Leave",
           "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Withdraw Application Dialog Overlaps with the Left Sidebar and User Manual Button",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Virtual Check-In and Check-Out History Not Displayed in Admin Learner Attendance Information",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Student Sign In Shows “You Are Already Clocked In” Despite Approved Casual Leave",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Incorrect Location Validation and Unnecessary Radius Distance Display in Check-In Failure Toast",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Institution Address Not Displayed in Admin Profile & Settings",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Schedule Notification Redirects to the Current Week Instead of the Scheduled Week",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Mark Inactive Button Is Missing in the Mentor Section",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Attached Documents in Forum Posts Return a 404 Not Found Error",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -9198,7 +9258,19 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "Remove Edit and Delete Buttons for Events in the Schedule Calendar",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Admin – Event Calendar Displays Incorrect Assessment Event Timings",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin – Completed Meetings Still Display the Join Button in Today's Schedule",
           "status": "Review in QA",
           "priority": ""
         },
@@ -9618,6 +9690,12 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "Report Cards – Access Denied Error When Class Teacher Attempts to Submit Report Cards for Approval",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "Use many API keys so AI features don't hit the limit",
           "status": "QA",
           "priority": ""
@@ -9625,12 +9703,6 @@
         {
           "project": "Acadamiq AI",
           "title": "Incident Management – API Error (422) When Escalating an Incident to Admin",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Curriculum Management – Incorrect Topics Displayed After Document Upload",
           "status": "QA",
           "priority": ""
         },
@@ -10137,23 +10209,11 @@
           "title": "Timetable UI Is Inconsistent Across Admin, Teacher, Student, and Parent Roles",
           "status": "QA",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Parent and Student Do Not Receive Notifications After AI Overnight Analysis Approval",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Editing Room Details Creates a New Room and No Success Toast Is Displayed",
-          "status": "QA",
-          "priority": ""
         }
       ],
-      "total": 199,
-      "done": 5,
-      "inProgress": 159,
+      "total": 207,
+      "done": 6,
+      "inProgress": 166,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -10168,6 +10228,12 @@
         "Worklogix"
       ],
       "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "Mentor and Learner can check in on Admin-scheduled leave days",
+          "status": "Review in QA",
+          "priority": ""
+        },
         {
           "project": "Edubot_CPLC",
           "title": "Admin Role - Regularization Request History Is Not Displayed in History Tab",
@@ -10721,9 +10787,9 @@
           "priority": ""
         }
       ],
-      "total": 92,
+      "total": 93,
       "done": 4,
-      "inProgress": 0,
+      "inProgress": 1,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -10782,7 +10848,7 @@
       "commits": 69,
       "prs": 26,
       "prsMerged": 26,
-      "prReviews": 7,
+      "prReviews": 8,
       "additions": 7353,
       "deletions": 5529
     },
@@ -11217,31 +11283,7 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Incorrect Location Validation and Unnecessary Radius Distance Display in Check-In Failure Toast",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Schedule Notification Redirects to the Current Week Instead of the Scheduled Week",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Mark Inactive Button Is Missing in the Mentor Section",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Remove Edit and Delete Buttons for Events in the Schedule Calendar",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin – Completed Meetings Still Display the Join Button in Today's Schedule",
+          "title": "Assessment Page Flickering and Duplicate Messages Displayed",
           "status": "In Progress",
           "priority": ""
         },
@@ -11354,12 +11396,12 @@
           "priority": ""
         }
       ],
-      "total": 27,
+      "total": 23,
       "done": 4,
-      "inProgress": 16,
+      "inProgress": 12,
       "commits": 0,
-      "prs": 16,
-      "prsMerged": 15,
+      "prs": 17,
+      "prsMerged": 16,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -11381,7 +11423,7 @@
         {
           "project": "Edubot_CPLC",
           "title": "Add Batch – End Date Picker and Month Selection Are Hidden",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -11500,11 +11542,11 @@
         }
       ],
       "total": 21,
-      "done": 0,
-      "inProgress": 14,
+      "done": 1,
+      "inProgress": 13,
       "commits": 0,
-      "prs": 7,
-      "prsMerged": 6,
+      "prs": 10,
+      "prsMerged": 8,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -11630,40 +11672,11 @@
       "done": 3,
       "inProgress": 8,
       "commits": 0,
-      "prs": 19,
-      "prsMerged": 18,
-      "prReviews": 5,
+      "prs": 21,
+      "prsMerged": 20,
+      "prReviews": 7,
       "additions": 0,
       "deletions": 0
-    },
-    {
-      "login": "Kxrthikeyan-76",
-      "projects": [
-        "Worklogix"
-      ],
-      "tasks": [
-        {
-          "project": "Worklogix",
-          "title": "Employee – Hide Assign Intern and Add Intern Buttons in Team Management",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Leadership Role – Wrong Date and Back Navigation Issue",
-          "status": "Backlog",
-          "priority": ""
-        }
-      ],
-      "total": 2,
-      "done": 0,
-      "inProgress": 1,
-      "commits": 12,
-      "prs": 11,
-      "prsMerged": 11,
-      "prReviews": 0,
-      "additions": 1258,
-      "deletions": 539
     },
     {
       "login": "Dharsan1102codework",
@@ -11704,7 +11717,25 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "Teacher can mark a resolved incident as unresolved",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Add Cancel Button for Event Management / Event Calendar",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Student Names and Marks Are Overlapping in the Gradebook",
           "status": "In progress",
           "priority": ""
         },
@@ -11739,9 +11770,9 @@
           "priority": ""
         }
       ],
-      "total": 11,
+      "total": 14,
       "done": 0,
-      "inProgress": 7,
+      "inProgress": 9,
       "commits": 0,
       "prs": 2,
       "prsMerged": 2,
@@ -11750,10 +11781,38 @@
       "deletions": 0
     },
     {
+      "login": "Kxrthikeyan-76",
+      "projects": [
+        "Worklogix"
+      ],
+      "tasks": [
+        {
+          "project": "Worklogix",
+          "title": "Employee – Hide Assign Intern and Add Intern Buttons in Team Management",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Leadership Role – Wrong Date and Back Navigation Issue",
+          "status": "Backlog",
+          "priority": ""
+        }
+      ],
+      "total": 2,
+      "done": 0,
+      "inProgress": 1,
+      "commits": 12,
+      "prs": 11,
+      "prsMerged": 11,
+      "prReviews": 0,
+      "additions": 1258,
+      "deletions": 539
+    },
+    {
       "login": "inbarasuv",
       "projects": [
         "Edubot_V3",
-        "Edubot_CPLC",
         "Acadamiq AI"
       ],
       "tasks": [
@@ -11776,26 +11835,14 @@
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "Institution Address Not Displayed in Admin Profile & Settings",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
           "project": "Acadamiq AI",
-          "title": "Report Cards – Access Denied Error When Class Teacher Attempts to Submit Report Cards for Approval",
+          "title": "Curriculum Management – Incorrect Topics Displayed After Document Upload",
           "status": "In progress",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
-          "title": "Teacher can mark a resolved incident as unresolved",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Add Cancel Button for Event Management / Event Calendar",
+          "title": "Assignment and Worksheet Content Is Generated in Tamil Instead of English",
           "status": "In progress",
           "priority": ""
         },
@@ -11812,9 +11859,9 @@
           "priority": ""
         }
       ],
-      "total": 9,
+      "total": 7,
       "done": 0,
-      "inProgress": 6,
+      "inProgress": 4,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
