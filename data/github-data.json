@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-19T09:12:15.462879Z",
+  "lastUpdated": "2026-10-20T08:47:32.959289Z",
   "period": {
     "since": "2026-10-01",
     "until": "2026-10-31"
@@ -1520,7 +1520,7 @@
       "items": [
         {
           "title": "LMS Integration – Backend",
-          "status": "To Do",
+          "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1529,6 +1529,66 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/14",
           "createdAt": "2026-09-01T12:10:02Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Backend Ticket - Subscription Plan Modification in Institution",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/159",
+          "createdAt": "2026-10-07T05:12:43Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Frontend - Subscription Plan Modification in Institution",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/160",
+          "createdAt": "2026-10-07T05:15:04Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Frontend - Admin User Seat Allowance Update",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/158",
+          "createdAt": "2026-10-07T04:56:24Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Backend - Admin User Seat Allowance Update",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/157",
+          "createdAt": "2026-10-07T04:54:38Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -2831,74 +2891,14 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Backend - Admin User Seat Allowance Update",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/157",
-          "createdAt": "2026-10-07T04:54:38Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Frontend - Admin User Seat Allowance Update",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/158",
-          "createdAt": "2026-10-07T04:56:24Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Backend Ticket - Subscription Plan Modification in Institution",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/159",
-          "createdAt": "2026-10-07T05:12:43Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Frontend - Subscription Plan Modification in Institution",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/160",
-          "createdAt": "2026-10-07T05:15:04Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 98,
         "done": 9,
-        "inProgress": 0,
+        "inProgress": 1,
         "todo": 0,
-        "backlog": 5,
+        "backlog": 9,
         "production": 0
       }
     },
@@ -2919,6 +2919,81 @@
       "number": 41,
       "title": "Edubot_CPLC",
       "items": [
+        {
+          "title": "Loader Not Displayed When Using My Location or Saving Work Location Configuration",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/543",
+          "createdAt": "2026-10-16T07:49:05Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Admin – Mentor Filter Does Not Work Properly in Task Module",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/546",
+          "createdAt": "2026-10-16T08:51:14Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Leave Count Is Not Updated Immediately After Applying for Leave",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/545",
+          "createdAt": "2026-10-16T08:42:31Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Select Batch Dropdown Flickers After Selecting a Course",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/540",
+          "createdAt": "2026-10-16T07:37:30Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Admin – Save All Assignments Button Remains Disabled After Selecting a Learner",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/534",
+          "createdAt": "2026-10-15T12:28:50Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Validation Error Does Not Identify the Missing Field or Scroll to It",
           "status": "In Progress",
@@ -2980,36 +3055,6 @@
           "endDate": ""
         },
         {
-          "title": "Leave Count Is Not Updated Immediately After Applying for Leave",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/545",
-          "createdAt": "2026-10-16T08:42:31Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Loader Not Displayed When Using My Location or Saving Work Location Configuration",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/543",
-          "createdAt": "2026-10-16T07:49:05Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Learner – Add Calendar Event Option Is Available on Event Calendar",
           "status": "To Do",
           "priority": "",
@@ -3020,21 +3065,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/541",
           "createdAt": "2026-10-16T07:38:15Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Select Batch Dropdown Flickers After Selecting a Course",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/540",
-          "createdAt": "2026-10-16T07:37:30Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3071,7 +3101,7 @@
         },
         {
           "title": "Task Attachment Filename Is Truncated in the Mentor Tasks Page",
-          "status": "To Do",
+          "status": "In Progress",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3086,7 +3116,7 @@
         },
         {
           "title": "Loader Flickering When Switching Calendar Views",
-          "status": "To Do",
+          "status": "In Progress",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3101,7 +3131,7 @@
         },
         {
           "title": "UI Flickering on Mentor Leave and Learner Leave Pages",
-          "status": "To Do",
+          "status": "In Progress",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3130,21 +3160,6 @@
           "endDate": ""
         },
         {
-          "title": "Admin – Save All Assignments Button Remains Disabled After Selecting a Learner",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/534",
-          "createdAt": "2026-10-15T12:28:50Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Admin – Global Institute Holiday Schedule Appears in Newly Created Institute",
           "status": "To Do",
           "priority": "",
@@ -3155,21 +3170,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/547",
           "createdAt": "2026-10-16T09:14:31Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin – Mentor Filter Does Not Work Properly in Task Module",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/546",
-          "createdAt": "2026-10-16T08:51:14Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3371,7 +3371,7 @@
         },
         {
           "title": "Admin – remove Upload, Edit, and Delete Options in Study Material",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3386,7 +3386,7 @@
         },
         {
           "title": "Student Does Not Receive Study Material Update Notification, and Previous Completion Status Persists",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3401,7 +3401,7 @@
         },
         {
           "title": "My Courses Are Visible to Learners Without Mentor Assignment",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3429,7 +3429,7 @@
         },
         {
           "title": "Incorrect Error Message Displayed When Logging in With an Unregistered User",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3444,7 +3444,7 @@
         },
         {
           "title": "All Students Unable to Check In After Admin Cancels the Declared Holiday",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3459,7 +3459,7 @@
         },
         {
           "title": "Remove Edit and Delete Buttons for Events in the Schedule Calendar",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3474,7 +3474,7 @@
         },
         {
           "title": "Admin – Event Calendar Displays Incorrect Assessment Event Timings",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3489,7 +3489,7 @@
         },
         {
           "title": "Admin – Completed Meetings Still Display the Join Button in Today's Schedule",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3504,7 +3504,7 @@
         },
         {
           "title": "Mentor – Lesson Plan Search Does Not Filter the Lesson List",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3579,10 +3579,12 @@
         },
         {
           "title": "Withdrawn Leave Request Status Is Not Displayed in the Learner Leave Management List",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
-          "assignees": [],
+          "assignees": [
+            "Santhakumar082"
+          ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/471",
           "createdAt": "2026-10-12T07:15:41Z",
@@ -3605,10 +3607,12 @@
         },
         {
           "title": "Frontend — Admin Learner Video Progress Dashboard",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
-          "assignees": [],
+          "assignees": [
+            "Santhakumar082"
+          ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/464",
           "createdAt": "2026-10-09T09:22:41Z",
@@ -3618,7 +3622,7 @@
         },
         {
           "title": "Frontend — Learner Video Progress Tracking",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3663,7 +3667,7 @@
         },
         {
           "title": "Incorrect Number of Present Days Displayed in the My Attendance Dashboard",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3678,7 +3682,7 @@
         },
         {
           "title": "Backend — Admin Learner Video Progress Monitoring",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3693,7 +3697,7 @@
         },
         {
           "title": "Add IT Asset Assignment, Update, and Monitoring Options for Learners",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3723,7 +3727,7 @@
         },
         {
           "title": "Backend — Learner Video Progress Tracking",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4338,8 +4342,8 @@
       ],
       "stats": {
         "total": 100,
-        "done": 62,
-        "inProgress": 21,
+        "done": 78,
+        "inProgress": 13,
         "todo": 0,
         "backlog": 0,
         "production": 0
@@ -6641,7 +6645,7 @@
       "items": [
         {
           "title": "Add Cancel Button for Event Management / Event Calendar",
-          "status": "TODO",
+          "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
@@ -6701,7 +6705,7 @@
         },
         {
           "title": "Teacher can mark a resolved incident as unresolved",
-          "status": "QA",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
@@ -6826,7 +6830,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "inbarasuv"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/916",
@@ -7122,11 +7126,11 @@
         },
         {
           "title": "Class Performance Trends Displays Subjects Not Assigned to the Logged-in Teacher",
-          "status": "QA",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Dharsan1102codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/900",
@@ -8144,8 +8148,8 @@
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 99,
-        "todo": 1,
+        "inProgress": 98,
+        "todo": 2,
         "backlog": 0,
         "production": 0
       }
@@ -11106,55 +11110,55 @@
         {
           "project": "Edubot_CPLC",
           "title": "Admin – remove Upload, Edit, and Delete Options in Study Material",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Student Does Not Receive Study Material Update Notification, and Previous Completion Status Persists",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "My Courses Are Visible to Learners Without Mentor Assignment",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Incorrect Error Message Displayed When Logging in With an Unregistered User",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "All Students Unable to Check In After Admin Cancels the Declared Holiday",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Remove Edit and Delete Buttons for Events in the Schedule Calendar",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin – Event Calendar Displays Incorrect Assessment Event Timings",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin – Completed Meetings Still Display the Join Button in Today's Schedule",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Mentor – Lesson Plan Search Does Not Filter the Lesson List",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -11183,8 +11187,20 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "Withdrawn Leave Request Status Is Not Displayed in the Learner Leave Management List",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Frontend — Admin Learner Video Progress Dashboard",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Frontend — Learner Video Progress Tracking",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -11202,19 +11218,19 @@
         {
           "project": "Edubot_CPLC",
           "title": "Incorrect Number of Present Days Displayed in the My Attendance Dashboard",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Backend — Admin Learner Video Progress Monitoring",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Add IT Asset Assignment, Update, and Monitoring Options for Learners",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -11226,7 +11242,7 @@
         {
           "project": "Edubot_CPLC",
           "title": "Backend — Learner Video Progress Tracking",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -11603,6 +11619,12 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "Add Day-Wise Attendance Flow for Class Teacher",
+          "status": "QA",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "Incident Management – API Error (422) When Escalating an Incident to Admin",
           "status": "QA",
           "priority": ""
@@ -11706,12 +11728,6 @@
         {
           "project": "Acadamiq AI",
           "title": "Text Field Validation Is Missing for Assignment and Worksheet Edit Elements",
-          "status": "QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Class Performance Trends Displays Subjects Not Assigned to the Logged-in Teacher",
           "status": "QA",
           "priority": ""
         },
@@ -12112,9 +12128,9 @@
           "priority": ""
         }
       ],
-      "total": 259,
-      "done": 19,
-      "inProgress": 157,
+      "total": 261,
+      "done": 35,
+      "inProgress": 143,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -12734,12 +12750,12 @@
       "total": 5,
       "done": 0,
       "inProgress": 0,
-      "commits": 69,
-      "prs": 26,
-      "prsMerged": 26,
-      "prReviews": 9,
-      "additions": 7353,
-      "deletions": 5529
+      "commits": 80,
+      "prs": 28,
+      "prsMerged": 28,
+      "prReviews": 12,
+      "additions": 7499,
+      "deletions": 5573
     },
     {
       "login": "Lakshana-Lakshmanan",
@@ -13383,6 +13399,18 @@
       "tasks": [
         {
           "project": "Edubot_V3",
+          "title": "Frontend - Subscription Plan Modification in Institution",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Frontend - Admin User Seat Allowance Update",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
           "title": "Implementation of Subscription-Based Model – Frontend",
           "status": "Done",
           "priority": ""
@@ -13394,15 +13422,33 @@
           "priority": ""
         },
         {
-          "project": "Edubot_V3",
-          "title": "Frontend - Admin User Seat Allowance Update",
-          "status": "To Do",
+          "project": "Edubot_CPLC",
+          "title": "Loader Not Displayed When Using My Location or Saving Work Location Configuration",
+          "status": "In Progress",
           "priority": ""
         },
         {
-          "project": "Edubot_V3",
-          "title": "Frontend - Subscription Plan Modification in Institution",
-          "status": "To Do",
+          "project": "Edubot_CPLC",
+          "title": "Admin – Mentor Filter Does Not Work Properly in Task Module",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Leave Count Is Not Updated Immediately After Applying for Leave",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Select Batch Dropdown Flickers After Selecting a Course",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin – Save All Assignments Button Remains Disabled After Selecting a Learner",
+          "status": "In Progress",
           "priority": ""
         },
         {
@@ -13413,25 +13459,7 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Leave Count Is Not Updated Immediately After Applying for Leave",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Loader Not Displayed When Using My Location or Saving Work Location Configuration",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
           "title": "Learner – Add Calendar Event Option Is Available on Event Calendar",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Select Batch Dropdown Flickers After Selecting a Course",
           "status": "To Do",
           "priority": ""
         },
@@ -13443,19 +13471,7 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Admin – Save All Assignments Button Remains Disabled After Selecting a Learner",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
           "title": "Admin – Global Institute Holiday Schedule Appears in Newly Created Institute",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin – Mentor Filter Does Not Work Properly in Task Module",
           "status": "To Do",
           "priority": ""
         },
@@ -13564,7 +13580,7 @@
       ],
       "total": 30,
       "done": 2,
-      "inProgress": 13,
+      "inProgress": 18,
       "commits": 0,
       "prs": 17,
       "prsMerged": 16,
@@ -13631,19 +13647,19 @@
         {
           "project": "Edubot_CPLC",
           "title": "Task Attachment Filename Is Truncated in the Mentor Tasks Page",
-          "status": "To Do",
+          "status": "In Progress",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Loader Flickering When Switching Calendar Views",
-          "status": "To Do",
+          "status": "In Progress",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "UI Flickering on Mentor Leave and Learner Leave Pages",
-          "status": "To Do",
+          "status": "In Progress",
           "priority": ""
         },
         {
@@ -13733,10 +13749,10 @@
       ],
       "total": 25,
       "done": 2,
-      "inProgress": 9,
+      "inProgress": 12,
       "commits": 0,
-      "prs": 21,
-      "prsMerged": 20,
+      "prs": 25,
+      "prsMerged": 24,
       "prReviews": 7,
       "additions": 0,
       "deletions": 0
@@ -13890,13 +13906,13 @@
         {
           "project": "Acadamiq AI",
           "title": "Add Cancel Button for Event Management / Event Calendar",
-          "status": "TODO",
+          "status": "In progress",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Teacher can mark a resolved incident as unresolved",
-          "status": "QA",
+          "status": "TODO",
           "priority": ""
         },
         {
@@ -13937,12 +13953,18 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "Class Performance Trends Displays Subjects Not Assigned to the Logged-in Teacher",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "Migrate Notification APIs to WebSocket",
           "status": "In progress",
           "priority": ""
         }
       ],
-      "total": 14,
+      "total": 15,
       "done": 0,
       "inProgress": 9,
       "commits": 0,
@@ -13975,8 +13997,8 @@
       "done": 0,
       "inProgress": 1,
       "commits": 12,
-      "prs": 11,
-      "prsMerged": 11,
+      "prs": 12,
+      "prsMerged": 12,
       "prReviews": 0,
       "additions": 1258,
       "deletions": 539
@@ -13992,25 +14014,25 @@
         {
           "project": "Edubot_V3",
           "title": "LMS Integration – Backend",
-          "status": "To Do",
+          "status": "In progress",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
-          "title": "Institution Logo/Image Not Displaying",
+          "title": "Backend Ticket - Subscription Plan Modification in Institution",
           "status": "Backlog",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Backend - Admin User Seat Allowance Update",
-          "status": "To Do",
+          "status": "Backlog",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
-          "title": "Backend Ticket - Subscription Plan Modification in Institution",
-          "status": "To Do",
+          "title": "Institution Logo/Image Not Displaying",
+          "status": "Backlog",
           "priority": ""
         },
         {
@@ -14030,15 +14052,9 @@
           "title": "Syllabus Upload Fails with 422 Error in Curriculum Management",
           "status": "QA",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Add Day-Wise Attendance Flow for Class Teacher",
-          "status": "QA",
-          "priority": ""
         }
       ],
-      "total": 8,
+      "total": 7,
       "done": 0,
       "inProgress": 4,
       "commits": 0,
