@@ -1,11 +1,11 @@
 {
   "meta": {
-    "generatedAt": "2026-10-23T08:44:34+00:00",
+    "generatedAt": "2026-10-26T09:13:39+00:00",
     "source": "greythr-reporting-hierarchy+graph-fallback",
-    "graphFallbackResolved": 17,
-    "totalEmployees": 139,
-    "managerCount": 16,
-    "matchedWithManager": 104
+    "graphFallbackResolved": 16,
+    "totalEmployees": 138,
+    "managerCount": 15,
+    "matchedWithManager": 102
   },
   "employees": [
     {
@@ -19,7 +19,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 92.6,
+      "kpi": 92.5,
       "band": "Excellent"
     },
     {
@@ -47,7 +47,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 88.6,
+      "kpi": 88.8,
       "band": "Good"
     },
     {
@@ -61,7 +61,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 87.4,
+      "kpi": 87.2,
       "band": "Good"
     },
     {
@@ -75,7 +75,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 86.2,
+      "kpi": 85.8,
       "band": "Good"
     },
     {
@@ -89,7 +89,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 84.9,
+      "kpi": 84.7,
       "band": "Good"
     },
     {
@@ -110,107 +110,7 @@
       ],
       "directReportCount": 6,
       "isManager": true,
-      "kpi": 82.7,
-      "band": "Good"
-    },
-    {
-      "id": "CWINE151",
-      "name": "Ranjini p",
-      "team": "QA / Testing",
-      "designation": "Quality Analyst Trainee",
-      "teamsId": "bac6a564-35be-482f-a49e-728f55ddb7ed",
-      "managerId": "",
-      "managerName": "",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 81.3,
-      "band": "Good"
-    },
-    {
-      "id": "CWINE152",
-      "name": "Santhakumar H B",
-      "team": "QA / Testing",
-      "designation": "QA Trainee",
-      "teamsId": "e926ee64-aae1-4359-bfc8-d90ce96762f2",
-      "managerId": "CWINE001",
-      "managerName": "Christina Arulraj",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 81.1,
-      "band": "Good"
-    },
-    {
-      "id": "CWINE130",
-      "name": "Antony Bilgates S",
-      "team": "Development",
-      "designation": "Jr. Software Developer",
-      "teamsId": "5c3e90e6-f1a5-4315-8cbe-1e53d8a61979",
-      "managerId": "CWINE025",
-      "managerName": "Sainath M",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 80.9,
-      "band": "Good"
-    },
-    {
-      "id": "CWINE112",
-      "name": "Dhivya Dharini P",
-      "team": "AI Team",
-      "designation": "Jr. AI Engineer",
-      "teamsId": "e5f36f8b-65a8-44f1-a455-3ced3b624fe0",
-      "managerId": "CWINE084",
-      "managerName": "Prasanth Pradeep Kumar",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 80.3,
-      "band": "Good"
-    },
-    {
-      "id": "CWINE020",
-      "name": "Felista Johnbritto",
-      "team": "Marketing Team",
-      "designation": "Digital Marketing Executive",
-      "teamsId": "1224c56c-e3b2-4377-954a-33e6c5630d93",
-      "managerId": "CWINE001",
-      "managerName": "Christina Arulraj",
-      "directReports": [
-        "CWINI168"
-      ],
-      "directReportCount": 1,
-      "isManager": true,
-      "kpi": 80.1,
-      "band": "Good"
-    },
-    {
-      "id": "CWINI155",
-      "name": "Abinesh D",
-      "team": "Business Development",
-      "designation": "Business Development Trainee",
-      "teamsId": "d3c11fc1-bc50-4555-85e7-9f7c80a70902",
-      "managerId": "CWINE123",
-      "managerName": "Trinita Rex Anto",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 80.0,
-      "band": "Good"
-    },
-    {
-      "id": "CWINI208",
-      "name": "Berlin sweety D H",
-      "team": "Business Development",
-      "designation": "Business Development Trainee",
-      "teamsId": "",
-      "managerId": "",
-      "managerName": "",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 80.0,
+      "kpi": 83.4,
       "band": "Good"
     },
     {
@@ -228,6 +128,92 @@
       ],
       "directReportCount": 3,
       "isManager": true,
+      "kpi": 83.4,
+      "band": "Good"
+    },
+    {
+      "id": "CWINE020",
+      "name": "Felista Johnbritto",
+      "team": "Marketing Team",
+      "designation": "Digital Marketing Executive",
+      "teamsId": "1224c56c-e3b2-4377-954a-33e6c5630d93",
+      "managerId": "CWINE001",
+      "managerName": "Christina Arulraj",
+      "directReports": [
+        "CWINI168"
+      ],
+      "directReportCount": 1,
+      "isManager": true,
+      "kpi": 82.6,
+      "band": "Good"
+    },
+    {
+      "id": "CWINE152",
+      "name": "Santhakumar H B",
+      "team": "QA / Testing",
+      "designation": "QA Trainee",
+      "teamsId": "e926ee64-aae1-4359-bfc8-d90ce96762f2",
+      "managerId": "CWINE001",
+      "managerName": "Christina Arulraj",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 82.4,
+      "band": "Good"
+    },
+    {
+      "id": "CWINE130",
+      "name": "Antony Bilgates S",
+      "team": "Development",
+      "designation": "Jr. Software Developer",
+      "teamsId": "5c3e90e6-f1a5-4315-8cbe-1e53d8a61979",
+      "managerId": "CWINE025",
+      "managerName": "Sainath M",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 81.3,
+      "band": "Good"
+    },
+    {
+      "id": "CWINE151",
+      "name": "Ranjini p",
+      "team": "QA / Testing",
+      "designation": "Quality Analyst Trainee",
+      "teamsId": "bac6a564-35be-482f-a49e-728f55ddb7ed",
+      "managerId": "",
+      "managerName": "",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 81.3,
+      "band": "Good"
+    },
+    {
+      "id": "CWINE112",
+      "name": "Dhivya Dharini P",
+      "team": "AI Team",
+      "designation": "Jr. AI Engineer",
+      "teamsId": "e5f36f8b-65a8-44f1-a455-3ced3b624fe0",
+      "managerId": "CWINE084",
+      "managerName": "Prasanth Pradeep Kumar",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 80.3,
+      "band": "Good"
+    },
+    {
+      "id": "CWINI155",
+      "name": "Abinesh D",
+      "team": "Business Development",
+      "designation": "Business Development Trainee",
+      "teamsId": "d3c11fc1-bc50-4555-85e7-9f7c80a70902",
+      "managerId": "CWINE123",
+      "managerName": "Trinita Rex Anto",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
       "kpi": 80.0,
       "band": "Good"
     },
@@ -246,6 +232,20 @@
       "band": "Good"
     },
     {
+      "id": "CWINE170",
+      "name": "Keerthana Donkada",
+      "team": "Project Management",
+      "designation": "Project Manager",
+      "teamsId": "4bf9bb93-bc2f-46a9-83d4-9a077f940181",
+      "managerId": "CWINE001",
+      "managerName": "Christina Arulraj",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 79.5,
+      "band": "Average"
+    },
+    {
       "id": "CWINE016",
       "name": "Nithisha S",
       "team": "Development",
@@ -259,7 +259,7 @@
       ],
       "directReportCount": 2,
       "isManager": true,
-      "kpi": 78.7,
+      "kpi": 79.2,
       "band": "Average"
     },
     {
@@ -273,7 +273,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 78.6,
+      "kpi": 78.7,
       "band": "Average"
     },
     {
@@ -287,63 +287,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 78.5,
-      "band": "Average"
-    },
-    {
-      "id": "CWINE170",
-      "name": "Keerthana Donkada",
-      "team": "Project Management",
-      "designation": "Project Manager",
-      "teamsId": "4bf9bb93-bc2f-46a9-83d4-9a077f940181",
-      "managerId": "CWINE001",
-      "managerName": "Christina Arulraj",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 77.9,
-      "band": "Average"
-    },
-    {
-      "id": "CWINE029",
-      "name": "Xavier Arul Nelson",
-      "team": "Development",
-      "designation": "Jr. Software Developer",
-      "teamsId": "e9be3460-fd52-4c78-9a02-3f767054db8b",
-      "managerId": "CWINE001",
-      "managerName": "Christina Arulraj",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 76.2,
-      "band": "Average"
-    },
-    {
-      "id": "CWINI199",
-      "name": "Elakiya Y",
-      "team": "Business Development",
-      "designation": "Business Development Trainee",
-      "teamsId": "fc2bc873-ebd1-44ee-a33e-d8e43fdcd1cd",
-      "managerId": "",
-      "managerName": "",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 76.0,
-      "band": "Average"
-    },
-    {
-      "id": "CWINE090",
-      "name": "Mahesh Mohan Haval",
-      "team": "Development",
-      "designation": "Senior Technical Lead Consultant",
-      "teamsId": "b48c811b-9174-41ff-8abe-c56885740dd2",
-      "managerId": "CWINE053",
-      "managerName": "Senthil Kumar LT",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 76.0,
+      "kpi": 78.4,
       "band": "Average"
     },
     {
@@ -361,7 +305,49 @@
       ],
       "directReportCount": 3,
       "isManager": true,
-      "kpi": 75.8,
+      "kpi": 76.8,
+      "band": "Average"
+    },
+    {
+      "id": "CWINI199",
+      "name": "Elakiya Y",
+      "team": "Business Development",
+      "designation": "Business Development Trainee",
+      "teamsId": "fc2bc873-ebd1-44ee-a33e-d8e43fdcd1cd",
+      "managerId": "",
+      "managerName": "",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 76.3,
+      "band": "Average"
+    },
+    {
+      "id": "CWINI208",
+      "name": "Berlin sweety D H",
+      "team": "Business Development",
+      "designation": "Business Development Trainee",
+      "teamsId": "",
+      "managerId": "",
+      "managerName": "",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 76.3,
+      "band": "Average"
+    },
+    {
+      "id": "CWINE090",
+      "name": "Mahesh Mohan Haval",
+      "team": "Development",
+      "designation": "Senior Technical Lead Consultant",
+      "teamsId": "b48c811b-9174-41ff-8abe-c56885740dd2",
+      "managerId": "CWINE053",
+      "managerName": "Senthil Kumar LT",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 76.3,
       "band": "Average"
     },
     {
@@ -375,35 +361,21 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 75.7,
+      "kpi": 75.5,
       "band": "Average"
     },
     {
-      "id": "CWINE167",
-      "name": "Divya U",
-      "team": "CPLC",
-      "designation": "AI Trainer",
-      "teamsId": "97d62df1-c1de-4032-83b0-38b704424bda",
-      "managerId": "CWINE014",
-      "managerName": "Neaven Christopher",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 73.1,
-      "band": "Average"
-    },
-    {
-      "id": "CWINE027",
-      "name": "Lakshana L",
+      "id": "CWINE029",
+      "name": "Xavier Arul Nelson",
       "team": "Development",
       "designation": "Jr. Software Developer",
-      "teamsId": "cf485eec-fb0e-43e4-be64-83c2e751c274",
-      "managerId": "CWINE025",
-      "managerName": "Sainath M",
+      "teamsId": "e9be3460-fd52-4c78-9a02-3f767054db8b",
+      "managerId": "CWINE001",
+      "managerName": "Christina Arulraj",
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 73.0,
+      "kpi": 74.4,
       "band": "Average"
     },
     {
@@ -417,35 +389,21 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 72.6,
+      "kpi": 74.1,
       "band": "Average"
     },
     {
-      "id": "CWINI186",
-      "name": "Anisha S",
-      "team": "QA / Testing",
-      "designation": "Quality Analyst Intern",
-      "teamsId": "a03b994d-723c-43c3-abaa-85ddf605f1d6",
-      "managerId": "CWINE004",
-      "managerName": "Vinoth Xavier",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 72.5,
-      "band": "Average"
-    },
-    {
-      "id": "CWINE141",
-      "name": "Karthikeyan Balakrishnan",
+      "id": "CWINE167",
+      "name": "Divya U",
       "team": "CPLC",
-      "designation": "Business Development Manager",
-      "teamsId": "46bdde5f-67d8-4fda-9310-d3ec2485779e",
+      "designation": "AI Trainer",
+      "teamsId": "97d62df1-c1de-4032-83b0-38b704424bda",
       "managerId": "CWINE014",
       "managerName": "Neaven Christopher",
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 71.7,
+      "kpi": 73.7,
       "band": "Average"
     },
     {
@@ -459,37 +417,49 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 71.5,
+      "kpi": 73.4,
       "band": "Average"
     },
     {
-      "id": "CWINE074",
-      "name": "Divya Sree D V",
-      "team": "UI / UX",
-      "designation": "UI / UX Designer",
-      "teamsId": "10fb48dd-27d0-4d21-97d7-3726133fa688",
-      "managerId": "CWINE025",
-      "managerName": "Sainath M",
-      "directReports": [
-        "CWINI232"
-      ],
-      "directReportCount": 1,
-      "isManager": true,
-      "kpi": 70.3,
-      "band": "Average"
-    },
-    {
-      "id": "CWINI231",
-      "name": "Gayathiri R",
-      "team": "Marketing",
-      "designation": "Digital Marketing Trainee",
-      "teamsId": "8d62dcb3-eba6-41a2-a799-6a7d38e57d15",
-      "managerId": "CWINE123",
-      "managerName": "Trinita Rex Anto",
+      "id": "CWINI186",
+      "name": "Anisha S",
+      "team": "QA / Testing",
+      "designation": "Quality Analyst Intern",
+      "teamsId": "a03b994d-723c-43c3-abaa-85ddf605f1d6",
+      "managerId": "CWINE004",
+      "managerName": "Vinoth Xavier",
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 69.4,
+      "kpi": 72.9,
+      "band": "Average"
+    },
+    {
+      "id": "CWINE141",
+      "name": "Karthikeyan Balakrishnan",
+      "team": "CPLC",
+      "designation": "Business Development Manager",
+      "teamsId": "46bdde5f-67d8-4fda-9310-d3ec2485779e",
+      "managerId": "CWINE014",
+      "managerName": "Neaven Christopher",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 72.0,
+      "band": "Average"
+    },
+    {
+      "id": "CWINE027",
+      "name": "Lakshana L",
+      "team": "Development",
+      "designation": "Jr. Software Developer",
+      "teamsId": "cf485eec-fb0e-43e4-be64-83c2e751c274",
+      "managerId": "CWINE025",
+      "managerName": "Sainath M",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 69.7,
       "band": "Needs Improvement"
     },
     {
@@ -503,7 +473,94 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 68.1,
+      "kpi": 68.8,
+      "band": "Needs Improvement"
+    },
+    {
+      "id": "CWINE074",
+      "name": "Divya Sree D V",
+      "team": "UI / UX",
+      "designation": "UI / UX Designer",
+      "teamsId": "10fb48dd-27d0-4d21-97d7-3726133fa688",
+      "managerId": "CWINE025",
+      "managerName": "Sainath M",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 68.7,
+      "band": "Needs Improvement"
+    },
+    {
+      "id": "CWINI231",
+      "name": "Gayathiri A",
+      "team": "Marketing",
+      "designation": "Digital Marketing Trainee",
+      "teamsId": "8d62dcb3-eba6-41a2-a799-6a7d38e57d15",
+      "managerId": "CWINE123",
+      "managerName": "Trinita Rex Anto",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 68.6,
+      "band": "Needs Improvement"
+    },
+    {
+      "id": "CWINIE173",
+      "name": "Emmanuel Robert",
+      "team": "Business Development",
+      "designation": "Business Development Manager",
+      "teamsId": "e3307e92-cb4f-4372-bce5-31d0f73d50bd",
+      "managerId": "",
+      "managerName": "",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 66.4,
+      "band": "Needs Improvement"
+    },
+    {
+      "id": "CWINE177",
+      "name": "Sindhu J",
+      "team": "HR Team",
+      "designation": "HR IT Recruiter",
+      "teamsId": "6596af68-7e31-47df-8e89-e51db1f5a0ed",
+      "managerId": "CWINE005",
+      "managerName": "Divya Sundar",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 63.3,
+      "band": "Needs Improvement"
+    },
+    {
+      "id": "CWINE100",
+      "name": "Priyadarshini V",
+      "team": "HR Team",
+      "designation": "HR Generalist",
+      "teamsId": "eaec440e-07e9-48d1-a91a-007770e1887c",
+      "managerId": "CWINE005",
+      "managerName": "Divya Sundar",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 63.3,
+      "band": "Needs Improvement"
+    },
+    {
+      "id": "CWINE014",
+      "name": "Neaven Christopher",
+      "team": "CPLC",
+      "designation": "Center Head - CPLC",
+      "teamsId": "a30e8552-67a1-468a-a1ae-e5c9688eb7e7",
+      "managerId": "TCINMD02",
+      "managerName": "Vijay Anand",
+      "directReports": [
+        "CWINE141",
+        "CWINE167"
+      ],
+      "directReportCount": 2,
+      "isManager": true,
+      "kpi": 63.0,
       "band": "Needs Improvement"
     },
     {
@@ -519,35 +576,7 @@
       ],
       "directReportCount": 1,
       "isManager": true,
-      "kpi": 67.8,
-      "band": "Needs Improvement"
-    },
-    {
-      "id": "CWINIE173",
-      "name": "Emmanuel Robert",
-      "team": "Business Development",
-      "designation": "Business Development Manager",
-      "teamsId": "e3307e92-cb4f-4372-bce5-31d0f73d50bd",
-      "managerId": "",
-      "managerName": "",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 66.0,
-      "band": "Needs Improvement"
-    },
-    {
-      "id": "CWINI255",
-      "name": "Ansi S",
-      "team": "Marketing",
-      "designation": "Business Development Trainee",
-      "teamsId": "7a72f680-4888-408f-bd3d-188abc8bb653",
-      "managerId": "CWINE123",
-      "managerName": "Trinita Rex Anto",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 63.6,
+      "kpi": 62.7,
       "band": "Needs Improvement"
     },
     {
@@ -561,35 +590,35 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 62.5,
+      "kpi": 62.7,
       "band": "Needs Improvement"
     },
     {
-      "id": "CWINE100",
-      "name": "Priyadarshini V",
-      "team": "HR Team",
-      "designation": "HR Generalist",
-      "teamsId": "eaec440e-07e9-48d1-a91a-007770e1887c",
-      "managerId": "CWINE005",
-      "managerName": "Divya Sundar",
+      "id": "CWINI255",
+      "name": "Ansi S",
+      "team": "Marketing",
+      "designation": "Business Development Trainee",
+      "teamsId": "7a72f680-4888-408f-bd3d-188abc8bb653",
+      "managerId": "CWINE123",
+      "managerName": "Trinita Rex Anto",
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 61.9,
+      "kpi": 62.3,
       "band": "Needs Improvement"
     },
     {
-      "id": "CWINE059",
-      "name": "Sachin P Ingle",
-      "team": "Software Development",
-      "designation": "Technical Lead Consultant",
-      "teamsId": "760aa773-c775-46ee-b422-0a87a00d1f16",
-      "managerId": "CWINE053",
-      "managerName": "Senthil Kumar LT",
+      "id": "CWINE129",
+      "name": "Nandha Kumar R",
+      "team": "Cyber Security Team",
+      "designation": "Jr. Cyber Security Specialist",
+      "teamsId": "b2658293-bd72-4766-b898-1796f826219b",
+      "managerId": "CWINE117",
+      "managerName": "Dhinaanithi V K",
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 60.7,
+      "kpi": 62.0,
       "band": "Needs Improvement"
     },
     {
@@ -600,6 +629,20 @@
       "teamsId": "67cd13db-03ff-494f-9e46-38063bff36d1",
       "managerId": "CWINE048",
       "managerName": "Archana Arun",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 60.4,
+      "band": "Needs Improvement"
+    },
+    {
+      "id": "CWINE059",
+      "name": "Sachin P Ingle",
+      "team": "Software Development",
+      "designation": "Technical Lead Consultant",
+      "teamsId": "760aa773-c775-46ee-b422-0a87a00d1f16",
+      "managerId": "CWINE053",
+      "managerName": "Senthil Kumar LT",
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
@@ -621,34 +664,6 @@
       "band": "Needs Improvement"
     },
     {
-      "id": "CWINE177",
-      "name": "Sindhu J",
-      "team": "HR Team",
-      "designation": "HR IT Recruiter",
-      "teamsId": "6596af68-7e31-47df-8e89-e51db1f5a0ed",
-      "managerId": "CWINE005",
-      "managerName": "Divya Sundar",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 60.2,
-      "band": "Needs Improvement"
-    },
-    {
-      "id": "CWINE129",
-      "name": "Nandha Kumar R",
-      "team": "Cyber Security Team",
-      "designation": "Jr. Cyber Security Specialist",
-      "teamsId": "b2658293-bd72-4766-b898-1796f826219b",
-      "managerId": "CWINE117",
-      "managerName": "Dhinaanithi V K",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 60.2,
-      "band": "Needs Improvement"
-    },
-    {
       "id": "CWINE058",
       "name": "Rajkumar Kanagaraj",
       "team": "Software Development",
@@ -663,23 +678,6 @@
       "band": "Needs Improvement"
     },
     {
-      "id": "CWINE014",
-      "name": "Neaven Christopher",
-      "team": "CPLC",
-      "designation": "Center Head - CPLC",
-      "teamsId": "a30e8552-67a1-468a-a1ae-e5c9688eb7e7",
-      "managerId": "TCINMD02",
-      "managerName": "Vijay Anand",
-      "directReports": [
-        "CWINE141",
-        "CWINE167"
-      ],
-      "directReportCount": 2,
-      "isManager": true,
-      "kpi": 59.9,
-      "band": "Critical"
-    },
-    {
       "id": "CWINI179",
       "name": "VIJAYRAJ A",
       "team": "AI Team",
@@ -690,35 +688,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 58.2,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINE142",
-      "name": "Angelin Nivetha M",
-      "team": "Software Development",
-      "designation": "Full Stack Developer",
-      "teamsId": "e485655f-a2be-42a5-8895-2cabb5fe120f",
-      "managerId": "CWINE025",
-      "managerName": "Sainath M",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 58.1,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINE164",
-      "name": "Anisha Genushma G S",
-      "team": "AI Team",
-      "designation": "AI Trainee",
-      "teamsId": "d8e5b77c-6ced-4df9-aba6-3a1d580e241d",
-      "managerId": "CWINE084",
-      "managerName": "Prasanth Pradeep Kumar",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 57.7,
+      "kpi": 58.8,
       "band": "Critical"
     },
     {
@@ -732,7 +702,63 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 57.4,
+      "kpi": 58.6,
+      "band": "Critical"
+    },
+    {
+      "id": "CWINE142",
+      "name": "Angelin Nivetha M",
+      "team": "Software Development",
+      "designation": "Full Stack Developer",
+      "teamsId": "e485655f-a2be-42a5-8895-2cabb5fe120f",
+      "managerId": "CWINE025",
+      "managerName": "Sainath M",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 58.6,
+      "band": "Critical"
+    },
+    {
+      "id": "CWINE164",
+      "name": "Anisha Genushma G S",
+      "team": "AI Team",
+      "designation": "AI Trainee",
+      "teamsId": "d8e5b77c-6ced-4df9-aba6-3a1d580e241d",
+      "managerId": "CWINE084",
+      "managerName": "Prasanth Pradeep Kumar",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 57.8,
+      "band": "Critical"
+    },
+    {
+      "id": "CWINE139",
+      "name": "Salil Kumar Das",
+      "team": "Software Development",
+      "designation": "Full Stack Developer",
+      "teamsId": "0299dae2-7477-472d-9bfc-4b9ea2e0c2a8",
+      "managerId": "CWINE025",
+      "managerName": "Sainath M",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 57.0,
+      "band": "Critical"
+    },
+    {
+      "id": "CWINE035",
+      "name": "Shanmuga Priya M",
+      "team": "Development",
+      "designation": "UI Developer",
+      "teamsId": "3efb9e6f-2154-4fb9-a78d-b46848fc2f84",
+      "managerId": "CWINE048",
+      "managerName": "Archana Arun",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 56.7,
       "band": "Critical"
     },
     {
@@ -741,6 +767,34 @@
       "team": "Development",
       "designation": "Technical Lead Consultant",
       "teamsId": "6c1ed5de-2e3b-496d-81b7-5a21cefa912a",
+      "managerId": "CWINE048",
+      "managerName": "Archana Arun",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 56.7,
+      "band": "Critical"
+    },
+    {
+      "id": "CWINE068",
+      "name": "Harshad Vishwananth Alaspure",
+      "team": "Quality & Testing",
+      "designation": "Manual Tester",
+      "teamsId": "ba31209d-f696-486a-9f95-b6b456bf5dfb",
+      "managerId": "CWINE048",
+      "managerName": "Archana Arun",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 56.7,
+      "band": "Critical"
+    },
+    {
+      "id": "CWINE007",
+      "name": "Cynthiya J",
+      "team": "Quality & Testing",
+      "designation": "Quality Analyst",
+      "teamsId": "f86da084-9749-4c32-8106-3966e377a28c",
       "managerId": "CWINE048",
       "managerName": "Archana Arun",
       "directReports": [],
@@ -778,76 +832,6 @@
       "band": "Critical"
     },
     {
-      "id": "CWINE139",
-      "name": "Salil Kumar Das",
-      "team": "Software Development",
-      "designation": "Full Stack Developer",
-      "teamsId": "0299dae2-7477-472d-9bfc-4b9ea2e0c2a8",
-      "managerId": "CWINE025",
-      "managerName": "Sainath M",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 56.3,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINE035",
-      "name": "Shanmuga Priya M",
-      "team": "Development",
-      "designation": "UI Developer",
-      "teamsId": "3efb9e6f-2154-4fb9-a78d-b46848fc2f84",
-      "managerId": "CWINE048",
-      "managerName": "Archana Arun",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 56.3,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINE063",
-      "name": "Santhosh Srinivasan",
-      "team": "Development",
-      "designation": "Technical Lead Consultant",
-      "teamsId": "8ddde0de-c66e-4edb-9ba7-5dff3e3a247e",
-      "managerId": "CWINE048",
-      "managerName": "Archana Arun",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 56.3,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINE068",
-      "name": "Harshad Vishwananth Alaspure",
-      "team": "Quality & Testing",
-      "designation": "Manual Tester",
-      "teamsId": "ba31209d-f696-486a-9f95-b6b456bf5dfb",
-      "managerId": "CWINE048",
-      "managerName": "Archana Arun",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 56.3,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINE007",
-      "name": "Cynthiya J",
-      "team": "Quality & Testing",
-      "designation": "Quality Analyst",
-      "teamsId": "f86da084-9749-4c32-8106-3966e377a28c",
-      "managerId": "CWINE048",
-      "managerName": "Archana Arun",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 56.3,
-      "band": "Critical"
-    },
-    {
       "id": "CWINE044",
       "name": "Kadali Kusumanjali",
       "team": "Software Development",
@@ -858,7 +842,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 56.0,
+      "kpi": 56.3,
       "band": "Critical"
     },
     {
@@ -872,7 +856,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 56.0,
+      "kpi": 56.3,
       "band": "Critical"
     },
     {
@@ -886,7 +870,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 56.0,
+      "kpi": 56.3,
       "band": "Critical"
     },
     {
@@ -900,7 +884,21 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 56.0,
+      "kpi": 56.3,
+      "band": "Critical"
+    },
+    {
+      "id": "CWINE040",
+      "name": "Sathiyamoorthy R",
+      "team": "Software Development",
+      "designation": "Senior API Developer",
+      "teamsId": "221f9fa6-68b6-492c-a4ea-0a40bb994450",
+      "managerId": "CWINE053",
+      "managerName": "Senthil Kumar LT",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 56.3,
       "band": "Critical"
     },
     {
@@ -914,21 +912,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 56.0,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINE147",
-      "name": "Joseph Saiman",
-      "team": "Development",
-      "designation": "Software Developer",
-      "teamsId": "c1540adf-0454-4512-97e4-51373e00cb27",
-      "managerId": "",
-      "managerName": "",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 53.7,
+      "kpi": 56.3,
       "band": "Critical"
     },
     {
@@ -942,21 +926,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 53.4,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINE067",
-      "name": "Ramkumar R",
-      "team": "Quality & Testing",
-      "designation": "Senior Quality Analyst",
-      "teamsId": "a3f113d3-8d29-4ad3-a1c1-18134a566025",
-      "managerId": "CWINE048",
-      "managerName": "Archana Arun",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 52.7,
+      "kpi": 53.5,
       "band": "Critical"
     },
     {
@@ -970,7 +940,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 52.7,
+      "kpi": 53.3,
       "band": "Critical"
     },
     {
@@ -984,7 +954,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 52.4,
+      "kpi": 52.9,
       "band": "Critical"
     },
     {
@@ -998,7 +968,35 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 52.4,
+      "kpi": 52.9,
+      "band": "Critical"
+    },
+    {
+      "id": "CWINE063",
+      "name": "Santhosh Srinivasan",
+      "team": "Development",
+      "designation": "Technical Lead Consultant",
+      "teamsId": "8ddde0de-c66e-4edb-9ba7-5dff3e3a247e",
+      "managerId": "CWINE048",
+      "managerName": "Archana Arun",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 52.9,
+      "band": "Critical"
+    },
+    {
+      "id": "CWINE067",
+      "name": "Ramkumar R",
+      "team": "Quality & Testing",
+      "designation": "Senior Quality Analyst",
+      "teamsId": "a3f113d3-8d29-4ad3-a1c1-18134a566025",
+      "managerId": "CWINE048",
+      "managerName": "Archana Arun",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 52.9,
       "band": "Critical"
     },
     {
@@ -1012,21 +1010,21 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 52.4,
+      "kpi": 52.9,
       "band": "Critical"
     },
     {
-      "id": "CWINE060",
-      "name": "Swapna Veluru",
-      "team": "Development",
-      "designation": "Senior Technical Lead Consultant",
-      "teamsId": "2e56fcb3-eaf7-4be2-856b-847e8563e6a9",
+      "id": "CWINE056",
+      "name": "Kalaivanan Ramaiah",
+      "team": "Software Development",
+      "designation": "Technical Architect",
+      "teamsId": "ed2dde7c-6a6e-4b85-8f6d-5023cda9c794",
       "managerId": "CWINE053",
       "managerName": "Senthil Kumar LT",
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 52.4,
+      "kpi": 52.9,
       "band": "Critical"
     },
     {
@@ -1040,7 +1038,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 52.4,
+      "kpi": 52.9,
       "band": "Critical"
     },
     {
@@ -1054,7 +1052,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 52.0,
+      "kpi": 52.5,
       "band": "Critical"
     },
     {
@@ -1068,7 +1066,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 52.0,
+      "kpi": 52.5,
       "band": "Critical"
     },
     {
@@ -1082,7 +1080,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 52.0,
+      "kpi": 52.5,
       "band": "Critical"
     },
     {
@@ -1096,7 +1094,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 52.0,
+      "kpi": 52.5,
       "band": "Critical"
     },
     {
@@ -1110,7 +1108,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 52.0,
+      "kpi": 52.5,
       "band": "Critical"
     },
     {
@@ -1124,7 +1122,21 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 51.9,
+      "kpi": 51.6,
+      "band": "Critical"
+    },
+    {
+      "id": "CWINE147",
+      "name": "Joseph Saiman",
+      "team": "Development",
+      "designation": "Software Developer",
+      "teamsId": "c1540adf-0454-4512-97e4-51373e00cb27",
+      "managerId": "",
+      "managerName": "",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 50.8,
       "band": "Critical"
     },
     {
@@ -1138,7 +1150,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 50.8,
+      "kpi": 50.4,
       "band": "Critical"
     },
     {
@@ -1170,6 +1182,34 @@
       "band": "Critical"
     },
     {
+      "id": "CWINI235",
+      "name": "Kalvin Antony",
+      "team": "Business Development",
+      "designation": "Business Development Trainee",
+      "teamsId": "ef0b8fcc-9130-4ecc-8d04-fe6df5654353",
+      "managerId": "CWINE123",
+      "managerName": "Trinita Rex Anto",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 50.0,
+      "band": "Critical"
+    },
+    {
+      "id": "CWINE060",
+      "name": "Swapna Veluru",
+      "team": "Development",
+      "designation": "Senior Technical Lead Consultant",
+      "teamsId": "2e56fcb3-eaf7-4be2-856b-847e8563e6a9",
+      "managerId": "CWINE053",
+      "managerName": "Senthil Kumar LT",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 49.1,
+      "band": "Critical"
+    },
+    {
       "id": "CWINE011",
       "name": "Saran Menon P",
       "team": "Development",
@@ -1178,27 +1218,13 @@
       "managerId": "CWINE025",
       "managerName": "Sainath M",
       "directReports": [
+        "CWINI160",
         "CWINI177",
-        "CWINI179",
-        "CWINI160"
+        "CWINI179"
       ],
       "directReportCount": 3,
       "isManager": true,
-      "kpi": 48.5,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINE056",
-      "name": "Kalaivanan Ramaiah",
-      "team": "Software Development",
-      "designation": "Technical Architect",
-      "teamsId": "ed2dde7c-6a6e-4b85-8f6d-5023cda9c794",
-      "managerId": "CWINE053",
-      "managerName": "Senthil Kumar LT",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 48.4,
+      "kpi": 48.7,
       "band": "Critical"
     },
     {
@@ -1212,7 +1238,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 48.0,
+      "kpi": 48.7,
       "band": "Critical"
     },
     {
@@ -1240,7 +1266,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 43.5,
+      "kpi": 43.9,
       "band": "Critical"
     },
     {
@@ -1254,21 +1280,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 41.5,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINI235",
-      "name": "Kalvin Antony",
-      "team": "Business Development",
-      "designation": "Business Development Trainee",
-      "teamsId": "ef0b8fcc-9130-4ecc-8d04-fe6df5654353",
-      "managerId": "CWINE123",
-      "managerName": "Trinita Rex Anto",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 40.0,
+      "kpi": 39.2,
       "band": "Critical"
     },
     {
@@ -1282,7 +1294,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 40.0,
+      "kpi": 37.5,
       "band": "Critical"
     },
     {
@@ -1305,14 +1317,14 @@
         "CWINE162",
         "CWINE011",
         "CWINE088",
-        "CWINI237",
-        "CWINI241",
+        "CWINI242",
         "CWINI217",
-        "CWINI242"
+        "CWINI241",
+        "CWINI237"
       ],
       "directReportCount": 15,
       "isManager": true,
-      "kpi": 33.9,
+      "kpi": 31.7,
       "band": "Critical"
     },
     {
@@ -1326,21 +1338,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 32.1,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINE040",
-      "name": "Sathiyamoorthy R",
-      "team": "Software Development",
-      "designation": "Senior API Developer",
-      "teamsId": "221f9fa6-68b6-492c-a4ea-0a40bb994450",
-      "managerId": "CWINE053",
-      "managerName": "Senthil Kumar LT",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 28.3,
+      "kpi": 30.4,
       "band": "Critical"
     },
     {
@@ -1357,7 +1355,7 @@
       ],
       "directReportCount": 2,
       "isManager": true,
-      "kpi": 15.0,
+      "kpi": 14.0,
       "band": "Critical"
     },
     {
@@ -1371,7 +1369,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 7.3,
+      "kpi": 6.8,
       "band": "Critical"
     },
     {
@@ -1385,7 +1383,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 2.5,
+      "kpi": 0.0,
       "band": "Critical"
     },
     {
@@ -1601,9 +1599,9 @@
         "CWINE029",
         "CWINE020",
         "CWINE159",
-        "CWINI164",
+        "CWINE155",
         "CWINE121",
-        "CWINE155"
+        "CWINI164"
       ],
       "directReportCount": 12,
       "isManager": true,
@@ -1792,9 +1790,9 @@
       "name": "Guna Sivam S",
       "team": "UI / UX",
       "designation": "UI / UX Designer Intern",
-      "teamsId": "b12c31d4-0a8c-4c3d-adb1-201690f88115",
-      "managerId": "CWINE074",
-      "managerName": "Divya Sree D V",
+      "teamsId": "",
+      "managerId": "",
+      "managerName": "",
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
@@ -2047,7 +2045,6 @@
       "directReports": [
         "CWINE153",
         "CWINE172",
-        "CWINI233",
         "CWINI155",
         "CWINI235",
         "CWINI231",
@@ -2055,24 +2052,10 @@
         "CWINI243",
         "CWINI255"
       ],
-      "directReportCount": 9,
+      "directReportCount": 8,
       "isManager": true,
       "kpi": null,
       "band": "Executive"
-    },
-    {
-      "id": "CWINI233",
-      "name": "Hemnath",
-      "team": "Marketing",
-      "designation": "Digital Marketing Intern",
-      "teamsId": "",
-      "managerId": "CWINE123",
-      "managerName": "Trinita Rex Anto",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": null,
-      "band": ""
     }
   ]
 }
