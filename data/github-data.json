@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-27T09:16:29.279827Z",
+  "lastUpdated": "2026-10-28T09:57:25.084508Z",
   "period": {
     "since": "2026-10-01",
     "until": "2026-10-31"
@@ -44,7 +44,7 @@
         },
         {
           "title": "Admin – Table Row Filter Is Not Consistent Across Modules",
-          "status": "TODO",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
@@ -59,7 +59,7 @@
         },
         {
           "title": "Admin – Final Table Column Is Misaligned with the Table Background",
-          "status": "TODO",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
@@ -74,7 +74,7 @@
         },
         {
           "title": "Admin – Table Does Not Update Immediately After Creating or Deleting Records",
-          "status": "TODO",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
@@ -89,7 +89,7 @@
         },
         {
           "title": "Support Ticket Status Update Does Not Redirect to the Previous Page and the Ticket Count Is Not Updated Immediately",
-          "status": "TODO",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
@@ -104,7 +104,7 @@
         },
         {
           "title": "Support Ticket modal popup does not automatically close after clicking the \"Save\" button.",
-          "status": "TODO",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
@@ -149,7 +149,7 @@
         },
         {
           "title": "Auto-scroll to top occurs unexpectedly when navigating to Submenu items under Settings and Reports.",
-          "status": "TODO",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
@@ -164,7 +164,7 @@
         },
         {
           "title": "Mobile Number Field Accepts Alphabets, Special Characters, and Unlimited Digits Without Proper Validation",
-          "status": "TODO",
+          "status": "Dev",
           "priority": "",
           "size": "",
           "assignees": [
@@ -181,8 +181,8 @@
       "stats": {
         "total": 11,
         "done": 2,
-        "inProgress": 0,
-        "todo": 9,
+        "inProgress": 7,
+        "todo": 2,
         "backlog": 0,
         "production": 0
       }
@@ -218,8 +218,53 @@
       "title": "My Medical Help",
       "items": [
         {
+          "title": "Profile update/KYC submission succeeds without uploading required Licence Document.",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "sarancodework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/168",
+          "createdAt": "2026-10-21T12:47:43Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Low Wallet Balance Does Not Restrict Availability Updates or Patient Booking.",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "sarancodework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/170",
+          "createdAt": "2026-10-22T06:54:26Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Old Appointment Slot Is Not Available for Booking After Rescheduling",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "sarancodework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/173",
+          "createdAt": "2026-10-22T12:39:32Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Login with mobile number + OTP (persistent session until logout)",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -234,7 +279,7 @@
         },
         {
           "title": "Frontend – Display Event Notifications",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -249,7 +294,7 @@
         },
         {
           "title": "Frontend – Display Appointment Reminders",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -264,11 +309,11 @@
         },
         {
           "title": "Backend – Implement Event-Based Notifications",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/150",
@@ -279,11 +324,11 @@
         },
         {
           "title": "Backend – Implement Appointment Reminders",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/148",
@@ -444,7 +489,7 @@
         },
         {
           "title": "Frontend – Display Visit Type and Pricing",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -459,7 +504,7 @@
         },
         {
           "title": "Frontend – Handle Low Wallet Balance",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -474,11 +519,11 @@
         },
         {
           "title": "Backend – Provide Visit Type and Pricing Details",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/141",
@@ -489,11 +534,11 @@
         },
         {
           "title": "Backend – Validate Wallet Balance for Hourly Fees",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/139",
@@ -504,7 +549,7 @@
         },
         {
           "title": "Frontend – Licence Verification Status",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -519,7 +564,7 @@
         },
         {
           "title": "Frontend – Professional Licence Review Queue",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -534,7 +579,7 @@
         },
         {
           "title": "Frontend – Professional Verification Status",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -579,7 +624,7 @@
         },
         {
           "title": "Frontend – Extra Hour Booking Request",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -594,11 +639,11 @@
         },
         {
           "title": "Backend – Handle Professional Verification Outcomes",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/133",
@@ -609,11 +654,11 @@
         },
         {
           "title": "Backend – Handle Extra Hour Booking Request",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/127",
@@ -639,7 +684,7 @@
         },
         {
           "title": "Frontend – Professional Filter Options",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -654,11 +699,11 @@
         },
         {
           "title": "Backend – Implement Hourly Professional Availability",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/131",
@@ -669,11 +714,11 @@
         },
         {
           "title": "Backend – Implement Hourly Platform Fee",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/129",
@@ -684,7 +729,7 @@
         },
         {
           "title": "Frontend – User Suspension Management",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -699,7 +744,7 @@
         },
         {
           "title": "Frontend – Wallet Transaction Management",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -714,7 +759,7 @@
         },
         {
           "title": "Frontend – Home Visit Address and Navigation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -729,7 +774,7 @@
         },
         {
           "title": "Frontend – Dispute Review Queue",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -744,7 +789,7 @@
         },
         {
           "title": "Frontend – Implement Hourly Slot Booking Flow",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -759,11 +804,11 @@
         },
         {
           "title": "Backend – Wallet Transaction Management",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/111",
@@ -774,11 +819,11 @@
         },
         {
           "title": "Backend – Professional Licence Admin Review",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/135",
@@ -789,11 +834,11 @@
         },
         {
           "title": "Backend – Home Visit Address and Navigation",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/120",
@@ -804,11 +849,11 @@
         },
         {
           "title": "Backend – Implement Hourly Slot Booking",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/117",
@@ -819,11 +864,11 @@
         },
         {
           "title": "Backend – Control Location Visibility",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/116",
@@ -834,11 +879,11 @@
         },
         {
           "title": "Backend – Dispute Review and Resolution",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/113",
@@ -849,11 +894,11 @@
         },
         {
           "title": "Backend – Implement User Suspension",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/109",
@@ -864,11 +909,11 @@
         },
         {
           "title": "Backend – Support Request and Dispute Management",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/107",
@@ -879,11 +924,11 @@
         },
         {
           "title": "Backend – Automated Professional Licence Verification",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/137",
@@ -894,11 +939,11 @@
         },
         {
           "title": "Backend – Implement Professional Filters",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/105",
@@ -909,11 +954,11 @@
         },
         {
           "title": "Backend – Implement Appointment Status Lifecycle",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/101",
@@ -924,11 +969,11 @@
         },
         {
           "title": "Backend – Appointment Monitoring APIs",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/99",
@@ -939,11 +984,11 @@
         },
         {
           "title": "Backend – Handle Appointment Rescheduling",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/95",
@@ -954,11 +999,11 @@
         },
         {
           "title": "Backend – Handle Appointment Completion",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/97",
@@ -969,11 +1014,11 @@
         },
         {
           "title": "Backend – Handle Appointment Rescheduling",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/85",
@@ -984,11 +1029,11 @@
         },
         {
           "title": "Backend – Handle Appointment Cancellation",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/87",
@@ -999,11 +1044,11 @@
         },
         {
           "title": "Backend – Confirm Appointment Booking",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/89",
@@ -1014,11 +1059,11 @@
         },
         {
           "title": "Backend – Provide Professional Location and Contact",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/91",
@@ -1029,11 +1074,11 @@
         },
         {
           "title": "Backend – Fetch and Sort Available Professionals",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/93",
@@ -1044,11 +1089,11 @@
         },
         {
           "title": "Backend – Validate Staff Availability Request",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/77",
@@ -1329,7 +1374,7 @@
         },
         {
           "title": "EP015-US-055 Review verifications",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1359,7 +1404,7 @@
         },
         {
           "title": "EP04-US-016 Validate availability before going live",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1374,7 +1419,7 @@
         },
         {
           "title": "EP07-US-035 View professional profile",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1389,7 +1434,7 @@
         },
         {
           "title": "EP09-US-044 Join online consultation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1404,7 +1449,7 @@
         },
         {
           "title": "EP01 - US-001 Create account",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1419,7 +1464,7 @@
         },
         {
           "title": "EP01-US-004 Upload licence document",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1434,7 +1479,7 @@
         },
         {
           "title": "EP05-US-022 Receive instant booking",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1524,7 +1569,7 @@
         },
         {
           "title": "EP04-US-020 Prevent overlapping sessions",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1539,7 +1584,7 @@
         },
         {
           "title": "EP04-US-021 Block expired-licence activation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1554,7 +1599,7 @@
         },
         {
           "title": "EP05-US-024 Complete consultation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1569,7 +1614,7 @@
         },
         {
           "title": "EP05-US-025 Deduct platform fee once on completion",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1584,7 +1629,7 @@
         },
         {
           "title": "EP05-US-026 Block go-offline with active booking",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1631,7 +1676,7 @@
         },
         {
           "title": "EP07-US-031 Select preferred date & time",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1646,7 +1691,7 @@
         },
         {
           "title": "EP07-US-032 See available professionals (nearest first)",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1673,57 +1718,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "EP07-US-036 Hide exact location until booking",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/41",
-          "createdAt": "2026-09-18T09:19:47Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "EP08-US-037 Confirm & book an available slot",
-          "status": "QA review",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/42",
-          "createdAt": "2026-09-18T09:22:26Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "EP08-US-038 Reserve slot & confirm both sides",
-          "status": "QA review",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/43",
-          "createdAt": "2026-09-18T09:23:59Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 3,
-        "inProgress": 28,
+        "inProgress": 3,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -3151,8 +3151,98 @@
       "title": "Edubot_CPLC",
       "items": [
         {
+          "title": "Document Download Control",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/347",
+          "createdAt": "2026-09-23T09:58:17Z",
+          "closedAt": "2026-09-24T06:51:04Z",
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Learners – Separate Tab for Past Learners",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/590",
+          "createdAt": "2026-10-27T07:13:43Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Support Fetching Past Learners Separately",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/589",
+          "createdAt": "2026-10-27T07:10:55Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Profile Picture – Add Crop & Adjust Before Save",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/579",
+          "createdAt": "2026-10-26T04:54:28Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Leave Approval Status – Show Pending Approver (Mentor / Admin) in Learner’s Leave Pending Section",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/575",
+          "createdAt": "2026-10-26T04:49:28Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Leave Approval Status – Expose Pending Approver (Mentor / Admin) in Learner Leave API",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/574",
+          "createdAt": "2026-10-26T04:48:44Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Profile Picture – Support Cropped Image Upload",
-          "status": "To Do",
+          "status": "In Development",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3167,7 +3257,7 @@
         },
         {
           "title": "Add Calendar Event Page Opens When Clicking Any Date in the Event Calendar",
-          "status": "To Do",
+          "status": "In Development",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3182,7 +3272,7 @@
         },
         {
           "title": "Leave Rejection Remark – API Support for Mandatory Rejection Remark - Backend",
-          "status": "To Do",
+          "status": "In Development",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3191,6 +3281,21 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/567",
           "createdAt": "2026-10-26T04:26:00Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Leave Rejection Remark – Confirmation Dialog with Mandatory Remark",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/568",
+          "createdAt": "2026-10-26T04:28:16Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -4484,102 +4589,11 @@
           "closedAt": "2026-10-26T09:55:03Z",
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "# Frontend: Display holidays and assessment dates on the Calendar",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/355",
-          "createdAt": "2026-09-28T05:54:19Z",
-          "closedAt": "2026-10-26T09:55:03Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Frontend  - Community: Provide a common Community tab accessible to all users based on their applicable permissions.",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/390",
-          "createdAt": "2026-09-28T09:13:04Z",
-          "closedAt": "2026-10-26T09:55:03Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "# Backend: Auto-align / adapt uploaded images to available display space",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/366",
-          "createdAt": "2026-09-28T07:03:26Z",
-          "closedAt": "2026-10-26T09:55:03Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "# Backend: Return Attendance Log records in chronological order for Learner ESS",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/374",
-          "createdAt": "2026-09-28T07:16:37Z",
-          "closedAt": "2026-10-26T09:55:03Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "# Backend: Add “All Batches” / “Select All” support for multi-batch event scheduling",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/350",
-          "createdAt": "2026-09-28T05:47:44Z",
-          "closedAt": "2026-10-26T09:55:03Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "# Backend: Enable Calendar to fetch holidays and assessment dates",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/354",
-          "createdAt": "2026-09-28T05:53:57Z",
-          "closedAt": "2026-10-26T09:55:03Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "# Frontend: Surface and handle multi-batch scheduling conflicts in Calendar Module",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/353",
-          "createdAt": "2026-09-28T05:52:03Z",
-          "closedAt": "2026-10-26T09:55:03Z",
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 94,
+        "done": 87,
         "inProgress": 0,
         "todo": 0,
         "backlog": 1,
@@ -5587,8 +5601,8 @@
       "title": "Oman Tourism",
       "items": [
         {
-          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
-          "status": "TODO",
+          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
+          "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
@@ -5596,8 +5610,8 @@
             "inbarasuv"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/33",
-          "createdAt": "2026-07-09T06:57:09Z",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/35",
+          "createdAt": "2026-07-09T07:02:33Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -5753,6 +5767,21 @@
           "endDate": ""
         },
         {
+          "title": "Unnecessary \"(comma separated)\" Text Displayed in Preferred Activities Field on Profile & Preferences Page",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/460",
+          "createdAt": "2026-10-22T12:21:44Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "(Real-Time Translation & Cultural Guidance) Translate text, voice, and images",
           "status": "In progress",
           "priority": "",
@@ -5850,6 +5879,22 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/2",
           "createdAt": "2026-07-06T08:53:44Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates",
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/33",
+          "createdAt": "2026-07-09T06:57:09Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -6234,21 +6279,6 @@
           "endDate": ""
         },
         {
-          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/35",
-          "createdAt": "2026-07-09T07:02:33Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "[Backend] Itinerary Generation API — Personalized Day-by-Day Trip Plan",
           "status": "Backlog",
           "priority": "",
@@ -6310,11 +6340,12 @@
         },
         {
           "title": "(Reviews & Community Engagement) Write reviews and upload photos",
-          "status": "Backlog",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Antony-Bilgates",
+            "inbarasuv"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/47",
@@ -6673,21 +6704,6 @@
           "endDate": ""
         },
         {
-          "title": "Unnecessary \"(comma separated)\" Text Displayed in Preferred Activities Field on Profile & Preferences Page",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/460",
-          "createdAt": "2026-10-22T12:21:44Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Translation Phrases Option Not Navigating to the Respective Page in Offline Mode",
           "status": "TODO",
           "priority": "",
@@ -6781,9 +6797,9 @@
       "stats": {
         "total": 82,
         "done": 3,
-        "inProgress": 43,
-        "todo": 17,
-        "backlog": 19,
+        "inProgress": 46,
+        "todo": 16,
+        "backlog": 17,
         "production": 0
       }
     },
@@ -7222,6 +7238,21 @@
       "number": 27,
       "title": "Acadamiq AI",
       "items": [
+        {
+          "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
+          "status": "TODO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/950",
+          "createdAt": "2026-10-21T11:39:55Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Login Page Displays an Incorrect Error Message When Password Contains Spaces",
           "status": "QA Review",
@@ -8706,28 +8737,13 @@
           "closedAt": null,
           "startDate": "2026-08-27",
           "endDate": ""
-        },
-        {
-          "title": "Leave Rejection Notification Is Incorrectly Displayed to Admin",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/830",
-          "createdAt": "2026-08-28T11:30:57Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
         "inProgress": 0,
-        "todo": 0,
+        "todo": 1,
         "backlog": 0,
         "production": 0
       }
@@ -11141,11 +11157,27 @@
           "closedAt": "2026-10-23T11:30:17Z",
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Access Request",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Vinoth-codework",
+            "manju-209"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/962",
+          "createdAt": "2026-10-27T09:48:01Z",
+          "closedAt": "2026-10-27T10:21:25Z",
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 40,
-        "done": 39,
+        "total": 41,
+        "done": 40,
         "inProgress": 0,
         "todo": 1,
         "backlog": 0,
@@ -11194,18 +11226,30 @@
         {
           "project": "My Medical Help",
           "title": "Login with mobile number + OTP (persistent session until logout)",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Frontend – Display Event Notifications",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Frontend – Display Appointment Reminders",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement Event-Based Notifications",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement Appointment Reminders",
           "status": "QA review",
           "priority": ""
         },
@@ -11272,31 +11316,43 @@
         {
           "project": "My Medical Help",
           "title": "Frontend – Display Visit Type and Pricing",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Frontend – Handle Low Wallet Balance",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Provide Visit Type and Pricing Details",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Validate Wallet Balance for Hourly Fees",
           "status": "QA review",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Frontend – Licence Verification Status",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Frontend – Professional Licence Review Queue",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Frontend – Professional Verification Status",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11314,6 +11370,18 @@
         {
           "project": "My Medical Help",
           "title": "Frontend – Extra Hour Booking Request",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Handle Professional Verification Outcomes",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Handle Extra Hour Booking Request",
           "status": "QA review",
           "priority": ""
         },
@@ -11326,36 +11394,168 @@
         {
           "project": "My Medical Help",
           "title": "Frontend – Professional Filter Options",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement Hourly Professional Availability",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement Hourly Platform Fee",
           "status": "QA review",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Frontend – User Suspension Management",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Frontend – Wallet Transaction Management",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Frontend – Home Visit Address and Navigation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Frontend – Dispute Review Queue",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Frontend – Implement Hourly Slot Booking Flow",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Wallet Transaction Management",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Professional Licence Admin Review",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Home Visit Address and Navigation",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement Hourly Slot Booking",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Control Location Visibility",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Dispute Review and Resolution",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement User Suspension",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Support Request and Dispute Management",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Automated Professional Licence Verification",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement Professional Filters",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement Appointment Status Lifecycle",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Appointment Monitoring APIs",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Handle Appointment Rescheduling",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Handle Appointment Completion",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Handle Appointment Rescheduling",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Handle Appointment Cancellation",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Confirm Appointment Booking",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Provide Professional Location and Contact",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Fetch and Sort Available Professionals",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Validate Staff Availability Request",
           "status": "QA review",
           "priority": ""
         },
@@ -11464,7 +11664,7 @@
         {
           "project": "My Medical Help",
           "title": "EP015-US-055 Review verifications",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11476,37 +11676,37 @@
         {
           "project": "My Medical Help",
           "title": "EP04-US-016 Validate availability before going live",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP07-US-035 View professional profile",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP09-US-044 Join online consultation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP01 - US-001 Create account",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP01-US-004 Upload licence document",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP05-US-022 Receive instant booking",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11530,67 +11730,49 @@
         {
           "project": "My Medical Help",
           "title": "EP04-US-020 Prevent overlapping sessions",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP04-US-021 Block expired-licence activation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP05-US-024 Complete consultation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP05-US-025 Deduct platform fee once on completion",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP05-US-026 Block go-offline with active booking",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP07-US-031 Select preferred date & time",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP07-US-032 See available professionals (nearest first)",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP07-US-033 Filter professionals",
           "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "EP07-US-036 Hide exact location until booking",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "EP08-US-037 Confirm & book an available slot",
-          "status": "QA review",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "EP08-US-038 Reserve slot & confirm both sides",
-          "status": "QA review",
           "priority": ""
         },
         {
@@ -12984,15 +13166,9 @@
           "title": "Class Assignment Is Created Without Selecting a Subject",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Leave Rejection Notification Is Incorrectly Displayed to Admin",
-          "status": "QA Completed",
-          "priority": ""
         }
       ],
-      "total": 300,
+      "total": 324,
       "done": 45,
       "inProgress": 53,
       "commits": 0,
@@ -13044,12 +13220,12 @@
       "total": 5,
       "done": 0,
       "inProgress": 0,
-      "commits": 86,
-      "prs": 37,
-      "prsMerged": 37,
-      "prReviews": 20,
-      "additions": 7499,
-      "deletions": 5573
+      "commits": 109,
+      "prs": 41,
+      "prsMerged": 41,
+      "prReviews": 21,
+      "additions": 41945,
+      "deletions": 29493
     },
     {
       "login": "Anisha-cw",
@@ -13616,6 +13792,339 @@
       "deletions": 0
     },
     {
+      "login": "Antony-Bilgates",
+      "projects": [
+        "Edubot_V3",
+        "Edubot_CPLC",
+        "SabAi Bible App",
+        "Oman Tourism",
+        "EduBot_University"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Frontend - Subscription Plan Modification in Institution",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Frontend - Admin User Seat Allowance Update",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Implementation of Subscription-Based Model – Frontend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student Admission & Identity Management – Frontend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Document Download Control",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Leave Approval Status – Show Pending Approver (Mentor / Admin) in Learner’s Leave Pending Section",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Leave Approval Status – Expose Pending Approver (Mentor / Admin) in Learner Leave API",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Add Calendar Event Page Opens When Clicking Any Date in the Event Calendar",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Video Icon Overlaps with Heading After Video Generation",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "iOS Sign-In Option Is Missing on Login Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Scripture Selection Alignment and Placeholder Text Issues in Visualize",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "iOS Chat Resource Attachment Fails with Error Message",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Voice Recording Displays \"Disabled in Expo Go\" Error in Chat on iOS",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "iOS – API Failure and Inconsistent Toast Messages for Report, Video, and Quiz in Visualize Module",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Push Notifications) Manage notification preferences",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Home Page – Images Not Displayed for Some Places on the Home Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Mandatory Field Indicator (*) Not Displayed for Required Fields in Expense Tracker",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Notification Settings Option Not Navigating to the Respective Page Under Push Notifications",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Create Account – Valid Password Is Rejected During Sign-Up",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Guest Login – Password Visibility (Eye) Icon Missing in the Create Account Password Field",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "AI Assistant Does Not Respond in Hindi After Selecting Hindi as the Preferred Language",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Audio Tours Play, Download, and Playback Speed (1x) Buttons Not Working in Enhanced Features",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Admin Panel - User Details Are Editable Instead of View-Only in the Users Section",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Admin Role - Audit Logs Change Details Displayed in Raw JSON Format Instead of User-Friendly Format",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Unnecessary \"(comma separated)\" Text Displayed in Preferred Activities Field on Profile & Preferences Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Push Notifications) Contextual and timely notifications",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Travel Insurance) Browse and manage travel insurance",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Location-Based Recommendations & Discovery) Filter recommendations",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Settings Page – Language Settings, Rate This App, and Terms & Privacy Options Are Not Navigating to Their Respective Pages",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Home Page – About Section Not Displaying Place Description for Nizwa on the Details Page",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Translate Button Displays an Incorrect Icon Instead of the Translate Label in Core Features",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Real-Time Translator Not Translating Text and Displaying Arabic as the Default Translation Language",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Unable to View All Products When Clicking the \"View All Products\" Button in Marketplace",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Some Place Images and Descriptions Are Not Displayed in Explore Under Core Features",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Translation Phrases Option Not Navigating to the Respective Page in Offline Mode",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Application Language Does Not Change from English to Arabic in Profile & Preferences",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Core Features – AI Assistant Voice Input Automatically Closes After Clicking the Voice Button",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Login – \"Multiple rows were found when one or none was required\" Error Displayed While Logging in with Mobile Number",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Admin Role - Text Field Font Color Not Visible in Edit User Details Popup",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Success and Error Toast Messages Displayed Simultaneously During Student Registration",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Duplicate Staff ID Allows Staff Creation",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Career Path Card UI Breaks with Long Name and Domain Values",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Admin Username Is Not Displayed",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Check-In Fails When Attendance Location Is Not Configured",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "AI Self-Evaluation Section Is Displayed in Student Task Details",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "Page Does Not Auto-Scroll After Proceeding to the Next Step in New Curriculum Session",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "EduBot_University",
+          "title": "\"Show All\" Option Hides Data Instead of Displaying All Records",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 52,
+      "done": 2,
+      "inProgress": 27,
+      "commits": 0,
+      "prs": 19,
+      "prsMerged": 18,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
       "login": "manju-209",
       "projects": [
         "My Medical Help Admin Panel",
@@ -13902,319 +14411,22 @@
           "title": "Access Request",
           "status": "Done",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
         }
       ],
-      "total": 46,
-      "done": 45,
+      "total": 47,
+      "done": 46,
       "inProgress": 0,
       "commits": 2,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 4,
-      "deletions": 0
-    },
-    {
-      "login": "Antony-Bilgates",
-      "projects": [
-        "Edubot_V3",
-        "Edubot_CPLC",
-        "SabAi Bible App",
-        "Oman Tourism",
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Frontend - Subscription Plan Modification in Institution",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Frontend - Admin User Seat Allowance Update",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Implementation of Subscription-Based Model – Frontend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Frontend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Add Calendar Event Page Opens When Clicking Any Date in the Event Calendar",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Video Icon Overlaps with Heading After Video Generation",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS Sign-In Option Is Missing on Login Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Scripture Selection Alignment and Placeholder Text Issues in Visualize",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS Chat Resource Attachment Fails with Error Message",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Voice Recording Displays \"Disabled in Expo Go\" Error in Chat on iOS",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS – API Failure and Inconsistent Toast Messages for Report, Video, and Quiz in Visualize Module",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Push Notifications) Manage notification preferences",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Home Page – Images Not Displayed for Some Places on the Home Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Mandatory Field Indicator (*) Not Displayed for Required Fields in Expense Tracker",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Notification Settings Option Not Navigating to the Respective Page Under Push Notifications",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Create Account – Valid Password Is Rejected During Sign-Up",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Guest Login – Password Visibility (Eye) Icon Missing in the Create Account Password Field",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "AI Assistant Does Not Respond in Hindi After Selecting Hindi as the Preferred Language",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Audio Tours Play, Download, and Playback Speed (1x) Buttons Not Working in Enhanced Features",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Admin Panel - User Details Are Editable Instead of View-Only in the Users Section",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Admin Role - Audit Logs Change Details Displayed in Raw JSON Format Instead of User-Friendly Format",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Push Notifications) Contextual and timely notifications",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Travel Insurance) Browse and manage travel insurance",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Location-Based Recommendations & Discovery) Filter recommendations",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Settings Page – Language Settings, Rate This App, and Terms & Privacy Options Are Not Navigating to Their Respective Pages",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Home Page – About Section Not Displaying Place Description for Nizwa on the Details Page",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Translate Button Displays an Incorrect Icon Instead of the Translate Label in Core Features",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Real-Time Translator Not Translating Text and Displaying Arabic as the Default Translation Language",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Unable to View All Products When Clicking the \"View All Products\" Button in Marketplace",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Some Place Images and Descriptions Are Not Displayed in Explore Under Core Features",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Unnecessary \"(comma separated)\" Text Displayed in Preferred Activities Field on Profile & Preferences Page",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Translation Phrases Option Not Navigating to the Respective Page in Offline Mode",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Application Language Does Not Change from English to Arabic in Profile & Preferences",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Core Features – AI Assistant Voice Input Automatically Closes After Clicking the Voice Button",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Login – \"Multiple rows were found when one or none was required\" Error Displayed While Logging in with Mobile Number",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Admin Role - Text Field Font Color Not Visible in Edit User Details Popup",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Success and Error Toast Messages Displayed Simultaneously During Student Registration",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Duplicate Staff ID Allows Staff Creation",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Career Path Card UI Breaks with Long Name and Domain Values",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Admin Username Is Not Displayed",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Check-In Fails When Attendance Location Is Not Configured",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "AI Self-Evaluation Section Is Displayed in Student Task Details",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Page Does Not Auto-Scroll After Proceeding to the Next Step in New Curriculum Session",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "\"Show All\" Option Hides Data Instead of Displaying All Records",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 47,
-      "done": 2,
-      "inProgress": 24,
-      "commits": 0,
-      "prs": 19,
-      "prsMerged": 18,
-      "prReviews": 0,
-      "additions": 0,
       "deletions": 0
     },
     {
@@ -14338,12 +14550,6 @@
         },
         {
           "project": "Oman Tourism",
-          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
           "title": "[Backend] Itinerary Generation API — Personalized Day-by-Day Trip Plan",
           "status": "Backlog",
           "priority": ""
@@ -14397,198 +14603,176 @@
           "priority": ""
         }
       ],
-      "total": 28,
+      "total": 27,
       "done": 0,
       "inProgress": 17,
-      "commits": 6,
-      "prs": 6,
-      "prsMerged": 6,
-      "prReviews": 1,
-      "additions": 561,
-      "deletions": 187
+      "commits": 11,
+      "prs": 8,
+      "prsMerged": 8,
+      "prReviews": 2,
+      "additions": 6669,
+      "deletions": 3700
     },
     {
-      "login": "sarancodework",
+      "login": "Glad-Andrew",
       "projects": [
-        "My Medical Help"
+        "Edubot_V3",
+        "Edubot_CPLC",
+        "EduBot_University"
       ],
       "tasks": [
         {
-          "project": "My Medical Help",
-          "title": "Backend – Implement Event-Based Notifications",
-          "status": "Dev",
+          "project": "Edubot_V3",
+          "title": "Implement Subscription-Based Model - Backend",
+          "status": "Done",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Implement Appointment Reminders",
-          "status": "Dev",
+          "project": "Edubot_V3",
+          "title": "Student Admission & Identity Management – Backend",
+          "status": "Done",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Provide Visit Type and Pricing Details",
-          "status": "Dev",
+          "project": "Edubot_V3",
+          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
+          "status": "Backlog",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Validate Wallet Balance for Hourly Fees",
-          "status": "Dev",
+          "project": "Edubot_V3",
+          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
+          "status": "Backlog",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Handle Professional Verification Outcomes",
-          "status": "Dev",
+          "project": "Edubot_V3",
+          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
+          "status": "Backlog",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Handle Extra Hour Booking Request",
-          "status": "Dev",
+          "project": "Edubot_V3",
+          "title": "Implement EduBot logo video across the EduBot v3 app",
+          "status": "In progress",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Implement Hourly Professional Availability",
-          "status": "Dev",
+          "project": "Edubot_CPLC",
+          "title": "Learners – Separate Tab for Past Learners",
+          "status": "In Development",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Implement Hourly Platform Fee",
-          "status": "Dev",
+          "project": "Edubot_CPLC",
+          "title": "Support Fetching Past Learners Separately",
+          "status": "In Development",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Wallet Transaction Management",
-          "status": "Dev",
+          "project": "Edubot_CPLC",
+          "title": "Profile Picture – Add Crop & Adjust Before Save",
+          "status": "In Development",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Professional Licence Admin Review",
-          "status": "Dev",
+          "project": "Edubot_CPLC",
+          "title": "Profile Picture – Support Cropped Image Upload",
+          "status": "In Development",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Home Visit Address and Navigation",
-          "status": "Dev",
+          "project": "Edubot_CPLC",
+          "title": "Leave Rejection Remark – API Support for Mandatory Rejection Remark - Backend",
+          "status": "In Development",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Implement Hourly Slot Booking",
-          "status": "Dev",
+          "project": "Edubot_CPLC",
+          "title": "Leave Rejection Remark – Confirmation Dialog with Mandatory Remark",
+          "status": "In Development",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Control Location Visibility",
-          "status": "Dev",
+          "project": "Edubot_CPLC",
+          "title": "Frontend - Optimize Frontend Page Loading Performance for EduBot and User Tabs",
+          "status": "Blocked",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Dispute Review and Resolution",
-          "status": "Dev",
+          "project": "EduBot_University",
+          "title": "OTP Expired Message Displayed Before Timer Ends",
+          "status": "In progress",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Implement User Suspension",
-          "status": "Dev",
+          "project": "EduBot_University",
+          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
+          "status": "In progress",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Support Request and Dispute Management",
-          "status": "Dev",
+          "project": "EduBot_University",
+          "title": "Task Creation Allows Selection of Past Due Dates",
+          "status": "In progress",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Automated Professional Licence Verification",
-          "status": "Dev",
+          "project": "EduBot_University",
+          "title": "Admin Leave Request Module Is Missing",
+          "status": "In progress",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Implement Professional Filters",
-          "status": "Dev",
+          "project": "EduBot_University",
+          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
+          "status": "In progress",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Implement Appointment Status Lifecycle",
-          "status": "Dev",
+          "project": "EduBot_University",
+          "title": "Phone Number Field Accepts Unlimited Digits",
+          "status": "In progress",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Appointment Monitoring APIs",
-          "status": "Dev",
+          "project": "EduBot_University",
+          "title": "Theme Options Are Not Clearly Visible in Settings",
+          "status": "In progress",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Handle Appointment Rescheduling",
-          "status": "Dev",
+          "project": "EduBot_University",
+          "title": "Profile Data Not Loaded on Attendance Page",
+          "status": "In progress",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Handle Appointment Completion",
-          "status": "Dev",
+          "project": "EduBot_University",
+          "title": "Notifications Are Not Working for Any User",
+          "status": "Todo",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Handle Appointment Rescheduling",
-          "status": "Dev",
+          "project": "EduBot_University",
+          "title": "Section Content Text Box Is Not Properly Displayed",
+          "status": "Todo",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Backend – Handle Appointment Cancellation",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Backend – Confirm Appointment Booking",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Backend – Provide Professional Location and Contact",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Backend – Fetch and Sort Available Professionals",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Backend – Validate Staff Availability Request",
-          "status": "Dev",
+          "project": "EduBot_University",
+          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
+          "status": "Todo",
           "priority": ""
         }
       ],
-      "total": 28,
-      "done": 0,
-      "inProgress": 28,
+      "total": 24,
+      "done": 2,
+      "inProgress": 9,
       "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
+      "prs": 28,
+      "prsMerged": 27,
+      "prReviews": 8,
       "additions": 0,
       "deletions": 0
     },
@@ -14720,154 +14904,21 @@
           "title": "Access Request",
           "status": "Done",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
         }
       ],
-      "total": 20,
-      "done": 18,
+      "total": 21,
+      "done": 19,
       "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Glad-Andrew",
-      "projects": [
-        "Edubot_V3",
-        "Edubot_CPLC",
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Implement Subscription-Based Model - Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Implement EduBot logo video across the EduBot v3 app",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Profile Picture – Support Cropped Image Upload",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Leave Rejection Remark – API Support for Mandatory Rejection Remark - Backend",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Frontend - Optimize Frontend Page Loading Performance for EduBot and User Tabs",
-          "status": "Blocked",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "OTP Expired Message Displayed Before Timer Ends",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Task Creation Allows Selection of Past Due Dates",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Admin Leave Request Module Is Missing",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Phone Number Field Accepts Unlimited Digits",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Theme Options Are Not Clearly Visible in Settings",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Data Not Loaded on Attendance Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Notifications Are Not Working for Any User",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Section Content Text Box Is Not Properly Displayed",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 20,
-      "done": 2,
-      "inProgress": 9,
-      "commits": 0,
-      "prs": 28,
-      "prsMerged": 27,
-      "prReviews": 7,
       "additions": 0,
       "deletions": 0
     },
@@ -14887,12 +14938,12 @@
       "total": 1,
       "done": 0,
       "inProgress": 0,
-      "commits": 18,
-      "prs": 15,
-      "prsMerged": 15,
+      "commits": 19,
+      "prs": 16,
+      "prsMerged": 16,
       "prReviews": 0,
-      "additions": 2257,
-      "deletions": 962
+      "additions": 2314,
+      "deletions": 991
     },
     {
       "login": "inbarasuv",
@@ -14933,8 +14984,8 @@
         },
         {
           "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
-          "status": "TODO",
+          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
+          "status": "In progress",
           "priority": ""
         },
         {
@@ -14945,8 +14996,20 @@
         },
         {
           "project": "Oman Tourism",
+          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
           "title": "(Emergency & Safety) Safety and weather alerts",
           "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
+          "status": "TODO",
           "priority": ""
         },
         {
@@ -14968,9 +15031,9 @@
           "priority": ""
         }
       ],
-      "total": 11,
+      "total": 13,
       "done": 0,
-      "inProgress": 5,
+      "inProgress": 7,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -15064,49 +15127,49 @@
         {
           "project": "My Medical Help Admin Panel",
           "title": "Admin – Table Row Filter Is Not Consistent Across Modules",
-          "status": "TODO",
+          "status": "Dev",
           "priority": ""
         },
         {
           "project": "My Medical Help Admin Panel",
           "title": "Admin – Final Table Column Is Misaligned with the Table Background",
-          "status": "TODO",
+          "status": "Dev",
           "priority": ""
         },
         {
           "project": "My Medical Help Admin Panel",
           "title": "Admin – Table Does Not Update Immediately After Creating or Deleting Records",
-          "status": "TODO",
+          "status": "Dev",
           "priority": ""
         },
         {
           "project": "My Medical Help Admin Panel",
           "title": "Support Ticket Status Update Does Not Redirect to the Previous Page and the Ticket Count Is Not Updated Immediately",
-          "status": "TODO",
+          "status": "Dev",
           "priority": ""
         },
         {
           "project": "My Medical Help Admin Panel",
           "title": "Support Ticket modal popup does not automatically close after clicking the \"Save\" button.",
-          "status": "TODO",
+          "status": "Dev",
           "priority": ""
         },
         {
           "project": "My Medical Help Admin Panel",
           "title": "Auto-scroll to top occurs unexpectedly when navigating to Submenu items under Settings and Reports.",
-          "status": "TODO",
+          "status": "Dev",
           "priority": ""
         },
         {
           "project": "My Medical Help Admin Panel",
           "title": "Mobile Number Field Accepts Alphabets, Special Characters, and Unlimited Digits Without Proper Validation",
-          "status": "TODO",
+          "status": "Dev",
           "priority": ""
         }
       ],
       "total": 7,
       "done": 0,
-      "inProgress": 0,
+      "inProgress": 7,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -15117,7 +15180,8 @@
     {
       "login": "Dharsan1102codework",
       "projects": [
-        "Oman Tourism"
+        "Oman Tourism",
+        "Acadamiq AI"
       ],
       "tasks": [
         {
@@ -15140,14 +15204,14 @@
         },
         {
           "project": "Oman Tourism",
-          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
+          "title": "(Reviews & Community Engagement) Trustworthy, sorted reviews",
           "status": "Backlog",
           "priority": ""
         },
         {
-          "project": "Oman Tourism",
-          "title": "(Reviews & Community Engagement) Trustworthy, sorted reviews",
-          "status": "Backlog",
+          "project": "Acadamiq AI",
+          "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
+          "status": "TODO",
           "priority": ""
         }
       ],
@@ -15169,8 +15233,8 @@
       "done": 0,
       "inProgress": 0,
       "commits": 5,
-      "prs": 0,
-      "prsMerged": 0,
+      "prs": 1,
+      "prsMerged": 1,
       "prReviews": 0,
       "additions": 3339,
       "deletions": 323
@@ -15227,6 +15291,41 @@
       "prs": 4,
       "prsMerged": 4,
       "prReviews": 1,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "sarancodework",
+      "projects": [
+        "My Medical Help"
+      ],
+      "tasks": [
+        {
+          "project": "My Medical Help",
+          "title": "Profile update/KYC submission succeeds without uploading required Licence Document.",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Low Wallet Balance Does Not Restrict Availability Updates or Patient Booking.",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Old Appointment Slot Is Not Available for Booking After Rescheduling",
+          "status": "In progress",
+          "priority": ""
+        }
+      ],
+      "total": 3,
+      "done": 0,
+      "inProgress": 3,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
       "additions": 0,
       "deletions": 0
     },
