@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-28T09:57:25.084508Z",
+  "lastUpdated": "2026-10-29T10:19:15.621969Z",
   "period": {
     "since": "2026-10-01",
     "until": "2026-10-31"
@@ -44,11 +44,11 @@
         },
         {
           "title": "Admin – Table Row Filter Is Not Consistent Across Modules",
-          "status": "Dev",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI-Next.js/issues/7",
@@ -59,7 +59,7 @@
         },
         {
           "title": "Admin – Final Table Column Is Misaligned with the Table Background",
-          "status": "Dev",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
@@ -74,11 +74,11 @@
         },
         {
           "title": "Admin – Table Does Not Update Immediately After Creating or Deleting Records",
-          "status": "Dev",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/160",
@@ -89,11 +89,11 @@
         },
         {
           "title": "Support Ticket Status Update Does Not Redirect to the Previous Page and the Ticket Count Is Not Updated Immediately",
-          "status": "Dev",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/161",
@@ -104,11 +104,11 @@
         },
         {
           "title": "Support Ticket modal popup does not automatically close after clicking the \"Save\" button.",
-          "status": "Dev",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/166",
@@ -149,11 +149,11 @@
         },
         {
           "title": "Auto-scroll to top occurs unexpectedly when navigating to Submenu items under Settings and Reports.",
-          "status": "Dev",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/165",
@@ -164,11 +164,11 @@
         },
         {
           "title": "Mobile Number Field Accepts Alphabets, Special Characters, and Unlimited Digits Without Proper Validation",
-          "status": "Dev",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/163",
@@ -181,8 +181,8 @@
       "stats": {
         "total": 11,
         "done": 2,
-        "inProgress": 7,
-        "todo": 2,
+        "inProgress": 0,
+        "todo": 3,
         "backlog": 0,
         "production": 0
       }
@@ -219,11 +219,11 @@
       "items": [
         {
           "title": "Profile update/KYC submission succeeds without uploading required Licence Document.",
-          "status": "In progress",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/168",
@@ -234,7 +234,7 @@
         },
         {
           "title": "Low Wallet Balance Does Not Restrict Availability Updates or Patient Booking.",
-          "status": "In progress",
+          "status": "TO DO",
           "priority": "",
           "size": "",
           "assignees": [
@@ -249,11 +249,11 @@
         },
         {
           "title": "Old Appointment Slot Is Not Available for Booking After Rescheduling",
-          "status": "In progress",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "sarancodework"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/173",
@@ -414,7 +414,7 @@
         },
         {
           "title": "EP11-US-049 Apply reschedule safely",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1723,7 +1723,7 @@
       "stats": {
         "total": 100,
         "done": 3,
-        "inProgress": 3,
+        "inProgress": 0,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -1735,7 +1735,7 @@
       "items": [
         {
           "title": "AI Smart Dashboard Displays \"Failed to Load Analysis Data\" with 403 API Response",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1750,7 +1750,7 @@
         },
         {
           "title": "LMS Integration – Backend",
-          "status": "In progress",
+          "status": "In Development",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1825,7 +1825,7 @@
         },
         {
           "title": "Certificate Management – Feature Requirement",
-          "status": "In Review QA",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1838,7 +1838,7 @@
         },
         {
           "title": "Subscription Plan Cannot Be Modified for Existing Institution",
-          "status": "In Review QA",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1851,7 +1851,7 @@
         },
         {
           "title": "Mandatory Field Does Not Display Inline Validation Message",
-          "status": "In Review QA",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1864,7 +1864,7 @@
         },
         {
           "title": "Default +91 Country Code Missing for Additional Administrator Phone Number",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1877,7 +1877,7 @@
         },
         {
           "title": "Add Update Option for Institution Administrator",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1890,7 +1890,7 @@
         },
         {
           "title": "Permissions Page Fails to Load for Institution",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1903,7 +1903,7 @@
         },
         {
           "title": "Admin Notification Does Not Navigate",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1931,7 +1931,7 @@
         },
         {
           "title": "Incorrect Button Name Displayed in Course Management – Assign",
-          "status": "In Review QA",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1944,7 +1944,7 @@
         },
         {
           "title": "Task Submission Does Not Clearly Indicate Code/File Requirement",
-          "status": "In Review QA",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1957,7 +1957,7 @@
         },
         {
           "title": "Incorrect Validation Behavior for Invalid Email Input",
-          "status": "In Review QA",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1970,7 +1970,7 @@
         },
         {
           "title": "Lesson Plan Module Creation Notification Not Received",
-          "status": "In Review QA",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1983,7 +1983,7 @@
         },
         {
           "title": "Admin – Task Due Date Allows Past Dates",
-          "status": "In Review QA",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -1996,7 +1996,7 @@
         },
         {
           "title": "Module Assessment Submission Does Not Display Completion Score",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2011,7 +2011,7 @@
         },
         {
           "title": "Add Another Administrator Allows Extra Admin Field Despite Subscription Limit",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2024,7 +2024,7 @@
         },
         {
           "title": "My Task Redirects to Personal Task Page from Home Page",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2039,7 +2039,7 @@
         },
         {
           "title": "Entire Materials\" Checkbox Does Not Select All Study Materials",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2054,7 +2054,7 @@
         },
         {
           "title": "Other Logged-In Account Remains Active After Password Reset",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2067,7 +2067,7 @@
         },
         {
           "title": "Date Picker Does Not Provide Scroll Option for Year Selection",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2080,7 +2080,7 @@
         },
         {
           "title": "Student Dashboard Displays 500 Internal Server Error",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2093,7 +2093,7 @@
         },
         {
           "title": "Profile & Settings API Returns 404 Error",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2106,7 +2106,7 @@
         },
         {
           "title": "Mentor List Content Overlaps When Scrolling",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2121,7 +2121,7 @@
         },
         {
           "title": "Mentor – Schedule Class Does Not Show Validation for Missing Class Title and Time",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2134,7 +2134,7 @@
         },
         {
           "title": "Same AI Overnight Analysis Data Displayed for Admin and Mentor",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2147,7 +2147,7 @@
         },
         {
           "title": "Admin – Unable to Update Student/Mentor Leave Limits",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2160,7 +2160,7 @@
         },
         {
           "title": "Login Page Text Fields Accept Leading and Trailing Spaces",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2175,7 +2175,7 @@
         },
         {
           "title": "Non-Mandatory Description Field Shows Required Validation",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2188,7 +2188,7 @@
         },
         {
           "title": "New Institution Name Incorrectly Displays \"Institution Already Exists\" Message",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2218,7 +2218,7 @@
         },
         {
           "title": "Analytics, Reporting & Institutional Intelligence - Frontend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2233,7 +2233,7 @@
         },
         {
           "title": "AI Lesson Planner Displays 400 Error When Using HTML Output Format or Step 3 Details",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2248,7 +2248,7 @@
         },
         {
           "title": "Recent Photo Field Accepts Unsupported Documents, Resulting in Empty Photo in Admin Review",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2263,7 +2263,7 @@
         },
         {
           "title": "Student Does Not Receive Notification After KYC Verification Is Approved or Rejected",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2278,7 +2278,7 @@
         },
         {
           "title": "Administrators Count Allows More Than One User in Subscription Plan",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2291,7 +2291,7 @@
         },
         {
           "title": "Network Error Displayed While Updating Student Email Despite Successful Email Update",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2304,7 +2304,7 @@
         },
         {
           "title": "OTP Shows Invalid Before Timer Expires",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2317,7 +2317,7 @@
         },
         {
           "title": "Plagiarism Check Returns 400 Error for Task Submission Without Document",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2332,7 +2332,7 @@
         },
         {
           "title": "Publish Button Is Hidden When Viewing a Newly Added Lesson Plan Module",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2347,7 +2347,7 @@
         },
         {
           "title": "Emergency Contact Number Validation Error Displayed Without Mandatory Field Indication",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2362,7 +2362,7 @@
         },
         {
           "title": "Generic Failure Toast Is Displayed When Adding More Than 10 Checkpoints",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2377,7 +2377,7 @@
         },
         {
           "title": "Password Required Validation Missing",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2390,7 +2390,7 @@
         },
         {
           "title": "Institution Allows Estimated Users Exceeding Subscription Member Limit",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2403,7 +2403,7 @@
         },
         {
           "title": "Learning Outcome Type Cannot Be Selected",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2416,7 +2416,7 @@
         },
         {
           "title": "Duplicate Lesson Plan Topic Displays an Unclear Toast Message",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2431,7 +2431,7 @@
         },
         {
           "title": "New Lesson Plan Module Is Not Immediately Reflected Despite Successful Creation",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2446,7 +2446,7 @@
         },
         {
           "title": "Student Resume Is Not Available for Viewing in Mentor/Admin Profile",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2461,7 +2461,7 @@
         },
         {
           "title": "Emergency Contact Fields Are Misaligned",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2474,7 +2474,7 @@
         },
         {
           "title": "Administrators Field Not Set to Default Value",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2487,7 +2487,7 @@
         },
         {
           "title": "Duplicate Personal Information Fields Available in Both KYC Verification and Profile Settings",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2502,7 +2502,7 @@
         },
         {
           "title": "KYC Documents Option Should Be Removed from Mentor Role",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2631,7 +2631,7 @@
         },
         {
           "title": "Analytics, Reporting & Institutional Intelligence – Backend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2646,7 +2646,7 @@
         },
         {
           "title": "Intelligent Assessment Management – Backend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2661,7 +2661,7 @@
         },
         {
           "title": "AI Plagiarism & Academic Integrity – Backend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2674,7 +2674,7 @@
         },
         {
           "title": "Intelligent Assessment Management – Frontend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2687,7 +2687,7 @@
         },
         {
           "title": "Adaptive Learning & AI Learning Assistant – Backend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2700,7 +2700,7 @@
         },
         {
           "title": "Adaptive Learning & AI Learning Assistant – Frontend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2728,7 +2728,7 @@
         },
         {
           "title": "Digital Certification – Backend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2743,7 +2743,7 @@
         },
         {
           "title": "AI Assistant Displays Previous Study Material Content After Attachment Update",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2758,7 +2758,7 @@
         },
         {
           "title": "Digital Certification – Frontend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2771,7 +2771,7 @@
         },
         {
           "title": "AI Lesson Planner – Backend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2786,7 +2786,7 @@
         },
         {
           "title": "Billing Cycle Yearly Selection Does Not Update the Price Field Label from Monthly Price to Yearly Price",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2801,7 +2801,7 @@
         },
         {
           "title": "Deleted Institution User Login Displays Incorrect \"Invalid Email or Password\" Error Message",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2816,7 +2816,7 @@
         },
         {
           "title": "[Admin Role] Unable to Set Earned Leave Count to 0 in Institution Leave Policy for All Students",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2829,7 +2829,7 @@
         },
         {
           "title": "Leave Balances Displays Default Values Instead of Zero for All Leave Types",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2844,7 +2844,7 @@
         },
         {
           "title": "Simplified Notes Generation Fails with 422 API Error in Study Materials",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2859,7 +2859,7 @@
         },
         {
           "title": "Action Required\" KYC Message Does Not Disappear Immediately After Submission",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2904,7 +2904,7 @@
         },
         {
           "title": "Attached KYC Document Is Not Previewed Properly in Admin Role",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2919,7 +2919,7 @@
         },
         {
           "title": "Mentor / Student - Community Chat Group Search Filter Not Working",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2932,7 +2932,7 @@
         },
         {
           "title": "[Admin Role] Pending Leave Requests Card Navigates to Student Leave Page with No Pending Requests",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2945,7 +2945,7 @@
         },
         {
           "title": "Rejected KYC Verification Displays Upload Documents Instead of Rejected Status",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2960,7 +2960,7 @@
         },
         {
           "title": "[Admin Role] Mentor Leave Request Incorrectly Shows “Pending (Mentor Approved)” Status",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2973,7 +2973,7 @@
         },
         {
           "title": "Incorrect Total Leave Count for Mentor and Student",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2986,7 +2986,7 @@
         },
         {
           "title": "AI Task Creator API Returns 500 Error",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -2999,7 +2999,7 @@
         },
         {
           "title": "Required Field Validation Not Displayed as Inline Message",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -3027,7 +3027,7 @@
         },
         {
           "title": "Temporary Password Not Generated for Student and Mentor",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -3040,7 +3040,7 @@
         },
         {
           "title": "Learning Outcomes Field Should Be Mandatory",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -3053,7 +3053,7 @@
         },
         {
           "title": "Old Password Allows Login with Updated Email Address",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -3066,7 +3066,7 @@
         },
         {
           "title": "Deactivated Institution Login Displays Both Inline and Toast Error Messages",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3081,7 +3081,7 @@
         },
         {
           "title": "Certificate Notification Redirects to 404 Not Found Page",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3096,7 +3096,7 @@
         },
         {
           "title": "Digital Signature Upload API Returns 404 Error",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -3109,7 +3109,7 @@
         },
         {
           "title": "Implement EduBot logo video across the EduBot v3 app",
-          "status": "In progress",
+          "status": "In Development",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3126,8 +3126,8 @@
       ],
       "stats": {
         "total": 99,
-        "done": 9,
-        "inProgress": 2,
+        "done": 80,
+        "inProgress": 8,
         "todo": 0,
         "backlog": 9,
         "production": 0
@@ -3150,6 +3150,36 @@
       "number": 41,
       "title": "Edubot_CPLC",
       "items": [
+        {
+          "title": "Inactive Learner Status – Clear Indication in Study Materials Monitor",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/573",
+          "createdAt": "2026-10-26T04:47:25Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Inactive Learner Status – Expose Inactive Flag in Study Materials Monitor API",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/572",
+          "createdAt": "2026-10-26T04:46:38Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Document Download Control",
           "status": "In Development",
@@ -4563,37 +4593,11 @@
           "closedAt": "2026-10-26T09:55:01Z",
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "# Frontend: Display uploaded images correctly aligned and framed",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/367",
-          "createdAt": "2026-09-28T07:03:54Z",
-          "closedAt": "2026-10-26T09:55:03Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "# Frontend: Display Attendance Log in chronological order in Learner ESS",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/375",
-          "createdAt": "2026-09-28T07:17:08Z",
-          "closedAt": "2026-10-26T09:55:03Z",
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 87,
+        "done": 85,
         "inProgress": 0,
         "todo": 0,
         "backlog": 1,
@@ -5782,6 +5786,36 @@
           "endDate": ""
         },
         {
+          "title": "Admin Role - Text Field Font Color Not Visible in Edit User Details Popup",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/473",
+          "createdAt": "2026-10-26T06:48:58Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Core Features – AI Assistant Voice Input Automatically Closes After Clicking the Voice Button",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/467",
+          "createdAt": "2026-10-23T11:47:01Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "(Real-Time Translation & Cultural Guidance) Translate text, voice, and images",
           "status": "In progress",
           "priority": "",
@@ -6749,21 +6783,6 @@
           "endDate": ""
         },
         {
-          "title": "Core Features – AI Assistant Voice Input Automatically Closes After Clicking the Voice Button",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/467",
-          "createdAt": "2026-10-23T11:47:01Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Login – \"Multiple rows were found when one or none was required\" Error Displayed While Logging in with Mobile Number",
           "status": "TODO",
           "priority": "",
@@ -6779,7 +6798,7 @@
           "endDate": ""
         },
         {
-          "title": "Admin Role - Text Field Font Color Not Visible in Edit User Details Popup",
+          "title": "Moderator Panel - Unable to Enable \"Quiet Hours\" Under Rest & Quiet Hours in Tourist App Notification Preferences",
           "status": "TODO",
           "priority": "",
           "size": "",
@@ -6787,18 +6806,18 @@
             "Antony-Bilgates"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/473",
-          "createdAt": "2026-10-26T06:48:58Z",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/487",
+          "createdAt": "2026-10-28T10:12:23Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         }
       ],
       "stats": {
-        "total": 82,
+        "total": 83,
         "done": 3,
-        "inProgress": 46,
-        "todo": 16,
+        "inProgress": 48,
+        "todo": 15,
         "backlog": 17,
         "production": 0
       }
@@ -7240,7 +7259,7 @@
       "items": [
         {
           "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
-          "status": "TODO",
+          "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7255,7 +7274,7 @@
         },
         {
           "title": "Login Page Displays an Incorrect Error Message When Password Contains Spaces",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7270,7 +7289,7 @@
         },
         {
           "title": "Invalid Error Message and Page Flickering When Rejecting a Leave Request Without a Reason",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7285,7 +7304,7 @@
         },
         {
           "title": "Teacher can mark a resolved incident as unresolved",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7300,7 +7319,7 @@
         },
         {
           "title": "Academic Score Progression Graph Differs Between Student and Parent Roles",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7315,7 +7334,7 @@
         },
         {
           "title": "Subject Names Overlap in Academic Score Progression",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7330,7 +7349,7 @@
         },
         {
           "title": "Student Report Card Displays Different Data in Admin and Class Teacher Roles",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7345,7 +7364,7 @@
         },
         {
           "title": "Incident Management – API Error (422) When Escalating an Incident to Admin",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7360,7 +7379,7 @@
         },
         {
           "title": "Default Prompt Displays the Same Questions for Different Grades and Classes",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7424,7 +7443,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Megna-Codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/942",
@@ -7540,7 +7559,7 @@
         },
         {
           "title": "Admin Receives Leave Approval Request Simultaneously for 1–2 Consecutive Days Leave",
-          "status": "QA Review",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
@@ -8742,7 +8761,7 @@
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 0,
+        "inProgress": 1,
         "todo": 1,
         "backlog": 0,
         "production": 0
@@ -11215,6 +11234,7 @@
     {
       "login": "Santhakumar082",
       "projects": [
+        "My Medical Help Admin Panel",
         "My Medical Help",
         "Edubot_V3",
         "Edubot_CPLC",
@@ -11223,6 +11243,54 @@
         "Acadamiq AI"
       ],
       "tasks": [
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Admin – Table Row Filter Is Not Consistent Across Modules",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Admin – Table Does Not Update Immediately After Creating or Deleting Records",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Support Ticket Status Update Does Not Redirect to the Previous Page and the Ticket Count Is Not Updated Immediately",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Support Ticket modal popup does not automatically close after clicking the \"Save\" button.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Auto-scroll to top occurs unexpectedly when navigating to Submenu items under Settings and Reports.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Mobile Number Field Accepts Alphabets, Special Characters, and Unlimited Digits Without Proper Validation",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Profile update/KYC submission succeeds without uploading required Licence Document.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Old Appointment Slot Is Not Available for Booking After Rescheduling",
+          "status": "QA Completed",
+          "priority": ""
+        },
         {
           "project": "My Medical Help",
           "title": "Login with mobile number + OTP (persistent session until logout)",
@@ -11286,7 +11354,7 @@
         {
           "project": "My Medical Help",
           "title": "EP11-US-049 Apply reschedule safely",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11778,205 +11846,205 @@
         {
           "project": "Edubot_V3",
           "title": "AI Smart Dashboard Displays \"Failed to Load Analysis Data\" with 403 API Response",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Module Assessment Submission Does Not Display Completion Score",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "My Task Redirects to Personal Task Page from Home Page",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Entire Materials\" Checkbox Does Not Select All Study Materials",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Mentor List Content Overlaps When Scrolling",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Login Page Text Fields Accept Leading and Trailing Spaces",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "New Institution Name Incorrectly Displays \"Institution Already Exists\" Message",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Analytics, Reporting & Institutional Intelligence - Frontend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "AI Lesson Planner Displays 400 Error When Using HTML Output Format or Step 3 Details",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Recent Photo Field Accepts Unsupported Documents, Resulting in Empty Photo in Admin Review",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Student Does Not Receive Notification After KYC Verification Is Approved or Rejected",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Plagiarism Check Returns 400 Error for Task Submission Without Document",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Publish Button Is Hidden When Viewing a Newly Added Lesson Plan Module",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Emergency Contact Number Validation Error Displayed Without Mandatory Field Indication",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Generic Failure Toast Is Displayed When Adding More Than 10 Checkpoints",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Duplicate Lesson Plan Topic Displays an Unclear Toast Message",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "New Lesson Plan Module Is Not Immediately Reflected Despite Successful Creation",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Student Resume Is Not Available for Viewing in Mentor/Admin Profile",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Duplicate Personal Information Fields Available in Both KYC Verification and Profile Settings",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "KYC Documents Option Should Be Removed from Mentor Role",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Analytics, Reporting & Institutional Intelligence – Backend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Intelligent Assessment Management – Backend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Digital Certification – Backend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "AI Assistant Displays Previous Study Material Content After Attachment Update",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "AI Lesson Planner – Backend",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Billing Cycle Yearly Selection Does Not Update the Price Field Label from Monthly Price to Yearly Price",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Deleted Institution User Login Displays Incorrect \"Invalid Email or Password\" Error Message",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Leave Balances Displays Default Values Instead of Zero for All Leave Types",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Simplified Notes Generation Fails with 422 API Error in Study Materials",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Action Required\" KYC Message Does Not Disappear Immediately After Submission",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Attached KYC Document Is Not Previewed Properly in Admin Role",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Rejected KYC Verification Displays Upload Documents Instead of Rejected Status",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Deactivated Institution Login Displays Both Inline and Toast Error Messages",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Certificate Notification Redirects to 404 Not Found Page",
-          "status": "Done QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -12576,49 +12644,49 @@
         {
           "project": "Acadamiq AI",
           "title": "Login Page Displays an Incorrect Error Message When Password Contains Spaces",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Invalid Error Message and Page Flickering When Rejecting a Leave Request Without a Reason",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Teacher can mark a resolved incident as unresolved",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Academic Score Progression Graph Differs Between Student and Parent Roles",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Subject Names Overlap in Academic Score Progression",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Student Report Card Displays Different Data in Admin and Class Teacher Roles",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Incident Management – API Error (422) When Escalating an Incident to Admin",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Default Prompt Displays the Same Questions for Different Grades and Classes",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -12637,12 +12705,6 @@
           "project": "Acadamiq AI",
           "title": "Duplicate “Class” Prefix Displayed in Timetable Global View",
           "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Add Report Card Viewing Option in Parent Flow",
-          "status": "QA Review",
           "priority": ""
         },
         {
@@ -12690,7 +12752,7 @@
         {
           "project": "Acadamiq AI",
           "title": "Admin Receives Leave Approval Request Simultaneously for 1–2 Consecutive Days Leave",
-          "status": "QA Review",
+          "status": "TODO",
           "priority": ""
         },
         {
@@ -13168,8 +13230,8 @@
           "priority": ""
         }
       ],
-      "total": 324,
-      "done": 45,
+      "total": 331,
+      "done": 79,
       "inProgress": 53,
       "commits": 0,
       "prs": 0,
@@ -13221,9 +13283,9 @@
       "done": 0,
       "inProgress": 0,
       "commits": 109,
-      "prs": 41,
-      "prsMerged": 41,
-      "prReviews": 21,
+      "prs": 42,
+      "prsMerged": 42,
+      "prReviews": 22,
       "additions": 41945,
       "deletions": 29493
     },
@@ -13971,6 +14033,18 @@
         },
         {
           "project": "Oman Tourism",
+          "title": "Admin Role - Text Field Font Color Not Visible in Edit User Details Popup",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Core Features – AI Assistant Voice Input Automatically Closes After Clicking the Voice Button",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
           "title": "(Push Notifications) Contextual and timely notifications",
           "status": "In progress",
           "priority": ""
@@ -14049,19 +14123,13 @@
         },
         {
           "project": "Oman Tourism",
-          "title": "Core Features – AI Assistant Voice Input Automatically Closes After Clicking the Voice Button",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
           "title": "Login – \"Multiple rows were found when one or none was required\" Error Displayed While Logging in with Mobile Number",
           "status": "TODO",
           "priority": ""
         },
         {
           "project": "Oman Tourism",
-          "title": "Admin Role - Text Field Font Color Not Visible in Edit User Details Popup",
+          "title": "Moderator Panel - Unable to Enable \"Quiet Hours\" Under Rest & Quiet Hours in Tourist App Notification Preferences",
           "status": "TODO",
           "priority": ""
         },
@@ -14114,9 +14182,9 @@
           "priority": ""
         }
       ],
-      "total": 52,
+      "total": 53,
       "done": 2,
-      "inProgress": 27,
+      "inProgress": 29,
       "commits": 0,
       "prs": 19,
       "prsMerged": 18,
@@ -14654,7 +14722,19 @@
         {
           "project": "Edubot_V3",
           "title": "Implement EduBot logo video across the EduBot v3 app",
-          "status": "In progress",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Inactive Learner Status – Clear Indication in Study Materials Monitor",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Inactive Learner Status – Expose Inactive Flag in Study Materials Monitor API",
+          "status": "In Development",
           "priority": ""
         },
         {
@@ -14766,13 +14846,13 @@
           "priority": ""
         }
       ],
-      "total": 24,
+      "total": 26,
       "done": 2,
-      "inProgress": 9,
+      "inProgress": 8,
       "commits": 0,
-      "prs": 28,
-      "prsMerged": 27,
-      "prReviews": 8,
+      "prs": 29,
+      "prsMerged": 28,
+      "prReviews": 9,
       "additions": 0,
       "deletions": 0
     },
@@ -14955,7 +15035,7 @@
         {
           "project": "Edubot_V3",
           "title": "LMS Integration – Backend",
-          "status": "In progress",
+          "status": "In Development",
           "priority": ""
         },
         {
@@ -14979,7 +15059,7 @@
         {
           "project": "Edubot_V3",
           "title": "Implement EduBot logo video across the EduBot v3 app",
-          "status": "In progress",
+          "status": "In Development",
           "priority": ""
         },
         {
@@ -15033,7 +15113,7 @@
       ],
       "total": 13,
       "done": 0,
-      "inProgress": 7,
+      "inProgress": 5,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -15044,7 +15124,8 @@
     {
       "login": "Megna-Codework",
       "projects": [
-        "Edubot_CPLC"
+        "Edubot_CPLC",
+        "Acadamiq AI"
       ],
       "tasks": [
         {
@@ -15106,70 +15187,17 @@
           "title": "Assessment Page Flickering and Duplicate Messages Displayed",
           "status": "Done",
           "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Add Report Card Viewing Option in Parent Flow",
+          "status": "QA Review",
+          "priority": ""
         }
       ],
-      "total": 10,
+      "total": 11,
       "done": 10,
       "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Nelson",
-      "projects": [
-        "My Medical Help Admin Panel"
-      ],
-      "tasks": [
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Admin – Table Row Filter Is Not Consistent Across Modules",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Admin – Final Table Column Is Misaligned with the Table Background",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Admin – Table Does Not Update Immediately After Creating or Deleting Records",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Support Ticket Status Update Does Not Redirect to the Previous Page and the Ticket Count Is Not Updated Immediately",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Support Ticket modal popup does not automatically close after clicking the \"Save\" button.",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Auto-scroll to top occurs unexpectedly when navigating to Submenu items under Settings and Reports.",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Mobile Number Field Accepts Alphabets, Special Characters, and Unlimited Digits Without Proper Validation",
-          "status": "Dev",
-          "priority": ""
-        }
-      ],
-      "total": 7,
-      "done": 0,
-      "inProgress": 7,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -15211,13 +15239,13 @@
         {
           "project": "Acadamiq AI",
           "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
-          "status": "TODO",
+          "status": "In progress",
           "priority": ""
         }
       ],
       "total": 5,
       "done": 0,
-      "inProgress": 1,
+      "inProgress": 2,
       "commits": 0,
       "prs": 6,
       "prsMerged": 6,
@@ -15295,6 +15323,29 @@
       "deletions": 0
     },
     {
+      "login": "Nelson",
+      "projects": [
+        "My Medical Help Admin Panel"
+      ],
+      "tasks": [
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Admin – Final Table Column Is Misaligned with the Table Background",
+          "status": "TODO",
+          "priority": ""
+        }
+      ],
+      "total": 1,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
       "login": "sarancodework",
       "projects": [
         "My Medical Help"
@@ -15302,26 +15353,14 @@
       "tasks": [
         {
           "project": "My Medical Help",
-          "title": "Profile update/KYC submission succeeds without uploading required Licence Document.",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
           "title": "Low Wallet Balance Does Not Restrict Availability Updates or Patient Booking.",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Old Appointment Slot Is Not Available for Booking After Rescheduling",
-          "status": "In progress",
+          "status": "TO DO",
           "priority": ""
         }
       ],
-      "total": 3,
+      "total": 1,
       "done": 0,
-      "inProgress": 3,
+      "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
