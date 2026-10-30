@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-29T10:19:15.621969Z",
+  "lastUpdated": "2026-10-30T10:21:06.439507Z",
   "period": {
     "since": "2026-10-01",
     "until": "2026-10-31"
@@ -44,7 +44,7 @@
         },
         {
           "title": "Admin – Table Row Filter Is Not Consistent Across Modules",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -74,7 +74,7 @@
         },
         {
           "title": "Admin – Table Does Not Update Immediately After Creating or Deleting Records",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -89,7 +89,7 @@
         },
         {
           "title": "Support Ticket Status Update Does Not Redirect to the Previous Page and the Ticket Count Is Not Updated Immediately",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3151,47 +3151,47 @@
       "title": "Edubot_CPLC",
       "items": [
         {
-          "title": "Inactive Learner Status – Clear Indication in Study Materials Monitor",
-          "status": "In Development",
+          "title": "Leave Approval Status – Show Pending Approver (Mentor / Admin) in Learner’s Leave Pending Section",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Megna-Codework"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/573",
-          "createdAt": "2026-10-26T04:47:25Z",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/575",
+          "createdAt": "2026-10-26T04:49:28Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
-          "title": "Inactive Learner Status – Expose Inactive Flag in Study Materials Monitor API",
-          "status": "In Development",
+          "title": "Leave Approval Status – Expose Pending Approver (Mentor / Admin) in Learner Leave API",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Megna-Codework"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/572",
-          "createdAt": "2026-10-26T04:46:38Z",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/574",
+          "createdAt": "2026-10-26T04:48:44Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
-          "title": "Document Download Control",
-          "status": "In Development",
+          "title": "Add Calendar Event Page Opens When Clicking Any Date in the Event Calendar",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Megna-Codework"
           ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/347",
-          "createdAt": "2026-09-23T09:58:17Z",
-          "closedAt": "2026-09-24T06:51:04Z",
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/571",
+          "createdAt": "2026-10-26T04:40:34Z",
+          "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
@@ -3212,11 +3212,11 @@
         },
         {
           "title": "Support Fetching Past Learners Separately",
-          "status": "In Development",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Megna-Codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/589",
@@ -3226,12 +3226,42 @@
           "endDate": ""
         },
         {
-          "title": "Profile Picture – Add Crop & Adjust Before Save",
-          "status": "In Development",
+          "title": "Inactive Learner Status – Clear Indication in Study Materials Monitor",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/573",
+          "createdAt": "2026-10-26T04:47:25Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Inactive Learner Status – Expose Inactive Flag in Study Materials Monitor API",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/572",
+          "createdAt": "2026-10-26T04:46:38Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Profile Picture – Add Crop & Adjust Before Save",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/579",
@@ -3241,42 +3271,12 @@
           "endDate": ""
         },
         {
-          "title": "Leave Approval Status – Show Pending Approver (Mentor / Admin) in Learner’s Leave Pending Section",
-          "status": "In Development",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/575",
-          "createdAt": "2026-10-26T04:49:28Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Leave Approval Status – Expose Pending Approver (Mentor / Admin) in Learner Leave API",
-          "status": "In Development",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/574",
-          "createdAt": "2026-10-26T04:48:44Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Profile Picture – Support Cropped Image Upload",
-          "status": "In Development",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Megna-Codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/578",
@@ -3286,27 +3286,27 @@
           "endDate": ""
         },
         {
-          "title": "Add Calendar Event Page Opens When Clicking Any Date in the Event Calendar",
-          "status": "In Development",
+          "title": "Leave Rejection Remark – Confirmation Dialog with Mandatory Remark",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Megna-Codework"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/571",
-          "createdAt": "2026-10-26T04:40:34Z",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/568",
+          "createdAt": "2026-10-26T04:28:16Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
           "title": "Leave Rejection Remark – API Support for Mandatory Rejection Remark - Backend",
-          "status": "In Development",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Megna-Codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/567",
@@ -3316,17 +3316,17 @@
           "endDate": ""
         },
         {
-          "title": "Leave Rejection Remark – Confirmation Dialog with Mandatory Remark",
-          "status": "In Development",
+          "title": "Document Download Control",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Santhakumar082"
           ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/568",
-          "createdAt": "2026-10-26T04:28:16Z",
-          "closedAt": null,
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/347",
+          "createdAt": "2026-09-23T09:58:17Z",
+          "closedAt": "2026-09-24T06:51:04Z",
           "startDate": "",
           "endDate": ""
         },
@@ -3345,7 +3345,7 @@
         },
         {
           "title": "Learner - Unable to Access Assessment While Watching a Video in Course Modules",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3360,7 +3360,7 @@
         },
         {
           "title": "Login – Trailing Space in Password Causes Login Failure",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3375,7 +3375,7 @@
         },
         {
           "title": "Mentor – My Tasks Section Redirects to Personal Task Instead of My Task",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3390,7 +3390,7 @@
         },
         {
           "title": "Admin – Global Institute Holiday Schedule Appears in Newly Created Institute",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3405,7 +3405,7 @@
         },
         {
           "title": "Admin – Mentor Filter Does Not Work Properly in Task Module",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3420,7 +3420,7 @@
         },
         {
           "title": "Leave Count Is Not Updated Immediately After Applying for Leave",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3435,7 +3435,7 @@
         },
         {
           "title": "Learner/Mentor Is Not Redirected to the Pending Leave Page After Applying for Leave",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3450,7 +3450,7 @@
         },
         {
           "title": "Loader Not Displayed When Using My Location or Saving Work Location Configuration",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3465,7 +3465,7 @@
         },
         {
           "title": "UI Flickering When Switching Between Mentor Leave and Learner Leave in Attendance Overview",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3480,7 +3480,7 @@
         },
         {
           "title": "Learner – Add Calendar Event Option Is Available on Event Calendar",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3495,7 +3495,7 @@
         },
         {
           "title": "Select Batch Dropdown Flickers After Selecting a Course",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3510,7 +3510,7 @@
         },
         {
           "title": "UI Flickering on Mentor Leave and Learner Leave Pages",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3525,7 +3525,7 @@
         },
         {
           "title": "Loader Flickering When Switching Calendar Views",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3540,7 +3540,7 @@
         },
         {
           "title": "Task Attachment Filename Is Truncated in the Mentor Tasks Page",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3555,7 +3555,7 @@
         },
         {
           "title": "Mentor can schedule a class on a holiday",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3570,7 +3570,7 @@
         },
         {
           "title": "Admin – Schedule Class Fails With Invalid Batch IDs Error When Creating an Event",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3585,7 +3585,7 @@
         },
         {
           "title": "Admin – Save All Assignments Button Remains Disabled After Selecting a Learner",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3600,7 +3600,7 @@
         },
         {
           "title": "Validation Error Does Not Identify the Missing Field or Scroll to It",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3615,7 +3615,7 @@
         },
         {
           "title": "Mentor – Personal Task Allows a Past Due Date",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3630,7 +3630,7 @@
         },
         {
           "title": "Assessment Page Flickering and Duplicate Messages Displayed",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3645,7 +3645,7 @@
         },
         {
           "title": "Leave Count Not Updated in Leave Summary After Applying for Leave",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3660,7 +3660,7 @@
         },
         {
           "title": "Withdraw Application Dialog Overlaps with the Left Sidebar and User Manual Button",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3675,7 +3675,7 @@
         },
         {
           "title": "Virtual Check-In and Check-Out History Not Displayed in Admin Learner Attendance Information",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3690,7 +3690,7 @@
         },
         {
           "title": "Mentor and Learner can check in on Admin-scheduled leave days",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3705,7 +3705,7 @@
         },
         {
           "title": "Student Sign In Shows “You Are Already Clocked In” Despite Approved Casual Leave",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3720,7 +3720,7 @@
         },
         {
           "title": "Incorrect Location Validation and Unnecessary Radius Distance Display in Check-In Failure Toast",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3735,7 +3735,7 @@
         },
         {
           "title": "Institution Address Not Displayed in Admin Profile & Settings",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3750,7 +3750,7 @@
         },
         {
           "title": "Schedule Notification Redirects to the Current Week Instead of the Scheduled Week",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3765,7 +3765,7 @@
         },
         {
           "title": "Mark Inactive Button Is Missing in the Mentor Section",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3780,7 +3780,7 @@
         },
         {
           "title": "Attached Documents in Forum Posts Return a 404 Not Found Error",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3795,7 +3795,7 @@
         },
         {
           "title": "Admin – remove Upload, Edit, and Delete Options in Study Material",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3810,7 +3810,7 @@
         },
         {
           "title": "Student Does Not Receive Study Material Update Notification, and Previous Completion Status Persists",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3825,7 +3825,7 @@
         },
         {
           "title": "My Courses Are Visible to Learners Without Mentor Assignment",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3840,7 +3840,7 @@
         },
         {
           "title": "[Version-2 CPLC] Attached File Name Not Displayed in Update Resource",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -3853,7 +3853,7 @@
         },
         {
           "title": "Incorrect Error Message Displayed When Logging in With an Unregistered User",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3868,7 +3868,7 @@
         },
         {
           "title": "All Students Unable to Check In After Admin Cancels the Declared Holiday",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3883,7 +3883,7 @@
         },
         {
           "title": "Remove Edit and Delete Buttons for Events in the Schedule Calendar",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3898,7 +3898,7 @@
         },
         {
           "title": "Admin – Event Calendar Displays Incorrect Assessment Event Timings",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3913,7 +3913,7 @@
         },
         {
           "title": "Admin – Completed Meetings Still Display the Join Button in Today's Schedule",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3928,7 +3928,7 @@
         },
         {
           "title": "Mentor – Lesson Plan Search Does Not Filter the Lesson List",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3943,7 +3943,7 @@
         },
         {
           "title": "Study Material – Failed to Create Study Material When Uploading a Document",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3958,7 +3958,7 @@
         },
         {
           "title": "Study Materials Are Visible to Learners Without Mentor Assignment",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3973,7 +3973,7 @@
         },
         {
           "title": "Draft Course Is Visible to Learners Without Mentor Publishing",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3988,7 +3988,7 @@
         },
         {
           "title": "Student Attendance – Admin Attendance Info Status Not Updated After Successful Check-In and Check-Out",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4003,7 +4003,7 @@
         },
         {
           "title": "Withdrawn Leave Request Status Is Not Displayed in the Learner Leave Management List",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4018,7 +4018,7 @@
         },
         {
           "title": "Add Batch – End Date Picker and Month Selection Are Hidden",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4031,7 +4031,7 @@
         },
         {
           "title": "Frontend — Admin Learner Video Progress Dashboard",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4046,7 +4046,7 @@
         },
         {
           "title": "Frontend — Learner Video Progress Tracking",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4061,7 +4061,7 @@
         },
         {
           "title": "Selected Course, Batch, and Mentor Details Are Not Displayed When Editing a Class Schedule",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4076,7 +4076,7 @@
         },
         {
           "title": "Mentor Is Able to Edit Admin-Scheduled Events",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4091,7 +4091,7 @@
         },
         {
           "title": "Incorrect Number of Present Days Displayed in the My Attendance Dashboard",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4106,7 +4106,7 @@
         },
         {
           "title": "Backend — Admin Learner Video Progress Monitoring",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4121,7 +4121,7 @@
         },
         {
           "title": "Add IT Asset Assignment, Update, and Monitoring Options for Learners",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4136,7 +4136,7 @@
         },
         {
           "title": "User Session Is Not Logged Out After Admin Updates User Details",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4151,7 +4151,7 @@
         },
         {
           "title": "Backend — Learner Video Progress Tracking",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4166,11 +4166,11 @@
         },
         {
           "title": "Frontend - Optimize Frontend Page Loading Performance for EduBot and User Tabs",
-          "status": "Blocked",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/392",
@@ -4194,7 +4194,7 @@
         },
         {
           "title": "Student Does Not Receive Notification After Mentor Creates a Lesson Plan",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4209,7 +4209,7 @@
         },
         {
           "title": "Attendance Calendar Marks Saturdays and Sundays as Present After Regularization Approval",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4224,7 +4224,7 @@
         },
         {
           "title": "Reflect Approved Leave Requests in the Attendance Information Calendar",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4239,7 +4239,7 @@
         },
         {
           "title": "Personal Task Is Displayed Under My Task",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4252,7 +4252,7 @@
         },
         {
           "title": "Mentor – Assigned Task Can Be Deleted by Mentor",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4265,7 +4265,7 @@
         },
         {
           "title": "End Date Allows Selection of a Date Earlier Than the Start Date",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4278,7 +4278,7 @@
         },
         {
           "title": "Duplicate Data Validation Not Implemented During Bulk Excel Import",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4291,7 +4291,7 @@
         },
         {
           "title": "[Version-2 CPLC] Inconsistent spacing in module option cards",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4304,7 +4304,7 @@
         },
         {
           "title": "# Backend: Add IT asset tracking section to Learner Onboarding",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4317,7 +4317,7 @@
         },
         {
           "title": "Regularization Request Type Is Selected by Default",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4330,7 +4330,7 @@
         },
         {
           "title": "Deleted Learner Status Is Not Updated After Changing Active/Inactive Status",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4343,7 +4343,7 @@
         },
         {
           "title": "Admin – Task Allows Past Date in Due Date Field",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4356,7 +4356,7 @@
         },
         {
           "title": "[Version-2 CPLC] Bug: Mentor Portal Functionality",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4369,7 +4369,7 @@
         },
         {
           "title": "Default Values Are Automatically Displayed for Start Time, End Time, Max Marks, and Passing Marks",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4382,7 +4382,7 @@
         },
         {
           "title": "Start Time and End Time Are Displayed by Default",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4395,7 +4395,7 @@
         },
         {
           "title": "Mentor - Category Dropdown Is Not Available in Create a Post Form",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4408,7 +4408,7 @@
         },
         {
           "title": "Study Material Allows Uploading File After Changing Resource Type",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4421,7 +4421,7 @@
         },
         {
           "title": "Admin Role - Regularization Request History Is Not Displayed in History Tab",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4436,7 +4436,7 @@
         },
         {
           "title": "Admin – Learner/Mentor Registration Does Not Show Validation for Empty ID and Roll Number",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4451,7 +4451,7 @@
         },
         {
           "title": "Admin Role - Register Batch – Courses Multi-Select Does Not Filter Options Based on Search Input",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4466,7 +4466,7 @@
         },
         {
           "title": "Admin Role - Assign IT Asset toggle cannot be disabled while registering a learner",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4479,7 +4479,7 @@
         },
         {
           "title": "Admin Role - Mentor and Learner Leave options are not correctly selected from the Leave Approvals section",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4492,7 +4492,7 @@
         },
         {
           "title": "Admin Role - Category dropdown list is not displayed in Community → Forum → Create a Post",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4505,7 +4505,7 @@
         },
         {
           "title": "Frontend Ticket - Notifications: Introduce a notification tone/sound for assigned tasks and received/posted messages.",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4518,7 +4518,7 @@
         },
         {
           "title": "# Frontend: Automatically show assignment/task feedback and grades in the Grade tab",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4531,7 +4531,7 @@
         },
         {
           "title": "# Frontend: Add “Withdraw Application” option for submitted leave requests",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4544,7 +4544,7 @@
         },
         {
           "title": "# Frontend: Add Location field for physical/offline sessions in Class Scheduler",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4557,7 +4557,7 @@
         },
         {
           "title": "Assigned Lesson Plan Not Displayed for Student",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4570,7 +4570,7 @@
         },
         {
           "title": "# Frontend: Allow learners to request and track Attendance Regularization",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4583,7 +4583,7 @@
         },
         {
           "title": "# Frontend: Add “All Batches” / “Select All” option in Schedule Module",
-          "status": "Done",
+          "status": "Completed",
           "priority": "",
           "size": "",
           "assignees": [],
@@ -4597,8 +4597,8 @@
       ],
       "stats": {
         "total": 100,
-        "done": 85,
-        "inProgress": 0,
+        "done": 94,
+        "inProgress": 3,
         "todo": 0,
         "backlog": 1,
         "production": 0
@@ -5605,6 +5605,21 @@
       "title": "Oman Tourism",
       "items": [
         {
+          "title": "(Interactive Map & Navigation) turn-by-turn navigation",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/13",
+          "createdAt": "2026-07-06T09:54:34Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
           "status": "In progress",
           "priority": "",
@@ -5811,6 +5826,36 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/467",
           "createdAt": "2026-10-23T11:47:01Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Translate Button Displays an Incorrect Icon Instead of the Translate Label in Core Features",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/454",
+          "createdAt": "2026-10-22T10:48:59Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Settings Page – Language Settings, Rate This App, and Terms & Privacy Options Are Not Navigating to Their Respective Pages",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/451",
+          "createdAt": "2026-10-22T09:56:57Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -6231,19 +6276,6 @@
           "endDate": ""
         },
         {
-          "title": "(Interactive Map & Navigation) turn-by-turn navigation",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/13",
-          "createdAt": "2026-07-06T09:54:34Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "(Augmented Reality (AR)) Identify landmarks with AR",
           "status": "Backlog",
           "priority": "",
@@ -6648,21 +6680,6 @@
           "endDate": ""
         },
         {
-          "title": "Settings Page – Language Settings, Rate This App, and Terms & Privacy Options Are Not Navigating to Their Respective Pages",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/451",
-          "createdAt": "2026-10-22T09:56:57Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Home Page – About Section Not Displaying Place Description for Nizwa on the Details Page",
           "status": "TODO",
           "priority": "",
@@ -6673,21 +6690,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/452",
           "createdAt": "2026-10-22T10:04:36Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Translate Button Displays an Incorrect Icon Instead of the Translate Label in Core Features",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/454",
-          "createdAt": "2026-10-22T10:48:59Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -6816,439 +6818,21 @@
       "stats": {
         "total": 83,
         "done": 3,
-        "inProgress": 48,
-        "todo": 15,
-        "backlog": 17,
+        "inProgress": 51,
+        "todo": 13,
+        "backlog": 16,
         "production": 0
       }
     },
     {
       "number": 32,
       "title": "EduBot_University",
-      "items": [
-        {
-          "title": "Assigned Task Is Not Displayed for Student",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/128",
-          "createdAt": "2026-07-09T11:31:51Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "OTP Expired Message Displayed Before Timer Ends",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/116",
-          "createdAt": "2026-07-09T08:47:24Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/117",
-          "createdAt": "2026-07-09T08:55:57Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Task Creation Allows Selection of Past Due Dates",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/138",
-          "createdAt": "2026-07-10T05:09:06Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin Leave Request Module Is Missing",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/134",
-          "createdAt": "2026-07-10T04:26:42Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/125",
-          "createdAt": "2026-07-09T10:47:02Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Incorrect OTP Verification Validation on Update Password Page",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/118",
-          "createdAt": "2026-07-09T09:25:23Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "LMS Courses API Returns 403 - \"Module not enabled\"",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/122",
-          "createdAt": "2026-07-09T09:49:18Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "LMS Courses Are Displayed by Default for a Newly Created CPLC",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/135",
-          "createdAt": "2026-07-10T04:33:30Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "CPLC Logo Overlaps with Application Name in Sidebar",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/121",
-          "createdAt": "2026-07-09T09:41:23Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Student Details Are Not Updated After Clicking Update",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/127",
-          "createdAt": "2026-07-09T11:22:41Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Phone Number Field Accepts Unlimited Digits",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/119",
-          "createdAt": "2026-07-09T09:31:12Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Theme Options Are Not Clearly Visible in Settings",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/124",
-          "createdAt": "2026-07-09T10:05:53Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Profile Data Not Loaded on Attendance Page",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/130",
-          "createdAt": "2026-07-09T12:11:15Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Success and Error Toast Messages Displayed Simultaneously During Student Registration",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/120",
-          "createdAt": "2026-07-09T09:34:58Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Duplicate Staff ID Allows Staff Creation",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/126",
-          "createdAt": "2026-07-09T10:59:51Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Career Path Card UI Breaks with Long Name and Domain Values",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/123",
-          "createdAt": "2026-07-09T09:59:22Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin Username Is Not Displayed",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/132",
-          "createdAt": "2026-07-10T03:43:31Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Check-In Fails When Attendance Location Is Not Configured",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/129",
-          "createdAt": "2026-07-09T11:38:33Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Notifications Are Not Working for Any User",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/131",
-          "createdAt": "2026-07-09T12:29:26Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Student Leave Apply Module Is Missing",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/133",
-          "createdAt": "2026-07-10T03:54:59Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "AI Self-Evaluation Section Is Displayed in Student Task Details",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/136",
-          "createdAt": "2026-07-10T04:58:10Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Calendar Does Not Open When Clicking the Due Date Field",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/137",
-          "createdAt": "2026-07-10T05:05:52Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Page Does Not Auto-Scroll After Proceeding to the Next Step in New Curriculum Session",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/141",
-          "createdAt": "2026-07-10T06:28:34Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Section Content Text Box Is Not Properly Displayed",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/142",
-          "createdAt": "2026-07-10T06:32:19Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Attached File Name Is Not Displayed",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/143",
-          "createdAt": "2026-07-10T06:42:53Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "\"Show All\" Option Hides Data Instead of Displaying All Records",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/145",
-          "createdAt": "2026-07-10T08:35:37Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/146",
-          "createdAt": "2026-07-10T08:59:23Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[DevOps] User Story: Grant Sham Sundar Access to EduBot University Project",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_university_frontend/issues/147",
-          "createdAt": "2026-08-19T10:03:53Z",
-          "closedAt": "2026-08-19T11:15:34Z",
-          "startDate": "",
-          "endDate": ""
-        }
-      ],
+      "items": [],
       "stats": {
-        "total": 29,
-        "done": 1,
-        "inProgress": 17,
-        "todo": 11,
+        "total": 0,
+        "done": 0,
+        "inProgress": 0,
+        "todo": 0,
         "backlog": 0,
         "production": 0
       }
@@ -7257,6 +6841,36 @@
       "number": 27,
       "title": "Acadamiq AI",
       "items": [
+        {
+          "title": "Existing User Credentials Fail to Log In Due to Automatically Changed Email and Password",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/964",
+          "createdAt": "2026-10-29T05:12:56Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Incorrect Student Count Displayed in Class Teacher Gradebook",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/963",
+          "createdAt": "2026-10-28T10:13:26Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
           "status": "In progress",
@@ -7268,6 +6882,21 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/950",
           "createdAt": "2026-10-21T11:39:55Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Removed or Reassigned Class Teacher Sees Debug Error Message in My Class Section",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Dharsan1102codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/967",
+          "createdAt": "2026-10-29T07:41:14Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -8711,57 +8340,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Existing subjects can be created multiple times",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/852",
-          "createdAt": "2026-09-04T12:06:50Z",
-          "closedAt": null,
-          "startDate": "2026-09-09",
-          "endDate": ""
-        },
-        {
-          "title": "Assign Class Page Flickers When Clicking the \"Assign Class\" Button",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/423",
-          "createdAt": "2026-07-16T08:32:03Z",
-          "closedAt": null,
-          "startDate": "2026-07-31",
-          "endDate": ""
-        },
-        {
-          "title": "Class Assignment Is Created Without Selecting a Subject",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/824",
-          "createdAt": "2026-08-27T05:44:43Z",
-          "closedAt": null,
-          "startDate": "2026-08-27",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 1,
+        "inProgress": 4,
         "todo": 1,
         "backlog": 0,
         "production": 0
@@ -11246,19 +10830,19 @@
         {
           "project": "My Medical Help Admin Panel",
           "title": "Admin – Table Row Filter Is Not Consistent Across Modules",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help Admin Panel",
           "title": "Admin – Table Does Not Update Immediately After Creating or Deleting Records",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help Admin Panel",
           "title": "Support Ticket Status Update Does Not Redirect to the Previous Page and the Ticket Count Is Not Updated Immediately",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -12049,272 +11633,284 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "Document Download Control",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Learner - Unable to Access Assessment While Watching a Video in Course Modules",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Login – Trailing Space in Password Causes Login Failure",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Mentor – My Tasks Section Redirects to Personal Task Instead of My Task",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin – Global Institute Holiday Schedule Appears in Newly Created Institute",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin – Mentor Filter Does Not Work Properly in Task Module",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Leave Count Is Not Updated Immediately After Applying for Leave",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Learner/Mentor Is Not Redirected to the Pending Leave Page After Applying for Leave",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Loader Not Displayed When Using My Location or Saving Work Location Configuration",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "UI Flickering When Switching Between Mentor Leave and Learner Leave in Attendance Overview",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Select Batch Dropdown Flickers After Selecting a Course",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Leave Count Not Updated in Leave Summary After Applying for Leave",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Withdraw Application Dialog Overlaps with the Left Sidebar and User Manual Button",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Virtual Check-In and Check-Out History Not Displayed in Admin Learner Attendance Information",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Student Sign In Shows “You Are Already Clocked In” Despite Approved Casual Leave",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Incorrect Location Validation and Unnecessary Radius Distance Display in Check-In Failure Toast",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Institution Address Not Displayed in Admin Profile & Settings",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Schedule Notification Redirects to the Current Week Instead of the Scheduled Week",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Mark Inactive Button Is Missing in the Mentor Section",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Attached Documents in Forum Posts Return a 404 Not Found Error",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin – remove Upload, Edit, and Delete Options in Study Material",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Student Does Not Receive Study Material Update Notification, and Previous Completion Status Persists",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "My Courses Are Visible to Learners Without Mentor Assignment",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Incorrect Error Message Displayed When Logging in With an Unregistered User",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "All Students Unable to Check In After Admin Cancels the Declared Holiday",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Remove Edit and Delete Buttons for Events in the Schedule Calendar",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin – Event Calendar Displays Incorrect Assessment Event Timings",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin – Completed Meetings Still Display the Join Button in Today's Schedule",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Mentor – Lesson Plan Search Does Not Filter the Lesson List",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Study Material – Failed to Create Study Material When Uploading a Document",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Study Materials Are Visible to Learners Without Mentor Assignment",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Draft Course Is Visible to Learners Without Mentor Publishing",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Student Attendance – Admin Attendance Info Status Not Updated After Successful Check-In and Check-Out",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Withdrawn Leave Request Status Is Not Displayed in the Learner Leave Management List",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Frontend — Admin Learner Video Progress Dashboard",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Frontend — Learner Video Progress Tracking",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Selected Course, Batch, and Mentor Details Are Not Displayed When Editing a Class Schedule",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Mentor Is Able to Edit Admin-Scheduled Events",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Incorrect Number of Present Days Displayed in the My Attendance Dashboard",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Backend — Admin Learner Video Progress Monitoring",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Add IT Asset Assignment, Update, and Monitoring Options for Learners",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "User Session Is Not Logged Out After Admin Updates User Details",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Backend — Learner Video Progress Tracking",
-          "status": "Done",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Frontend - Optimize Frontend Page Loading Performance for EduBot and User Tabs",
+          "status": "Review in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Student Does Not Receive Notification After Mentor Creates a Lesson Plan",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Attendance Calendar Marks Saturdays and Sundays as Present After Regularization Approval",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Reflect Approved Leave Requests in the Attendance Information Calendar",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
@@ -13210,29 +12806,11 @@
           "title": "Supporting Document Returns 404 Error",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Existing subjects can be created multiple times",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Assign Class Page Flickers When Clicking the \"Assign Class\" Button",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Class Assignment Is Created Without Selecting a Subject",
-          "status": "QA Completed",
-          "priority": ""
         }
       ],
-      "total": 331,
+      "total": 330,
       "done": 79,
-      "inProgress": 53,
+      "inProgress": 55,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -13299,25 +12877,25 @@
         {
           "project": "Edubot_CPLC",
           "title": "Mentor and Learner can check in on Admin-scheduled leave days",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin Role - Regularization Request History Is Not Displayed in History Tab",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin – Learner/Mentor Registration Does Not Show Validation for Empty ID and Roll Number",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin Role - Register Batch – Courses Multi-Select Does Not Filter Options Based on Search Input",
-          "status": "Done",
+          "status": "Completed",
           "priority": ""
         },
         {
@@ -13854,345 +13432,6 @@
       "deletions": 0
     },
     {
-      "login": "Antony-Bilgates",
-      "projects": [
-        "Edubot_V3",
-        "Edubot_CPLC",
-        "SabAi Bible App",
-        "Oman Tourism",
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Frontend - Subscription Plan Modification in Institution",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Frontend - Admin User Seat Allowance Update",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Implementation of Subscription-Based Model – Frontend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Frontend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Document Download Control",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Leave Approval Status – Show Pending Approver (Mentor / Admin) in Learner’s Leave Pending Section",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Leave Approval Status – Expose Pending Approver (Mentor / Admin) in Learner Leave API",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Add Calendar Event Page Opens When Clicking Any Date in the Event Calendar",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Video Icon Overlaps with Heading After Video Generation",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS Sign-In Option Is Missing on Login Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Scripture Selection Alignment and Placeholder Text Issues in Visualize",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS Chat Resource Attachment Fails with Error Message",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Voice Recording Displays \"Disabled in Expo Go\" Error in Chat on iOS",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS – API Failure and Inconsistent Toast Messages for Report, Video, and Quiz in Visualize Module",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Push Notifications) Manage notification preferences",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Home Page – Images Not Displayed for Some Places on the Home Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Mandatory Field Indicator (*) Not Displayed for Required Fields in Expense Tracker",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Notification Settings Option Not Navigating to the Respective Page Under Push Notifications",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Create Account – Valid Password Is Rejected During Sign-Up",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Guest Login – Password Visibility (Eye) Icon Missing in the Create Account Password Field",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "AI Assistant Does Not Respond in Hindi After Selecting Hindi as the Preferred Language",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Audio Tours Play, Download, and Playback Speed (1x) Buttons Not Working in Enhanced Features",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Admin Panel - User Details Are Editable Instead of View-Only in the Users Section",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Admin Role - Audit Logs Change Details Displayed in Raw JSON Format Instead of User-Friendly Format",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Unnecessary \"(comma separated)\" Text Displayed in Preferred Activities Field on Profile & Preferences Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Admin Role - Text Field Font Color Not Visible in Edit User Details Popup",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Core Features – AI Assistant Voice Input Automatically Closes After Clicking the Voice Button",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Push Notifications) Contextual and timely notifications",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Travel Insurance) Browse and manage travel insurance",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Location-Based Recommendations & Discovery) Filter recommendations",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Settings Page – Language Settings, Rate This App, and Terms & Privacy Options Are Not Navigating to Their Respective Pages",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Home Page – About Section Not Displaying Place Description for Nizwa on the Details Page",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Translate Button Displays an Incorrect Icon Instead of the Translate Label in Core Features",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Real-Time Translator Not Translating Text and Displaying Arabic as the Default Translation Language",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Unable to View All Products When Clicking the \"View All Products\" Button in Marketplace",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Some Place Images and Descriptions Are Not Displayed in Explore Under Core Features",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Translation Phrases Option Not Navigating to the Respective Page in Offline Mode",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Application Language Does Not Change from English to Arabic in Profile & Preferences",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Login – \"Multiple rows were found when one or none was required\" Error Displayed While Logging in with Mobile Number",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Moderator Panel - Unable to Enable \"Quiet Hours\" Under Rest & Quiet Hours in Tourist App Notification Preferences",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Success and Error Toast Messages Displayed Simultaneously During Student Registration",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Duplicate Staff ID Allows Staff Creation",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Career Path Card UI Breaks with Long Name and Domain Values",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Admin Username Is Not Displayed",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Check-In Fails When Attendance Location Is Not Configured",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "AI Self-Evaluation Section Is Displayed in Student Task Details",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Page Does Not Auto-Scroll After Proceeding to the Next Step in New Curriculum Session",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "\"Show All\" Option Hides Data Instead of Displaying All Records",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 53,
-      "done": 2,
-      "inProgress": 29,
-      "commits": 0,
-      "prs": 19,
-      "prsMerged": 18,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "manju-209",
       "projects": [
         "My Medical Help Admin Panel",
@@ -14200,7 +13439,6 @@
         "Edubot_V3",
         "SabAi Bible App",
         "Oman Tourism",
-        "EduBot_University",
         "Devops"
       ],
       "tasks": [
@@ -14261,12 +13499,6 @@
         {
           "project": "Oman Tourism",
           "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "[DevOps] User Story: Grant Sham Sundar Access to EduBot University Project",
           "status": "Done",
           "priority": ""
         },
@@ -14487,14 +13719,285 @@
           "priority": ""
         }
       ],
-      "total": 47,
-      "done": 46,
+      "total": 46,
+      "done": 45,
       "inProgress": 0,
       "commits": 2,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 4,
+      "deletions": 0
+    },
+    {
+      "login": "Antony-Bilgates",
+      "projects": [
+        "Edubot_V3",
+        "SabAi Bible App",
+        "Oman Tourism"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Frontend - Subscription Plan Modification in Institution",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Frontend - Admin User Seat Allowance Update",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Implementation of Subscription-Based Model – Frontend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student Admission & Identity Management – Frontend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Video Icon Overlaps with Heading After Video Generation",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "iOS Sign-In Option Is Missing on Login Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Scripture Selection Alignment and Placeholder Text Issues in Visualize",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "iOS Chat Resource Attachment Fails with Error Message",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Voice Recording Displays \"Disabled in Expo Go\" Error in Chat on iOS",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "iOS – API Failure and Inconsistent Toast Messages for Report, Video, and Quiz in Visualize Module",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Interactive Map & Navigation) turn-by-turn navigation",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Push Notifications) Manage notification preferences",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Home Page – Images Not Displayed for Some Places on the Home Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Mandatory Field Indicator (*) Not Displayed for Required Fields in Expense Tracker",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Notification Settings Option Not Navigating to the Respective Page Under Push Notifications",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Create Account – Valid Password Is Rejected During Sign-Up",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Guest Login – Password Visibility (Eye) Icon Missing in the Create Account Password Field",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "AI Assistant Does Not Respond in Hindi After Selecting Hindi as the Preferred Language",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Audio Tours Play, Download, and Playback Speed (1x) Buttons Not Working in Enhanced Features",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Admin Panel - User Details Are Editable Instead of View-Only in the Users Section",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Admin Role - Audit Logs Change Details Displayed in Raw JSON Format Instead of User-Friendly Format",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Unnecessary \"(comma separated)\" Text Displayed in Preferred Activities Field on Profile & Preferences Page",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Admin Role - Text Field Font Color Not Visible in Edit User Details Popup",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Core Features – AI Assistant Voice Input Automatically Closes After Clicking the Voice Button",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Translate Button Displays an Incorrect Icon Instead of the Translate Label in Core Features",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Settings Page – Language Settings, Rate This App, and Terms & Privacy Options Are Not Navigating to Their Respective Pages",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Push Notifications) Contextual and timely notifications",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Travel Insurance) Browse and manage travel insurance",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Location-Based Recommendations & Discovery) Filter recommendations",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Home Page – About Section Not Displaying Place Description for Nizwa on the Details Page",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Real-Time Translator Not Translating Text and Displaying Arabic as the Default Translation Language",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Unable to View All Products When Clicking the \"View All Products\" Button in Marketplace",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Some Place Images and Descriptions Are Not Displayed in Explore Under Core Features",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Translation Phrases Option Not Navigating to the Respective Page in Offline Mode",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Application Language Does Not Change from English to Arabic in Profile & Preferences",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Login – \"Multiple rows were found when one or none was required\" Error Displayed While Logging in with Mobile Number",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "Moderator Panel - Unable to Enable \"Quiet Hours\" Under Rest & Quiet Hours in Tourist App Notification Preferences",
+          "status": "TODO",
+          "priority": ""
+        }
+      ],
+      "total": 42,
+      "done": 2,
+      "inProgress": 28,
+      "commits": 0,
+      "prs": 19,
+      "prsMerged": 18,
+      "prReviews": 0,
+      "additions": 0,
       "deletions": 0
     },
     {
@@ -14682,181 +14185,6 @@
       "deletions": 3700
     },
     {
-      "login": "Glad-Andrew",
-      "projects": [
-        "Edubot_V3",
-        "Edubot_CPLC",
-        "EduBot_University"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Implement Subscription-Based Model - Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Implement EduBot logo video across the EduBot v3 app",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Inactive Learner Status – Clear Indication in Study Materials Monitor",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Inactive Learner Status – Expose Inactive Flag in Study Materials Monitor API",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Learners – Separate Tab for Past Learners",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Support Fetching Past Learners Separately",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Profile Picture – Add Crop & Adjust Before Save",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Profile Picture – Support Cropped Image Upload",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Leave Rejection Remark – API Support for Mandatory Rejection Remark - Backend",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Leave Rejection Remark – Confirmation Dialog with Mandatory Remark",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Frontend - Optimize Frontend Page Loading Performance for EduBot and User Tabs",
-          "status": "Blocked",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "OTP Expired Message Displayed Before Timer Ends",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Incorrect Validation Message Displayed for Empty Confirm Password Field",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Task Creation Allows Selection of Past Due Dates",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Admin Leave Request Module Is Missing",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Edit Cancel Does Not Reset Validation and Profile Details",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Phone Number Field Accepts Unlimited Digits",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Theme Options Are Not Clearly Visible in Settings",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Profile Data Not Loaded on Attendance Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Notifications Are Not Working for Any User",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Section Content Text Box Is Not Properly Displayed",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "EduBot_University",
-          "title": "Names & IDs Reference Guide is displayed but not used during Bulk Import",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 26,
-      "done": 2,
-      "inProgress": 8,
-      "commits": 0,
-      "prs": 29,
-      "prsMerged": 28,
-      "prReviews": 9,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "Vinoth-codework",
       "projects": [
         "My Medical Help Admin Panel",
@@ -15003,6 +14331,150 @@
       "deletions": 0
     },
     {
+      "login": "Megna-Codework",
+      "projects": [
+        "Edubot_CPLC",
+        "Acadamiq AI"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "Leave Approval Status – Show Pending Approver (Mentor / Admin) in Learner’s Leave Pending Section",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Leave Approval Status – Expose Pending Approver (Mentor / Admin) in Learner Leave API",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Add Calendar Event Page Opens When Clicking Any Date in the Event Calendar",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Support Fetching Past Learners Separately",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Inactive Learner Status – Clear Indication in Study Materials Monitor",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Inactive Learner Status – Expose Inactive Flag in Study Materials Monitor API",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Profile Picture – Add Crop & Adjust Before Save",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Profile Picture – Support Cropped Image Upload",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Leave Rejection Remark – Confirmation Dialog with Mandatory Remark",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Leave Rejection Remark – API Support for Mandatory Rejection Remark - Backend",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learner – Add Calendar Event Option Is Available on Event Calendar",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI Flickering on Mentor Leave and Learner Leave Pages",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Loader Flickering When Switching Calendar Views",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Task Attachment Filename Is Truncated in the Mentor Tasks Page",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Mentor can schedule a class on a holiday",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin – Schedule Class Fails With Invalid Batch IDs Error When Creating an Event",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin – Save All Assignments Button Remains Disabled After Selecting a Learner",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Validation Error Does Not Identify the Missing Field or Scroll to It",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Mentor – Personal Task Allows a Past Due Date",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Assessment Page Flickering and Duplicate Messages Displayed",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Add Report Card Viewing Option in Parent Flow",
+          "status": "QA Review",
+          "priority": ""
+        }
+      ],
+      "total": 21,
+      "done": 19,
+      "inProgress": 1,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
       "login": "Kxrthikeyan-76",
       "projects": [
         "Worklogix"
@@ -15029,7 +14501,8 @@
       "login": "inbarasuv",
       "projects": [
         "Edubot_V3",
-        "Oman Tourism"
+        "Oman Tourism",
+        "Acadamiq AI"
       ],
       "tasks": [
         {
@@ -15109,11 +14582,23 @@
           "title": "Login – Password Field Accepts Spaces as Characters",
           "status": "TODO",
           "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Existing User Credentials Fail to Log In Due to Automatically Changed Email and Password",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Incorrect Student Count Displayed in Class Teacher Gradebook",
+          "status": "In progress",
+          "priority": ""
         }
       ],
-      "total": 13,
+      "total": 15,
       "done": 0,
-      "inProgress": 5,
+      "inProgress": 7,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -15122,86 +14607,62 @@
       "deletions": 0
     },
     {
-      "login": "Megna-Codework",
+      "login": "Glad-Andrew",
       "projects": [
-        "Edubot_CPLC",
-        "Acadamiq AI"
+        "Edubot_V3",
+        "Edubot_CPLC"
       ],
       "tasks": [
         {
-          "project": "Edubot_CPLC",
-          "title": "Learner – Add Calendar Event Option Is Available on Event Calendar",
+          "project": "Edubot_V3",
+          "title": "Implement Subscription-Based Model - Backend",
           "status": "Done",
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "UI Flickering on Mentor Leave and Learner Leave Pages",
+          "project": "Edubot_V3",
+          "title": "Student Admission & Identity Management – Backend",
           "status": "Done",
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "Loader Flickering When Switching Calendar Views",
-          "status": "Done",
+          "project": "Edubot_V3",
+          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Implement EduBot logo video across the EduBot v3 app",
+          "status": "In Development",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Task Attachment Filename Is Truncated in the Mentor Tasks Page",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Mentor can schedule a class on a holiday",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin – Schedule Class Fails With Invalid Batch IDs Error When Creating an Event",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin – Save All Assignments Button Remains Disabled After Selecting a Learner",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Validation Error Does Not Identify the Missing Field or Scroll to It",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Mentor – Personal Task Allows a Past Due Date",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Assessment Page Flickering and Duplicate Messages Displayed",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Add Report Card Viewing Option in Parent Flow",
-          "status": "QA Review",
+          "title": "Learners – Separate Tab for Past Learners",
+          "status": "In Development",
           "priority": ""
         }
       ],
-      "total": 11,
-      "done": 10,
+      "total": 7,
+      "done": 2,
       "inProgress": 0,
       "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
+      "prs": 31,
+      "prsMerged": 30,
+      "prReviews": 10,
       "additions": 0,
       "deletions": 0
     },
@@ -15241,11 +14702,17 @@
           "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
           "status": "In progress",
           "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Removed or Reassigned Class Teacher Sees Debug Error Message in My Class Section",
+          "status": "In progress",
+          "priority": ""
         }
       ],
-      "total": 5,
+      "total": 6,
       "done": 0,
-      "inProgress": 2,
+      "inProgress": 3,
       "commits": 0,
       "prs": 6,
       "prsMerged": 6,
