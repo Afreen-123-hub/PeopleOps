@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-03T11:12:07.493900Z",
+  "lastUpdated": "2026-11-04T11:23:38.042296Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
@@ -218,6 +218,21 @@
       "title": "My Medical Help",
       "items": [
         {
+          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
+          "status": "Dev",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Nelson"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/183",
+          "createdAt": "2026-10-28T08:43:50Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Profile update/KYC submission succeeds without uploading required Licence Document.",
           "status": "QA Completed",
           "priority": "",
@@ -234,11 +249,11 @@
         },
         {
           "title": "Low Wallet Balance Does Not Restrict Availability Updates or Patient Booking.",
-          "status": "QA review",
+          "status": "TO DO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "sarancodework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/170",
@@ -1703,27 +1718,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "EP07-US-033 Filter professionals",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/38",
-          "createdAt": "2026-09-18T09:14:33Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 3,
-        "inProgress": 0,
+        "inProgress": 1,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -3153,6 +3153,81 @@
       "title": "Edubot_CPLC",
       "items": [
         {
+          "title": "Form Navigation Displays from the Bottom Instead of the Top in Mentor and Learner Creation",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/599",
+          "createdAt": "2026-10-28T08:56:13Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Save Grade Button Does Not Change to Update Grade After Saving",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/598",
+          "createdAt": "2026-10-28T07:30:10Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Learner Assignment Table Has Insufficient Display Space",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/560",
+          "createdAt": "2026-10-22T12:56:51Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Chat Attachment Notification – Show Attachment Indicator in Notification",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/570",
+          "createdAt": "2026-10-26T04:40:34Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Chat Attachment Notification – Include Attachment Flag/Info in Notification Payload",
+          "status": "In Development",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/569",
+          "createdAt": "2026-10-26T04:35:53Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Pending Leave Requests Navigate to All Instead of Pending",
           "status": "In Development",
           "priority": "",
@@ -3257,7 +3332,7 @@
         },
         {
           "title": "YouTube Videos Accepted Under Links, Causing Study Material Count Mismatch",
-          "status": "To Do",
+          "status": "In Development",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3272,7 +3347,7 @@
         },
         {
           "title": "Document Count Mismatch Between Study Material Filter and Dashboard",
-          "status": "To Do",
+          "status": "In Development",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3296,21 +3371,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/561",
           "createdAt": "2026-10-23T06:19:30Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Learner Assignment Table Has Insufficient Display Space",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/560",
-          "createdAt": "2026-10-22T12:56:51Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -4567,63 +4627,11 @@
           "closedAt": "2026-10-26T09:54:57Z",
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Admin – Task Allows Past Date in Due Date Field",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/425",
-          "createdAt": "2026-10-05T12:07:31Z",
-          "closedAt": "2026-10-26T09:54:57Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Bug: Mentor Portal Functionality",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/11",
-          "createdAt": "2026-07-13T05:07:47Z",
-          "closedAt": "2026-07-13T07:58:04Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Default Values Are Automatically Displayed for Start Time, End Time, Max Marks, and Passing Marks",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/431",
-          "createdAt": "2026-10-06T06:19:32Z",
-          "closedAt": "2026-10-26T09:54:59Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Start Time and End Time Are Displayed by Default",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/430",
-          "createdAt": "2026-10-06T05:55:06Z",
-          "closedAt": "2026-10-26T09:54:59Z",
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 86,
+        "done": 82,
         "inProgress": 0,
         "todo": 0,
         "backlog": 1,
@@ -10928,25 +10936,25 @@
         },
         {
           "title": "Need git access to Karthikeyan on EduBot_CPLC_Institute & Edubot V3",
-          "status": "In Progress",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
             "Vinoth-codework",
             "manju-209"
           ],
-          "state": "OPEN",
+          "state": "CLOSED",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/609",
           "createdAt": "2026-11-03T08:59:12Z",
-          "closedAt": null,
+          "closedAt": "2026-11-04T10:14:31Z",
           "startDate": "",
           "endDate": ""
         }
       ],
       "stats": {
         "total": 42,
-        "done": 40,
-        "inProgress": 1,
+        "done": 41,
+        "inProgress": 0,
         "todo": 1,
         "backlog": 0,
         "production": 0
@@ -11032,12 +11040,6 @@
           "project": "My Medical Help",
           "title": "Profile update/KYC submission succeeds without uploading required Licence Document.",
           "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Low Wallet Balance Does Not Restrict Availability Updates or Patient Booking.",
-          "status": "QA review",
           "priority": ""
         },
         {
@@ -11589,12 +11591,6 @@
         {
           "project": "My Medical Help",
           "title": "EP07-US-032 See available professionals (nearest first)",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "EP07-US-033 Filter professionals",
           "status": "QA Completed",
           "priority": ""
         },
@@ -12973,7 +12969,7 @@
           "priority": ""
         }
       ],
-      "total": 330,
+      "total": 328,
       "done": 80,
       "inProgress": 53,
       "commits": 0,
@@ -13564,6 +13560,30 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "Form Navigation Displays from the Bottom Instead of the Top in Mentor and Learner Creation",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Save Grade Button Does Not Change to Update Grade After Saving",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Chat Attachment Notification – Show Attachment Indicator in Notification",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Chat Attachment Notification – Include Attachment Flag/Info in Notification Payload",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Pending Leave Requests Navigate to All Instead of Pending",
           "status": "In Development",
           "priority": ""
@@ -13881,7 +13901,7 @@
           "priority": ""
         }
       ],
-      "total": 57,
+      "total": 61,
       "done": 2,
       "inProgress": 33,
       "commits": 0,
@@ -14181,18 +14201,18 @@
         {
           "project": "Devops",
           "title": "Need git access to Karthikeyan on EduBot_CPLC_Institute & Edubot V3",
-          "status": "In Progress",
+          "status": "Done",
           "priority": ""
         }
       ],
       "total": 47,
-      "done": 45,
-      "inProgress": 1,
-      "commits": 0,
+      "done": 46,
+      "inProgress": 0,
+      "commits": 1,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
-      "additions": 0,
+      "additions": 2,
       "deletions": 0
     },
     {
@@ -14697,13 +14717,13 @@
         {
           "project": "Devops",
           "title": "Need git access to Karthikeyan on EduBot_CPLC_Institute & Edubot V3",
-          "status": "In Progress",
+          "status": "Done",
           "priority": ""
         }
       ],
       "total": 22,
-      "done": 19,
-      "inProgress": 1,
+      "done": 20,
+      "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -14858,6 +14878,12 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "Learner Assignment Table Has Insufficient Display Space",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Missing Placeholder in Batch Selection Dropdown",
           "status": "In Development",
           "priority": ""
@@ -14871,19 +14897,13 @@
         {
           "project": "Edubot_CPLC",
           "title": "YouTube Videos Accepted Under Links, Causing Study Material Count Mismatch",
-          "status": "To Do",
+          "status": "In Development",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Document Count Mismatch Between Study Material Filter and Dashboard",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Learner Assignment Table Has Insufficient Display Space",
-          "status": "To Do",
+          "status": "In Development",
           "priority": ""
         },
         {
@@ -14951,10 +14971,10 @@
       "total": 5,
       "done": 0,
       "inProgress": 0,
-      "commits": 2,
-      "prs": 3,
-      "prsMerged": 3,
-      "prReviews": 2,
+      "commits": 4,
+      "prs": 5,
+      "prsMerged": 5,
+      "prReviews": 3,
       "additions": 0,
       "deletions": 0
     },
@@ -15013,6 +15033,36 @@
       "deletions": 0
     },
     {
+      "login": "Kxrthikeyan-76",
+      "projects": [
+        "Edubot_V3",
+        "Worklogix"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "LMS Integration (Backend)",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Leadership Role – Wrong Date and Back Navigation Issue",
+          "status": "Backlog",
+          "priority": ""
+        }
+      ],
+      "total": 2,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 2,
+      "prs": 2,
+      "prsMerged": 2,
+      "prReviews": 0,
+      "additions": 1644,
+      "deletions": 209
+    },
+    {
       "login": "chandrucodework",
       "projects": [
         "Worklogix"
@@ -15054,45 +15104,45 @@
       "deletions": 0
     },
     {
-      "login": "Kxrthikeyan-76",
-      "projects": [
-        "Edubot_V3",
-        "Worklogix"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "LMS Integration (Backend)",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Leadership Role – Wrong Date and Back Navigation Issue",
-          "status": "Backlog",
-          "priority": ""
-        }
-      ],
-      "total": 2,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 1,
-      "prs": 1,
-      "prsMerged": 1,
-      "prReviews": 0,
-      "additions": 1305,
-      "deletions": 84
-    },
-    {
       "login": "Nelson",
       "projects": [
-        "My Medical Help Admin Panel"
+        "My Medical Help Admin Panel",
+        "My Medical Help"
       ],
       "tasks": [
         {
           "project": "My Medical Help Admin Panel",
           "title": "Admin – Final Table Column Is Misaligned with the Table Background",
           "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
+          "status": "Dev",
+          "priority": ""
+        }
+      ],
+      "total": 2,
+      "done": 0,
+      "inProgress": 1,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "sarancodework",
+      "projects": [
+        "My Medical Help"
+      ],
+      "tasks": [
+        {
+          "project": "My Medical Help",
+          "title": "Low Wallet Balance Does Not Restrict Availability Updates or Patient Booking.",
+          "status": "TO DO",
           "priority": ""
         }
       ],
