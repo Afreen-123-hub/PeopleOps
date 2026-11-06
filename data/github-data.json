@@ -1,11 +1,24 @@
 {
-  "lastUpdated": "2026-11-05T11:20:30.138515Z",
+  "lastUpdated": "2026-11-06T11:16:48.354149Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
   },
   "org": "CodeWork-ai",
   "projects": [
+    {
+      "number": 56,
+      "title": "Edubot University",
+      "items": [],
+      "stats": {
+        "total": 0,
+        "done": 0,
+        "inProgress": 0,
+        "todo": 0,
+        "backlog": 0,
+        "production": 0
+      }
+    },
     {
       "number": 55,
       "title": "My Medical Help Admin Panel",
@@ -217,6 +230,36 @@
       "number": 50,
       "title": "My Medical Help",
       "items": [
+        {
+          "title": "ENH-20  Negative wallet balance after commission",
+          "status": "TO DO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/195",
+          "createdAt": "2026-11-02T15:07:50Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "ENH-17 One mobile number for both roles",
+          "status": "TO DO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/192",
+          "createdAt": "2026-11-02T14:55:33Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "EP04-US-019 Generate appointment slots",
           "status": "In Progress",
@@ -1553,21 +1596,6 @@
           "endDate": ""
         },
         {
-          "title": "Access Request",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/14",
-          "createdAt": "2026-09-11T10:43:53Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Create and Configure Backend Server",
           "status": "Done",
           "priority": "",
@@ -1702,30 +1730,14 @@
           "closedAt": "2026-09-16T12:42:57Z",
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/35",
-          "createdAt": "2026-09-17T10:33:15Z",
-          "closedAt": "2026-09-17T12:34:56Z",
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 3,
+        "done": 2,
         "inProgress": 4,
         "todo": 0,
-        "backlog": 1,
+        "backlog": 0,
         "production": 0
       }
     },
@@ -3153,8 +3165,53 @@
       "title": "Edubot_CPLC",
       "items": [
         {
+          "title": "[Frontend] Auto-refresh list and section count after Add / Edit / Delete",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/606",
+          "createdAt": "2026-11-02T04:40:07Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Enable Post Creation Access for Learners in Community Forum",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/588",
+          "createdAt": "2026-10-27T06:19:08Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/559",
+          "createdAt": "2026-10-22T12:47:58Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Make Only the Title Field Mandatory in Community Forum",
-          "status": "In Development",
+          "status": "Completed in DEV",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3185,7 +3242,7 @@
         },
         {
           "title": "Attendance Calendar – Provide Attendance Data by Date Range for Calendar View",
-          "status": "In Development",
+          "status": "Completed in DEV",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3507,21 +3564,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/561",
           "createdAt": "2026-10-23T06:19:30Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/559",
-          "createdAt": "2026-10-22T12:47:58Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -4614,41 +4656,11 @@
           "closedAt": "2026-10-26T09:54:55Z",
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Attendance Calendar Marks Saturdays and Sundays as Present After Regularization Approval",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/459",
-          "createdAt": "2026-10-09T08:50:17Z",
-          "closedAt": "2026-10-26T09:54:55Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Reflect Approved Leave Requests in the Attendance Information Calendar",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/460",
-          "createdAt": "2026-10-09T09:04:42Z",
-          "closedAt": "2026-10-26T09:54:55Z",
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 74,
+        "done": 72,
         "inProgress": 0,
         "todo": 0,
         "backlog": 2,
@@ -7017,7 +7029,7 @@
       "items": [
         {
           "title": "Existing User Credentials Fail to Log In Due to Automatically Changed Email and Password",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7032,7 +7044,7 @@
         },
         {
           "title": "Incorrect Student Count Displayed in Class Teacher Gradebook",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7051,7 +7063,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Nelson"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/950",
@@ -7066,7 +7078,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Nelson"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/967",
@@ -7197,11 +7209,11 @@
         },
         {
           "title": "Pending Tasks count is inconsistent between Student Dashboard and AI Nova",
-          "status": "QA Review",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "inbarasuv"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/890",
@@ -7212,11 +7224,11 @@
         },
         {
           "title": "Add Cancel Button for Event Management / Event Calendar",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Megna-Codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/927",
@@ -7242,7 +7254,7 @@
         },
         {
           "title": "Add Report Card Viewing Option in Parent Flow",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7366,7 +7378,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Dharsan1102codework"
+            "Nelson"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/925",
@@ -7392,11 +7404,11 @@
         },
         {
           "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Megna-Codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/905",
@@ -8520,7 +8532,7 @@
         "total": 100,
         "done": 0,
         "inProgress": 2,
-        "todo": 1,
+        "todo": 2,
         "backlog": 0,
         "production": 0
       }
@@ -10966,13 +10978,28 @@
           "closedAt": "2026-11-04T10:14:31Z",
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Access Request – Edubot University Frontend and Backend Repositories",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "ShamSundar-R"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/978",
+          "createdAt": "2026-11-06T07:10:18Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 42,
+        "total": 43,
         "done": 41,
         "inProgress": 0,
-        "todo": 1,
+        "todo": 2,
         "backlog": 0,
         "production": 0
       }
@@ -12068,18 +12095,6 @@
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "Attendance Calendar Marks Saturdays and Sundays as Present After Regularization Approval",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Reflect Approved Leave Requests in the Attendance Information Calendar",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
           "project": "SabAi Bible App",
           "title": "Chat Analyzes Video File Name Instead of Video Content",
           "status": "DEV",
@@ -12406,7 +12421,7 @@
         {
           "project": "Acadamiq AI",
           "title": "Existing User Credentials Fail to Log In Due to Automatically Changed Email and Password",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -12455,18 +12470,6 @@
           "project": "Acadamiq AI",
           "title": "Default Prompt Displays the Same Questions for Different Grades and Classes",
           "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Pending Tasks count is inconsistent between Student Dashboard and AI Nova",
-          "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Add Cancel Button for Event Management / Event Calendar",
-          "status": "QA Review",
           "priority": ""
         },
         {
@@ -12521,12 +12524,6 @@
           "project": "Acadamiq AI",
           "title": "Leave Approval Workflow Not Following Sequential Approval for 3 or More Consecutive Days",
           "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
-          "status": "QA Review",
           "priority": ""
         },
         {
@@ -12974,8 +12971,8 @@
           "priority": ""
         }
       ],
-      "total": 326,
-      "done": 80,
+      "total": 321,
+      "done": 78,
       "inProgress": 53,
       "commits": 0,
       "prs": 0,
@@ -13565,8 +13562,20 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "Enable Post Creation Access for Learners in Community Forum",
+          "status": "Completed in DEV",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Make Only the Title Field Mandatory in Community Forum",
-          "status": "In Development",
+          "status": "Completed in DEV",
           "priority": ""
         },
         {
@@ -13633,12 +13642,6 @@
           "project": "Edubot_CPLC",
           "title": "Chat Attachment Notification – Include Attachment Flag/Info in Notification Payload",
           "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
-          "status": "To Do",
           "priority": ""
         },
         {
@@ -13930,7 +13933,7 @@
           "priority": ""
         }
       ],
-      "total": 65,
+      "total": 66,
       "done": 2,
       "inProgress": 33,
       "commits": 0,
@@ -13972,12 +13975,6 @@
         {
           "project": "My Medical Help",
           "title": "Please Create Frontend Repository for My Medical Help",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Access Request",
           "status": "Done",
           "priority": ""
         },
@@ -14234,8 +14231,8 @@
           "priority": ""
         }
       ],
-      "total": 47,
-      "done": 46,
+      "total": 46,
+      "done": 45,
       "inProgress": 0,
       "commits": 1,
       "prs": 0,
@@ -14265,6 +14262,18 @@
           "project": "My Medical Help Admin Panel",
           "title": "Updated Platform Fee Is Applied to Previously Booked Appointments",
           "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-20  Negative wallet balance after commission",
+          "status": "TO DO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-17 One mobile number for both roles",
+          "status": "TO DO",
           "priority": ""
         },
         {
@@ -14418,7 +14427,7 @@
           "priority": ""
         }
       ],
-      "total": 27,
+      "total": 29,
       "done": 0,
       "inProgress": 18,
       "commits": 2,
@@ -14588,17 +14597,29 @@
         {
           "project": "Acadamiq AI",
           "title": "Incorrect Student Count Displayed in Class Teacher Gradebook",
-          "status": "QA Review",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Add Cancel Button for Event Management / Event Calendar",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "Acadamiq AI",
           "title": "Add Report Card Viewing Option in Parent Flow",
-          "status": "QA Review",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
+          "status": "QA Completed",
           "priority": ""
         }
       ],
-      "total": 27,
+      "total": 29,
       "done": 25,
       "inProgress": 0,
       "commits": 0,
@@ -14631,19 +14652,7 @@
         },
         {
           "project": "My Medical Help",
-          "title": "Access Request",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
           "title": "Please Create Frontend Repository for My Medical Help",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Access Request",
           "status": "Done",
           "priority": ""
         },
@@ -14750,8 +14759,8 @@
           "priority": ""
         }
       ],
-      "total": 22,
-      "done": 20,
+      "total": 20,
+      "done": 19,
       "inProgress": 0,
       "commits": 3,
       "prs": 0,
@@ -14805,6 +14814,12 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "[Frontend] Auto-refresh list and section count after Add / Edit / Delete",
+          "status": "Completed in DEV",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "UI/UX Implementation – Edubot V2 (CPLC)",
           "status": "Backlog",
           "priority": ""
@@ -14812,7 +14827,7 @@
         {
           "project": "Edubot_CPLC",
           "title": "Attendance Calendar – Provide Attendance Data by Date Range for Calendar View",
-          "status": "In Development",
+          "status": "Completed in DEV",
           "priority": ""
         },
         {
@@ -14876,21 +14891,71 @@
           "priority": ""
         }
       ],
-      "total": 18,
+      "total": 19,
       "done": 2,
       "inProgress": 0,
       "commits": 0,
       "prs": 6,
       "prsMerged": 6,
-      "prReviews": 2,
+      "prReviews": 3,
       "additions": 0,
       "deletions": 0
+    },
+    {
+      "login": "nithisha-01",
+      "projects": [
+        "Edubot_V3",
+        "Hirelysze",
+        "HireLens"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "AI Plagiarism & Academic Integrity – Frontend",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Hirelysze",
+          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Add “Forgot Password” functionality to the HireLernse application.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Interview duration allows 1 min — missing minimum limit validation.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 5,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 11,
+      "prs": 8,
+      "prsMerged": 8,
+      "prReviews": 4,
+      "additions": 187,
+      "deletions": 120
     },
     {
       "login": "inbarasuv",
       "projects": [
         "Edubot_V3",
-        "Oman Tourism"
+        "Oman Tourism",
+        "Acadamiq AI"
       ],
       "tasks": [
         {
@@ -14976,9 +15041,15 @@
           "title": "User Role – AI Assistant Provides Irrelevant Responses Instead of Answering User Queries in Core Features",
           "status": "TODO",
           "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Pending Tasks count is inconsistent between Student Dashboard and AI Nova",
+          "status": "TODO",
+          "priority": ""
         }
       ],
-      "total": 14,
+      "total": 15,
       "done": 0,
       "inProgress": 7,
       "commits": 0,
@@ -14989,77 +15060,23 @@
       "deletions": 0
     },
     {
-      "login": "nithisha-01",
+      "login": "Nelson",
       "projects": [
-        "Edubot_V3",
-        "Hirelysze",
-        "HireLens"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "AI Plagiarism & Academic Integrity – Frontend",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Hirelysze",
-          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Add “Forgot Password” functionality to the HireLernse application.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Interview duration allows 1 min — missing minimum limit validation.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 5,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 4,
-      "prs": 7,
-      "prsMerged": 7,
-      "prReviews": 3,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Dharsan1102codework",
-      "projects": [
-        "Oman Tourism",
+        "My Medical Help Admin Panel",
+        "My Medical Help",
         "Acadamiq AI"
       ],
       "tasks": [
         {
-          "project": "Oman Tourism",
-          "title": "(Smart Itinerary Planner) Generate a personalized AI itinerary",
-          "status": "DEV",
+          "project": "My Medical Help Admin Panel",
+          "title": "Admin – Final Table Column Is Misaligned with the Table Background",
+          "status": "TODO",
           "priority": ""
         },
         {
-          "project": "Oman Tourism",
-          "title": "(Offline Mode) Manage downloaded content",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Reviews & Community Engagement) Trustworthy, sorted reviews",
-          "status": "Backlog",
+          "project": "My Medical Help",
+          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
+          "status": "Dev",
           "priority": ""
         },
         {
@@ -15081,7 +15098,7 @@
           "priority": ""
         }
       ],
-      "total": 6,
+      "total": 5,
       "done": 0,
       "inProgress": 3,
       "commits": 0,
@@ -15114,12 +15131,12 @@
       "total": 2,
       "done": 0,
       "inProgress": 0,
-      "commits": 2,
-      "prs": 2,
-      "prsMerged": 2,
+      "commits": 3,
+      "prs": 3,
+      "prsMerged": 3,
       "prReviews": 0,
-      "additions": 1644,
-      "deletions": 209
+      "additions": 1974,
+      "deletions": 259
     },
     {
       "login": "chandrucodework",
@@ -15198,26 +15215,31 @@
       "deletions": 0
     },
     {
-      "login": "Nelson",
+      "login": "Dharsan1102codework",
       "projects": [
-        "My Medical Help Admin Panel",
-        "My Medical Help"
+        "Oman Tourism"
       ],
       "tasks": [
         {
-          "project": "My Medical Help Admin Panel",
-          "title": "Admin – Final Table Column Is Misaligned with the Table Background",
-          "status": "TODO",
+          "project": "Oman Tourism",
+          "title": "(Smart Itinerary Planner) Generate a personalized AI itinerary",
+          "status": "DEV",
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
-          "status": "Dev",
+          "project": "Oman Tourism",
+          "title": "(Offline Mode) Manage downloaded content",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
+          "title": "(Reviews & Community Engagement) Trustworthy, sorted reviews",
+          "status": "Backlog",
           "priority": ""
         }
       ],
-      "total": 2,
+      "total": 3,
       "done": 0,
       "inProgress": 1,
       "commits": 0,
@@ -15274,6 +15296,29 @@
       "deletions": 0
     },
     {
+      "login": "ShamSundar-R",
+      "projects": [
+        "Devops"
+      ],
+      "tasks": [
+        {
+          "project": "Devops",
+          "title": "Access Request – Edubot University Frontend and Backend Repositories",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 1,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
       "login": "xavierrnelson",
       "projects": [],
       "tasks": [],
@@ -15281,8 +15326,8 @@
       "done": 0,
       "inProgress": 0,
       "commits": 1,
-      "prs": 1,
-      "prsMerged": 1,
+      "prs": 6,
+      "prsMerged": 6,
       "prReviews": 0,
       "additions": 89,
       "deletions": 22
