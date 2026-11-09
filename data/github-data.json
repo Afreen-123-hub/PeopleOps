@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-06T11:16:48.354149Z",
+  "lastUpdated": "2026-11-09T11:58:57.292639Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
@@ -231,6 +231,22 @@
       "title": "My Medical Help",
       "items": [
         {
+          "title": "ENH-36 Search for a professional by name with available dates",
+          "status": "TO DO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan",
+            "Nelson"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/210",
+          "createdAt": "2026-11-05T09:58:59Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "ENH-20  Negative wallet balance after commission",
           "status": "TO DO",
           "priority": "",
@@ -241,6 +257,22 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/195",
           "createdAt": "2026-11-02T15:07:50Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "ENH-22 Booking requests and live status in both portals",
+          "status": "TO DO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan",
+            "Nelson"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/197",
+          "createdAt": "2026-11-02T16:35:50Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -1699,42 +1731,11 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "EP05-US-026 Block go-offline with active booking",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/28",
-          "createdAt": "2026-09-15T11:47:28Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Please Create Frontend Repository for My Medical Help",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/34",
-          "createdAt": "2026-09-16T12:29:30Z",
-          "closedAt": "2026-09-16T12:42:57Z",
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 2,
+        "done": 1,
         "inProgress": 4,
         "todo": 0,
         "backlog": 0,
@@ -3165,6 +3166,51 @@
       "title": "Edubot_CPLC",
       "items": [
         {
+          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/559",
+          "createdAt": "2026-10-22T12:47:58Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Forum – Trigger Notifications on New Posts + Return Image Data for Inline Display",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/581",
+          "createdAt": "2026-10-26T05:15:37Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Forum Posts – Fix Notifications + Show Attached Images Inline (Instagram-style)",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/582",
+          "createdAt": "2026-10-26T05:16:27Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "[Frontend] Auto-refresh list and section count after Add / Edit / Delete",
           "status": "Completed in DEV",
           "priority": "",
@@ -3190,21 +3236,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/588",
           "createdAt": "2026-10-27T06:19:08Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/559",
-          "createdAt": "2026-10-22T12:47:58Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -4628,39 +4659,11 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Application Opens Directly in Incognito Mode Without Login Authentication",
-          "status": "Blocked",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/340",
-          "createdAt": "2026-08-31T05:32:51Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Student Does Not Receive Notification After Mentor Creates a Lesson Plan",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/458",
-          "createdAt": "2026-10-09T08:22:27Z",
-          "closedAt": "2026-10-26T09:54:55Z",
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 72,
+        "done": 71,
         "inProgress": 0,
         "todo": 0,
         "backlog": 2,
@@ -11621,12 +11624,6 @@
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "EP05-US-026 Block go-offline with active booking",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
           "project": "Edubot_V3",
           "title": "AI Smart Dashboard Displays \"Failed to Load Analysis Data\" with 403 API Response",
           "status": "Completed in QA",
@@ -12085,12 +12082,6 @@
         {
           "project": "Edubot_CPLC",
           "title": "Backend — Learner Video Progress Tracking",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Student Does Not Receive Notification After Mentor Creates a Lesson Plan",
           "status": "Completed",
           "priority": ""
         },
@@ -12971,8 +12962,8 @@
           "priority": ""
         }
       ],
-      "total": 321,
-      "done": 78,
+      "total": 319,
+      "done": 77,
       "inProgress": 53,
       "commits": 0,
       "prs": 0,
@@ -13562,14 +13553,26 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Enable Post Creation Access for Learners in Community Forum",
+          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
           "status": "Completed in DEV",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
-          "status": "To Do",
+          "title": "Forum – Trigger Notifications on New Posts + Return Image Data for Inline Display",
+          "status": "Completed in DEV",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Forum Posts – Fix Notifications + Show Attached Images Inline (Instagram-style)",
+          "status": "Completed in DEV",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Enable Post Creation Access for Learners in Community Forum",
+          "status": "Completed in DEV",
           "priority": ""
         },
         {
@@ -13933,12 +13936,12 @@
           "priority": ""
         }
       ],
-      "total": 66,
+      "total": 68,
       "done": 2,
       "inProgress": 33,
       "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
+      "prs": 2,
+      "prsMerged": 2,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -13969,12 +13972,6 @@
         {
           "project": "My Medical Help",
           "title": "Create and Configure Backend Server",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Please Create Frontend Repository for My Medical Help",
           "status": "Done",
           "priority": ""
         },
@@ -14231,8 +14228,8 @@
           "priority": ""
         }
       ],
-      "total": 46,
-      "done": 45,
+      "total": 45,
+      "done": 44,
       "inProgress": 0,
       "commits": 1,
       "prs": 0,
@@ -14266,7 +14263,19 @@
         },
         {
           "project": "My Medical Help",
+          "title": "ENH-36 Search for a professional by name with available dates",
+          "status": "TO DO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
           "title": "ENH-20  Negative wallet balance after commission",
+          "status": "TO DO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-22 Booking requests and live status in both portals",
           "status": "TO DO",
           "priority": ""
         },
@@ -14427,7 +14436,7 @@
           "priority": ""
         }
       ],
-      "total": 29,
+      "total": 31,
       "done": 0,
       "inProgress": 18,
       "commits": 2,
@@ -14633,7 +14642,6 @@
       "login": "Vinoth-codework",
       "projects": [
         "My Medical Help Admin Panel",
-        "My Medical Help",
         "Oman Tourism",
         "Devops"
       ],
@@ -14647,12 +14655,6 @@
         {
           "project": "My Medical Help Admin Panel",
           "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Please Create Frontend Repository for My Medical Help",
           "status": "Done",
           "priority": ""
         },
@@ -14759,8 +14761,8 @@
           "priority": ""
         }
       ],
-      "total": 20,
-      "done": 19,
+      "total": 19,
+      "done": 18,
       "inProgress": 0,
       "commits": 3,
       "prs": 0,
@@ -14895,8 +14897,8 @@
       "done": 2,
       "inProgress": 0,
       "commits": 0,
-      "prs": 6,
-      "prsMerged": 6,
+      "prs": 7,
+      "prsMerged": 7,
       "prReviews": 3,
       "additions": 0,
       "deletions": 0
@@ -14944,9 +14946,9 @@
       "done": 0,
       "inProgress": 0,
       "commits": 11,
-      "prs": 8,
-      "prsMerged": 8,
-      "prReviews": 4,
+      "prs": 9,
+      "prsMerged": 9,
+      "prReviews": 6,
       "additions": 187,
       "deletions": 120
     },
@@ -15075,6 +15077,18 @@
         },
         {
           "project": "My Medical Help",
+          "title": "ENH-36 Search for a professional by name with available dates",
+          "status": "TO DO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-22 Booking requests and live status in both portals",
+          "status": "TO DO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
           "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
           "status": "Dev",
           "priority": ""
@@ -15098,7 +15112,7 @@
           "priority": ""
         }
       ],
-      "total": 5,
+      "total": 7,
       "done": 0,
       "inProgress": 3,
       "commits": 0,
