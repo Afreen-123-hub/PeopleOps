@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-09T11:58:57.292639Z",
+  "lastUpdated": "2026-11-10T11:30:59.259498Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
@@ -3166,72 +3166,162 @@
       "title": "Edubot_CPLC",
       "items": [
         {
-          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
-          "status": "Completed in DEV",
+          "title": "UI/UX - Forum",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Santhakumar082"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/559",
-          "createdAt": "2026-10-22T12:47:58Z",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/614",
+          "createdAt": "2026-11-06T06:47:57Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
-          "title": "Forum – Trigger Notifications on New Posts + Return Image Data for Inline Display",
-          "status": "Completed in DEV",
+          "title": "Update Event Calendar Options for Admin Roles",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Santhakumar082"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/581",
-          "createdAt": "2026-10-26T05:15:37Z",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/586",
+          "createdAt": "2026-10-27T04:37:46Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
-          "title": "Forum Posts – Fix Notifications + Show Attached Images Inline (Instagram-style)",
-          "status": "Completed in DEV",
+          "title": "Document Count Mismatch Between Study Material Filter and Dashboard",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Santhakumar082"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/582",
-          "createdAt": "2026-10-26T05:16:27Z",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/564",
+          "createdAt": "2026-10-23T11:55:45Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
-          "title": "[Frontend] Auto-refresh list and section count after Add / Edit / Delete",
-          "status": "Completed in DEV",
+          "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
+          "status": "To Do",
           "priority": "",
           "size": "",
           "assignees": [
             "Glad-Andrew"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/606",
-          "createdAt": "2026-11-02T04:40:07Z",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/587",
+          "createdAt": "2026-10-27T06:00:25Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Form Navigation Displays from the Bottom Instead of the Top in Mentor and Learner Creation",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/599",
+          "createdAt": "2026-10-28T08:56:13Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Save Grade Button Does Not Change to Update Grade After Saving",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/598",
+          "createdAt": "2026-10-28T07:30:10Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Make Only the Title Field Mandatory in Community Forum",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/596",
+          "createdAt": "2026-10-27T10:27:11Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Learner Details Overlapping in Learners Video Progress",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/594",
+          "createdAt": "2026-10-27T10:10:31Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Student Label Displayed Instead of Learner in Monitor Progress",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/593",
+          "createdAt": "2026-10-27T10:02:47Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Learner Resume Cannot Be Viewed in Mentor and Admin Modules",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/592",
+          "createdAt": "2026-10-27T09:47:38Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
           "title": "Enable Post Creation Access for Learners in Community Forum",
-          "status": "Completed in DEV",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/588",
@@ -3241,16 +3331,136 @@
           "endDate": ""
         },
         {
-          "title": "Make Only the Title Field Mandatory in Community Forum",
-          "status": "Completed in DEV",
+          "title": "Forum Posts – Fix Notifications + Show Attached Images Inline (Instagram-style)",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Megna-Codework"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/596",
-          "createdAt": "2026-10-27T10:27:11Z",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/582",
+          "createdAt": "2026-10-26T05:16:27Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Forum – Trigger Notifications on New Posts + Return Image Data for Inline Display",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/581",
+          "createdAt": "2026-10-26T05:15:37Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Chat Attachment Notification – Show Attachment Indicator in Notification",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/570",
+          "createdAt": "2026-10-26T04:40:34Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Chat Attachment Notification – Include Attachment Flag/Info in Notification Payload",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/569",
+          "createdAt": "2026-10-26T04:35:53Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Pending Leave Requests Navigate to All Instead of Pending",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/566",
+          "createdAt": "2026-10-23T12:29:35Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Attendance Status Changes to Present After Regularization or Permission Approval on a Declared Holiday",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/563",
+          "createdAt": "2026-10-23T11:38:18Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Duplicate Course Entries Displayed in Assign – Select Course Dropdown",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/562",
+          "createdAt": "2026-10-23T08:52:39Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
+          "status": "Completed in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/559",
+          "createdAt": "2026-10-22T12:47:58Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Frontend] Auto-refresh list and section count after Add / Edit / Delete",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/606",
+          "createdAt": "2026-11-02T04:40:07Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3273,11 +3483,11 @@
         },
         {
           "title": "Attendance Calendar – Provide Attendance Data by Date Range for Calendar View",
-          "status": "Completed in DEV",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/576",
@@ -3287,162 +3497,12 @@
           "endDate": ""
         },
         {
-          "title": "Duplicate Course Entries Displayed in Assign – Select Course Dropdown",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/562",
-          "createdAt": "2026-10-23T08:52:39Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Pending Leave Requests Navigate to All Instead of Pending",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/566",
-          "createdAt": "2026-10-23T12:29:35Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Form Navigation Displays from the Bottom Instead of the Top in Mentor and Learner Creation",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/599",
-          "createdAt": "2026-10-28T08:56:13Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Attendance Status Changes to Present After Regularization or Permission Approval on a Declared Holiday",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/563",
-          "createdAt": "2026-10-23T11:38:18Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Save Grade Button Does Not Change to Update Grade After Saving",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/598",
-          "createdAt": "2026-10-28T07:30:10Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Learner Details Overlapping in Learners Video Progress",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/594",
-          "createdAt": "2026-10-27T10:10:31Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Student Label Displayed Instead of Learner in Monitor Progress",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/593",
-          "createdAt": "2026-10-27T10:02:47Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Learner Resume Cannot Be Viewed in Mentor and Admin Modules",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/592",
-          "createdAt": "2026-10-27T09:47:38Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Chat Attachment Notification – Show Attachment Indicator in Notification",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/570",
-          "createdAt": "2026-10-26T04:40:34Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Chat Attachment Notification – Include Attachment Flag/Info in Notification Payload",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/569",
-          "createdAt": "2026-10-26T04:35:53Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Done Status Is Not Updated for Duplicate YouTube Videos in Mentor and Learner Study Material",
-          "status": "Completed in DEV",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Megna-Codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/600",
@@ -3453,11 +3513,11 @@
         },
         {
           "title": "Attendance Calendar – Add Calendar View in Learner Attendance Info Section",
-          "status": "Completed in DEV",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/577",
@@ -3468,11 +3528,11 @@
         },
         {
           "title": "Missing Placeholder in Batch Selection Dropdown",
-          "status": "Completed in DEV",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Megna-Codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/595",
@@ -3482,27 +3542,12 @@
           "endDate": ""
         },
         {
-          "title": "Update Event Calendar Options for Admin Roles",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/586",
-          "createdAt": "2026-10-27T04:37:46Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "YouTube Videos Accepted Under Links, Causing Study Material Count Mismatch",
-          "status": "Completed in DEV",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Megna-Codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/565",
@@ -3512,27 +3557,12 @@
           "endDate": ""
         },
         {
-          "title": "Document Count Mismatch Between Study Material Filter and Dashboard",
-          "status": "Completed in DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/564",
-          "createdAt": "2026-10-23T11:55:45Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Add Event Dialog Overlaps with the Left Sidebar and Information Button",
-          "status": "Completed in DEV",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/552",
@@ -3543,11 +3573,11 @@
         },
         {
           "title": "Learner Assignment Table Has Insufficient Display Space",
-          "status": "Completed in DEV",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Megna-Codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/560",
@@ -3558,11 +3588,11 @@
         },
         {
           "title": "Learner Assessment Notification Redirects to a 404 Not Found Page",
-          "status": "Completed in DEV",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/551",
@@ -4629,42 +4659,12 @@
           "closedAt": "2026-10-26T09:54:55Z",
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Backend — Learner Video Progress Tracking",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/461",
-          "createdAt": "2026-10-09T09:11:10Z",
-          "closedAt": "2026-10-26T09:54:55Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Frontend - Optimize Frontend Page Loading Performance for EduBot and User Tabs",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Megna-Codework"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/392",
-          "createdAt": "2026-09-28T09:16:20Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 71,
-        "inProgress": 0,
+        "done": 85,
+        "inProgress": 11,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -5671,6 +5671,19 @@
       "title": "Oman Tourism",
       "items": [
         {
+          "title": "(Non-Functional & Cross-Cutting Requirements) Performance and responsiveness",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/61",
+          "createdAt": "2026-08-20T10:37:54Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "User Role – Download Itinerary Button Is Not Working After Generating a Smart Itinerary in Smart Planner",
           "status": "In progress",
           "priority": "",
@@ -6246,19 +6259,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/7",
           "createdAt": "2026-07-06T09:33:12Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Non-Functional & Cross-Cutting Requirements) Performance and responsiveness",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/61",
-          "createdAt": "2026-08-20T10:37:54Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -6889,7 +6889,8 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Antony-Bilgates"
+            "Antony-Bilgates",
+            "inbarasuv"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/469",
@@ -7008,8 +7009,8 @@
         "total": 91,
         "done": 3,
         "inProgress": 57,
-        "todo": 18,
-        "backlog": 13,
+        "todo": 17,
+        "backlog": 14,
         "production": 0
       }
     },
@@ -7030,6 +7031,21 @@
       "number": 27,
       "title": "Acadamiq AI",
       "items": [
+        {
+          "title": "Pending Tasks count is inconsistent between Student Dashboard and AI Nova",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "inbarasuv"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/890",
+          "createdAt": "2026-09-22T04:35:19Z",
+          "closedAt": null,
+          "startDate": "2026-09-28",
+          "endDate": ""
+        },
         {
           "title": "Existing User Credentials Fail to Log In Due to Automatically Changed Email and Password",
           "status": "QA Completed",
@@ -7208,21 +7224,6 @@
           "createdAt": "2026-09-28T05:54:10Z",
           "closedAt": null,
           "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Pending Tasks count is inconsistent between Student Dashboard and AI Nova",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/890",
-          "createdAt": "2026-09-22T04:35:19Z",
-          "closedAt": null,
-          "startDate": "2026-09-28",
           "endDate": ""
         },
         {
@@ -8534,8 +8535,8 @@
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 2,
-        "todo": 2,
+        "inProgress": 3,
+        "todo": 1,
         "backlog": 0,
         "production": 0
       }
@@ -10996,12 +10997,44 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Access Request for My Medical Help",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Vinoth-codework",
+            "manju-209"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/212",
+          "createdAt": "2026-11-10T07:22:22Z",
+          "closedAt": "2026-11-10T11:21:50Z",
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Repository Access Request – hirevox Frontend & Backend",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Vinoth-codework",
+            "manju-209"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/983",
+          "createdAt": "2026-11-10T10:52:57Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 43,
-        "done": 41,
-        "inProgress": 0,
+        "total": 45,
+        "done": 42,
+        "inProgress": 1,
         "todo": 2,
         "backlog": 0,
         "production": 0
@@ -11829,6 +11862,72 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "UI/UX - Forum",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Update Event Calendar Options for Admin Roles",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Document Count Mismatch Between Study Material Filter and Dashboard",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Save Grade Button Does Not Change to Update Grade After Saving",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Enable Post Creation Access for Learners in Community Forum",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Chat Attachment Notification – Include Attachment Flag/Info in Notification Payload",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "[Frontend] Auto-refresh list and section count after Add / Edit / Delete",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Attendance Calendar – Provide Attendance Data by Date Range for Calendar View",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Attendance Calendar – Add Calendar View in Learner Attendance Info Section",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Add Event Dialog Overlaps with the Left Sidebar and Information Button",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learner Assessment Notification Redirects to a 404 Not Found Page",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Submitted Status Option Is Missing in All Status Filter",
           "status": "Completed in QA",
           "priority": ""
@@ -12076,12 +12175,6 @@
         {
           "project": "Edubot_CPLC",
           "title": "User Session Is Not Logged Out After Admin Updates User Details",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Backend — Learner Video Progress Tracking",
           "status": "Completed",
           "priority": ""
         },
@@ -12962,9 +13055,9 @@
           "priority": ""
         }
       ],
-      "total": 319,
-      "done": 77,
-      "inProgress": 53,
+      "total": 329,
+      "done": 78,
+      "inProgress": 62,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -13553,98 +13646,8 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Forum – Trigger Notifications on New Posts + Return Image Data for Inline Display",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Forum Posts – Fix Notifications + Show Attached Images Inline (Instagram-style)",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Enable Post Creation Access for Learners in Community Forum",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Make Only the Title Field Mandatory in Community Forum",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
           "title": "UI/UX Implementation – Edubot V2 (CPLC)",
           "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Duplicate Course Entries Displayed in Assign – Select Course Dropdown",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Pending Leave Requests Navigate to All Instead of Pending",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Form Navigation Displays from the Bottom Instead of the Top in Mentor and Learner Creation",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Attendance Status Changes to Present After Regularization or Permission Approval on a Declared Holiday",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Save Grade Button Does Not Change to Update Grade After Saving",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Learner Details Overlapping in Learners Video Progress",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Student Label Displayed Instead of Learner in Monitor Progress",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Learner Resume Cannot Be Viewed in Mentor and Admin Modules",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Chat Attachment Notification – Show Attachment Indicator in Notification",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Chat Attachment Notification – Include Attachment Flag/Info in Notification Payload",
-          "status": "Completed in DEV",
           "priority": ""
         },
         {
@@ -13936,7 +13939,7 @@
           "priority": ""
         }
       ],
-      "total": 68,
+      "total": 53,
       "done": 2,
       "inProgress": 33,
       "commits": 0,
@@ -14226,16 +14229,310 @@
           "title": "Need git access to Karthikeyan on EduBot_CPLC_Institute & Edubot V3",
           "status": "Done",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Access Request for My Medical Help",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Repository Access Request – hirevox Frontend & Backend",
+          "status": "In Progress",
+          "priority": ""
         }
       ],
-      "total": 45,
-      "done": 44,
-      "inProgress": 0,
+      "total": 47,
+      "done": 45,
+      "inProgress": 1,
       "commits": 1,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 2,
+      "deletions": 0
+    },
+    {
+      "login": "Megna-Codework",
+      "projects": [
+        "Edubot_CPLC",
+        "Acadamiq AI"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "Form Navigation Displays from the Bottom Instead of the Top in Mentor and Learner Creation",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Make Only the Title Field Mandatory in Community Forum",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learner Details Overlapping in Learners Video Progress",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Student Label Displayed Instead of Learner in Monitor Progress",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learner Resume Cannot Be Viewed in Mentor and Admin Modules",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Forum Posts – Fix Notifications + Show Attached Images Inline (Instagram-style)",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Forum – Trigger Notifications on New Posts + Return Image Data for Inline Display",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Chat Attachment Notification – Show Attachment Indicator in Notification",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Pending Leave Requests Navigate to All Instead of Pending",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Attendance Status Changes to Present After Regularization or Permission Approval on a Declared Holiday",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Duplicate Course Entries Displayed in Assign – Select Course Dropdown",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Done Status Is Not Updated for Duplicate YouTube Videos in Mentor and Learner Study Material",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Missing Placeholder in Batch Selection Dropdown",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "YouTube Videos Accepted Under Links, Causing Study Material Count Mismatch",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learner Assignment Table Has Insufficient Display Space",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Update Option Available for Deleted Learners",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Deleted Learners Displayed When Filtering by Active Status",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Support Fetching Past Learners Separately",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Document Download Control",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Leave Approval Status – Show Pending Approver (Mentor / Admin) in Learner’s Leave Pending Section",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Leave Approval Status – Expose Pending Approver (Mentor / Admin) in Learner Leave API",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Add Calendar Event Page Opens When Clicking Any Date in the Event Calendar",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learners – Separate Tab for Past Learners",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Inactive Learner Status – Clear Indication in Study Materials Monitor",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Inactive Learner Status – Expose Inactive Flag in Study Materials Monitor API",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Profile Picture – Add Crop & Adjust Before Save",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Profile Picture – Support Cropped Image Upload",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Leave Rejection Remark – Confirmation Dialog with Mandatory Remark",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Leave Rejection Remark – API Support for Mandatory Rejection Remark - Backend",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learner – Add Calendar Event Option Is Available on Event Calendar",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI Flickering on Mentor Leave and Learner Leave Pages",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Loader Flickering When Switching Calendar Views",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Task Attachment Filename Is Truncated in the Mentor Tasks Page",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Mentor can schedule a class on a holiday",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin – Schedule Class Fails With Invalid Batch IDs Error When Creating an Event",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin – Save All Assignments Button Remains Disabled After Selecting a Learner",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Validation Error Does Not Identify the Missing Field or Scroll to It",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Mentor – Personal Task Allows a Past Due Date",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Assessment Page Flickering and Duplicate Messages Displayed",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Incorrect Student Count Displayed in Class Teacher Gradebook",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Add Cancel Button for Event Management / Event Calendar",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Add Report Card Viewing Option in Parent Flow",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
+          "status": "QA Completed",
+          "priority": ""
+        }
+      ],
+      "total": 44,
+      "done": 38,
+      "inProgress": 2,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
       "deletions": 0
     },
     {
@@ -14447,198 +14744,6 @@
       "deletions": 17
     },
     {
-      "login": "Megna-Codework",
-      "projects": [
-        "Edubot_CPLC",
-        "Acadamiq AI"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_CPLC",
-          "title": "Update Option Available for Deleted Learners",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Deleted Learners Displayed When Filtering by Active Status",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Support Fetching Past Learners Separately",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Document Download Control",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Leave Approval Status – Show Pending Approver (Mentor / Admin) in Learner’s Leave Pending Section",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Leave Approval Status – Expose Pending Approver (Mentor / Admin) in Learner Leave API",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Add Calendar Event Page Opens When Clicking Any Date in the Event Calendar",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Learners – Separate Tab for Past Learners",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Inactive Learner Status – Clear Indication in Study Materials Monitor",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Inactive Learner Status – Expose Inactive Flag in Study Materials Monitor API",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Profile Picture – Add Crop & Adjust Before Save",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Profile Picture – Support Cropped Image Upload",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Leave Rejection Remark – Confirmation Dialog with Mandatory Remark",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Leave Rejection Remark – API Support for Mandatory Rejection Remark - Backend",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Learner – Add Calendar Event Option Is Available on Event Calendar",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "UI Flickering on Mentor Leave and Learner Leave Pages",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Loader Flickering When Switching Calendar Views",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Task Attachment Filename Is Truncated in the Mentor Tasks Page",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Mentor can schedule a class on a holiday",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin – Schedule Class Fails With Invalid Batch IDs Error When Creating an Event",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin – Save All Assignments Button Remains Disabled After Selecting a Learner",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Validation Error Does Not Identify the Missing Field or Scroll to It",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Mentor – Personal Task Allows a Past Due Date",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Assessment Page Flickering and Duplicate Messages Displayed",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Frontend - Optimize Frontend Page Loading Performance for EduBot and User Tabs",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Incorrect Student Count Displayed in Class Teacher Gradebook",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Add Cancel Button for Event Management / Event Calendar",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Add Report Card Viewing Option in Parent Flow",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Marks Entry Notification Navigates to AI Smart Dashboard Instead of Gradebook",
-          "status": "QA Completed",
-          "priority": ""
-        }
-      ],
-      "total": 29,
-      "done": 25,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "Vinoth-codework",
       "projects": [
         "My Medical Help Admin Panel",
@@ -14759,198 +14864,29 @@
           "title": "Need git access to Karthikeyan on EduBot_CPLC_Institute & Edubot V3",
           "status": "Done",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Access Request for My Medical Help",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Repository Access Request – hirevox Frontend & Backend",
+          "status": "In Progress",
+          "priority": ""
         }
       ],
-      "total": 19,
-      "done": 18,
-      "inProgress": 0,
+      "total": 21,
+      "done": 19,
+      "inProgress": 1,
       "commits": 3,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 111,
       "deletions": 121
-    },
-    {
-      "login": "Glad-Andrew",
-      "projects": [
-        "Edubot_V3",
-        "Edubot_CPLC"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Implement Subscription-Based Model - Backend",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Implement EduBot logo video across the EduBot v3 app",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "[Frontend] Auto-refresh list and section count after Add / Edit / Delete",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Attendance Calendar – Provide Attendance Data by Date Range for Calendar View",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Done Status Is Not Updated for Duplicate YouTube Videos in Mentor and Learner Study Material",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Attendance Calendar – Add Calendar View in Learner Attendance Info Section",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Missing Placeholder in Batch Selection Dropdown",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Update Event Calendar Options for Admin Roles",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "YouTube Videos Accepted Under Links, Causing Study Material Count Mismatch",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Document Count Mismatch Between Study Material Filter and Dashboard",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Add Event Dialog Overlaps with the Left Sidebar and Information Button",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Learner Assignment Table Has Insufficient Display Space",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Learner Assessment Notification Redirects to a 404 Not Found Page",
-          "status": "Completed in DEV",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Module Completion Status Not Updated After Maximum Assessment Attempts Are Reached",
-          "status": "To Do",
-          "priority": ""
-        }
-      ],
-      "total": 19,
-      "done": 2,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 7,
-      "prsMerged": 7,
-      "prReviews": 3,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "nithisha-01",
-      "projects": [
-        "Edubot_V3",
-        "Hirelysze",
-        "HireLens"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "AI Plagiarism & Academic Integrity – Frontend",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Hirelysze",
-          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Add “Forgot Password” functionality to the HireLernse application.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Interview duration allows 1 min — missing minimum limit validation.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 5,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 11,
-      "prs": 9,
-      "prsMerged": 9,
-      "prReviews": 6,
-      "additions": 187,
-      "deletions": 120
     },
     {
       "login": "inbarasuv",
@@ -15040,6 +14976,12 @@
         },
         {
           "project": "Oman Tourism",
+          "title": "Login – \"Multiple rows were found when one or none was required\" Error Displayed While Logging in with Mobile Number",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "Oman Tourism",
           "title": "User Role – AI Assistant Provides Irrelevant Responses Instead of Answering User Queries in Core Features",
           "status": "TODO",
           "priority": ""
@@ -15047,17 +14989,138 @@
         {
           "project": "Acadamiq AI",
           "title": "Pending Tasks count is inconsistent between Student Dashboard and AI Nova",
-          "status": "TODO",
+          "status": "In progress",
           "priority": ""
         }
       ],
-      "total": 15,
+      "total": 16,
       "done": 0,
-      "inProgress": 7,
+      "inProgress": 8,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "nithisha-01",
+      "projects": [
+        "Edubot_V3",
+        "Hirelysze",
+        "HireLens"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "AI Plagiarism & Academic Integrity – Frontend",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Hirelysze",
+          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Add “Forgot Password” functionality to the HireLernse application.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Interview duration allows 1 min — missing minimum limit validation.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 5,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 11,
+      "prs": 9,
+      "prsMerged": 9,
+      "prReviews": 6,
+      "additions": 187,
+      "deletions": 120
+    },
+    {
+      "login": "Glad-Andrew",
+      "projects": [
+        "Edubot_V3",
+        "Edubot_CPLC"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Implement Subscription-Based Model - Backend",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student Admission & Identity Management – Backend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Implement EduBot logo video across the EduBot v3 app",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Module Completion Status Not Updated After Maximum Assessment Attempts Are Reached",
+          "status": "To Do",
+          "priority": ""
+        }
+      ],
+      "total": 9,
+      "done": 2,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 7,
+      "prsMerged": 7,
+      "prReviews": 3,
       "additions": 0,
       "deletions": 0
     },
