@@ -10076,6 +10076,8 @@ body:not(.scope-reports) .reports-only,
 .pf-daily-table { width:100%; min-width:650px; border-collapse:collapse; }
 .pf-daily-table th { position:sticky; z-index:1; top:0; padding:9px 11px; background:#f7f9fb; color:#64748b; font-size:10px; font-weight:700; letter-spacing:.05em; text-align:left; text-transform:uppercase; }
 .pf-daily-table td { padding:10px 11px; border-top:1px solid var(--pf-line); color:#26374c; font-size:12px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.pf-daily-link { cursor:pointer; transition:background-color .15s ease; }
+.pf-daily-link:hover, .pf-daily-link:focus-visible { background:#f0fdfa; outline:none; }
 .pf-status { display:inline-flex; padding:3px 8px; border-radius:99px; background:#eef2f6; color:#475569; font-size:10px; font-weight:700; }
 .pf-status--present { background:#dcfce7; color:#166534; }
 .pf-status--absent { background:#fee2e2; color:#991b1b; }

@@ -57,6 +57,7 @@
 
   // person: row whose detail is open in the list. focus: employee picked from the search (shown alone).
   var state = { day: TODAY, filter: null, query: "", showAll: false, person: null, focus: null, dropOpen: false, active: -1 };
+  var pendingFocus = null;
   var months = {};   // "YYYY-MM" -> { status: "loading" | "ready" | "building" | "error", payload, message }
   var pollTimer = null;
   var bound = false;
@@ -383,6 +384,14 @@
     var payload = cur.payload;
     var rows = rowsFor(payload, state.day);
 
+    if (pendingFocus) {
+      var wanted = pendingFocus;
+      var found = rows.filter(function (r) {
+        return wanted.keys.indexOf(String(r.no || "")) >= 0 || wanted.keys.indexOf(String(r.id || "")) >= 0 || normKey(r.name) === wanted.name;
+      })[0];
+      if (found) { state.focus = found.id; state.query = found.name; pendingFocus = null; }
+    }
+
     // One employee picked from the search: show only them.
     if (state.focus) {
       var picked = null;
@@ -542,5 +551,14 @@
   // The card must never be able to break the rest of the dashboard, so errors stay in here.
   function safeRender() { try { render(); } catch (err) { if (window.console) console.warn("Work location card:", err); } }
   window.renderWorkLocationCard = safeRender;
+  window.openWorkLocationDay = function (employee, day) {
+    var keys = [employee && employee.id, employee && employee.sourceKeys && employee.sourceKeys.greythr, employee && employee.sourceKeys && employee.sourceKeys.biometric]
+      .filter(Boolean).map(String);
+    state.day = day; state.filter = null; state.query = employee && employee.name || ""; state.showAll = false;
+    state.person = null; state.focus = null; state.dropOpen = false; state.active = -1;
+    pendingFocus = { keys: keys, name: normKey(employee && employee.name) };
+    loadMonth(day.slice(0, 7), false);
+    safeRender();
+  };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();

@@ -4415,7 +4415,7 @@ function renderEmployeeAttendanceRows(holder, data) {
       <tbody>${data.rows.map((row) => {
         const date = new Date(`${row.date}T00:00:00Z`).toLocaleDateString("en-GB", { timeZone: "UTC", day: "numeric", month: "short", weekday: "short" });
         const tone = ["present", "absent", "leave", "holiday"].includes(row.tone) ? row.tone : "none";
-        return `<tr><td>${escapeHtml(date)}</td><td>${formatProfileAttendanceTime(row.login)}</td><td>${formatProfileAttendanceTime(row.logout)}</td><td>${escapeHtml(row.workMode || "—")}</td><td><span class="pf-status pf-status--${tone}">${escapeHtml(row.status || "No record")}</span></td><td>${formatProfileWorkedMinutes(row.workedMinutes)}</td></tr>`;
+        return `<tr class="pf-daily-link" data-attendance-date="${escapeHtml(row.date)}" tabindex="0" title="Open this day in Attendance"><td>${escapeHtml(date)}</td><td>${formatProfileAttendanceTime(row.login)}</td><td>${formatProfileAttendanceTime(row.logout)}</td><td>${escapeHtml(row.workMode || "—")}</td><td><span class="pf-status pf-status--${tone}">${escapeHtml(row.status || "No record")}</span></td><td>${formatProfileWorkedMinutes(row.workedMinutes)}</td></tr>`;
       }).join("")}</tbody>
     </table></div>
     <p class="pf-daily-meta">Working days only${data.refreshing ? ' · latest GreytHR refresh is still finishing <button type="button" class="pf-daily-retry">Check again</button>' : ""}${data.fetchedAt ? ` · updated ${new Date(data.fetchedAt).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}` : ""}</p>`;
@@ -4423,7 +4423,28 @@ function renderEmployeeAttendanceRows(holder, data) {
     const employee = dataset.employees.find((item) => String(item.id) === String(holder.dataset.attendanceDetail));
     if (employee) loadEmployeeAttendanceDetail(employee, { force: true });
   });
+  body.querySelectorAll("[data-attendance-date]").forEach((row) => {
+    const open = () => {
+      const employee = dataset.employees.find((item) => String(item.id) === String(holder.dataset.attendanceDetail));
+      if (employee) openEmployeeAttendanceDay(employee, row.dataset.attendanceDate);
+    };
+    row.addEventListener("click", open);
+    row.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); open(); }
+    });
+  });
 }
+
+function openEmployeeAttendanceDay(employee, date) {
+  if (!employee || !/^\d{4}-\d{2}-\d{2}$/.test(date || "")) return;
+  document.getElementById("employeeDialog")?.close();
+  ovpGo("attendance");
+  history.replaceState(null, "", `#attendance?employee=${encodeURIComponent(employee.id)}&date=${encodeURIComponent(date)}`);
+  window.openLeaveDay?.(employee, date);
+  window.openWorkLocationDay?.(employee, date);
+  document.getElementById("attendance")?.scrollIntoView({ block: "start" });
+}
+window.openEmployeeAttendanceDay = openEmployeeAttendanceDay;
 
 async function loadEmployeeAttendanceDetail(e, { force = false } = {}) {
   const holder = document.querySelector("#employeeDetail [data-attendance-detail]");

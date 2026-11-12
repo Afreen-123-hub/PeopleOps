@@ -73,7 +73,7 @@
   var TODAY = localToday();
   var MIN = addMonths(monthStart(TODAY), -12);
 
-  var state = { mode: "month", anchor: TODAY, filter: null, includeOthers: false, showAll: false, person: null, personFilter: null, pFrom: null, pTo: null };
+  var state = { mode: "month", anchor: TODAY, filter: null, includeOthers: false, showAll: false, person: null, dayPerson: null, personFilter: null, pFrom: null, pTo: null };
   var months = {};   // "YYYY-MM" -> { status: "loading" | "ready" | "error", days, stale }
   var bound = false;
 
@@ -225,7 +225,9 @@
   function aggregate(r) {
     var totals = {}, perDay = {}, perEmp = [], seen = [];
     var mk = monthsIn(r);
-    rosterFor(mk).forEach(function (e) {
+    var roster = rosterFor(mk);
+    if (state.dayPerson) roster = roster.filter(function (e) { return String(e.id) === String(state.dayPerson); });
+    roster.forEach(function (e) {
       var all = daysFor(e, mk), mine = {}, sum = 0, inRange = {};
       Object.keys(all).forEach(function (d) {
         if (d < r[0] || d > r[1]) return;
@@ -540,7 +542,8 @@
     var centerLabel = state.filter === WFH_CODE ? "Working from home" : (agg.people === 1 ? "Person away" : "People away");
     var wfhNote = wfhState === "building" ? '<div class="lt-note"><span>Work-from-home days are still being built for this period. They fill in by themselves, about a minute per month.</span></div>'
       : wfhState === "unavailable" ? '<div class="lt-note"><span>Work-from-home days couldn’t be built for this period just now. Reload the page in a few minutes to try again.</span></div>' : "";
-    var inView = employees().length;
+    var focusedDayEmployee = state.dayPerson && employees().filter(function (e) { return String(e.id) === String(state.dayPerson); })[0];
+    var inView = focusedDayEmployee ? 1 : employees().length;
     var outsiders = 0, outsiderDays = 0;
     extraPeople(mk).forEach(function (x) {
       var all = daysFor(x, mk), sum2 = 0;
@@ -556,6 +559,8 @@
 
     var searchRow = state.person
       ? '<div class="lt-search-row"><button type="button" class="lt-searchclear" data-clear-person="1">&#8592; Back to everyone</button></div>'
+      : focusedDayEmployee
+        ? '<div class="lt-search-row"><strong>Showing ' + esc(focusedDayEmployee.name) + ' for ' + esc(periodLabel(r)) + '</strong><button type="button" class="lt-searchclear" data-clear-day-person="1">Show everyone</button></div>'
       : '<div class="lt-search-row"><div class="lt-search-wrap"><input type="text" id="ltSearch" class="lt-search-input" placeholder="Search a person…" autocomplete="off" value="' + esc(state.query || "") + '">' +
         '<div class="lt-search-drop" id="ltSearchDrop" hidden></div></div></div>';
 
@@ -656,6 +661,7 @@
       else if (t.dataset.pretry) personMonths().forEach(function (m) { if (months[m] && months[m].status === "error") loadMonth(m, true); });
       else if (t.dataset.person) { state.person = t.dataset.person; state.personFilter = null; state.query = ""; }
       else if (t.dataset.clearPerson) { state.person = null; state.refocusSearch = true; }
+      else if (t.dataset.clearDayPerson) { state.dayPerson = null; }
       else return;
       safeRender();
     });
@@ -699,5 +705,11 @@
   // The card must never be able to break the rest of the dashboard, so errors stay in here.
   function safeRender() { try { render(); } catch (err) { if (window.console) console.warn("Leave types card:", err); } }
   window.renderLeaveTypesCard = safeRender;
+  window.openLeaveDay = function (employee, day) {
+    state.mode = "day"; state.anchor = day; state.filter = null; state.showAll = false;
+    state.person = null; state.dayPerson = employee && employee.id || null; state.personFilter = null;
+    loadMonth(day.slice(0, 7), false);
+    safeRender();
+  };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
