@@ -9,7 +9,10 @@ from urllib.request import Request, urlopen
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORKSPACE_ROOT = PROJECT_ROOT.parent
-ENV_FILES = (WORKSPACE_ROOT / ".env", PROJECT_ROOT / ".env")
+# Keep command-line refresh scripts consistent with backend/server.py, which also accepts
+# backend/.env.  Without this entry the web app can start correctly while the cron/generator
+# incorrectly reports that the same Worklogix settings are missing.
+ENV_FILES = (WORKSPACE_ROOT / ".env", PROJECT_ROOT / ".env", PROJECT_ROOT / "backend" / ".env")
 PLACEHOLDER_VALUES = {
     "PUT_WORKLOGIX_API_URL_HERE",
     "PUT_WORKLOGIX_EMAIL_HERE",

@@ -10,7 +10,7 @@ from urllib.request import Request, urlopen
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORKSPACE_ROOT = PROJECT_ROOT.parent
-ENV_FILES = (WORKSPACE_ROOT / ".env", PROJECT_ROOT / ".env")
+ENV_FILES = (WORKSPACE_ROOT / ".env", PROJECT_ROOT / ".env", PROJECT_ROOT / "backend" / ".env")
 PLACEHOLDER_VALUES = {
     "PUT_TEAMS_TENANT_ID_HERE",
     "PUT_TEAMS_CLIENT_ID_HERE",

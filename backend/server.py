@@ -911,6 +911,11 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
             self.send_json({"error": "Task entry not found"}, HTTPStatus.NOT_FOUND)
             return
 
+        if path.startswith("/api/attendance-detail/"):
+            employee_id = unquote(path.removeprefix("/api/attendance-detail/"))
+            self.handle_attendance_detail(employee_id)
+            return
+
         if path.startswith("/api/attendance/"):
             employee_id = unquote(path.removeprefix("/api/attendance/"))
             if not access_control.can_access(employee_id, scope):
@@ -1043,6 +1048,64 @@ class PeopleOpsHandler(SimpleHTTPRequestHandler):
         payload = access_control.filter_work_location_payload(payload, self._current_scope())
         audit_log.record(who=self._accessor(), action="view", resource="work-location", target=month)
         self.send_json(payload)
+
+    def handle_attendance_detail(self, employee_id: str):
+        """Daily login/logout/work-mode rows for the existing employee profile Attendance tab.
+
+        The source is the same monthly GreytHR cache used by the Work location card.  Access is
+        checked against the requested dashboard employee before any cached records are returned.
+        """
+        import re
+        from urllib.parse import parse_qs
+
+        scope = self._current_scope()
+        if not access_control.can_access(employee_id, scope):
+            audit_log.record(who=self._accessor(), action="denied", resource="attendance-detail", target=employee_id)
+            self.send_json({"error": "You don't have access to this employee's attendance."}, HTTPStatus.FORBIDDEN)
+            return
+        data = self.load_data()
+        if not data:
+            return
+        employee = self.find_employee(data, employee_id)
+        if not employee:
+            self.send_json({"error": "Employee not found"}, HTTPStatus.NOT_FOUND)
+            return
+
+        month = (parse_qs(urlparse(self.path).query).get("month") or [""])[0].strip()
+        if not re.fullmatch(r"\d{4}-(0[1-9]|1[0-2])", month):
+            self.send_json({"error": "Month must use YYYY-MM format."}, HTTPStatus.BAD_REQUEST)
+            return
+        if month > time.strftime("%Y-%m", time.gmtime(time.time() + 14 * 3600)):
+            self.send_json({"error": "That month hasn't started yet."}, HTTPStatus.BAD_REQUEST)
+            return
+
+        try:
+            if str(PROJECT_ROOT) not in sys.path:
+                sys.path.insert(0, str(PROJECT_ROOT))
+            from services.attendance_detail import build_employee_detail
+            if self._is_demo():
+                payload = _demo_month_file("worklocation", month) or {"month": month, "people": [], "days": {}}
+            else:
+                from services import work_location_store
+                payload = work_location_store.get_month(month)
+            if payload.get("building") and not payload.get("days"):
+                self.send_json({
+                    "month": month,
+                    "building": True,
+                    "done": payload.get("done", 0),
+                    "total": payload.get("total", 0),
+                })
+                return
+            result = build_employee_detail(payload, employee)
+        except Exception as exc:
+            print(f"[attendance-detail] {month} {employee_id} failed: {type(exc).__name__}: {exc}", flush=True)
+            self.send_json(
+                {"error": "Daily attendance could not be loaded. Please try again in a moment."},
+                HTTPStatus.BAD_GATEWAY,
+            )
+            return
+        audit_log.record(who=self._accessor(), action="view", resource="attendance-detail", target=f"{employee_id}:{month}")
+        self.send_json(result)
 
     def regenerate_data(self):
         result = subprocess.run(

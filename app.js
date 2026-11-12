@@ -1222,7 +1222,12 @@ function setupFilters() {
   });
   document.getElementById("exportBtn").addEventListener("click", (e) => {
     e.stopPropagation();
-    document.getElementById("exportMenu").classList.toggle("open");
+    const open = document.getElementById("exportMenu").classList.toggle("open");
+    e.currentTarget.setAttribute("aria-expanded", String(open));
+    // Say what the file will hold: the current filtered list (search, team, band, interns).
+    const count = filteredEmployees.length;
+    document.getElementById("exportMenuHint").textContent =
+      `${count} ${count === 1 ? "person" : "people"} · ${dataset?.meta?.period || "current month"}`;
   });
   document.getElementById("refreshDataBtn")?.addEventListener("click", async () => {
     const btn = document.getElementById("refreshDataBtn");
@@ -1263,6 +1268,7 @@ function setupFilters() {
   });
   document.addEventListener("click", (e) => {
     document.getElementById("exportMenu").classList.remove("open");
+    document.getElementById("exportBtn").setAttribute("aria-expanded", "false");
     const um = document.getElementById("railUserMenu");
     if (um) um.classList.remove("open");
     const opt = e.target.closest(".band-select-opt");
@@ -2863,10 +2869,24 @@ function openMtmPage() {
   renderMtmMembers();
 }
 
+function isLoggedInUsersDirectReport(employee) {
+  const ownId = String(loggedInEmployeeId || currentAccess.ownId || "").trim().toLowerCase();
+  const managerIds = [employee.managerId, employee.managerEmployeeId]
+    .map((value) => String(value || "").trim().toLowerCase())
+    .filter(Boolean);
+  if (ownId && managerIds.includes(ownId)) return true;
+  const ownName = loggedInUserName.trim().toLowerCase();
+  return !!ownName && String(employee.managerName || "").trim().toLowerCase() === ownName;
+}
+
 function renderPeopleTable() {
   const meNorm = loggedInUserName.trim().toLowerCase();
   const isMe = (e) => meNorm && e.name.trim().toLowerCase() === meNorm;
-  const nonExec = filteredEmployees.filter(e => e.band !== "Executive");
+  const directReports = filteredEmployees
+    .filter(isLoggedInUsersDirectReport)
+    .sort((a, b) => Number(a.isMtm) - Number(b.isMtm) || a.name.localeCompare(b.name));
+  const directIds = new Set(directReports.map((e) => String(e.id)));
+  const nonExec = filteredEmployees.filter(e => e.band !== "Executive" && !directIds.has(String(e.id)));
   const scored = nonExec
     .filter((e) => e.kpi != null)
     .sort((a, b) => (isMe(b) ? 1 : 0) - (isMe(a) ? 1 : 0) || b.kpi - a.kpi || a.name.localeCompare(b.name));
@@ -2904,9 +2924,13 @@ function renderPeopleTable() {
       : "";
   };
   const makeEmpRow = (e) => {
-    const score = isIntern(e)
-      ? `<b class="kpx-num kpx-sub">N/A</b><span class="kpx-tag none">—</span>`
-      : `<b class="kpx-num kpx-${kpxBand(e.kpi).tone}">${number.format(e.kpi)}</b><span class="kpx-tag ${kpxBand(e.kpi).tone}">${kpxBand(e.kpi).label}</span>`;
+    const score = e.isMtm
+      ? `<b class="kpx-num kpx-sub">—</b><span class="kpx-tag none">MTM</span>`
+      : e.kpi == null
+        ? `<b class="kpx-num kpx-sub">—</b><span class="kpx-tag none">Awaiting</span>`
+        : isIntern(e)
+          ? `<b class="kpx-num kpx-sub">N/A</b><span class="kpx-tag none">—</span>`
+          : `<b class="kpx-num kpx-${kpxBand(e.kpi).tone}">${number.format(e.kpi)}</b><span class="kpx-tag ${kpxBand(e.kpi).tone}">${kpxBand(e.kpi).label}</span>`;
     return `<button type="button" class="kpx-row" data-id="${e.id}">
       <span class="kpx-avatar${e.isMtm ? " mtm" : ""}">${avatarInitials(e.name)}</span>
       <span class="kpx-name"><b>${escapeHtml(e.name)}</b>${typeBadge(e)}${isIntern(e) ? "" : lowConfidenceWarning(e)}<small>${escapeHtml(e.designation || "Unassigned")} · ${escapeHtml(mergedTeam(e.team || "Unassigned"))}</small></span>
@@ -2914,27 +2938,49 @@ function renderPeopleTable() {
       <span class="kpx-tasks">${e.worklogix?.completed ?? 0}/${e.worklogix?.workItems ?? 0}</span>
     </button>`;
   };
+  const makeDirectReportCard = (e) => {
+    const metric = e.isMtm
+      ? '<span class="people-direct-badge">MTM</span>'
+      : e.kpi == null
+        ? '<span class="people-direct-badge is-muted">Awaiting data</span>'
+        : `<span class="people-direct-score kpx-${kpxBand(e.kpi).tone}"><b>${number.format(e.kpi)}</b><small>${kpxBand(e.kpi).label}</small></span>`;
+    return `<button type="button" class="people-direct-card" data-id="${e.id}">
+      <span class="kpx-avatar${e.isMtm ? " mtm" : ""}">${avatarInitials(e.name)}</span>
+      <span class="people-direct-copy"><b>${escapeHtml(e.name)}</b><small>${escapeHtml(e.designation || "Unassigned")}</small><em>${escapeHtml(mergedTeam(e.team || "Unassigned"))}</em></span>
+      ${metric}<span class="people-direct-arrow" aria-hidden="true">›</span>
+    </button>`;
+  };
   // MTM members aren't ranked here: they have their own view behind the "MTM members" chip.
   const office = shown.filter(e => !e.isMtm);
-  const mtmCountInView = filteredEmployees.filter(e => e.isMtm).length;
+  const directShown = directReports.filter((e) => peopleBandChip === "All"
+    || (!isIntern(e) && e.kpi != null && kpxBand(e.kpi).label === peopleBandChip));
+  const mtmCountInView = filteredEmployees.filter(e => e.isMtm && !directIds.has(String(e.id))).length;
   const mtmLink = !mtmCountInView ? ""
     : `<button type="button" class="pm-hint" data-pm-open>◆ ${state.search
       ? `${mtmCountInView} MTM member${mtmCountInView === 1 ? " also matches" : "s also match"} “${escapeHtml(state.search)}”.`
       : `${mtmCountInView} MTM member${mtmCountInView === 1 ? " is" : "s are"} listed separately.`} <b>Show MTM members →</b></button>`;
 
+  const directCard = document.getElementById("directReportsCard");
+  const directRoot = document.getElementById("directReportsTable");
+  if (directCard && directRoot) {
+    directCard.hidden = !directShown.length;
+    directRoot.innerHTML = directShown.length ? `
+      <div class="people-group-head"><div><strong>My direct reports</strong><span>${directShown.length}</span></div><small>Your reporting team</small></div>
+      <div class="people-direct-grid">${directShown.map(makeDirectReportCard).join("")}</div>` : "";
+  }
   document.getElementById("peopleTable").innerHTML = (office.length
     ? office.map(makeEmpRow).join("")
-    : (mtmLink ? "" : `<p class="kpx-sub kpx-empty">No employees found. Try another band or search term.</p>`)) + mtmLink;
+    : (directShown.length || mtmLink ? "" : `<p class="kpx-sub kpx-empty">No employees found. Try another band or search term.</p>`)) + mtmLink;
   document.querySelector("#peopleTable [data-pm-open]")?.addEventListener("click", openMtmPage);
 
-  document.querySelectorAll("#peopleTable [data-id]").forEach((row) => {
+  document.querySelectorAll("#peopleTable [data-id], #directReportsTable [data-id]").forEach((row) => {
     row.addEventListener("click", () => {
-      const employee = scored.find((e) => e.id === row.dataset.id);
+      const employee = dataset.employees.find((e) => String(e.id) === String(row.dataset.id));
       if (employee) showEmployee(employee);
     });
   });
 
-  renderAwaitingData(awaiting.filter((e) => !e.isMtm));
+  renderAwaitingData(awaiting.filter((e) => !e.isMtm && !directIds.has(String(e.id))));
   renderPeopleStats();
 }
 
@@ -4316,6 +4362,106 @@ window.openEmployeeProfile = (...keys) => {
   return !!employee;
 };
 
+const profileAttendanceCache = new Map();
+
+function defaultProfileAttendanceMonth() {
+  const selected = document.getElementById("globalMonthInput")?.value;
+  if (/^\d{4}-\d{2}$/.test(selected || "")) return selected;
+  const period = String(dataset?.meta?.period || "").slice(0, 7);
+  if (/^\d{4}-\d{2}$/.test(period)) return period;
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+}
+
+function employeeAttendanceDetailBlock(e) {
+  const month = defaultProfileAttendanceMonth();
+  return `
+    <div class="pf-daily" data-attendance-detail="${escapeHtml(String(e.id))}">
+      <div class="pf-daily-head">
+        <div><h3>Daily attendance</h3><p>GreytHR login, logout and work mode</p></div>
+        <label><span class="sr-only">Attendance month</span><input class="pf-daily-month" type="month" value="${month}" max="${new Date().toISOString().slice(0, 7)}"></label>
+      </div>
+      <div class="pf-daily-body"><p class="pf-daily-state">Open Attendance to load daily records.</p></div>
+    </div>`;
+}
+
+function formatProfileAttendanceTime(value) {
+  if (!/^\d{2}:\d{2}$/.test(value || "")) return "Nil";
+  const [hours, minutes] = value.split(":").map(Number);
+  const suffix = hours >= 12 ? "PM" : "AM";
+  return `${hours % 12 || 12}.${String(minutes).padStart(2, "0")} ${suffix}`;
+}
+
+function formatProfileWorkedMinutes(value) {
+  if (value == null || !Number.isFinite(Number(value))) return "—";
+  const minutes = Number(value);
+  return `${Math.floor(minutes / 60)}h ${String(minutes % 60).padStart(2, "0")}m`;
+}
+
+function renderEmployeeAttendanceRows(holder, data) {
+  const body = holder.querySelector(".pf-daily-body");
+  if (!body) return;
+  if (!data.matched) {
+    body.innerHTML = '<p class="pf-daily-state">No matching GreytHR employee was found for this profile.</p>';
+    return;
+  }
+  if (!data.rows?.length) {
+    body.innerHTML = '<p class="pf-daily-state">No working-day attendance records found for this month.</p>';
+    return;
+  }
+  body.innerHTML = `
+    <div class="pf-daily-table-wrap"><table class="pf-daily-table">
+      <thead><tr><th>Date</th><th>Login</th><th>Logout</th><th>Work mode</th><th>Status</th><th>Worked hours</th></tr></thead>
+      <tbody>${data.rows.map((row) => {
+        const date = new Date(`${row.date}T00:00:00Z`).toLocaleDateString("en-GB", { timeZone: "UTC", day: "numeric", month: "short", weekday: "short" });
+        const tone = ["present", "absent", "leave", "holiday"].includes(row.tone) ? row.tone : "none";
+        return `<tr><td>${escapeHtml(date)}</td><td>${formatProfileAttendanceTime(row.login)}</td><td>${formatProfileAttendanceTime(row.logout)}</td><td>${escapeHtml(row.workMode || "—")}</td><td><span class="pf-status pf-status--${tone}">${escapeHtml(row.status || "No record")}</span></td><td>${formatProfileWorkedMinutes(row.workedMinutes)}</td></tr>`;
+      }).join("")}</tbody>
+    </table></div>
+    <p class="pf-daily-meta">Working days only${data.refreshing ? ' · latest GreytHR refresh is still finishing <button type="button" class="pf-daily-retry">Check again</button>' : ""}${data.fetchedAt ? ` · updated ${new Date(data.fetchedAt).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}` : ""}</p>`;
+  body.querySelector(".pf-daily-retry")?.addEventListener("click", () => {
+    const employee = dataset.employees.find((item) => String(item.id) === String(holder.dataset.attendanceDetail));
+    if (employee) loadEmployeeAttendanceDetail(employee, { force: true });
+  });
+}
+
+async function loadEmployeeAttendanceDetail(e, { force = false } = {}) {
+  const holder = document.querySelector("#employeeDetail [data-attendance-detail]");
+  if (!holder || String(holder.dataset.attendanceDetail) !== String(e.id)) return;
+  const month = holder.querySelector(".pf-daily-month")?.value || defaultProfileAttendanceMonth();
+  const cacheKey = `${e.id}|${month}`;
+  if (!force && profileAttendanceCache.has(cacheKey)) {
+    renderEmployeeAttendanceRows(holder, profileAttendanceCache.get(cacheKey));
+    return;
+  }
+  const body = holder.querySelector(".pf-daily-body");
+  body.innerHTML = '<p class="pf-daily-state">Loading daily attendance…</p>';
+  try {
+    const response = await apiFetch(`/api/attendance-detail/${encodeURIComponent(e.id)}?month=${encodeURIComponent(month)}`);
+    if (!response) return;
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.error || "Daily attendance could not be loaded.");
+    if (result.building) {
+      const progress = result.total ? ` (${result.done || 0} of ${result.total})` : "";
+      body.innerHTML = `<p class="pf-daily-state">Building this month from GreytHR${progress}. <button type="button" class="pf-daily-retry">Check again</button></p>`;
+      body.querySelector(".pf-daily-retry")?.addEventListener("click", () => loadEmployeeAttendanceDetail(e, { force: true }));
+      return;
+    }
+    if (!result.refreshing) profileAttendanceCache.set(cacheKey, result);
+    renderEmployeeAttendanceRows(holder, result);
+  } catch (error) {
+    body.innerHTML = `<p class="pf-daily-state pf-daily-error">${escapeHtml(error.message)} <button type="button" class="pf-daily-retry">Retry</button></p>`;
+    body.querySelector(".pf-daily-retry")?.addEventListener("click", () => loadEmployeeAttendanceDetail(e, { force: true }));
+  }
+}
+
+function setupEmployeeAttendanceDetail(e, { loadNow = false } = {}) {
+  const holder = document.querySelector("#employeeDetail [data-attendance-detail]");
+  if (!holder) return;
+  holder.querySelector(".pf-daily-month")?.addEventListener("change", () => loadEmployeeAttendanceDetail(e, { force: false }));
+  if (loadNow) loadEmployeeAttendanceDetail(e);
+}
+
 function showEmployee(e) {
   const att  = e.attendance  || {};
   const wl   = e.worklogix   || {};
@@ -4408,9 +4554,9 @@ function showEmployee(e) {
           <div class="dg-stat"><span class="dg-val">${att.present ?? 0}</span><span class="dg-lbl">Present</span></div>
           <div class="dg-stat ${(att.absent ?? 0) > 0 ? "dg-warn" : ""}"><span class="dg-val">${att.absent ?? 0}</span><span class="dg-lbl">Absent</span></div>
           <div class="dg-stat"><span class="dg-val">${att.leave ?? 0}</span><span class="dg-lbl">Leave</span></div>
-          <div class="dg-stat"><span class="dg-val">${att.off ?? 0}</span><span class="dg-lbl">Week Off</span></div>
           <div class="dg-stat"><span class="dg-val">${att.holidays ?? 0}</span><span class="dg-lbl">Holidays</span></div>
         </div>` : ""}
+        ${employeeAttendanceDetailBlock(e)}
 
         <h3 class="detail-section-title">Sprint Performance <span style="font-weight:400;color:var(--muted)">(${s.sprintsVerified || 0} verified &middot; ${s.sprintsPending || 0} pending)</span></h3>
         ${hasVerified ? `
@@ -4453,6 +4599,7 @@ function showEmployee(e) {
       </section>`;
       document.querySelectorAll("dialog[open]").forEach(d => d.close());
       document.getElementById("employeeDialog").showModal();
+      setupEmployeeAttendanceDetail(e, { loadNow: true });
     }
     return;
   }
@@ -4589,7 +4736,6 @@ function showEmployee(e) {
             <span class="att-pct-lbl">Attendance &nbsp;<small>${presentCapped} of ${scheduledDays} working days</small></span>
           </div>
           <div class="att-chips" id="att-chips-${e.id}">
-            <button type="button" class="att-chip att-chip--off att-chip-btn" data-emp="${e.id}" data-bucket="OFF">WO ${att.off ?? 0}d</button>
             <button type="button" class="att-chip att-chip--leave att-chip-btn" data-emp="${e.id}" data-bucket="Leave">Leave ${att.leave ?? 0}d</button>
             <button type="button" class="att-chip ${(att.absent ?? 0) > 0 ? "att-chip--absent" : "att-chip--off"} att-chip-btn" data-emp="${e.id}" data-bucket="A">Absent ${att.absent ?? 0}d</button>
             ${att.holidays ? `<button type="button" class="att-chip att-chip--off att-chip-btn" data-emp="${e.id}" data-bucket="H">Holiday ${att.holidays}d</button>` : ""}
@@ -4606,6 +4752,7 @@ function showEmployee(e) {
           <div class="dg-stat"><span class="dg-val">${att.officeLocation || (isWFH ? "Work From Home" : (tm.workLocation === "office" ? "Office" : "—"))}</span><span class="dg-lbl">Work Location</span></div>
         </div>`;
       })()}
+      ${e.roleCategory !== "intern" ? employeeAttendanceDetailBlock(e) : ""}
       </div>
 
       <div class="pf-panel" data-pf-panel="work" hidden>
@@ -4746,8 +4893,10 @@ function showEmployee(e) {
     tab.onclick = () => {
       document.querySelectorAll("#employeeDetail [data-pf-tab]").forEach(t => t.classList.toggle("on", t === tab));
       document.querySelectorAll("#employeeDetail [data-pf-panel]").forEach(panel => { panel.hidden = panel.dataset.pfPanel !== tab.dataset.pfTab; });
+      if (tab.dataset.pfTab === "attendance") loadEmployeeAttendanceDetail(e);
     };
   });
+  setupEmployeeAttendanceDetail(e);
 
   // Attendance chip buttons → show dates for that status
   document.querySelectorAll(".att-chip-btn").forEach(btn => {

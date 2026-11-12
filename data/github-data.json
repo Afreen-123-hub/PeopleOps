@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-11T11:19:59.925878Z",
+  "lastUpdated": "2026-11-12T09:13:04.806006Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
@@ -22,79 +22,13 @@
     {
       "number": 56,
       "title": "Edubot University",
-      "items": [
-        {
-          "title": "University Profile & Institutional Identity Management",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/984",
-          "createdAt": "2026-11-11T04:41:44Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Academic Structure & Department Management",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/985",
-          "createdAt": "2026-11-11T04:46:13Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Academic Policy Configuration & Management",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/988",
-          "createdAt": "2026-11-11T09:26:25Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Academic Calendar & Term Management",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/989",
-          "createdAt": "2026-11-11T10:37:34Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "User Account, Role Assignment & Access Management",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/990",
-          "createdAt": "2026-11-11T10:42:03Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        }
-      ],
+      "items": [],
       "stats": {
-        "total": 5,
+        "total": 0,
         "done": 0,
         "inProgress": 0,
         "todo": 0,
-        "backlog": 5,
+        "backlog": 0,
         "production": 0
       }
     },
@@ -309,6 +243,52 @@
       "number": 50,
       "title": "My Medical Help",
       "items": [
+        {
+          "title": "Backend – Handle Pending Booking Timeout",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/215",
+          "createdAt": "2026-11-12T07:04:07Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "ENH-33 Reminder before the timeout and a timeout message",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan",
+            "Nelson"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/209",
+          "createdAt": "2026-11-05T09:21:17Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Backend – Implement Booking Timeout Notifications",
+          "status": "In progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/213",
+          "createdAt": "2026-11-12T07:00:23Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "ENH-29 Physiotherapy multi-session packages",
           "status": "TO DO",
@@ -598,7 +578,7 @@
         },
         {
           "title": "Backend – Implement Event-Based Notifications",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -613,7 +593,7 @@
         },
         {
           "title": "Backend – Implement Appointment Reminders",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -808,7 +788,7 @@
         },
         {
           "title": "Backend – Provide Visit Type and Pricing Details",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -823,7 +803,7 @@
         },
         {
           "title": "Backend – Validate Wallet Balance for Hourly Fees",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -928,7 +908,7 @@
         },
         {
           "title": "Backend – Handle Professional Verification Outcomes",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -943,7 +923,7 @@
         },
         {
           "title": "Backend – Handle Extra Hour Booking Request",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -988,7 +968,7 @@
         },
         {
           "title": "Backend – Implement Hourly Professional Availability",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1003,7 +983,7 @@
         },
         {
           "title": "Backend – Implement Hourly Platform Fee",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1093,7 +1073,7 @@
         },
         {
           "title": "Backend – Wallet Transaction Management",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1108,7 +1088,7 @@
         },
         {
           "title": "Backend – Professional Licence Admin Review",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1123,7 +1103,7 @@
         },
         {
           "title": "Backend – Home Visit Address and Navigation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1138,7 +1118,7 @@
         },
         {
           "title": "Backend – Implement Hourly Slot Booking",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1153,7 +1133,7 @@
         },
         {
           "title": "Backend – Control Location Visibility",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1168,7 +1148,7 @@
         },
         {
           "title": "Backend – Dispute Review and Resolution",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1183,7 +1163,7 @@
         },
         {
           "title": "Backend – Implement User Suspension",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1198,7 +1178,7 @@
         },
         {
           "title": "Backend – Support Request and Dispute Management",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1213,7 +1193,7 @@
         },
         {
           "title": "Backend – Automated Professional Licence Verification",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1228,7 +1208,7 @@
         },
         {
           "title": "Backend – Implement Professional Filters",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1243,7 +1223,7 @@
         },
         {
           "title": "Backend – Implement Appointment Status Lifecycle",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1258,7 +1238,7 @@
         },
         {
           "title": "Backend – Appointment Monitoring APIs",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1273,7 +1253,7 @@
         },
         {
           "title": "Backend – Handle Appointment Rescheduling",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1288,7 +1268,7 @@
         },
         {
           "title": "Backend – Handle Appointment Completion",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1303,7 +1283,7 @@
         },
         {
           "title": "Backend – Handle Appointment Rescheduling",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1318,7 +1298,7 @@
         },
         {
           "title": "Backend – Handle Appointment Cancellation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1333,7 +1313,7 @@
         },
         {
           "title": "Backend – Confirm Appointment Booking",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1348,7 +1328,7 @@
         },
         {
           "title": "Backend – Provide Professional Location and Contact",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1363,7 +1343,7 @@
         },
         {
           "title": "Backend – Fetch and Sort Available Professionals",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1378,7 +1358,7 @@
         },
         {
           "title": "Backend – Validate Staff Availability Request",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1765,57 +1745,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "EP07-US-030 Select professional category",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/33",
-          "createdAt": "2026-09-16T04:56:35Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Create and Configure Backend Server",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/16",
-          "createdAt": "2026-09-15T05:11:30Z",
-          "closedAt": "2026-09-24T09:55:34Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "EP04-US-015 Set optional availability details",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/17",
-          "createdAt": "2026-09-15T09:01:32Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 1,
-        "inProgress": 4,
+        "done": 0,
+        "inProgress": 7,
         "todo": 0,
         "backlog": 0,
         "production": 0
@@ -7157,11 +7092,11 @@
         },
         {
           "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
-          "status": "In progress",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/950",
@@ -7172,11 +7107,11 @@
         },
         {
           "title": "Removed or Reassigned Class Teacher Sees Debug Error Message in My Class Section",
-          "status": "In progress",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/967",
@@ -7457,11 +7392,11 @@
         },
         {
           "title": "Admin Receives Leave Approval Request Simultaneously for 1–2 Consecutive Days Leave",
-          "status": "TODO",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/925",
@@ -8614,8 +8549,8 @@
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 3,
-        "todo": 1,
+        "inProgress": 1,
+        "todo": 0,
         "backlog": 0,
         "production": 0
       }
@@ -11231,13 +11166,13 @@
         {
           "project": "My Medical Help",
           "title": "Backend – Implement Event-Based Notifications",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Implement Appointment Reminders",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11315,13 +11250,13 @@
         {
           "project": "My Medical Help",
           "title": "Backend – Provide Visit Type and Pricing Details",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Validate Wallet Balance for Hourly Fees",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11363,13 +11298,13 @@
         {
           "project": "My Medical Help",
           "title": "Backend – Handle Professional Verification Outcomes",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Handle Extra Hour Booking Request",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11387,13 +11322,13 @@
         {
           "project": "My Medical Help",
           "title": "Backend – Implement Hourly Professional Availability",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Implement Hourly Platform Fee",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11429,121 +11364,121 @@
         {
           "project": "My Medical Help",
           "title": "Backend – Wallet Transaction Management",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Professional Licence Admin Review",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Home Visit Address and Navigation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Implement Hourly Slot Booking",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Control Location Visibility",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Dispute Review and Resolution",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Implement User Suspension",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Support Request and Dispute Management",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Automated Professional Licence Verification",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Implement Professional Filters",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Implement Appointment Status Lifecycle",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Appointment Monitoring APIs",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Handle Appointment Rescheduling",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Handle Appointment Completion",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Handle Appointment Rescheduling",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Handle Appointment Cancellation",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Confirm Appointment Booking",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Provide Professional Location and Contact",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Fetch and Sort Available Professionals",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Validate Staff Availability Request",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11693,18 +11628,6 @@
         {
           "project": "My Medical Help",
           "title": "EP05-US-022 Receive instant booking",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "EP07-US-030 Select professional category",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "EP04-US-015 Set optional availability details",
           "status": "QA Completed",
           "priority": ""
         },
@@ -12550,6 +12473,18 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Removed or Reassigned Class Teacher Sees Debug Error Message in My Class Section",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "Login Page Displays an Incorrect Error Message When Password Contains Spaces",
           "status": "QA Completed",
           "priority": ""
@@ -12642,6 +12577,12 @@
           "project": "Acadamiq AI",
           "title": "Parent Notification Does Not Redirect to the Respective Incident Page",
           "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
+          "title": "Admin Receives Leave Approval Request Simultaneously for 1–2 Consecutive Days Leave",
+          "status": "QA Review",
           "priority": ""
         },
         {
@@ -13095,7 +13036,7 @@
           "priority": ""
         }
       ],
-      "total": 322,
+      "total": 323,
       "done": 85,
       "inProgress": 53,
       "commits": 0,
@@ -13999,7 +13940,6 @@
       "login": "manju-209",
       "projects": [
         "My Medical Help Admin Panel",
-        "My Medical Help",
         "Edubot_V3",
         "SabAi Bible App",
         "Oman Tourism",
@@ -14015,12 +13955,6 @@
         {
           "project": "My Medical Help Admin Panel",
           "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Create and Configure Backend Server",
           "status": "Done",
           "priority": ""
         },
@@ -14295,8 +14229,8 @@
           "priority": ""
         }
       ],
-      "total": 48,
-      "done": 47,
+      "total": 47,
+      "done": 46,
       "inProgress": 0,
       "commits": 2,
       "prs": 0,
@@ -14612,6 +14546,24 @@
         },
         {
           "project": "My Medical Help",
+          "title": "Backend – Handle Pending Booking Timeout",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-33 Reminder before the timeout and a timeout message",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement Booking Timeout Notifications",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
           "title": "ENH-29 Physiotherapy multi-session packages",
           "status": "TO DO",
           "priority": ""
@@ -14821,9 +14773,9 @@
           "priority": ""
         }
       ],
-      "total": 37,
+      "total": 40,
       "done": 0,
-      "inProgress": 18,
+      "inProgress": 21,
       "commits": 2,
       "prs": 1,
       "prsMerged": 1,
@@ -15140,8 +15092,8 @@
       "done": 0,
       "inProgress": 0,
       "commits": 11,
-      "prs": 13,
-      "prsMerged": 13,
+      "prs": 16,
+      "prsMerged": 16,
       "prReviews": 6,
       "additions": 187,
       "deletions": 120
@@ -15218,9 +15170,9 @@
       "done": 2,
       "inProgress": 0,
       "commits": 0,
-      "prs": 7,
-      "prsMerged": 7,
-      "prReviews": 3,
+      "prs": 8,
+      "prsMerged": 8,
+      "prReviews": 5,
       "additions": 0,
       "deletions": 0
     },
@@ -15228,14 +15180,19 @@
       "login": "Nelson",
       "projects": [
         "My Medical Help Admin Panel",
-        "My Medical Help",
-        "Acadamiq AI"
+        "My Medical Help"
       ],
       "tasks": [
         {
           "project": "My Medical Help Admin Panel",
           "title": "Admin – Final Table Column Is Misaligned with the Table Background",
           "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-33 Reminder before the timeout and a timeout message",
+          "status": "In progress",
           "priority": ""
         },
         {
@@ -15255,29 +15212,11 @@
           "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
           "status": "Dev",
           "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Removed or Reassigned Class Teacher Sees Debug Error Message in My Class Section",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Admin Receives Leave Approval Request Simultaneously for 1–2 Consecutive Days Leave",
-          "status": "TODO",
-          "priority": ""
         }
       ],
-      "total": 7,
+      "total": 5,
       "done": 0,
-      "inProgress": 3,
+      "inProgress": 2,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,

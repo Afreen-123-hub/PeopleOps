@@ -61,6 +61,13 @@
 #overview .ovp-icon-btn:hover:not(:disabled) { border-color: var(--p-pri); color: var(--p-pri); }
 #overview .ovp-icon-btn:disabled { font-size: 13px; font-weight: 600; cursor: progress; color: var(--p-mut); }
 
+/* Export: same look as Refresh; the menu (styles.css .export-menu) drops down under it */
+#overview .ovp-export-btn { font-size: 14px; font-weight: 600; color: var(--p-ink); }
+#overview .ovp-export-btn[aria-expanded="true"] { border-color: var(--p-pri); color: var(--p-pri); }
+#overview .ovp-export-btn:focus-visible, #overview .export-menu button:focus-visible { outline: 2px solid var(--p-pri); outline-offset: 2px; }
+#overview .export-menu { min-width: 190px; padding: 4px 0; border-radius: 12px; box-shadow: 0 10px 30px rgba(15, 28, 46, .15); }
+#overview .ovp-export-hint { padding: 8px 16px 6px; color: var(--p-mut); font-size: 12px; border-bottom: 1px solid var(--p-line); margin-bottom: 4px; }
+
 /* ---------- Today: Meeting hero (big teal meeting card + two small cards + status line) ---------- */
 #overview .ovp-today { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 12px; margin-bottom: 14px; }
 #overview .ovp-pk { position: relative; display: block; min-width: 0; }

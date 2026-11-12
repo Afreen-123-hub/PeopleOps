@@ -309,6 +309,52 @@ BLOCKED_IDS = {
 # Disposable-inbox domains used only for test accounts.
 BLOCKED_EMAIL_DOMAINS = {"yopmail.com"}
 
+# These are confirmed regular employees even when they do not have a Worklogix account.
+# MTM used to mean "present in GreytHR but absent from Worklogix", which is too broad: the
+# Business Development branch led by Trinita uses GreytHR without being an MTM contract
+# team. Keep the explicit names for confirmed employees whose reporting link may be stale
+# upstream, and derive the rest of Trinita's branch from GreytHR on every refresh.
+NON_MTM_EMPLOYEE_IDS = {"CWINE123", "CWINE180", "CWINI255"}
+NON_MTM_EMPLOYEE_NAMES = {
+    "trinita rex anto",
+    "dharik ajees",
+    "dharik ajees m",
+    "ansi",
+    "ansi s",
+    "gayathri s",
+    "gayathiri s",
+}
+
+
+def greythr_reporting_subtree_employee_nos(rows: list[dict], root_employee_no: str) -> set[str]:
+    """Return the root and every active descendant linked through GreytHR's internal pid."""
+    root = next(
+        (row for row in rows if clean(row.get("employeeNo")) == root_employee_no),
+        None,
+    )
+    if not root or root.get("id") is None:
+        return {root_employee_no}
+
+    children_by_pid: dict[object, list[dict]] = defaultdict(list)
+    for row in rows:
+        if not row.get("resigned"):
+            children_by_pid[row.get("pid")].append(row)
+
+    employee_nos = {root_employee_no}
+    queue = [root["id"]]
+    seen_internal_ids = set(queue)
+    while queue:
+        manager_internal_id = queue.pop()
+        for child in children_by_pid.get(manager_internal_id, []):
+            employee_no = clean(child.get("employeeNo"))
+            if employee_no:
+                employee_nos.add(employee_no)
+            child_internal_id = child.get("id")
+            if child_internal_id is not None and child_internal_id not in seen_internal_ids:
+                seen_internal_ids.add(child_internal_id)
+                queue.append(child_internal_id)
+    return employee_nos
+
 def is_real_employee(user):
     emp_id = clean(user.get("user_id") or user.get("id"))
     name = clean(user.get("name")).lower()
@@ -1061,9 +1107,11 @@ def read_greythr_api(start: str, end: str) -> tuple[defaultdict, dict, dict, dic
 
 
 def fetch_greythr_mtm_employees(existing_users: dict, fallback_path: Path | None = None) -> dict:
-    """Return {emp_no: user_dict} for every active GreytHR employee not already in Worklogix
-    (`existing_users`, {emp_id: user_dict}) — MTM members from another office/engagement
-    model that Worklogix doesn't track. Originally scoped to only Senthil Kumar's
+    """Return {emp_no: user_dict} for every active GreytHR employee not already in Worklogix.
+
+    Most such records are MTM members. Confirmed regular-employee exceptions carry
+    `_is_mtm=False` so they remain visible without being put in the MTM contract team.
+    Originally scoped to only Senthil Kumar's
     (CWINE053) direct reports; widened 2026-09-28 after finding a second, separate MTM
     branch (26 people under Archana Arun, CWINE048) that the old manager-specific query
     never saw — there was no reason to assume Senthil's team was the only one.
@@ -1084,6 +1132,7 @@ def fetch_greythr_mtm_employees(existing_users: dict, fallback_path: Path | None
     try:
         token, domain = greythr_get_token()
         rows = get_reporting_hierarchy(token, domain)
+        non_mtm_ids = NON_MTM_EMPLOYEE_IDS | greythr_reporting_subtree_employee_nos(rows, "CWINE123")
         mtm = {}
         for emp in rows:
             if emp.get("resigned"):
@@ -1093,6 +1142,10 @@ def fetch_greythr_mtm_employees(existing_users: dict, fallback_path: Path | None
                 continue
             if normalize_name(emp.get("name", "")) in existing_names:
                 continue
+            is_mtm = not (
+                emp_no in non_mtm_ids
+                or normalize_name(emp.get("name", "")) in NON_MTM_EMPLOYEE_NAMES
+            )
             dept = str(emp.get("department") or "").strip()
             desig = str(emp.get("designation") or "").strip()
             desig_lower = desig.lower()
@@ -1111,9 +1164,13 @@ def fetch_greythr_mtm_employees(existing_users: dict, fallback_path: Path | None
                 "is_active": "true",
                 "ms_teams_id": "",
                 "employee_no": emp_no,
-                "_is_mtm": True,
+                "_is_mtm": is_mtm,
             }
-        print(f"MTM: {len(mtm)} employees added from GreytHR (not already in Worklogix)")
+        mtm_count = sum(1 for employee in mtm.values() if employee.get("_is_mtm"))
+        print(
+            f"GreytHR-only: {len(mtm)} employees added "
+            f"({mtm_count} MTM, {len(mtm) - mtm_count} regular employees)"
+        )
         return mtm
     except (GreytHRConfigError, GreytHRAuthError, GreytHRApiError) as exc:
         print(f"WARNING: MTM employee fetch failed: {exc}", file=sys.stderr)
@@ -1130,10 +1187,11 @@ def fetch_greythr_mtm_employees(existing_users: dict, fallback_path: Path | None
                         "is_active": "true",
                         "ms_teams_id": "",
                         "employee_no": e["id"],
-                        "_is_mtm": True,
+                        "_is_mtm": bool(e.get("isMtm")),
                     }
                     for e in previous.get("employees", [])
-                    if e.get("isMtm") and e.get("id") and e.get("id") not in existing_ids
+                    if not (e.get("sources") or {}).get("worklogix")
+                    and e.get("id") and e.get("id") not in existing_ids
                     and normalize_name(e.get("name", "")) not in existing_names
                 }
                 if fallback_mtm:
@@ -1188,9 +1246,10 @@ def main():
               f"Sample is_active values: {list(set(str(u.get('is_active', '')) for u in list(all_users.values())[:5]))}",
               file=sys.stderr)
         sys.exit(1)
-    mtm_users = fetch_greythr_mtm_employees(users, fallback_path=out_path)
-    users.update(mtm_users)
-    mtm_ids = set(mtm_users)
+    worklogix_ids = set(users)
+    greythr_only_users = fetch_greythr_mtm_employees(users, fallback_path=out_path)
+    users.update(greythr_only_users)
+    mtm_ids = {emp_id for emp_id, user in greythr_only_users.items() if user.get("_is_mtm")}
     allowed_employee_ids = set(users)
     all_daily_rows = worklogix["daily"]
     month_counts = Counter(clean(r.get("month")) for r in all_daily_rows if clean(r.get("month")))
@@ -1643,7 +1702,7 @@ def main():
 
             role_cat = get_role_category(emp.get("designation", ""))
             sources = {
-                "worklogix": emp_id in allowed_employee_ids and emp_id not in mtm_ids,
+                "worklogix": emp_id in worklogix_ids,
                 "worklogixActivity": has_real_worklogix,
                 "greythr": bool(gh),
                 "biometrics": bool(attendance.get(emp_id) or attendance.get(_wl_uid) or attendance.get(f"name:{normalize_name(emp.get('name',''))}")),
@@ -1661,7 +1720,7 @@ def main():
                 emp["designation"] = "People Manager"
             if emp_id in {"CWINE154"}:
                 role_cat = "executive"
-            in_worklogix = emp_id in allowed_employee_ids and emp_id not in mtm_ids
+            in_worklogix = emp_id in worklogix_ids
             # Confidence uses only the 4 core sources — worklogixActivity and github
             # are informational tags and must NOT dilute the confidence score.
             core_sources = {k: sources[k] for k in ("worklogix", "greythr", "biometrics", "teams")}

@@ -13,6 +13,7 @@ GITHUB_ORG         = "CodeWork-ai"
 ENV_FILES = (
     Path(__file__).resolve().parents[3] / ".env",
     Path(__file__).resolve().parents[2] / ".env",
+    Path(__file__).resolve().parents[1] / "backend" / ".env",
 )
 
 

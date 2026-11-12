@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PeopleOPS Intelligence</title>
     <link rel="icon" type="image/svg+xml" href="peopleops-icon.svg">
-    <link rel="stylesheet" href="styles.css?v=20261005-team2">
+    <link rel="stylesheet" href="styles.css?v=20261112-profile-attendance">
     <link rel="stylesheet" href="leave-types.css?v=20260921-leavetypes">
     <link rel="stylesheet" href="work-location.css?v=20260925-search">
     <link rel="stylesheet" href="overview.css?v=20260929-greet2">
@@ -98,6 +98,14 @@
                 <button id="ovLoadMonth" type="button">Load month <span class="ovp-arr" aria-hidden="true">→</span></button>
               </div>
               <button class="ovp-icon-btn company-only" id="refreshDataBtn" type="button" title="Refresh data: pull the latest from Worklogix, GreytHR, Teams, GitHub and Graph" aria-label="Refresh data">↻</button>
+              <div class="export-dropdown" id="exportDropdown">
+                <button class="ovp-icon-btn ovp-export-btn" id="exportBtn" type="button" aria-haspopup="menu" aria-expanded="false" title="Download the employee list as CSV or Excel">⤓ Export ▾</button>
+                <div class="export-menu" id="exportMenu" role="menu">
+                  <div class="ovp-export-hint" id="exportMenuHint"></div>
+                  <button id="exportCsv" type="button" role="menuitem">CSV (.csv)</button>
+                  <button id="exportXlsx" type="button" role="menuitem">Excel (.xlsx)</button>
+                </div>
+              </div>
             </div>
           </div>
           <div id="ovProto"></div>
@@ -124,15 +132,6 @@
                 <div class="gradient-hero-meta">
                   <div><strong id="heroGeneratedLabel">—</strong><span>Generated</span></div>
                   <div><strong id="heroPeriodLabel">—</strong><span>Period</span></div>
-                </div>
-                <div class="hero-actions">
-                  <div class="export-dropdown" id="exportDropdown">
-                    <button class="button export-btn" id="exportBtn">Export ▾</button>
-                    <div class="export-menu" id="exportMenu">
-                      <button id="exportCsv">CSV (.csv)</button>
-                      <button id="exportXlsx">Excel (.xlsx)</button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </header>
@@ -389,6 +388,9 @@
           <div class="kpx-layout">
             <div class="kpx-toolbar"><span data-scope-count></span></div>
             <div id="peopleStatStrip" class="kpx-grid"></div>
+            <article id="directReportsCard" class="kpx-card" hidden>
+              <div id="directReportsTable"></div>
+            </article>
             <article id="leadershipStrip" class="kpx-card" hidden></article>
             <article class="kpx-card">
               <h3>Ranked KPI register <span class="kpx-sub">· tasks shown as completed/total</span></h3>
@@ -779,7 +781,7 @@
     </div>
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="app.js?v=20261005-team2"></script>
+    <script src="app.js?v=20261112-profile-attendance"></script>
     <script src="leave-types.js?v=20261005-team2"></script>
     <script src="work-location.js?v=20261005-team2"></script>
     <script src="graph-explorer.js?v=20261005-team2"></script>
