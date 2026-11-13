@@ -27,6 +27,7 @@ from services.greythr_api_client import (
     GreytHRApiError, GreytHRAuthError, GreytHRConfigError,
     get_greythr_attendance, get_reporting_hierarchy, get_token as greythr_get_token,
 )
+from services.work_location_store import attendance_for_range, prefer_cached_attendance
 from services.teams_api_client import TeamsApiError, get_presences_by_user_id, get_teams_activity_report, get_teams_users, get_teams_users_with_manager
 from services.teams_auth import TeamsAuthError
 from services.teams_transformer import teams_presence_dataframe_from_payload
@@ -1358,6 +1359,15 @@ def main():
 
     greythr_start, greythr_end = resolve_greythr_date_range(target_period)
     greythr, greythr_master, greythr_dept, greythr_day_map = read_greythr_api(greythr_start, greythr_end)
+    # The attendance/profile UI reads the verified work-location cache. Prefer that same
+    # cache when it has more real P/A/Leave/WFH days than the live muster response, so KPI
+    # generation cannot label employees "no-attendance" while their attendance is visible.
+    cached_attendance, cached_day_map = attendance_for_range(greythr_start, greythr_end)
+    improved_aliases = prefer_cached_attendance(
+        greythr, greythr_day_map, cached_attendance, cached_day_map,
+    )
+    if improved_aliases:
+        print(f"GreytHR work-location cache supplied richer attendance for {improved_aliases} aliases")
     # Build name-keyed lookup for joining date matching (CWINE employees only)
     greythr_master_by_name = {
         normalize_name(info.get("name", "")): info

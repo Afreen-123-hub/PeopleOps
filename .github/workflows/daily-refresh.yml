@@ -34,6 +34,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Refresh GreytHR work-location attendance
+        # Required before KPI generation: profiles and KPIs must use the same verified attendance cache.
+        run: python scripts/refresh_work_location.py --month $(date -u +%Y-%m)
+
       - name: Generate PeopleOps data
         run: python scripts/generate_peopleops_data.py --month $(date -u +%Y-%m)
 
@@ -65,6 +69,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
           git add data/peopleops-data.json data/graph-activity.json data/github-data.json data/org-hierarchy.json
+          if [ -d data/worklocation ]; then git add data/worklocation; fi
           # only if the leave step produced files; a missing path would make git add fail the whole step
           if [ -d data/leave ]; then git add data/leave; fi
           git diff --staged --quiet || git commit -m "chore: daily data refresh [skip ci]"

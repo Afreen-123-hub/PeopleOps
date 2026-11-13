@@ -23,6 +23,7 @@ import os
 import re
 import threading
 from calendar import monthrange
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -63,6 +64,108 @@ def read_cache(month: str) -> dict | None:
     if not isinstance(payload, dict) or payload.get("v") != CACHE_VERSION or not isinstance(payload.get("days"), dict):
         return None
     return payload
+
+
+_REAL_ATTENDANCE_BUCKETS = ("P", "A", "Leave", "WFH")
+
+
+def attendance_from_payload(payload: dict, start: str = "", end: str = "") -> tuple[dict[str, Counter], dict[str, dict[str, str]]]:
+    """Convert a work-location cache into the KPI generator's attendance shape.
+
+    The profile/Overview attendance UI and KPI generation must agree about whether an
+    employee has real attendance.  This adapter exposes the cache under the same aliases
+    used by ``get_greythr_attendance``: GreytHR internal id, employee number, and name.
+    """
+    from services.greythr_api_client import _attendance_bucket, _normalise_match_key
+
+    counters: dict[str, Counter] = {}
+    day_maps: dict[str, dict[str, str]] = {}
+    days = payload.get("days") or {}
+    for person in payload.get("people") or []:
+        internal_id = str(person.get("id") or "").strip()
+        if not internal_id:
+            continue
+        counter = Counter()
+        person_days: dict[str, str] = {}
+        for day, records in days.items():
+            if (start and day < start) or (end and day > end):
+                continue
+            record = (records or {}).get(internal_id) or {}
+            raw_labels = [part.strip() for part in str(record.get("s") or "").split("/") if part.strip()]
+            if not raw_labels:
+                if record.get("wi"):
+                    raw_labels = ["WFH"]
+                elif record.get("bi"):
+                    raw_labels = ["P"]
+            if not raw_labels:
+                continue
+            buckets = [_attendance_bucket(label) for label in raw_labels]
+            share = 1.0 / len(buckets)
+            for bucket in buckets:
+                counter[bucket] += share
+            shown = []
+            for bucket in buckets:
+                if bucket != "Blank" and bucket not in shown:
+                    shown.append(bucket)
+            person_days[day] = "/".join(shown) if shown else "Blank"
+
+        aliases = {
+            internal_id,
+            str(person.get("no") or "").strip(),
+            f"name:{_normalise_match_key(person.get('name', ''))}",
+        }
+        for alias in aliases - {"", "name:"}:
+            counters[alias] = Counter(counter)
+            day_maps[alias] = dict(person_days)
+    return counters, day_maps
+
+
+def attendance_for_range(start: str, end: str) -> tuple[dict[str, Counter], dict[str, dict[str, str]]]:
+    """Read cached months covering ``start`` through ``end`` and combine them."""
+    try:
+        first = date.fromisoformat(start)
+        last = date.fromisoformat(end)
+    except (TypeError, ValueError):
+        return {}, {}
+    if last < first:
+        return {}, {}
+
+    counters: dict[str, Counter] = {}
+    day_maps: dict[str, dict[str, str]] = {}
+    cursor = date(first.year, first.month, 1)
+    while cursor <= last:
+        month = cursor.strftime("%Y-%m")
+        payload = read_cache(month)
+        if payload:
+            month_counters, month_days = attendance_from_payload(payload, start, end)
+            for alias, values in month_counters.items():
+                counters.setdefault(alias, Counter()).update(values)
+                day_maps.setdefault(alias, {}).update(month_days.get(alias, {}))
+        cursor = date(cursor.year + (cursor.month == 12), 1 if cursor.month == 12 else cursor.month + 1, 1)
+    return counters, day_maps
+
+
+def prefer_cached_attendance(
+    primary: dict[str, Counter],
+    primary_days: dict[str, dict[str, str]],
+    cached: dict[str, Counter],
+    cached_days: dict[str, dict[str, str]],
+) -> int:
+    """Replace incomplete muster results with a richer verified cache record.
+
+    Never adds the two sources together (they describe the same dates).  A cached record
+    wins only when it contains more real P/A/Leave/WFH days, so stale or OFF-only cache
+    data cannot overwrite a better live response. Returns the number of aliases improved.
+    """
+    improved = 0
+    real_days = lambda values: sum(float(values.get(key, 0) or 0) for key in _REAL_ATTENDANCE_BUCKETS)
+    for alias, values in cached.items():
+        if real_days(values) <= real_days(primary.get(alias, Counter())):
+            continue
+        primary[alias] = Counter(values)
+        primary_days[alias] = dict(cached_days.get(alias, {}))
+        improved += 1
+    return improved
 
 
 def _is_fresh(payload: dict, month: str) -> bool:
