@@ -1,6 +1,13 @@
 name: Daily Data Refresh
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/daily-refresh.yml"
+      - "scripts/generate_peopleops_data.py"
+      - "scripts/refresh_work_location.py"
+      - "services/work_location_store.py"
   schedule:
     - cron: "30 3 * * *"  # 9:00 AM IST every day
   workflow_dispatch:       # allow manual trigger from GitHub UI
@@ -54,6 +61,9 @@ jobs:
         run: python scripts/refresh_github.py --month $(date -u +%Y-%m)
 
       - name: Refresh Graph activity data
+        # Graph/SharePoint occasionally returns a transient HTTP 500. Its enrichment is
+        # optional and must not discard successfully generated KPI and attendance data.
+        continue-on-error: true
         run: python scripts/refresh_graph_activity.py --month $(date -u +%Y-%m)
 
       - name: Refresh leave types
