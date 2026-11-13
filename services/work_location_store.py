@@ -31,7 +31,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CACHE_DIR = PROJECT_ROOT / "data" / "worklocation"
 
 # The month in progress is refreshed in the background once its cache is this old.
-OPEN_MONTH_MAX_AGE = 30 * 60
+OPEN_MONTH_MAX_AGE = 5 * 60
 # A routine refresh of the current month re-fetches only this many recent days;
 # a full re-fetch still happens when the cached full fetch is older than FULL_REFRESH_AGE
 # (so leave applied or approved later for earlier days is picked up).

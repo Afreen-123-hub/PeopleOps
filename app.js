@@ -4433,6 +4433,30 @@ function renderEmployeeAttendanceRows(holder, data) {
       if (event.key === "Enter" || event.key === " ") { event.preventDefault(); open(); }
     });
   });
+  updateGreytHRAttendanceSummary(holder, data.rows || []);
+}
+
+function updateGreytHRAttendanceSummary(holder, rows) {
+  const employee = dataset.employees.find((item) => String(item.id) === String(holder.dataset.attendanceDetail));
+  if (!employee) return;
+  const minutes = (value) => /^\d{2}:\d{2}$/.test(value || "") ? Number(value.slice(0, 2)) * 60 + Number(value.slice(3)) : null;
+  const timed = rows.filter((row) => minutes(row.login) != null);
+  const completed = rows.filter((row) => Number.isFinite(Number(row.workedMinutes)));
+  const avg = (values) => values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : null;
+  const avgIn = avg(timed.map((row) => minutes(row.login)));
+  const outValues = rows.map((row) => minutes(row.logout)).filter((value) => value != null);
+  const avgOut = avg(outValues);
+  const totalMinutes = completed.reduce((sum, row) => sum + Number(row.workedMinutes), 0);
+  const cutoff = ["management", "executive"].includes(employee.roleCategory) ? 615 : 585;
+  const punctuality = timed.length ? Math.round(timed.filter((row) => minutes(row.login) <= cutoff).length / timed.length * 100) : null;
+  const modes = rows.map((row) => row.workMode).filter((mode) => mode && mode !== "—");
+  const location = modes.sort((a, b) => modes.filter((x) => x === b).length - modes.filter((x) => x === a).length)[0] || "—";
+  const set = (key, value) => { const el = document.querySelector(`#employeeDetail [data-greythr-stat="${key}"]`); if (el) el.textContent = value; };
+  const clock = (value) => { const rounded = Math.round(value); return value == null ? "—" : formatProfileAttendanceTime(`${String(Math.floor(rounded / 60)).padStart(2, "0")}:${String(rounded % 60).padStart(2, "0")}`); };
+  set("avg-in", clock(avgIn)); set("avg-out", clock(avgOut));
+  set("avg-hours", completed.length ? `${(totalMinutes / completed.length / 60).toFixed(1)} hrs` : "—");
+  set("total-hours", completed.length ? `${(totalMinutes / 60).toFixed(1)} hrs` : "—");
+  set("punctuality", punctuality == null ? "—" : `${punctuality}%`); set("location", location);
 }
 
 function openEmployeeAttendanceDay(employee, date) {
@@ -4453,6 +4477,7 @@ async function loadEmployeeAttendanceDetail(e, { force = false } = {}) {
   const cacheKey = `${e.id}|${month}`;
   if (!force && profileAttendanceCache.has(cacheKey)) {
     renderEmployeeAttendanceRows(holder, profileAttendanceCache.get(cacheKey));
+    scheduleProfileAttendanceRefresh(e, 300000);
     return;
   }
   const body = holder.querySelector(".pf-daily-body");
@@ -4470,10 +4495,19 @@ async function loadEmployeeAttendanceDetail(e, { force = false } = {}) {
     }
     if (!result.refreshing) profileAttendanceCache.set(cacheKey, result);
     renderEmployeeAttendanceRows(holder, result);
+    scheduleProfileAttendanceRefresh(e, result.refreshing ? 8000 : 300000);
   } catch (error) {
     body.innerHTML = `<p class="pf-daily-state pf-daily-error">${escapeHtml(error.message)} <button type="button" class="pf-daily-retry">Retry</button></p>`;
     body.querySelector(".pf-daily-retry")?.addEventListener("click", () => loadEmployeeAttendanceDetail(e, { force: true }));
   }
+}
+
+let profileAttendanceRefreshTimer = null;
+function scheduleProfileAttendanceRefresh(employee, delay) {
+  clearTimeout(profileAttendanceRefreshTimer);
+  profileAttendanceRefreshTimer = setTimeout(() => {
+    if (document.getElementById("employeeDialog")?.open) loadEmployeeAttendanceDetail(employee, { force: true });
+  }, delay);
 }
 
 function setupEmployeeAttendanceDetail(e, { loadNow = false } = {}) {
@@ -4765,12 +4799,12 @@ function showEmployee(e) {
         </div>
         ${isWFH ? `<div class="dg-wfh-note">${_wfhNote}</div>` : ""}
         <div class="detail-grid4">
-          <div class="dg-stat"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? formatCheckinHour(att.avgCheckinHour) : "WFH"}</span><span class="dg-lbl">Avg Check-in</span></div>
-          <div class="dg-stat"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? formatCheckoutHour(att.avgCheckoutHour) : "WFH"}</span><span class="dg-lbl">Avg Check-out</span></div>
-          <div class="dg-stat"><span class="dg-val">${_displayAvgHrs ?? "—"} hrs</span><span class="dg-lbl">${_hoursLabel}</span></div>
-          <div class="dg-stat"><span class="dg-val">${_displayTotalHrs ?? "—"} hrs</span><span class="dg-lbl">${_totalLabel}</span></div>
-          <div class="dg-stat ${!isWFH && calcPunctuality(att) < 50 ? "dg-warn" : !isWFH && calcPunctuality(att) >= 80 ? "dg-good" : ""}"><span class="dg-val ${isWFH ? "dg-na" : ""}">${!isWFH ? (calcPunctuality(att) != null ? calcPunctuality(att) + "%" : "—") : "WFH"}</span><span class="dg-lbl">Punctuality</span></div>
-          <div class="dg-stat"><span class="dg-val">${att.officeLocation || (isWFH ? "Work From Home" : (tm.workLocation === "office" ? "Office" : "—"))}</span><span class="dg-lbl">Work Location</span></div>
+          <div class="dg-stat"><span class="dg-val" data-greythr-stat="avg-in">—</span><span class="dg-lbl">Avg Check-in</span></div>
+          <div class="dg-stat"><span class="dg-val" data-greythr-stat="avg-out">—</span><span class="dg-lbl">Avg Check-out</span></div>
+          <div class="dg-stat"><span class="dg-val" data-greythr-stat="avg-hours">—</span><span class="dg-lbl">Avg Daily Hours</span></div>
+          <div class="dg-stat"><span class="dg-val" data-greythr-stat="total-hours">—</span><span class="dg-lbl">Total Hours</span></div>
+          <div class="dg-stat"><span class="dg-val" data-greythr-stat="punctuality">—</span><span class="dg-lbl">Punctuality</span></div>
+          <div class="dg-stat"><span class="dg-val" data-greythr-stat="location">—</span><span class="dg-lbl">Work Location</span></div>
         </div>`;
       })()}
       ${e.roleCategory !== "intern" ? employeeAttendanceDetailBlock(e) : ""}
