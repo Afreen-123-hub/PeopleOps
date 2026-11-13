@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-11-13T08:52:44+00:00",
+    "generatedAt": "2026-11-13T09:07:29+00:00",
     "source": "greythr-reporting-hierarchy+graph-fallback",
     "graphFallbackResolved": 12,
     "totalEmployees": 113,
@@ -260,6 +260,23 @@
       "band": "Average"
     },
     {
+      "id": "CWINE016",
+      "name": "Nithisha S",
+      "team": "Development",
+      "designation": "Software Developer",
+      "teamsId": "c0090a53-3c2b-4785-8d27-d229d20c04e7",
+      "managerId": "CWINE025",
+      "managerName": "Sainath M",
+      "directReports": [
+        "CWINE149",
+        "CWINE160"
+      ],
+      "directReportCount": 2,
+      "isManager": true,
+      "kpi": 70.9,
+      "band": "Average"
+    },
+    {
       "id": "CWINIE173",
       "name": "Emmanuel Robert",
       "team": "Business Development",
@@ -296,29 +313,12 @@
       "managerId": "CWINE053",
       "managerName": "Senthil Kumar LT",
       "directReports": [
-        "CWINI186",
-        "CWINI268"
+        "CWINI268",
+        "CWINI186"
       ],
       "directReportCount": 2,
       "isManager": true,
       "kpi": 69.1,
-      "band": "Needs Improvement"
-    },
-    {
-      "id": "CWINE016",
-      "name": "Nithisha S",
-      "team": "Development",
-      "designation": "Software Developer",
-      "teamsId": "c0090a53-3c2b-4785-8d27-d229d20c04e7",
-      "managerId": "CWINE025",
-      "managerName": "Sainath M",
-      "directReports": [
-        "CWINE149",
-        "CWINE160"
-      ],
-      "directReportCount": 2,
-      "isManager": true,
-      "kpi": 69.0,
       "band": "Needs Improvement"
     },
     {
@@ -392,7 +392,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 66.8,
+      "kpi": 67.2,
       "band": "Needs Improvement"
     },
     {
@@ -898,6 +898,20 @@
       "band": "Critical"
     },
     {
+      "id": "CWINE037",
+      "name": "Gayathiri R",
+      "team": "Quality & Testing",
+      "designation": "Senior Quality Analyst",
+      "teamsId": "281c1d70-a174-4eec-99fd-b0bb3e59fac0",
+      "managerId": "CWINE053",
+      "managerName": "Senthil Kumar LT",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 54.4,
+      "band": "Critical"
+    },
+    {
       "id": "CWINE044",
       "name": "Kadali Kusumanjali",
       "team": "Software Development",
@@ -937,20 +951,6 @@
       "directReportCount": 0,
       "isManager": false,
       "kpi": 54.0,
-      "band": "Critical"
-    },
-    {
-      "id": "CWINE037",
-      "name": "Gayathiri R",
-      "team": "Quality & Testing",
-      "designation": "Senior Quality Analyst",
-      "teamsId": "281c1d70-a174-4eec-99fd-b0bb3e59fac0",
-      "managerId": "CWINE053",
-      "managerName": "Senthil Kumar LT",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 53.7,
       "band": "Critical"
     },
     {
@@ -1108,6 +1108,20 @@
       "band": "Critical"
     },
     {
+      "id": "CWINE067",
+      "name": "Ramkumar R",
+      "team": "Quality & Testing",
+      "designation": "Senior Quality Analyst",
+      "teamsId": "a3f113d3-8d29-4ad3-a1c1-18134a566025",
+      "managerId": "CWINE048",
+      "managerName": "Archana Arun",
+      "directReports": [],
+      "directReportCount": 0,
+      "isManager": false,
+      "kpi": 48.0,
+      "band": "Critical"
+    },
+    {
       "id": "CWINE071",
       "name": "Kshitij Burley",
       "team": "Quality & Testing",
@@ -1150,20 +1164,6 @@
       "band": "Critical"
     },
     {
-      "id": "CWINE067",
-      "name": "Ramkumar R",
-      "team": "Quality & Testing",
-      "designation": "Senior Quality Analyst",
-      "teamsId": "a3f113d3-8d29-4ad3-a1c1-18134a566025",
-      "managerId": "CWINE048",
-      "managerName": "Archana Arun",
-      "directReports": [],
-      "directReportCount": 0,
-      "isManager": false,
-      "kpi": 46.7,
-      "band": "Critical"
-    },
-    {
       "id": "CWINE034",
       "name": "Keerthana M",
       "team": "Development",
@@ -1188,7 +1188,7 @@
       "directReports": [],
       "directReportCount": 0,
       "isManager": false,
-      "kpi": 40.4,
+      "kpi": 40.8,
       "band": "Critical"
     },
     {
@@ -1560,8 +1560,8 @@
         "CWINE159",
         "CWINE020",
         "CWINE140",
-        "CWINE121",
-        "CWINI164"
+        "CWINI164",
+        "CWINE121"
       ],
       "directReportCount": 11,
       "isManager": true,
