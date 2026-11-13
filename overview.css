@@ -123,6 +123,8 @@
 #overview .ovp-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 14px; }
 #overview .ovp-g2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 #overview .ovp-card { background: var(--p-card); border: 1px solid var(--p-line); border-radius: 12px; padding: 14px; transition: .15s; text-align: left; display: block; width: 100%; box-shadow: none; }
+#overview .ovp-pair { align-items: stretch; }
+#overview .ovp-pair > .ovp-card { height: 100%; }
 #overview .ovp-card h3 { margin: 0 0 10px; font-size: 14px; font-weight: 700; }
 #overview .ovp-sub { color: var(--p-mut); font-size: 12px; }
 #overview .ovp-sub-btn { display: block; width: 100%; margin-top: 6px; padding: 6px 0 0; border: 0; background: none; text-align: left; cursor: pointer; }
@@ -165,11 +167,45 @@
 #overview .ovp-link { border: 0; background: none; padding: 6px 0 0; color: var(--p-pri); cursor: pointer; font: inherit; }
 #overview .ovp-link:hover { text-decoration: underline; }
 
+/* Compact direct-report attendance in the former Team health position. The paired
+   Engagement card stretches to precisely the same height. */
+#overview .ovp-team-card { padding: 12px 14px; overflow: hidden; }
+#overview .ovp-team-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+#overview .ovp-team-head > div { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+#overview .ovp-team-head > div:last-child { justify-content: flex-end; color: var(--p-mut); font-size: 11px; white-space: nowrap; }
+#overview .ovp-team-head h3 { margin: 0; white-space: nowrap; }
+#overview .ovp-team-head span { color: var(--p-mut); font-size: 11px; }
+#overview .ovp-team-head button { padding: 0; border: 0; background: none; color: var(--p-pri); font-size: 11px; font-weight: 700; cursor: pointer; }
+#overview .ovp-team-head button:hover { text-decoration: underline; }
+#overview .ovp-team-cols, #overview .ovp-team-row { display: grid; grid-template-columns: minmax(0, 1.55fr) 76px 76px minmax(94px, .9fr); align-items: center; column-gap: 10px; }
+#overview .ovp-team-cols { padding: 4px 8px; border-radius: 7px; background: var(--p-bg); color: var(--p-mut); font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+#overview .ovp-team-cols span:nth-child(2), #overview .ovp-team-cols span:nth-child(3) { text-align: center; }
+#overview .ovp-team-row { width: 100%; min-height: 30px; padding: 5px 8px; border: 0; border-bottom: 1px solid var(--p-line); border-radius: 0; background: none; color: var(--p-ink); text-align: left; cursor: pointer; }
+#overview .ovp-team-row:last-child { border-bottom: 0; }
+#overview .ovp-team-row:hover { background: var(--p-bg); }
+#overview .ovp-team-person { display: flex; align-items: center; gap: 8px; min-width: 0; }
+#overview .ovp-team-person b, #overview .ovp-team-location { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#overview .ovp-team-person b { font-size: 12px; font-weight: 600; }
+#overview .ovp-team-dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: #94a3b8; }
+#overview .ovp-team-present { background: var(--p-g); }
+#overview .ovp-team-remote { background: #0ea5a4; }
+#overview .ovp-team-absent { background: var(--p-r); }
+#overview .ovp-team-away { background: var(--p-a); }
+#overview .ovp-team-pending { background: #cbd5e1; }
+#overview .ovp-team-time { color: var(--p-ink); font-size: 11.5px; font-variant-numeric: tabular-nums; text-align: center; white-space: nowrap; }
+#overview .ovp-team-location { color: var(--p-mut); font-size: 11.5px; }
+
 @media (max-width: 760px) {
   #overview .ovp-search { width: 100%; }
   #overview .ovp-today { grid-template-columns: 1fr; }
   #overview .ovp-status { text-align: left; }
   #overview .ovp-peek { width: min(300px, 86vw); }
+  #overview .ovp-team-head { align-items: flex-start; }
+  #overview .ovp-team-head > div:last-child { display: grid; justify-items: end; gap: 2px; }
+}
+@media (max-width: 520px) {
+  #overview .ovp-team-cols, #overview .ovp-team-row { grid-template-columns: minmax(0, 1fr) 62px 62px; }
+  #overview .ovp-team-cols span:last-child, #overview .ovp-team-location { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   #overview .ovp-track, #overview .ovp-track::after, #overview .ovp-card, #overview .ovp-hero, #overview .ovp-mini { transition: none; }

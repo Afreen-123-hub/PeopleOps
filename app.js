@@ -1844,6 +1844,144 @@ function openFusionCoverage() {
   setTimeout(() => box.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
 }
 
+// "My team today" uses the same read-only GreytHR month cache as the employee Attendance
+// tab. One shared request keeps the Overview light and avoids a request per direct report.
+const overviewTeamAttendanceState = {
+  date: "", rows: new Map(), loading: false, available: false, refreshing: false,
+  fetchedAt: null, error: "", timer: null,
+};
+
+function overviewDirectReports() {
+  return (dataset?.employees || [])
+    .filter((employee) => employee.active !== false && isLoggedInUsersDirectReport(employee))
+    .sort((a, b) => Number(a.isMtm) - Number(b.isMtm) || a.name.localeCompare(b.name));
+}
+
+function overviewLocalDateParts() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return { month: `${year}-${month}`, date: `${year}-${month}-${day}` };
+}
+
+function overviewAttendanceKey(value) {
+  return String(value || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function overviewAttendancePerson(payload, employee) {
+  const keys = new Set([
+    employee.id,
+    employee.sourceKeys?.greythr,
+    employee.sourceKeys?.biometric,
+  ].map(overviewAttendanceKey).filter(Boolean));
+  const name = overviewAttendanceKey(employee.name);
+  return (payload.people || []).find((person) => keys.has(overviewAttendanceKey(person.id))
+    || keys.has(overviewAttendanceKey(person.no)))
+    || (payload.people || []).find((person) => name && overviewAttendanceKey(person.name) === name);
+}
+
+function overviewAttendanceTime(value) {
+  if (!/^\d{2}:\d{2}$/.test(value || "")) return "";
+  const [hours, minutes] = value.split(":").map(Number);
+  return `${hours % 12 || 12}:${String(minutes).padStart(2, "0")} ${hours >= 12 ? "PM" : "AM"}`;
+}
+
+function overviewAttendanceLocation(record, employee) {
+  if (record.wi) return "Work from Home";
+  if (!record.bi) return "";
+  const raw = String(record.door || employee.attendance?.officeLocation || "Office").trim();
+  const aliases = {
+    "codework-beta": "Beta Office", "codework beta": "Beta Office", beta: "Beta Office",
+    "cplc-alpha": "CPLC-Alpha",
+  };
+  return aliases[raw.toLowerCase()] || raw || "Office";
+}
+
+function overviewAttendanceRow(payload, employee, date) {
+  const person = overviewAttendancePerson(payload, employee);
+  const record = person ? (payload.days?.[date]?.[String(person.id)] || {}) : {};
+  const raw = String(record.s || "").toUpperCase();
+  const login = record.bi || record.wi || "";
+  const logout = record.bo || record.wo || "";
+  let tone = record.wi ? "remote" : login ? "present" : "none";
+  let location = overviewAttendanceLocation(record, employee);
+  if (!login && /(^|\/)A($|\/)/.test(raw)) { tone = "absent"; location = "Absent"; }
+  else if (!login && /(^|\/)H($|\/)/.test(raw)) { tone = "away"; location = "Holiday"; }
+  else if (!login && raw && !/^(P|OFF|WO|W\/O|WEEKOFF|WEEKLYOFF)$/.test(raw)) { tone = "away"; location = raw; }
+  else if (!login && !location) location = "Not checked in";
+  return {
+    id: String(employee.id), name: employee.name, tone,
+    login: overviewAttendanceTime(login), logout: overviewAttendanceTime(logout), location,
+  };
+}
+
+function overviewTeamAttendanceUpdatedAt() {
+  const parsed = new Date(overviewTeamAttendanceState.fetchedAt || "");
+  if (!Number.isFinite(parsed.getTime())) return overviewTeamAttendanceState.loading ? "Updating…" : "Live from GreytHR";
+  return `Updated ${parsed.toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit" })}`;
+}
+
+function renderOverviewTeamAttendance(reports) {
+  const state = overviewTeamAttendanceState;
+  const shown = reports.slice(0, 7);
+  const rows = shown.map((employee) => {
+    const row = state.rows.get(String(employee.id));
+    const pending = !state.available || !row;
+    const tone = pending ? "pending" : row.tone;
+    const login = pending ? "—" : (row.login || "Nil");
+    const logout = pending ? "—" : (row.logout || (row.login ? "—" : "Nil"));
+    const location = pending ? (state.error ? "Unavailable" : "Awaiting data") : row.location;
+    return `<button type="button" class="ovp-team-row" data-ovp-emp="${escapeHtml(String(employee.id))}" title="Open ${escapeHtml(employee.name)}'s profile">
+      <span class="ovp-team-person"><i class="ovp-team-dot ovp-team-${tone}" aria-hidden="true"></i><b>${escapeHtml(employee.name)}</b></span>
+      <span class="ovp-team-time">${escapeHtml(login)}</span><span class="ovp-team-time">${escapeHtml(logout)}</span>
+      <span class="ovp-team-location">${escapeHtml(location || "—")}</span>
+    </button>`;
+  }).join("");
+  const more = reports.length > shown.length ? ` · showing ${shown.length}` : "";
+  return `<div class="ovp-card ovp-team-card">
+    <div class="ovp-team-head"><div><h3>My team today</h3><span>${reports.length} direct report${reports.length === 1 ? "" : "s"}${more}</span></div>
+      <div><span>${escapeHtml(overviewTeamAttendanceUpdatedAt())}</span><button type="button" data-ovp-go="attendance">View all →</button></div></div>
+    <div class="ovp-team-cols" aria-hidden="true"><span>Employee</span><span>In</span><span>Out</span><span>Location</span></div>
+    <div class="ovp-team-rows">${rows}</div>
+  </div>`;
+}
+
+async function loadOverviewTeamAttendance(reports, { force = false } = {}) {
+  if (!reports.length) return;
+  const { month, date } = overviewLocalDateParts();
+  const state = overviewTeamAttendanceState;
+  if (!force && state.date === date && (state.loading || state.available || state.refreshing || state.error || state.rows.size)) return;
+  clearTimeout(state.timer);
+  if (state.date !== date) {
+    state.rows = new Map();
+    state.available = false;
+    state.refreshing = false;
+    state.fetchedAt = null;
+  }
+  state.date = date;
+  state.loading = true;
+  state.error = "";
+  try {
+    const response = await apiFetch(`/api/work-location?month=${encodeURIComponent(month)}&t=${Date.now()}`);
+    if (!response) throw new Error("Today's attendance could not be loaded.");
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(payload.error || "Today's attendance could not be loaded.");
+    state.available = Object.prototype.hasOwnProperty.call(payload.days || {}, date);
+    state.rows = new Map(reports.map((employee) => [String(employee.id), overviewAttendanceRow(payload, employee, date)]));
+    state.fetchedAt = payload.fetchedAt || null;
+    state.refreshing = Boolean(payload.refreshing || payload.building);
+  } catch (error) {
+    state.available = false;
+    state.error = error.message || "Attendance unavailable";
+  } finally {
+    state.loading = false;
+    if (document.getElementById("overview")?.classList.contains("active-view")) renderOverviewPrototypeSafe();
+    const delay = state.refreshing || !state.available ? 10000 : 300000;
+    state.timer = setTimeout(() => loadOverviewTeamAttendance(overviewDirectReports(), { force: true }), delay);
+  }
+}
+
 function renderOverviewPrototype() {
   const root = document.getElementById("ovProto");
   if (!root || !dataset) return;
@@ -1915,16 +2053,18 @@ function renderOverviewPrototype() {
     ${ovpDeptBars.slice(0, 6).map((b, i) => `<button type="button" class="ovp-row" data-ovp-dept="${i}"><span class="ovp-n">${escapeHtml(b.department)}</span><div class="ovp-bw">${ovpBar(b.avgKpi, ovpTone(b.avgKpi))}</div><b>${number.format(b.avgKpi)}</b></button>`).join("")}
     <button type="button" class="ovp-link" data-ovp-go="kpi">${isCompanyScope() ? "View all teams" : "View KPI breakdown"} →</button></div>`;
 
-  // Attention required
-  const alerts = computeAlerts(rows).slice(0, 5);
-  const attention = `<div class="ovp-card"><h3>Attention required</h3>
-    ${alerts.length ? alerts.map(({ employee: e, reason }) => `<button type="button" class="ovp-row" data-ovp-emp="${escapeHtml(String(e.id))}"><div class="ovp-n"><b>${escapeHtml(e.name)}</b><small>${escapeHtml(mergedTeam(e.team || "Unassigned"))} · ${reason}</small></div>${e.kpi !== null && e.kpi !== undefined ? `<span class="ovp-tag ovp-${ovpTone(e.kpi)}">${number.format(e.kpi)}</span>` : ""}</button>`).join("") : '<div class="ovp-sub">All clear — no flags right now.</div>'}</div>`;
+  const directReports = overviewDirectReports();
+  const teamAttendance = directReports.length ? renderOverviewTeamAttendance(directReports) : "";
 
   ovpUpdateHeader();
   root.innerHTML = ovpTodayStrip() +
     `<div class="ovp-grid">${tiles}</div>` +
-    `<div class="ovp-grid ovp-g2">${engagement}${health}</div>` +
-    `<div class="ovp-grid ovp-g2">${dept}${attention}</div>`;
+    (teamAttendance
+      ? `<div class="ovp-grid ovp-g2 ovp-pair">${engagement}${teamAttendance}</div>` +
+        `<div class="ovp-grid ovp-g2">${dept}${health}</div>`
+      : `<div class="ovp-grid ovp-g2 ovp-pair">${engagement}${health}</div>` +
+        `<div class="ovp-grid ovp-g2">${dept}</div>`);
+  if (directReports.length) loadOverviewTeamAttendance(directReports);
 }
 
 // The Overview must never be able to break the rest of the dashboard.
