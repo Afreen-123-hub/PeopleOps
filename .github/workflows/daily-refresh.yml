@@ -12,6 +12,10 @@ on:
     - cron: "30 3 * * *"  # 9:00 AM IST every day
   workflow_dispatch:       # allow manual trigger from GitHub UI
 
+concurrency:
+  group: daily-data-refresh
+  cancel-in-progress: true
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -60,10 +64,25 @@ jobs:
       - name: Refresh GitHub data
         run: python scripts/refresh_github.py --month $(date -u +%Y-%m)
 
+      - name: Commit and push core data
+        # Publish KPI and attendance before optional enrichments so a slow external
+        # service cannot keep the dashboard on yesterday's generated file.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
+          git add data/peopleops-data.json data/github-data.json data/org-hierarchy.json
+          if [ -d data/worklocation ]; then git add data/worklocation; fi
+          git diff --staged --quiet || git commit -m "chore: refresh core PeopleOps data [skip ci]"
+          git push
+
       - name: Refresh Graph activity data
         # Graph/SharePoint occasionally returns a transient HTTP 500. Its enrichment is
         # optional and must not discard successfully generated KPI and attendance data.
         continue-on-error: true
+        timeout-minutes: 5
         run: python scripts/refresh_graph_activity.py --month $(date -u +%Y-%m)
 
       - name: Refresh leave types
@@ -71,16 +90,16 @@ jobs:
         continue-on-error: true
         run: python scripts/refresh_leave_types.py
 
-      - name: Commit and push updated data
+      - name: Commit and push optional enrichment data
+        if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
-          git add data/peopleops-data.json data/graph-activity.json data/github-data.json data/org-hierarchy.json
-          if [ -d data/worklocation ]; then git add data/worklocation; fi
+          git add data/peopleops-data.json data/graph-activity.json
           # only if the leave step produced files; a missing path would make git add fail the whole step
           if [ -d data/leave ]; then git add data/leave; fi
-          git diff --staged --quiet || git commit -m "chore: daily data refresh [skip ci]"
+          git diff --staged --quiet || git commit -m "chore: refresh optional PeopleOps data [skip ci]"
           git push
