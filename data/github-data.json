@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-13T09:09:20.665890Z",
+  "lastUpdated": "2026-11-13T11:29:01.708182Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
@@ -1951,7 +1951,7 @@
         },
         {
           "title": "Subscription Plan Cannot Be Modified for Existing Institution",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1966,7 +1966,7 @@
         },
         {
           "title": "Mandatory Field Does Not Display Inline Validation Message",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2048,7 +2048,7 @@
         },
         {
           "title": "Incorrect Button Name Displayed in Course Management – Assign",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2063,7 +2063,7 @@
         },
         {
           "title": "Task Submission Does Not Clearly Indicate Code/File Requirement",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2078,7 +2078,7 @@
         },
         {
           "title": "Incorrect Validation Behavior for Invalid Email Input",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2093,7 +2093,7 @@
         },
         {
           "title": "Lesson Plan Module Creation Notification Not Received",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -2108,7 +2108,7 @@
         },
         {
           "title": "Admin – Task Due Date Allows Past Dates",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3165,12 +3165,27 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Incorrect Error Message Displayed When Re-issuing an Already Issued Certificate",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/165",
+          "createdAt": "2026-11-13T10:47:10Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 99,
-        "done": 79,
-        "inProgress": 8,
+        "total": 100,
+        "done": 86,
+        "inProgress": 1,
         "todo": 0,
         "backlog": 9,
         "production": 0
@@ -3210,11 +3225,11 @@
         },
         {
           "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
-          "status": "Review in QA",
+          "status": "To Do",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Glad-Andrew"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/587",
@@ -3480,7 +3495,7 @@
         },
         {
           "title": "[Frontend] Auto-refresh list and section count after Add / Edit / Delete",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4691,8 +4706,8 @@
       ],
       "stats": {
         "total": 100,
-        "done": 94,
-        "inProgress": 4,
+        "done": 95,
+        "inProgress": 2,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -11696,43 +11711,43 @@
         {
           "project": "Edubot_V3",
           "title": "Subscription Plan Cannot Be Modified for Existing Institution",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Mandatory Field Does Not Display Inline Validation Message",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Incorrect Button Name Displayed in Course Management – Assign",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Task Submission Does Not Clearly Indicate Code/File Requirement",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Incorrect Validation Behavior for Invalid Email Input",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Lesson Plan Module Creation Notification Not Received",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
           "title": "Admin – Task Due Date Allows Past Dates",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -11941,12 +11956,6 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
           "title": "UI/UX - Forum",
           "status": "Completed in QA",
           "priority": ""
@@ -11978,7 +11987,7 @@
         {
           "project": "Edubot_CPLC",
           "title": "[Frontend] Auto-refresh list and section count after Add / Edit / Delete",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -13146,9 +13155,9 @@
           "priority": ""
         }
       ],
-      "total": 339,
-      "done": 85,
-      "inProgress": 64,
+      "total": 338,
+      "done": 93,
+      "inProgress": 55,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -13736,6 +13745,12 @@
           "priority": ""
         },
         {
+          "project": "Edubot_V3",
+          "title": "Incorrect Error Message Displayed When Re-issuing an Already Issued Certificate",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
           "project": "Edubot_CPLC",
           "title": "UI/UX Implementation – Edubot V2 (CPLC)",
           "status": "Backlog",
@@ -14030,7 +14045,7 @@
           "priority": ""
         }
       ],
-      "total": 53,
+      "total": 54,
       "done": 2,
       "inProgress": 33,
       "commits": 0,
@@ -14856,11 +14871,11 @@
       "total": 34,
       "done": 0,
       "inProgress": 18,
-      "commits": 2,
-      "prs": 2,
-      "prsMerged": 1,
+      "commits": 4,
+      "prs": 4,
+      "prsMerged": 4,
       "prReviews": 1,
-      "additions": 37,
+      "additions": 1311,
       "deletions": 17
     },
     {
@@ -15056,9 +15071,9 @@
       "total": 5,
       "done": 0,
       "inProgress": 0,
-      "commits": 11,
+      "commits": 13,
       "prs": 21,
-      "prsMerged": 20,
+      "prsMerged": 21,
       "prReviews": 7,
       "additions": 187,
       "deletions": 120
@@ -15216,12 +15231,18 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "UI/UX Implementation – Edubot V2 (CPLC)",
           "status": "Backlog",
           "priority": ""
         }
       ],
-      "total": 7,
+      "total": 8,
       "done": 2,
       "inProgress": 0,
       "commits": 0,
@@ -15254,12 +15275,12 @@
       "total": 2,
       "done": 0,
       "inProgress": 0,
-      "commits": 3,
+      "commits": 5,
       "prs": 4,
       "prsMerged": 4,
       "prReviews": 0,
-      "additions": 1974,
-      "deletions": 259
+      "additions": 6360,
+      "deletions": 405
     },
     {
       "login": "Nelson",
