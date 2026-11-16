@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-13T11:29:01.708182Z",
+  "lastUpdated": "2026-11-16T11:53:44.176369Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
@@ -244,8 +244,38 @@
       "title": "My Medical Help",
       "items": [
         {
+          "title": "Missing OTP Expiry Countdown Timer and UI Feedback on Registration/Verification Screen",
+          "status": "TO DO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Nelson"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/182",
+          "createdAt": "2026-10-27T09:35:26Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Admin Role] – Clicking on Doctor's Documents Redirects to Staff Details Page Instead of Displaying Documents",
+          "status": "TO DO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Nelson"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/211",
+          "createdAt": "2026-11-05T11:57:50Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Backend – Implement Family Member Management and Booking",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -305,7 +335,7 @@
         },
         {
           "title": "Backend – Implement Category-Based Professional Fields and Specializations",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -335,11 +365,11 @@
         },
         {
           "title": "Backend – Implement Optional Travel Charges and Daily Location Override",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/223",
@@ -350,7 +380,7 @@
         },
         {
           "title": "Backend – Implement Booking Request and Status Management",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -395,7 +425,7 @@
         },
         {
           "title": "ENH-33 Reminder before the timeout and a timeout message",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -410,7 +440,7 @@
         },
         {
           "title": "Backend – Implement Booking Timeout Notifications",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -439,23 +469,8 @@
           "endDate": ""
         },
         {
-          "title": "ENH-30 Add family members and book for them",
-          "status": "QA review",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/206",
-          "createdAt": "2026-11-05T08:54:18Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "ENH-16 Category-specific fields and specializations",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -469,27 +484,27 @@
           "endDate": ""
         },
         {
-          "title": "ENH-28 Bilingual app: English plus the regional language",
-          "status": "TO DO",
+          "title": "ENH-30 Add family members and book for them",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/203",
-          "createdAt": "2026-11-02T17:25:56Z",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/206",
+          "createdAt": "2026-11-05T08:54:18Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
         },
         {
           "title": "ENH-27 SOS number on every appointment",
-          "status": "TO DO",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/202",
@@ -500,11 +515,11 @@
         },
         {
           "title": "ENH-26 Admin SOS contact in the professional portal",
-          "status": "TO DO",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/201",
@@ -515,12 +530,11 @@
         },
         {
           "title": "ENH-36 Search for a professional by name with available dates",
-          "status": "TO DO",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan",
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/210",
@@ -530,12 +544,27 @@
           "endDate": ""
         },
         {
-          "title": "ENH-20  Negative wallet balance after commission",
-          "status": "TO DO",
+          "title": "ENH-28 Bilingual app: English plus the regional language",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/203",
+          "createdAt": "2026-11-02T17:25:56Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "ENH-20  Negative wallet balance after commission",
+          "status": "QA review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/195",
@@ -546,7 +575,7 @@
         },
         {
           "title": "ENH-22 Booking requests and live status in both portals",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -561,11 +590,11 @@
         },
         {
           "title": "ENH-17 One mobile number for both roles",
-          "status": "TO DO",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/192",
@@ -1713,36 +1742,6 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "EP07-US-034 Sort professionals",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/39",
-          "createdAt": "2026-09-18T09:16:35Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "EP06-US-029 Control health-info sharing",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/31",
-          "createdAt": "2026-09-16T04:44:33Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
@@ -1936,11 +1935,11 @@
         },
         {
           "title": "Certificate Management – Feature Requirement",
-          "status": "Review in QA",
+          "status": "To Do",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "inbarasuv"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/131",
@@ -3185,7 +3184,7 @@
       "stats": {
         "total": 100,
         "done": 86,
-        "inProgress": 1,
+        "inProgress": 0,
         "todo": 0,
         "backlog": 9,
         "production": 0
@@ -3209,23 +3208,8 @@
       "title": "Edubot_CPLC",
       "items": [
         {
-          "title": "Enable Post Creation Access for Learners in Community Forum",
-          "status": "Review in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/588",
-          "createdAt": "2026-10-27T06:19:08Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
-          "status": "To Do",
+          "status": "In Development",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3234,6 +3218,97 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/587",
           "createdAt": "2026-10-27T06:00:25Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Implement Automated Module Scheduling and Biweekly Assessments in Schedule Calendar",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/611",
+          "createdAt": "2026-11-04T09:17:55Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates",
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/612",
+          "createdAt": "2026-11-05T07:25:25Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Learner Assessment Notification Redirects to a 404 Not Found Page",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/551",
+          "createdAt": "2026-10-19T09:30:51Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Frontend - Optimize Frontend Page Loading Performance for EduBot and User Tabs",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/392",
+          "createdAt": "2026-09-28T09:16:20Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Document Download Control",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/347",
+          "createdAt": "2026-09-23T09:58:17Z",
+          "closedAt": "2026-09-24T06:51:04Z",
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Enable Post Creation Access for Learners in Community Forum",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/588",
+          "createdAt": "2026-10-27T06:19:08Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3509,22 +3584,6 @@
           "endDate": ""
         },
         {
-          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates",
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/612",
-          "createdAt": "2026-11-05T07:25:25Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Attendance Calendar – Provide Attendance Data by Date Range for Calendar View",
           "status": "Completed in QA",
           "priority": "",
@@ -3630,21 +3689,6 @@
           "endDate": ""
         },
         {
-          "title": "Learner Assessment Notification Redirects to a 404 Not Found Page",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/551",
-          "createdAt": "2026-10-19T09:30:51Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "UI Alignment Issue After Creating a Task with a Description",
           "status": "Backlog",
           "priority": "",
@@ -3674,7 +3718,7 @@
         },
         {
           "title": "Module Completion Status Not Updated After Maximum Assessment Attempts Are Reached",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3729,21 +3773,6 @@
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/589",
           "createdAt": "2026-10-27T07:10:55Z",
           "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Document Download Control",
-          "status": "Completed in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Megna-Codework"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/347",
-          "createdAt": "2026-09-23T09:58:17Z",
-          "closedAt": "2026-09-24T06:51:04Z",
           "startDate": "",
           "endDate": ""
         },
@@ -4672,44 +4701,14 @@
           "closedAt": "2026-10-26T09:54:55Z",
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Add IT Asset Assignment, Update, and Monitoring Options for Learners",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/466",
-          "createdAt": "2026-10-09T10:17:11Z",
-          "closedAt": "2026-10-26T09:54:55Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "User Session Is Not Logged Out After Admin Updates User Details",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/469",
-          "createdAt": "2026-10-12T05:49:47Z",
-          "closedAt": "2026-10-26T09:54:55Z",
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 95,
-        "inProgress": 2,
+        "inProgress": 0,
         "todo": 0,
-        "backlog": 2,
+        "backlog": 1,
         "production": 0
       }
     },
@@ -11165,7 +11164,7 @@
         {
           "project": "My Medical Help",
           "title": "Backend – Implement Family Member Management and Booking",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11189,7 +11188,7 @@
         {
           "project": "My Medical Help",
           "title": "Backend – Implement Category-Based Professional Fields and Specializations",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11200,14 +11199,8 @@
         },
         {
           "project": "My Medical Help",
-          "title": "Backend – Implement Optional Travel Charges and Daily Location Override",
-          "status": "QA review",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
           "title": "Backend – Implement Booking Request and Status Management",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11225,13 +11218,13 @@
         {
           "project": "My Medical Help",
           "title": "ENH-33 Reminder before the timeout and a timeout message",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Backend – Implement Booking Timeout Notifications",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11242,19 +11235,55 @@
         },
         {
           "project": "My Medical Help",
+          "title": "ENH-16 Category-specific fields and specializations",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
           "title": "ENH-30 Add family members and book for them",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-27 SOS number on every appointment",
           "status": "QA review",
           "priority": ""
         },
         {
           "project": "My Medical Help",
-          "title": "ENH-16 Category-specific fields and specializations",
+          "title": "ENH-26 Admin SOS contact in the professional portal",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-36 Search for a professional by name with available dates",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-28 Bilingual app: English plus the regional language",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-20  Negative wallet balance after commission",
           "status": "QA review",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "ENH-22 Booking requests and live status in both portals",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-17 One mobile number for both roles",
           "status": "QA review",
           "priority": ""
         },
@@ -11685,27 +11714,9 @@
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "EP07-US-034 Sort professionals",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "EP06-US-029 Control health-info sharing",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
           "project": "Edubot_V3",
           "title": "AI Smart Dashboard Displays \"Failed to Load Analysis Data\" with 403 API Response",
           "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Certificate Management – Feature Requirement",
-          "status": "Review in QA",
           "priority": ""
         },
         {
@@ -11950,8 +11961,8 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Enable Post Creation Access for Learners in Community Forum",
-          "status": "Review in QA",
+          "title": "Learner Assessment Notification Redirects to a 404 Not Found Page",
+          "status": "Done",
           "priority": ""
         },
         {
@@ -12005,12 +12016,6 @@
         {
           "project": "Edubot_CPLC",
           "title": "Add Event Dialog Overlaps with the Left Sidebar and Information Button",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Learner Assessment Notification Redirects to a 404 Not Found Page",
           "status": "Completed in QA",
           "priority": ""
         },
@@ -12251,18 +12256,6 @@
         {
           "project": "Edubot_CPLC",
           "title": "Backend — Admin Learner Video Progress Monitoring",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Add IT Asset Assignment, Update, and Monitoring Options for Learners",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "User Session Is Not Logged Out After Admin Updates User Details",
           "status": "Completed",
           "priority": ""
         },
@@ -13155,9 +13148,9 @@
           "priority": ""
         }
       ],
-      "total": 338,
-      "done": 93,
-      "inProgress": 55,
+      "total": 337,
+      "done": 91,
+      "inProgress": 53,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -13168,10 +13161,17 @@
     {
       "login": "Anisha-cw",
       "projects": [
+        "My Medical Help",
         "Edubot_CPLC",
         "Worklogix"
       ],
       "tasks": [
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement Optional Travel Charges and Daily Location Override",
+          "status": "QA Completed",
+          "priority": ""
+        },
         {
           "project": "Edubot_CPLC",
           "title": "Mentor and Learner can check in on Admin-scheduled leave days",
@@ -13701,7 +13701,7 @@
           "priority": ""
         }
       ],
-      "total": 88,
+      "total": 89,
       "done": 1,
       "inProgress": 0,
       "commits": 0,
@@ -13753,7 +13753,13 @@
         {
           "project": "Edubot_CPLC",
           "title": "UI/UX Implementation – Edubot V2 (CPLC)",
-          "status": "Backlog",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Enable Post Creation Access for Learners in Community Forum",
+          "status": "To Do",
           "priority": ""
         },
         {
@@ -14045,7 +14051,7 @@
           "priority": ""
         }
       ],
-      "total": 54,
+      "total": 55,
       "done": 2,
       "inProgress": 33,
       "commits": 0,
@@ -14367,6 +14373,18 @@
       "tasks": [
         {
           "project": "Edubot_CPLC",
+          "title": "Frontend - Optimize Frontend Page Loading Performance for EduBot and User Tabs",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Document Download Control",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Form Navigation Displays from the Bottom Instead of the Top in Mentor and Learner Creation",
           "status": "Completed in QA",
           "priority": ""
@@ -14464,7 +14482,7 @@
         {
           "project": "Edubot_CPLC",
           "title": "Module Completion Status Not Updated After Maximum Assessment Attempts Are Reached",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -14482,12 +14500,6 @@
         {
           "project": "Edubot_CPLC",
           "title": "Support Fetching Past Learners Separately",
-          "status": "Completed in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Document Download Control",
           "status": "Completed in QA",
           "priority": ""
         },
@@ -14642,9 +14654,9 @@
           "priority": ""
         }
       ],
-      "total": 46,
-      "done": 40,
-      "inProgress": 1,
+      "total": 47,
+      "done": 42,
+      "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -14673,42 +14685,6 @@
           "project": "My Medical Help Admin Panel",
           "title": "Updated Platform Fee Is Applied to Previously Booked Appointments",
           "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "ENH-28 Bilingual app: English plus the regional language",
-          "status": "TO DO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "ENH-27 SOS number on every appointment",
-          "status": "TO DO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "ENH-26 Admin SOS contact in the professional portal",
-          "status": "TO DO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "ENH-36 Search for a professional by name with available dates",
-          "status": "TO DO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "ENH-20  Negative wallet balance after commission",
-          "status": "TO DO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "ENH-17 One mobile number for both roles",
-          "status": "TO DO",
           "priority": ""
         },
         {
@@ -14868,15 +14844,15 @@
           "priority": ""
         }
       ],
-      "total": 34,
+      "total": 28,
       "done": 0,
       "inProgress": 18,
-      "commits": 4,
-      "prs": 4,
-      "prsMerged": 4,
+      "commits": 5,
+      "prs": 6,
+      "prsMerged": 6,
       "prReviews": 1,
-      "additions": 1311,
-      "deletions": 17
+      "additions": 2053,
+      "deletions": 155
     },
     {
       "login": "Vinoth-codework",
@@ -15072,9 +15048,9 @@
       "done": 0,
       "inProgress": 0,
       "commits": 13,
-      "prs": 21,
-      "prsMerged": 21,
-      "prReviews": 7,
+      "prs": 25,
+      "prsMerged": 25,
+      "prReviews": 8,
       "additions": 187,
       "deletions": 120
     },
@@ -15101,6 +15077,12 @@
           "project": "Edubot_V3",
           "title": "Backend - Admin User Seat Allowance Update",
           "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Certificate Management – Feature Requirement",
+          "status": "To Do",
           "priority": ""
         },
         {
@@ -15176,7 +15158,7 @@
           "priority": ""
         }
       ],
-      "total": 15,
+      "total": 16,
       "done": 0,
       "inProgress": 7,
       "commits": 0,
@@ -15232,23 +15214,29 @@
         {
           "project": "Edubot_CPLC",
           "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Implement Automated Module Scheduling and Biweekly Assessments in Schedule Calendar",
           "status": "To Do",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "UI/UX Implementation – Edubot V2 (CPLC)",
-          "status": "Backlog",
+          "status": "To Do",
           "priority": ""
         }
       ],
-      "total": 8,
+      "total": 9,
       "done": 2,
       "inProgress": 0,
       "commits": 0,
       "prs": 12,
       "prsMerged": 12,
-      "prReviews": 5,
+      "prReviews": 6,
       "additions": 0,
       "deletions": 0
     },
@@ -15276,8 +15264,8 @@
       "done": 0,
       "inProgress": 0,
       "commits": 5,
-      "prs": 4,
-      "prsMerged": 4,
+      "prs": 5,
+      "prsMerged": 5,
       "prReviews": 0,
       "additions": 6360,
       "deletions": 405
@@ -15298,7 +15286,13 @@
         },
         {
           "project": "My Medical Help",
-          "title": "ENH-36 Search for a professional by name with available dates",
+          "title": "Missing OTP Expiry Countdown Timer and UI Feedback on Registration/Verification Screen",
+          "status": "TO DO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "[Admin Role] – Clicking on Doctor's Documents Redirects to Staff Details Page Instead of Displaying Documents",
           "status": "TO DO",
           "priority": ""
         },
@@ -15315,7 +15309,7 @@
           "priority": ""
         }
       ],
-      "total": 4,
+      "total": 5,
       "done": 0,
       "inProgress": 1,
       "commits": 0,
@@ -15507,8 +15501,8 @@
       "done": 0,
       "inProgress": 0,
       "commits": 1,
-      "prs": 8,
-      "prsMerged": 8,
+      "prs": 10,
+      "prsMerged": 10,
       "prReviews": 0,
       "additions": 89,
       "deletions": 22
