@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-16T11:53:44.176369Z",
+  "lastUpdated": "2026-11-18T12:03:11.047722Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
@@ -160,11 +160,11 @@
         },
         {
           "title": "Updated Platform Fee Is Applied to Previously Booked Appointments",
-          "status": "TODO",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/175",
@@ -202,13 +202,43 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Manage Languages allows duplicate language names",
+          "status": "TODO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Nelson"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI-Next.js/issues/14",
+          "createdAt": "2026-11-18T09:01:25Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Close (X) button in the “New subcategory” modal is invisible",
+          "status": "TODO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Nelson"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI-Next.js/issues/15",
+          "createdAt": "2026-11-18T10:00:00Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 11,
+        "total": 13,
         "done": 2,
         "inProgress": 0,
-        "todo": 3,
+        "todo": 4,
         "backlog": 0,
         "production": 0
       }
@@ -244,12 +274,57 @@
       "title": "My Medical Help",
       "items": [
         {
-          "title": "Missing OTP Expiry Countdown Timer and UI Feedback on Registration/Verification Screen",
-          "status": "TO DO",
+          "title": "Frontend – Implement State-Based Language Selection",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/243",
+          "createdAt": "2026-11-16T06:18:44Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Tapping the \"Recharge your wallet\" alert does not redirect to the Wallet page",
+          "status": "QA review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/252",
+          "createdAt": "2026-11-16T12:26:14Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "SOS Directory phone number field accepts invalid values such as letters and special characters",
+          "status": "QA review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/254",
+          "createdAt": "2026-11-17T09:13:41Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Missing OTP Expiry Countdown Timer and UI Feedback on Registration/Verification Screen",
+          "status": "QA review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/182",
@@ -260,11 +335,11 @@
         },
         {
           "title": "[Admin Role] – Clicking on Doctor's Documents Redirects to Staff Details Page Instead of Displaying Documents",
-          "status": "TO DO",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/211",
@@ -305,7 +380,7 @@
         },
         {
           "title": "Backend – Implement Physiotherapy Session Packages",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -395,11 +470,11 @@
         },
         {
           "title": "Backend – Implement Low Wallet Balance Restrictions",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Anisha-cw"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/217",
@@ -410,7 +485,7 @@
         },
         {
           "title": "Backend – Handle Pending Booking Timeout",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -455,7 +530,7 @@
         },
         {
           "title": "ENH-29 Physiotherapy multi-session packages",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -470,11 +545,11 @@
         },
         {
           "title": "ENH-16 Category-specific fields and specializations",
-          "status": "QA Completed",
+          "status": "TO DO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Lakshana-Lakshmanan"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/191",
@@ -500,7 +575,7 @@
         },
         {
           "title": "ENH-27 SOS number on every appointment",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -515,7 +590,7 @@
         },
         {
           "title": "ENH-26 Admin SOS contact in the professional portal",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -560,11 +635,11 @@
         },
         {
           "title": "ENH-20  Negative wallet balance after commission",
-          "status": "QA review",
+          "status": "TO DO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Lakshana-Lakshmanan"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/195",
@@ -590,7 +665,7 @@
         },
         {
           "title": "ENH-17 One mobile number for both roles",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -654,7 +729,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Lakshana-Lakshmanan"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/183",
@@ -680,11 +755,11 @@
         },
         {
           "title": "Low Wallet Balance Does Not Restrict Availability Updates or Patient Booking.",
-          "status": "TO DO",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/170",
@@ -1040,7 +1115,7 @@
         },
         {
           "title": "Frontend – Manage Hourly Availability",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -1694,51 +1769,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/29",
           "createdAt": "2026-09-16T04:37:24Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "EP03-US-012 Get recharge receipt",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/12",
-          "createdAt": "2026-09-08T11:06:19Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "EP03-US-010 View wallet balance",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/10",
-          "createdAt": "2026-09-08T11:00:29Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "EP11-US-048 Reschedule appointment",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/53",
-          "createdAt": "2026-09-18T09:54:09Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3152,14 +3182,14 @@
         },
         {
           "title": "LMS Integration (frontend)",
-          "status": "To Do",
+          "status": "In Development",
           "priority": "",
           "size": "",
           "assignees": [
             "Kxrthikeyan-76"
           ],
           "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/164",
+          "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_frontend/issues/55",
           "createdAt": "2026-11-03T09:13:57Z",
           "closedAt": null,
           "startDate": "",
@@ -3208,27 +3238,12 @@
       "title": "Edubot_CPLC",
       "items": [
         {
-          "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
-          "status": "In Development",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/587",
-          "createdAt": "2026-10-27T06:00:25Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Implement Automated Module Scheduling and Biweekly Assessments in Schedule Calendar",
-          "status": "To Do",
+          "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
-            "Glad-Andrew"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/611",
@@ -3239,7 +3254,7 @@
         },
         {
           "title": "UI/UX Implementation – Edubot V2 (CPLC)",
-          "status": "To Do",
+          "status": "In Development",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3249,6 +3264,21 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/612",
           "createdAt": "2026-11-05T07:25:25Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/587",
+          "createdAt": "2026-10-27T06:00:25Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3315,7 +3345,7 @@
         },
         {
           "title": "UI/UX - Forum",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3330,7 +3360,7 @@
         },
         {
           "title": "Update Event Calendar Options for Admin Roles",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3345,7 +3375,7 @@
         },
         {
           "title": "Document Count Mismatch Between Study Material Filter and Dashboard",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3360,7 +3390,7 @@
         },
         {
           "title": "Form Navigation Displays from the Bottom Instead of the Top in Mentor and Learner Creation",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3375,7 +3405,7 @@
         },
         {
           "title": "Save Grade Button Does Not Change to Update Grade After Saving",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3390,7 +3420,7 @@
         },
         {
           "title": "Make Only the Title Field Mandatory in Community Forum",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3405,7 +3435,7 @@
         },
         {
           "title": "Learner Details Overlapping in Learners Video Progress",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3420,7 +3450,7 @@
         },
         {
           "title": "Student Label Displayed Instead of Learner in Monitor Progress",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3435,7 +3465,7 @@
         },
         {
           "title": "Learner Resume Cannot Be Viewed in Mentor and Admin Modules",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3450,7 +3480,7 @@
         },
         {
           "title": "Forum Posts – Fix Notifications + Show Attached Images Inline (Instagram-style)",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3465,7 +3495,7 @@
         },
         {
           "title": "Forum – Trigger Notifications on New Posts + Return Image Data for Inline Display",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3480,7 +3510,7 @@
         },
         {
           "title": "Chat Attachment Notification – Show Attachment Indicator in Notification",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3495,7 +3525,7 @@
         },
         {
           "title": "Chat Attachment Notification – Include Attachment Flag/Info in Notification Payload",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3510,7 +3540,7 @@
         },
         {
           "title": "Pending Leave Requests Navigate to All Instead of Pending",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3525,7 +3555,7 @@
         },
         {
           "title": "Attendance Status Changes to Present After Regularization or Permission Approval on a Declared Holiday",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3540,7 +3570,7 @@
         },
         {
           "title": "Duplicate Course Entries Displayed in Assign – Select Course Dropdown",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3555,7 +3585,7 @@
         },
         {
           "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3570,7 +3600,7 @@
         },
         {
           "title": "[Frontend] Auto-refresh list and section count after Add / Edit / Delete",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3585,7 +3615,7 @@
         },
         {
           "title": "Attendance Calendar – Provide Attendance Data by Date Range for Calendar View",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3600,7 +3630,7 @@
         },
         {
           "title": "Done Status Is Not Updated for Duplicate YouTube Videos in Mentor and Learner Study Material",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3615,7 +3645,7 @@
         },
         {
           "title": "Attendance Calendar – Add Calendar View in Learner Attendance Info Section",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3630,7 +3660,7 @@
         },
         {
           "title": "Missing Placeholder in Batch Selection Dropdown",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3645,7 +3675,7 @@
         },
         {
           "title": "YouTube Videos Accepted Under Links, Causing Study Material Count Mismatch",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3660,7 +3690,7 @@
         },
         {
           "title": "Add Event Dialog Overlaps with the Left Sidebar and Information Button",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3675,7 +3705,7 @@
         },
         {
           "title": "Learner Assignment Table Has Insufficient Display Space",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3703,7 +3733,7 @@
         },
         {
           "title": "Submitted Status Option Is Missing in All Status Filter",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3718,7 +3748,7 @@
         },
         {
           "title": "Module Completion Status Not Updated After Maximum Assessment Attempts Are Reached",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3733,7 +3763,7 @@
         },
         {
           "title": "Update Option Available for Deleted Learners",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3748,7 +3778,7 @@
         },
         {
           "title": "Deleted Learners Displayed When Filtering by Active Status",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3763,7 +3793,7 @@
         },
         {
           "title": "Support Fetching Past Learners Separately",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3778,7 +3808,7 @@
         },
         {
           "title": "Leave Approval Status – Show Pending Approver (Mentor / Admin) in Learner’s Leave Pending Section",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3793,7 +3823,7 @@
         },
         {
           "title": "Leave Approval Status – Expose Pending Approver (Mentor / Admin) in Learner Leave API",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3808,7 +3838,7 @@
         },
         {
           "title": "Add Calendar Event Page Opens When Clicking Any Date in the Event Calendar",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3823,7 +3853,7 @@
         },
         {
           "title": "Learners – Separate Tab for Past Learners",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3838,7 +3868,7 @@
         },
         {
           "title": "Inactive Learner Status – Clear Indication in Study Materials Monitor",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3853,7 +3883,7 @@
         },
         {
           "title": "Inactive Learner Status – Expose Inactive Flag in Study Materials Monitor API",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3868,7 +3898,7 @@
         },
         {
           "title": "Profile Picture – Add Crop & Adjust Before Save",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3883,7 +3913,7 @@
         },
         {
           "title": "Profile Picture – Support Cropped Image Upload",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3898,7 +3928,7 @@
         },
         {
           "title": "Leave Rejection Remark – Confirmation Dialog with Mandatory Remark",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3913,7 +3943,7 @@
         },
         {
           "title": "Leave Rejection Remark – API Support for Mandatory Rejection Remark - Backend",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
@@ -4706,7 +4736,7 @@
       "stats": {
         "total": 100,
         "done": 95,
-        "inProgress": 0,
+        "inProgress": 2,
         "todo": 0,
         "backlog": 1,
         "production": 0
@@ -7120,11 +7150,11 @@
         },
         {
           "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
-          "status": "TODO",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/950",
@@ -8578,7 +8608,7 @@
         "total": 100,
         "done": 0,
         "inProgress": 0,
-        "todo": 1,
+        "todo": 0,
         "backlog": 0,
         "production": 0
       }
@@ -8587,6 +8617,21 @@
       "number": 26,
       "title": "Worklogix",
       "items": [
+        {
+          "title": "Leadership Role  Able to Evaluate Interns and Employees KPI",
+          "status": "QA Completed",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/536",
+          "createdAt": "2026-11-13T09:13:04Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
         {
           "title": "Leadership – Create Task Form Closes When Clicking Outside the Form",
           "status": "QA Completed",
@@ -10057,21 +10102,6 @@
           "closedAt": null,
           "startDate": "2026-08-17",
           "endDate": "2026-08-17"
-        },
-        {
-          "title": "Internal UUID values are displayed instead of valid Employee IDs in the Performance Breakdown dropdown.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/76",
-          "createdAt": "2026-08-06T09:16:42Z",
-          "closedAt": null,
-          "startDate": "2026-08-17",
-          "endDate": "2026-08-17"
         }
       ],
       "stats": {
@@ -11087,13 +11117,61 @@
           "closedAt": "2026-11-11T06:15:00Z",
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Request Access to EduBot University Frontend and Backend Repositories",
+          "status": "Todo",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Vinoth-codework",
+            "manju-209"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/994",
+          "createdAt": "2026-11-17T06:26:04Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Access Request",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Vinoth-codework",
+            "manju-209"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/272",
+          "createdAt": "2026-11-17T09:36:48Z",
+          "closedAt": "2026-11-17T10:37:26Z",
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Grant Kamali E Access to EduBot_CPLC_Institute Project",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Vinoth-codework",
+            "manju-209"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/637",
+          "createdAt": "2026-11-18T05:14:03Z",
+          "closedAt": "2026-11-18T06:15:15Z",
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 46,
-        "done": 45,
+        "total": 49,
+        "done": 47,
         "inProgress": 0,
-        "todo": 1,
+        "todo": 2,
         "backlog": 0,
         "production": 0
       }
@@ -11151,6 +11229,12 @@
         },
         {
           "project": "My Medical Help Admin Panel",
+          "title": "Updated Platform Fee Is Applied to Previously Booked Appointments",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
           "title": "Auto-scroll to top occurs unexpectedly when navigating to Submenu items under Settings and Reports.",
           "status": "QA Completed",
           "priority": ""
@@ -11159,6 +11243,30 @@
           "project": "My Medical Help Admin Panel",
           "title": "Mobile Number Field Accepts Alphabets, Special Characters, and Unlimited Digits Without Proper Validation",
           "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Frontend – Implement State-Based Language Selection",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Tapping the \"Recharge your wallet\" alert does not redirect to the Wallet page",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "SOS Directory phone number field accepts invalid values such as letters and special characters",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Missing OTP Expiry Countdown Timer and UI Feedback on Registration/Verification Screen",
+          "status": "QA review",
           "priority": ""
         },
         {
@@ -11176,7 +11284,7 @@
         {
           "project": "My Medical Help",
           "title": "Backend – Implement Physiotherapy Session Packages",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11205,14 +11313,8 @@
         },
         {
           "project": "My Medical Help",
-          "title": "Backend – Implement Low Wallet Balance Restrictions",
-          "status": "QA review",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
           "title": "Backend – Handle Pending Booking Timeout",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11230,12 +11332,6 @@
         {
           "project": "My Medical Help",
           "title": "ENH-29 Physiotherapy multi-session packages",
-          "status": "QA review",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "ENH-16 Category-specific fields and specializations",
           "status": "QA Completed",
           "priority": ""
         },
@@ -11248,13 +11344,13 @@
         {
           "project": "My Medical Help",
           "title": "ENH-27 SOS number on every appointment",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "ENH-26 Admin SOS contact in the professional portal",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11271,12 +11367,6 @@
         },
         {
           "project": "My Medical Help",
-          "title": "ENH-20  Negative wallet balance after commission",
-          "status": "QA review",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
           "title": "ENH-22 Booking requests and live status in both portals",
           "status": "QA Completed",
           "priority": ""
@@ -11284,12 +11374,18 @@
         {
           "project": "My Medical Help",
           "title": "ENH-17 One mobile number for both roles",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "Profile update/KYC submission succeeds without uploading required Licence Document.",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Low Wallet Balance Does Not Restrict Availability Updates or Patient Booking.",
           "status": "QA Completed",
           "priority": ""
         },
@@ -11434,7 +11530,7 @@
         {
           "project": "My Medical Help",
           "title": "Frontend – Manage Hourly Availability",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -11696,24 +11792,6 @@
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "EP03-US-012 Get recharge receipt",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "EP03-US-010 View wallet balance",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "EP11-US-048 Reschedule appointment",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
           "project": "Edubot_V3",
           "title": "AI Smart Dashboard Displays \"Failed to Load Analysis Data\" with 403 API Response",
           "status": "Completed in QA",
@@ -11961,6 +12039,12 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "Implement Automated Module Scheduling and Biweekly Assessments in Schedule Calendar",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Learner Assessment Notification Redirects to a 404 Not Found Page",
           "status": "Done",
           "priority": ""
@@ -11968,61 +12052,61 @@
         {
           "project": "Edubot_CPLC",
           "title": "UI/UX - Forum",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Update Event Calendar Options for Admin Roles",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Document Count Mismatch Between Study Material Filter and Dashboard",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Save Grade Button Does Not Change to Update Grade After Saving",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Chat Attachment Notification – Include Attachment Flag/Info in Notification Payload",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "[Frontend] Auto-refresh list and section count after Add / Edit / Delete",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Attendance Calendar – Provide Attendance Data by Date Range for Calendar View",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Attendance Calendar – Add Calendar View in Learner Attendance Info Section",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Add Event Dialog Overlaps with the Left Sidebar and Information Button",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Submitted Status Option Is Missing in All Status Filter",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
@@ -12591,6 +12675,12 @@
         },
         {
           "project": "Acadamiq AI",
+          "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "Acadamiq AI",
           "title": "Removed or Reassigned Class Teacher Sees Debug Error Message in My Class Section",
           "status": "QA Completed",
           "priority": ""
@@ -13148,9 +13238,9 @@
           "priority": ""
         }
       ],
-      "total": 337,
+      "total": 339,
       "done": 91,
-      "inProgress": 53,
+      "inProgress": 54,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -13168,7 +13258,19 @@
       "tasks": [
         {
           "project": "My Medical Help",
+          "title": "[Admin Role] – Clicking on Doctor's Documents Redirects to Staff Details Page Instead of Displaying Documents",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
           "title": "Backend – Implement Optional Travel Charges and Daily Location Override",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement Low Wallet Balance Restrictions",
           "status": "QA Completed",
           "priority": ""
         },
@@ -13176,6 +13278,12 @@
           "project": "Edubot_CPLC",
           "title": "Mentor and Learner can check in on Admin-scheduled leave days",
           "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Leadership Role  Able to Evaluate Interns and Employees KPI",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -13693,15 +13801,9 @@
           "title": "An employee name is selected by default in the Performance Breakdown filter without user action.",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Internal UUID values are displayed instead of valid Employee IDs in the Performance Breakdown dropdown.",
-          "status": "QA Completed",
-          "priority": ""
         }
       ],
-      "total": 89,
+      "total": 91,
       "done": 1,
       "inProgress": 0,
       "commits": 0,
@@ -13753,7 +13855,7 @@
         {
           "project": "Edubot_CPLC",
           "title": "UI/UX Implementation – Edubot V2 (CPLC)",
-          "status": "To Do",
+          "status": "In Development",
           "priority": ""
         },
         {
@@ -14352,10 +14454,28 @@
           "title": "Create Git repositories for new project – ZOCKET (Backend API + Frontend)",
           "status": "Done",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Request Access to EduBot University Frontend and Backend Repositories",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Grant Kamali E Access to EduBot_CPLC_Institute Project",
+          "status": "Done",
+          "priority": ""
         }
       ],
-      "total": 47,
-      "done": 46,
+      "total": 50,
+      "done": 48,
       "inProgress": 0,
       "commits": 2,
       "prs": 0,
@@ -14373,6 +14493,12 @@
       "tasks": [
         {
           "project": "Edubot_CPLC",
+          "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Frontend - Optimize Frontend Page Loading Performance for EduBot and User Tabs",
           "status": "Done",
           "priority": ""
@@ -14386,181 +14512,181 @@
         {
           "project": "Edubot_CPLC",
           "title": "Form Navigation Displays from the Bottom Instead of the Top in Mentor and Learner Creation",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Make Only the Title Field Mandatory in Community Forum",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Learner Details Overlapping in Learners Video Progress",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Student Label Displayed Instead of Learner in Monitor Progress",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Learner Resume Cannot Be Viewed in Mentor and Admin Modules",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Forum Posts – Fix Notifications + Show Attached Images Inline (Instagram-style)",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Forum – Trigger Notifications on New Posts + Return Image Data for Inline Display",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Chat Attachment Notification – Show Attachment Indicator in Notification",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Pending Leave Requests Navigate to All Instead of Pending",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Attendance Status Changes to Present After Regularization or Permission Approval on a Declared Holiday",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Duplicate Course Entries Displayed in Assign – Select Course Dropdown",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Extra Course Module Displayed on My Grades Page That Is Not Available on My Course Page",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Done Status Is Not Updated for Duplicate YouTube Videos in Mentor and Learner Study Material",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Missing Placeholder in Batch Selection Dropdown",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "YouTube Videos Accepted Under Links, Causing Study Material Count Mismatch",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Learner Assignment Table Has Insufficient Display Space",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Module Completion Status Not Updated After Maximum Assessment Attempts Are Reached",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Update Option Available for Deleted Learners",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Deleted Learners Displayed When Filtering by Active Status",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Support Fetching Past Learners Separately",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Leave Approval Status – Show Pending Approver (Mentor / Admin) in Learner’s Leave Pending Section",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Leave Approval Status – Expose Pending Approver (Mentor / Admin) in Learner Leave API",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Add Calendar Event Page Opens When Clicking Any Date in the Event Calendar",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Learners – Separate Tab for Past Learners",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Inactive Learner Status – Clear Indication in Study Materials Monitor",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Inactive Learner Status – Expose Inactive Flag in Study Materials Monitor API",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Profile Picture – Add Crop & Adjust Before Save",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Profile Picture – Support Cropped Image Upload",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Leave Rejection Remark – Confirmation Dialog with Mandatory Remark",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Leave Rejection Remark – API Support for Mandatory Rejection Remark - Backend",
-          "status": "Completed in QA",
+          "status": "Done",
           "priority": ""
         },
         {
@@ -14654,15 +14780,64 @@
           "priority": ""
         }
       ],
-      "total": 47,
+      "total": 48,
       "done": 42,
-      "inProgress": 0,
+      "inProgress": 1,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
+    },
+    {
+      "login": "nithisha-01",
+      "projects": [
+        "Edubot_V3",
+        "Hirelysze",
+        "HireLens"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "AI Plagiarism & Academic Integrity – Frontend",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Hirelysze",
+          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Add “Forgot Password” functionality to the HireLernse application.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Interview duration allows 1 min — missing minimum limit validation.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 5,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 35,
+      "prs": 33,
+      "prsMerged": 31,
+      "prReviews": 10,
+      "additions": 5112,
+      "deletions": 3199
     },
     {
       "login": "Lakshana-Lakshmanan",
@@ -14682,9 +14857,15 @@
           "priority": ""
         },
         {
-          "project": "My Medical Help Admin Panel",
-          "title": "Updated Platform Fee Is Applied to Previously Booked Appointments",
-          "status": "TODO",
+          "project": "My Medical Help",
+          "title": "ENH-16 Category-specific fields and specializations",
+          "status": "TO DO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-20  Negative wallet balance after commission",
+          "status": "TO DO",
           "priority": ""
         },
         {
@@ -14695,8 +14876,8 @@
         },
         {
           "project": "My Medical Help",
-          "title": "Low Wallet Balance Does Not Restrict Availability Updates or Patient Booking.",
-          "status": "TO DO",
+          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
+          "status": "Dev",
           "priority": ""
         },
         {
@@ -14844,15 +15025,15 @@
           "priority": ""
         }
       ],
-      "total": 28,
+      "total": 29,
       "done": 0,
-      "inProgress": 18,
-      "commits": 5,
-      "prs": 6,
-      "prsMerged": 6,
+      "inProgress": 19,
+      "commits": 9,
+      "prs": 8,
+      "prsMerged": 8,
       "prReviews": 1,
-      "additions": 2053,
-      "deletions": 155
+      "additions": 2936,
+      "deletions": 185
     },
     {
       "login": "Vinoth-codework",
@@ -14993,10 +15174,28 @@
           "title": "Create Git repositories for new project – ZOCKET (Backend API + Frontend)",
           "status": "Done",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Request Access to EduBot University Frontend and Backend Repositories",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Grant Kamali E Access to EduBot_CPLC_Institute Project",
+          "status": "Done",
+          "priority": ""
         }
       ],
-      "total": 22,
-      "done": 21,
+      "total": 25,
+      "done": 23,
       "inProgress": 0,
       "commits": 3,
       "prs": 0,
@@ -15004,55 +15203,6 @@
       "prReviews": 0,
       "additions": 111,
       "deletions": 121
-    },
-    {
-      "login": "nithisha-01",
-      "projects": [
-        "Edubot_V3",
-        "Hirelysze",
-        "HireLens"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "AI Plagiarism & Academic Integrity – Frontend",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Hirelysze",
-          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Add “Forgot Password” functionality to the HireLernse application.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Interview duration allows 1 min — missing minimum limit validation.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 5,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 13,
-      "prs": 25,
-      "prsMerged": 25,
-      "prReviews": 8,
-      "additions": 187,
-      "deletions": 120
     },
     {
       "login": "inbarasuv",
@@ -15162,11 +15312,41 @@
       "done": 0,
       "inProgress": 7,
       "commits": 0,
-      "prs": 0,
+      "prs": 1,
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
+    },
+    {
+      "login": "Kxrthikeyan-76",
+      "projects": [
+        "Edubot_V3",
+        "Worklogix"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "LMS Integration (frontend)",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Leadership Role – Wrong Date and Back Navigation Issue",
+          "status": "Backlog",
+          "priority": ""
+        }
+      ],
+      "total": 2,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 7,
+      "prs": 6,
+      "prsMerged": 6,
+      "prReviews": 0,
+      "additions": 7014,
+      "deletions": 630
     },
     {
       "login": "Glad-Andrew",
@@ -15213,109 +15393,18 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Implement Automated Module Scheduling and Biweekly Assessments in Schedule Calendar",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
           "title": "UI/UX Implementation – Edubot V2 (CPLC)",
-          "status": "To Do",
+          "status": "In Development",
           "priority": ""
         }
       ],
-      "total": 9,
+      "total": 7,
       "done": 2,
       "inProgress": 0,
       "commits": 0,
-      "prs": 12,
-      "prsMerged": 12,
+      "prs": 15,
+      "prsMerged": 15,
       "prReviews": 6,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Kxrthikeyan-76",
-      "projects": [
-        "Edubot_V3",
-        "Worklogix"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "LMS Integration (frontend)",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Leadership Role – Wrong Date and Back Navigation Issue",
-          "status": "Backlog",
-          "priority": ""
-        }
-      ],
-      "total": 2,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 5,
-      "prs": 5,
-      "prsMerged": 5,
-      "prReviews": 0,
-      "additions": 6360,
-      "deletions": 405
-    },
-    {
-      "login": "Nelson",
-      "projects": [
-        "My Medical Help Admin Panel",
-        "My Medical Help",
-        "Acadamiq AI"
-      ],
-      "tasks": [
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Admin – Final Table Column Is Misaligned with the Table Background",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Missing OTP Expiry Countdown Timer and UI Feedback on Registration/Verification Screen",
-          "status": "TO DO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "[Admin Role] – Clicking on Doctor's Documents Redirects to Staff Details Page Instead of Displaying Documents",
-          "status": "TO DO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "Acadamiq AI",
-          "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
-          "status": "TODO",
-          "priority": ""
-        }
-      ],
-      "total": 5,
-      "done": 0,
-      "inProgress": 1,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
       "additions": 0,
       "deletions": 0
     },
@@ -15351,6 +15440,41 @@
         }
       ],
       "total": 4,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "Nelson",
+      "projects": [
+        "My Medical Help Admin Panel"
+      ],
+      "tasks": [
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Admin – Final Table Column Is Misaligned with the Table Background",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Manage Languages allows duplicate language names",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Close (X) button in the “New subcategory” modal is invisible",
+          "status": "TODO",
+          "priority": ""
+        }
+      ],
+      "total": 3,
       "done": 0,
       "inProgress": 0,
       "commits": 0,
@@ -15501,8 +15625,8 @@
       "done": 0,
       "inProgress": 0,
       "commits": 1,
-      "prs": 10,
-      "prsMerged": 10,
+      "prs": 13,
+      "prsMerged": 13,
       "prReviews": 0,
       "additions": 89,
       "deletions": 22
