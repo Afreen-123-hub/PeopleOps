@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-19T12:00:33.754806Z",
+  "lastUpdated": "2026-11-20T12:01:38.991957Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
@@ -85,11 +85,11 @@
         },
         {
           "title": "Admin – Final Table Column Is Misaligned with the Table Background",
-          "status": "Dev",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/162",
@@ -205,11 +205,11 @@
         },
         {
           "title": "Manage Languages allows duplicate language names",
-          "status": "Dev",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI-Next.js/issues/14",
@@ -220,11 +220,11 @@
         },
         {
           "title": "Close (X) button in the “New subcategory” modal is invisible",
-          "status": "Dev",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI-Next.js/issues/15",
@@ -235,11 +235,11 @@
         },
         {
           "title": "Notification Icon Is Not Functional in Admin Dashboard",
-          "status": "TODO",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI-Next.js/issues/17",
@@ -250,11 +250,11 @@
         },
         {
           "title": "Generic Failure Toast Message Appears When Accessing Referral Bonus and Adjustment Transactions",
-          "status": "TODO",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI-Next.js/issues/18",
@@ -265,11 +265,11 @@
         },
         {
           "title": "“Registration refunds” menu shows no count/notification for new refund requests (Support tickets and KYC review do)",
-          "status": "TODO",
+          "status": "QA Review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI-Next.js/issues/19",
@@ -282,8 +282,8 @@
       "stats": {
         "total": 16,
         "done": 2,
-        "inProgress": 3,
-        "todo": 3,
+        "inProgress": 0,
+        "todo": 0,
         "backlog": 0,
         "production": 0
       }
@@ -320,11 +320,12 @@
       "items": [
         {
           "title": "Several screens and labels are not translated when the app language is Tamil",
-          "status": "TO DO",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Lakshana-Lakshmanan",
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/255",
@@ -335,11 +336,11 @@
         },
         {
           "title": "Frontend – Implement State-Based Language Selection",
-          "status": "TO DO",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/243",
@@ -485,7 +486,7 @@
         },
         {
           "title": "Backend – Manage Professional Categories and Sub-Categories",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -680,11 +681,12 @@
         },
         {
           "title": "ENH-28 Bilingual app: English plus the regional language",
-          "status": "TO DO",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Lakshana-Lakshmanan",
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/203",
@@ -785,11 +787,12 @@
         },
         {
           "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
-          "status": "Dev",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Lakshana-Lakshmanan",
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/183",
@@ -1822,7 +1825,7 @@
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 4,
+        "inProgress": 3,
         "todo": 0,
         "backlog": 0,
         "production": 0
@@ -3262,19 +3265,6 @@
         "inProgress": 0,
         "todo": 0,
         "backlog": 9,
-        "production": 0
-      }
-    },
-    {
-      "number": 43,
-      "title": "AI SEO Audit & Rank Tracker - Defect Tracker",
-      "items": [],
-      "stats": {
-        "total": 0,
-        "done": 0,
-        "inProgress": 0,
-        "todo": 0,
-        "backlog": 0,
         "production": 0
       }
     },
@@ -5784,1367 +5774,12 @@
       }
     },
     {
-      "number": 33,
-      "title": "Oman Tourism",
-      "items": [
-        {
-          "title": "(Non-Functional & Cross-Cutting Requirements) Performance and responsiveness",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/61",
-          "createdAt": "2026-08-20T10:37:54Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "User Role – Download Itinerary Button Is Not Working After Generating a Smart Itinerary in Smart Planner",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/517",
-          "createdAt": "2026-11-02T11:37:12Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Authentication Routing] Logging in with Admin credentials redirects to the standard tourist user interface instead of landing directly on the Admin Panel.",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/518",
-          "createdAt": "2026-11-02T11:46:17Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Interactive Map & Navigation) turn-by-turn navigation",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/13",
-          "createdAt": "2026-07-06T09:54:34Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates",
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/35",
-          "createdAt": "2026-07-09T07:02:33Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Non-Functional & Cross-Cutting Requirements) Usability and accessibility",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/63",
-          "createdAt": "2026-08-20T10:39:33Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Push Notifications) Manage notification preferences",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/29",
-          "createdAt": "2026-07-06T12:06:43Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Home Page – Images Not Displayed for Some Places on the Home Page",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/450",
-          "createdAt": "2026-10-22T09:48:37Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Mandatory Field Indicator (*) Not Displayed for Required Fields in Expense Tracker",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/458",
-          "createdAt": "2026-10-22T11:47:15Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Notification Settings Option Not Navigating to the Respective Page Under Push Notifications",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/462",
-          "createdAt": "2026-10-22T12:31:01Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Create Account – Valid Password Is Rejected During Sign-Up",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/464",
-          "createdAt": "2026-10-22T13:07:57Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Guest Login – Password Visibility (Eye) Icon Missing in the Create Account Password Field",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/470",
-          "createdAt": "2026-10-23T12:06:24Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "AI Assistant Does Not Respond in Hindi After Selecting Hindi as the Preferred Language",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/453",
-          "createdAt": "2026-10-22T10:30:09Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Audio Tours Play, Download, and Playback Speed (1x) Buttons Not Working in Enhanced Features",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/457",
-          "createdAt": "2026-10-22T11:39:01Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin Panel - User Details Are Editable Instead of View-Only in the Users Section",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/476",
-          "createdAt": "2026-10-26T09:39:06Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin Role - Audit Logs Change Details Displayed in Raw JSON Format Instead of User-Friendly Format",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/474",
-          "createdAt": "2026-10-26T06:55:53Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Unnecessary \"(comma separated)\" Text Displayed in Preferred Activities Field on Profile & Preferences Page",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/460",
-          "createdAt": "2026-10-22T12:21:44Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin Role - Text Field Font Color Not Visible in Edit User Details Popup",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/473",
-          "createdAt": "2026-10-26T06:48:58Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Core Features – AI Assistant Voice Input Automatically Closes After Clicking the Voice Button",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/467",
-          "createdAt": "2026-10-23T11:47:01Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Translate Button Displays an Incorrect Icon Instead of the Translate Label in Core Features",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/454",
-          "createdAt": "2026-10-22T10:48:59Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Settings Page – Language Settings, Rate This App, and Terms & Privacy Options Are Not Navigating to Their Respective Pages",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/451",
-          "createdAt": "2026-10-22T09:56:57Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Real-Time Translation & Cultural Guidance) Translate text, voice, and images",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/21",
-          "createdAt": "2026-07-06T11:44:31Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(offline Mode) Access essentials offline",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/45",
-          "createdAt": "2026-08-20T10:09:19Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Push Notifications) Contextual and timely notifications",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates",
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/28",
-          "createdAt": "2026-07-06T12:05:30Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(AI Chatbot & Voice Assistant) Hands-free voice assistant",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/19",
-          "createdAt": "2026-07-06T10:49:19Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(User Registration & Profile Management) Explore the app as a guest",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/4",
-          "createdAt": "2026-07-06T08:58:11Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Expense Tracker & Budget Manager) Track expenses",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/49",
-          "createdAt": "2026-08-20T10:19:37Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Backend] User Preferences APIs — Budget, Currency, Interests & Language",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/32",
-          "createdAt": "2026-07-09T06:47:27Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(User Registration & Profile Management) Sign up with multiple methods",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/2",
-          "createdAt": "2026-07-06T08:53:44Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates",
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/33",
-          "createdAt": "2026-07-09T06:57:09Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Backend] Itinerary Persistence APIs — Save, Get, Export & Offline Download",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/37",
-          "createdAt": "2026-07-09T07:08:30Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Smart Itinerary Planner) Share and access the itinerary offline",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/15",
-          "createdAt": "2026-07-06T09:58:47Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Interactive Map & Navigation) Explore an interactive map of Oman",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/12",
-          "createdAt": "2026-07-06T09:53:07Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Smart Itinerary Planner) Generate a personalized AI itinerary",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/6",
-          "createdAt": "2026-07-06T09:25:37Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Emergency & Safety) Find nearby emergency facilities",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/26",
-          "createdAt": "2026-07-06T12:03:16Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Backend] Sign Up APIs — Reg No. + OTP & Google OAuth",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/30",
-          "createdAt": "2026-07-08T06:42:43Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Backend] Sign In APIs — Phone + OTP & Google Sign In",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/31",
-          "createdAt": "2026-07-08T08:23:40Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(User Registration & Profile Management) Secure login and session management",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/5",
-          "createdAt": "2026-07-06T09:00:21Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Smart Itinerary Planner) Edit and reorganize the itinerary",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/8",
-          "createdAt": "2026-07-06T09:35:44Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Smart Itinerary Planner) Weather- and event-aware planning",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/7",
-          "createdAt": "2026-07-06T09:33:12Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(User Registration & Profile Management) Create a traveler profile with preferences",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/3",
-          "createdAt": "2026-07-06T08:54:43Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Accessibility — Sign Language & Voice-First) Voice-first operation of the app",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/24",
-          "createdAt": "2026-07-06T11:52:39Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Emergency & Safety) Safety and weather alerts",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates",
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/27",
-          "createdAt": "2026-07-06T12:04:21Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Accessibility — Sign Language & Voice-First) Sign language support",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/23",
-          "createdAt": "2026-07-06T11:50:54Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Real-Time Translation & Cultural Guidance) Cultural etiquette guidance",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/22",
-          "createdAt": "2026-07-06T11:49:34Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(AI Chatbot & Voice Assistant) Multilingual, context-aware responses",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/20",
-          "createdAt": "2026-07-06T10:50:40Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Interactive Map & Navigation) Offline maps for saved regions",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/14",
-          "createdAt": "2026-07-06T09:56:16Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Emergency & Safety) One-tap emergency and SOS",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/25",
-          "createdAt": "2026-07-06T12:01:52Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Location-Based Recommendations & Discovery) See nearby attractions",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/9",
-          "createdAt": "2026-07-06T09:45:48Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Location-Based Recommendations & Discovery) Personalized discovery feed",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/11",
-          "createdAt": "2026-07-06T09:50:54Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Augmented Reality (AR)) Identify landmarks with AR",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/16",
-          "createdAt": "2026-07-06T10:12:11Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Augmented Reality (AR)) AR-guided heritage and museum tours",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/17",
-          "createdAt": "2026-07-06T10:13:53Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(AI Chatbot & Voice Assistant) Ask the AI travel assistant (chat)",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/18",
-          "createdAt": "2026-07-06T10:15:04Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Request to create development server and share access – Oman Tourism App API Integration",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/1",
-          "createdAt": "2026-07-02T05:00:13Z",
-          "closedAt": "2026-07-06T07:21:29Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Backend] Itinerary Editing APIs — Add, Remove, Reorder & Revert",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/34",
-          "createdAt": "2026-07-09T06:58:58Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Backend] Itinerary Generation API — Personalized Day-by-Day Trip Plan",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/36",
-          "createdAt": "2026-07-09T07:05:15Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Required",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/41",
-          "createdAt": "2026-08-11T07:30:10Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Offline Mode) Manage downloaded content",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/46",
-          "createdAt": "2026-08-20T10:13:13Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates",
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/47",
-          "createdAt": "2026-08-20T10:14:25Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Reviews & Community Engagement) Trustworthy, sorted reviews",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/48",
-          "createdAt": "2026-08-20T10:16:28Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Expense Tracker & Budget Manager) Currency conversion and budget alerts",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/50",
-          "createdAt": "2026-08-20T10:21:38Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Local Marketplace) Browse local Omani products",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/51",
-          "createdAt": "2026-08-20T10:24:53Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Local Marketplace) Support local SMEs and artisans",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/52",
-          "createdAt": "2026-08-20T10:26:47Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Gamification Challenges & Leaderboard) Complete tourist challenges",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/53",
-          "createdAt": "2026-08-20T10:28:01Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Gamification Challenges & Leaderboard) Monthly leaderboard",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/54",
-          "createdAt": "2026-08-20T10:29:38Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Travel Insurance) Browse and manage travel insurance",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates",
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/56",
-          "createdAt": "2026-08-20T10:31:26Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Wellness & Healthy Dining) Wellness recommendations",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/55",
-          "createdAt": "2026-08-20T10:30:31Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Smart Wearable Integration) Connect a smart wearable",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/57",
-          "createdAt": "2026-08-20T10:33:04Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Admin & Analytics Dashboard (Backend)) Manage users and content",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/58",
-          "createdAt": "2026-08-20T10:34:57Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Admin & Analytics Dashboard (Backend)) Moderate reviews",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/59",
-          "createdAt": "2026-08-20T10:35:41Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Admin & Analytics Dashboard (Backend)) Tourism analytics and reporting",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/60",
-          "createdAt": "2026-08-20T10:36:50Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Location-Based Recommendations & Discovery) Filter recommendations",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates",
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/10",
-          "createdAt": "2026-07-06T09:47:01Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Non-Functional & Cross-Cutting Requirements) Data security and privacy",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/62",
-          "createdAt": "2026-08-20T10:38:46Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(Non-Functional & Cross-Cutting Requirements) Transparent and ethical AI",
-          "status": "Backlog",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/64",
-          "createdAt": "2026-08-20T10:40:57Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "(AI-Generated Audio Tours) Listen to AI-generated audio tours",
-          "status": "DEV",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/65",
-          "createdAt": "2026-08-20T10:43:51Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/72",
-          "createdAt": "2026-10-19T05:23:14Z",
-          "closedAt": "2026-10-19T06:15:38Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Home Page – About Section Not Displaying Place Description for Nizwa on the Details Page",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/452",
-          "createdAt": "2026-10-22T10:04:36Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Real-Time Translator Not Translating Text and Displaying Arabic as the Default Translation Language",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/455",
-          "createdAt": "2026-10-22T10:57:58Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Unable to View All Products When Clicking the \"View All Products\" Button in Marketplace",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/456",
-          "createdAt": "2026-10-22T11:11:31Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Some Place Images and Descriptions Are Not Displayed in Explore Under Core Features",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/459",
-          "createdAt": "2026-10-22T12:03:18Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Translation Phrases Option Not Navigating to the Respective Page in Offline Mode",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/461",
-          "createdAt": "2026-10-22T12:27:55Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Application Language Does Not Change from English to Arabic in Profile & Preferences",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/463",
-          "createdAt": "2026-10-22T12:36:11Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Login – Password Field Accepts Spaces as Characters",
-          "status": "In progress",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/466",
-          "createdAt": "2026-10-23T11:28:53Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Login – \"Multiple rows were found when one or none was required\" Error Displayed While Logging in with Mobile Number",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates",
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/469",
-          "createdAt": "2026-10-23T11:56:31Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Moderator Panel - Unable to Enable \"Quiet Hours\" Under Rest & Quiet Hours in Tourist App Notification Preferences",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/487",
-          "createdAt": "2026-10-28T10:12:23Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "User Role – AI Assistant Provides Irrelevant Responses Instead of Answering User Queries in Core Features",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "inbarasuv"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/506",
-          "createdAt": "2026-11-02T05:11:59Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "User Role – Application Automatically Closes When Clicking the Navigate Button on the Place Details Page",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/513",
-          "createdAt": "2026-11-02T10:18:06Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Analytics Dashboard] Date range filter accepts future dates and permits manual edits beyond predefined preset limits (Last 3 Months, Last 12 Months, Current Month, Oct-Jan Season)",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/514",
-          "createdAt": "2026-11-02T11:04:56Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Create User Modal] Absence of client-side field validation accepts invalid special characters and over-length numbers, throwing unformatted raw JSON backend errors on submission",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/515",
-          "createdAt": "2026-11-02T11:07:54Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Create Account] Absence of field validation allows registration with numeric characters and invalid input in First Name and Last Name fields.",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/516",
-          "createdAt": "2026-11-02T11:33:48Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "User Role – Terms of Use and Privacy Policy Content Is Not Displayed in the Terms & Privacy Section Under Settings",
-          "status": "TODO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/519",
-          "createdAt": "2026-11-02T11:47:58Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        }
-      ],
-      "stats": {
-        "total": 91,
-        "done": 3,
-        "inProgress": 57,
-        "todo": 17,
-        "backlog": 14,
-        "production": 0
-      }
-    },
-    {
-      "number": 32,
-      "title": "EduBot_University",
-      "items": [],
-      "stats": {
-        "total": 0,
-        "done": 0,
-        "inProgress": 0,
-        "todo": 0,
-        "backlog": 0,
-        "production": 0
-      }
-    },
-    {
       "number": 27,
       "title": "Acadamiq AI",
       "items": [
         {
           "title": "Pending Tasks count is inconsistent between Student Dashboard and AI Nova",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -7189,7 +5824,7 @@
         },
         {
           "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -10145,85 +8780,6 @@
       }
     },
     {
-      "number": 24,
-      "title": "AI Virtual Intern",
-      "items": [],
-      "stats": {
-        "total": 0,
-        "done": 0,
-        "inProgress": 0,
-        "todo": 0,
-        "backlog": 0,
-        "production": 0
-      }
-    },
-    {
-      "number": 23,
-      "title": "AI Tutor",
-      "items": [
-        {
-          "title": "Delete Course button unresponsive and loading issue after deletion.",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Ai_tutor_backend-/issues/28",
-          "createdAt": "2025-10-27T05:49:26Z",
-          "closedAt": "2025-11-03T05:26:20Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "The backend fails to process PDF uploads and chat queries, resulting in a 500 error.",
-          "status": "Production",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Ai_tutor_backend-/issues/27",
-          "createdAt": "2025-10-24T09:26:16Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "User is automatically logged in to the application without authentication when accessing the URL directly.",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Ai_tutor_backend-/issues/35",
-          "createdAt": "2025-10-29T08:47:31Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Plagiarism Detection and AI Content Detection modules are not analyzing content properly.",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Ai_tutor_backend-/issues/29",
-          "createdAt": "2025-10-27T06:19:35Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        }
-      ],
-      "stats": {
-        "total": 4,
-        "done": 1,
-        "inProgress": 0,
-        "todo": 2,
-        "backlog": 0,
-        "production": 1
-      }
-    },
-    {
       "number": 21,
       "title": "Hirelysze",
       "items": [
@@ -10428,19 +8984,6 @@
         "todo": 4,
         "backlog": 0,
         "production": 2
-      }
-    },
-    {
-      "number": 15,
-      "title": "GESCO - Billing",
-      "items": [],
-      "stats": {
-        "total": 0,
-        "done": 0,
-        "inProgress": 0,
-        "todo": 0,
-        "backlog": 0,
-        "production": 0
       }
     },
     {
@@ -11212,26 +9755,44 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Grant Kamali E Access to EduBot_V3",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "manju-209"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/639",
+          "createdAt": "2026-11-20T05:17:32Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Access Request",
+          "status": "Done",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Vinoth-codework",
+            "manju-209"
+          ],
+          "state": "CLOSED",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-API/issues/17",
+          "createdAt": "2026-11-20T08:58:28Z",
+          "closedAt": "2026-11-20T09:14:50Z",
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 50,
-        "done": 47,
-        "inProgress": 1,
+        "total": 52,
+        "done": 48,
+        "inProgress": 2,
         "todo": 2,
-        "backlog": 0,
-        "production": 0
-      }
-    },
-    {
-      "number": 8,
-      "title": "Little sparks",
-      "items": [],
-      "stats": {
-        "total": 0,
-        "done": 0,
-        "inProgress": 0,
-        "todo": 0,
         "backlog": 0,
         "production": 0
       }
@@ -11246,7 +9807,6 @@
         "Edubot_V3",
         "Edubot_CPLC",
         "SabAi Bible App",
-        "Oman Tourism",
         "Acadamiq AI"
       ],
       "tasks": [
@@ -11254,6 +9814,12 @@
           "project": "My Medical Help Admin Panel",
           "title": "Admin – Table Row Filter Is Not Consistent Across Modules",
           "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Admin – Final Table Column Is Misaligned with the Table Background",
+          "status": "QA Review",
           "priority": ""
         },
         {
@@ -11296,6 +9862,48 @@
           "project": "My Medical Help Admin Panel",
           "title": "Mobile Number Field Accepts Alphabets, Special Characters, and Unlimited Digits Without Proper Validation",
           "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Manage Languages allows duplicate language names",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Close (X) button in the “New subcategory” modal is invisible",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Notification Icon Is Not Functional in Admin Dashboard",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Generic Failure Toast Message Appears When Accessing Referral Bonus and Adjustment Transactions",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "“Registration refunds” menu shows no count/notification for new refund requests (Support tickets and KYC review do)",
+          "status": "QA Review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Several screens and labels are not translated when the app language is Tamil",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Frontend – Implement State-Based Language Selection",
+          "status": "QA review",
           "priority": ""
         },
         {
@@ -11402,6 +10010,12 @@
         },
         {
           "project": "My Medical Help",
+          "title": "ENH-28 Bilingual app: English plus the regional language",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
           "title": "ENH-20  Negative wallet balance after commission",
           "status": "QA Completed",
           "priority": ""
@@ -11416,6 +10030,12 @@
           "project": "My Medical Help",
           "title": "ENH-17 One mobile number for both roles",
           "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
+          "status": "QA review",
           "priority": ""
         },
         {
@@ -12667,24 +11287,6 @@
           "priority": ""
         },
         {
-          "project": "Oman Tourism",
-          "title": "(Expense Tracker & Budget Manager) Track expenses",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Emergency & Safety) One-tap emergency and SOS",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Expense Tracker & Budget Manager) Currency conversion and budget alerts",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
           "project": "Acadamiq AI",
           "title": "Existing User Credentials Fail to Log In Due to Automatically Changed Email and Password",
           "status": "QA Completed",
@@ -12693,7 +11295,7 @@
         {
           "project": "Acadamiq AI",
           "title": "Unable to Save Subject Teacher Assignment Due to Existing Class Teacher Validation Error",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -13255,9 +11857,9 @@
           "priority": ""
         }
       ],
-      "total": 334,
+      "total": 341,
       "done": 89,
-      "inProgress": 53,
+      "inProgress": 50,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -13288,7 +11890,7 @@
         {
           "project": "My Medical Help",
           "title": "Backend – Manage Professional Categories and Sub-Categories",
-          "status": "QA review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -13843,363 +12445,12 @@
       "deletions": 0
     },
     {
-      "login": "Antony-Bilgates",
-      "projects": [
-        "Edubot_V3",
-        "Edubot_CPLC",
-        "SabAi Bible App",
-        "Oman Tourism"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Implementation of Subscription-Based Model – Frontend",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Frontend - Subscription Plan Modification in Institution",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Frontend - Admin User Seat Allowance Update",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Frontend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Incorrect Error Message Displayed When Re-issuing an Already Issued Certificate",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Enable Post Creation Access for Learners in Community Forum",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Video Icon Overlaps with Heading After Video Generation",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS Sign-In Option Is Missing on Login Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Scripture Selection Alignment and Placeholder Text Issues in Visualize",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS Chat Resource Attachment Fails with Error Message",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Voice Recording Displays \"Disabled in Expo Go\" Error in Chat on iOS",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS – API Failure and Inconsistent Toast Messages for Report, Video, and Quiz in Visualize Module",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "User Role – Download Itinerary Button Is Not Working After Generating a Smart Itinerary in Smart Planner",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Authentication Routing] Logging in with Admin credentials redirects to the standard tourist user interface instead of landing directly on the Admin Panel.",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Interactive Map & Navigation) turn-by-turn navigation",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Non-Functional & Cross-Cutting Requirements) Usability and accessibility",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Push Notifications) Manage notification preferences",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Home Page – Images Not Displayed for Some Places on the Home Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Mandatory Field Indicator (*) Not Displayed for Required Fields in Expense Tracker",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Notification Settings Option Not Navigating to the Respective Page Under Push Notifications",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Create Account – Valid Password Is Rejected During Sign-Up",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Guest Login – Password Visibility (Eye) Icon Missing in the Create Account Password Field",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "AI Assistant Does Not Respond in Hindi After Selecting Hindi as the Preferred Language",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Audio Tours Play, Download, and Playback Speed (1x) Buttons Not Working in Enhanced Features",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Admin Panel - User Details Are Editable Instead of View-Only in the Users Section",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Admin Role - Audit Logs Change Details Displayed in Raw JSON Format Instead of User-Friendly Format",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Unnecessary \"(comma separated)\" Text Displayed in Preferred Activities Field on Profile & Preferences Page",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Admin Role - Text Field Font Color Not Visible in Edit User Details Popup",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Core Features – AI Assistant Voice Input Automatically Closes After Clicking the Voice Button",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Translate Button Displays an Incorrect Icon Instead of the Translate Label in Core Features",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Settings Page – Language Settings, Rate This App, and Terms & Privacy Options Are Not Navigating to Their Respective Pages",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(offline Mode) Access essentials offline",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Push Notifications) Contextual and timely notifications",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Emergency & Safety) Safety and weather alerts",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Travel Insurance) Browse and manage travel insurance",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Location-Based Recommendations & Discovery) Filter recommendations",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Home Page – About Section Not Displaying Place Description for Nizwa on the Details Page",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Real-Time Translator Not Translating Text and Displaying Arabic as the Default Translation Language",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Unable to View All Products When Clicking the \"View All Products\" Button in Marketplace",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Some Place Images and Descriptions Are Not Displayed in Explore Under Core Features",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Translation Phrases Option Not Navigating to the Respective Page in Offline Mode",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Application Language Does Not Change from English to Arabic in Profile & Preferences",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Login – \"Multiple rows were found when one or none was required\" Error Displayed While Logging in with Mobile Number",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Moderator Panel - Unable to Enable \"Quiet Hours\" Under Rest & Quiet Hours in Tourist App Notification Preferences",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "User Role – Application Automatically Closes When Clicking the Navigate Button on the Place Details Page",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Analytics Dashboard] Date range filter accepts future dates and permits manual edits beyond predefined preset limits (Last 3 Months, Last 12 Months, Current Month, Oct-Jan Season)",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Create User Modal] Absence of client-side field validation accepts invalid special characters and over-length numbers, throwing unformatted raw JSON backend errors on submission",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Create Account] Absence of field validation allows registration with numeric characters and invalid input in First Name and Last Name fields.",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "User Role – Terms of Use and Privacy Policy Content Is Not Displayed in the Terms & Privacy Section Under Settings",
-          "status": "TODO",
-          "priority": ""
-        }
-      ],
-      "total": 55,
-      "done": 2,
-      "inProgress": 33,
-      "commits": 0,
-      "prs": 3,
-      "prsMerged": 3,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "manju-209",
       "projects": [
         "My Medical Help Admin Panel",
         "Edubot_V3",
         "Edubot_CPLC",
         "SabAi Bible App",
-        "Oman Tourism",
         "Devops"
       ],
       "tasks": [
@@ -14231,24 +12482,6 @@
           "project": "SabAi Bible App",
           "title": "Provide Interactive Bible Project Access for Bug Tracking",
           "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Request to create development server and share access – Oman Tourism App API Integration",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Access Required",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "Access Request",
-          "status": "Done",
           "priority": ""
         },
         {
@@ -14514,11 +12747,23 @@
           "title": "Access Request for Lovio Store",
           "status": "In Progress",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Grant Kamali E Access to EduBot_V3",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
         }
       ],
-      "total": 52,
-      "done": 49,
-      "inProgress": 1,
+      "total": 51,
+      "done": 47,
+      "inProgress": 2,
       "commits": 2,
       "prs": 0,
       "prsMerged": 0,
@@ -14806,7 +13051,7 @@
         {
           "project": "Acadamiq AI",
           "title": "Pending Tasks count is inconsistent between Student Dashboard and AI Nova",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -14894,199 +13139,9 @@
       "deletions": 3199
     },
     {
-      "login": "Lakshana-Lakshmanan",
-      "projects": [
-        "My Medical Help",
-        "SabAi Bible App",
-        "Oman Tourism",
-        "Worklogix",
-        "HireLens"
-      ],
-      "tasks": [
-        {
-          "project": "My Medical Help",
-          "title": "Several screens and labels are not translated when the app language is Tamil",
-          "status": "TO DO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "ENH-28 Bilingual app: English plus the regional language",
-          "status": "TO DO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "EP04-US-019 Generate appointment slots",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "AI Insights Takes Time to Load in Read Module",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Video Generation Fails After Multiple Consecutive Requests",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(AI Chatbot & Voice Assistant) Hands-free voice assistant",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] User Preferences APIs — Budget, Currency, Interests & Language",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(User Registration & Profile Management) Sign up with multiple methods",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Persistence APIs — Save, Get, Export & Offline Download",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Smart Itinerary Planner) Share and access the itinerary offline",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Interactive Map & Navigation) Explore an interactive map of Oman",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Sign Up APIs — Reg No. + OTP & Google OAuth",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Sign In APIs — Phone + OTP & Google Sign In",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(User Registration & Profile Management) Secure login and session management",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Smart Itinerary Planner) Edit and reorganize the itinerary",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Location-Based Recommendations & Discovery) See nearby attractions",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Location-Based Recommendations & Discovery) Personalized discovery feed",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Editing APIs — Add, Remove, Reorder & Revert",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Generation API — Personalized Day-by-Day Trip Plan",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Gamification Challenges & Leaderboard) Complete tourist challenges",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Gamification Challenges & Leaderboard) Monthly leaderboard",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Admin & Analytics Dashboard (Backend)) Manage users and content",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Admin & Analytics Dashboard (Backend)) Moderate reviews",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Admin & Analytics Dashboard (Backend)) Tourism analytics and reporting",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Non-Functional & Cross-Cutting Requirements) Data security and privacy",
-          "status": "In progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Add Visitor Date Support in Add Visitor API",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "API allows creation of interview with same interviewer and candidate email — validation missing.",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 28,
-      "done": 0,
-      "inProgress": 19,
-      "commits": 9,
-      "prs": 9,
-      "prsMerged": 9,
-      "prReviews": 1,
-      "additions": 2936,
-      "deletions": 185
-    },
-    {
       "login": "Vinoth-codework",
       "projects": [
         "My Medical Help Admin Panel",
-        "Oman Tourism",
         "Devops"
       ],
       "tasks": [
@@ -15098,12 +13153,6 @@
         },
         {
           "project": "My Medical Help Admin Panel",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
           "title": "Access Request",
           "status": "Done",
           "priority": ""
@@ -15245,6 +13294,12 @@
           "title": "Access Request for Lovio Store",
           "status": "In Progress",
           "priority": ""
+        },
+        {
+          "project": "Devops",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
         }
       ],
       "total": 26,
@@ -15258,115 +13313,178 @@
       "deletions": 121
     },
     {
-      "login": "inbarasuv",
+      "login": "Lakshana-Lakshmanan",
+      "projects": [
+        "My Medical Help",
+        "SabAi Bible App",
+        "Worklogix",
+        "HireLens"
+      ],
+      "tasks": [
+        {
+          "project": "My Medical Help",
+          "title": "Several screens and labels are not translated when the app language is Tamil",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-28 Bilingual app: English plus the regional language",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "EP04-US-019 Generate appointment slots",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "AI Insights Takes Time to Load in Read Module",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Video Generation Fails After Multiple Consecutive Requests",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Add Visitor Date Support in Add Visitor API",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "API allows creation of interview with same interviewer and candidate email — validation missing.",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 8,
+      "done": 0,
+      "inProgress": 1,
+      "commits": 9,
+      "prs": 9,
+      "prsMerged": 9,
+      "prReviews": 1,
+      "additions": 2936,
+      "deletions": 185
+    },
+    {
+      "login": "Antony-Bilgates",
       "projects": [
         "Edubot_V3",
-        "Oman Tourism"
+        "Edubot_CPLC",
+        "SabAi Bible App"
       ],
       "tasks": [
         {
           "project": "Edubot_V3",
-          "title": "LMS Integration – Backend",
-          "status": "In Development",
+          "title": "Implementation of Subscription-Based Model – Frontend",
+          "status": "Completed",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
-          "title": "Backend Ticket - Subscription Plan Modification in Institution",
+          "title": "Frontend - Subscription Plan Modification in Institution",
           "status": "Backlog",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
-          "title": "Backend - Admin User Seat Allowance Update",
+          "title": "Frontend - Admin User Seat Allowance Update",
           "status": "Backlog",
           "priority": ""
         },
         {
           "project": "Edubot_V3",
-          "title": "Certificate Management – Feature Requirement",
+          "title": "Student Admission & Identity Management – Frontend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Incorrect Error Message Displayed When Re-issuing an Already Issued Certificate",
           "status": "To Do",
           "priority": ""
         },
         {
-          "project": "Edubot_V3",
-          "title": "Institution Logo/Image Not Displaying",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Implement EduBot logo video across the EduBot v3 app",
+          "project": "Edubot_CPLC",
+          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
           "status": "In Development",
           "priority": ""
         },
         {
-          "project": "Oman Tourism",
-          "title": "[Backend] Guest Session APIs — Guest Registration, Conversion & Authorization",
+          "project": "Edubot_CPLC",
+          "title": "Enable Post Creation Access for Learners in Community Forum",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Video Icon Overlaps with Heading After Video Generation",
           "status": "In progress",
           "priority": ""
         },
         {
-          "project": "Oman Tourism",
-          "title": "(Push Notifications) Contextual and timely notifications",
+          "project": "SabAi Bible App",
+          "title": "iOS Sign-In Option Is Missing on Login Page",
           "status": "In progress",
           "priority": ""
         },
         {
-          "project": "Oman Tourism",
-          "title": "[Backend] Itinerary Context APIs — Weather, Local Events & Opening Hours",
+          "project": "SabAi Bible App",
+          "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
           "status": "In progress",
           "priority": ""
         },
         {
-          "project": "Oman Tourism",
-          "title": "(Emergency & Safety) Safety and weather alerts",
+          "project": "SabAi Bible App",
+          "title": "Scripture Selection Alignment and Placeholder Text Issues in Visualize",
           "status": "In progress",
           "priority": ""
         },
         {
-          "project": "Oman Tourism",
-          "title": "(Reviews & Community Engagement) Write reviews and upload photos",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "(Travel Insurance) Browse and manage travel insurance",
+          "project": "SabAi Bible App",
+          "title": "iOS Chat Resource Attachment Fails with Error Message",
           "status": "In progress",
           "priority": ""
         },
         {
-          "project": "Oman Tourism",
-          "title": "(Location-Based Recommendations & Discovery) Filter recommendations",
+          "project": "SabAi Bible App",
+          "title": "Voice Recording Displays \"Disabled in Expo Go\" Error in Chat on iOS",
           "status": "In progress",
           "priority": ""
         },
         {
-          "project": "Oman Tourism",
-          "title": "Login – Password Field Accepts Spaces as Characters",
+          "project": "SabAi Bible App",
+          "title": "iOS – API Failure and Inconsistent Toast Messages for Report, Video, and Quiz in Visualize Module",
           "status": "In progress",
           "priority": ""
         },
         {
-          "project": "Oman Tourism",
-          "title": "Login – \"Multiple rows were found when one or none was required\" Error Displayed While Logging in with Mobile Number",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "Oman Tourism",
-          "title": "User Role – AI Assistant Provides Irrelevant Responses Instead of Answering User Queries in Core Features",
-          "status": "TODO",
+          "project": "SabAi Bible App",
+          "title": "Generated Quiz Is Displayed Below the Select Scripture Section Instead of in a Dialog",
+          "status": "Backlog",
           "priority": ""
         }
       ],
-      "total": 16,
-      "done": 0,
+      "total": 15,
+      "done": 2,
       "inProgress": 7,
       "commits": 0,
-      "prs": 1,
-      "prsMerged": 0,
+      "prs": 4,
+      "prsMerged": 4,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -15400,66 +13518,6 @@
       "prReviews": 0,
       "additions": 7014,
       "deletions": 630
-    },
-    {
-      "login": "Nelson",
-      "projects": [
-        "My Medical Help Admin Panel",
-        "My Medical Help"
-      ],
-      "tasks": [
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Admin – Final Table Column Is Misaligned with the Table Background",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Manage Languages allows duplicate language names",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Close (X) button in the “New subcategory” modal is invisible",
-          "status": "Dev",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Notification Icon Is Not Functional in Admin Dashboard",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Generic Failure Toast Message Appears When Accessing Referral Bonus and Adjustment Transactions",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "“Registration refunds” menu shows no count/notification for new refund requests (Support tickets and KYC review do)",
-          "status": "TODO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Frontend – Implement State-Based Language Selection",
-          "status": "TO DO",
-          "priority": ""
-        }
-      ],
-      "total": 7,
-      "done": 0,
-      "inProgress": 3,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
     },
     {
       "login": "Glad-Andrew",
@@ -15515,9 +13573,62 @@
       "done": 2,
       "inProgress": 0,
       "commits": 0,
-      "prs": 15,
-      "prsMerged": 15,
+      "prs": 16,
+      "prsMerged": 16,
       "prReviews": 6,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
+      "login": "inbarasuv",
+      "projects": [
+        "Edubot_V3"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "LMS Integration – Backend",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Backend Ticket - Subscription Plan Modification in Institution",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Backend - Admin User Seat Allowance Update",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Certificate Management – Feature Requirement",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Institution Logo/Image Not Displaying",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Implement EduBot logo video across the EduBot v3 app",
+          "status": "In Development",
+          "priority": ""
+        }
+      ],
+      "total": 6,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 1,
+      "prsMerged": 0,
+      "prReviews": 0,
       "additions": 0,
       "deletions": 0
     },
@@ -15627,8 +13738,8 @@
       "done": 0,
       "inProgress": 0,
       "commits": 1,
-      "prs": 16,
-      "prsMerged": 16,
+      "prs": 17,
+      "prsMerged": 17,
       "prReviews": 0,
       "additions": 89,
       "deletions": 22
