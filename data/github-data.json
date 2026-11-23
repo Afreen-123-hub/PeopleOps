@@ -1,11 +1,24 @@
 {
-  "lastUpdated": "2026-11-20T12:01:38.991957Z",
+  "lastUpdated": "2026-11-23T13:26:11.145813Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
   },
   "org": "CodeWork-ai",
   "projects": [
+    {
+      "number": 59,
+      "title": "NexHir",
+      "items": [],
+      "stats": {
+        "total": 0,
+        "done": 0,
+        "inProgress": 0,
+        "todo": 0,
+        "backlog": 0,
+        "production": 0
+      }
+    },
     {
       "number": 58,
       "title": "Zocket",
@@ -85,7 +98,7 @@
         },
         {
           "title": "Admin – Final Table Column Is Misaligned with the Table Background",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -250,7 +263,7 @@
         },
         {
           "title": "Generic Failure Toast Message Appears When Accessing Referral Bonus and Adjustment Transactions",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -320,12 +333,11 @@
       "items": [
         {
           "title": "Several screens and labels are not translated when the app language is Tamil",
-          "status": "QA review",
+          "status": "TO DO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan",
-            "Santhakumar082"
+            "Nelson"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/255",
@@ -336,11 +348,11 @@
         },
         {
           "title": "Frontend – Implement State-Based Language Selection",
-          "status": "QA review",
+          "status": "TO DO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Lakshana-Lakshmanan"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/243",
@@ -681,12 +693,12 @@
         },
         {
           "title": "ENH-28 Bilingual app: English plus the regional language",
-          "status": "QA review",
+          "status": "TO DO",
           "priority": "",
           "size": "",
           "assignees": [
             "Lakshana-Lakshmanan",
-            "Santhakumar082"
+            "Nelson"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/203",
@@ -787,12 +799,11 @@
         },
         {
           "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
-          "status": "QA review",
+          "status": "TO DO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan",
-            "Santhakumar082"
+            "Nelson"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/183",
@@ -1896,9 +1907,7 @@
           "status": "Completed",
           "priority": "",
           "size": "",
-          "assignees": [
-            "Keerthanasen3"
-          ],
+          "assignees": [],
           "state": "CLOSED",
           "url": "https://github.com/CodeWork-ai/edubot_cplc_v3_Backend/issues/38",
           "createdAt": "2026-09-03T05:57:17Z",
@@ -9742,32 +9751,32 @@
         },
         {
           "title": "Access Request for Lovio Store",
-          "status": "In Progress",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
             "Vinoth-codework",
             "manju-209"
           ],
-          "state": "OPEN",
+          "state": "CLOSED",
           "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/996",
           "createdAt": "2026-11-19T10:58:26Z",
-          "closedAt": null,
+          "closedAt": "2026-11-23T12:20:58Z",
           "startDate": "",
           "endDate": ""
         },
         {
           "title": "Grant Kamali E Access to EduBot_V3",
-          "status": "In Progress",
+          "status": "Done",
           "priority": "",
           "size": "",
           "assignees": [
             "manju-209"
           ],
-          "state": "OPEN",
+          "state": "CLOSED",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/639",
           "createdAt": "2026-11-20T05:17:32Z",
-          "closedAt": null,
+          "closedAt": "2026-11-23T12:20:41Z",
           "startDate": "",
           "endDate": ""
         },
@@ -9790,8 +9799,8 @@
       ],
       "stats": {
         "total": 52,
-        "done": 48,
-        "inProgress": 2,
+        "done": 50,
+        "inProgress": 0,
         "todo": 2,
         "backlog": 0,
         "production": 0
@@ -9819,7 +9828,7 @@
         {
           "project": "My Medical Help Admin Panel",
           "title": "Admin – Final Table Column Is Misaligned with the Table Background",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -9885,25 +9894,13 @@
         {
           "project": "My Medical Help Admin Panel",
           "title": "Generic Failure Toast Message Appears When Accessing Referral Bonus and Adjustment Transactions",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help Admin Panel",
           "title": "“Registration refunds” menu shows no count/notification for new refund requests (Support tickets and KYC review do)",
           "status": "QA Review",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Several screens and labels are not translated when the app language is Tamil",
-          "status": "QA review",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Frontend – Implement State-Based Language Selection",
-          "status": "QA review",
           "priority": ""
         },
         {
@@ -10010,12 +10007,6 @@
         },
         {
           "project": "My Medical Help",
-          "title": "ENH-28 Bilingual app: English plus the regional language",
-          "status": "QA review",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
           "title": "ENH-20  Negative wallet balance after commission",
           "status": "QA Completed",
           "priority": ""
@@ -10030,12 +10021,6 @@
           "project": "My Medical Help",
           "title": "ENH-17 One mobile number for both roles",
           "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
-          "status": "QA review",
           "priority": ""
         },
         {
@@ -11857,7 +11842,7 @@
           "priority": ""
         }
       ],
-      "total": 341,
+      "total": 337,
       "done": 89,
       "inProgress": 50,
       "commits": 0,
@@ -12745,13 +12730,13 @@
         {
           "project": "Devops",
           "title": "Access Request for Lovio Store",
-          "status": "In Progress",
+          "status": "Done",
           "priority": ""
         },
         {
           "project": "Devops",
           "title": "Grant Kamali E Access to EduBot_V3",
-          "status": "In Progress",
+          "status": "Done",
           "priority": ""
         },
         {
@@ -12762,14 +12747,63 @@
         }
       ],
       "total": 51,
-      "done": 47,
-      "inProgress": 2,
+      "done": 49,
+      "inProgress": 0,
       "commits": 2,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 4,
       "deletions": 0
+    },
+    {
+      "login": "nithisha-01",
+      "projects": [
+        "Edubot_V3",
+        "Hirelysze",
+        "HireLens"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "AI Plagiarism & Academic Integrity – Frontend",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Hirelysze",
+          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Add “Forgot Password” functionality to the HireLernse application.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Interview duration allows 1 min — missing minimum limit validation.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 5,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 47,
+      "prs": 36,
+      "prsMerged": 34,
+      "prReviews": 10,
+      "additions": 8369,
+      "deletions": 7134
     },
     {
       "login": "Megna-Codework",
@@ -13090,55 +13124,6 @@
       "deletions": 0
     },
     {
-      "login": "nithisha-01",
-      "projects": [
-        "Edubot_V3",
-        "Hirelysze",
-        "HireLens"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "AI Plagiarism & Academic Integrity – Frontend",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Hirelysze",
-          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Add “Forgot Password” functionality to the HireLernse application.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Interview duration allows 1 min — missing minimum limit validation.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 5,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 35,
-      "prs": 33,
-      "prsMerged": 31,
-      "prReviews": 10,
-      "additions": 5112,
-      "deletions": 3199
-    },
-    {
       "login": "Vinoth-codework",
       "projects": [
         "My Medical Help Admin Panel",
@@ -13292,7 +13277,7 @@
         {
           "project": "Devops",
           "title": "Access Request for Lovio Store",
-          "status": "In Progress",
+          "status": "Done",
           "priority": ""
         },
         {
@@ -13303,8 +13288,8 @@
         }
       ],
       "total": 26,
-      "done": 23,
-      "inProgress": 1,
+      "done": 24,
+      "inProgress": 0,
       "commits": 3,
       "prs": 0,
       "prsMerged": 0,
@@ -13323,26 +13308,20 @@
       "tasks": [
         {
           "project": "My Medical Help",
-          "title": "Several screens and labels are not translated when the app language is Tamil",
-          "status": "QA review",
+          "title": "Frontend – Implement State-Based Language Selection",
+          "status": "TO DO",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "ENH-28 Bilingual app: English plus the regional language",
-          "status": "QA review",
+          "status": "TO DO",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP04-US-019 Generate appointment slots",
           "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
-          "status": "QA review",
           "priority": ""
         },
         {
@@ -13370,13 +13349,13 @@
           "priority": ""
         }
       ],
-      "total": 8,
+      "total": 7,
       "done": 0,
       "inProgress": 1,
-      "commits": 9,
-      "prs": 9,
-      "prsMerged": 9,
-      "prReviews": 1,
+      "commits": 10,
+      "prs": 10,
+      "prsMerged": 10,
+      "prReviews": 2,
       "additions": 2936,
       "deletions": 185
     },
@@ -13633,6 +13612,41 @@
       "deletions": 0
     },
     {
+      "login": "Nelson",
+      "projects": [
+        "My Medical Help"
+      ],
+      "tasks": [
+        {
+          "project": "My Medical Help",
+          "title": "Several screens and labels are not translated when the app language is Tamil",
+          "status": "TO DO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "ENH-28 Bilingual app: English plus the regional language",
+          "status": "TO DO",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
+          "status": "TO DO",
+          "priority": ""
+        }
+      ],
+      "total": 3,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 0,
+      "deletions": 0
+    },
+    {
       "login": "sarancodework",
       "projects": [
         "My Medical Help"
@@ -13654,29 +13668,6 @@
       "total": 2,
       "done": 0,
       "inProgress": 2,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Keerthanasen3",
-      "projects": [
-        "Edubot_V3"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "User Story: Provide Repository Access to Testing Team",
-          "status": "Completed",
-          "priority": ""
-        }
-      ],
-      "total": 1,
-      "done": 1,
-      "inProgress": 0,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
