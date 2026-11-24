@@ -1,11 +1,37 @@
 {
-  "lastUpdated": "2026-11-23T13:26:11.145813Z",
+  "lastUpdated": "2026-11-24T14:06:28.245132Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
   },
   "org": "CodeWork-ai",
   "projects": [
+    {
+      "number": 64,
+      "title": "API Dashboard",
+      "items": [],
+      "stats": {
+        "total": 0,
+        "done": 0,
+        "inProgress": 0,
+        "todo": 0,
+        "backlog": 0,
+        "production": 0
+      }
+    },
+    {
+      "number": 62,
+      "title": "LOKI",
+      "items": [],
+      "stats": {
+        "total": 0,
+        "done": 0,
+        "inProgress": 0,
+        "todo": 0,
+        "backlog": 0,
+        "production": 0
+      }
+    },
     {
       "number": 59,
       "title": "NexHir",
@@ -218,7 +244,7 @@
         },
         {
           "title": "Manage Languages allows duplicate language names",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -233,7 +259,7 @@
         },
         {
           "title": "Close (X) button in the “New subcategory” modal is invisible",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -248,7 +274,7 @@
         },
         {
           "title": "Notification Icon Is Not Functional in Admin Dashboard",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -278,7 +304,7 @@
         },
         {
           "title": "“Registration refunds” menu shows no count/notification for new refund requests (Support tickets and KYC review do)",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
@@ -332,11 +358,27 @@
       "title": "My Medical Help",
       "items": [
         {
-          "title": "Several screens and labels are not translated when the app language is Tamil",
-          "status": "TO DO",
+          "title": "Patient can book two appointments with different doctors at the same date and time",
+          "status": "In progress",
           "priority": "",
           "size": "",
           "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/263",
+          "createdAt": "2026-11-24T06:10:39Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Several screens and labels are not translated when the app language is Tamil",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan",
             "Nelson"
           ],
           "state": "OPEN",
@@ -348,7 +390,7 @@
         },
         {
           "title": "Frontend – Implement State-Based Language Selection",
-          "status": "TO DO",
+          "status": "Backlog",
           "priority": "",
           "size": "",
           "assignees": [
@@ -357,6 +399,37 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/243",
           "createdAt": "2026-11-16T06:18:44Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Backend – Implement State-Based Language Management",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/242",
+          "createdAt": "2026-11-16T06:18:17Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "ENH-28 Bilingual app: English plus the regional language",
+          "status": "Backlog",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan",
+            "Nelson"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/203",
+          "createdAt": "2026-11-02T17:25:56Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -692,22 +765,6 @@
           "endDate": ""
         },
         {
-          "title": "ENH-28 Bilingual app: English plus the regional language",
-          "status": "TO DO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan",
-            "Nelson"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/203",
-          "createdAt": "2026-11-02T17:25:56Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "ENH-20  Negative wallet balance after commission",
           "status": "QA Completed",
           "priority": "",
@@ -803,7 +860,7 @@
           "priority": "",
           "size": "",
           "assignees": [
-            "Nelson"
+            "Lakshana-Lakshmanan"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/183",
@@ -1801,44 +1858,14 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "EP03-US-011 Recharge wallet",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/11",
-          "createdAt": "2026-09-08T11:02:12Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "EP03-US-013 Log every wallet action",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/13",
-          "createdAt": "2026-09-08T11:08:28Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 3,
+        "inProgress": 4,
         "todo": 0,
-        "backlog": 0,
+        "backlog": 4,
         "production": 0
       }
     },
@@ -3282,6 +3309,217 @@
       "title": "Edubot_CPLC",
       "items": [
         {
+          "title": "Learner Receives 404 Error When Accessing Updated Lesson Plan Through Notification",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/640",
+          "createdAt": "2026-11-20T07:01:20Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Learner reassignment is not updated in Mentor Learner Attendance",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/620",
+          "createdAt": "2026-11-11T08:45:09Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Batch Filter Is Selected by Default in Course Progress Monitor",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/626",
+          "createdAt": "2026-11-12T10:05:50Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Admin Dashboard Shows 0 Present Instead of Holiday Status",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/618",
+          "createdAt": "2026-11-10T12:26:06Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Enable Post Creation Access for Learners in Community Forum",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/588",
+          "createdAt": "2026-10-27T06:19:08Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082",
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/612",
+          "createdAt": "2026-11-05T07:25:25Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Learner Unable to View Study Material When Download Permission Is Disabled",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/632",
+          "createdAt": "2026-11-16T10:16:13Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Lesson Plan Schedule Displays Repeated Sections for Unconfigured Days",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/643",
+          "createdAt": "2026-11-20T09:15:34Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Page Does Not Automatically Scroll to the Next Module When Clicking Proceed to Next Module",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/638",
+          "createdAt": "2026-11-18T09:05:43Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Learner Notification Count Mismatch",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/633",
+          "createdAt": "2026-11-17T06:18:59Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Incorrect Approval Route & Status Displayed After Learner Withdraws a Leave Request",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/625",
+          "createdAt": "2026-11-12T05:30:36Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Approval Route & Status Incorrectly Displayed After Mentor Withdraws a Leave Request",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/624",
+          "createdAt": "2026-11-12T05:13:46Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Administration Status Displayed as Pending After Mentor Rejects Learner Leave Request",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/623",
+          "createdAt": "2026-11-12T04:38:47Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Reviewer Comment Displayed by Default",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/622",
+          "createdAt": "2026-11-12T04:22:40Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Implement Grafana-Based Log Monitoring & Time Tracking for Edubot",
           "status": "Completed",
           "priority": "",
@@ -4002,22 +4240,6 @@
           "endDate": ""
         },
         {
-          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
-          "status": "In Development",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates",
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/612",
-          "createdAt": "2026-11-05T07:25:25Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Improve Lesson Plan Builder with Curriculum Upload and Batch-Wise Material Sharing",
           "status": "Completed in QA",
           "priority": "",
@@ -4028,21 +4250,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/587",
           "createdAt": "2026-10-27T06:00:25Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Enable Post Creation Access for Learners in Community Forum",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/588",
-          "createdAt": "2026-10-27T06:19:08Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -4597,190 +4804,12 @@
           "closedAt": "2026-10-26T09:54:51Z",
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Remove Edit and Delete Buttons for Events in the Schedule Calendar",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/498",
-          "createdAt": "2026-10-14T09:25:36Z",
-          "closedAt": "2026-10-26T09:54:51Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin – Event Calendar Displays Incorrect Assessment Event Timings",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/494",
-          "createdAt": "2026-10-14T07:22:20Z",
-          "closedAt": "2026-10-26T09:54:51Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin – Completed Meetings Still Display the Join Button in Today's Schedule",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/495",
-          "createdAt": "2026-10-14T07:24:13Z",
-          "closedAt": "2026-10-26T09:54:51Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Mentor – Lesson Plan Search Does Not Filter the Lesson List",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/496",
-          "createdAt": "2026-10-14T07:46:32Z",
-          "closedAt": "2026-10-26T09:54:51Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Study Material – Failed to Create Study Material When Uploading a Document",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/478",
-          "createdAt": "2026-10-13T07:32:54Z",
-          "closedAt": "2026-10-26T09:54:53Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Study Materials Are Visible to Learners Without Mentor Assignment",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/487",
-          "createdAt": "2026-10-13T12:45:40Z",
-          "closedAt": "2026-10-26T09:54:53Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Draft Course Is Visible to Learners Without Mentor Publishing",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/483",
-          "createdAt": "2026-10-13T10:39:10Z",
-          "closedAt": "2026-10-26T09:54:53Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Student Attendance – Admin Attendance Info Status Not Updated After Successful Check-In and Check-Out",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/479",
-          "createdAt": "2026-10-13T07:35:01Z",
-          "closedAt": "2026-10-26T09:54:53Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Withdrawn Leave Request Status Is Not Displayed in the Learner Leave Management List",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/471",
-          "createdAt": "2026-10-12T07:15:41Z",
-          "closedAt": "2026-10-26T09:54:53Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Add Batch – End Date Picker and Month Selection Are Hidden",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/465",
-          "createdAt": "2026-10-09T09:33:10Z",
-          "closedAt": "2026-10-26T09:54:53Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Frontend — Admin Learner Video Progress Dashboard",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/464",
-          "createdAt": "2026-10-09T09:22:41Z",
-          "closedAt": "2026-10-26T09:54:53Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Frontend — Learner Video Progress Tracking",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/462",
-          "createdAt": "2026-10-09T09:13:13Z",
-          "closedAt": "2026-10-26T09:54:53Z",
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 97,
-        "inProgress": 0,
+        "done": 85,
+        "inProgress": 7,
         "todo": 0,
         "backlog": 1,
         "production": 0
@@ -7301,6 +7330,111 @@
       "title": "Worklogix",
       "items": [
         {
+          "title": "Intern Portal – Intern Is Able to Submit Daily Updates Even When the Current Date Is Marked as a Holiday",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/565",
+          "createdAt": "2026-11-20T05:01:11Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "PM Can Assign Tasks to Employees on Holidays",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/566",
+          "createdAt": "2026-11-20T05:08:15Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Intern Portal – Intern Is Able to Sign In to Daily Log Even When the Current Date Is Marked as a Holiday",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/564",
+          "createdAt": "2026-11-20T04:51:12Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Free Trial – Client Role –  Daily Updates Interns Are Not Displayed When Applying Filters in the Daily Updates Module",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/511",
+          "createdAt": "2026-11-02T10:04:37Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Leadership Reports – Incorrect Project Completion Percentage Displayed by Manager",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/571",
+          "createdAt": "2026-11-23T11:06:06Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Leadership Reports – Incorrect Data Displayed in PM Project Details",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/570",
+          "createdAt": "2026-11-23T10:32:00Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "[Client Role] – Intern Missing from Daily Update Filter and Client Automatically Logged Out When Viewing Intern's Daily Update",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "nithisha-01"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/554",
+          "createdAt": "2026-11-16T09:11:44Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Leadership Role  Able to Evaluate Interns and Employees KPI",
           "status": "QA Completed",
           "priority": "",
@@ -8672,117 +8806,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Inconsistent Label Alignment Across the UI",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/64",
-          "createdAt": "2026-07-09T07:35:41Z",
-          "closedAt": null,
-          "startDate": "2026-08-13",
-          "endDate": "2026-08-13"
-        },
-        {
-          "title": "Employee dashboard fails to load due to 403 API response[Employee ID ]",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/68",
-          "createdAt": "2026-08-03T09:20:02Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Task Date field accepts alphabetic characters in the Daily Updates module across all user roles.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/70",
-          "createdAt": "2026-08-06T06:12:11Z",
-          "closedAt": null,
-          "startDate": "2026-08-13",
-          "endDate": "2026-08-13"
-        },
-        {
-          "title": "Employee name updates are not reflected immediately across user roles and appear only after logout and login.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/71",
-          "createdAt": "2026-08-06T06:51:59Z",
-          "closedAt": null,
-          "startDate": "2026-08-17",
-          "endDate": "2026-08-17"
-        },
-        {
-          "title": "Application error is displayed when the Team Lead opens Employee Performance Analytics.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/73",
-          "createdAt": "2026-08-06T07:31:45Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Performance Breakdown dropdown is misaligned and extends outside its container in the Project Manager Portal.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/74",
-          "createdAt": "2026-08-06T09:03:58Z",
-          "closedAt": "2026-08-18T05:35:49Z",
-          "startDate": "2026-08-17",
-          "endDate": "2026-08-17"
-        },
-        {
-          "title": "An employee name is selected by default in the Performance Breakdown filter without user action.",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/75",
-          "createdAt": "2026-08-06T09:08:11Z",
-          "closedAt": null,
-          "startDate": "2026-08-17",
-          "endDate": "2026-08-17"
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 0,
+        "inProgress": 7,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -8994,817 +9023,6 @@
         "backlog": 0,
         "production": 2
       }
-    },
-    {
-      "number": 13,
-      "title": "Devops",
-      "items": [
-        {
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": "High",
-          "size": "",
-          "assignees": [
-            "Iftikhaar-ali"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/49",
-          "createdAt": "2026-06-29T06:48:52Z",
-          "closedAt": "2026-06-29T07:12:22Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Request to Add Environment Variables for Academiq AI",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/99",
-          "createdAt": "2026-07-01T04:52:55Z",
-          "closedAt": "2026-07-01T06:31:49Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Request to create development server and share access – Oman Tourism App API Integration",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/1",
-          "createdAt": "2026-07-02T05:00:13Z",
-          "closedAt": "2026-07-06T07:21:29Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Create Azure Database for Oman Smart Tourism App",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/204",
-          "createdAt": "2026-07-06T07:27:45Z",
-          "closedAt": "2026-07-07T12:29:39Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Grant Repository Access to Worklogix",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/51",
-          "createdAt": "2026-07-06T10:46:20Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Grant Repository Access to Academiq AI",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/237",
-          "createdAt": "2026-07-07T09:15:42Z",
-          "closedAt": "2026-07-07T12:29:58Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Provide Interactive Bible Project Access for Bug Tracking",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/17",
-          "createdAt": "2026-07-08T05:58:00Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Create Repositories for Inventory Management Application",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/574",
-          "createdAt": "2026-07-28T05:06:47Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Set Up API Server and Database for Inventory Management",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/580",
-          "createdAt": "2026-07-28T08:42:50Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Required",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/41",
-          "createdAt": "2026-08-11T07:30:10Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Required",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/760",
-          "createdAt": "2026-08-13T08:42:16Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Create Frontend & Backend Repositories for API Usage Dashboard and Deploy Application",
-          "status": "Completed",
-          "priority": "Medium",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/112",
-          "createdAt": "2026-08-14T05:52:45Z",
-          "closedAt": "2026-08-14T06:36:57Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Kindly provide github access to Inbarasu",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/67",
-          "createdAt": "2026-08-17T05:53:30Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/787",
-          "createdAt": "2026-08-18T11:01:39Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "User Story: Grant Keerthana Donkada Access to EduBot_CPLC_Institute Project",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/327",
-          "createdAt": "2026-08-25T05:12:58Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[DevOps] Provide Repository Access for EduBot CPLC QA Team",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/14",
-          "createdAt": "2026-07-13T09:02:08Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/150",
-          "createdAt": "2026-08-27T04:20:35Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/155",
-          "createdAt": "2026-08-27T11:30:09Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Kindly provide access to Inbarasu for the pipeline for Bible APP backend to access tickets.",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/82",
-          "createdAt": "2026-09-02T04:55:14Z",
-          "closedAt": "2026-09-02T05:50:57Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Provide Repository Access to Testing Team – Edubot V3",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/345",
-          "createdAt": "2026-09-03T06:40:58Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Request Frontend Access",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/856",
-          "createdAt": "2026-09-07T09:56:21Z",
-          "closedAt": "2026-09-07T10:10:13Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/177",
-          "createdAt": "2026-09-08T04:37:21Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Create repositories for My Medical Help – Frontend & Backend",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/858",
-          "createdAt": "2026-09-08T07:41:13Z",
-          "closedAt": "2026-09-08T09:14:18Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/14",
-          "createdAt": "2026-09-11T10:43:53Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Create and Configure Backend Server",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/16",
-          "createdAt": "2026-09-15T05:11:30Z",
-          "closedAt": "2026-09-24T09:55:34Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Please Create Frontend Repository for My Medical Help",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/34",
-          "createdAt": "2026-09-16T12:29:30Z",
-          "closedAt": "2026-09-16T12:42:57Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/35",
-          "createdAt": "2026-09-17T10:33:15Z",
-          "closedAt": "2026-09-17T12:34:56Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Create Frontend & Backend Repositories for Vending machine project",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/901",
-          "createdAt": "2026-09-23T10:11:23Z",
-          "closedAt": "2026-09-23T12:19:52Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Create Frontend & Backend Repositories for People Ops",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/902",
-          "createdAt": "2026-09-23T10:16:39Z",
-          "closedAt": "2026-09-23T12:20:26Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/908",
-          "createdAt": "2026-09-24T10:19:54Z",
-          "closedAt": "2026-09-24T11:49:52Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Grant Saran Menon (Dev Lead) Access to EduBot_CPLC_Institute Project",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/356",
-          "createdAt": "2026-09-28T06:33:39Z",
-          "closedAt": "2026-09-28T07:41:42Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Grant Inbarasu Backend & Frontend Access to EduBot_CPLC_Institute Project",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/357",
-          "createdAt": "2026-09-28T06:38:53Z",
-          "closedAt": "2026-09-28T07:40:54Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Grant Sriram Backend & Frontend Access to EduBot_CPLC_Institute Project",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/388",
-          "createdAt": "2026-09-28T08:57:07Z",
-          "closedAt": "2026-09-28T09:47:23Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Provide git access to Santha Kumar for Edubot CPLC",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/447",
-          "createdAt": "2026-10-07T10:38:10Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/164",
-          "createdAt": "2026-10-19T05:20:57Z",
-          "closedAt": "2026-10-19T06:14:25Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/oman-smart-tourism-UI/issues/72",
-          "createdAt": "2026-10-19T05:23:14Z",
-          "closedAt": "2026-10-19T06:15:38Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/943",
-          "createdAt": "2026-10-19T05:31:38Z",
-          "closedAt": "2026-10-19T06:16:48Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/946",
-          "createdAt": "2026-10-21T07:05:37Z",
-          "closedAt": "2026-10-21T09:10:10Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/947",
-          "createdAt": "2026-10-21T07:25:03Z",
-          "closedAt": "2026-10-21T09:11:22Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/250",
-          "createdAt": "2026-10-23T10:42:36Z",
-          "closedAt": "2026-10-23T11:30:17Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/962",
-          "createdAt": "2026-10-27T09:48:01Z",
-          "closedAt": "2026-10-27T10:21:25Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Need git access to Karthikeyan on EduBot_CPLC_Institute & Edubot V3",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/609",
-          "createdAt": "2026-11-03T08:59:12Z",
-          "closedAt": "2026-11-04T10:14:31Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request – Edubot University Frontend and Backend Repositories",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "ShamSundar-R"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/978",
-          "createdAt": "2026-11-06T07:10:18Z",
-          "closedAt": "2026-11-11T04:28:38Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request for My Medical Help",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/212",
-          "createdAt": "2026-11-10T07:22:22Z",
-          "closedAt": "2026-11-10T11:21:50Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Repository Access Request – hirevox Frontend & Backend",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/983",
-          "createdAt": "2026-11-10T10:52:57Z",
-          "closedAt": "2026-11-10T11:50:22Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Create Git repositories for new project – ZOCKET (Backend API + Frontend)",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/619",
-          "createdAt": "2026-11-11T05:07:26Z",
-          "closedAt": "2026-11-11T06:15:00Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Request Access to EduBot University Frontend and Backend Repositories",
-          "status": "Todo",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/994",
-          "createdAt": "2026-11-17T06:26:04Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/CodeWork-Worklogix-Ui/issues/272",
-          "createdAt": "2026-11-17T09:36:48Z",
-          "closedAt": "2026-11-17T10:37:26Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Grant Kamali E Access to EduBot_CPLC_Institute Project",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/637",
-          "createdAt": "2026-11-18T05:14:03Z",
-          "closedAt": "2026-11-18T06:15:15Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request for Lovio Store",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/Academiq.ai-UI/issues/996",
-          "createdAt": "2026-11-19T10:58:26Z",
-          "closedAt": "2026-11-23T12:20:58Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Grant Kamali E Access to EduBot_V3",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/639",
-          "createdAt": "2026-11-20T05:17:32Z",
-          "closedAt": "2026-11-23T12:20:41Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Access Request",
-          "status": "Done",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Vinoth-codework",
-            "manju-209"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-API/issues/17",
-          "createdAt": "2026-11-20T08:58:28Z",
-          "closedAt": "2026-11-20T09:14:50Z",
-          "startDate": "",
-          "endDate": ""
-        }
-      ],
-      "stats": {
-        "total": 52,
-        "done": 50,
-        "inProgress": 0,
-        "todo": 2,
-        "backlog": 0,
-        "production": 0
-      }
     }
   ],
   "contributors": [
@@ -9876,19 +9094,19 @@
         {
           "project": "My Medical Help Admin Panel",
           "title": "Manage Languages allows duplicate language names",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help Admin Panel",
           "title": "Close (X) button in the “New subcategory” modal is invisible",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
           "project": "My Medical Help Admin Panel",
           "title": "Notification Icon Is Not Functional in Admin Dashboard",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -9900,7 +9118,7 @@
         {
           "project": "My Medical Help Admin Panel",
           "title": "“Registration refunds” menu shows no count/notification for new refund requests (Support tickets and KYC review do)",
-          "status": "QA Review",
+          "status": "QA Completed",
           "priority": ""
         },
         {
@@ -10420,18 +9638,6 @@
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "EP03-US-011 Recharge wallet",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "EP03-US-013 Log every wallet action",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
           "project": "Edubot_V3",
           "title": "AI Smart Dashboard Displays \"Failed to Load Analysis Data\" with 403 API Response",
           "status": "Completed in QA",
@@ -10679,6 +9885,30 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "Learner Receives 404 Error When Accessing Updated Lesson Plan Through Notification",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Enable Post Creation Access for Learners in Community Forum",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Lesson Plan Schedule Displays Repeated Sections for Unconfigured Days",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "UI/UX - Forum",
           "status": "Completed",
           "priority": ""
@@ -10896,72 +10126,6 @@
         {
           "project": "Edubot_CPLC",
           "title": "All Students Unable to Check In After Admin Cancels the Declared Holiday",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Remove Edit and Delete Buttons for Events in the Schedule Calendar",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin – Event Calendar Displays Incorrect Assessment Event Timings",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin – Completed Meetings Still Display the Join Button in Today's Schedule",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Mentor – Lesson Plan Search Does Not Filter the Lesson List",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Study Material – Failed to Create Study Material When Uploading a Document",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Study Materials Are Visible to Learners Without Mentor Assignment",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Draft Course Is Visible to Learners Without Mentor Publishing",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Student Attendance – Admin Attendance Info Status Not Updated After Successful Check-In and Check-Out",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Withdrawn Leave Request Status Is Not Displayed in the Learner Leave Management List",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Frontend — Admin Learner Video Progress Dashboard",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Frontend — Learner Video Progress Tracking",
           "status": "Completed",
           "priority": ""
         },
@@ -11842,9 +11006,9 @@
           "priority": ""
         }
       ],
-      "total": 337,
-      "done": 89,
-      "inProgress": 50,
+      "total": 328,
+      "done": 78,
+      "inProgress": 54,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -12375,51 +11539,9 @@
           "title": "Team Member Count Includes Team Lead",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Inconsistent Label Alignment Across the UI",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Employee dashboard fails to load due to 403 API response[Employee ID ]",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Task Date field accepts alphabetic characters in the Daily Updates module across all user roles.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Employee name updates are not reflected immediately across user roles and appear only after logout and login.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Application error is displayed when the Team Lead opens Employee Performance Analytics.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Performance Breakdown dropdown is misaligned and extends outside its container in the Project Manager Portal.",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "An employee name is selected by default in the Performance Breakdown filter without user action.",
-          "status": "QA Completed",
-          "priority": ""
         }
       ],
-      "total": 93,
+      "total": 86,
       "done": 1,
       "inProgress": 0,
       "commits": 0,
@@ -12430,336 +11552,10 @@
       "deletions": 0
     },
     {
-      "login": "manju-209",
-      "projects": [
-        "My Medical Help Admin Panel",
-        "Edubot_V3",
-        "Edubot_CPLC",
-        "SabAi Bible App",
-        "Devops"
-      ],
-      "tasks": [
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Azure DevOps Server Access – Frontend Integration",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Implement Grafana-Based Log Monitoring & Time Tracking for Edubot",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "Provide Interactive Bible Project Access for Bug Tracking",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Request to create development server and share access – Oman Tourism App API Integration",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Create Azure Database for Oman Smart Tourism App",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Grant Repository Access to Worklogix",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Grant Repository Access to Academiq AI",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Provide Interactive Bible Project Access for Bug Tracking",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Create Repositories for Inventory Management Application",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Set Up API Server and Database for Inventory Management",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Required",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Required",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Create Frontend & Backend Repositories for API Usage Dashboard and Deploy Application",
-          "status": "Completed",
-          "priority": "Medium"
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "User Story: Grant Keerthana Donkada Access to EduBot_CPLC_Institute Project",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "[DevOps] Provide Repository Access for EduBot CPLC QA Team",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Provide Repository Access to Testing Team – Edubot V3",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Request Frontend Access",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Create repositories for My Medical Help – Frontend & Backend",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Create and Configure Backend Server",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Please Create Frontend Repository for My Medical Help",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Create Frontend & Backend Repositories for Vending machine project",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Create Frontend & Backend Repositories for People Ops",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Grant Saran Menon (Dev Lead) Access to EduBot_CPLC_Institute Project",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Grant Inbarasu Backend & Frontend Access to EduBot_CPLC_Institute Project",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Grant Sriram Backend & Frontend Access to EduBot_CPLC_Institute Project",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Provide git access to Santha Kumar for Edubot CPLC",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Need git access to Karthikeyan on EduBot_CPLC_Institute & Edubot V3",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request for My Medical Help",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Repository Access Request – hirevox Frontend & Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Create Git repositories for new project – ZOCKET (Backend API + Frontend)",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Request Access to EduBot University Frontend and Backend Repositories",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Grant Kamali E Access to EduBot_CPLC_Institute Project",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request for Lovio Store",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Grant Kamali E Access to EduBot_V3",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        }
-      ],
-      "total": 51,
-      "done": 49,
-      "inProgress": 0,
-      "commits": 2,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 4,
-      "deletions": 0
-    },
-    {
       "login": "nithisha-01",
       "projects": [
         "Edubot_V3",
+        "Worklogix",
         "Hirelysze",
         "HireLens"
       ],
@@ -12768,6 +11564,48 @@
           "project": "Edubot_V3",
           "title": "AI Plagiarism & Academic Integrity – Frontend",
           "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Intern Portal – Intern Is Able to Submit Daily Updates Even When the Current Date Is Marked as a Holiday",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "PM Can Assign Tasks to Employees on Holidays",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Intern Portal – Intern Is Able to Sign In to Daily Log Even When the Current Date Is Marked as a Holiday",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Free Trial – Client Role –  Daily Updates Interns Are Not Displayed When Applying Filters in the Daily Updates Module",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Leadership Reports – Incorrect Project Completion Percentage Displayed by Manager",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Leadership Reports – Incorrect Data Displayed in PM Project Details",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "[Client Role] – Intern Missing from Daily Update Filter and Client Automatically Logged Out When Viewing Intern's Daily Update",
+          "status": "In Progress",
           "priority": ""
         },
         {
@@ -12795,15 +11633,15 @@
           "priority": ""
         }
       ],
-      "total": 5,
+      "total": 12,
       "done": 0,
-      "inProgress": 0,
-      "commits": 47,
-      "prs": 36,
-      "prsMerged": 34,
-      "prReviews": 10,
-      "additions": 8369,
-      "deletions": 7134
+      "inProgress": 7,
+      "commits": 56,
+      "prs": 41,
+      "prsMerged": 37,
+      "prReviews": 13,
+      "additions": 11034,
+      "deletions": 8905
     },
     {
       "login": "Megna-Codework",
@@ -12812,6 +11650,30 @@
         "Acadamiq AI"
       ],
       "tasks": [
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learner reassignment is not updated in Mentor Learner Attendance",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Batch Filter Is Selected by Default in Course Progress Monitor",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Admin Dashboard Shows 0 Present Instead of Holiday Status",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
+          "status": "Review in QA",
+          "priority": ""
+        },
         {
           "project": "Edubot_CPLC",
           "title": "Mentor Registration – Next Step Button Not Working After Entering Mandatory Details",
@@ -13113,189 +11975,15 @@
           "priority": ""
         }
       ],
-      "total": 50,
+      "total": 54,
       "done": 45,
-      "inProgress": 0,
+      "inProgress": 4,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
-    },
-    {
-      "login": "Vinoth-codework",
-      "projects": [
-        "My Medical Help Admin Panel",
-        "Devops"
-      ],
-      "tasks": [
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help Admin Panel",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Provide Repository Access to Testing Team – Edubot V3",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Please Create Frontend Repository for My Medical Help",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Create Frontend & Backend Repositories for Vending machine project",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Create Frontend & Backend Repositories for People Ops",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Need git access to Karthikeyan on EduBot_CPLC_Institute & Edubot V3",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request for My Medical Help",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Repository Access Request – hirevox Frontend & Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Create Git repositories for new project – ZOCKET (Backend API + Frontend)",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Request Access to EduBot University Frontend and Backend Repositories",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Grant Kamali E Access to EduBot_CPLC_Institute Project",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request for Lovio Store",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Done",
-          "priority": ""
-        }
-      ],
-      "total": 26,
-      "done": 24,
-      "inProgress": 0,
-      "commits": 3,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 111,
-      "deletions": 121
     },
     {
       "login": "Lakshana-Lakshmanan",
@@ -13308,20 +11996,44 @@
       "tasks": [
         {
           "project": "My Medical Help",
+          "title": "Patient can book two appointments with different doctors at the same date and time",
+          "status": "In progress",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Several screens and labels are not translated when the app language is Tamil",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
           "title": "Frontend – Implement State-Based Language Selection",
-          "status": "TO DO",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Backend – Implement State-Based Language Management",
+          "status": "Backlog",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "ENH-28 Bilingual app: English plus the regional language",
-          "status": "TO DO",
+          "status": "Backlog",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "EP04-US-019 Generate appointment slots",
           "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
+          "status": "TO DO",
           "priority": ""
         },
         {
@@ -13349,15 +12061,15 @@
           "priority": ""
         }
       ],
-      "total": 7,
+      "total": 11,
       "done": 0,
-      "inProgress": 1,
-      "commits": 10,
-      "prs": 10,
-      "prsMerged": 10,
+      "inProgress": 2,
+      "commits": 13,
+      "prs": 12,
+      "prsMerged": 12,
       "prReviews": 2,
-      "additions": 2936,
-      "deletions": 185
+      "additions": 3123,
+      "deletions": 236
     },
     {
       "login": "Antony-Bilgates",
@@ -13399,13 +12111,13 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
-          "status": "In Development",
+          "title": "Learner Unable to View Study Material When Download Permission Is Disabled",
+          "status": "To Do",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Enable Post Creation Access for Learners in Community Forum",
+          "title": "Learner Notification Count Mismatch",
           "status": "To Do",
           "priority": ""
         },
@@ -13462,41 +12174,11 @@
       "done": 2,
       "inProgress": 7,
       "commits": 0,
-      "prs": 4,
-      "prsMerged": 4,
+      "prs": 9,
+      "prsMerged": 9,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
-    },
-    {
-      "login": "Kxrthikeyan-76",
-      "projects": [
-        "Edubot_V3",
-        "Worklogix"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "LMS Integration (frontend)",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Leadership Role – Wrong Date and Back Navigation Issue",
-          "status": "Backlog",
-          "priority": ""
-        }
-      ],
-      "total": 2,
-      "done": 0,
-      "inProgress": 0,
-      "commits": 7,
-      "prs": 6,
-      "prsMerged": 6,
-      "prReviews": 0,
-      "additions": 7014,
-      "deletions": 630
     },
     {
       "login": "Glad-Andrew",
@@ -13543,20 +12225,153 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "UI/UX Implementation – Edubot V2 (CPLC)",
-          "status": "In Development",
+          "title": "Page Does Not Automatically Scroll to the Next Module When Clicking Proceed to Next Module",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Incorrect Approval Route & Status Displayed After Learner Withdraws a Leave Request",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Approval Route & Status Incorrectly Displayed After Mentor Withdraws a Leave Request",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Administration Status Displayed as Pending After Mentor Rejects Learner Leave Request",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Reviewer Comment Displayed by Default",
+          "status": "To Do",
           "priority": ""
         }
       ],
-      "total": 7,
+      "total": 11,
       "done": 2,
       "inProgress": 0,
       "commits": 0,
-      "prs": 16,
-      "prsMerged": 16,
+      "prs": 17,
+      "prsMerged": 17,
       "prReviews": 6,
       "additions": 0,
       "deletions": 0
+    },
+    {
+      "login": "Kxrthikeyan-76",
+      "projects": [
+        "Edubot_V3",
+        "Worklogix"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "LMS Integration (frontend)",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Leadership Role – Wrong Date and Back Navigation Issue",
+          "status": "Backlog",
+          "priority": ""
+        }
+      ],
+      "total": 2,
+      "done": 0,
+      "inProgress": 0,
+      "commits": 7,
+      "prs": 7,
+      "prsMerged": 7,
+      "prReviews": 0,
+      "additions": 7014,
+      "deletions": 630
+    },
+    {
+      "login": "manju-209",
+      "projects": [
+        "My Medical Help Admin Panel",
+        "Edubot_V3",
+        "Edubot_CPLC",
+        "SabAi Bible App"
+      ],
+      "tasks": [
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Azure DevOps Server Access – Frontend Integration",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Implement Grafana-Based Log Monitoring & Time Tracking for Edubot",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Provide Interactive Bible Project Access for Bug Tracking",
+          "status": "Backlog",
+          "priority": ""
+        }
+      ],
+      "total": 5,
+      "done": 4,
+      "inProgress": 0,
+      "commits": 2,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "login": "Vinoth-codework",
+      "projects": [
+        "My Medical Help Admin Panel"
+      ],
+      "tasks": [
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help Admin Panel",
+          "title": "Access Request",
+          "status": "Done",
+          "priority": ""
+        }
+      ],
+      "total": 2,
+      "done": 2,
+      "inProgress": 0,
+      "commits": 4,
+      "prs": 0,
+      "prsMerged": 0,
+      "prReviews": 0,
+      "additions": 112,
+      "deletions": 134
     },
     {
       "login": "inbarasuv",
@@ -13620,23 +12435,17 @@
         {
           "project": "My Medical Help",
           "title": "Several screens and labels are not translated when the app language is Tamil",
-          "status": "TO DO",
+          "status": "Backlog",
           "priority": ""
         },
         {
           "project": "My Medical Help",
           "title": "ENH-28 Bilingual app: English plus the regional language",
-          "status": "TO DO",
-          "priority": ""
-        },
-        {
-          "project": "My Medical Help",
-          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
-          "status": "TO DO",
+          "status": "Backlog",
           "priority": ""
         }
       ],
-      "total": 3,
+      "total": 2,
       "done": 0,
       "inProgress": 0,
       "commits": 0,
@@ -13676,52 +12485,6 @@
       "deletions": 0
     },
     {
-      "login": "Iftikhaar-ali",
-      "projects": [
-        "Devops"
-      ],
-      "tasks": [
-        {
-          "project": "Devops",
-          "title": "Access Request",
-          "status": "Completed",
-          "priority": "High"
-        }
-      ],
-      "total": 1,
-      "done": 1,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "ShamSundar-R",
-      "projects": [
-        "Devops"
-      ],
-      "tasks": [
-        {
-          "project": "Devops",
-          "title": "Access Request – Edubot University Frontend and Backend Repositories",
-          "status": "Done",
-          "priority": ""
-        }
-      ],
-      "total": 1,
-      "done": 1,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 0,
-      "prsMerged": 0,
-      "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
       "login": "xavierrnelson",
       "projects": [],
       "tasks": [],
@@ -13729,8 +12492,8 @@
       "done": 0,
       "inProgress": 0,
       "commits": 1,
-      "prs": 17,
-      "prsMerged": 17,
+      "prs": 18,
+      "prsMerged": 18,
       "prReviews": 0,
       "additions": 89,
       "deletions": 22
