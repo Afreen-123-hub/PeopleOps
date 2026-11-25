@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-24T14:06:28.245132Z",
+  "lastUpdated": "2026-11-25T13:20:09.826236Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
@@ -359,15 +359,45 @@
       "items": [
         {
           "title": "Patient can book two appointments with different doctors at the same date and time",
-          "status": "In progress",
+          "status": "QA review",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "Santhakumar082"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/263",
           "createdAt": "2026-11-24T06:10:39Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Patient gets no notification or call when professional joins an online consultation; the two never connect",
+          "status": "QA review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/260",
+          "createdAt": "2026-11-23T09:19:37Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
+          "status": "QA review",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/183",
+          "createdAt": "2026-10-28T08:43:50Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -850,21 +880,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/69",
           "createdAt": "2026-09-24T11:53:36Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
-          "status": "TO DO",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Lakshana-Lakshmanan"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/183",
-          "createdAt": "2026-10-28T08:43:50Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -1843,27 +1858,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "EP01-US-008 Gate activation on verification",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/8",
-          "createdAt": "2026-09-08T10:51:37Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 4,
+        "inProgress": 3,
         "todo": 0,
         "backlog": 4,
         "production": 0
@@ -3309,12 +3309,237 @@
       "title": "Edubot_CPLC",
       "items": [
         {
-          "title": "Learner Receives 404 Error When Accessing Updated Lesson Plan Through Notification",
+          "title": "UI/UX - Course Layout Changes Unexpectedly After Mentor Curriculum Update",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/664",
+          "createdAt": "2026-11-25T10:11:30Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Attendance Info Not Updated for Mentor After Admin Approves Regularization Request",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/647",
+          "createdAt": "2026-11-24T10:38:35Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Approve Action Not Working Directly in Admin Actions for Mentor Leave Request",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/644",
+          "createdAt": "2026-11-24T08:43:45Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Excel Import Fails with 500 Internal Server Error for Learner/Mentor User Import",
           "status": "Review in QA",
           "priority": "",
           "size": "",
           "assignees": [
             "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/661",
+          "createdAt": "2026-11-25T09:11:12Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Administration Status Displayed as Pending After Mentor Rejects Learner Leave Request",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/623",
+          "createdAt": "2026-11-12T04:38:47Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Learner Notification Count Mismatch",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/633",
+          "createdAt": "2026-11-17T06:18:59Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Reviewer Comment Displayed by Default",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/622",
+          "createdAt": "2026-11-12T04:22:40Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Page Does Not Automatically Scroll to the Next Module When Clicking Proceed to Next Module",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/638",
+          "createdAt": "2026-11-18T09:05:43Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Learner Unable to View Study Material When Download Permission Is Disabled",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/632",
+          "createdAt": "2026-11-16T10:16:13Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX - Student Attendance Label Displayed Instead of Learner Attendance on Overview Page",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/660",
+          "createdAt": "2026-11-25T06:31:02Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX - EduBot Logo Overlaps with Login UI on Laptop Screens Below 14 Inches at 100% Display Scaling",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/657",
+          "createdAt": "2026-11-25T05:31:43Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX - Profile Picture Edit Icon Is Not Functional in Mentor Details Page",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/663",
+          "createdAt": "2026-11-25T09:49:57Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Incorrect Approval Route & Status Displayed After Learner Withdraws a Leave Request",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/625",
+          "createdAt": "2026-11-12T05:30:36Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX - EduBot Logo Does Not Match the Figma Design on the Login Page",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/659",
+          "createdAt": "2026-11-25T05:56:58Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Approval Route & Status Incorrectly Displayed After Mentor Withdraws a Leave Request",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/624",
+          "createdAt": "2026-11-12T05:13:46Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Learner Receives 404 Error When Accessing Updated Lesson Plan Through Notification",
+          "status": "To Do",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/640",
@@ -3325,7 +3550,7 @@
         },
         {
           "title": "Learner reassignment is not updated in Mentor Learner Attendance",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3340,7 +3565,7 @@
         },
         {
           "title": "Batch Filter Is Selected by Default in Course Progress Monitor",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3355,7 +3580,7 @@
         },
         {
           "title": "Admin Dashboard Shows 0 Present Instead of Holiday Status",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3400,21 +3625,6 @@
           "endDate": ""
         },
         {
-          "title": "Learner Unable to View Study Material When Download Permission Is Disabled",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/632",
-          "createdAt": "2026-11-16T10:16:13Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Lesson Plan Schedule Displays Repeated Sections for Unconfigured Days",
           "status": "Review in QA",
           "priority": "",
@@ -3425,96 +3635,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/643",
           "createdAt": "2026-11-20T09:15:34Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Page Does Not Automatically Scroll to the Next Module When Clicking Proceed to Next Module",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/638",
-          "createdAt": "2026-11-18T09:05:43Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Learner Notification Count Mismatch",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/633",
-          "createdAt": "2026-11-17T06:18:59Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Incorrect Approval Route & Status Displayed After Learner Withdraws a Leave Request",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/625",
-          "createdAt": "2026-11-12T05:30:36Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Approval Route & Status Incorrectly Displayed After Mentor Withdraws a Leave Request",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/624",
-          "createdAt": "2026-11-12T05:13:46Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Administration Status Displayed as Pending After Mentor Rejects Learner Leave Request",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/623",
-          "createdAt": "2026-11-12T04:38:47Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Reviewer Comment Displayed by Default",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/622",
-          "createdAt": "2026-11-12T04:22:40Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -4686,130 +4806,12 @@
           "closedAt": "2026-10-26T09:51:06Z",
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Mark Inactive Button Is Missing in the Mentor Section",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/515",
-          "createdAt": "2026-10-14T18:24:06Z",
-          "closedAt": "2026-10-26T09:51:06Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Attached Documents in Forum Posts Return a 404 Not Found Error",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/513",
-          "createdAt": "2026-10-14T18:13:17Z",
-          "closedAt": "2026-10-26T09:51:06Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin – remove Upload, Edit, and Delete Options in Study Material",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/493",
-          "createdAt": "2026-10-14T07:12:36Z",
-          "closedAt": "2026-10-26T09:53:33Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Student Does Not Receive Study Material Update Notification, and Previous Completion Status Persists",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/507",
-          "createdAt": "2026-10-14T12:43:38Z",
-          "closedAt": "2026-10-26T09:53:33Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "My Courses Are Visible to Learners Without Mentor Assignment",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/502",
-          "createdAt": "2026-10-14T10:30:36Z",
-          "closedAt": "2026-10-26T09:54:51Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "[Version-2 CPLC] Attached File Name Not Displayed in Update Resource",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/25",
-          "createdAt": "2026-07-13T10:45:48Z",
-          "closedAt": "2026-07-14T11:54:10Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Incorrect Error Message Displayed When Logging in With an Unregistered User",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/499",
-          "createdAt": "2026-10-14T09:47:36Z",
-          "closedAt": "2026-10-26T09:54:51Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "All Students Unable to Check In After Admin Cancels the Declared Holiday",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/492",
-          "createdAt": "2026-10-14T06:47:53Z",
-          "closedAt": "2026-10-26T09:54:51Z",
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 85,
-        "inProgress": 7,
+        "done": 80,
+        "inProgress": 10,
         "todo": 0,
         "backlog": 1,
         "production": 0
@@ -7345,6 +7347,21 @@
           "endDate": ""
         },
         {
+          "title": "[Leadership Role] Employees are not displayed in alphabetical order on the Employees List page.",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Kxrthikeyan-76"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/583",
+          "createdAt": "2026-11-25T07:28:57Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "PM Can Assign Tasks to Employees on Holidays",
           "status": "In Progress",
           "priority": "",
@@ -8791,27 +8808,12 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Team Member Count Includes Team Lead",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/63",
-          "createdAt": "2026-07-09T07:26:23Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 7,
+        "inProgress": 8,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -9119,6 +9121,24 @@
           "project": "My Medical Help Admin Panel",
           "title": "“Registration refunds” menu shows no count/notification for new refund requests (Support tickets and KYC review do)",
           "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Patient can book two appointments with different doctors at the same date and time",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Patient gets no notification or call when professional joins an online consultation; the two never connect",
+          "status": "QA review",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
+          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
+          "status": "QA review",
           "priority": ""
         },
         {
@@ -9632,12 +9652,6 @@
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "EP01-US-008 Gate activation on verification",
-          "status": "QA Completed",
-          "priority": ""
-        },
-        {
           "project": "Edubot_V3",
           "title": "AI Smart Dashboard Displays \"Failed to Load Analysis Data\" with 403 API Response",
           "status": "Completed in QA",
@@ -9885,7 +9899,37 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Learner Receives 404 Error When Accessing Updated Lesson Plan Through Notification",
+          "title": "Excel Import Fails with 500 Internal Server Error for Learner/Mentor User Import",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Administration Status Displayed as Pending After Mentor Rejects Learner Leave Request",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Reviewer Comment Displayed by Default",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Incorrect Approval Route & Status Displayed After Learner Withdraws a Leave Request",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI/UX - EduBot Logo Does Not Match the Figma Design on the Login Page",
+          "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Approval Route & Status Incorrectly Displayed After Mentor Withdraws a Leave Request",
           "status": "Review in QA",
           "priority": ""
         },
@@ -10084,48 +10128,6 @@
         {
           "project": "Edubot_CPLC",
           "title": "Schedule Notification Redirects to the Current Week Instead of the Scheduled Week",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Mark Inactive Button Is Missing in the Mentor Section",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Attached Documents in Forum Posts Return a 404 Not Found Error",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin – remove Upload, Edit, and Delete Options in Study Material",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Student Does Not Receive Study Material Update Notification, and Previous Completion Status Persists",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "My Courses Are Visible to Learners Without Mentor Assignment",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Incorrect Error Message Displayed When Logging in With an Unregistered User",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "All Students Unable to Check In After Admin Cancels the Declared Holiday",
           "status": "Completed",
           "priority": ""
         },
@@ -11007,14 +11009,106 @@
         }
       ],
       "total": 328,
-      "done": 78,
-      "inProgress": 54,
+      "done": 71,
+      "inProgress": 59,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
+    },
+    {
+      "login": "nithisha-01",
+      "projects": [
+        "Edubot_V3",
+        "Worklogix",
+        "Hirelysze",
+        "HireLens"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "AI Plagiarism & Academic Integrity – Frontend",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Intern Portal – Intern Is Able to Submit Daily Updates Even When the Current Date Is Marked as a Holiday",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "PM Can Assign Tasks to Employees on Holidays",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Intern Portal – Intern Is Able to Sign In to Daily Log Even When the Current Date Is Marked as a Holiday",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Free Trial – Client Role –  Daily Updates Interns Are Not Displayed When Applying Filters in the Daily Updates Module",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Leadership Reports – Incorrect Project Completion Percentage Displayed by Manager",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Leadership Reports – Incorrect Data Displayed in PM Project Details",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "[Client Role] – Intern Missing from Daily Update Filter and Client Automatically Logged Out When Viewing Intern's Daily Update",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Hirelysze",
+          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Add “Forgot Password” functionality to the HireLernse application.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "Interview duration allows 1 min — missing minimum limit validation.",
+          "status": "Todo",
+          "priority": ""
+        },
+        {
+          "project": "HireLens",
+          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
+          "status": "Todo",
+          "priority": ""
+        }
+      ],
+      "total": 12,
+      "done": 0,
+      "inProgress": 7,
+      "commits": 74,
+      "prs": 41,
+      "prsMerged": 39,
+      "prReviews": 13,
+      "additions": 14539,
+      "deletions": 9433
     },
     {
       "login": "Anisha-cw",
@@ -11533,15 +11627,9 @@
           "title": "Completion Date Does Not Allow Future Date Selection",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Team Member Count Includes Team Lead",
-          "status": "QA Completed",
-          "priority": ""
         }
       ],
-      "total": 86,
+      "total": 85,
       "done": 1,
       "inProgress": 0,
       "commits": 0,
@@ -11552,98 +11640,6 @@
       "deletions": 0
     },
     {
-      "login": "nithisha-01",
-      "projects": [
-        "Edubot_V3",
-        "Worklogix",
-        "Hirelysze",
-        "HireLens"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "AI Plagiarism & Academic Integrity – Frontend",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Intern Portal – Intern Is Able to Submit Daily Updates Even When the Current Date Is Marked as a Holiday",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "PM Can Assign Tasks to Employees on Holidays",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Intern Portal – Intern Is Able to Sign In to Daily Log Even When the Current Date Is Marked as a Holiday",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Free Trial – Client Role –  Daily Updates Interns Are Not Displayed When Applying Filters in the Daily Updates Module",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Leadership Reports – Incorrect Project Completion Percentage Displayed by Manager",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Leadership Reports – Incorrect Data Displayed in PM Project Details",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "[Client Role] – Intern Missing from Daily Update Filter and Client Automatically Logged Out When Viewing Intern's Daily Update",
-          "status": "In Progress",
-          "priority": ""
-        },
-        {
-          "project": "Hirelysze",
-          "title": "AI Interview Questions (MCQ) Displayed for Non-AI Resume Upload",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Add “Forgot Password” functionality to the HireLernse application.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "Interview duration allows 1 min — missing minimum limit validation.",
-          "status": "Todo",
-          "priority": ""
-        },
-        {
-          "project": "HireLens",
-          "title": "System allows interviewer’s own email to be entered as candidate email — missing validation.",
-          "status": "Todo",
-          "priority": ""
-        }
-      ],
-      "total": 12,
-      "done": 0,
-      "inProgress": 7,
-      "commits": 56,
-      "prs": 41,
-      "prsMerged": 37,
-      "prReviews": 13,
-      "additions": 11034,
-      "deletions": 8905
-    },
-    {
       "login": "Megna-Codework",
       "projects": [
         "Edubot_CPLC",
@@ -11652,20 +11648,26 @@
       "tasks": [
         {
           "project": "Edubot_CPLC",
-          "title": "Learner reassignment is not updated in Mentor Learner Attendance",
+          "title": "Page Does Not Automatically Scroll to the Next Module When Clicking Proceed to Next Module",
           "status": "Review in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learner reassignment is not updated in Mentor Learner Attendance",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Batch Filter Is Selected by Default in Course Progress Monitor",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Admin Dashboard Shows 0 Present Instead of Holiday Status",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -11975,9 +11977,9 @@
           "priority": ""
         }
       ],
-      "total": 54,
-      "done": 45,
-      "inProgress": 4,
+      "total": 55,
+      "done": 48,
+      "inProgress": 2,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -11994,12 +11996,6 @@
         "HireLens"
       ],
       "tasks": [
-        {
-          "project": "My Medical Help",
-          "title": "Patient can book two appointments with different doctors at the same date and time",
-          "status": "In progress",
-          "priority": ""
-        },
         {
           "project": "My Medical Help",
           "title": "Several screens and labels are not translated when the app language is Tamil",
@@ -12031,12 +12027,6 @@
           "priority": ""
         },
         {
-          "project": "My Medical Help",
-          "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
-          "status": "TO DO",
-          "priority": ""
-        },
-        {
           "project": "SabAi Bible App",
           "title": "AI Insights Takes Time to Load in Read Module",
           "status": "Backlog",
@@ -12061,13 +12051,13 @@
           "priority": ""
         }
       ],
-      "total": 11,
+      "total": 9,
       "done": 0,
-      "inProgress": 2,
-      "commits": 13,
-      "prs": 12,
-      "prsMerged": 12,
-      "prReviews": 2,
+      "inProgress": 1,
+      "commits": 14,
+      "prs": 13,
+      "prsMerged": 13,
+      "prReviews": 3,
       "additions": 3123,
       "deletions": 236
     },
@@ -12111,14 +12101,50 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Learner Unable to View Study Material When Download Permission Is Disabled",
+          "title": "UI/UX - Course Layout Changes Unexpectedly After Mentor Curriculum Update",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Attendance Info Not Updated for Mentor After Admin Approves Regularization Request",
+          "status": "To Do",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Approve Action Not Working Directly in Admin Actions for Mentor Leave Request",
           "status": "To Do",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "Learner Notification Count Mismatch",
-          "status": "To Do",
+          "status": "Completed in DEV",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learner Unable to View Study Material When Download Permission Is Disabled",
+          "status": "Completed in DEV",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI/UX - Student Attendance Label Displayed Instead of Learner Attendance on Overview Page",
+          "status": "Completed in DEV",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI/UX - EduBot Logo Overlaps with Login UI on Laptop Screens Below 14 Inches at 100% Display Scaling",
+          "status": "Completed in DEV",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI/UX - Profile Picture Edit Icon Is Not Functional in Mentor Details Page",
+          "status": "Completed in DEV",
           "priority": ""
         },
         {
@@ -12170,97 +12196,13 @@
           "priority": ""
         }
       ],
-      "total": 15,
+      "total": 21,
       "done": 2,
       "inProgress": 7,
       "commits": 0,
-      "prs": 9,
-      "prsMerged": 9,
+      "prs": 10,
+      "prsMerged": 10,
       "prReviews": 0,
-      "additions": 0,
-      "deletions": 0
-    },
-    {
-      "login": "Glad-Andrew",
-      "projects": [
-        "Edubot_V3",
-        "Edubot_CPLC"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Implement Subscription-Based Model - Backend",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Implement EduBot logo video across the EduBot v3 app",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Page Does Not Automatically Scroll to the Next Module When Clicking Proceed to Next Module",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Incorrect Approval Route & Status Displayed After Learner Withdraws a Leave Request",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Approval Route & Status Incorrectly Displayed After Mentor Withdraws a Leave Request",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Administration Status Displayed as Pending After Mentor Rejects Learner Leave Request",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Reviewer Comment Displayed by Default",
-          "status": "To Do",
-          "priority": ""
-        }
-      ],
-      "total": 11,
-      "done": 2,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 17,
-      "prsMerged": 17,
-      "prReviews": 6,
       "additions": 0,
       "deletions": 0
     },
@@ -12279,20 +12221,26 @@
         },
         {
           "project": "Worklogix",
+          "title": "[Leadership Role] Employees are not displayed in alphabetical order on the Employees List page.",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
           "title": "Leadership Role – Wrong Date and Back Navigation Issue",
           "status": "Backlog",
           "priority": ""
         }
       ],
-      "total": 2,
+      "total": 3,
       "done": 0,
-      "inProgress": 0,
-      "commits": 7,
-      "prs": 7,
-      "prsMerged": 7,
+      "inProgress": 1,
+      "commits": 10,
+      "prs": 9,
+      "prsMerged": 9,
       "prReviews": 0,
-      "additions": 7014,
-      "deletions": 630
+      "additions": 7138,
+      "deletions": 684
     },
     {
       "login": "manju-209",
@@ -12342,6 +12290,66 @@
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 4,
+      "deletions": 0
+    },
+    {
+      "login": "Glad-Andrew",
+      "projects": [
+        "Edubot_V3",
+        "Edubot_CPLC"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Implement Subscription-Based Model - Backend",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student Admission & Identity Management – Backend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Implement EduBot logo video across the EduBot v3 app",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learner Receives 404 Error When Accessing Updated Lesson Plan Through Notification",
+          "status": "To Do",
+          "priority": ""
+        }
+      ],
+      "total": 7,
+      "done": 2,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 19,
+      "prsMerged": 19,
+      "prReviews": 7,
+      "additions": 0,
       "deletions": 0
     },
     {
@@ -12420,8 +12428,8 @@
       "done": 0,
       "inProgress": 0,
       "commits": 0,
-      "prs": 1,
-      "prsMerged": 0,
+      "prs": 2,
+      "prsMerged": 1,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
