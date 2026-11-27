@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-26T13:01:13.615002Z",
+  "lastUpdated": "2026-11-27T12:57:21.864459Z",
   "period": {
     "since": "2026-11-01",
     "until": "2026-11-30"
@@ -374,11 +374,11 @@
         },
         {
           "title": "Patient gets no notification or call when professional joins an online consultation; the two never connect",
-          "status": "TO DO",
+          "status": "QA Completed",
           "priority": "",
           "size": "",
           "assignees": [
-            "Lakshana-Lakshmanan"
+            "sivasukumaran-codework"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/My-Medical-Help-UI/issues/260",
@@ -3309,8 +3309,143 @@
       "title": "Edubot_CPLC",
       "items": [
         {
-          "title": "Mentor Field Displays Empty When Editing a Scheduled Lesson Plan",
+          "title": "Notification Details Pop-up Layout Is Improper and All Details Are Not Fully Visible",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/683",
+          "createdAt": "2026-11-27T09:47:22Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX - Delete Institution Option Is Hidden and User Manual Is Visible in the Background UI",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Glad-Andrew"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/676",
+          "createdAt": "2026-11-26T10:42:27Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX - Inconsistent Font Styles Across the EduBot Application Compared to Figma Design",
           "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/665",
+          "createdAt": "2026-11-25T11:23:53Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX - \"Students\" Displayed Instead of \"Learners\" Across Admin and Mentor Roles.",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Megna-Codework"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/682",
+          "createdAt": "2026-11-27T08:56:10Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Scheduled Assessment Notification Redirects to Event Calendar Instead of Schedule Calendar",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/655",
+          "createdAt": "2026-11-25T04:13:14Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX - Incorrect Batch Names Displayed in Assigned Batches Dropdown While Editing a Course",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/681",
+          "createdAt": "2026-11-27T06:58:06Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX - Course Layout Changes Unexpectedly After Mentor Curriculum Update",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/664",
+          "createdAt": "2026-11-25T10:11:30Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Generic Toast Message Displayed When Uploading a 50 MB Document in Lesson Plan",
+          "status": "Review in QA",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Santhakumar082"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/667",
+          "createdAt": "2026-11-25T11:35:43Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "UI/UX - User Management List UI Appears Too Small and Needs Improved Visibility",
+          "status": "Completed in DEV",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Antony-Bilgates"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/674",
+          "createdAt": "2026-11-26T10:09:32Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
+          "title": "Mentor Field Displays Empty When Editing a Scheduled Lesson Plan",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3324,23 +3459,8 @@
           "endDate": ""
         },
         {
-          "title": "UI/UX - Inconsistent Font Styles Across the EduBot Application Compared to Figma Design",
-          "status": "In Development",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Glad-Andrew"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/665",
-          "createdAt": "2026-11-25T11:23:53Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
           "title": "Learner Receives 404 Error When Accessing Updated Lesson Plan Through Notification",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3355,7 +3475,7 @@
         },
         {
           "title": "UI/UX - Incorrect Role Name Displayed as Student Instead of Learners.",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3364,36 +3484,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/673",
           "createdAt": "2026-11-26T08:59:50Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Scheduled Assessment Notification Redirects to Event Calendar Instead of Schedule Calendar",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/655",
-          "createdAt": "2026-11-25T04:13:14Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "UI/UX - User Management List UI Appears Too Small and Needs Improved Visibility",
-          "status": "In Development",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/674",
-          "createdAt": "2026-11-26T10:09:32Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3415,7 +3505,7 @@
         },
         {
           "title": "UI/UX - Incorrect Page Navigation for Student Attendance and My Attendance in Mentor Dashboard",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3424,21 +3514,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/671",
           "createdAt": "2026-11-25T12:31:56Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Generic Toast Message Displayed When Uploading a 50 MB Document in Lesson Plan",
-          "status": "Review in QA",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Santhakumar082"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/667",
-          "createdAt": "2026-11-25T11:35:43Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -3460,7 +3535,7 @@
         },
         {
           "title": "Reviewer Comment Displayed by Default",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3505,7 +3580,7 @@
         },
         {
           "title": "UI/UX - \"All Students\" Label Displayed Instead of \"All Learners\" in Leave Balance",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": "",
           "size": "",
           "assignees": [
@@ -3529,21 +3604,6 @@
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/647",
           "createdAt": "2026-11-24T10:38:35Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "UI/UX - Course Layout Changes Unexpectedly After Mentor Curriculum Update",
-          "status": "To Do",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Antony-Bilgates"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/664",
-          "createdAt": "2026-11-25T10:11:30Z",
           "closedAt": null,
           "startDate": "",
           "endDate": ""
@@ -4746,72 +4806,12 @@
           "closedAt": "2026-10-26T09:51:04Z",
           "startDate": "",
           "endDate": ""
-        },
-        {
-          "title": "Task Attachment Filename Is Truncated in the Mentor Tasks Page",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Megna-Codework"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/537",
-          "createdAt": "2026-10-16T05:58:13Z",
-          "closedAt": "2026-10-26T09:51:04Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Mentor can schedule a class on a holiday",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Megna-Codework"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/536",
-          "createdAt": "2026-10-16T05:45:28Z",
-          "closedAt": "2026-10-26T09:51:04Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin – Schedule Class Fails With Invalid Batch IDs Error When Creating an Event",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Megna-Codework"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/535",
-          "createdAt": "2026-10-15T12:31:08Z",
-          "closedAt": "2026-10-26T09:51:04Z",
-          "startDate": "",
-          "endDate": ""
-        },
-        {
-          "title": "Admin – Save All Assignments Button Remains Disabled After Selecting a Learner",
-          "status": "Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Megna-Codework"
-          ],
-          "state": "CLOSED",
-          "url": "https://github.com/CodeWork-ai/edubot_CPLC_frontend/issues/534",
-          "createdAt": "2026-10-15T12:28:50Z",
-          "closedAt": "2026-10-26T09:51:04Z",
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
-        "done": 82,
-        "inProgress": 8,
+        "done": 84,
+        "inProgress": 4,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -4838,11 +4838,11 @@
         },
         {
           "title": "iOS Sign-In Option Is Missing on Login Page",
-          "status": "DEV",
+          "status": "TODO",
           "priority": "",
           "size": "",
           "assignees": [
-            "Santhakumar082"
+            "Lakshana-Lakshmanan"
           ],
           "state": "OPEN",
           "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/28",
@@ -5789,13 +5789,28 @@
           "closedAt": null,
           "startDate": "",
           "endDate": ""
+        },
+        {
+          "title": "Chat Module Returns 502 Error Instead of Generating a Response",
+          "status": "TODO",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Lakshana-Lakshmanan"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Interactive_Bible_UI/issues/96",
+          "createdAt": "2026-11-27T09:04:47Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
         }
       ],
       "stats": {
-        "total": 65,
+        "total": 66,
         "done": 1,
-        "inProgress": 58,
-        "todo": 0,
+        "inProgress": 57,
+        "todo": 2,
         "backlog": 6,
         "production": 0
       }
@@ -7362,6 +7377,21 @@
           "endDate": ""
         },
         {
+          "title": "Integrate Leave Calendar into Leave Apply",
+          "status": "In Progress",
+          "priority": "",
+          "size": "",
+          "assignees": [
+            "Anisha-cw"
+          ],
+          "state": "OPEN",
+          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/592",
+          "createdAt": "2026-11-26T12:17:18Z",
+          "closedAt": null,
+          "startDate": "",
+          "endDate": ""
+        },
+        {
           "title": "Calendar date picker moves and disappears unexpectedly while selecting a date in the Update form.",
           "status": "In Progress",
           "priority": "",
@@ -8793,27 +8823,12 @@
           "closedAt": null,
           "startDate": "2026-08-17",
           "endDate": "2026-08-17"
-        },
-        {
-          "title": "Unable to Create Task",
-          "status": "QA Completed",
-          "priority": "",
-          "size": "",
-          "assignees": [
-            "Anisha-cw"
-          ],
-          "state": "OPEN",
-          "url": "https://github.com/CodeWork-ai/Worklogix-Api/issues/62",
-          "createdAt": "2026-07-09T05:38:11Z",
-          "closedAt": null,
-          "startDate": "",
-          "endDate": ""
         }
       ],
       "stats": {
         "total": 100,
         "done": 0,
-        "inProgress": 2,
+        "inProgress": 3,
         "todo": 0,
         "backlog": 2,
         "production": 0
@@ -9881,13 +9896,7 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "Mentor Field Displays Empty When Editing a Scheduled Lesson Plan",
-          "status": "Review in QA",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Learner Receives 404 Error When Accessing Updated Lesson Plan Through Notification",
+          "title": "UI/UX - Inconsistent Font Styles Across the EduBot Application Compared to Figma Design",
           "status": "Review in QA",
           "priority": ""
         },
@@ -9899,14 +9908,26 @@
         },
         {
           "project": "Edubot_CPLC",
+          "title": "Mentor Field Displays Empty When Editing a Scheduled Lesson Plan",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Learner Receives 404 Error When Accessing Updated Lesson Plan Through Notification",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "Reviewer Comment Displayed by Default",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "UI/UX - \"All Students\" Label Displayed Instead of \"All Learners\" in Leave Balance",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -10116,12 +10137,6 @@
         {
           "project": "SabAi Bible App",
           "title": "Daily Verse and Associated Image Are Not Updated Daily on Home Page",
-          "status": "DEV",
-          "priority": ""
-        },
-        {
-          "project": "SabAi Bible App",
-          "title": "iOS Sign-In Option Is Missing on Login Page",
           "status": "DEV",
           "priority": ""
         },
@@ -11027,8 +11042,8 @@
         }
       ],
       "total": 331,
-      "done": 74,
-      "inProgress": 62,
+      "done": 78,
+      "inProgress": 58,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -11082,6 +11097,12 @@
         {
           "project": "Worklogix",
           "title": "[Leadership Role] Employees are not displayed in alphabetical order on the Employees List page.",
+          "status": "In Progress",
+          "priority": ""
+        },
+        {
+          "project": "Worklogix",
+          "title": "Integrate Leave Calendar into Leave Apply",
           "status": "In Progress",
           "priority": ""
         },
@@ -11582,17 +11603,11 @@
           "title": "Employee Name Is Truncated in Employee Filter Under Task Report",
           "status": "QA Completed",
           "priority": ""
-        },
-        {
-          "project": "Worklogix",
-          "title": "Unable to Create Task",
-          "status": "QA Completed",
-          "priority": ""
         }
       ],
       "total": 91,
       "done": 0,
-      "inProgress": 1,
+      "inProgress": 2,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -11658,14 +11673,20 @@
       "tasks": [
         {
           "project": "Edubot_CPLC",
-          "title": "UI/UX - Incorrect Role Name Displayed as Student Instead of Learners.",
+          "title": "UI/UX - \"Students\" Displayed Instead of \"Learners\" Across Admin and Mentor Roles.",
           "status": "Review in QA",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
+          "title": "UI/UX - Incorrect Role Name Displayed as Student Instead of Learners.",
+          "status": "Completed in QA",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
           "title": "UI/UX - Incorrect Page Navigation for Student Attendance and My Attendance in Mentor Dashboard",
-          "status": "Review in QA",
+          "status": "Completed in QA",
           "priority": ""
         },
         {
@@ -11939,30 +11960,6 @@
           "priority": ""
         },
         {
-          "project": "Edubot_CPLC",
-          "title": "Task Attachment Filename Is Truncated in the Mentor Tasks Page",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Mentor can schedule a class on a holiday",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin – Schedule Class Fails With Invalid Batch IDs Error When Creating an Event",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "Admin – Save All Assignments Button Remains Disabled After Selecting a Learner",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
           "project": "Acadamiq AI",
           "title": "Pending Tasks count is inconsistent between Student Dashboard and AI Nova",
           "status": "QA Completed",
@@ -11993,9 +11990,9 @@
           "priority": ""
         }
       ],
-      "total": 56,
-      "done": 48,
-      "inProgress": 3,
+      "total": 53,
+      "done": 46,
+      "inProgress": 2,
       "commits": 0,
       "prs": 0,
       "prsMerged": 0,
@@ -12012,12 +12009,6 @@
         "HireLens"
       ],
       "tasks": [
-        {
-          "project": "My Medical Help",
-          "title": "Patient gets no notification or call when professional joins an online consultation; the two never connect",
-          "status": "TO DO",
-          "priority": ""
-        },
         {
           "project": "My Medical Help",
           "title": "Several screens and labels are not translated when the app language is Tamil",
@@ -12050,6 +12041,12 @@
         },
         {
           "project": "SabAi Bible App",
+          "title": "iOS Sign-In Option Is Missing on Login Page",
+          "status": "TODO",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
           "title": "AI Insights Takes Time to Load in Read Module",
           "status": "Backlog",
           "priority": ""
@@ -12058,6 +12055,12 @@
           "project": "SabAi Bible App",
           "title": "Video Generation Fails After Multiple Consecutive Requests",
           "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "SabAi Bible App",
+          "title": "Chat Module Returns 502 Error Instead of Generating a Response",
+          "status": "TODO",
           "priority": ""
         },
         {
@@ -12073,12 +12076,12 @@
           "priority": ""
         }
       ],
-      "total": 10,
+      "total": 11,
       "done": 0,
       "inProgress": 1,
       "commits": 14,
-      "prs": 13,
-      "prsMerged": 13,
+      "prs": 15,
+      "prsMerged": 15,
       "prReviews": 3,
       "additions": 3123,
       "deletions": 236
@@ -12124,13 +12127,25 @@
         {
           "project": "Edubot_CPLC",
           "title": "Scheduled Assessment Notification Redirects to Event Calendar Instead of Schedule Calendar",
-          "status": "To Do",
+          "status": "Completed in DEV",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI/UX - Incorrect Batch Names Displayed in Assigned Batches Dropdown While Editing a Course",
+          "status": "Completed in DEV",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI/UX - Course Layout Changes Unexpectedly After Mentor Curriculum Update",
+          "status": "Completed in DEV",
           "priority": ""
         },
         {
           "project": "Edubot_CPLC",
           "title": "UI/UX - User Management List UI Appears Too Small and Needs Improved Visibility",
-          "status": "In Development",
+          "status": "Completed in DEV",
           "priority": ""
         },
         {
@@ -12159,12 +12174,6 @@
         },
         {
           "project": "Edubot_CPLC",
-          "title": "UI/UX - Course Layout Changes Unexpectedly After Mentor Curriculum Update",
-          "status": "To Do",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
           "title": "Learner Notification Count Mismatch",
           "status": "Completed in DEV",
           "priority": ""
@@ -12182,12 +12191,12 @@
           "priority": ""
         }
       ],
-      "total": 15,
+      "total": 16,
       "done": 2,
       "inProgress": 1,
       "commits": 0,
-      "prs": 10,
-      "prsMerged": 10,
+      "prs": 11,
+      "prsMerged": 11,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -12222,11 +12231,77 @@
       "done": 0,
       "inProgress": 1,
       "commits": 10,
-      "prs": 9,
-      "prsMerged": 9,
+      "prs": 10,
+      "prsMerged": 10,
       "prReviews": 0,
       "additions": 7138,
       "deletions": 684
+    },
+    {
+      "login": "Glad-Andrew",
+      "projects": [
+        "Edubot_V3",
+        "Edubot_CPLC"
+      ],
+      "tasks": [
+        {
+          "project": "Edubot_V3",
+          "title": "Implement Subscription-Based Model - Backend",
+          "status": "Completed",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student Admission & Identity Management – Backend",
+          "status": "Done",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
+          "status": "Backlog",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_V3",
+          "title": "Implement EduBot logo video across the EduBot v3 app",
+          "status": "In Development",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "Notification Details Pop-up Layout Is Improper and All Details Are Not Fully Visible",
+          "status": "Completed in DEV",
+          "priority": ""
+        },
+        {
+          "project": "Edubot_CPLC",
+          "title": "UI/UX - Delete Institution Option Is Hidden and User Manual Is Visible in the Background UI",
+          "status": "Completed in DEV",
+          "priority": ""
+        }
+      ],
+      "total": 8,
+      "done": 2,
+      "inProgress": 0,
+      "commits": 0,
+      "prs": 23,
+      "prsMerged": 23,
+      "prReviews": 7,
+      "additions": 0,
+      "deletions": 0
     },
     {
       "login": "manju-209",
@@ -12276,66 +12351,6 @@
       "prsMerged": 0,
       "prReviews": 0,
       "additions": 4,
-      "deletions": 0
-    },
-    {
-      "login": "Glad-Andrew",
-      "projects": [
-        "Edubot_V3",
-        "Edubot_CPLC"
-      ],
-      "tasks": [
-        {
-          "project": "Edubot_V3",
-          "title": "Implement Subscription-Based Model - Backend",
-          "status": "Completed",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student Admission & Identity Management – Backend",
-          "status": "Done",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Interactive Checkpoint Question Count Is Restricted Instead of Being Configurable During Module Creation",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Student KYC Verification Status Details Are Not Displayed in Review Status",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Email Notification Is Not Triggered When Admin Updates Mentor or Student Email ID",
-          "status": "Backlog",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_V3",
-          "title": "Implement EduBot logo video across the EduBot v3 app",
-          "status": "In Development",
-          "priority": ""
-        },
-        {
-          "project": "Edubot_CPLC",
-          "title": "UI/UX - Inconsistent Font Styles Across the EduBot Application Compared to Figma Design",
-          "status": "In Development",
-          "priority": ""
-        }
-      ],
-      "total": 7,
-      "done": 2,
-      "inProgress": 0,
-      "commits": 0,
-      "prs": 21,
-      "prsMerged": 21,
-      "prReviews": 7,
-      "additions": 0,
       "deletions": 0
     },
     {
@@ -12414,8 +12429,8 @@
       "done": 0,
       "inProgress": 0,
       "commits": 0,
-      "prs": 2,
-      "prsMerged": 1,
+      "prs": 3,
+      "prsMerged": 2,
       "prReviews": 0,
       "additions": 0,
       "deletions": 0
@@ -12434,12 +12449,18 @@
         },
         {
           "project": "My Medical Help",
+          "title": "Patient gets no notification or call when professional joins an online consultation; the two never connect",
+          "status": "QA Completed",
+          "priority": ""
+        },
+        {
+          "project": "My Medical Help",
           "title": "Referral Reward of ₹200 Is Not Credited to the Professional Account",
           "status": "QA Completed",
           "priority": ""
         }
       ],
-      "total": 2,
+      "total": 3,
       "done": 0,
       "inProgress": 0,
       "commits": 0,
